@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /// </summary>
 public class PlayerUI : MonoBehaviour
 {
-    //private PlayerSpells playerSpells;
+    private PlayerSpells playerSpells;
     private Stats playerStats;
 
     [SerializeField] private List<Image> spellsUI;
@@ -17,7 +17,7 @@ public class PlayerUI : MonoBehaviour
 
     private void Awake()
     {
-        //playerSpells = GetComponentInParent<PlayerSpells>();
+        playerSpells = GetComponentInParent<PlayerSpells>();
         playerStats = GetComponentInParent<Stats>();
     }
 
@@ -26,7 +26,6 @@ public class PlayerUI : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        /*
         for (int i = 0; i < playerSpells.CurrentSpells.Length; i++)
         {
             if (playerSpells.CurrentSpells[i] != null)
@@ -39,7 +38,6 @@ public class PlayerUI : MonoBehaviour
                 spellsUI[i].fillAmount = 0;
             }
         }
-        */
 
         health.fillAmount =
             playerStats.Health / playerStats.Attributes.MaxHealth;

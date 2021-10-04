@@ -36,8 +36,8 @@ public class StatsSO : ScriptableObject
     [BoxGroup("Damage Stats")] [EnumToggleButtons]
     [SerializeField] private ElementType element;
     //[BoxGroup("Damage Stats")] [Required("A spell is required")]
-    //[Header("If the character is an enemy, it will only fire OneShot cast type spells (ex: spells with Forward Behaviour)")]
-    //[SerializeField] private List<SpellSO> availableSpells;
+    [Header("If the character is an enemy, it will only fire OneShot cast type spells (ex: spells with Forward Behaviour)")]
+    [SerializeField] private List<SpellSO> availableSpells;
 
     public string Name => name;
     public float MaxHealth { get; set; }
@@ -47,7 +47,7 @@ public class StatsSO : ScriptableObject
     public float MaxArmor { get; set; }
     public float BaseDamage { get => baseDamage; set => baseDamage = value; }
     public ElementType Element => element;
-    //public List<SpellSO> AvailableSpells => availableSpells;
+    public List<SpellSO> AvailableSpells => availableSpells;
 
     private void OnEnable()
     {
