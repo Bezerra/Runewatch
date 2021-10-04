@@ -6,12 +6,12 @@ using UnityEngine;
 public class SaveData
 {
     // Public fields for JSON
-    //public PlayerSaveData PlayerSavedData;
+    public PlayerSaveData PlayerSavedData;
     public DungeonSaveData DungeonSavedData;
 
     public SaveData()
     {
-        //PlayerSavedData = new PlayerSaveData();
+        PlayerSavedData = new PlayerSaveData();
         DungeonSavedData = new DungeonSaveData();
     }
 
