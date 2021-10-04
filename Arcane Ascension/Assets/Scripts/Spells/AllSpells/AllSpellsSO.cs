@@ -5,6 +5,7 @@ using Sirenix.OdinInspector;
 /// <summary>
 /// Scriptable object with all spells scriptable objects.
 /// </summary>
+[InlineEditor]
 [CreateAssetMenu(menuName = "Create Once/All Spells", fileName = "All Spells")]
 public class AllSpellsSO : ScriptableObject
 {
