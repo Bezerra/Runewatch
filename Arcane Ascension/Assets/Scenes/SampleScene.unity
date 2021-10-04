@@ -620,6 +620,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1095540568}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1408799943 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6105136639788798972, guid: 9d1610138c45a904ea9c1066db9ab74a, type: 3}
+  m_PrefabInstance: {fileID: 7811235931566023003}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1408799944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408799943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33d3979370b709042b0550ff9006b62c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elementsDamage: {fileID: 11400000, guid: 46655a89cbaa552458c4c21f863941a1, type: 2}
 --- !u!1 &1411644939
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,6 +757,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6105136639788798972, guid: 9d1610138c45a904ea9c1066db9ab74a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6105136639975504242, guid: 9d1610138c45a904ea9c1066db9ab74a, type: 3}
       propertyPath: m_Name
       value: General

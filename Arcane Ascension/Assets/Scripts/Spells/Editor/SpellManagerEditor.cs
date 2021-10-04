@@ -73,6 +73,12 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         base.OnDestroy();
         if (createNewSpellData != null)
             DestroyImmediate(createNewSpellData.Spell);
+
+        if (createNewSpellData != null)
+            DestroyImmediate(continuousBehaviourData.Spell);
+
+        if (createNewSpellData != null)
+            DestroyImmediate(forwardBehaviourData.Spell);
     }
 
     /// <summary>
