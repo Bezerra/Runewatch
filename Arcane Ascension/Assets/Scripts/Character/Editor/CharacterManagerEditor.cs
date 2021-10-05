@@ -52,19 +52,19 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
             "Stats/Enemy Stats", "Assets/Resources/Scriptable Objects/Character/Stats/Enemies", 
             typeof(StatsSO));
 
-        //tree.AddAllAssetsAtPath(
-        //    "Values/Player Values", "Assets/Resources/Scriptable Objects/Character/Values/Player", 
-        //    typeof(PlayerValuesSO));
-        //tree.AddAllAssetsAtPath(
-        //    "Values/Enemy Values", "Assets/Resources/Scriptable Objects/Character/Values/Enemies", 
-        //    typeof(EnemyValuesSO));
-        //
-        //tree.AddAllAssetsAtPath(
-        //    "Characters/Player Characters", "Assets/Resources/Scriptable Objects/Character/Characters/Player", 
-        //    typeof(PlayerCharacterSO));
-        //tree.AddAllAssetsAtPath(
-        //    "Characters/Enemy Characters", "Assets/Resources/Scriptable Objects/Character/Characters/Enemies", 
-        //    typeof(EnemyCharacterSO));
+        tree.AddAllAssetsAtPath(
+            "Values/Player Values", "Assets/Resources/Scriptable Objects/Character/Values/Player", 
+            typeof(PlayerValuesSO));
+        tree.AddAllAssetsAtPath(
+            "Values/Enemy Values", "Assets/Resources/Scriptable Objects/Character/Values/Enemies", 
+            typeof(EnemyValuesSO));
+        
+        tree.AddAllAssetsAtPath(
+            "Characters/Player Characters", "Assets/Resources/Scriptable Objects/Character/Characters/Player", 
+            typeof(PlayerCharacterSO));
+        tree.AddAllAssetsAtPath(
+            "Characters/Enemy Characters", "Assets/Resources/Scriptable Objects/Character/Characters/Enemies", 
+            typeof(EnemyCharacterSO));
 
         return tree;
     }
@@ -96,14 +96,14 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
         if (createNewPlayerCharacterData != null)
             DestroyImmediate(createNewPlayerCharacterData.CharacterData);
 
-        //if (createNewEnemyCharacterData != null)
-        //    DestroyImmediate(createNewEnemyCharacterData.CharacterData);
+        if (createNewEnemyCharacterData != null)
+            DestroyImmediate(createNewEnemyCharacterData.CharacterData);
 
         if (createNewPlayerValuesData != null)
             DestroyImmediate(createNewPlayerValuesData.Values);
 
-        //if (createNewEnemyValuesData != null)
-        //    DestroyImmediate(createNewEnemyValuesData.Values);
+        if (createNewEnemyValuesData != null)
+            DestroyImmediate(createNewEnemyValuesData.Values);
     }
 
     /// <summary>
@@ -177,7 +177,6 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
     /// </summary>
     public class CreateNewEnemyCharacterData
     {
-        /*
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
         public EnemyCharacterSO CharacterData { get; private set; }
@@ -198,7 +197,6 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
 
             CharacterData = ScriptableObject.CreateInstance<EnemyCharacterSO>();
         }
-        */
     }
 
     /// <summary>
@@ -233,25 +231,25 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
     /// </summary>
     public class CreateNewEnemyValuesData
     {
-        //[ShowInInspector]
-        //[InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
-        //public EnemyValuesSO Values { get; private set; }
-        //
-        //public CreateNewEnemyValuesData()
-        //{
-        //    Values = ScriptableObject.CreateInstance<EnemyValuesSO>();
-        //}
-        //
-        //[Button("Create New Enemy Values - Adds to Enemies Folder", ButtonSizes.Large)]
-        //private void CreateNewEnemy()
-        //{
-        //    AssetDatabase.CreateAsset(
-        //        Values,
-        //        "Assets/Resources/Scriptable Objects/Character/Values/Enemies/New Enemy Values " +
-        //        DateTime.Now.Millisecond.ToString() + ".asset");
-        //    AssetDatabase.SaveAssets();
-        //
-        //    Values = ScriptableObject.CreateInstance<EnemyValuesSO>();
-        //}
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public EnemyValuesSO Values { get; private set; }
+        
+        public CreateNewEnemyValuesData()
+        {
+            Values = ScriptableObject.CreateInstance<EnemyValuesSO>();
+        }
+        
+        [Button("Create New Enemy Values - Adds to Enemies Folder", ButtonSizes.Large)]
+        private void CreateNewEnemy()
+        {
+            AssetDatabase.CreateAsset(
+                Values,
+                "Assets/Resources/Scriptable Objects/Character/Values/Enemies/New Enemy Values " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+        
+            Values = ScriptableObject.CreateInstance<EnemyValuesSO>();
+        }
     }
 }
