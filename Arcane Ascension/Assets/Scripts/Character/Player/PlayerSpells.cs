@@ -36,6 +36,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
         {
             if (i < allSpells.Count)
             {
+                // THIS IS TEMP, WHILE IN GAME PLAYER WILL ONLY CAST THE SPELLS ON HIS AVAILABLE SPELLS, NOT THIS ONE
                 if (allSpells[i] != null)
                     AddSpell(allSpells[i]);
             }
