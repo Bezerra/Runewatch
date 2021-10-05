@@ -7,6 +7,7 @@ using UnityEditor;
 [AttributeUsage(AttributeTargets.Field, Inherited = true)]
 public class HelpAttribute : PropertyAttribute
 {
+#if UNITY_EDITOR
     public readonly string text;
 
     // MessageType exists in UnityEditor namespace and can throw an exception when used outside the editor.
@@ -25,4 +26,5 @@ public class HelpAttribute : PropertyAttribute
         this.text = text;
         this.type = type;
     }
+#endif
 }

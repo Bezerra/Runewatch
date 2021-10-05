@@ -18,10 +18,12 @@ public class StatsSO : ScriptableObject
     [SerializeField] private new string name;
     [SerializeField] [TextArea(3, 3)] private string notes;
 
-    [BoxGroup("Health Stats")]
+    [BoxGroup("General Stats")]
     [Range(1, 2000)] [SerializeField] private float defaultHealth;
-    [BoxGroup("Health Stats")]
+    [BoxGroup("General Stats")]
     [Range(1, 2000)] [SerializeField] private float defaultArmor;
+    [BoxGroup("General Stats")]
+    [EnumToggleButtons] [SerializeField] private ElementType element;
 
     [BoxGroup("Mana Stats")]
     [Range(1, 2000)] [SerializeField] private float defaultMana;
@@ -33,9 +35,7 @@ public class StatsSO : ScriptableObject
     [BoxGroup("Damage Stats")]
     [DetailedInfoBox("Base Damage percentage of spell damage", "Base Damage percentage of spell damage")]
     [Range(100, 200)] [SerializeField] private float baseDamage;
-    [BoxGroup("Damage Stats")] [EnumToggleButtons]
-    [SerializeField] private ElementType element;
-    //[BoxGroup("Damage Stats")] [Required("A spell is required")]
+    [BoxGroup("Damage Stats")] [Required("A spell is required")]
     [Header("If the character is an enemy, it will only fire OneShot cast type spells (ex: spells with Forward Behaviour)")]
     [SerializeField] private List<SpellSO> availableSpells;
 
