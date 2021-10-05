@@ -21,12 +21,12 @@ public class StatsSO : ScriptableObject
     [BoxGroup("General Stats")]
     [Range(1, 2000)] [SerializeField] private float defaultHealth;
     [BoxGroup("General Stats")]
-    [Range(1, 2000)] [SerializeField] private float defaultArmor;
+    [Range(0, 2000)] [SerializeField] private float defaultArmor;
     [BoxGroup("General Stats")]
     [EnumToggleButtons] [SerializeField] private ElementType element;
 
     [BoxGroup("Mana Stats")]
-    [Range(1, 2000)] [SerializeField] private float defaultMana;
+    [Range(0, 2000)] [SerializeField] private float defaultMana;
     [BoxGroup("Mana Stats")]
     [Range(0.1f, 10)] [SerializeField] private float defaultManaRegenAmount;
     [BoxGroup("Mana Stats")]

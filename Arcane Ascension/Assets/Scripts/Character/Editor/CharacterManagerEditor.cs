@@ -46,24 +46,24 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
         tree.Add("Create New Stats", new CreateNewStatsData());
 
         tree.AddAllAssetsAtPath(
-            "Stats/Player Stats", "Assets/Resources/Scriptable Objects/Character/Stats/Player", 
+            "Stats/Player Stats", "Assets/Resources/Scriptable Objects/Player", 
             typeof(StatsSO));
         tree.AddAllAssetsAtPath(
-            "Stats/Enemy Stats", "Assets/Resources/Scriptable Objects/Character/Stats/Enemies", 
+            "Stats/Enemy Stats", "Assets/Resources/Scriptable Objects/Enemy", 
             typeof(StatsSO));
 
         tree.AddAllAssetsAtPath(
-            "Values/Player Values", "Assets/Resources/Scriptable Objects/Character/Values/Player", 
+            "Values/Player Values", "Assets/Resources/Scriptable Objects/Player", 
             typeof(PlayerValuesSO));
         tree.AddAllAssetsAtPath(
-            "Values/Enemy Values", "Assets/Resources/Scriptable Objects/Character/Values/Enemies", 
+            "Values/Enemy Values", "Assets/Resources/Scriptable Objects/Enemy", 
             typeof(EnemyValuesSO));
         
         tree.AddAllAssetsAtPath(
-            "Characters/Player Characters", "Assets/Resources/Scriptable Objects/Character/Characters/Player", 
+            "Characters/Player Characters", "Assets/Resources/Scriptable Objects/Player", 
             typeof(PlayerCharacterSO));
         tree.AddAllAssetsAtPath(
-            "Characters/Enemy Characters", "Assets/Resources/Scriptable Objects/Character/Characters/Enemies", 
+            "Characters/Enemy Characters", "Assets/Resources/Scriptable Objects/Enemy", 
             typeof(EnemyCharacterSO));
 
         return tree;
@@ -125,7 +125,7 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
         {
             AssetDatabase.CreateAsset(
                 CharacterStats,
-                "Assets/Resources/Scriptable Objects/Character/Stats/Enemies/New Enemy Stats " + 
+                "Assets/Resources/Scriptable Objects/Enemy/New Enemy Stats " + 
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
@@ -137,7 +137,7 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
         {
             AssetDatabase.CreateAsset(
                 CharacterStats,
-                "Assets/Resources/Scriptable Objects/Character/Stats/Player/New Player Stats " +
+                "Assets/Resources/Scriptable Objects/Player/New Player Stats " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
@@ -164,7 +164,7 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
         {
             AssetDatabase.CreateAsset(
                 CharacterData,
-                "Assets/Resources/Scriptable Objects/Character/Characters/Player/New Player Character " +
+                "Assets/Resources/Scriptable Objects/Player/New Player Character " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
@@ -191,7 +191,7 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
         {
             AssetDatabase.CreateAsset(
                 CharacterData,
-                "Assets/Resources/Scriptable Objects/Character/Characters/Enemies/New Enemy Character " +
+                "Assets/Resources/Scriptable Objects/Enemy/New Enemy Character " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
@@ -218,7 +218,7 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
         {
             AssetDatabase.CreateAsset(
                 Values,
-                "Assets/Resources/Scriptable Objects/Character/Values/Player/New Player Values " +
+                "Assets/Resources/Scriptable Objects/Player/New Player Values " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
@@ -245,7 +245,7 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
         {
             AssetDatabase.CreateAsset(
                 Values,
-                "Assets/Resources/Scriptable Objects/Character/Values/Enemies/New Enemy Values " +
+                "Assets/Resources/Scriptable Objects/Enemy/New Enemy Values " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
         

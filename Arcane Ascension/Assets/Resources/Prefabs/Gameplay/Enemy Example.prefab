@@ -158,6 +158,7 @@ GameObject:
   - component: {fileID: 3470903603225873956}
   - component: {fileID: 3470903603225873957}
   - component: {fileID: 3470903603225874010}
+  - component: {fileID: 897829435}
   m_Layer: 10
   m_Name: Enemy Example
   m_TagString: Untagged
@@ -172,7 +173,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3470903603225874013}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.24, y: 0.9031105, z: 4.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -313,3 +314,15 @@ MonoBehaviour:
   allValues: {fileID: 11400000, guid: ec5b8e102443268458ac35e2d346b2c7, type: 2}
   hand: {fileID: 3470903602355249772}
   eyes: {fileID: 3470903601924240252}
+--- !u!114 &897829435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3470903603225874013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ba8fd94c26235459e27182af1c1d0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -62,14 +62,11 @@ public class SpellSO : ScriptableObject, ISpell
     [Range(0.01f, 100)] [SerializeField] private float timeInterval;
 
     [BoxGroup("Damage")]
-    //[EnableIf("damageType", SpellDamageType.Overtime)]
-    //[DisableIf("spellCastType", SpellCastType.ContinuousCast)]
     [Tooltip("Time duration of overtime spell damage.")]
     [Range(0.1f, 100)] [SerializeField] private float maxTime;
 
     [BoxGroup("Damage")]
-    //[EnableIf("damageType", SpellDamageType.AreaDamage)]
-    //[DisableIf("spellCastType", SpellCastType.ContinuousCast)]
+    [DisableIf("damageType", SpellDamageType.Self)]
     [Tooltip("Radius of effect after an AreaDamage spell hits something")]
     [Range(2f, 10f)] [SerializeField] private float areaOfEffect;
 
@@ -86,11 +83,13 @@ public class SpellSO : ScriptableObject, ISpell
 
     [BoxGroup("Spell Type")]
     [EnableIf("spellCastType", SpellCastType.OneShotCast)]
+    [DisableIf("damageType", SpellDamageType.Self)]
     [Tooltip("Speed of the spell")]
     [Range(1f, 100)] [SerializeField] private float speed;
 
+    // Continuous spells have cooldown too (ex. player equiped a spell, it has 1 seconds cooldown until it's possible to use it)
     [BoxGroup("Spell Type")]
-    [Tooltip("Cooldown of the spells when equiped and OneShotCasts spells after being used")]
+    [Tooltip("Cooldown of the spells WHEN EQUIPED and OneShotCasts spells after being used")]
     [Range(0, 10)] [SerializeField] private float cooldown;
 
     [BoxGroup("Behaviour and Prefab")]
@@ -134,13 +133,11 @@ public class SpellSO : ScriptableObject, ISpell
     {
         get
         {
-            if (spellCastType == SpellCastType.OneShotCast) 
+            if (spellCastType == SpellCastType.OneShotCast)
                 return spellBehaviourOneShot;
-            else 
+            else
                 return spellBehaviourContinunous;
         }
     }
     public GameObject Prefab => spellPrefab;
-
-    
 }

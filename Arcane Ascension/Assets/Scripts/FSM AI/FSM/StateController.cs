@@ -46,6 +46,9 @@ public class StateController : MonoBehaviour
 
     /// <summary>
     /// Changes to a new state.
+    /// Starts by running OnEnter for all state actions and decisions (this is used to reset variables if needed),
+    /// and state OnEnter. Changes to new State.
+    /// Runs OnExit for all state actions and decisions, and state OnExit. 
     /// </summary>
     /// <param name="nextState"></param>
     public void Transition(FSMState nextState)
