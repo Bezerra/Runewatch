@@ -154,6 +154,9 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             RotateAndSetPiece(initialCorridor, initialCorridorContactPoint, startingRoomContactPoint, random);
             initialCorridorContactPoint.Close();
             startingRoomContactPoint.Close();
+            // Gets the wall on top of this open contact point and deactivates it
+            if (initialCorridorContactPoint.transform.childCount > 0)
+                initialCorridorContactPoint.transform.GetChild(0).gameObject.SetActive(false);
 
             // Adds corridor open points to open points list
             foreach (ContactPoint newContactPoint in initialCorridor.ContactPoints)
@@ -271,6 +274,10 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                         bossRoomSpawned = true;
                         allRoomsAndCorridors.Add(bossRoomPiece);
 
+                        // Gets the wall on top of current piece to place contact point and deactivates it
+                        if (contactPointsDistance[i].transform.childCount > 0)
+                            contactPointsDistance[i].transform.GetChild(0).gameObject.SetActive(false);
+
                         break;
                     }
                     else
@@ -308,26 +315,25 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     private IEnumerator GenerateWallsOnExits(GameObject levelParent, IList<ContactPoint> openedContactPoints,
         YieldInstruction wffu)
     {
-        print("Generating closing walls...");
+        print("Doing final adjustements...");
         // Close every opened exit with a wall
         while (openedContactPoints.Count > 0)
         {
             for (int i = openedContactPoints.Count - 1; i >= 0; i--)
             {
-                LevelPiece wallPiece = Instantiate(wall);
-                ContactPoint wallContactPoint = wallPiece.ContactPoints[random.Next(0, wallPiece.ContactPoints.Length)];
-
-                // Rotates piece to match contact point rotation
-                if (openedContactPoints[i].ParentRoom.Type == PieceType.Room)
-                    RotatePiece(wallPiece, wallContactPoint, openedContactPoints[i], random);
-                else if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor ||
-                        openedContactPoints[i].ParentRoom.Type == PieceType.Stairs)
-                        RotatePiece(wallPiece, wallContactPoint, openedContactPoints[i], random, true);
-
-                // Sets a piece in a contact point
-                SetPiece(wallPiece, wallContactPoint, openedContactPoints[i]);
-
-                wallContactPoint.Close();
+                
+                // 
+                // // Rotates piece to match contact point rotation
+                // if (openedContactPoints[i].ParentRoom.Type == PieceType.Room)
+                //     RotatePiece(wallPiece, wallContactPoint, openedContactPoints[i], random);
+                // else if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor ||
+                //         openedContactPoints[i].ParentRoom.Type == PieceType.Stairs)
+                //         RotatePiece(wallPiece, wallContactPoint, openedContactPoints[i], random, true);
+                // 
+                // // Sets a piece in a contact point
+                // SetPiece(wallPiece, wallContactPoint, openedContactPoints[i]);
+                // 
+                // wallContactPoint.Close();
 
                 yield return wffu;
 
@@ -336,12 +342,19 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                     // If corridor piece is valid, it sets the piece normally
                     if (IsPieceValid(openedContactPoints[i].ParentRoom, random, false))
                     {
+                        // LevelPiece wallPiece = Instantiate(wall);
+                        // ContactPoint wallContactPoint = wallPiece.ContactPoints[random.Next(0, wallPiece.ContactPoints.Length)];
+                        // 
+                        // RotateAndSetPiece(wallPiece, wallContactPoint, openedContactPoints[i].ParentRoom.ConnectedContactPoint, random);
+
                         openedContactPoints[i].Close();
                         openedContactPoints.Remove(openedContactPoints[i]);
+
+                        // wallPiece.transform.parent = levelParent.transform;
                     }
                     else // Else it destroys the invalid corridor and sets the wall in its connected contact point.
                     {
-                        RotateAndSetPiece(wallPiece, wallContactPoint, openedContactPoints[i].ParentRoom.ConnectedContactPoint, random);
+                        // RotateAndSetPiece(wallPiece, wallContactPoint, openedContactPoints[i].ParentRoom.ConnectedContactPoint, random);
 
                         Destroy(openedContactPoints[i].ParentRoom.gameObject);
                         openedContactPoints.Remove(openedContactPoints[i]);
@@ -350,10 +363,15 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                 // If it's a stairs piece, it destroys it and sets the wall on its connected contact point.
                 else if (openedContactPoints[i].ParentRoom.Type == PieceType.Stairs)
                 {
-                    RotateAndSetPiece(wallPiece, wallContactPoint, openedContactPoints[i].ParentRoom.ConnectedContactPoint, random);
+                    // LevelPiece wallPiece = Instantiate(wall);
+                    // ContactPoint wallContactPoint = wallPiece.ContactPoints[random.Next(0, wallPiece.ContactPoints.Length)];
+                    // 
+                    // RotateAndSetPiece(wallPiece, wallContactPoint, openedContactPoints[i].ParentRoom.ConnectedContactPoint, random);
 
                     Destroy(openedContactPoints[i].ParentRoom.gameObject);
                     openedContactPoints.Remove(openedContactPoints[i]);
+
+                    // wallPiece.transform.parent = levelParent.transform;
                 }
                 else if (openedContactPoints[i].ParentRoom.Type == PieceType.Room)
                 {
@@ -361,7 +379,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                     openedContactPoints.Remove(openedContactPoints[i]);
                 }
 
-                wallPiece.transform.parent = levelParent.transform;
+                //wallPiece.transform.parent = levelParent.transform;
             }
         }
 
@@ -650,15 +668,24 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         // If it's not valid it will destroy it, else it will add its contact points to a list
         if (IsPieceValid(pieceToPlace, random))
         {
+            // Gets the wall on top of this open contact point and deactivates it
+            if (openedContactPoints[index].transform.childCount > 0)
+                openedContactPoints[index].transform.GetChild(0).gameObject.SetActive(false);
+
+            // Gets the wall on top of current piece to place contact point and deactivates it
+            if (pieceContactPoint.transform.childCount > 0)
+                pieceContactPoint.transform.GetChild(0).gameObject.SetActive(false);
 
             openedContactPoints[index].Close();
             pieceToPlace.ConnectedContactPoint = openedContactPoints[index];
             openedContactPoints.Remove(openedContactPoints[index]);
             pieceToPlace.transform.parent = levelParent.transform;
 
+            // A variable to have control of all rooms (contains all spawned rooms)
             if (addToAllRooms)
                 allRooms.Add(pieceToPlace);
 
+            // A variable to have control of all rooms and corridors (contains all spawned rooms and corridors)
             allRoomsAndCorridors.Add(pieceToPlace);
 
             foreach (ContactPoint newContactPoint in pieceToPlace.ContactPoints)
