@@ -650,6 +650,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         // If it's not valid it will destroy it, else it will add its contact points to a list
         if (IsPieceValid(pieceToPlace, random))
         {
+
             openedContactPoints[index].Close();
             pieceToPlace.ConnectedContactPoint = openedContactPoints[index];
             openedContactPoints.Remove(openedContactPoints[index]);
