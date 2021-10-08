@@ -30,17 +30,22 @@ public class PauseSystem : MonoBehaviour
         playerInputCustom.PauseGame -= PauseGame;
     }
 
-    private void PauseGame()
+    /// <summary>
+    /// Pauses/Unpauses game and switches action map.
+    /// </summary>
+    public void PauseGame()
     {
         if (gameIsPaused == false)
         {
             gameIsPaused = true;
             Time.timeScale = 0;
+            playerInputCustom.SwitchActionMapToUI();
         }
         else
         {
             gameIsPaused = false;
             Time.timeScale = 1;
+            playerInputCustom.SwitchActionMapToGameplay();
         }
     }
 }
