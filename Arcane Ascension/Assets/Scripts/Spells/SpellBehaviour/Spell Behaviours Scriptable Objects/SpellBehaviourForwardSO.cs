@@ -63,13 +63,12 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
     {
         IDamageable character;
 
-        float damageMultiplier = parent.WhoCast.Attributes.BaseDamage / 100f;
-
         switch (parent.Spell.DamageType)
         {
             case SpellDamageType.SingleTarget:
                 if (other.gameObject.TryGetComponentInParent<IDamageable>(out character))
-                    character.TakeDamage(damageMultiplier * parent.Spell.Damage, parent.Spell.Element);
+                    character.TakeDamage(parent.WhoCast.Attributes.BaseDamageMultiplier * 
+                        parent.Spell.Damage, parent.Spell.Element);
 
                 DisableSpell(parent);
                 break;
@@ -77,7 +76,7 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
             case SpellDamageType.Overtime:
                 if (other.gameObject.TryGetComponentInParent<IDamageable>(out character))
                     character.TakeDamageOvertime(
-                        damageMultiplier * parent.Spell.Damage, 
+                        parent.WhoCast.Attributes.BaseDamageMultiplier * parent.Spell.Damage, 
                         parent.Spell.Element, 
                         parent.Spell.TimeInterval, 
                         parent.Spell.MaxTime);
@@ -94,6 +93,9 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
                     // Creates a new list with IDamageable characters
                     IList<IDamageable> charactersToDoDamage = new List<IDamageable>();
 
+                    if (other.TryGetComponentInParent<IDamageable>(out IDamageable enemyDirectHit))
+                        charactersToDoDamage.Add(enemyDirectHit);
+
                     // Adds all IDamageable characters found to a list
                     for (int i = 0; i < collisions.Length; i++)
                     {
@@ -102,7 +104,8 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
                                     parent.transform.position,
                                     (collisions[i].transform.position - parent.transform.position).normalized);
 
-                        if (Physics.Raycast(dir, out RaycastHit characterHit, parent.Spell.AreaOfEffect * 0.5f, Layers.EnemyWithWalls))
+                        if (Physics.Raycast(dir, out RaycastHit characterHit, parent.Spell.AreaOfEffect * 0.5f, 
+                            Layers.EnemyWithWalls))
                         {
                             // If the collider is an IDamageable (meaning there wasn't a wall in the ray path)
                             if (characterHit.collider.TryGetComponentInParent<IDamageable>(out character) &&
@@ -126,7 +129,8 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
                         for (int i = 0; i < charactersToDoDamage.Count; i++)
                         {
                             charactersToDoDamage[i].TakeDamage(
-                                ((damageMultiplier * parent.Spell.Damage) / charactersToDoDamage.Count),
+                                ((parent.WhoCast.Attributes.BaseDamageMultiplier * parent.Spell.Damage) / 
+                                charactersToDoDamage.Count),
                                 parent.Spell.Element);
                         }
                     }
@@ -155,9 +159,8 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
                                 // If the target is different than who cast the spell
                                 if (stats != parent.WhoCast)
                                 {
-                                    Debug.Log("AH2");
                                     character.TakeDamageOvertime(
-                                        damageMultiplier * parent.Spell.Damage,
+                                        parent.WhoCast.Attributes.BaseDamageMultiplier * parent.Spell.Damage,
                                         parent.Spell.Element,
                                         parent.Spell.TimeInterval,
                                         parent.Spell.MaxTime);

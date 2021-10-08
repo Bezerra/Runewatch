@@ -34,7 +34,7 @@ public class StatsSO : ScriptableObject
 
     [BoxGroup("Damage Stats")]
     [DetailedInfoBox("Base Damage percentage of spell damage", "Base Damage percentage of spell damage")]
-    [Range(100, 200)] [SerializeField] private float baseDamage;
+    [Range(1, 2)] [SerializeField] private float baseDamageMultiplier;
     [BoxGroup("Damage Stats")] [Required("A spell is required")]
     [Header("If the character is an enemy, it will only fire OneShot cast type spells (ex: spells with Forward Behaviour)")]
     [SerializeField] private List<SpellSO> availableSpells;
@@ -45,7 +45,7 @@ public class StatsSO : ScriptableObject
     public float ManaRegenAmount { get; set; }
     public float ManaRegenTime { get; set; }
     public float MaxArmor { get; set; }
-    public float BaseDamage { get => baseDamage; set => baseDamage = value; }
+    public float BaseDamageMultiplier { get => baseDamageMultiplier; set => baseDamageMultiplier = value; }
     public ElementType Element => element;
     public List<SpellSO> AvailableSpells => availableSpells;
 

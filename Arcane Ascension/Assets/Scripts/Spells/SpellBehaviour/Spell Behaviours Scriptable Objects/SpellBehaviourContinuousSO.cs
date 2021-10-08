@@ -26,8 +26,6 @@ sealed public class SpellBehaviourContinuousSO : SpellBehaviourAbstractContinuou
         {
             if (parent.WhoCast.Mana - parent.Spell.ManaCost >= 0)
             {
-                float damageMultiplier = parent.WhoCast.Attributes.BaseDamage / 100f;
-
                 RaycastHit objectHit;
                 Ray forward = new Ray(parent.Eyes.position, parent.Eyes.forward);
 
@@ -40,7 +38,9 @@ sealed public class SpellBehaviourContinuousSO : SpellBehaviourAbstractContinuou
                     {
                         if (objectHit.collider.gameObject.TryGetComponentInParent(out IDamageable damageable))
                         {
-                            damageable.TakeDamage(damageMultiplier * parent.Spell.Damage, parent.Spell.Element);
+                            damageable.TakeDamage(
+                                parent.WhoCast.Attributes.BaseDamageMultiplier * parent.Spell.Damage, 
+                                parent.Spell.Element);
                         }
                     }
                 }

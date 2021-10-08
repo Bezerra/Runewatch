@@ -221,7 +221,7 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth, IMana, IArm
                 break;
 
             case StatsType.Damage:
-                Attributes.BaseDamage += amountToIncrement;
+                Attributes.BaseDamageMultiplier += amountToIncrement;
                 break;
         }
     }
@@ -243,7 +243,7 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth, IMana, IArm
     {
         StringBuilder str = new StringBuilder();
         str.Append($"Health: {Health.ToString():2f} |" + $"Armor: {Armor.ToString():2f} |" +
-            $"Damage: {Attributes.BaseDamage.ToString():2f} |" + $"Character Element: {Attributes.Element}");
+            $"Damage: {Attributes.BaseDamageMultiplier.ToString():2f} |" + $"Character Element: {Attributes.Element}");
         return str.ToString();
     }
 }
