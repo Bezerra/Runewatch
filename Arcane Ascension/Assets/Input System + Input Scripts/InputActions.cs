@@ -105,6 +105,14 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""c764ebdd-c789-4440-a40d-00fc72cb4c5b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -272,6 +280,17 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""action"": ""QuickLoad"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7dccd8a4-07f5-43de-8d5a-76494863fc67"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Computer"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -356,6 +375,14 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""a2de4d01-29de-4168-aa8f-16a59e1d662c"",
                     ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""db60bb29-93d4-4f4b-8047-1a3c3d337483"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -778,6 +805,17 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""action"": ""TrackedDeviceOrientation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ab48d243-e729-41b3-9d15-d6a2659b1d48"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Computer"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -820,6 +858,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Gameplay_Run = m_Gameplay.FindAction("Run", throwIfNotFound: true);
         m_Gameplay_QuickSave = m_Gameplay.FindAction("QuickSave", throwIfNotFound: true);
         m_Gameplay_QuickLoad = m_Gameplay.FindAction("QuickLoad", throwIfNotFound: true);
+        m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
         // Interface
         m_Interface = asset.FindActionMap("Interface", throwIfNotFound: true);
         m_Interface_TrackedDeviceOrientation = m_Interface.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
@@ -832,6 +871,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Interface_Cancel = m_Interface.FindAction("Cancel", throwIfNotFound: true);
         m_Interface_Submit = m_Interface.FindAction("Submit", throwIfNotFound: true);
         m_Interface_Navigate = m_Interface.FindAction("Navigate", throwIfNotFound: true);
+        m_Interface_Pause = m_Interface.FindAction("Pause", throwIfNotFound: true);
         // Nothing
         m_Nothing = asset.FindActionMap("Nothing", throwIfNotFound: true);
     }
@@ -894,6 +934,7 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Run;
     private readonly InputAction m_Gameplay_QuickSave;
     private readonly InputAction m_Gameplay_QuickLoad;
+    private readonly InputAction m_Gameplay_Pause;
     public struct GameplayActions
     {
         private @InputActions m_Wrapper;
@@ -909,6 +950,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @Run => m_Wrapper.m_Gameplay_Run;
         public InputAction @QuickSave => m_Wrapper.m_Gameplay_QuickSave;
         public InputAction @QuickLoad => m_Wrapper.m_Gameplay_QuickLoad;
+        public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -951,6 +993,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @QuickLoad.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnQuickLoad;
                 @QuickLoad.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnQuickLoad;
                 @QuickLoad.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnQuickLoad;
+                @Pause.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -988,6 +1033,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @QuickLoad.started += instance.OnQuickLoad;
                 @QuickLoad.performed += instance.OnQuickLoad;
                 @QuickLoad.canceled += instance.OnQuickLoad;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -1006,6 +1054,7 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Interface_Cancel;
     private readonly InputAction m_Interface_Submit;
     private readonly InputAction m_Interface_Navigate;
+    private readonly InputAction m_Interface_Pause;
     public struct InterfaceActions
     {
         private @InputActions m_Wrapper;
@@ -1020,6 +1069,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @Cancel => m_Wrapper.m_Interface_Cancel;
         public InputAction @Submit => m_Wrapper.m_Interface_Submit;
         public InputAction @Navigate => m_Wrapper.m_Interface_Navigate;
+        public InputAction @Pause => m_Wrapper.m_Interface_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Interface; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1059,6 +1109,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Navigate.started -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnNavigate;
                 @Navigate.performed -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnNavigate;
                 @Navigate.canceled -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnNavigate;
+                @Pause.started -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_InterfaceActionsCallbackInterface = instance;
             if (instance != null)
@@ -1093,6 +1146,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Navigate.started += instance.OnNavigate;
                 @Navigate.performed += instance.OnNavigate;
                 @Navigate.canceled += instance.OnNavigate;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -1144,6 +1200,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnRun(InputAction.CallbackContext context);
         void OnQuickSave(InputAction.CallbackContext context);
         void OnQuickLoad(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
     public interface IInterfaceActions
     {
@@ -1157,6 +1214,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnCancel(InputAction.CallbackContext context);
         void OnSubmit(InputAction.CallbackContext context);
         void OnNavigate(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
     public interface INothingActions
     {

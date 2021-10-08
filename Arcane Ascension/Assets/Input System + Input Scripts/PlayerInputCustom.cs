@@ -109,6 +109,10 @@ public class PlayerInputCustom : MonoBehaviour
     public void HandleRightClickUI(InputAction.CallbackContext context) {
         if (context.started) OnClick(Direction.Right);
     }
+    public void HandlePauseGame(InputAction.CallbackContext context)
+    {
+        if (context.started) OnPauseGame();
+    }
     ///////////////////////// Events /////////////////////////////////////////
     protected virtual void OnRun(bool running) => Run?.Invoke(running);
     public event Action<bool> Run;
@@ -122,4 +126,6 @@ public class PlayerInputCustom : MonoBehaviour
     public event Action<byte> SelectSpell;
     protected virtual void OnClick(Direction dir) => Click?.Invoke(dir);
     public event Action<Direction> Click;
+    protected virtual void OnPauseGame() => PauseGame?.Invoke();
+    public event Action PauseGame;
 }
