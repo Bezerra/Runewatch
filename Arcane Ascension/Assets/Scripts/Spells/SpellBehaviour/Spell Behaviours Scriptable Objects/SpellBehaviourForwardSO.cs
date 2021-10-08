@@ -8,6 +8,11 @@ using ExtensionMethods;
 [CreateAssetMenu(menuName = "Spells/Spell Behaviour/Spell Behaviour Forward", fileName = "Spell Behaviour Forward")]
 sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
 {
+    [SerializeField] private DamageSingleTargetSO damageSingleTargetBehaviour;
+    [SerializeField] private DamageOvertimeSO damageOvertimeBehaviour;
+    [SerializeField] private DamageAoESO damageAoeBehaviour;
+    [SerializeField] private DamageAoEOvertimeSO damageAoeOvertimeBehaviour;
+
     [Header("In this spell, this variable only checks the direction of the spell")]
     [Range(1, 50)] [SerializeField] private float spellDistance;
 
@@ -29,9 +34,10 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
             parent.transform.LookAt(finalDirection);
         }
 
+        // Moves the spell forward
         parent.Rb.velocity = parent.transform.forward * parent.Spell.Speed;
 
-        // Starts cooldown
+        // Starts cooldown of the spell
         if (parent.WhoCast.TryGetComponent<PlayerSpells>(out PlayerSpells playerSpells))
             playerSpells.StartSpellCooldown(playerSpells.ActiveSpell);
 
@@ -41,16 +47,18 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
 
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
     {
+        // If the spell is a area spell is an AoE and doesn't disappear immediatly (ex. cloud of poison)
+        // it will only disable it after x seconds
         if (parent.ApplyingDamageOvertime == false)
         {
             if (Time.time - parent.TimeSpawned > disableAfterSeconds)
-                parent.gameObject.SetActive(false);
+                DisableSpell(parent);
         }
         else
         {
             // Disables spell after it reached max time
             if (Time.time - parent.TimeSpawned > parent.Spell.AreaSpellMaxTime)
-                parent.gameObject.SetActive(false);
+                DisableSpell(parent);
         }
     }
 
@@ -61,121 +69,27 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
 
     public override void HitBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
-        IDamageable character;
-
         switch (parent.Spell.DamageType)
         {
             case SpellDamageType.SingleTarget:
-                if (other.gameObject.TryGetComponentInParent<IDamageable>(out character))
-                    character.TakeDamage(parent.WhoCast.Attributes.BaseDamageMultiplier * 
-                        parent.Spell.Damage, parent.Spell.Element);
-
-                DisableSpell(parent);
+                damageSingleTargetBehaviour.Damage(other, parent);
                 break;
 
             case SpellDamageType.Overtime:
-                if (other.gameObject.TryGetComponentInParent<IDamageable>(out character))
-                    character.TakeDamageOvertime(
-                        parent.WhoCast.Attributes.BaseDamageMultiplier * parent.Spell.Damage, 
-                        parent.Spell.Element, 
-                        parent.Spell.TimeInterval, 
-                        parent.Spell.MaxTime);
-
-                DisableSpell(parent);
+                damageOvertimeBehaviour.Damage(other, parent);
                 break;
 
             case SpellDamageType.AreaDamage:
                 if (parent.Spell.AppliesDamageOvertime == false)
                 {
-                    Collider[] collisions = Physics.OverlapSphere(
-                    other.ClosestPoint(parent.transform.position), parent.Spell.AreaOfEffect, Layers.EnemyWithWalls);
-
-                    // Creates a new list with IDamageable characters
-                    IList<IDamageable> charactersToDoDamage = new List<IDamageable>();
-
-                    if (other.TryGetComponentInParent<IDamageable>(out IDamageable enemyDirectHit))
-                        charactersToDoDamage.Add(enemyDirectHit);
-
-                    // Adds all IDamageable characters found to a list
-                    for (int i = 0; i < collisions.Length; i++)
-                    {
-                        // Creates a ray from spell to hit
-                        Ray dir = new Ray(
-                                    parent.transform.position,
-                                    (collisions[i].transform.position - parent.transform.position).normalized);
-
-                        if (Physics.Raycast(dir, out RaycastHit characterHit, parent.Spell.AreaOfEffect * 0.5f, 
-                            Layers.EnemyWithWalls))
-                        {
-                            // If the collider is an IDamageable (meaning there wasn't a wall in the ray path)
-                            if (characterHit.collider.TryGetComponentInParent<IDamageable>(out character) &&
-                                characterHit.collider.TryGetComponentInParent<Stats>(out Stats stats))
-                            {
-                                // If the target is different than who cast the spell
-                                if (stats != parent.WhoCast)
-                                {
-                                    if (charactersToDoDamage.Contains(character) == false)
-                                    {
-                                        charactersToDoDamage.Add(character);
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    // Damages all IDamageable characters depending on the number of characters hit
-                    if (charactersToDoDamage.Count > 0)
-                    {
-                        for (int i = 0; i < charactersToDoDamage.Count; i++)
-                        {
-                            charactersToDoDamage[i].TakeDamage(
-                                ((parent.WhoCast.Attributes.BaseDamageMultiplier * parent.Spell.Damage) / 
-                                charactersToDoDamage.Count),
-                                parent.Spell.Element);
-                        }
-                    }
-
-                    DisableSpell(parent);
+                    damageAoeBehaviour.Damage(other, parent);
                 }
                 else
                 {
-                    Collider[] collisions = Physics.OverlapSphere(
-                    other.ClosestPoint(parent.transform.position), parent.Spell.AreaOfEffect, Layers.EnemyWithWalls);
-
-                    // Adds all IDamageable characters found to a list
-                    for (int i = 0; i < collisions.Length; i++)
-                    {
-                        // Creates a ray from spell to hit
-                        Ray dir = new Ray(
-                                    parent.transform.position,
-                                    (collisions[i].transform.position - parent.transform.position).normalized);
-
-                        if (Physics.Raycast(dir, out RaycastHit characterHit, parent.Spell.AreaOfEffect * 0.5f, Layers.EnemyWithWalls))
-                        {
-                            // If the collider is an IDamageable (meaning there wasn't a wall in the ray path)
-                            if (characterHit.collider.TryGetComponentInParent<IDamageable>(out character) &&
-                                characterHit.collider.TryGetComponentInParent<Stats>(out Stats stats))
-                            {
-                                // If the target is different than who cast the spell
-                                if (stats != parent.WhoCast)
-                                {
-                                    character.TakeDamageOvertime(
-                                        parent.WhoCast.Attributes.BaseDamageMultiplier * parent.Spell.Damage,
-                                        parent.Spell.Element,
-                                        parent.Spell.TimeInterval,
-                                        parent.Spell.MaxTime);
-                                }
-                            }
-                        }      
-                    }
-                    
-                    parent.ApplyingDamageOvertime = true;
+                    damageAoeOvertimeBehaviour.Damage(other, parent);
                 }
-                
 
                 break;
         }
-
-        
     }
 }

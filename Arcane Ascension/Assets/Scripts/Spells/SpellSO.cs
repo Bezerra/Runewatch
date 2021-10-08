@@ -54,7 +54,7 @@ public class SpellSO : ScriptableObject, ISpell
     [BoxGroup("Damage")]
     [EnableIf("appliesDamageOvertime", true)]
     [Tooltip("Max time of an Area Spell Overtime (ex: a poison cloud).")]
-    [SerializeField] private float areaSpellMaxTime;
+    [Range(1, 20)] [SerializeField] private float areaSpellMaxTime;
 
     [BoxGroup("Damage")]
     //[EnableIf("@this.spellCastType == SpellCastType.ContinuousCast || this.damageType == SpellDamageType.Overtime")]
