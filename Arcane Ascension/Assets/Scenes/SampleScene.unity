@@ -594,6 +594,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4014145937421811267, guid: ef633d2b6c1ba764f969be9e39f09795, type: 3}
+      propertyPath: m_StopNaN
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4014145937421811268, guid: ef633d2b6c1ba764f969be9e39f09795, type: 3}
       propertyPath: m_Name
       value: Main Camera
@@ -604,6 +608,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef633d2b6c1ba764f969be9e39f09795, type: 3}
+--- !u!1 &655091152 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4014145937421811268, guid: ef633d2b6c1ba764f969be9e39f09795, type: 3}
+  m_PrefabInstance: {fileID: 655091151}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &655091153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655091152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 28290ba517f46c24fa1d9d996844c499, type: 2}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
