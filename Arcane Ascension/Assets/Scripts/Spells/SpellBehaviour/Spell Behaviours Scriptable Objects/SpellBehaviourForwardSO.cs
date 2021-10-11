@@ -14,13 +14,20 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
     [SerializeField] private DamageAoEOvertimeSO damageAoeOvertimeBehaviour;
 
     [Header("In this spell, this variable only checks the direction of the spell")]
-    [Range(1, 50)] [SerializeField] private float spellDistance;
+    [Range(15, 50)] [SerializeField] private float spellDistance;
 
     [Header("This variables is used to disable the spell after X seconds")]
     [Range(1, 10)] [SerializeField] private float disableAfterSeconds;
+    [Header("This variables is used to disable the spell after colliding with something")]
+    [Range(1, 10)] [SerializeField] private float disableAfterSecondsAfterCollision;
 
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
+
+
+        // Turns collidersphere on because it was turned off when the spell hit something
+        parent.ColliderSphere.enabled = true;
+
         // Direction of the spell
         Ray forward = new Ray(parent.Eyes.position, parent.Eyes.forward);
 
@@ -64,7 +71,7 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
         // If the spell hits something
         if (parent.Rb.velocity == Vector3.zero)
         {
-            if (Time.time - parent.TimeOfImpact > 1)
+            if (Time.time - parent.TimeOfImpact > disableAfterSecondsAfterCollision)
                 DisableSpell(parent);
         }
     }
@@ -99,6 +106,7 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
                 break;
         }
 
+        parent.ColliderSphere.enabled = false;
         parent.Rb.velocity = Vector3.zero;
     }
 }

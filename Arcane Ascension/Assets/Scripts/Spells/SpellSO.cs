@@ -102,6 +102,10 @@ public class SpellSO : ScriptableObject, ISpell
 
     [BoxGroup("Behaviour and Prefab")]
     [SerializeField] private GameObject spellPrefab;
+    [BoxGroup("Behaviour and Prefab")]
+    [SerializeField] private GameObject spellHitPrefab;
+    [BoxGroup("Behaviour and Prefab")]
+    [SerializeField] private GameObject spellMuzzlePrefab;
 
 #if UNITY_EDITOR
     private void ChangeFileName()
@@ -139,5 +143,5 @@ public class SpellSO : ScriptableObject, ISpell
                 return spellBehaviourContinunous;
         }
     }
-    public GameObject Prefab => spellPrefab;
+    public (GameObject, GameObject, GameObject) Prefab => (spellPrefab, spellHitPrefab, spellMuzzlePrefab);
 }

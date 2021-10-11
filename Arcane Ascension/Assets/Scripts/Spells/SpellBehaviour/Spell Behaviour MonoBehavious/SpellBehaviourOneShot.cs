@@ -9,6 +9,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     public float TimeSpawned { get; private set; }
     public float TimeOfImpact { get; private set; }
     public Rigidbody Rb { get; private set; }
+    public SphereCollider ColliderSphere { get; private set; }
     public bool ApplyingDamageOvertime { get; set; }
 
     /// <summary>
@@ -19,6 +20,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     private void Awake()
     {
         Rb = GetComponent<Rigidbody>();
+        ColliderSphere = GetComponent<SphereCollider>();
     }
 
     private void OnEnable()

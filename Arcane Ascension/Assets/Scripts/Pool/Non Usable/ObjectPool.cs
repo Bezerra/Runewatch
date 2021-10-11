@@ -18,7 +18,7 @@ public struct ObjectPool<T> where T : BasePool
     /// <summary>
     /// Creates pools for every pool and adds them to a dictionary with all pools.
     /// </summary>
-    /// <param name="parent">Gameobject that created this instance.</param>
+    /// <param name="parent">Gameobject that created this instance (used to determin the gameobject parent).</param>
     /// <param name="pools">List with pools</param>
     public void CreatePool(GameObject parent, IList<T> pools)
     {
