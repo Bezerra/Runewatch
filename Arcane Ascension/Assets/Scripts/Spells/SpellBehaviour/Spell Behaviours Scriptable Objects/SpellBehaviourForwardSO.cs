@@ -60,6 +60,13 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
             if (Time.time - parent.TimeSpawned > parent.Spell.AreaSpellMaxTime)
                 DisableSpell(parent);
         }
+
+        // If the spell hits something
+        if (parent.Rb.velocity == Vector3.zero)
+        {
+            if (Time.time - parent.TimeOfImpact > 1)
+                DisableSpell(parent);
+        }
     }
 
     public override void ContinuousFixedUpdateBehaviour(SpellBehaviourOneShot parent)

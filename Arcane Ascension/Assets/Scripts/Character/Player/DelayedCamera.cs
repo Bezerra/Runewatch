@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
-using ExtensionMethods;
 
 /// <summary>
 /// Class responsible for handling delayed camera rotation and movement towards final camera transform.

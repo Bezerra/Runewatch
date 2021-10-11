@@ -7,6 +7,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
 {
     // Variables to control spell behaviour
     public float TimeSpawned { get; private set; }
+    public float TimeOfImpact { get; private set; }
     public Rigidbody Rb { get; private set; }
     public bool ApplyingDamageOvertime { get; set; }
 
@@ -40,6 +41,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
 
     private void OnTriggerEnter(Collider other)
     {
+        TimeOfImpact = Time.time;
         SpellBehaviour.HitBehaviour(other, this);
 
         SpawnGizmosAreaSpell(); // TEMPPPPPPPPPPPPPPPPPPPPP
