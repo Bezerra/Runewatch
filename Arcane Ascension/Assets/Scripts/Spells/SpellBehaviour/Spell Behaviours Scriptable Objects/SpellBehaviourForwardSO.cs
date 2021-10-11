@@ -91,5 +91,7 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
 
                 break;
         }
+
+        parent.Rb.velocity = Vector3.zero;
     }
 }

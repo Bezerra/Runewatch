@@ -12,7 +12,5 @@ public class DamageSingleTargetSO : ScriptableObject
         if (other.gameObject.TryGetComponentInParent<IDamageable>(out IDamageable character))
             character.TakeDamage(parent.WhoCast.Attributes.BaseDamageMultiplier *
                 parent.Spell.Damage, parent.Spell.Element);
-
-        parent.DisableSpell(parent);
     }
 }

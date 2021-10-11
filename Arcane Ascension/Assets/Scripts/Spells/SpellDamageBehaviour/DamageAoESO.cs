@@ -57,7 +57,5 @@ public class DamageAoESO : ScriptableObject
                     parent.Spell.Element);
             }
         }
-
-        parent.DisableSpell(parent);
     }
 }

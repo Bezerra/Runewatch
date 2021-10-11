@@ -15,7 +15,5 @@ public class DamageOvertimeSO : ScriptableObject
                 parent.Spell.Element,
                 parent.Spell.TimeInterval,
                 parent.Spell.MaxTime);
-
-        parent.DisableSpell(parent);
     }
 }
