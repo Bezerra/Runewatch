@@ -23,8 +23,6 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
 
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
-
-
         // Turns collidersphere on because it was turned off when the spell hit something
         parent.ColliderSphere.enabled = true;
 
@@ -40,6 +38,11 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
             Vector3 finalDirection = parent.Eyes.position + parent.Eyes.forward * 15f;
             parent.transform.LookAt(finalDirection);
         }
+
+        GameObject spawnedMuzzle =
+            SpellMuzzlePoolCreator.Pool.InstantiateFromPool(
+                parent.Spell.Name, parent.transform.position,
+                Quaternion.identity);
 
         // Moves the spell forward
         parent.Rb.velocity = parent.transform.forward * parent.Spell.Speed;

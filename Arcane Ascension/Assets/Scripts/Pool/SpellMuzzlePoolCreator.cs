@@ -2,17 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Monobehaviour SpellPoolCreator, creates a SpellPool of SpellSO type.
+/// Monobehaviour SpellMuzzlePoolCreator, creates a SpellMuzzlePool of spell muzzle type.
 /// </summary>
-public class SpellPoolCreator : MonoBehaviour
+public class SpellMuzzlePoolCreator : MonoBehaviour
 {
-    // Manual spell pool creation
-    //[SerializeField] private List<SpellPool> pools;
-
     private IList<SpellSO> allSpells;
 
-    // IList with pool for every spell
-    private IList<SpellPool> listSpellPools;
+    private IList<SpellPool> listSpellMuzzlePools;
 
     [SerializeField] private byte poolSize;
 
@@ -25,22 +21,25 @@ public class SpellPoolCreator : MonoBehaviour
         allSpells = FindObjectOfType<AllSpells>().SpellList;
 
         // Creates a dictionaries with the spell name and the spell / spell hit / spell muzzle game object
-        Pool = 
+        Pool =
             new ObjectPool<SpellPool>(new Dictionary<string, Queue<GameObject>>());
 
         // Creates a list for prefabs or hits/muzzles
-        listSpellPools = new List<SpellPool>();
-
+        listSpellMuzzlePools = new List<SpellPool>();
 
         // Foreach existent spell, creates a spellPool with its prefab and the size of the pool
         for (int i = 0; i < allSpells.Count; i++)
         {
-                SpellPool spawnedSpellPool = new SpellPool();
-                spawnedSpellPool.Initialize(allSpells[i].Prefab.Item1, poolSize);
-                listSpellPools.Add(spawnedSpellPool);
+            SpellPool spawnedSpellMuzzlePool = new SpellPool();
+            if (allSpells[i].Prefab.Item3 != null)
+            {
+                spawnedSpellMuzzlePool.Initialize(allSpells[i].Prefab.Item3, allSpells[i].Prefab.Item1, poolSize);
+                listSpellMuzzlePools.Add(spawnedSpellMuzzlePool);
+            }
         }
 
         // After the spell pool was created, it will create queues for all spells or hits/muzzles
-        Pool.CreatePool(this.gameObject, listSpellPools);
+        Pool.CreatePool(this.gameObject, listSpellMuzzlePools);
     }
+
 }

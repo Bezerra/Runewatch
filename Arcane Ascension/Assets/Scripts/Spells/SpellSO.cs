@@ -143,5 +143,8 @@ public class SpellSO : ScriptableObject, ISpell
                 return spellBehaviourContinunous;
         }
     }
+    /// <summary>
+    /// Item1 is spell Prefab. Item2 is spell hit. Item 3 is spell muzzle.
+    /// </summary>
     public (GameObject, GameObject, GameObject) Prefab => (spellPrefab, spellHitPrefab, spellMuzzlePrefab);
 }

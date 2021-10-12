@@ -70,7 +70,7 @@ public class PlayerCastSpell : MonoBehaviour
     private void CastSpell(ISpell spell)
     {
         GameObject spawnedSpell =
-            ObjectPool<SpellPool>.InstantiateFromPool(
+            SpellPoolCreator.Pool.InstantiateFromPool(
                 spell.Name, player.
                 Hand.position,
                 Quaternion.identity);

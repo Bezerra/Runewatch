@@ -7,12 +7,12 @@ using UnityEngine;
 public struct ObjectPool<T> where T : BasePool
 {
     private readonly IDictionary<string, Queue<GameObject>> poolDictionary;
-    private static ObjectPool<T> instance;
+
 
     public ObjectPool(IDictionary<string, Queue<GameObject>> poolDictionary)
     {
         this.poolDictionary = poolDictionary;
-        instance = this;
+
     }
 
     /// <summary>
@@ -45,18 +45,18 @@ public struct ObjectPool<T> where T : BasePool
     /// <param name="position">Position of the object.</param>
     /// <param name="rotation">Rotation of the object.</param>
     /// <returns>Returns spawned gameobject.</returns>
-    public static GameObject InstantiateFromPool (string name, Vector3 position, Quaternion rotation)
+    public GameObject InstantiateFromPool (string name, Vector3 position, Quaternion rotation)
     {
-        if (!instance.poolDictionary.ContainsKey(name))
+        if (!poolDictionary.ContainsKey(name))
         {
-            MonoBehaviour.print($"Pool with name " + name + "doesn't exist.");
+            MonoBehaviour.print($"Pool with name " + name + " doesn't exist.");
             return null;
         }
 
-        GameObject obj = instance.poolDictionary[name].Dequeue();
+        GameObject obj = poolDictionary[name].Dequeue();
         obj.SetActive(true);
         obj.transform.SetPositionAndRotation(position, rotation);
-        instance.poolDictionary[name].Enqueue(obj);
+        poolDictionary[name].Enqueue(obj);
 
         return obj;
     }
@@ -66,17 +66,17 @@ public struct ObjectPool<T> where T : BasePool
     /// </summary>
     /// <param name="name">Name of the object.</param>
     /// <returns>Returns spawned gameobject.</returns>
-    public static GameObject InstantiateFromPool(string name)
+    public GameObject InstantiateFromPool(string name)
     {
-        if (!instance.poolDictionary.ContainsKey(name))
+        if (!poolDictionary.ContainsKey(name))
         {
-            MonoBehaviour.print($"Pool with name " + name + "doesn't exist.");
+            MonoBehaviour.print($"Pool with name " + name + " doesn't exist.");
             return null;
         }
 
-        GameObject obj = instance.poolDictionary[name].Dequeue();
+        GameObject obj = poolDictionary[name].Dequeue();
         obj.SetActive(true);
-        instance.poolDictionary[name].Enqueue(obj);
+        poolDictionary[name].Enqueue(obj);
 
         return obj;
     }

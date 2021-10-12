@@ -42,7 +42,7 @@ sealed public class ActionAttack : FSMAction
                         aiCharacter.transform.position +
                         (aiCharacter.CurrentTarget.position - aiCharacter.transform.position);
 
-                        GameObject spell = ObjectPool<SpellPool>.InstantiateFromPool(
+                        GameObject spell = SpellPoolCreator.Pool.InstantiateFromPool(
                                 aiCharacter.EnemyScript.AllValues.CharacterStats.AvailableSpells[randomSpell].Name,
                                 aiCharacter.EnemyScript.Hand.position,
                                 Quaternion.identity);
