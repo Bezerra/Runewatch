@@ -94,6 +94,7 @@ public class SpellSO : ScriptableObject, ISpell
 
     [BoxGroup("Behaviour and Prefab")]
     [EnableIf("spellCastType", SpellCastType.OneShotCast)]
+    [Tooltip("What happens after the spell is spawned")]
     [SerializeField] private SpellBehaviourAbstractOneShotSO spellBehaviourOneShot;
 
     [BoxGroup("Behaviour and Prefab")]
@@ -101,13 +102,17 @@ public class SpellSO : ScriptableObject, ISpell
     [SerializeField] private SpellBehaviourAbstractContinuousSO spellBehaviourContinunous;
 
     [BoxGroup("Behaviour and Prefab")]
+    [Tooltip("What happens after the spell hit prefab is spawned (spawned after the spell hits something)")]
     [SerializeField] private SpellOnHitBehaviourSO onHitBehaviour;
 
     [BoxGroup("Behaviour and Prefab")]
+    [Tooltip("Spell prefab (vfx)")]
     [SerializeField] private GameObject spellPrefab;
     [BoxGroup("Behaviour and Prefab")]
+    [Tooltip("Spawns when the spell hits something")]
     [SerializeField] private GameObject spellHitPrefab;
     [BoxGroup("Behaviour and Prefab")]
+    [Tooltip("Spawns when the spell is cast")]
     [SerializeField] private GameObject spellMuzzlePrefab;
 
 #if UNITY_EDITOR

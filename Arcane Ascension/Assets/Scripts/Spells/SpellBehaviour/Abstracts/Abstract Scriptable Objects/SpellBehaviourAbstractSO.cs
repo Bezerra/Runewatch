@@ -30,7 +30,7 @@ public abstract class SpellBehaviourAbstractSO: ScriptableObject
     /// <summary>
     /// Immediatly deactives spell gameobject.
     /// </summary>
-    /// <param name="parent">Spell to deactivate.</param>
-    public void DisableSpell(SpellBehaviourAbstract parent) =>
+    /// <param name="parent">Gameobject to deactivate.</param>
+    public virtual void DisableSpell(MonoBehaviour parent) =>
         parent.gameObject.SetActive(false);
 }

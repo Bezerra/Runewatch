@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using UnityEngine;
-using ExtensionMethods;
 
 /// <summary>
 /// Scriptable object responsible for creating a spell's behaviour.
