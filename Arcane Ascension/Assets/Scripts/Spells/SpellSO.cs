@@ -101,6 +101,9 @@ public class SpellSO : ScriptableObject, ISpell
     [SerializeField] private SpellBehaviourAbstractContinuousSO spellBehaviourContinunous;
 
     [BoxGroup("Behaviour and Prefab")]
+    [SerializeField] private SpellOnHitBehaviourSO onHitBehaviour;
+
+    [BoxGroup("Behaviour and Prefab")]
     [SerializeField] private GameObject spellPrefab;
     [BoxGroup("Behaviour and Prefab")]
     [SerializeField] private GameObject spellHitPrefab;
@@ -133,6 +136,7 @@ public class SpellSO : ScriptableObject, ISpell
     public float Speed { get => speed; set => speed = value; }
     public float Cooldown => cooldown;
     public float CooldownCounter { get; set; }
+    public SpellOnHitBehaviourSO OnHitBehaviour => onHitBehaviour;
     public SpellBehaviourAbstractSO SpellBehaviour
     {
         get

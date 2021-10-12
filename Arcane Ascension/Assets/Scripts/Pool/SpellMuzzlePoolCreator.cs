@@ -21,8 +21,7 @@ public class SpellMuzzlePoolCreator : MonoBehaviour
         allSpells = FindObjectOfType<AllSpells>().SpellList;
 
         // Creates a dictionaries with the spell name and the spell / spell hit / spell muzzle game object
-        Pool =
-            new ObjectPool<SpellPool>(new Dictionary<string, Queue<GameObject>>());
+        Pool = new ObjectPool<SpellPool>(new Dictionary<string, Queue<GameObject>>());
 
         // Creates a list for prefabs or hits/muzzles
         listSpellMuzzlePools = new List<SpellPool>();

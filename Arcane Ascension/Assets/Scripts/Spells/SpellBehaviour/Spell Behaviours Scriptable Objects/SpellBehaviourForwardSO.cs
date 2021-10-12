@@ -39,10 +39,10 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
             parent.transform.LookAt(finalDirection);
         }
 
-        GameObject spawnedMuzzle =
-            SpellMuzzlePoolCreator.Pool.InstantiateFromPool(
-                parent.Spell.Name, parent.transform.position,
-                Quaternion.identity);
+        // Creates spell muzzle
+        SpellMuzzlePoolCreator.Pool.InstantiateFromPool(
+            parent.Spell.Name, parent.transform.position,
+            Quaternion.identity);
 
         // Moves the spell forward
         parent.Rb.velocity = parent.transform.forward * parent.Spell.Speed;
@@ -107,6 +107,20 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
                 }
 
                 break;
+        }
+
+        // Creates spell hit
+        // Update() will run from its monobehaviour script
+        if (parent.Spell.OnHitBehaviour != null)
+        {
+            GameObject onHitBehaviourGameObject = SpellHitPoolCreator.Pool.InstantiateFromPool(
+                parent.Spell.Name, parent.transform.position,
+                Quaternion.identity);
+
+            if (onHitBehaviourGameObject.TryGetComponent<SpellOnHitBehaviour>(out SpellOnHitBehaviour onHitBehaviour))
+            {
+                onHitBehaviour.OnHitBehaviour = parent.Spell.OnHitBehaviour;
+            }
         }
 
         parent.ColliderSphere.enabled = false;

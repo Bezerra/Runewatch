@@ -8,4 +8,5 @@ public interface ISpellBehaviour
     float Speed { get; }
     float Cooldown { get; }
     float CooldownCounter { get; set; }
+    public SpellOnHitBehaviourSO OnHitBehaviour { get; }
 }
