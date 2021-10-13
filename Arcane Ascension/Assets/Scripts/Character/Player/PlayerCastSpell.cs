@@ -13,8 +13,6 @@ public class PlayerCastSpell : MonoBehaviour
 
     private SpellBehaviourContinuous spellBehaviourContinuous;
 
-    [SerializeField] private AttackBehaviourAbstract attackBehaviour;
-
     private void Awake()
     {
         input = FindObjectOfType<PlayerInputCustom>();
@@ -48,7 +46,7 @@ public class PlayerCastSpell : MonoBehaviour
             if (playerStats.Mana - playerSpells.ActiveSpell?.ManaCost >= 0)
             {
                 //CastSpell(playerSpells.ActiveSpell);
-                attackBehaviour.Attack(playerSpells.ActiveSpell, player, playerStats);
+                playerSpells.ActiveSpell.AttackBehaviour.Attack(playerSpells.ActiveSpell, player, playerStats);
             }
         }
     }

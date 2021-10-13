@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Scriptable object for one shot attacks.
+/// </summary>
 [CreateAssetMenu(menuName = "Attack Behaviour/Attack Behaviour One Shot", fileName = "Attack Behaviour One Shot")]
-public class AttackBehaviourOneShot : AttackBehaviourAbstract
+public class AttackBehaviourOneShotSO : AttackBehaviourAbstractSO
 {
     public override void Attack(ISpell spell, Character character, Stats characterStats)
     {

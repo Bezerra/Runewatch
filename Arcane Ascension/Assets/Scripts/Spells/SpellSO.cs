@@ -106,6 +106,10 @@ public class SpellSO : ScriptableObject, ISpell
     [SerializeField] private SpellOnHitBehaviourSO onHitBehaviour;
 
     [BoxGroup("Behaviour and Prefab")]
+    [Tooltip("Attack behaviour of this spell")]
+    [SerializeField] private AttackBehaviourAbstractSO attackBehaviour;
+
+    [BoxGroup("Behaviour and Prefab")]
     [Tooltip("Spell prefab (vfx)")]
     [SerializeField] private GameObject spellPrefab;
     [BoxGroup("Behaviour and Prefab")]
@@ -152,6 +156,7 @@ public class SpellSO : ScriptableObject, ISpell
                 return spellBehaviourContinunous;
         }
     }
+    public AttackBehaviourAbstractSO AttackBehaviour => attackBehaviour;
     /// <summary>
     /// Item1 is spell Prefab. Item2 is spell hit. Item 3 is spell muzzle.
     /// </summary>
