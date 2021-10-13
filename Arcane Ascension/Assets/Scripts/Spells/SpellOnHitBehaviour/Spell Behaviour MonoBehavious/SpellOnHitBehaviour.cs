@@ -15,12 +15,21 @@ public class SpellOnHitBehaviour : MonoBehaviour
     private void OnEnable()
     {
         TimeSpawned = Time.time;
-        OnHitBehaviour?.StartBehaviour(this);
+        if (OnHitBehaviour != null)
+        {
+            OnHitBehaviour.StartBehaviour(this);
+        }
     }
 
     /// <summary>
     /// Keeps running on update.
     /// </summary>
-    private void Update() =>
-        OnHitBehaviour?.ContinuousUpdateBehaviour(this);
+    private void Update()
+    {
+        if (OnHitBehaviour != null)
+        {
+            OnHitBehaviour?.ContinuousUpdateBehaviour(this);
+        }
+    }
 }
+        
