@@ -7,7 +7,7 @@ using UnityEditor;
 
 /// <summary>
 /// Abstract class responsible for spell behaviours.
-/// This scriptable object only serves as the base type for child scriptable objects.
+/// This scriptable object serves as the base type for child scriptable objects.
 /// </summary>
 [InlineEditor]
 public abstract class SpellBehaviourAbstractSO: ScriptableObject

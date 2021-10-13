@@ -25,6 +25,12 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour
     public ISpell Spell => spell;
 
     /// <summary>
+    /// Method called after instantiating the spell.
+    /// Must be called manually through this method instead of OnEnable or Start in order to prevent bugs.
+    /// </summary>
+    public abstract void TriggerStartBehaviour();
+
+    /// <summary>
     /// Immediatly disables spell gameobject.
     /// </summary>
     /// <param name="parent">Spell parent.</param>

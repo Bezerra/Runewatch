@@ -16,7 +16,7 @@ public class SpellBehaviourContinuous : SpellBehaviourAbstract
     /// Method called after instantiating the spell.
     /// Must be called manually through this method instead of OnEnable or Start in order to prevent bugs.
     /// </summary>
-    public void TriggerStartBehaviour() =>
+    public override void TriggerStartBehaviour() =>
         SpellBehaviour.StartBehaviour(this);
 
     private void Update()
