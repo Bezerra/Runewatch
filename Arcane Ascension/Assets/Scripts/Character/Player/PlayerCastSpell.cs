@@ -13,6 +13,8 @@ public class PlayerCastSpell : MonoBehaviour
 
     private SpellBehaviourContinuous spellBehaviourContinuous;
 
+    [SerializeField] private AttackBehaviourAbstract attackBehaviour;
+
     private void Awake()
     {
         input = FindObjectOfType<PlayerInputCustom>();
@@ -45,7 +47,8 @@ public class PlayerCastSpell : MonoBehaviour
             // If player has enough mana to cast the active spell
             if (playerStats.Mana - playerSpells.ActiveSpell?.ManaCost >= 0)
             {
-                CastSpell(playerSpells.ActiveSpell);
+                //CastSpell(playerSpells.ActiveSpell);
+                attackBehaviour.Attack(playerSpells.ActiveSpell, player, playerStats);
             }
         }
     }
