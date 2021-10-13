@@ -19,4 +19,11 @@ public class PauseMenuUI : MonoBehaviour
         pauseSystem.PauseGame();
         pauseMenuReaction.EnableDisableInterface();
     }
+
+    public void MainMenu()
+    {
+        Debug.Log("loads main menu");
+
+        //FindObjectOfType<SceneControl>().LoadScene(SceneEnum.MainMenu);
+    }
 }

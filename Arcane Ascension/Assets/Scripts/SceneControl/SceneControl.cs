@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using System;
 
 /// <summary>
 /// Class responsible for controlling scenes and spawns.
@@ -9,6 +12,9 @@ public class SceneControl : MonoBehaviour, ISaveable
 {
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject spellsPool;
+
+    // On tests
+    [SerializeField] private Image loadingBar;
 
     private LevelGenerator levelGenerated;
     private SaveData saveData;
@@ -37,10 +43,7 @@ public class SceneControl : MonoBehaviour, ISaveable
         GameObject[] levelParents = GameObject.FindGameObjectsWithTag("LevelParent");
         if (levelParents.Length > 0) foreach (GameObject lvlParent in levelParents) Destroy(lvlParent?.gameObject);
 
-
-
         // Creation
-
         // Creates a new level
         DungeonGenerator.GenerateDungeon(true, saveData);
 
@@ -71,4 +74,55 @@ public class SceneControl : MonoBehaviour, ISaveable
 
         levelGenerated.EndedGeneration -= SpawnPlayer;
     }
+
+
+    // ON TESTS ------------------------------------------------------------------
+    public Scene CurrentScene() => SceneManager.GetActiveScene();
+
+    public SceneEnum CurrentSceneEnum() =>
+        (SceneEnum)Enum.Parse(typeof(SceneEnum), CurrentScene().name);
+
+    /// <summary>
+    /// Loads a scene.
+    /// Can't overload because of animation events.
+    /// </summary>
+    /// <param name="scene">Scene to load.</param>
+    public void LoadScene(SceneEnum scene) =>
+        StartCoroutine(LoadNewScene(scene));
+
+    /// <summary>
+    /// Coroutine that loads a new scene.
+    /// </summary>
+    /// <param name="scene">Scene to load.</param>
+    /// <returns>Returns null.</returns>
+    private IEnumerator LoadNewScene(SceneEnum scene)
+    {
+        YieldInstruction waitForFrame = new WaitForEndOfFrame();
+
+        DisableControls();
+
+        // Asyc loads a scene
+        AsyncOperation sceneToLoad =
+            SceneManager.LoadSceneAsync(scene.ToString());
+
+        // After the progress of the async operation reaches 1, the scene loads
+        while (sceneToLoad.progress <= 1)
+        {
+            loadingBar.fillAmount = sceneToLoad.progress;
+            yield return waitForFrame;
+        }
+    }
+
+    /// <summary>
+    /// Disables all controls. Happens when scene is ending.
+    /// </summary>
+    private void DisableControls()
+    {
+        PlayerInputCustom input = FindObjectOfType<PlayerInputCustom>();
+        if (input != null)
+        {
+            input.SwitchActionMapToUI();
+        }
+    }
+    // ON TESTS ------------------------------------------------------------------
 }
