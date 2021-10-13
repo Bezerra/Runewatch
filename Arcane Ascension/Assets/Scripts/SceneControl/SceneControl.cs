@@ -108,7 +108,7 @@ public class SceneControl : MonoBehaviour, ISaveable
         // After the progress of the async operation reaches 1, the scene loads
         while (sceneToLoad.progress <= 1)
         {
-            loadingBar.fillAmount = sceneToLoad.progress;
+            //loadingBar.fillAmount = sceneToLoad.progress;
             yield return waitForFrame;
         }
     }

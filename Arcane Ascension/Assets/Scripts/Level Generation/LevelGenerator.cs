@@ -581,7 +581,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     {
         if (creatingLevelBase)
         {
-            // Horizontal
+            // Horizontal limit
             if (levelPiece.transform.position.z > horizontalMaximumLevelSize ||
                 levelPiece.transform.position.z < -horizontalMaximumLevelSize)
             {
@@ -589,7 +589,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                 return false;
             }
 
-            // Vertical (forward)
+            // Vertical limit (forward)
             if (fromStartingRoomToFront)
             {
                 if (levelPiece.transform.position.x > forwardMaximumLevelSize ||

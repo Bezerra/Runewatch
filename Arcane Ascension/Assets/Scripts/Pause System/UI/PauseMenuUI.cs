@@ -22,8 +22,6 @@ public class PauseMenuUI : MonoBehaviour
 
     public void MainMenu()
     {
-        Debug.Log("loads main menu");
-
-        //FindObjectOfType<SceneControl>().LoadScene(SceneEnum.MainMenu);
+        FindObjectOfType<SceneControl>().LoadScene(SceneEnum.MainMenu);
     }
 }
