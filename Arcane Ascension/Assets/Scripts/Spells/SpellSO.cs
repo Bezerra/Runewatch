@@ -91,13 +91,8 @@ public class SpellSO : ScriptableObject, ISpell
     [SerializeField] private DamageBehaviourAbstractSO damageBehaviour;
 
     [BoxGroup("Behaviour and Prefab")]
-    [EnableIf("spellCastType", SpellCastType.OneShotCast)]
     [Tooltip("What happens after the spell is spawned")]
-    [SerializeField] private SpellBehaviourAbstractOneShotSO spellBehaviourOneShot;
-
-    [BoxGroup("Behaviour and Prefab")]
-    [EnableIf("spellCastType", SpellCastType.ContinuousCast)]
-    [SerializeField] private SpellBehaviourAbstractContinuousSO spellBehaviourContinunous;
+    [SerializeField] private SpellBehaviourAbstractSO spellBehaviour;
 
     [BoxGroup("Behaviour and Prefab")]
     [Tooltip("What happens after the spell hit prefab is spawned (spawned after the spell hits something)")]
@@ -143,21 +138,11 @@ public class SpellSO : ScriptableObject, ISpell
     public float Cooldown => cooldown;
     public float CooldownCounter { get; set; }
     public SpellOnHitBehaviourSO OnHitBehaviour => onHitBehaviour;
-    public SpellBehaviourAbstractSO SpellBehaviour
-    {
-        get
-        {
-            if (spellCastType == SpellCastType.OneShotCast)
-                return spellBehaviourOneShot;
-            else
-                return spellBehaviourContinunous;
-        }
-    }
+    public SpellBehaviourAbstractSO SpellBehaviour => spellBehaviour;
     public AttackBehaviourAbstractSO AttackBehaviour => attackBehaviour;
+    public DamageBehaviourAbstractSO DamageBehaviour => damageBehaviour;
     /// <summary>
-    /// Item1 is spell Prefab. Item2 is spell hit. Item 3 is spell muzzle.
+    /// Item1 is spell Prefab. Item2 is spell hit prefab. Item 3 is spell muzzle prefab.
     /// </summary>
     public (GameObject, GameObject, GameObject) Prefab => (spellPrefab, spellHitPrefab, spellMuzzlePrefab);
-
-    public DamageBehaviourAbstractSO DamageBehaviour => damageBehaviour;
 }

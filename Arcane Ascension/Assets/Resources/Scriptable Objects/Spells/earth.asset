@@ -20,7 +20,6 @@ MonoBehaviour:
   manaCost: 5
   damageType: 0
   appliesDamageOvertime: 0
-  areaSpellMaxTime: 1
   timeInterval: 0.1
   maxTime: 22
   areaOfEffect: 5
@@ -28,7 +27,8 @@ MonoBehaviour:
   spellCastType: 1
   speed: 14.1
   cooldown: 0.5
-  spellBehaviourOneShot: {fileID: 11400000, guid: 20cb4169d3aa11d468e125db71cf86b6, type: 2}
+  damageBehaviour: {fileID: 0}
+  spellBehaviourOneShot: {fileID: 11400000, guid: 987913a35030a9e40a665e35ab00999e, type: 2}
   spellBehaviourContinunous: {fileID: 11400000, guid: 987913a35030a9e40a665e35ab00999e, type: 2}
   onHitBehaviour: {fileID: 11400000, guid: b67a21e782d7c3141894566198d37048, type: 2}
   attackBehaviour: {fileID: 11400000, guid: 62f01c3984ba84a4fa6859b63c17de7d, type: 2}

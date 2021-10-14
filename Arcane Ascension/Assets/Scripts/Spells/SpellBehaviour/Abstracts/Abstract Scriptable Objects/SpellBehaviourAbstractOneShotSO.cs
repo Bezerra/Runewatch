@@ -57,7 +57,7 @@ public abstract class SpellBehaviourAbstractOneShotSO: SpellBehaviourAbstractSO
 
             if (onHitBehaviourGameObject.TryGetComponent<SpellOnHitBehaviour>(out SpellOnHitBehaviour onHitBehaviour))
             {
-                onHitBehaviour.OnHitBehaviour = parent.Spell.OnHitBehaviour;
+                onHitBehaviour.Spell = parent.Spell;
             }
         }
 

@@ -8,14 +8,22 @@ sealed public class SpellOnHitBehaviourDisable : SpellOnHitBehaviourSO
 {
     [Range(0, 20)][SerializeField] private byte disableAfterSeconds;
 
+    /// <summary>
+    /// Executed when the spell is enabled.
+    /// </summary>
+    /// <param name="parent">Parent SpellOnHit monobehaviour.</param>
     public override void StartBehaviour(SpellOnHitBehaviour parent)
     {
         // Left blank on purpose
     }
 
+    /// <summary>
+    /// Executed every update.
+    /// </summary>
+    /// <param name="parent">Parent SpellOnHit monobehaviour.</param>
     public override void ContinuousUpdateBehaviour(SpellOnHitBehaviour parent)
     {
         if (Time.time - parent.TimeSpawned > disableAfterSeconds)
-            DisableSpell(parent);
+            DisableHitSpell(parent);
     }
 }

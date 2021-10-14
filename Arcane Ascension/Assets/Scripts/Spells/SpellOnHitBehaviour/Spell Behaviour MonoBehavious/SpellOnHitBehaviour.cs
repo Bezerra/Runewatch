@@ -5,7 +5,10 @@ using UnityEngine;
 /// </summary>
 public class SpellOnHitBehaviour : MonoBehaviour
 {
-    public SpellOnHitBehaviourSO OnHitBehaviour { get; set; }
+    /// <summary>
+    /// This variable is set on spell behaviour after the spell is cast.
+    /// </summary>
+    public ISpell Spell { get; set; }
 
     public float TimeSpawned { get; private set; }
 
@@ -15,9 +18,9 @@ public class SpellOnHitBehaviour : MonoBehaviour
     private void OnEnable()
     {
         TimeSpawned = Time.time;
-        if (OnHitBehaviour != null)
+        if (Spell.OnHitBehaviour != null)
         {
-            OnHitBehaviour.StartBehaviour(this);
+            Spell.OnHitBehaviour.StartBehaviour(this);
         }
     }
 
@@ -26,9 +29,9 @@ public class SpellOnHitBehaviour : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (OnHitBehaviour != null)
+        if (Spell.OnHitBehaviour != null)
         {
-            OnHitBehaviour?.ContinuousUpdateBehaviour(this);
+            Spell.OnHitBehaviour.ContinuousUpdateBehaviour(this);
         }
     }
 }
