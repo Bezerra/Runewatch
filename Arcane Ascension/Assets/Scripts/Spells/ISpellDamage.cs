@@ -5,7 +5,6 @@ public interface ISpellDamage
 {
     SpellDamageType DamageType { get; }
     bool AppliesDamageOvertime { get; }
-    float AreaSpellMaxTime { get; }
     ElementType Element { get; }
     float TimeInterval { get; }
     float MaxTime { get; }

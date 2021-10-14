@@ -52,11 +52,6 @@ public class SpellSO : ScriptableObject, ISpell
     [SerializeField] private bool appliesDamageOvertime;
 
     [BoxGroup("Damage")]
-    [EnableIf("appliesDamageOvertime", true)]
-    [Tooltip("Max time of an Area Spell Overtime (ex: a poison cloud).")]
-    [Range(1, 20)] [SerializeField] private float areaSpellMaxTime;
-
-    [BoxGroup("Damage")]
     //[EnableIf("@this.spellCastType == SpellCastType.ContinuousCast || this.damageType == SpellDamageType.Overtime")]
     [Tooltip("Interval between damage with Overtime damage spells or interval between damage with continuous spells.")]
     [Range(0.01f, 100)] [SerializeField] private float timeInterval;
@@ -139,7 +134,6 @@ public class SpellSO : ScriptableObject, ISpell
     public float ManaCost => manaCost;
     public SpellDamageType DamageType => damageType;
     public bool AppliesDamageOvertime => appliesDamageOvertime;
-    public float AreaSpellMaxTime => areaSpellMaxTime;
     public float TimeInterval { get => timeInterval; set => timeInterval = value; }
     public float MaxTime { get => maxTime; set => maxTime = value; }
     public float AreaOfEffect { get => areaOfEffect; set => areaOfEffect = value; }

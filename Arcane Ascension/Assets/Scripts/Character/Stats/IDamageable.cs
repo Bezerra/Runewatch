@@ -9,6 +9,7 @@ public interface IDamageable
 
     /// <summary>
     /// Starts a coroutine to take damage overtime.
+    /// If the enemy is already taking damage overtime, it will restart it.
     /// </summary>
     /// <param name="damage">Damage to take.</param>
     /// <param name="element">Element of the damage.</param>

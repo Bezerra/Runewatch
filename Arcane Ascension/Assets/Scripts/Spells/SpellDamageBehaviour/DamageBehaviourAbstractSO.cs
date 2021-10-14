@@ -7,5 +7,10 @@ using Sirenix.OdinInspector;
 [InlineEditor]
 public abstract class DamageBehaviourAbstractSO : ScriptableObject, IDamageBehaviour
 {
+    /// <summary>
+    /// Executes damage behaviour.
+    /// </summary>
+    /// <param name="other">Collision collider.</param>
+    /// <param name="parent">Parent spell.</param>
     public abstract void Damage(Collider other, SpellBehaviourAbstract parent);
 }

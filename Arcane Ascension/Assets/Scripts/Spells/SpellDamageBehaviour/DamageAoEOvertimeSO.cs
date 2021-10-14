@@ -1,5 +1,6 @@
 using UnityEngine;
 using ExtensionMethods;
+using System.Collections.Generic;
 
 /// <summary>
 /// Scriptable object responsible for creating a spell's damage behaviour.
@@ -11,6 +12,13 @@ public class DamageAoEOvertimeSO : DamageBehaviourAbstractSO
     {
         Collider[] collisions = Physics.OverlapSphere(
                     other.ClosestPoint(parent.transform.position), parent.Spell.AreaOfEffect, Layers.EnemyWithWalls);
+
+        // Creates a new list with IDamageable characters
+        IList<IDamageable> charactersToDoDamage = new List<IDamageable>();
+
+        // If the enemy is directly hit
+        if (other.TryGetComponentInParent<IDamageable>(out IDamageable enemyDirectHit))
+            charactersToDoDamage.Add(enemyDirectHit);
 
         // Adds all IDamageable characters found to a list
         for (int i = 0; i < collisions.Length; i++)
@@ -29,13 +37,26 @@ public class DamageAoEOvertimeSO : DamageBehaviourAbstractSO
                     // If the target is different than who cast the spell
                     if (stats != parent.WhoCast)
                     {
-                        character.TakeDamageOvertime(
-                            parent.WhoCast.Attributes.BaseDamageMultiplier * parent.Spell.Damage,
-                            parent.Spell.Element,
-                            parent.Spell.TimeInterval,
-                            parent.Spell.MaxTime);
+                        if (charactersToDoDamage.Contains(character) == false)
+                        {
+                            charactersToDoDamage.Add(character);
+                        }                       
                     }
                 }
+            }
+        }
+
+        // Damages all IDamageable characters
+        // Damaging each enemy on this list will prevent the same enemy from receiving damage more than once
+        if (charactersToDoDamage.Count > 0)
+        {
+            for (int i = 0; i < charactersToDoDamage.Count; i++)
+            {
+                charactersToDoDamage[i].TakeDamageOvertime(
+                        parent.WhoCast.Attributes.BaseDamageMultiplier * parent.Spell.Damage,
+                        parent.Spell.Element,
+                        parent.Spell.TimeInterval,
+                        parent.Spell.MaxTime);
             }
         }
     }
