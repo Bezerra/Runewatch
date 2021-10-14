@@ -5,9 +5,9 @@ using ExtensionMethods;
 /// Scriptable object responsible for creating a spell's damage behaviour.
 /// </summary>
 [CreateAssetMenu(menuName = "Spells/Spell Damage Behaviour/Spell Damage Overtime", fileName = "Spell Damage Overtime")]
-public class DamageOvertimeSO : ScriptableObject
+public class DamageOvertimeSO : DamageBehaviourAbstractSO
 {
-    public void Damage(Collider other, SpellBehaviourAbstract parent)
+    public override void Damage(Collider other, SpellBehaviourAbstract parent)
     {
         if (other.gameObject.TryGetComponentInParent<IDamageable>(out IDamageable character))
             character.TakeDamageOvertime(

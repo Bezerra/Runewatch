@@ -6,18 +6,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Spells/Spell Behaviour/Spell Behaviour Forward", fileName = "Spell Behaviour Forward")]
 sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
 {
-    [SerializeField] private DamageSingleTargetSO damageSingleTargetBehaviour;
-    [SerializeField] private DamageOvertimeSO damageOvertimeBehaviour;
-    [SerializeField] private DamageAoESO damageAoeBehaviour;
-    [SerializeField] private DamageAoEOvertimeSO damageAoeOvertimeBehaviour;
+    
 
     [Header("In this spell, this variable only checks the direction of the spell")]
     [Range(15, 50)] [SerializeField] private float spellDistance;
-
-    [Header("This variables is used to disable the spell after X seconds")]
-    [Range(1, 10)] [SerializeField] private float disableAfterSeconds;
-    [Header("This variables is used to disable the spell after colliding with something")]
-    [Range(1, 10)] [SerializeField] private float disableAfterSecondsAfterCollision;
 
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
@@ -55,26 +47,7 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
 
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
     {
-        // If the spell is a area spell is an AoE and doesn't disappear immediatly (ex. cloud of poison)
-        // it will only disable it after x seconds
-        if (parent.ApplyingDamageOvertime == false)
-        {
-            if (Time.time - parent.TimeSpawned > disableAfterSeconds)
-                DisableSpell(parent);
-        }
-        else
-        {
-            // Disables spell after it reached max time
-            if (Time.time - parent.TimeSpawned > parent.Spell.AreaSpellMaxTime)
-                DisableSpell(parent);
-        }
-
-        // If the spell hits something
-        if (parent.Rb.velocity == Vector3.zero)
-        {
-            if (Time.time - parent.TimeOfImpact > disableAfterSecondsAfterCollision)
-                DisableSpell(parent);
-        }
+        base.ContinuousUpdateBehaviour(parent);
     }
 
     public override void ContinuousFixedUpdateBehaviour(SpellBehaviourOneShot parent)
@@ -84,44 +57,6 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
 
     public override void HitBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
-        switch (parent.Spell.DamageType)
-        {
-            case SpellDamageType.SingleTarget:
-                damageSingleTargetBehaviour.Damage(other, parent);
-                break;
-
-            case SpellDamageType.Overtime:
-                damageOvertimeBehaviour.Damage(other, parent);
-                break;
-
-            case SpellDamageType.AreaDamage:
-                if (parent.Spell.AppliesDamageOvertime == false)
-                {
-                    damageAoeBehaviour.Damage(other, parent);
-                }
-                else
-                {
-                    damageAoeOvertimeBehaviour.Damage(other, parent);
-                }
-
-                break;
-        }
-
-        // Creates spell hit
-        // Update() will run from its monobehaviour script
-        if (parent.Spell.OnHitBehaviour != null)
-        {
-            GameObject onHitBehaviourGameObject = SpellHitPoolCreator.Pool.InstantiateFromPool(
-                parent.Spell.Name, parent.transform.position,
-                Quaternion.identity);
-
-            if (onHitBehaviourGameObject.TryGetComponent<SpellOnHitBehaviour>(out SpellOnHitBehaviour onHitBehaviour))
-            {
-                onHitBehaviour.OnHitBehaviour = parent.Spell.OnHitBehaviour;
-            }
-        }
-
-        parent.ColliderSphere.enabled = false;
-        parent.Rb.velocity = Vector3.zero;
+        base.HitBehaviour(other, parent);
     }
 }

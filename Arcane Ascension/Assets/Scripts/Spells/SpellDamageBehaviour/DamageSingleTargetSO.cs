@@ -5,9 +5,9 @@ using ExtensionMethods;
 /// Scriptable object responsible for creating a spell's damage behaviour.
 /// </summary>
 [CreateAssetMenu(menuName = "Spells/Spell Damage Behaviour/Spell Damage Single Target", fileName = "Spell Damage Single Target")]
-public class DamageSingleTargetSO : ScriptableObject
+public class DamageSingleTargetSO : DamageBehaviourAbstractSO
 {
-    public void Damage(Collider other, SpellBehaviourAbstract parent)
+    public override void Damage(Collider other, SpellBehaviourAbstract parent)
     {
         if (other.gameObject.TryGetComponentInParent<IDamageable>(out IDamageable character) &&
             other.gameObject.TryGetComponentInParent<Stats>(out Stats stats))

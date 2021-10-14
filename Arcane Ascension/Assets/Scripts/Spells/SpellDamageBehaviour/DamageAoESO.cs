@@ -6,9 +6,9 @@ using ExtensionMethods;
 /// Scriptable object responsible for creating a spell's damage behaviour.
 /// </summary>
 [CreateAssetMenu(menuName = "Spells/Spell Damage Behaviour/Spell Damage AoE", fileName = "Spell Damage AoE")]
-public class DamageAoESO : ScriptableObject
+public class DamageAoESO : DamageBehaviourAbstractSO
 {
-    public void Damage(Collider other, SpellBehaviourAbstract parent)
+    public override void Damage(Collider other, SpellBehaviourAbstract parent)
     {
         Collider[] collisions = Physics.OverlapSphere(
                     other.ClosestPoint(parent.transform.position), parent.Spell.AreaOfEffect, Layers.EnemyWithWalls);

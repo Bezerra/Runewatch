@@ -10,7 +10,6 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     public float TimeOfImpact { get; private set; }
     public Rigidbody Rb { get; private set; }
     public SphereCollider ColliderSphere { get; private set; }
-    public bool ApplyingDamageOvertime { get; set; }
 
     /// <summary>
     /// Gets SpellBehaviourAbstract as SpellBehaviourAbstractOneShotSO.

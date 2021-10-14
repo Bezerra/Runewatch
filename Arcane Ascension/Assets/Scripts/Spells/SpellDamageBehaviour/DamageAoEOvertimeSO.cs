@@ -5,9 +5,9 @@ using ExtensionMethods;
 /// Scriptable object responsible for creating a spell's damage behaviour.
 /// </summary>
 [CreateAssetMenu(menuName = "Spells/Spell Damage Behaviour/Spell Damage Behaviour Forward", fileName = "Spell Damage AoEOvertime")]
-public class DamageAoEOvertimeSO : ScriptableObject
+public class DamageAoEOvertimeSO : DamageBehaviourAbstractSO
 {
-    public void Damage(Collider other, SpellBehaviourAbstract parent)
+    public override void Damage(Collider other, SpellBehaviourAbstract parent)
     {
         Collider[] collisions = Physics.OverlapSphere(
                     other.ClosestPoint(parent.transform.position), parent.Spell.AreaOfEffect, Layers.EnemyWithWalls);
@@ -38,9 +38,5 @@ public class DamageAoEOvertimeSO : ScriptableObject
                 }
             }
         }
-
-        // Converts the spell to SpellBehaviorOneShot so it can set ApplyingDamageOvertime to true
-        SpellBehaviourOneShot parentOneShot = parent as SpellBehaviourOneShot;
-        parentOneShot.ApplyingDamageOvertime = true;
     }
 }

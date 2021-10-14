@@ -9,5 +9,6 @@ public interface ISpell : ISpellBehaviour, ISpellDamage
     string Name { get; }
     byte SpellID { get; }
     float ManaCost { get; }
+    DamageBehaviourAbstractSO DamageBehaviour { get; }
     (GameObject, GameObject, GameObject) Prefab { get; }
 }
