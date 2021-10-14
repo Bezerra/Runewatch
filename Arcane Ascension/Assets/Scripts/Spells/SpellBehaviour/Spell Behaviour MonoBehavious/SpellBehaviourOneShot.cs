@@ -40,7 +40,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     private void FixedUpdate() =>
         SpellBehaviour.ContinuousFixedUpdateBehaviour(this);
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
         TimeOfImpact = Time.time;
         SpellBehaviour.HitBehaviour(other, this);

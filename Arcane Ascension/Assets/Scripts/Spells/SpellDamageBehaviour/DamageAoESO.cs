@@ -8,16 +8,21 @@ using ExtensionMethods;
 [CreateAssetMenu(menuName = "Spells/Spell Damage Behaviour/Spell Damage AoE", fileName = "Spell Damage AoE")]
 public class DamageAoESO : DamageBehaviourAbstractSO
 {
-    public override void Damage(Collider other, SpellBehaviourAbstract parent)
+    /// <summary>
+    /// Damages all enemies inside an area.
+    /// </summary>
+    /// <param name="other">Collision to get IDamageables to damage.</param>
+    /// <param name="parent">Parent spell behaviour.</param>
+    public override void Damage(Collision other, SpellBehaviourAbstract parent)
     {
         Collider[] collisions = Physics.OverlapSphere(
-                    other.ClosestPoint(parent.transform.position), parent.Spell.AreaOfEffect, Layers.EnemyWithWalls);
+                    other.contacts[0].point, parent.Spell.AreaOfEffect, Layers.EnemyWithWalls);
 
         // Creates a new list with IDamageable characters
         IList<IDamageable> charactersToDoDamage = new List<IDamageable>();
 
         // If the enemy is directly hit
-        if (other.TryGetComponentInParent<IDamageable>(out IDamageable enemyDirectHit))
+        if (other.gameObject.TryGetComponentInParent<IDamageable>(out IDamageable enemyDirectHit))
             charactersToDoDamage.Add(enemyDirectHit);
 
         // Adds all IDamageable characters found to a list

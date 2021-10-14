@@ -6,8 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Spells/Spell Behaviour/Spell Behaviour Forward", fileName = "Spell Behaviour Forward")]
 sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
 {
-    
-
     [Header("In this spell, this variable only checks the direction of the spell")]
     [Range(15, 50)] [SerializeField] private float spellDistance;
 
@@ -32,7 +30,7 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
         // Creates spell muzzle
         SpellMuzzlePoolCreator.Pool.InstantiateFromPool(
             parent.Spell.Name, parent.transform.position,
-            Quaternion.identity);
+            Quaternion.LookRotation(parent.transform.forward, parent.transform.up));
 
         // Moves the spell forward
         parent.Rb.velocity = parent.transform.forward * parent.Spell.Speed;
@@ -55,7 +53,7 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
         // Left blank on purpose
     }
 
-    public override void HitBehaviour(Collider other, SpellBehaviourOneShot parent)
+    public override void HitBehaviour(Collision other, SpellBehaviourOneShot parent)
     {
         base.HitBehaviour(other, parent);
     }

@@ -7,7 +7,12 @@ using ExtensionMethods;
 [CreateAssetMenu(menuName = "Spells/Spell Damage Behaviour/Spell Damage Overtime", fileName = "Spell Damage Overtime")]
 public class DamageOvertimeSO : DamageBehaviourAbstractSO
 {
-    public override void Damage(Collider other, SpellBehaviourAbstract parent)
+    /// <summary>
+    /// Applies damage overtime once.
+    /// </summary>
+    /// <param name="other">Collision to damage.</param>
+    /// <param name="parent">Parent spell behaviour.</param>
+    public override void Damage(Collision other, SpellBehaviourAbstract parent)
     {
         if (other.gameObject.TryGetComponentInParent<IDamageable>(out IDamageable character))
             character.TakeDamageOvertime(

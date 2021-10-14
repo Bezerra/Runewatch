@@ -7,7 +7,12 @@ using ExtensionMethods;
 [CreateAssetMenu(menuName = "Spells/Spell Damage Behaviour/Spell Damage Single Target", fileName = "Spell Damage Single Target")]
 public class DamageSingleTargetSO : DamageBehaviourAbstractSO
 {
-    public override void Damage(Collider other, SpellBehaviourAbstract parent)
+    /// <summary>
+    /// Damage for single target spells. Hits once.
+    /// </summary>
+    /// <param name="other">Collision to damage.</param>
+    /// <param name="parent">Parent spell behaviour.</param>
+    public override void Damage(Collision other, SpellBehaviourAbstract parent)
     {
         if (other.gameObject.TryGetComponentInParent<IDamageable>(out IDamageable character) &&
             other.gameObject.TryGetComponentInParent<Stats>(out Stats stats))

@@ -28,7 +28,8 @@ public struct ObjectPool<T> where T : BasePool
 
             for (int j = 0; j < pools[i].Size; j++)
             {
-                GameObject obj = MonoBehaviour.Instantiate(pools[i].Prefab);
+                // Spawns at 1000,1000,1000 so it doesn't mess with initial points like Vector3.zero
+                GameObject obj = MonoBehaviour.Instantiate(pools[i].Prefab, new Vector3(1000,1000,1000), Quaternion.identity);
                 obj.SetActive(false);
                 objectPool.Enqueue(obj);
                 obj.transform.parent = parent.transform;

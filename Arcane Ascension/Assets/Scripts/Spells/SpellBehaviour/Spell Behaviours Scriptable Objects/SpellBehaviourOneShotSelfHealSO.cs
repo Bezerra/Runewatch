@@ -1,5 +1,4 @@
 using UnityEngine;
-using ExtensionMethods;
 
 /// <summary>
 /// Scriptable object responsible for creating a spell's behaviour.
@@ -34,7 +33,7 @@ sealed public class SpellBehaviourOneShotSelfHealSO : SpellBehaviourAbstractOneS
         // Left blank on purpose
     }
 
-    public override void HitBehaviour(Collider other, SpellBehaviourOneShot parent)
+    public override void HitBehaviour(Collision other, SpellBehaviourOneShot parent)
     {
         // Left blank on purpose
     }

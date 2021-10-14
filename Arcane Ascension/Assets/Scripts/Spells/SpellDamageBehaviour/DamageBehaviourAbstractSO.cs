@@ -10,7 +10,7 @@ public abstract class DamageBehaviourAbstractSO : ScriptableObject, IDamageBehav
     /// <summary>
     /// Executes damage behaviour.
     /// </summary>
-    /// <param name="other">Collision collider.</param>
+    /// <param name="other">Collision to damage.</param>
     /// <param name="parent">Parent spell.</param>
-    public abstract void Damage(Collider other, SpellBehaviourAbstract parent);
+    public abstract void Damage(Collision other, SpellBehaviourAbstract parent);
 }

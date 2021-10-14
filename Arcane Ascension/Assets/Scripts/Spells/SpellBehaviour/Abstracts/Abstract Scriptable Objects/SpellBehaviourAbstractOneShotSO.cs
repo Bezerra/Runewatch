@@ -43,7 +43,7 @@ public abstract class SpellBehaviourAbstractOneShotSO: SpellBehaviourAbstractSO
     /// Executes on hit.
     /// </summary>
     /// <param name="other">Collider.</param>
-    public virtual void HitBehaviour(Collider other, SpellBehaviourOneShot parent)
+    public virtual void HitBehaviour(Collision other, SpellBehaviourOneShot parent)
     {
         parent.Spell.DamageBehaviour.Damage(other, parent);
 
@@ -51,9 +51,10 @@ public abstract class SpellBehaviourAbstractOneShotSO: SpellBehaviourAbstractSO
         // Update() will run from its monobehaviour script
         if (parent.Spell.OnHitBehaviour != null)
         {
+            // Spawns hit in direction of collider hit normal
             GameObject onHitBehaviourGameObject = SpellHitPoolCreator.Pool.InstantiateFromPool(
                 parent.Spell.Name, parent.transform.position,
-                Quaternion.identity);
+                Quaternion.LookRotation(other.contacts[0].normal, other.collider.transform.up));
 
             if (onHitBehaviourGameObject.TryGetComponent<SpellOnHitBehaviour>(out SpellOnHitBehaviour onHitBehaviour))
             {

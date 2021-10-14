@@ -8,6 +8,10 @@ using System;
 [Serializable]
 sealed public class SpellPool: BasePool
 {
+    /// <summary>
+    /// Gets name of the parent spell.
+    /// Will use parentSpellPrefab if it's a hit or a muzzle (so it gets the name of their correspondent spell)
+    /// </summary>
     public override string Name => 
         parentSpellPrefab == null ? 
         prefab.GetComponent<SpellBehaviourAbstract>().Spell.Name :
