@@ -9,16 +9,22 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour
 
     public Transform Hand { get; private set; }
     public Transform Eyes { get; private set; }
+    public IDamageable ThisIDamageable { get; private set; }
 
     private Stats whoCast;
     public Stats WhoCast 
     { 
         get => whoCast; 
         set 
-        { 
-            whoCast = value; 
-            Hand = WhoCast.GetComponent<Character>().Hand;
-            Eyes = WhoCast.GetComponent<Character>().Eyes;
+        {
+            // Updates variables if who cast is different from the last time this spell was cast
+            if (whoCast != value)
+            {
+                whoCast = value;
+                Hand = WhoCast.GetComponent<Character>().Hand;
+                Eyes = WhoCast.GetComponent<Character>().Eyes;
+                ThisIDamageable = WhoCast.GetComponent<IDamageable>();
+            }
         }
     }
 

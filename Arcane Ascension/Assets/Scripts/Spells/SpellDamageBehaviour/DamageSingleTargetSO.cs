@@ -14,11 +14,10 @@ public class DamageSingleTargetSO : DamageBehaviourAbstractSO
     /// <param name="parent">Parent spell behaviour.</param>
     public override void Damage(Collision other, SpellBehaviourAbstract parent)
     {
-        if (other.gameObject.TryGetComponentInParent<IDamageable>(out IDamageable character) &&
-            other.gameObject.TryGetComponentInParent<Stats>(out Stats stats))
+        if (other.gameObject.TryGetComponentInParent<IDamageable>(out IDamageable character))
         {
-            // If the gameobject hit is different than who casts the spell
-            if (stats != parent.WhoCast)
+            // If IDamageable hit is different than who casts the spell
+            if (!character.Equals(parent.ThisIDamageable))
             {
                 character.TakeDamage(parent.WhoCast.Attributes.BaseDamageMultiplier *
                     parent.Spell.Damage, parent.Spell.Element);

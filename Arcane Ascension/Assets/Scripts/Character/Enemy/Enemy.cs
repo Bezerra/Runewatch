@@ -17,10 +17,14 @@ public class Enemy : Character
     public float RollTime { get; set; }
     public float RollDelay { get; set; }
     public Direction RollDirection { get; set; }
+
     public CharacterController Controller { get; private set; }
     public Stats EnemyStats { get; private set; }
+    // Current cast spell behaviour
+    public SpellBehaviourAbstract SpellBehaviour { get; set; }
 
     private NavMeshAgent agent;
+
 
     private void Awake()
     {

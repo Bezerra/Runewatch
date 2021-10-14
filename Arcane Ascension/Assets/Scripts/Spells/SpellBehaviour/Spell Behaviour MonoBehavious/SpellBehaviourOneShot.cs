@@ -42,10 +42,14 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
 
     private void OnCollisionEnter(Collision other)
     {
-        TimeOfImpact = Time.time;
-        SpellBehaviour.HitBehaviour(other, this);
+        // If this spell is hitting something for the first time
+        if (ColliderSphere.enabled == true)
+        {
+            TimeOfImpact = Time.time;
+            SpellBehaviour.HitBehaviour(other, this);
 
-        SpawnGizmosAreaSpell(); // TEMPPPPPPPPPPPPPPPPPPPPP
+            SpawnGizmosAreaSpell(); // TEMPPPPPPPPPPPPPPPPPPPPP
+        }
     }
 
     // TEMPPPPPPPPPPPPPPPPPPPPPPPPP /////////////////////////////////////

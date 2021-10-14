@@ -15,10 +15,16 @@ public class DamageOvertimeSO : DamageBehaviourAbstractSO
     public override void Damage(Collision other, SpellBehaviourAbstract parent)
     {
         if (other.gameObject.TryGetComponentInParent<IDamageable>(out IDamageable character))
-            character.TakeDamageOvertime(
+        {
+            // If the target is different than who cast the spell
+            if (!character.Equals(parent.ThisIDamageable))
+            {
+                character.TakeDamageOvertime(
                 parent.WhoCast.Attributes.BaseDamageMultiplier * parent.Spell.Damage,
                 parent.Spell.Element,
                 parent.Spell.TimeInterval,
                 parent.Spell.MaxTime);
+            }
+        }
     }
 }

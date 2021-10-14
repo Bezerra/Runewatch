@@ -23,7 +23,12 @@ public class DamageAoESO : DamageBehaviourAbstractSO
 
         // If the enemy is directly hit
         if (other.gameObject.TryGetComponentInParent<IDamageable>(out IDamageable enemyDirectHit))
-            charactersToDoDamage.Add(enemyDirectHit);
+        {
+            if (!enemyDirectHit.Equals(parent.ThisIDamageable))
+            {
+                charactersToDoDamage.Add(enemyDirectHit);
+            }
+        }
 
         // Adds all IDamageable characters found to a list
         for (int i = 0; i < collisions.Length; i++)
@@ -37,11 +42,10 @@ public class DamageAoESO : DamageBehaviourAbstractSO
                 Layers.EnemyWithWalls))
             {
                 // If the collider is an IDamageable (meaning there wasn't a wall in the ray path)
-                if (characterHit.collider.TryGetComponentInParent<IDamageable>(out IDamageable character) &&
-                    characterHit.collider.TryGetComponentInParent<Stats>(out Stats stats))
+                if (characterHit.collider.TryGetComponentInParent<IDamageable>(out IDamageable character) )
                 {
                     // If the target is different than who cast the spell
-                    if (stats != parent.WhoCast)
+                    if (!character.Equals(parent.ThisIDamageable))
                     {
                         if (charactersToDoDamage.Contains(character) == false)
                         {
