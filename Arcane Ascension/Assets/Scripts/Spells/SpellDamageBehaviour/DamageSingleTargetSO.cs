@@ -9,8 +9,15 @@ public class DamageSingleTargetSO : ScriptableObject
 {
     public void Damage(Collider other, SpellBehaviourAbstract parent)
     {
-        if (other.gameObject.TryGetComponentInParent<IDamageable>(out IDamageable character))
-            character.TakeDamage(parent.WhoCast.Attributes.BaseDamageMultiplier *
-                parent.Spell.Damage, parent.Spell.Element);
+        if (other.gameObject.TryGetComponentInParent<IDamageable>(out IDamageable character) &&
+            other.gameObject.TryGetComponentInParent<Stats>(out Stats stats))
+        {
+            // If the gameobject hit is different than who casts the spell
+            if (stats != parent.WhoCast)
+            {
+                character.TakeDamage(parent.WhoCast.Attributes.BaseDamageMultiplier *
+                    parent.Spell.Damage, parent.Spell.Element);
+            }
+        }   
     }
 }
