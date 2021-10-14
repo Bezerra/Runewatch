@@ -18,10 +18,8 @@ public class SpellOnHitBehaviour : MonoBehaviour
     private void OnEnable()
     {
         TimeSpawned = Time.time;
-        if (Spell.OnHitBehaviour != null)
-        {
-            Spell.OnHitBehaviour.StartBehaviour(this);
-        }
+
+        Spell?.OnHitBehaviour.StartBehaviour(this);
     }
 
     /// <summary>
@@ -29,10 +27,7 @@ public class SpellOnHitBehaviour : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (Spell.OnHitBehaviour != null)
-        {
-            Spell.OnHitBehaviour.ContinuousUpdateBehaviour(this);
-        }
+        Spell?.OnHitBehaviour.ContinuousUpdateBehaviour(this);
     }
 }
         

@@ -40,5 +40,4 @@ public class SpellHitPoolCreator : MonoBehaviour
         // After the spell pool was created, it will create queues for all spells or hits/muzzles
         Pool.CreatePool(this.gameObject, listSpellHitPools);
     }
-
 }
