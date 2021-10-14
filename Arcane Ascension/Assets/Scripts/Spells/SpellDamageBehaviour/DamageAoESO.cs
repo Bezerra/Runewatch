@@ -16,6 +16,7 @@ public class DamageAoESO : ScriptableObject
         // Creates a new list with IDamageable characters
         IList<IDamageable> charactersToDoDamage = new List<IDamageable>();
 
+        // If the enemy is directly hit
         if (other.TryGetComponentInParent<IDamageable>(out IDamageable enemyDirectHit))
             charactersToDoDamage.Add(enemyDirectHit);
 
@@ -46,14 +47,14 @@ public class DamageAoESO : ScriptableObject
             }
         }
 
-        // Damages all IDamageable characters depending on the number of characters hit
+        // Damages all IDamageable characters
+        // Damaging each enemy on this list will prevent the same enemy from receiving damage more than once
         if (charactersToDoDamage.Count > 0)
         {
             for (int i = 0; i < charactersToDoDamage.Count; i++)
             {
                 charactersToDoDamage[i].TakeDamage(
-                    ((parent.WhoCast.Attributes.BaseDamageMultiplier * parent.Spell.Damage) /
-                    charactersToDoDamage.Count),
+                    parent.WhoCast.Attributes.BaseDamageMultiplier * parent.Spell.Damage,
                     parent.Spell.Element);
             }
         }
