@@ -26,4 +26,30 @@ public class AttackBehaviourOneShotSO : AttackBehaviourAbstractSO
         spellBehaviour.WhoCast = characterStats;
         spellBehaviour.TriggerStartBehaviour();
     }
+
+    /// <summary>
+    /// Spawns a spell and triggers its behaviour.
+    /// Used by AI.
+    /// </summary>
+    /// <param name="spell">Cast spell.</param>
+    /// <param name="character">Character (state controller) who casts the spell.</param>
+    /// <param name="characterStats">Character stats.</param>
+    public override void Attack(ISpell spell, StateController character, Stats characterStats)
+    {
+        Vector3 finalDirection =
+                        character.transform.position +
+                        (character.CurrentTarget.position - character.transform.position);
+
+        GameObject spawnedSpell =
+            SpellPoolCreator.Pool.InstantiateFromPool(
+                spell.Name, character.EnemyScript.
+                Hand.position,
+                Quaternion.identity);
+
+        spawnedSpell.transform.LookAt(finalDirection);
+
+        SpellBehaviourOneShot spellBehaviour = spawnedSpell.GetComponent<SpellBehaviourOneShot>();
+        spellBehaviour.WhoCast = characterStats;
+        spellBehaviour.TriggerStartBehaviour();
+    }
 }

@@ -36,28 +36,12 @@ sealed public class ActionAttack : FSMAction
                 {
                     int randomSpell = Random.Range(0, aiCharacter.EnemyScript.AllValues.CharacterStats.AvailableSpells.Count);
 
-                    //
-                    //    Vector3 finalDirection =
-                    //    aiCharacter.transform.position +
-                    //    (aiCharacter.CurrentTarget.position - aiCharacter.transform.position);
-                    //
-                    //    //GameObject spell = SpellPoolCreator.Pool.InstantiateFromPool(
-                    //    //        aiCharacter.EnemyScript.AllValues.CharacterStats.AvailableSpells[randomSpell].Name,
-                    //    //        aiCharacter.EnemyScript.Hand.position,
-                    //    //        Quaternion.identity);
-                    //
-                    //    ISpell spell = aiCharacter.EnemyScript.AllValues.CharacterStats.AvailableSpells[randomSpell];
-                    //
-                    //    aiCharacter.EnemyScript.AllValues.CharacterStats.AvailableSpells[randomSpell].
-                    //        AttackBehaviour.Attack(spell, aiCharacter.EnemyScript, aiCharacter.EnemyScript.EnemyStats, 
-                    //        ref aiCharacter.EnemyScript.SpellBehaviour);
-                    //
-                    //    spell.transform.LookAt(finalDirection);
-                    //    SpellBehaviourOneShot spellBehaviour = spell.GetComponent<SpellBehaviourOneShot>();
-                    //    spellBehaviour.WhoCast = aiCharacter.EnemyScript.GetComponent<Stats>(); // Passes whoCast to the behaviour
-                    //    spellBehaviour.TriggerStartBehaviour();
+                    ISpell spell = aiCharacter.EnemyScript.AllValues.CharacterStats.AvailableSpells[randomSpell];
 
-                        timeOfAttack = Time.time;
+                    aiCharacter.EnemyScript.AllValues.CharacterStats.AvailableSpells[randomSpell].
+                        AttackBehaviour.Attack(spell, aiCharacter, aiCharacter.EnemyScript.EnemyStats);
+
+                    timeOfAttack = Time.time;
                 }
             }
         }
