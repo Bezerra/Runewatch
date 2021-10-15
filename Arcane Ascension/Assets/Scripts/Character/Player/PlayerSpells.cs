@@ -10,6 +10,7 @@ using UnityEngine;
 public class PlayerSpells : MonoBehaviour, ISaveable
 {
     private PlayerInputCustom input;
+    private PlayerHandEffect playerHandEffect;
     private Stats playerStats;
     private IList<SpellSO> allSpells;
 
@@ -23,10 +24,13 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     private void Awake()
     {
         input = FindObjectOfType<PlayerInputCustom>();
+        playerHandEffect = FindObjectOfType<PlayerHandEffect>();
         playerStats = GetComponent<Stats>();
         allSpells = FindObjectOfType<AllSpells>().SpellList;
 
         CurrentSpells = new SpellSO[4];
+
+        currentSpellIndex = 50; // Will be changed to a spell number when the game starts
     }
 
     private void Start()
@@ -42,6 +46,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
             }
         }
 
+        SelectSpell(0);
         StartSpellCooldown();
     }
 
@@ -100,8 +105,20 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     /// <param name="index">Index of the spell on array.</param>
     private void SelectSpell(byte index)
     {
-        if (CurrentSpells[index] != null)
-            currentSpellIndex = index;
+        if (CurrentSpells[index].CooldownCounter == CurrentSpells[index].Cooldown)
+        {
+            // If the player selects an active spell different than the one currently selected
+            if (index != currentSpellIndex)
+            {
+            
+                if (CurrentSpells[index] != null)
+                    currentSpellIndex = index;
+
+                playerHandEffect.UpdatePlayerHandEffect(ActiveSpell);
+
+                StartSpellCooldown();
+            }
+        }
     }
 
     /// <summary>

@@ -272,6 +272,10 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth, IMana, IArm
             case StatsType.Damage:
                 Attributes.BaseDamageMultiplier += amountToIncrement;
                 break;
+
+            case StatsType.CriticalChance:
+                Attributes.CriticalChance += amountToIncrement;
+                break;
         }
     }
 

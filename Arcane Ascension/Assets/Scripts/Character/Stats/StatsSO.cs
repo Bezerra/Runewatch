@@ -49,7 +49,7 @@ public class StatsSO : ScriptableObject
     public float ManaRegenTime { get; set; }
     public float MaxArmor { get; set; }
     public float BaseDamageMultiplier { get => baseDamageMultiplier; set => baseDamageMultiplier = value; }
-    public float CriticalChance => criticalChance;
+    public float CriticalChance { get => criticalChance; set => criticalChance = value; }
     public ElementType Element => element;
     public List<SpellSO> AvailableSpells => availableSpells;
 
