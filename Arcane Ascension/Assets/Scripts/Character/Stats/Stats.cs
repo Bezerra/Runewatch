@@ -141,16 +141,11 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth, IMana, IArm
     /// <param name="element">Element of the damage.</param>
     public void TakeDamage(float damage, float criticalChance, ElementType element)
     {
-        Debug.Log(damage);
-        double ah = random.NextDouble();
         // Critical check
         // If random.NextDouble is less than critical chance, it will do double damage
-        damage = ah < criticalChance ? damage *= 2 : damage *= 1;
+        damage = random.NextDouble() < criticalChance ? damage *= 2 : damage *= 1;
 
-        Debug.Log("double " + ah);
-        Debug.Log("critical chance " + criticalChance);
-        Debug.Log(damage);
-
+        // Claculates final damage
         float damageToReceive = Mathf.Floor(damage * (ElementsDamage.CalculateDamage(element, Attributes.Element)));
 
         if (Armor - damageToReceive > 0)
