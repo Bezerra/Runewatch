@@ -42,7 +42,7 @@ public class PlayerCastSpell : MonoBehaviour
     {
         // If spell is not in cooldown
         // Important for OneShot spells (continuous don't have cooldown)
-        if (playerSpells.ActiveSpell?.CooldownCounter == playerSpells.ActiveSpell?.Cooldown)
+        if (playerSpells.CooldownOver(playerSpells.ActiveSpell))
         {
             // If player has enough mana to cast the active spell
             if (playerStats.Mana - playerSpells.ActiveSpell.ManaCost >= 0)

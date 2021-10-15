@@ -130,8 +130,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
 
             // Creates a gameobject to put all the pieces
             GameObject levelParent = new GameObject();
-            levelParent.gameObject.name = "Level Pieces Parent";
-            levelParent.gameObject.tag = "LevelParent";
+            levelParent.name = "Level Pieces Parent";
+            levelParent.tag = "LevelParent";
 
             IList<ContactPoint> openedContactPoints = new List<ContactPoint>();
             allRooms = new List<LevelPiece>();

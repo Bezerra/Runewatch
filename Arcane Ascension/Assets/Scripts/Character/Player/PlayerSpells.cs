@@ -29,8 +29,6 @@ public class PlayerSpells : MonoBehaviour, ISaveable
         allSpells = FindObjectOfType<AllSpells>().SpellList;
 
         CurrentSpells = new SpellSO[4];
-
-        currentSpellIndex = 50; // Will be changed to a spell number when the game starts
     }
 
     private void Start()
@@ -46,7 +44,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
             }
         }
 
-        SelectSpell(0);
+        SelectSpell(0, true);
         StartSpellCooldown();
     }
 
@@ -105,12 +103,11 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     /// <param name="index">Index of the spell on array.</param>
     private void SelectSpell(byte index)
     {
-        if (CurrentSpells[index].CooldownCounter == CurrentSpells[index].Cooldown)
+        // If the player selects an active spell different than the one currently selected
+        if (index != currentSpellIndex)
         {
-            // If the player selects an active spell different than the one currently selected
-            if (index != currentSpellIndex)
+            if (CooldownOver(CurrentSpells[index]))
             {
-            
                 if (CurrentSpells[index] != null)
                     currentSpellIndex = index;
 
@@ -119,6 +116,32 @@ public class PlayerSpells : MonoBehaviour, ISaveable
                 StartSpellCooldown();
             }
         }
+    }
+
+    /// <summary>
+    /// Sets a spell as active spell on game start.
+    /// </summary>
+    /// <param name="index">Index of the spell on array.</param>
+    private void SelectSpell(byte index, bool initialSelection)
+    {
+        if (CurrentSpells[index] != null)
+            currentSpellIndex = index;
+
+        playerHandEffect.UpdatePlayerHandEffect(ActiveSpell);
+
+        StartSpellCooldown();
+    }
+
+    /// <summary>
+    /// Checks if spell cooldown is over.
+    /// </summary>
+    /// <param name="spell">Spell to check.</param>
+    /// <returns>Returns true if cooldown is over.</returns>
+    public bool CooldownOver(ISpell spell)
+    {
+        if (spell.CooldownCounter == spell.Cooldown)
+            return true;
+        return false;
     }
 
     /// <summary>
