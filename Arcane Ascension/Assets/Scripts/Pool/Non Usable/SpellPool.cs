@@ -3,14 +3,14 @@ using System;
 
 /// <summary>
 /// Serializable class for spell / spell hits / spell muzzles pools.
-/// If it's initialized with only one prefab, it means it's the spell itself, else it means it's a muzzle or a hit.
+/// If it's initialized with only one prefab, it means it's the spell itself, else it means it's a muzzle, hit or hand effect.
 /// </summary>
 [Serializable]
 sealed public class SpellPool: BasePool
 {
     /// <summary>
     /// Gets name of the parent spell.
-    /// Will use parentSpellPrefab if it's a hit or a muzzle (so it gets the name of their correspondent spell)
+    /// Will use parentSpellPrefab if it's a hit, muzzle or hand effect(so it gets the name of their correspondent spell).
     /// </summary>
     public override string Name => 
         parentSpellPrefab == null ? 

@@ -6,6 +6,7 @@ public class BezerraDreamSpellSpawner : MonoBehaviour
 {
     [SerializeField] private SpellSO spell;
     [SerializeField] private float timeToSpawn;
+    [Range(0f,1f)][SerializeField] private float timeScale;
 
     private Character character;
     private Stats characterStats;
@@ -38,5 +39,10 @@ public class BezerraDreamSpellSpawner : MonoBehaviour
             SpellBehaviourOneShot spellBehaviourOneShot = spellBehaviour as SpellBehaviourOneShot;
             spellBehaviourOneShot.ColliderSphere.enabled = true;
         }
+    }
+
+    private void Update()
+    {
+        Time.timeScale = timeScale;
     }
 }

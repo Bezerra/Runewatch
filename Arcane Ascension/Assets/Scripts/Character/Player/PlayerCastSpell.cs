@@ -45,7 +45,7 @@ public class PlayerCastSpell : MonoBehaviour
         if (playerSpells.ActiveSpell?.CooldownCounter == playerSpells.ActiveSpell?.Cooldown)
         {
             // If player has enough mana to cast the active spell
-            if (playerStats.Mana - playerSpells.ActiveSpell?.ManaCost >= 0)
+            if (playerStats.Mana - playerSpells.ActiveSpell.ManaCost >= 0)
             {
                 spellBehaviour = null;
                 playerSpells.ActiveSpell.AttackBehaviour.Attack(playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);

@@ -87,30 +87,33 @@ public class SpellSO : ScriptableObject, ISpell
     [Tooltip("Cooldown of the spells WHEN EQUIPED and OneShotCasts spells after being used")]
     [Range(0, 10)] [SerializeField] private float cooldown;
 
-    [BoxGroup("Behaviour and Prefab")]
+    [BoxGroup("Behaviours")]
     [SerializeField] private DamageBehaviourAbstractSO damageBehaviour;
 
-    [BoxGroup("Behaviour and Prefab")]
+    [BoxGroup("Behaviours")]
     [Tooltip("What happens after the spell is spawned")]
     [SerializeField] private SpellBehaviourAbstractSO spellBehaviour;
 
-    [BoxGroup("Behaviour and Prefab")]
+    [BoxGroup("Behaviours")]
     [Tooltip("What happens after the spell hit prefab is spawned (spawned after the spell hits something)")]
     [SerializeField] private SpellOnHitBehaviourSO onHitBehaviour;
 
-    [BoxGroup("Behaviour and Prefab")]
+    [BoxGroup("Behaviours")]
     [Tooltip("Attack behaviour of this spell")]
     [SerializeField] private AttackBehaviourAbstractSO attackBehaviour;
 
-    [BoxGroup("Behaviour and Prefab")]
+    [BoxGroup("Prefabs")]
     [Tooltip("Spell prefab (vfx)")]
     [SerializeField] private GameObject spellPrefab;
-    [BoxGroup("Behaviour and Prefab")]
+    [BoxGroup("Prefabs")]
     [Tooltip("Spawns when the spell hits something")]
     [SerializeField] private GameObject spellHitPrefab;
-    [BoxGroup("Behaviour and Prefab")]
+    [BoxGroup("Prefabs")]
     [Tooltip("Spawns when the spell is cast")]
     [SerializeField] private GameObject spellMuzzlePrefab;
+    [BoxGroup("Prefabs")]
+    [Tooltip("Effect that will be shown in player's hand")]
+    [SerializeField] private GameObject spellHandEffectPrefab;
 
 #if UNITY_EDITOR
     private void ChangeFileName()
@@ -144,5 +147,5 @@ public class SpellSO : ScriptableObject, ISpell
     /// <summary>
     /// Item1 is spell Prefab. Item2 is spell hit prefab. Item 3 is spell muzzle prefab.
     /// </summary>
-    public (GameObject, GameObject, GameObject) Prefab => (spellPrefab, spellHitPrefab, spellMuzzlePrefab);
+    public (GameObject, GameObject, GameObject, GameObject) Prefab => (spellPrefab, spellHitPrefab, spellMuzzlePrefab, spellHandEffectPrefab);
 }

@@ -10,4 +10,5 @@ public interface ISpellDamage
     float MaxTime { get; }
     float AreaOfEffect { get; }
     float Damage { get; }
+    DamageBehaviourAbstractSO DamageBehaviour { get; }
 }
