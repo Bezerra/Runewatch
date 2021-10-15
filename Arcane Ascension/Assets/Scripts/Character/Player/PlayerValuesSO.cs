@@ -33,7 +33,7 @@ public class PlayerValuesSO : CharacterValuesSO
     [Range(5, 25)] [SerializeField] private float cameraSpeed;
     public float CameraSpeed => cameraSpeed;
 
-    [Range(1, 4)] [SerializeField] private float cameraTilt;
+    [Range(0.1f, 4)] [SerializeField] private float cameraTilt;
     public float CameraTilt => cameraTilt;
 
     [Range(1, 20)] [SerializeField] private float cameraTiltSpeed;

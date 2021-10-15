@@ -20,8 +20,8 @@ public class DamageSingleTargetSO : DamageBehaviourAbstractSO
             if (!character.Equals(parent.ThisIDamageable))
             {
                 character.TakeDamage(parent.WhoCast.Attributes.BaseDamageMultiplier *
-                    parent.Spell.Damage, parent.Spell.Element);
+                    parent.Spell.Damage, parent.WhoCast.Attributes.CriticalChance, parent.Spell.Element);
             }
-        }   
+        }
     }
 }

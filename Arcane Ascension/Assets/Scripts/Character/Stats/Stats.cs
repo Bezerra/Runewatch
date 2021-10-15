@@ -1,12 +1,14 @@
 using System.Collections;
 using UnityEngine;
 using System.Text;
+using System;
 
 /// <summary>
 /// Class responsible for controlling character stats.
 /// </summary>
 public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth, IMana, IArmor
 {
+    private System.Random random;
     private Character character;
     public StatsSO Attributes => character.CommonValues.CharacterStats;
 
@@ -18,8 +20,11 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth, IMana, IArm
     private IEnumerator regenManaCoroutine;
     private YieldInstruction wft;
 
-    private void Awake() =>
+    private void Awake()
+    {
+        random = new System.Random();
         character = GetComponent<Character>();
+    }
 
     private void Start()
     {
@@ -97,7 +102,56 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth, IMana, IArm
     /// <param name="element">Element of the damage.</param>
     public void TakeDamage(float damage, ElementType element)
     {
-        float damageToReceive = Mathf.Floor(damage * (ElementsDamage.CalculateDamage(element, Attributes.Element) * 0.01f));
+        float damageToReceive = Mathf.Floor(damage * (ElementsDamage.CalculateDamage(element, Attributes.Element)));
+
+        if (Armor - damageToReceive > 0)
+        {
+            Armor -= damageToReceive;
+        }
+        else // If Armor - damage is < 0
+        {
+            // Calculates the damage after damaging the Armor
+            float restOfTheDamage = damageToReceive - Armor;
+
+            // Damages Armor
+            Armor = 0;
+
+            if (Health - restOfTheDamage > 0)
+            {
+                Health -= restOfTheDamage;
+            }
+            else
+            {
+                // die
+                print("Character died");
+                if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
+                Destroy(gameObject);
+            }
+        }
+
+        // Temp
+        if (Health > 0 || Armor > 0) Debug.Log("Health: " + Health + " || Armor: " + Armor);
+    }
+
+    /// <summary>
+    /// Reduces armor + Health.
+    /// </summary>
+    /// <param name="damage">Damage to take.</param>
+    /// <param name="criticalChance">Chance of critical hit.</param>
+    /// <param name="element">Element of the damage.</param>
+    public void TakeDamage(float damage, float criticalChance, ElementType element)
+    {
+        Debug.Log(damage);
+        double ah = random.NextDouble();
+        // Critical check
+        // If random.NextDouble is less than critical chance, it will do double damage
+        damage = ah < criticalChance ? damage *= 2 : damage *= 1;
+
+        Debug.Log("double " + ah);
+        Debug.Log("critical chance " + criticalChance);
+        Debug.Log(damage);
+
+        float damageToReceive = Mathf.Floor(damage * (ElementsDamage.CalculateDamage(element, Attributes.Element)));
 
         if (Armor - damageToReceive > 0)
         {

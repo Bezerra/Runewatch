@@ -8,6 +8,14 @@ public interface IDamageable
     void TakeDamage(float damage, ElementType element);
 
     /// <summary>
+    /// Reduces armor + Health.
+    /// </summary>
+    /// <param name="damage">Damage to take.</param>
+    /// <param name="criticalChance">Chance of critical hit.</param>
+    /// <param name="element">Element of the damage.</param>
+    void TakeDamage(float damage, float criticalChance, ElementType element);
+
+    /// <summary>
     /// Starts a coroutine to take damage overtime.
     /// If the enemy is already taking damage overtime, it will restart it.
     /// </summary>

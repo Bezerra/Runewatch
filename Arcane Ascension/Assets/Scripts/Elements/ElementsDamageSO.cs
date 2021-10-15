@@ -8,9 +8,9 @@ using Sirenix.OdinInspector;
 [CreateAssetMenu(menuName = "Create Once/Elements Damage", fileName = "Elements Damage")]
 public class ElementsDamageSO : ScriptableObject
 {
-    [Range(0, 200)] [SerializeField] private float neutralDamagePercentage;
-    [Range(0, 200)] [SerializeField] private float advantageDamagePercentage;
-    [Range(0, 200)] [SerializeField] private float disadvantageDamagePercentage;
+    [Range(0, 2)] [SerializeField] private float neutralDamagePercentage;
+    [Range(0, 2)] [SerializeField] private float advantageDamagePercentage;
+    [Range(0, 2)] [SerializeField] private float disadvantageDamagePercentage;
     [PropertySpace(20)]
 
     // List used only to create the elements in inspector
