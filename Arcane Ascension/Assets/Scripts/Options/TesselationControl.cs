@@ -50,6 +50,7 @@ public class TesselationControl : MonoBehaviour
             switch (QualitySettings.GetQualityLevel())
             {
                 case 0:
+
                     material.SetFloat("_HeightStrength", values.HeightStrengthLowQuality);
                     material.SetFloat("_TessValue", Mathf.Min(values.TessValueLowQuality, MaxTesselationAmount));
                     break;
