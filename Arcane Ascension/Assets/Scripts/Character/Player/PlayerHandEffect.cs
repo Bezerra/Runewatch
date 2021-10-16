@@ -51,8 +51,10 @@ public class PlayerHandEffect : MonoBehaviour
         if (spawnedSpell != null)
         {
             spawnedSpell.transform.position = currentEffectPosition.position;
+            spawnedSpell.transform.rotation = currentEffectPosition.rotation;
         }
 
+        // If there's a previws spell still active, it wil ldisable it when it stops emitting particles
         if (vfxPreviousSpawnedSpell.Count > 0)
         {
             for (int i = 0; i < vfxPreviousSpawnedSpell.Count; i++)
