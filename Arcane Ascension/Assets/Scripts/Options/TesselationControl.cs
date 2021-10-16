@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 /// <summary>
 /// Class responsible for controlling tesselation depending on current quality level.
@@ -50,10 +49,14 @@ public class TesselationControl : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(QualitySettings.GetQualityLevel());
+        TesselationUpdate();
+    }
+
+    public void TesselationUpdate()
+    {
         foreach (Material material in tesselationMaterials)
         {
-            switch(QualitySettings.GetQualityLevel())
+            switch (QualitySettings.GetQualityLevel())
             {
                 case 0:
                     material.SetFloat("_HeightStrength", heightStrengthLowQuality);

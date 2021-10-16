@@ -31,7 +31,6 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     [SerializeField] private LevelPiece bossRoom;
     [SerializeField] private LevelPiece[] corridors;
     [SerializeField] private LevelPiece[] rooms;
-    [SerializeField] private LevelPiece wall;
     [SerializeField] private LayerMask roomColliderLayer;
 
     private IList<LevelPiece> allRooms;
@@ -120,6 +119,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     { 
         YieldInstruction wffu = new WaitForFixedUpdate();
         bool bossRoomSpawned = false;
+        IList<ContactPoint> openedContactPoints;
         while (bossRoomSpawned == false)
         {
             // Starts generating random seeds after first failed attempt
@@ -133,10 +133,9 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             levelParent.name = "Level Pieces Parent";
             levelParent.tag = "LevelParent";
 
-            IList<ContactPoint> openedContactPoints = new List<ContactPoint>();
+            openedContactPoints = new List<ContactPoint>();
             allRooms = new List<LevelPiece>();
             allRoomsAndCorridors = new List<LevelPiece>();
-            bossRoomSpawned = false;
 
             // Creates and places first corridor
             LevelPiece startingRoomPiece = Instantiate(startingPiece, Vector3.zero, Quaternion.identity);
@@ -211,6 +210,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                     if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor ||
                         openedContactPoints[i].ParentRoom.Type == PieceType.Stairs)
                     {
+                        // Creates rooms depending on their weight
                         pieceToPlace = Instantiate(rooms[random.RandomWeight(roomWeights)]);
                         pieceContactPoint = pieceToPlace.ContactPoints[random.Next(0, pieceToPlace.ContactPoints.Length)];
 
