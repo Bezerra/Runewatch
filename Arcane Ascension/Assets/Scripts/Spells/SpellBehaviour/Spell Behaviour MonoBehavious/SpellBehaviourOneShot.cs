@@ -10,10 +10,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     public float TimeSpawned { get; private set; }
     public float TimeOfImpact { get; private set; }
     public Rigidbody Rb { get; private set; }
-    [SerializeField] private SphereCollider colliderNoTrigger;
-    public SphereCollider ColliderNoTrigger => colliderNoTrigger;
-    [SerializeField] private SphereCollider colliderTrigger;
-    public SphereCollider ColliderTrigger => colliderTrigger;
+    public SphereCollider ColliderTrigger { get; private set; }
 
     private IList<GameObject> alreadyHitGameObjects;
 
@@ -25,6 +22,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     private void Awake()
     {
         Rb = GetComponent<Rigidbody>();
+        ColliderTrigger = GetComponent<SphereCollider>();
         alreadyHitGameObjects = new List<GameObject>();
     }
 
@@ -46,32 +44,15 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     private void FixedUpdate() =>
         SpellBehaviour.ContinuousFixedUpdateBehaviour(this);
 
-    private void OnCollisionEnter(Collision other)
-    {
-        if (colliderNoTrigger != null)
-        {
-            // Collider is enabled when the behaviour starts
-            // If this spell is hitting something for the first time
-            if (ColliderNoTrigger.enabled == true)
-            {
-                TimeOfImpact = Time.time;
-                SpellBehaviour.HitNoTriggerBehaviour(other, this);
-            }
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        if (colliderTrigger != null)
+        if (alreadyHitGameObjects.Contains(other.gameObject) == false)
         {
-            if (alreadyHitGameObjects.Contains(other.gameObject) == false)
-            {
-                // If this spell is hitting something for the first time
-                TimeOfImpact = Time.time;
-                SpellBehaviour.HitTriggerBehaviour(other, this);
+            // If this spell is hitting something for the first time
+            TimeOfImpact = Time.time;
+            SpellBehaviour.HitTriggerBehaviour(other, this);
 
-                alreadyHitGameObjects.Add(other.gameObject);
-            }
+            alreadyHitGameObjects.Add(other.gameObject);
         }
     }
 }

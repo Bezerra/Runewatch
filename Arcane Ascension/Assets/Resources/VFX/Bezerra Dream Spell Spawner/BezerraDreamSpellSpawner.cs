@@ -35,9 +35,6 @@ public class BezerraDreamSpellSpawner : MonoBehaviour
 
             // Moves the spell forward
             spawnedSpell.GetComponent<Rigidbody>().velocity = transform.forward * spell.Speed;
-
-            SpellBehaviourOneShot spellBehaviourOneShot = spellBehaviour as SpellBehaviourOneShot;
-            spellBehaviourOneShot.ColliderNoTrigger.enabled = true;
         }
     }
 
