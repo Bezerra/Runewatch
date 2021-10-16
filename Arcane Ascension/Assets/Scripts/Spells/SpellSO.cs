@@ -47,21 +47,23 @@ public class SpellSO : ScriptableObject, ISpell
     private SpellDamageType damageType;
 
     [BoxGroup("Damage")]
-    [EnableIf("damageType", SpellDamageType.AreaDamage)]
+    [ShowIf("damageType", SpellDamageType.AreaDamage)]
     [Tooltip("When this option is turned on, remember that MaxTime is the time the spell will remain active on the area.")]
     [SerializeField] private bool appliesDamageOvertime;
 
     [BoxGroup("Damage")]
-    //[EnableIf("@this.spellCastType == SpellCastType.ContinuousCast || this.damageType == SpellDamageType.Overtime")]
     [Tooltip("Interval between damage with Overtime damage spells or interval between damage with continuous spells.")]
+    [DisableIf("damageType", SpellDamageType.SingleTarget)]
     [Range(0.01f, 100)] [SerializeField] private float timeInterval;
 
     [BoxGroup("Damage")]
     [Tooltip("Time duration of overtime spell damage.")]
+    [DisableIf("damageType", SpellDamageType.SingleTarget)]
     [Range(0.1f, 100)] [SerializeField] private float maxTime;
 
     [BoxGroup("Damage")]
-    [DisableIf("damageType", SpellDamageType.Self)]
+    [DisableIf("@this.damageType == SpellDamageType.SingleTarget || this.damageType == SpellDamageType.Overtime || " +
+        "this.damageType == SpellDamageType.Self")]
     [Tooltip("Radius of effect after an AreaDamage spell hits something")]
     [Range(2f, 10f)] [SerializeField] private float areaOfEffect;
 
