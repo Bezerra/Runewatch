@@ -11,12 +11,16 @@ public class TesselationControl : MonoBehaviour
 
     private Shader shader;
 
+    [Header("Low Quality")]
     [Range(0f, 1f)] [SerializeField] private float heightStrengthLowQuality;
-    [Range(0f, 1f)] [SerializeField] private float heightStrengthMidQuality;
-    [Range(0f, 1f)] [SerializeField] private float heightStrengthHighQuality;
-
     [Range(1f, 32f)] [SerializeField] private float tessValueLowQuality;
+
+    [Header("Medium Quality")]
+    [Range(0f, 1f)] [SerializeField] private float heightStrengthMidQuality;
     [Range(1f, 32f)] [SerializeField] private float tessValueMidQuality;
+
+    [Header("High Quality")]
+    [Range(0f, 1f)] [SerializeField] private float heightStrengthHighQuality;
     [Range(1f, 32f)] [SerializeField] private float tessValueHighQuality;
 
     [SerializeField] private string terrainShaderPath;
