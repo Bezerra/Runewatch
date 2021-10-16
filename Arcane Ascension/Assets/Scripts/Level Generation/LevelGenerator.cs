@@ -170,6 +170,14 @@ public class LevelGenerator : MonoBehaviour, ISaveable
 
             // Level creation loop
             byte numberOfLoop = 0;
+
+            // Creates a list of room weights 
+            IList<int> roomWeights = new List<int>();
+            for (int i = 0; i < rooms.Length; i++)
+            {
+                roomWeights.Add(rooms[i].RoomWeight);
+            }
+
             while (openedContactPoints.Count > 0 && numberOfLoop < numberOfLoops)
             {
                 int openedContacts = openedContactPoints.Count;
@@ -203,7 +211,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                     if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor ||
                         openedContactPoints[i].ParentRoom.Type == PieceType.Stairs)
                     {
-                        pieceToPlace = Instantiate(rooms[random.Next(0, rooms.Length)]);
+                        pieceToPlace = Instantiate(rooms[random.RandomWeight(roomWeights)]);
                         pieceContactPoint = pieceToPlace.ContactPoints[random.Next(0, pieceToPlace.ContactPoints.Length)];
 
                         // Skips incompatible pieces

@@ -21,4 +21,7 @@ public class LevelPiece : MonoBehaviour
 
     [SerializeField] private BoxCollider[] boxColliders;
     public BoxCollider[] BoxColliders => boxColliders;
+
+    [SerializeField] private int roomWeight;
+    public int RoomWeight => roomWeight;
 }
