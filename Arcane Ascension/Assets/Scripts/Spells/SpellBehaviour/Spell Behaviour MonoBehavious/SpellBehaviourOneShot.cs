@@ -9,6 +9,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     // Variables to control spell behaviour
     public float TimeSpawned { get; private set; }
     public float TimeOfImpact { get; private set; }
+    public byte CurrentHitQuantity { get; set; }
     public Rigidbody Rb { get; private set; }
     public SphereCollider ColliderTrigger { get; private set; }
 

@@ -12,12 +12,14 @@ public abstract class DamageBehaviourAbstractSO : ScriptableObject, IDamageBehav
     /// </summary>
     /// <param name="other">Collider to damage.</param>
     /// <param name="parent">Parent spell.</param>
-    public abstract void Damage(Collider other, SpellBehaviourAbstract parent);
+    /// <param name="damageMultiplier">Damage multiplier. It's 1 by default.</param>
+    public abstract void Damage(Collider other, SpellBehaviourAbstract parent, float damageMultiplier = 1);
 
     /// <summary>
     /// Damage logic.
     /// </summary>
     /// <param name="other">Collider to get IDamageables to damage.</param>
     /// <param name="parent">Parent spell behaviour.</param>
-    protected abstract void DamageLogic(Collider other, SpellBehaviourAbstract parent);
+    /// <param name="damageMultiplier">Damage multiplier. It's 1 by default.</param>
+    protected abstract void DamageLogic(Collider other, SpellBehaviourAbstract parent, float damageMultiplier = 1);
 }

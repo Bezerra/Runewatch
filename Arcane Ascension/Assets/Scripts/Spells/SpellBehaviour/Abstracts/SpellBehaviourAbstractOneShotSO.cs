@@ -63,13 +63,11 @@ public abstract class SpellBehaviourAbstractOneShotSO: SpellBehaviourAbstractSO
     public abstract void ContinuousFixedUpdateBehaviour(SpellBehaviourOneShot parent);
 
     /// <summary>
-    /// Executes on hit.
+    /// Executes on hit. Creates hit impact.
     /// </summary>
     /// <param name="other">Collider.</param>
     public virtual void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
-        parent.Spell.DamageBehaviour.Damage(other, parent);
-
         // Calculates rotation of the spell to cast
         Quaternion spellLookRotation;
         if (Physics.Raycast(parent.transform.position,
@@ -100,8 +98,21 @@ public abstract class SpellBehaviourAbstractOneShotSO: SpellBehaviourAbstractSO
                 onHitBehaviour.Spell = parent.Spell;
             }
         }
-
-        // After the spell is set to zero velocity, it will start a counter to disable it on update behaviour
-        parent.Rb.velocity = Vector3.zero;
     }
+
+    /// <summary>
+    /// Applies damage behaviour.
+    /// </summary>
+    /// <param name="other">Colliders to get IDamageable from.</param>
+    /// <param name="parent">Parent spell behaviour.</param>
+    /// <param name="damageMultiplier">Damage multiplier. It's 1 by default.</param>
+    protected void DamageBehaviour(Collider other, SpellBehaviourOneShot parent, float damageMultiplier = 1) =>
+        parent.Spell.DamageBehaviour.Damage(other, parent, damageMultiplier);
+
+    /// <summary>
+    /// Stops spell speed.
+    /// After the spell is set to zero velocity, it will start a counter to disable it on update behaviour.
+    /// </summary>
+    protected void StopSpellSpeed(SpellBehaviourOneShot parent) =>
+        parent.Rb.velocity = Vector3.zero;
 }

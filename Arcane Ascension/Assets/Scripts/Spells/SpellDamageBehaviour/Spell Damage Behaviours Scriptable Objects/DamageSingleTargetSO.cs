@@ -12,9 +12,10 @@ public class DamageSingleTargetSO : DamageBehaviourAbstractSO
     /// </summary>
     /// <param name="other">Collider to damage.</param>
     /// <param name="parent">Parent spell behaviour.</param>
-    public override void Damage(Collider other, SpellBehaviourAbstract parent)
+    /// <param name="damageMultiplier">Damage multiplier. It's 1 by default.</param>
+    public override void Damage(Collider other, SpellBehaviourAbstract parent, float damageMultiplier = 1)
     {
-        DamageLogic(other, parent);
+        DamageLogic(other, parent, damageMultiplier);
     }
 
     /// <summary>
@@ -22,7 +23,8 @@ public class DamageSingleTargetSO : DamageBehaviourAbstractSO
     /// </summary>
     /// <param name="other">Collider to get IDamageables to damage.</param>
     /// <param name="parent">Parent spell behaviour.</param>
-    protected override void DamageLogic(Collider other, SpellBehaviourAbstract parent)
+    /// <param name="damageMultiplier">Damage multiplier. It's 1 by default.</param>
+    protected override void DamageLogic(Collider other, SpellBehaviourAbstract parent, float damageMultiplier = 1)
     {
         if (other.gameObject.TryGetComponentInParent<IDamageable>(out IDamageable character))
         {
@@ -30,7 +32,7 @@ public class DamageSingleTargetSO : DamageBehaviourAbstractSO
             if (!character.Equals(parent.ThisIDamageable))
             {
                 character.TakeDamage(parent.WhoCast.Attributes.BaseDamageMultiplier *
-                    parent.Spell.Damage, parent.WhoCast.Attributes.CriticalChance, parent.Spell.Element);
+                    parent.Spell.Damage * damageMultiplier, parent.WhoCast.Attributes.CriticalChance, parent.Spell.Element);
             }
         }
     }

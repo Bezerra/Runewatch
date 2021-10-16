@@ -13,9 +13,10 @@ public class DamageAoESO : DamageBehaviourAbstractSO
     /// </summary>
     /// <param name="other">Colliger to get IDamageables to damage.</param>
     /// <param name="parent">Parent spell behaviour.</param>
-    public override void Damage(Collider other, SpellBehaviourAbstract parent)
+    /// <param name="damageMultiplier">Damage multiplier. It's 1 by default.</param>
+    public override void Damage(Collider other, SpellBehaviourAbstract parent, float damageMultiplier = 1)
     {
-        DamageLogic(other, parent);
+        DamageLogic(other, parent, damageMultiplier);
     }
 
     /// <summary>
@@ -23,7 +24,8 @@ public class DamageAoESO : DamageBehaviourAbstractSO
     /// </summary>
     /// <param name="other">Collider to get IDamageables to damage.</param>
     /// <param name="parent">Parent spell behaviour.</param>
-    protected override void DamageLogic(Collider other, SpellBehaviourAbstract parent)
+    /// <param name="damageMultiplier">Damage multiplier. It's 1 by default.</param>
+    protected override void DamageLogic(Collider other, SpellBehaviourAbstract parent, float damageMultiplier = 1)
     {
         Collider[] collisions = Physics.OverlapSphere(
                     parent.transform.position, parent.Spell.AreaOfEffect, Layers.EnemyWithWalls);

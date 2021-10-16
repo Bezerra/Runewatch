@@ -34,4 +34,13 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
     {
         // Left blank on purpose
     }
+
+    public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
+    {
+        base.DamageBehaviour(other, parent);
+
+        base.HitTriggerBehaviour(other, parent);
+
+        StopSpellSpeed(parent);
+    }
 }

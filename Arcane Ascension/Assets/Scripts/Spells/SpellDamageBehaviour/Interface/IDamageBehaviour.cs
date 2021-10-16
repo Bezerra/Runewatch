@@ -10,5 +10,6 @@ public interface IDamageBehaviour
     /// </summary>
     /// <param name="other">Collision to damage.</param>
     /// <param name="parent">Parent spell behaviour.</param>
-    void Damage(Collider other, SpellBehaviourAbstract parent);
+    /// <param name="damageMultiplier">Damage multiplier. It's 1 by default.</param>
+    void Damage(Collider other, SpellBehaviourAbstract parent, float damageMultiplier = 1);
 }
