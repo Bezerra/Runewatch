@@ -53,19 +53,25 @@ public class TesselationControl : MonoBehaviour
         Debug.Log(QualitySettings.GetQualityLevel());
         foreach (Material material in tesselationMaterials)
         {
-            switch(QualitySettings.GetQualityLevel())
+            float tessValue = material.GetFloat("_TessValue");
+            float heightValue = material.GetFloat("_HeightStrength");
+
+            
+
+
+            switch (QualitySettings.GetQualityLevel())
             {
                 case 0:
-                    material.SetFloat("_HeightStrength", heightStrengthLowQuality);
-                    material.SetFloat("_TessValue", tessValueLowQuality);
+                    material.SetFloat("_HeightStrength", Mathf.Min(heightStrengthLowQuality, heightValue));
+                    material.SetFloat("_TessValue", Mathf.Min(tessValueLowQuality, tessValue));
                     break;
                 case 1:
-                    material.SetFloat("_HeightStrength", heightStrengthMidQuality);
-                    material.SetFloat("_TessValue", tessValueMidQuality);
+                    material.SetFloat("_HeightStrength", Mathf.Min(heightStrengthMidQuality, heightValue));
+                    material.SetFloat("_TessValue", Mathf.Min(tessValueMidQuality, tessValue));
                     break;
                 case 2:
-                    material.SetFloat("_HeightStrength", heightStrengthHighQuality);
-                    material.SetFloat("_TessValue", tessValueHighQuality);
+                    material.SetFloat("_HeightStrength", Mathf.Min(heightStrengthHighQuality, heightValue));
+                    material.SetFloat("_TessValue", Mathf.Min(tessValueHighQuality, tessValue));
                     break;
             }
         }
