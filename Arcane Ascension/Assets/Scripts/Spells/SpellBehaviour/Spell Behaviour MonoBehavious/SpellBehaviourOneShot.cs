@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 /// <summary>
 /// Parent spell behaviour for one shot spells.
@@ -9,7 +10,12 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     public float TimeSpawned { get; private set; }
     public float TimeOfImpact { get; private set; }
     public Rigidbody Rb { get; private set; }
-    public SphereCollider ColliderSphere { get; private set; }
+    [SerializeField] private SphereCollider colliderNoTrigger;
+    public SphereCollider ColliderNoTrigger => colliderNoTrigger;
+    [SerializeField] private SphereCollider colliderTrigger;
+    public SphereCollider ColliderTrigger => colliderTrigger;
+
+    private IList<GameObject> alreadyHitGameObjects;
 
     /// <summary>
     /// Gets SpellBehaviourAbstract as SpellBehaviourAbstractOneShotSO.
@@ -19,7 +25,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     private void Awake()
     {
         Rb = GetComponent<Rigidbody>();
-        ColliderSphere = GetComponent<SphereCollider>();
+        alreadyHitGameObjects = new List<GameObject>();
     }
 
     private void OnEnable()
@@ -42,29 +48,30 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
 
     private void OnCollisionEnter(Collision other)
     {
-        // If this spell is hitting something for the first time
-        if (ColliderSphere.enabled == true)
+        if (colliderNoTrigger != null)
         {
-            TimeOfImpact = Time.time;
-            SpellBehaviour.HitBehaviour(other, this);
-
-            SpawnGizmosAreaSpell(); // TEMPPPPPPPPPPPPPPPPPPPPP
+            // Collider is enabled when the behaviour starts
+            // If this spell is hitting something for the first time
+            if (ColliderNoTrigger.enabled == true)
+            {
+                TimeOfImpact = Time.time;
+                SpellBehaviour.HitNoTriggerBehaviour(other, this);
+            }
         }
     }
 
-    // TEMPPPPPPPPPPPPPPPPPPPPPPPPP /////////////////////////////////////
-    // TEMPPPPPPPPPPPPPPPPPPPPPPPPP /////////////////////////////////////
-    // TEMPPPPPPPPPPPPPPPPPPPPPPPPP /////////////////////////////////////
-    [SerializeField] GameObject tempSpellHitTESTS;
-    public void SpawnGizmosAreaSpell()
+    private void OnTriggerEnter(Collider other)
     {
-        if (tempSpellHitTESTS != null && spell.DamageType == SpellDamageType.AreaDamage)
+        if (colliderTrigger != null)
         {
-            GameObject temp = Instantiate(tempSpellHitTESTS, transform.position, Quaternion.identity);
-            temp.GetComponent<GizmosAreaSpell>().SpellRange = spell.AreaOfEffect;
+            if (alreadyHitGameObjects.Contains(other.gameObject) == false)
+            {
+                // If this spell is hitting something for the first time
+                TimeOfImpact = Time.time;
+                SpellBehaviour.HitTriggerBehaviour(other, this);
+
+                alreadyHitGameObjects.Add(other.gameObject);
+            }
         }
     }
-    // TEMPPPPPPPPPPPPPPPPPPPPPPPPP /////////////////////////////////////
-    // TEMPPPPPPPPPPPPPPPPPPPPPPPPP /////////////////////////////////////
-    // TEMPPPPPPPPPPPPPPPPPPPPPPPPP /////////////////////////////////////
 }

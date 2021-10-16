@@ -30,18 +30,8 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
         parent.Rb.velocity = parent.transform.forward * parent.Spell.Speed;
     }
 
-    public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
-    {
-        base.ContinuousUpdateBehaviour(parent);
-    }
-
     public override void ContinuousFixedUpdateBehaviour(SpellBehaviourOneShot parent)
     {
         // Left blank on purpose
-    }
-
-    public override void HitBehaviour(Collision other, SpellBehaviourOneShot parent)
-    {
-        base.HitBehaviour(other, parent);
     }
 }

@@ -17,7 +17,8 @@ public abstract class SpellBehaviourAbstractOneShotSO: SpellBehaviourAbstractSO
     public virtual void StartBehaviour(SpellBehaviourOneShot parent)
     {
         // Turns collidersphere on because it was turned off when the spell hit something
-        parent.ColliderSphere.enabled = true;
+        if (parent.ColliderNoTrigger != null)
+            parent.ColliderNoTrigger.enabled = true;
 
         // Creates spell muzzle
         // Update() will run from its monobehaviour script
@@ -69,7 +70,7 @@ public abstract class SpellBehaviourAbstractOneShotSO: SpellBehaviourAbstractSO
     /// Executes on hit.
     /// </summary>
     /// <param name="other">Collider.</param>
-    public virtual void HitBehaviour(Collision other, SpellBehaviourOneShot parent)
+    public virtual void HitNoTriggerBehaviour(Collision other, SpellBehaviourOneShot parent)
     {
         parent.Spell.DamageBehaviour.Damage(other, parent);
 
@@ -88,7 +89,36 @@ public abstract class SpellBehaviourAbstractOneShotSO: SpellBehaviourAbstractSO
             }
         }
 
-        parent.ColliderSphere.enabled = false;
+        parent.ColliderNoTrigger.enabled = false;
+        // After the spell is set to zero velocity, it will start a counter to disable it on update behaviour
+        parent.Rb.velocity = Vector3.zero;
+    }
+
+    /// <summary>
+    /// Executes on hit.
+    /// </summary>
+    /// <param name="other">Collider.</param>
+    public virtual void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
+    {
+        parent.Spell.DamageBehaviour.Damage(other, parent);
+
+        // Creates spell hit
+        // Update() will run from its monobehaviour script
+        if (parent.Spell.OnHitBehaviour != null)
+        {
+            // Spawns hit in direction of collider hit normal
+            GameObject onHitBehaviourGameObject = SpellHitPoolCreator.Pool.InstantiateFromPool(
+                parent.Spell.Name, parent.transform.position,
+                Quaternion.LookRotation(
+                    (parent.WhoCast.transform.position - parent.transform.position).normalized, other.transform.up));
+
+            if (onHitBehaviourGameObject.TryGetComponent<SpellOnHitBehaviour>(out SpellOnHitBehaviour onHitBehaviour))
+            {
+                onHitBehaviour.Spell = parent.Spell;
+            }
+        }
+
+        // After the spell is set to zero velocity, it will start a counter to disable it on update behaviour
         parent.Rb.velocity = Vector3.zero;
     }
 }

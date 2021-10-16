@@ -25,14 +25,12 @@ public class SpellSO : ScriptableObject, ISpell
     [SerializeField] private byte spellID;
 
     [VerticalGroup("General/Split/Right", 2)]
-    [HideLabel, TextArea(4, 6), SerializeField]
-    private string description;
+    [HideLabel, TextArea(4, 6), SerializeField] private string description;
 
     /// ---------------
     [BoxGroup("Spell General Attributes")]
-    [SerializeField, EnumToggleButtons, HideLabel]
     [Tooltip("Element of the spell.")]
-    private ElementType element;
+    [SerializeField, EnumToggleButtons, HideLabel] private ElementType element;
 
     [BoxGroup("Spell General Attributes")]
     [Tooltip("Mana cost of OneShotCast spells when used or every hit of a ContinuousCast spell")]
@@ -41,10 +39,8 @@ public class SpellSO : ScriptableObject, ISpell
     /// ---------------
 
     [BoxGroup("Damage")]
-    [SerializeField, EnumToggleButtons]
-    //[DisableIf("spellCastType", SpellCastType.ContinuousCast)]
     [Tooltip("Type of damage of the spell")]
-    private SpellDamageType damageType;
+    [SerializeField, EnumToggleButtons] private SpellDamageType damageType;
 
     [BoxGroup("Damage")]
     [ShowIf("damageType", SpellDamageType.AreaDamage)]
