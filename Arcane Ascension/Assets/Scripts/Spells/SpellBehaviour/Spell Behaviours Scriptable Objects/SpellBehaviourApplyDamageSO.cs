@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Scriptable object responsible for creating a spell's behaviour.
+/// Scriptable object responsible for applying normal damage.
 /// </summary>
 [CreateAssetMenu(menuName = "Spells/Spell Behaviour/Spell Behaviour Apply Damage", fileName = "Spell Behaviour Apply Damage")]
 public class SpellBehaviourApplyDamageSO : SpellBehaviourAbstractOneShotSO
@@ -23,8 +23,6 @@ public class SpellBehaviourApplyDamageSO : SpellBehaviourAbstractOneShotSO
 
     public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
-        DamageBehaviour(other, parent);
-
-        StopSpellSpeed(parent);
+        parent.Spell.DamageBehaviour.Damage(other, parent);
     }
 }

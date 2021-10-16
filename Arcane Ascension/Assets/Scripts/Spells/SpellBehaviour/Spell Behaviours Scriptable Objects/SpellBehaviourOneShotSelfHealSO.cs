@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Scriptable object responsible for creating a spell's behaviour.
+/// Scriptable object responsible for self healing.
 /// </summary>
 [CreateAssetMenu(menuName = "Spells/Spell Behaviour/Spell Behaviour Self Heal", fileName = "Spell Behaviour Self Heal")]
 sealed public class SpellBehaviourOneShotSelfHealSO : SpellBehaviourAbstractOneShotSO

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Scriptable object responsible for creating a spell's behaviour.
+/// Scriptable object responsible for disabling projectile after seconds.
 /// </summary>
 [CreateAssetMenu(menuName = "Spells/Spell Behaviour/Spell Behaviour Disable Projectile After Seconds", 
     fileName = "Spell Behaviour Disable Projectile After Seconds")]

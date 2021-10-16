@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31e7b1892db5f8943ac2eb1d1973b1ef, type: 3}
-  m_Name: Spell Behaviour Apply Damage Pierce
+  m_Script: {fileID: 11500000, guid: 48ff4bdcce0254845be4f1d43508762c, type: 3}
+  m_Name: Spell Behaviour Stop Spell On Enemy, Player
   m_EditorClassIdentifier: 
   fileName: 
-  typeOfPierce: 0
-  hitQuantity: 3
-  damageModifier: 2
-  enemyLayerNumber: 10
+  description: stops on walls, floor, enemies, player
+  layersToStopTheSpell: 080000000a000000

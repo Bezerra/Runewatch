@@ -1,16 +1,18 @@
 using UnityEngine;
 
 /// <summary>
-/// Scriptable object responsible for creating a spell's behaviour.
+/// Scriptable object responsible for applying piercing damage, meaning it won't disable after hiting the first enemy.
 /// </summary>
 [CreateAssetMenu(menuName = "Spells/Spell Behaviour/Spell Behaviour Apply Damage Pierce", fileName = "Spell Behaviour Apply Damage Pierce")]
 sealed public class SpellBehaviourApplyDamagePierceSO : SpellBehaviourAbstractOneShotSO
 {
     [Space(20)]
+    [Header("THIS BEHAVIOUR ALSO STOPS SPELL SPEED AFTER HIT QUANTITY IS REACHED")]
     [SerializeField] private TypeOfPierce typeOfPierce;
     [Range(2, 20)] [SerializeField] private byte hitQuantity;
     [Tooltip("Divides or multiplies damage by this factor, depending on type of pierce")]
     [Range(1, 4)] [SerializeField] private byte damageModifier = 2;
+    [SerializeField] private int enemyLayerNumber;
 
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
@@ -29,10 +31,14 @@ sealed public class SpellBehaviourApplyDamagePierceSO : SpellBehaviourAbstractOn
 
     public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
-        base.DamageBehaviour(other, parent, CalculateModifier(parent.CurrentHitQuantity, typeOfPierce));
+        parent.Spell.DamageBehaviour.Damage(other, parent, CalculateModifier(parent.CurrentPierceHitQuantity, typeOfPierce));
 
-        if (++parent.CurrentHitQuantity >= hitQuantity)
-            base.StopSpellSpeed(parent);
+        // If it hits an enemy
+        if (other.gameObject.layer == enemyLayerNumber)
+        {
+            if (++parent.CurrentPierceHitQuantity >= hitQuantity)
+                parent.Rb.velocity = Vector3.zero;
+        }
     }
 
     /// <summary>

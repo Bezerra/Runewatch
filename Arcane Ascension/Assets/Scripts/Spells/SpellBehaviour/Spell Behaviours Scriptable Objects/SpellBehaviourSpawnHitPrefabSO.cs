@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Scriptable object responsible for creating a spell's behaviour.
+/// Scriptable object responsible for spawning hit prefab.
 /// </summary>
 [CreateAssetMenu(menuName = "Spells/Spell Behaviour/Spell Behaviour Spawn Hit Prefab", fileName = "Spell Behaviour Spawn Hit Prefab")]
 public class SpellBehaviourSpawnHitPrefabSO : SpellBehaviourAbstractOneShotSO
