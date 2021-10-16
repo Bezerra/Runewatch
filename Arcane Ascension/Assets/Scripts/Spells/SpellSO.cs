@@ -4,6 +4,7 @@
 
 using UnityEngine;
 using Sirenix.OdinInspector;
+using System.Collections.Generic;
 
 /// <summary>
 /// Scriptableobject for spells creation.
@@ -85,24 +86,28 @@ public class SpellSO : ScriptableObject, ISpell
     [Tooltip("Cooldown of the spells WHEN EQUIPED and OneShotCasts spells after being used")]
     [Range(0, 10)] [SerializeField] private float cooldown;
 
+    
     [BoxGroup("Behaviours")]
+    [Tooltip("What happens after the spell is spawned. Should contain at least and movement and apply damage behaviour")]
+    [SerializeField] private List<SpellBehaviourAbstractSO> spellBehaviour;
+
+    [BoxGroup("Behaviours")]
+    [Tooltip("What kind of damage will it be")]
     [SerializeField] private DamageBehaviourAbstractSO damageBehaviour;
-
-    [BoxGroup("Behaviours")]
-    [Tooltip("What happens after the spell is spawned")]
-    [SerializeField] private SpellBehaviourAbstractSO spellBehaviour;
-
-    [BoxGroup("Behaviours")]
-    [Tooltip("What happens after the spell hit prefab is spawned (spawned after the spell hits something)")]
-    [SerializeField] private SpellOnHitBehaviourAbstractSO onHitBehaviour;
-
-    [BoxGroup("Behaviours")]
-    [Tooltip("What happens after the spell hit prefab is spawned (spawned after the spell hits something)")]
-    [SerializeField] private SpellMuzzleBehaviourAbstractSO muzzleBehaviour;
 
     [BoxGroup("Behaviours")]
     [Tooltip("Attack behaviour of this spell")]
     [SerializeField] private AttackBehaviourAbstractSO attackBehaviour;
+
+    [BoxGroup("Behaviours Of Muzzle and Hit prefabs")]
+    [Tooltip("What happens after the spell hit prefab is spawned (spawned after the spell hits something)")]
+    [SerializeField] private SpellOnHitBehaviourAbstractSO onHitBehaviour;
+
+    [BoxGroup("Behaviours Of Muzzle and Hit prefabs")]
+    [Tooltip("What happens after the spell hit prefab is spawned (spawned after the spell hits something)")]
+    [SerializeField] private SpellMuzzleBehaviourAbstractSO muzzleBehaviour;
+
+    
 
     [BoxGroup("Prefabs")]
     [Tooltip("Spell prefab (vfx)")]
@@ -142,9 +147,9 @@ public class SpellSO : ScriptableObject, ISpell
     public float Speed { get => speed; set => speed = value; }
     public float Cooldown => cooldown;
     public float CooldownCounter { get; set; }
+    public IList<SpellBehaviourAbstractSO> SpellBehaviour => spellBehaviour;
     public SpellOnHitBehaviourAbstractSO OnHitBehaviour => onHitBehaviour;
     public SpellMuzzleBehaviourAbstractSO MuzzleBehaviour => muzzleBehaviour;
-    public SpellBehaviourAbstractSO SpellBehaviour => spellBehaviour;
     public AttackBehaviourAbstractSO AttackBehaviour => attackBehaviour;
     public DamageBehaviourAbstractSO DamageBehaviour => damageBehaviour;
     /// <summary>

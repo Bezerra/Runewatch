@@ -10,13 +10,6 @@ sealed public class SpellBehaviourOneShotSelfHealSO : SpellBehaviourAbstractOneS
 
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
-        // Starts cooldown
-        if (parent.WhoCast.TryGetComponent<PlayerSpells>(out PlayerSpells playerSpells))
-            playerSpells.StartSpellCooldown(playerSpells.ActiveSpell);
-
-        // Takes mana from player
-        parent.WhoCast.ReduceMana(parent.Spell.ManaCost);
-
         IHealable character = parent.WhoCast;
         character.Heal(parent.Spell.Damage, healingStats);
     }
@@ -29,6 +22,11 @@ sealed public class SpellBehaviourOneShotSelfHealSO : SpellBehaviourAbstractOneS
     }
 
     public override void ContinuousFixedUpdateBehaviour(SpellBehaviourOneShot parent)
+    {
+        // Left blank on purpose
+    }
+
+    public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
         // Left blank on purpose
     }

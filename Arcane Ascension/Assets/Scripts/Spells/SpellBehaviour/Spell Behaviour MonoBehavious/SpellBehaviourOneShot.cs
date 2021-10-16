@@ -15,11 +15,6 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
 
     private IList<GameObject> alreadyHitGameObjects;
 
-    /// <summary>
-    /// Gets SpellBehaviourAbstract as SpellBehaviourAbstractOneShotSO.
-    /// </summary>
-    private SpellBehaviourAbstractOneShotSO SpellBehaviour => spell.SpellBehaviour as SpellBehaviourAbstractOneShotSO;
-
     private void Awake()
     {
         Rb = GetComponent<Rigidbody>();
@@ -36,14 +31,23 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     /// Method called after instantiating the spell.
     /// Must be called manually through this method instead of OnEnable or Start in order to prevent bugs.
     /// </summary>
-    public override void TriggerStartBehaviour() =>
-        SpellBehaviour.StartBehaviour(this);
+    public override void TriggerStartBehaviour()
+    {
+        foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviour)
+            behaviour.StartBehaviour(this);
+    }
 
-    private void Update() =>
-        SpellBehaviour.ContinuousUpdateBehaviour(this);
+    private void Update()
+    {
+        foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviour)
+            behaviour.ContinuousUpdateBehaviour(this);
+    }
 
-    private void FixedUpdate() =>
-        SpellBehaviour.ContinuousFixedUpdateBehaviour(this);
+    private void FixedUpdate()
+    {
+        foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviour)
+            behaviour.ContinuousFixedUpdateBehaviour(this);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -51,7 +55,8 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         {
             // If this spell is hitting something for the first time
             TimeOfImpact = Time.time;
-            SpellBehaviour.HitTriggerBehaviour(other, this);
+            foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviour)
+                behaviour.HitTriggerBehaviour(other, this);
 
             alreadyHitGameObjects.Add(other.gameObject);
         }

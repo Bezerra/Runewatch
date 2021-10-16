@@ -11,8 +11,6 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
 
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
-        base.StartBehaviour(parent);
-
         // Direction of the spell
         Ray forward = new Ray(parent.Eyes.position, parent.Eyes.forward);
 
@@ -30,6 +28,11 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
         parent.Rb.velocity = parent.transform.forward * parent.Spell.Speed;
     }
 
+    public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
+    {
+        // Left blank on purpose
+    }
+
     public override void ContinuousFixedUpdateBehaviour(SpellBehaviourOneShot parent)
     {
         // Left blank on purpose
@@ -37,10 +40,6 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
 
     public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
-        base.DamageBehaviour(other, parent);
-
-        base.HitTriggerBehaviour(other, parent);
-
-        StopSpellSpeed(parent);
+        // Left blank on purpose
     }
 }

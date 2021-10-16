@@ -27,11 +27,18 @@ MonoBehaviour:
   spellCastType: 0
   speed: 14.1
   cooldown: 0.5
+  spellBehaviour:
+  - {fileID: 11400000, guid: 20cb4169d3aa11d468e125db71cf86b6, type: 2}
+  - {fileID: 11400000, guid: d2c5c4e6348a2c74ab1fd6caa56ffcdd, type: 2}
+  - {fileID: 11400000, guid: 391e6fdc62eda2c4ba7dae6900236270, type: 2}
+  - {fileID: 11400000, guid: f8c7cdcdb8b96c042b4c248f0aa3fe7a, type: 2}
+  - {fileID: 11400000, guid: 3b5eddfcd23baf94bbbd6440e9bfe209, type: 2}
+  - {fileID: 11400000, guid: 551155c3044876149a4d8ec909880225, type: 2}
+  - {fileID: 11400000, guid: 45981edeb4811a64383bb1f8bdb80346, type: 2}
   damageBehaviour: {fileID: 11400000, guid: f61f29a589d8b6b49ab8eb8d558e9ac2, type: 2}
-  spellBehaviour: {fileID: 11400000, guid: e0c604840e8b1b14299cbff17d3a44ce, type: 2}
+  attackBehaviour: {fileID: 11400000, guid: 951b735271f52a24b8c27da0e99a077c, type: 2}
   onHitBehaviour: {fileID: 11400000, guid: b67a21e782d7c3141894566198d37048, type: 2}
   muzzleBehaviour: {fileID: 11400000, guid: da438eaf63e47e74a8e7e0d60862b84e, type: 2}
-  attackBehaviour: {fileID: 11400000, guid: 951b735271f52a24b8c27da0e99a077c, type: 2}
   spellPrefab: {fileID: 7189111728712202335, guid: 355b6c478edfc8c45aab89b8f44c50ec, type: 3}
   spellHitPrefab: {fileID: 1692217177674820475, guid: 249ff8fdfe400894fa30033cc0488cde, type: 3}
   spellMuzzlePrefab: {fileID: 7228047335470632946, guid: eda80f7073e91d048b22ed402743ac54, type: 3}

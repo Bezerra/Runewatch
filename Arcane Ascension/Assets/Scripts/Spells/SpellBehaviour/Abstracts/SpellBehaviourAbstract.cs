@@ -40,6 +40,9 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour
     /// Immediatly disables spell gameobject.
     /// </summary>
     /// <param name="parent">Spell parent.</param>
-    public void DisableSpell(SpellBehaviourAbstract parent) =>
-        spell.SpellBehaviour.DisableSpell(parent);
+    public void DisableSpell(SpellBehaviourAbstract parent)
+    {
+        foreach(SpellBehaviourAbstractSO behaviour in spell.SpellBehaviour)
+            behaviour.DisableSpell(parent);
+    }
 }

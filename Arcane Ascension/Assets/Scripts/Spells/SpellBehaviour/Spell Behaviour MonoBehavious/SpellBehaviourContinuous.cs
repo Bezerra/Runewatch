@@ -8,16 +8,14 @@ public class SpellBehaviourContinuous : SpellBehaviourAbstract
     public float LastTimeHit { get; set; }
 
     /// <summary>
-    /// Gets SpellBehaviourAbstract as SpellBehaviourAbstractContinuousSO.
-    /// </summary>
-    private SpellBehaviourAbstractContinuousSO SpellBehaviour => spell.SpellBehaviour as SpellBehaviourAbstractContinuousSO;
-
-    /// <summary>
     /// Method called after instantiating the spell.
     /// Must be called manually through this method instead of OnEnable or Start in order to prevent bugs.
     /// </summary>
-    public override void TriggerStartBehaviour() =>
-        SpellBehaviour.StartBehaviour(this);
+    public override void TriggerStartBehaviour()
+    {
+        foreach (SpellBehaviourAbstractContinuousSO behaviour in spell.SpellBehaviour)
+            behaviour.StartBehaviour(this);
+    }
 
     private void Update()
     {
@@ -25,12 +23,19 @@ public class SpellBehaviourContinuous : SpellBehaviourAbstract
         if (WhoCast != null)
         {
             if (WhoCast.Mana - spell.ManaCost <= 0)
-                SpellBehaviour.DisableSpell(this);
+            {
+                foreach (SpellBehaviourAbstractContinuousSO behaviour in spell.SpellBehaviour)
+                    behaviour.DisableSpell(this);
+            }
         }
 
-        SpellBehaviour.ContinuousUpdateBehaviour(this);
+        foreach (SpellBehaviourAbstractContinuousSO behaviour in spell.SpellBehaviour)
+            behaviour.ContinuousUpdateBehaviour(this);
     }
 
-    private void FixedUpdate() =>
-        SpellBehaviour.ContinuousFixedUpdateBehaviour(this);
+    private void FixedUpdate()
+    {
+        foreach (SpellBehaviourAbstractContinuousSO behaviour in spell.SpellBehaviour)
+            behaviour.ContinuousFixedUpdateBehaviour(this);
+    }
 }
