@@ -96,7 +96,11 @@ public class SpellSO : ScriptableObject, ISpell
 
     [BoxGroup("Behaviours")]
     [Tooltip("What happens after the spell hit prefab is spawned (spawned after the spell hits something)")]
-    [SerializeField] private SpellOnHitBehaviourSO onHitBehaviour;
+    [SerializeField] private SpellOnHitBehaviourAbstractSO onHitBehaviour;
+
+    [BoxGroup("Behaviours")]
+    [Tooltip("What happens after the spell hit prefab is spawned (spawned after the spell hits something)")]
+    [SerializeField] private SpellMuzzleBehaviourAbstractSO muzzleBehaviour;
 
     [BoxGroup("Behaviours")]
     [Tooltip("Attack behaviour of this spell")]
@@ -140,7 +144,8 @@ public class SpellSO : ScriptableObject, ISpell
     public float Speed { get => speed; set => speed = value; }
     public float Cooldown => cooldown;
     public float CooldownCounter { get; set; }
-    public SpellOnHitBehaviourSO OnHitBehaviour => onHitBehaviour;
+    public SpellOnHitBehaviourAbstractSO OnHitBehaviour => onHitBehaviour;
+    public SpellMuzzleBehaviourAbstractSO MuzzleBehaviour => muzzleBehaviour;
     public SpellBehaviourAbstractSO SpellBehaviour => spellBehaviour;
     public AttackBehaviourAbstractSO AttackBehaviour => attackBehaviour;
     public DamageBehaviourAbstractSO DamageBehaviour => damageBehaviour;

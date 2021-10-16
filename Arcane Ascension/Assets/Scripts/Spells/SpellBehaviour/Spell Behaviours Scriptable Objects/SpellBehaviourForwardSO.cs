@@ -11,8 +11,7 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
 
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
-        // Turns collidersphere on because it was turned off when the spell hit something
-        parent.ColliderSphere.enabled = true;
+        base.StartBehaviour(parent);
 
         // Direction of the spell
         Ray forward = new Ray(parent.Eyes.position, parent.Eyes.forward);
@@ -27,20 +26,8 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
             parent.transform.LookAt(finalDirection);
         }
 
-        // Creates spell muzzle
-        SpellMuzzlePoolCreator.Pool.InstantiateFromPool(
-            parent.Spell.Name, parent.transform.position,
-            Quaternion.LookRotation(parent.transform.forward, parent.transform.up));
-
         // Moves the spell forward
         parent.Rb.velocity = parent.transform.forward * parent.Spell.Speed;
-
-        // Starts cooldown of the spell
-        if (parent.WhoCast.TryGetComponent<PlayerSpells>(out PlayerSpells playerSpells))
-            playerSpells.StartSpellCooldown(playerSpells.ActiveSpell);
-
-        // Takes mana from player
-        parent.WhoCast.ReduceMana(parent.Spell.ManaCost);
     }
 
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)

@@ -2,10 +2,10 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 
 /// <summary>
-/// Abstract class responsible for executing a spell hit behaviour.
+/// Abstract scriptable object responsible for executing a spell hit behaviour.
 /// </summary>
 [InlineEditor]
-public abstract class SpellOnHitBehaviourSO : ScriptableObject
+public abstract class SpellOnHitBehaviourAbstractSO : ScriptableObject
 {
     /// <summary>
     /// Executes when prefab is enabled.
