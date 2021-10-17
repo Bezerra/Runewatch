@@ -5,6 +5,8 @@ using UnityEngine;
 /// </summary>
 public abstract class SpellBehaviourAbstract : MonoBehaviour
 {
+    public abstract ISpell Spell { get; }
+
     public Transform Hand { get; private set; }
     public Transform Eyes { get; private set; }
     public IDamageable ThisIDamageable { get; private set; }
@@ -25,8 +27,6 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour
             }
         }
     }
-
-    public abstract ISpell Spell { get; }
 
     /// <summary>
     /// Method called after instantiating the spell.
