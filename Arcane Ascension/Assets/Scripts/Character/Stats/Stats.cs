@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using System.Text;
-using System;
 
 /// <summary>
 /// Class responsible for controlling character stats.
@@ -103,6 +102,17 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth, IMana, IArm
     public void TakeDamage(float damage, ElementType element)
     {
         float damageToReceive = Mathf.Floor(damage * (ElementsDamage.CalculateDamage(element, Attributes.Element)));
+
+        // Spawn damage text
+        if (character.CommonValues.CharacterValues.Type != CharacterType.Player)
+        {
+            GameObject damageHitText =
+                        DamageHitPoolCreator.Pool.InstantiateFromPool("DamageHit", transform.position, Quaternion.identity);
+            if (damageHitText.TryGetComponent<DamageHitText>(out DamageHitText outDamageHitText))
+            {
+                outDamageHitText.UpdateShownDamage(damageToReceive, false);
+            }
+        }
 
         if (Armor - damageToReceive > 0)
         {

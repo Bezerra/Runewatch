@@ -9,6 +9,8 @@ sealed public class DamageHitText : MonoBehaviour
     // Components
     private TextMesh damageText;
     private Camera mainCamera;
+    private Rigidbody rb;
+    private Animator anim;
 
     // Damage colors
     [SerializeField] private Color normalDamageColor;
@@ -16,19 +18,27 @@ sealed public class DamageHitText : MonoBehaviour
     [Range(0, 2)][SerializeField] private float offset;
     [Range(50, 500)][SerializeField] private float speed;
 
-    private Rigidbody rb;
 
     private void Awake()
     {
         damageText = GetComponent<TextMesh>();
         mainCamera = Camera.main;
         rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
     }
 
     private void OnEnable()
     {
         if (mainCamera == null)
             mainCamera = Camera.main;
+    }
+
+    private void OnDisable()
+    {
+        // Sets kinematic to disable every force
+        rb.isKinematic = true;
+        anim.ResetTrigger("NormalHit");
+        anim.ResetTrigger("CriticalHit");
     }
 
     /// <summary>
@@ -38,6 +48,8 @@ sealed public class DamageHitText : MonoBehaviour
     /// <param name="criticalHit">Critical hit.</param>
     public void UpdateShownDamage(float damage, bool criticalHit)
     {
+        rb.isKinematic = false;
+
         // Spawn random position
         float additionalOffset = Random.Range(-offset, offset);
         transform.position += new Vector3(additionalOffset, offset, additionalOffset);
@@ -47,10 +59,18 @@ sealed public class DamageHitText : MonoBehaviour
 
         // Update text and color
         damageText.text = damage.ToString();
-        damageText.color = 
-            criticalHit ? 
-            damageText.color = criticalDamageColor : 
-            damageText.color = normalDamageColor;
+
+        // Updates color and animation depending on critical hit
+        if (criticalHit == false)
+        {
+            anim.SetTrigger("NormalHit");
+            damageText.color = normalDamageColor; 
+        }
+        else
+        {
+            anim.SetTrigger("CriticalHit");
+            damageText.color = criticalDamageColor;
+        } 
     }
 
 
