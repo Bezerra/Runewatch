@@ -29,10 +29,9 @@ public class SpellMuzzlePoolCreator : MonoBehaviour
         // Foreach existent spell, creates a spellPool with its prefab and the size of the pool
         for (int i = 0; i < allSpells.Count; i++)
         {
-            SpellPool spawnedSpellMuzzlePool = new SpellPool();
             if (allSpells[i].Prefab.Item3 != null)
             {
-                spawnedSpellMuzzlePool.Initialize(allSpells[i].Prefab.Item3, allSpells[i].Prefab.Item1, poolSize);
+                SpellPool spawnedSpellMuzzlePool = new SpellPool(allSpells[i].Prefab.Item3, allSpells[i].Prefab.Item1, poolSize);
                 listSpellMuzzlePools.Add(spawnedSpellMuzzlePool);
             }
         }

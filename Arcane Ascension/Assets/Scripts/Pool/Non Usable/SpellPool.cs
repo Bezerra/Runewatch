@@ -21,30 +21,22 @@ sealed public class SpellPool: BasePool
     // This variable keeps track of the original spell
     private GameObject parentSpellPrefab;
 
-    public override GameObject Prefab => prefab;
-    public override int Size => size;
-
     /// <summary>
-    /// Initializer for spells.
+    /// Constructor for spell pool.
     /// </summary>
     /// <param name="prefab">Spell prefab.</param>
-    /// <param name="size">Size of the pool.</param>
-    public void Initialize(GameObject prefab, int size)
-    {
-        this.prefab = prefab;
-        this.size = size;
-    }
+    /// <param name="size">Size of pool.</param>
+    public SpellPool(GameObject prefab, int size) : base(prefab, size)
+    { }
 
     /// <summary>
-    /// Initializes for hits and muzzles.
+    /// Constructor for hits and muzzles.
     /// </summary>
     /// <param name="prefab">Hit or muzzle prefab.</param>
     /// <param name="parentSpellPrefab">Spell prefab.</param>
     /// <param name="size">Size of the pool.</param>
-    public void Initialize(GameObject prefab, GameObject parentSpellPrefab, int size)
+    public SpellPool(GameObject prefab, GameObject parentSpellPrefab, int size) : base(prefab, size)
     {
-        this.prefab = prefab;
-        this.size = size;
         this.parentSpellPrefab = parentSpellPrefab;
     }
 }

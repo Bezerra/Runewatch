@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
@@ -13,12 +12,9 @@ public class PlayerHandEffect : MonoBehaviour
     private GameObject spawnedSpell;
     private IList<GameObject> previousSpawnedSpell;
     private IList<VisualEffect> vfxPreviousSpawnedSpell;
-    private YieldInstruction wffu;
-    private IEnumerator changeEffectCoroutine;
 
     private void Awake()
     {
-        wffu = new WaitForFixedUpdate();
         previousSpawnedSpell = new List<GameObject>();
         vfxPreviousSpawnedSpell = new List<VisualEffect>();
     }
@@ -50,11 +46,10 @@ public class PlayerHandEffect : MonoBehaviour
     {
         if (spawnedSpell != null)
         {
-            spawnedSpell.transform.position = currentEffectPosition.position;
-            spawnedSpell.transform.rotation = currentEffectPosition.rotation;
+            spawnedSpell.transform.SetPositionAndRotation(currentEffectPosition.position, currentEffectPosition.rotation);
         }
 
-        // If there's a previws spell still active, it wil ldisable it when it stops emitting particles
+        // If there's a previows spell still active, it will disable it when it stops emitting particles
         if (vfxPreviousSpawnedSpell.Count > 0)
         {
             for (int i = 0; i < vfxPreviousSpawnedSpell.Count; i++)

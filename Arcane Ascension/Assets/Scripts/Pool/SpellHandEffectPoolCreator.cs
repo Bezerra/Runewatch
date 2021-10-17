@@ -29,10 +29,9 @@ public class SpellHandEffectPoolCreator : MonoBehaviour
         // Foreach existent spell, creates a spellPool with its prefab and the size of the pool
         for (int i = 0; i < allSpells.Count; i++)
         {
-            SpellPool spawnedHandEffectPool = new SpellPool();
             if (allSpells[i].Prefab.Item4 != null)
             {
-                spawnedHandEffectPool.Initialize(allSpells[i].Prefab.Item4, allSpells[i].Prefab.Item1, poolSize);
+                SpellPool spawnedHandEffectPool = new SpellPool(allSpells[i].Prefab.Item4, allSpells[i].Prefab.Item1, poolSize);
                 listHandEffectPools.Add(spawnedHandEffectPool);
             }
         }

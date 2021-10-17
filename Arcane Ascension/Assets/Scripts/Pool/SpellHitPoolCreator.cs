@@ -29,10 +29,9 @@ public class SpellHitPoolCreator : MonoBehaviour
         // Foreach existent spell, creates a spellPool with its prefab and the size of the pool
         for (int i = 0; i < allSpells.Count; i++)
         {
-            SpellPool spawnedSpellHitPool = new SpellPool();
             if (allSpells[i].Prefab.Item3 != null)
             {
-                spawnedSpellHitPool.Initialize(allSpells[i].Prefab.Item2, allSpells[i].Prefab.Item1, poolSize);
+                SpellPool spawnedSpellHitPool = new SpellPool(allSpells[i].Prefab.Item2, allSpells[i].Prefab.Item1, poolSize);
                 listSpellHitPools.Add(spawnedSpellHitPool);
             }
         }

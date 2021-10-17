@@ -8,11 +8,9 @@ public struct ObjectPool<T> where T : BasePool
 {
     private readonly IDictionary<string, Queue<GameObject>> poolDictionary;
 
-
     public ObjectPool(IDictionary<string, Queue<GameObject>> poolDictionary)
     {
         this.poolDictionary = poolDictionary;
-
     }
 
     /// <summary>

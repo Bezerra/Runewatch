@@ -141,6 +141,10 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth, IMana, IArm
     /// <param name="element">Element of the damage.</param>
     public void TakeDamage(float damage, float criticalChance, ElementType element)
     {
+        //DamageHitPoolCreator.Pool.InstantiateFromPool("DamageHit", transform.position, Quaternion.identity);
+
+        //damageHitText.text = Mathf.Floor(damage).ToString();
+
         // Critical check
         // If random.NextDouble is less than critical chance, it will do double damage
         damage = random.NextDouble() < criticalChance ? damage *= 2 : damage *= 1;
