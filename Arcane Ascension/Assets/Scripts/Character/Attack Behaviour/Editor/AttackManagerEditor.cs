@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using Sirenix.OdinInspector;
@@ -37,7 +36,7 @@ public class AttackManagerEditor : OdinMenuEditorWindow
         tree.Add("Create New Behaviour/New Behaviour One Shot", new CreateAttackBehaviourOneShot());
         tree.Add("Create New Behaviour/New Behaviour Continuous", new CreateAttackBehaviourContinuous());
 
-        tree.AddAllAssetsAtPath("Spell Behaviours",
+        tree.AddAllAssetsAtPath("Attack Behaviours",
             "Assets/Resources/Scriptable Objects/Attack Behaviours", typeof(AttackBehaviourAbstractSO));
 
         return tree;
