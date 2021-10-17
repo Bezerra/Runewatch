@@ -32,7 +32,6 @@ public class SpellManagerEditor : OdinMenuEditorWindow
     private CreateStopSpellOnHitData stopSpellOnHitData;
     private CreateUpdateManaAndCooldownData updateManaAndCooldownData;
 
-
     protected override void OnGUI()
     {
         SirenixEditorGUI.Title("Spell Manager", "", TextAlignment.Center, true, true);
@@ -115,11 +114,44 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         if (createNewSpellData != null)
             DestroyImmediate(createNewSpellData.Spell);
 
-        if (createNewSpellData != null)
+        if (continuousBehaviourData != null)
             DestroyImmediate(continuousBehaviourData.Spell);
 
-        if (createNewSpellData != null)
+        if (forwardBehaviourData != null)
             DestroyImmediate(forwardBehaviourData.Spell);
+
+        if (selfHealOneShotBehaviourData != null)
+            DestroyImmediate(selfHealOneShotBehaviourData.Spell);
+
+        if (applyDamagePierceBehaviourData != null)
+            DestroyImmediate(applyDamagePierceBehaviourData.Spell);
+
+        if (applyDamageBehaviourData != null)
+            DestroyImmediate(applyDamageBehaviourData.Spell);
+
+        if (bounceOnHitBehaviourData != null)
+            DestroyImmediate(bounceOnHitBehaviourData.Spell);
+
+        if (commonBehavioursData != null)
+            DestroyImmediate(commonBehavioursData.Spell);
+
+        if (disableProjectileAfterSecondsData != null)
+            DestroyImmediate(disableProjectileAfterSecondsData.Spell);
+
+        if (disableProjectileVelocityZeroData != null)
+            DestroyImmediate(disableProjectileVelocityZeroData.Spell);
+
+        if (spawnHitPrefabData != null)
+            DestroyImmediate(spawnHitPrefabData.Spell);
+
+        if (spawnMuzzlePrefabData != null)
+            DestroyImmediate(spawnMuzzlePrefabData.Spell);
+
+        if (stopSpellOnHitData != null)
+            DestroyImmediate(stopSpellOnHitData.Spell);
+
+        if (updateManaAndCooldownData != null)
+            DestroyImmediate(updateManaAndCooldownData.Spell);
     }
 
     /// <summary>
