@@ -21,6 +21,16 @@ public class SpellManagerEditor : OdinMenuEditorWindow
     private CreateContinuousBehaviourData continuousBehaviourData;
     private CreateForwardBehaviourData forwardBehaviourData;
     private CreateSelfHealOneShotBehaviourData selfHealOneShotBehaviourData;
+    private CreateApplyDamagePierceBehaviourData applyDamagePierceBehaviourData;
+    private CreateApplyDamageBehaviourData applyDamageBehaviourData;
+    private CreateBounceOnHitBehaviourData bounceOnHitBehaviourData;
+    private CreateCommonBehavioursData commonBehavioursData;
+    private CreateDisableProjectileAfterSecondsData disableProjectileAfterSecondsData;
+    private CreateDisableProjectileVelocityZeroData disableProjectileVelocityZeroData;
+    private CreateSpawnHitPrefabData spawnHitPrefabData;
+    private CreateSpawnMuzzlePrefabData spawnMuzzlePrefabData;
+    private CreateStopSpellOnHitData stopSpellOnHitData;
+    private CreateUpdateManaAndCooldownData updateManaAndCooldownData;
 
 
     protected override void OnGUI()
@@ -38,13 +48,41 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         continuousBehaviourData = new CreateContinuousBehaviourData();
         forwardBehaviourData = new CreateForwardBehaviourData();
         selfHealOneShotBehaviourData = new CreateSelfHealOneShotBehaviourData();
+        applyDamagePierceBehaviourData = new CreateApplyDamagePierceBehaviourData();
+        applyDamageBehaviourData = new CreateApplyDamageBehaviourData();
+        bounceOnHitBehaviourData = new CreateBounceOnHitBehaviourData();
+        commonBehavioursData = new CreateCommonBehavioursData();
+        disableProjectileAfterSecondsData = new CreateDisableProjectileAfterSecondsData();
+        disableProjectileVelocityZeroData = new CreateDisableProjectileVelocityZeroData();
+        spawnHitPrefabData = new CreateSpawnHitPrefabData();
+        spawnMuzzlePrefabData = new CreateSpawnMuzzlePrefabData();
+        stopSpellOnHitData = new CreateStopSpellOnHitData();
+        updateManaAndCooldownData = new CreateUpdateManaAndCooldownData();
 
         tree.Add("Create New Behaviour/New Behaviour Forward", new CreateForwardBehaviourData());
         tree.Add("Create New Behaviour/New Behaviour Continuous", new CreateContinuousBehaviourData());
         tree.Add("Create New Behaviour/New Behaviour Self Heal", new CreateSelfHealOneShotBehaviourData());
-        tree.Add("Create New Spell", new CreateNewSpellData());
+        tree.Add("Create New Behaviour/New Behaviour Apply Damage Pierce", new CreateApplyDamagePierceBehaviourData());
+        tree.Add("Create New Behaviour/New Behaviour Apply Damage", new CreateApplyDamageBehaviourData());
+        tree.Add("Create New Behaviour/New Behaviour Bounce On Hit", new CreateBounceOnHitBehaviourData());
+        tree.Add("Create New Behaviour/New Behaviour Common Behaviours", new CreateCommonBehavioursData());
+        tree.Add("Create New Behaviour/New Behaviour Disable Projectile After Seconds", new CreateDisableProjectileAfterSecondsData());
+        tree.Add("Create New Behaviour/New Behaviour Disable Projectile Velocity Zero", new CreateDisableProjectileVelocityZeroData());
+        tree.Add("Create New Behaviour/New Behaviour Spawn Hit Prefab", new CreateSpawnHitPrefabData());
+        tree.Add("Create New Behaviour/New Behaviour Spawn Muzzle Prefab", new CreateSpawnMuzzlePrefabData());
+        tree.Add("Create New Behaviour/New Behaviour Stop Spell On Hit", new CreateStopSpellOnHitData());
+        tree.Add("Create New Behaviour/New Behaviour Update Mana And Cooldown", new CreateUpdateManaAndCooldownData());
 
-        tree.AddAllAssetsAtPath("Spell Behaviours", "Assets/Resources/Scriptable Objects/Spell Behaviours", typeof(SpellBehaviourAbstractSO));
+        tree.AddAllAssetsAtPath("Spell Behaviours", 
+            "Assets/Resources/Scriptable Objects/Spell Behaviours", typeof(SpellBehaviourAbstractSO));
+        tree.AddAllAssetsAtPath("Spell Behaviours", 
+            "Assets/Resources/Scriptable Objects/Spell Behaviours/Apply Damage Behaviours", typeof(SpellBehaviourAbstractSO));
+        tree.AddAllAssetsAtPath("Spell Behaviours",
+            "Assets/Resources/Scriptable Objects/Spell Behaviours/Common Behaviours", typeof(SpellBehaviourAbstractSO));
+        tree.AddAllAssetsAtPath("Spell Behaviours",
+            "Assets/Resources/Scriptable Objects/Spell Behaviours/Stop Spells Behaviours", typeof(SpellBehaviourAbstractSO));
+
+        tree.Add("Create New Spell", new CreateNewSpellData());
         tree.AddAllAssetsAtPath("Spell Data", "Assets/Resources/Scriptable Objects/Spells", typeof(SpellSO));
 
         return tree;
@@ -196,6 +234,236 @@ public class SpellManagerEditor : OdinMenuEditorWindow
             AssetDatabase.SaveAssets();
 
             Spell = ScriptableObject.CreateInstance<SpellBehaviourOneShotSelfHealSO>();
+        }
+    }
+
+    public class CreateApplyDamagePierceBehaviourData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public SpellBehaviourApplyDamagePierceSO Spell { get; private set; }
+
+        public CreateApplyDamagePierceBehaviourData()
+        {
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourApplyDamagePierceSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/New Spell Apply Damage Pierce Behaviour " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourApplyDamagePierceSO>();
+        }
+    }
+
+    public class CreateApplyDamageBehaviourData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public SpellBehaviourApplyDamageSO Spell { get; private set; }
+
+        public CreateApplyDamageBehaviourData()
+        {
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourApplyDamageSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/New Spell Apply Damage Behaviour " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourApplyDamageSO>();
+        }
+    }
+
+    public class CreateBounceOnHitBehaviourData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public SpellBehaviourBounceOnHitSO Spell { get; private set; }
+
+        public CreateBounceOnHitBehaviourData()
+        {
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourBounceOnHitSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/New Spell Bounce On Hit Behaviour " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourBounceOnHitSO>();
+        }
+    }
+
+    public class CreateCommonBehavioursData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public SpellBehaviourCommonBehavioursSO Spell { get; private set; }
+
+        public CreateCommonBehavioursData()
+        {
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourCommonBehavioursSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/New Spell Common Behaviour " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourCommonBehavioursSO>();
+        }
+    }
+
+    public class CreateDisableProjectileAfterSecondsData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public SpellBehaviourDisableProjectileAfterSecondsSO Spell { get; private set; }
+
+        public CreateDisableProjectileAfterSecondsData()
+        {
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourDisableProjectileAfterSecondsSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/New Spell Disable Projectile After Seconds Behaviour " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourDisableProjectileAfterSecondsSO>();
+        }
+    }
+
+    public class CreateDisableProjectileVelocityZeroData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public SpellBehaviourDisableProjectileVelocityZeroSO Spell { get; private set; }
+
+        public CreateDisableProjectileVelocityZeroData()
+        {
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourDisableProjectileVelocityZeroSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/New Spell Disable Projectile Velocity Zero Behaviour " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourDisableProjectileVelocityZeroSO>();
+        }
+    }
+
+    public class CreateSpawnHitPrefabData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public SpellBehaviourSpawnHitPrefabSO Spell { get; private set; }
+
+        public CreateSpawnHitPrefabData()
+        {
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourSpawnHitPrefabSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/New Spell Spawn Hit Prefab Behaviour " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourSpawnHitPrefabSO>();
+        }
+    }
+
+    public class CreateSpawnMuzzlePrefabData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public SpellBehaviourSpawnMuzzlePrefabSO Spell { get; private set; }
+
+        public CreateSpawnMuzzlePrefabData()
+        {
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourSpawnMuzzlePrefabSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/New Spell Spawn Muzzle Prefab Behaviour " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourSpawnMuzzlePrefabSO>();
+        }
+    }
+
+    public class CreateStopSpellOnHitData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public SpellBehaviourStopSpellOnHitSO Spell { get; private set; }
+
+        public CreateStopSpellOnHitData()
+        {
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourStopSpellOnHitSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/New Spell Stop Spell On Hit Behaviour " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourStopSpellOnHitSO>();
+        }
+    }
+
+    public class CreateUpdateManaAndCooldownData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public SpellBehaviourUpdateManaAndCooldownSO Spell { get; private set; }
+
+        public CreateUpdateManaAndCooldownData()
+        {
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourUpdateManaAndCooldownSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/New Spell Update Mana And Cooldown Behaviour " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourUpdateManaAndCooldownSO>();
         }
     }
 }

@@ -18,7 +18,6 @@ sealed public class DamageHitText : MonoBehaviour
     [Range(0, 2)][SerializeField] private float offset;
     [Range(50, 500)][SerializeField] private float speed;
 
-
     private void Awake()
     {
         damageText = GetComponent<TextMesh>();
