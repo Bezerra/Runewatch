@@ -49,13 +49,11 @@ sealed public class DamageHitText : MonoBehaviour
     public void UpdateShownDamage(float damage, bool criticalHit)
     {
         rb.isKinematic = false;
+        rb.useGravity = false;
 
         // Spawn random position
         float additionalOffset = Random.Range(-offset, offset);
         transform.position += new Vector3(additionalOffset, offset, additionalOffset);
-
-        float movementSpeed = Random.Range(-speed, speed);
-        rb.AddForce(new Vector3(movementSpeed * 0.25f, Mathf.Abs(speed), movementSpeed * 0.25f));
 
         // Update text and color
         damageText.text = damage.ToString();
@@ -73,6 +71,12 @@ sealed public class DamageHitText : MonoBehaviour
         } 
     }
 
+    public void AddForceToText()
+    {
+        float movementSpeed = Random.Range(-speed, speed);
+        rb.AddForce(new Vector3(movementSpeed * 0.25f, Mathf.Abs(speed), movementSpeed * 0.25f));
+        rb.useGravity = true;
+    }
 
     /// <summary>
     /// Rotates text to camera.
