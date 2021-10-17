@@ -38,11 +38,19 @@ sealed public class ActionAttack : FSMAction
 
                     ISpell spell = aiCharacter.EnemyScript.AllValues.CharacterStats.AvailableSpells[randomSpell];
 
-                    aiCharacter.EnemyScript.AllValues.CharacterStats.AvailableSpells[randomSpell].
-                        AttackBehaviour.Attack(spell, aiCharacter, aiCharacter.EnemyScript.EnemyStats);
+                    if (spell.CastType == SpellCastType.OneShotCast)
+                    {
+                        aiCharacter.EnemyScript.AllValues.CharacterStats.AvailableSpells[randomSpell].
+                            AttackBehaviourOneShot.Attack(spell, aiCharacter, aiCharacter.EnemyScript.EnemyStats);
+                    }
+                    else if (spell.CastType == SpellCastType.OneShotCast)
+                    {
+                        aiCharacter.EnemyScript.AllValues.CharacterStats.AvailableSpells[randomSpell].
+                            AttackBehaviourContinuous.Attack(spell, aiCharacter, aiCharacter.EnemyScript.EnemyStats);
+                    }
 
-                    timeOfAttack = Time.time;
-                }
+                        timeOfAttack = Time.time;
+                    }
             }
         }
     }

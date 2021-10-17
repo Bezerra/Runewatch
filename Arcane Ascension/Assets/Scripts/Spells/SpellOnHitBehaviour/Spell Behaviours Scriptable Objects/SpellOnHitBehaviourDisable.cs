@@ -4,7 +4,7 @@ using UnityEngine;
 /// Scriptable Object responsible for disabling the spell hit gameobject.
 /// </summary>
 [CreateAssetMenu(menuName = "Spells/Spell Hit Behaviour/Spell Hit Behaviour Disable", fileName = "Spell Hit Behaviour Disable")]
-sealed public class SpellOnHitBehaviourDisable : SpellOnHitBehaviourAbstractSO
+sealed public class SpellOnHitBehaviourDisable : SpellOnHitBehaviourAbstractOneShotSO
 {
     [Range(0, 20)][SerializeField] private byte disableAfterSeconds;
 
@@ -12,7 +12,7 @@ sealed public class SpellOnHitBehaviourDisable : SpellOnHitBehaviourAbstractSO
     /// Executed when the spell is enabled.
     /// </summary>
     /// <param name="parent">Parent SpellOnHit monobehaviour.</param>
-    public override void StartBehaviour(SpellOnHitBehaviour parent)
+    public override void StartBehaviour(SpellOnHitBehaviourOneShot parent)
     {
         // Left blank on purpose
     }
@@ -21,7 +21,7 @@ sealed public class SpellOnHitBehaviourDisable : SpellOnHitBehaviourAbstractSO
     /// Executed every update.
     /// </summary>
     /// <param name="parent">Parent SpellOnHit monobehaviour.</param>
-    public override void ContinuousUpdateBehaviour(SpellOnHitBehaviour parent)
+    public override void ContinuousUpdateBehaviour(SpellOnHitBehaviourOneShot parent)
     {
         if (Time.time - parent.TimeSpawned > disableAfterSeconds)
             DisableHitSpell(parent);

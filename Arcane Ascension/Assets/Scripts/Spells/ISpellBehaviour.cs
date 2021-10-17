@@ -5,12 +5,16 @@ using System.Collections.Generic;
 /// </summary>
 public interface ISpellBehaviour
 {
-    IList<SpellBehaviourAbstractSO> SpellBehaviour{ get; }
     SpellCastType CastType { get; }
     float Speed { get; }
     float Cooldown { get; }
     float CooldownCounter { get; set; }
-    SpellOnHitBehaviourAbstractSO OnHitBehaviour { get; }
-    SpellMuzzleBehaviourAbstractSO MuzzleBehaviour { get; }
-    AttackBehaviourAbstractSO AttackBehaviour { get; }
+    IList<SpellBehaviourAbstractOneShotSO> SpellBehaviourOneShot{ get; }
+    SpellOnHitBehaviourAbstractOneShotSO OnHitBehaviourOneShot { get; }
+    SpellMuzzleBehaviourAbstractOneShotSO MuzzleBehaviourOneShot { get; }
+    AttackBehaviourAbstractOneShotSO AttackBehaviourOneShot { get; }
+    IList<SpellBehaviourAbstractContinuousSO> SpellBehaviourContinuous { get; }
+    SpellOnHitBehaviourAbstractContinuousSO OnHitBehaviourContinuous { get; }
+    SpellMuzzleBehaviourAbstractContinuousSO MuzzleBehaviourContinuous { get; }
+    AttackBehaviourAbstractContinuousSO AttackBehaviourContinuous { get; }
 }

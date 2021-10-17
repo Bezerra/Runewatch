@@ -9,127 +9,97 @@ using System.Collections.Generic;
 /// <summary>
 /// Scriptableobject for spells creation.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/New Spell", fileName = "Spell Name")]
 [InlineEditor]
-public class SpellSO : ScriptableObject, ISpell
+public abstract class SpellSO : ScriptableObject, ISpell
 {
     [BoxGroup("General")]
     [HorizontalGroup("General/Split", 72)]
-    [HideLabel, PreviewField(72)] [SerializeField] private Texture icon;
+    [HideLabel, PreviewField(72)] [SerializeField] protected Texture icon;
 
     [VerticalGroup("General/Split/Middle", 1), LabelWidth(60)]
     [InlineButton("ChangeFileName", "Update File Name")]
-    [SerializeField] private new string name = "New Spell";
+    [SerializeField] protected new string name = "New Spell";
 
     [VerticalGroup("General/Split/Middle", 1), LabelWidth(60)]
     [Tooltip("Single ID for every spell. No spells should have the same ID")]
-    [SerializeField] private byte spellID;
+    [SerializeField] protected byte spellID;
 
     [VerticalGroup("General/Split/Right", 2)]
-    [HideLabel, TextArea(4, 6), SerializeField] private string description;
+    [HideLabel, TextArea(4, 6), SerializeField] protected string description;
 
     /// ---------------
     [BoxGroup("Spell General Attributes")]
     [Tooltip("Element of the spell.")]
-    [SerializeField, EnumToggleButtons, HideLabel] private ElementType element;
+    [SerializeField, EnumToggleButtons, HideLabel] protected ElementType element;
 
     [BoxGroup("Spell General Attributes")]
     [Tooltip("Mana cost of OneShotCast spells when used or every hit of a ContinuousCast spell")]
-    [Range(0.01f, 100f)] [SerializeField] private float manaCost;
+    [Range(0.01f, 100f)] [SerializeField] protected float manaCost;
 
     /// ---------------
 
     [BoxGroup("Damage")]
     [Tooltip("Type of damage of the spell")]
-    [SerializeField, EnumToggleButtons] private SpellDamageType damageType;
+    [SerializeField, EnumToggleButtons] protected SpellDamageType damageType;
 
     [BoxGroup("Damage")]
     [ShowIf("damageType", SpellDamageType.AreaDamage)]
     [Tooltip("When this option is turned on, remember that MaxTime is the time the spell will remain active on the area.")]
-    [SerializeField] private bool appliesDamageOvertime;
+    [SerializeField] protected bool appliesDamageOvertime;
 
     [BoxGroup("Damage")]
     [Tooltip("Interval between damage with Overtime damage spells or interval between damage with continuous spells.")]
     [DisableIf("damageType", SpellDamageType.SingleTarget)]
-    [Range(0.01f, 100)] [SerializeField] private float timeInterval;
+    [Range(0.01f, 100)] [SerializeField] protected float timeInterval;
 
     [BoxGroup("Damage")]
     [Tooltip("Time duration of overtime spell damage.")]
     [DisableIf("damageType", SpellDamageType.SingleTarget)]
-    [Range(0.1f, 100)] [SerializeField] private float maxTime;
+    [Range(0.1f, 100)] [SerializeField] protected float maxTime;
 
     [BoxGroup("Damage")]
     [DisableIf("@this.damageType == SpellDamageType.SingleTarget || this.damageType == SpellDamageType.Overtime || " +
         "this.damageType == SpellDamageType.Self")]
     [Tooltip("Radius of effect after an AreaDamage spell hits something")]
-    [Range(2f, 10f)] [SerializeField] private float areaOfEffect;
+    [Range(2f, 10f)] [SerializeField] protected float areaOfEffect;
 
     [BoxGroup("Damage")]
     [Tooltip("Random damage between these 2 values")]
-    [SerializeField] [RangeMinMax(0, 100)] private Vector2 damage;
+    [SerializeField] [RangeMinMax(0, 100)] protected Vector2 damage;
 
     /// ---------------
 
-    [BoxGroup("Spell Type")]
-    [SerializeField, EnumToggleButtons]
-    [Tooltip("OneShotCast spells are spells that are spawned once. Continuous spells are spells that keep being spawned")]
-    private SpellCastType spellCastType;
+    //[BoxGroup("Spell Type")]
+    //[SerializeField, EnumToggleButtons]
+    //[Tooltip("OneShotCast spells are spells that are spawned once. Continuous spells are spells that keep being spawned")]
+    //private SpellCastType spellCastType;
 
     [BoxGroup("Spell Type")]
-    [EnableIf("spellCastType", SpellCastType.OneShotCast)]
     [DisableIf("damageType", SpellDamageType.Self)]
     [Tooltip("Speed of the spell")]
-    [Range(1f, 100)] [SerializeField] private float speed;
+    [Range(1f, 100)] [SerializeField] protected float speed;
 
     // Continuous spells have cooldown too (ex. player equiped a spell, it has 1 seconds cooldown until it's possible to use it)
     [BoxGroup("Spell Type")]
     [Tooltip("Cooldown of the spells WHEN EQUIPED and OneShotCasts spells after being used")]
-    [Range(0, 10)] [SerializeField] private float cooldown;
-
-    
-    [BoxGroup("Behaviours")]
-    [Tooltip("What happens after the spell is spawned. Should contain at least and movement and apply damage behaviour")]
-    [SerializeField] private List<SpellBehaviourAbstractSO> spellBehaviour;
-
-    [BoxGroup("Behaviours")]
-    [Tooltip("What kind of damage will it be")]
-    [SerializeField] private DamageBehaviourAbstractSO damageBehaviour;
-
-    [BoxGroup("Behaviours")]
-    [Tooltip("Attack behaviour of this spell")]
-    [SerializeField] private AttackBehaviourAbstractSO attackBehaviour;
-
-    [BoxGroup("Behaviours Of Muzzle and Hit prefabs")]
-    [Tooltip("What happens after the spell hit prefab is spawned (spawned after the spell hits something)")]
-    [SerializeField] private SpellOnHitBehaviourAbstractSO onHitBehaviour;
-
-    [BoxGroup("Behaviours Of Muzzle and Hit prefabs")]
-    [Tooltip("What happens after the spell hit prefab is spawned (spawned after the spell hits something)")]
-    [SerializeField] private SpellMuzzleBehaviourAbstractSO muzzleBehaviour;
-
-    
+    [Range(0, 10)] [SerializeField] protected float cooldown;
 
     [BoxGroup("Prefabs")]
     [Tooltip("Spell prefab (vfx)")]
-    [SerializeField] private GameObject spellPrefab;
+    [SerializeField] protected GameObject spellPrefab;
     [BoxGroup("Prefabs")]
     [Tooltip("Spawns when the spell hits something")]
-    [SerializeField] private GameObject spellHitPrefab;
+    [SerializeField] protected GameObject spellHitPrefab;
     [BoxGroup("Prefabs")]
     [Tooltip("Spawns when the spell is cast")]
-    [SerializeField] private GameObject spellMuzzlePrefab;
+    [SerializeField] protected GameObject spellMuzzlePrefab;
     [BoxGroup("Prefabs")]
     [Tooltip("Effect that will be shown in player's hand")]
-    [SerializeField] private GameObject spellHandEffectPrefab;
+    [SerializeField] protected GameObject spellHandEffectPrefab;
 
-#if UNITY_EDITOR
-    private void ChangeFileName()
-    {
-        string assetPath = AssetDatabase.GetAssetPath(this.GetInstanceID());
-        AssetDatabase.RenameAsset(assetPath, name);
-        AssetDatabase.SaveAssets();
-    }
-#endif
+    [BoxGroup("Behaviours")]
+    [Tooltip("What kind of damage will it be")]
+    [SerializeField] protected DamageBehaviourAbstractSO damageBehaviour;
 
     // Properties
     public Texture Icon => icon;
@@ -143,17 +113,33 @@ public class SpellSO : ScriptableObject, ISpell
     public float MaxTime { get => maxTime; set => maxTime = value; }
     public float AreaOfEffect { get => areaOfEffect; set => areaOfEffect = value; }
     public float Damage => Random.Range(damage.x, damage.y);
-    public SpellCastType CastType { get => spellCastType; set => spellCastType = value; }
+    public abstract SpellCastType CastType { get; }
     public float Speed { get => speed; set => speed = value; }
     public float Cooldown => cooldown;
     public float CooldownCounter { get; set; }
-    public IList<SpellBehaviourAbstractSO> SpellBehaviour => spellBehaviour;
-    public SpellOnHitBehaviourAbstractSO OnHitBehaviour => onHitBehaviour;
-    public SpellMuzzleBehaviourAbstractSO MuzzleBehaviour => muzzleBehaviour;
-    public AttackBehaviourAbstractSO AttackBehaviour => attackBehaviour;
+
+    public virtual IList<SpellBehaviourAbstractOneShotSO> SpellBehaviourOneShot { get; }
+    public virtual SpellOnHitBehaviourAbstractOneShotSO OnHitBehaviourOneShot { get; }
+    public virtual SpellMuzzleBehaviourAbstractOneShotSO MuzzleBehaviourOneShot { get; }
+    public virtual AttackBehaviourAbstractOneShotSO AttackBehaviourOneShot { get; }
+    public virtual IList<SpellBehaviourAbstractContinuousSO> SpellBehaviourContinuous { get; }
+    public virtual SpellOnHitBehaviourAbstractContinuousSO OnHitBehaviourContinuous { get; }
+    public virtual SpellMuzzleBehaviourAbstractContinuousSO MuzzleBehaviourContinuous { get; }
+    public virtual AttackBehaviourAbstractContinuousSO AttackBehaviourContinuous { get; }
     public DamageBehaviourAbstractSO DamageBehaviour => damageBehaviour;
+
     /// <summary>
     /// Item1 is spell Prefab. Item2 is spell hit prefab. Item 3 is spell muzzle prefab.
     /// </summary>
     public (GameObject, GameObject, GameObject, GameObject) Prefab => (spellPrefab, spellHitPrefab, spellMuzzlePrefab, spellHandEffectPrefab);
+
+
+#if UNITY_EDITOR
+    protected void ChangeFileName()
+    {
+        string assetPath = AssetDatabase.GetAssetPath(this.GetInstanceID());
+        AssetDatabase.RenameAsset(assetPath, name);
+        AssetDatabase.SaveAssets();
+    }
+#endif
 }

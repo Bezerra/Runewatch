@@ -10,18 +10,18 @@ public abstract class SpellOnHitBehaviourAbstractSO : ScriptableObject
     /// <summary>
     /// Executes when prefab is enabled.
     /// </summary>
-    public abstract void StartBehaviour(SpellOnHitBehaviour parent);
+    public abstract void StartBehaviour(SpellOnHitBehaviourOneShot parent);
 
     /// <summary>
     /// Executes on update.
     /// </summary>
-    public abstract void ContinuousUpdateBehaviour(SpellOnHitBehaviour parent);
+    public abstract void ContinuousUpdateBehaviour(SpellOnHitBehaviourOneShot parent);
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="parent"></param>
-    public void DisableHitSpell(SpellOnHitBehaviour parent)
+    public void DisableHitSpell(SpellOnHitBehaviourOneShot parent)
     {
         parent.gameObject.SetActive(false);
     }

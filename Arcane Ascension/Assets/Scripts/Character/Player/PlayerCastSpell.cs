@@ -48,7 +48,14 @@ public class PlayerCastSpell : MonoBehaviour
             if (playerStats.Mana - playerSpells.ActiveSpell.ManaCost >= 0)
             {
                 spellBehaviour = null;
-                playerSpells.ActiveSpell.AttackBehaviour.Attack(playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
+                if (playerSpells.ActiveSpell.CastType == SpellCastType.OneShotCast)
+                {
+                    playerSpells.ActiveSpell.AttackBehaviourOneShot.Attack(playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
+                }
+                else if (playerSpells.ActiveSpell.CastType == SpellCastType.OneShotCast)
+                {
+                    playerSpells.ActiveSpell.AttackBehaviourContinuous.Attack(playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
+                }
             }
         }
     }
@@ -60,7 +67,7 @@ public class PlayerCastSpell : MonoBehaviour
     {
         if (playerSpells.ActiveSpell.CastType == SpellCastType.ContinuousCast)
         {
-            playerSpells.ActiveSpell.AttackBehaviour.DisableSpell(spellBehaviour);
+            playerSpells.ActiveSpell.AttackBehaviourContinuous.DisableSpell(spellBehaviour);
         }
     }
 }

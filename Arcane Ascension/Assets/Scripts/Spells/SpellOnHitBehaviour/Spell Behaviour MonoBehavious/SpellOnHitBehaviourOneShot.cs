@@ -1,9 +1,9 @@
 using UnityEngine;
 
 /// <summary>
-/// Monobehaviour for spell muzzles.
+/// Monobehaviour for spell hits.
 /// </summary>
-public class SpellMuzzleBehaviour : MonoBehaviour
+public class SpellOnHitBehaviourOneShot : MonoBehaviour
 {
     /// <summary>
     /// This variable is set on spell behaviour after the spell is cast.
@@ -19,7 +19,7 @@ public class SpellMuzzleBehaviour : MonoBehaviour
     {
         TimeSpawned = Time.time;
 
-        Spell?.MuzzleBehaviour.StartBehaviour(this);
+        Spell?.OnHitBehaviourOneShot.StartBehaviour(this);
     }
 
     /// <summary>
@@ -27,6 +27,7 @@ public class SpellMuzzleBehaviour : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        Spell?.MuzzleBehaviour.ContinuousUpdateBehaviour(this);
+        Spell?.OnHitBehaviourOneShot.ContinuousUpdateBehaviour(this);
     }
 }
+        

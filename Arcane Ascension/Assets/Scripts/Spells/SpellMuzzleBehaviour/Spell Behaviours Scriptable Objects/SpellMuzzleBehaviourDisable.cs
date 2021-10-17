@@ -4,7 +4,7 @@ using UnityEngine;
 /// Scriptable Object responsible for disabling the spell muzzle gameobject.
 /// </summary>
 [CreateAssetMenu(menuName = "Spells/Spell Muzzle Behaviour/Spell Muzzle Behaviour Disable", fileName = "Spell Muzzle Behaviour Disable")]
-public class SpellMuzzleBehaviourDisable : SpellMuzzleBehaviourAbstractSO
+public class SpellMuzzleBehaviourDisable : SpellMuzzleBehaviourAbstractOneShotSO
 {
     [Range(0, 20)] [SerializeField] private byte disableAfterSeconds;
 
@@ -12,7 +12,7 @@ public class SpellMuzzleBehaviourDisable : SpellMuzzleBehaviourAbstractSO
     /// Executed when the spell is enabled.
     /// </summary>
     /// <param name="parent">Parent Spell Muzzle monobehaviour.</param>
-    public override void StartBehaviour(SpellMuzzleBehaviour parent)
+    public override void StartBehaviour(SpellMuzzleBehaviourOneShot parent)
     {
         // Left blank on purpose
     }
@@ -21,7 +21,7 @@ public class SpellMuzzleBehaviourDisable : SpellMuzzleBehaviourAbstractSO
     /// Executed every update.
     /// </summary>
     /// <param name="parent">Parent Spell Muzzle monobehaviour.</param>
-    public override void ContinuousUpdateBehaviour(SpellMuzzleBehaviour parent)
+    public override void ContinuousUpdateBehaviour(SpellMuzzleBehaviourOneShot parent)
     {
         if (Time.time - parent.TimeSpawned > disableAfterSeconds)
             DisableMuzzleSpell(parent);

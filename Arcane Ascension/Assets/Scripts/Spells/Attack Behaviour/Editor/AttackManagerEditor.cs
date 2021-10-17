@@ -37,7 +37,7 @@ public class AttackManagerEditor : OdinMenuEditorWindow
         tree.Add("Create New Behaviour/New Behaviour Continuous", new CreateAttackBehaviourContinuous());
 
         tree.AddAllAssetsAtPath("Attack Behaviours",
-            "Assets/Resources/Scriptable Objects/Attack Behaviours", typeof(AttackBehaviourAbstractSO));
+            "Assets/Resources/Scriptable Objects/Spells/Attack Behaviour", typeof(AttackBehaviourAbstractSO));
 
         return tree;
     }
@@ -49,7 +49,7 @@ public class AttackManagerEditor : OdinMenuEditorWindow
         SirenixEditorGUI.BeginHorizontalToolbar();
         {
             GUILayout.FlexibleSpace();
-            if (SirenixEditorGUI.ToolbarButton("Delete current spell"))
+            if (SirenixEditorGUI.ToolbarButton("Delete current attack"))
             {
                 ScriptableObject selectedObject = selected.SelectedValue as ScriptableObject;
                 string path = AssetDatabase.GetAssetPath(selectedObject);
@@ -85,7 +85,7 @@ public class AttackManagerEditor : OdinMenuEditorWindow
         private void CreateNewData()
         {
             AssetDatabase.CreateAsset(Behaviour,
-                "Assets/Resources/Scriptable Objects/Attack Behaviours/New Attack Behaviour One Shot" +
+                "Assets/Resources/Scriptable Objects/Spells/Attack Behaviours/New Attack Behaviour One Shot" +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
@@ -108,7 +108,7 @@ public class AttackManagerEditor : OdinMenuEditorWindow
         private void CreateNewData()
         {
             AssetDatabase.CreateAsset(Behaviour,
-                "Assets/Resources/Scriptable Objects/Attack Behaviours/New Attack Behaviour Continuous" +
+                "Assets/Resources/Scriptable Objects/Spells/Attack Behaviours/New Attack Behaviour Continuous" +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 

@@ -4,7 +4,7 @@ using UnityEngine;
 /// Scriptable object for continuous attacks.
 /// </summary>
 [CreateAssetMenu(menuName = "Attack Behaviour/Attack Behaviour Continuous", fileName = "Attack Behaviour Continuous")]
-public class AttackBehaviourContinuousSO : AttackBehaviourAbstractSO
+public class AttackBehaviourContinuousSO : AttackBehaviourAbstractContinuousSO
 {
     /// <summary>
     /// Spawns a spell until the player releases the fire key.

@@ -5,8 +5,6 @@ using UnityEngine;
 /// </summary>
 public abstract class SpellBehaviourAbstract : MonoBehaviour
 {
-    [SerializeField] protected SpellSO spell;
-
     public Transform Hand { get; private set; }
     public Transform Eyes { get; private set; }
     public IDamageable ThisIDamageable { get; private set; }
@@ -28,7 +26,7 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour
         }
     }
 
-    public ISpell Spell => spell;
+    public abstract ISpell Spell { get; }
 
     /// <summary>
     /// Method called after instantiating the spell.
@@ -40,9 +38,5 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour
     /// Immediatly disables spell gameobject.
     /// </summary>
     /// <param name="parent">Spell parent.</param>
-    public void DisableSpell(SpellBehaviourAbstract parent)
-    {
-        foreach(SpellBehaviourAbstractSO behaviour in spell.SpellBehaviour)
-            behaviour.DisableSpell(parent);
-    }
+    public abstract void DisableSpell(SpellBehaviourAbstract parent);
 }

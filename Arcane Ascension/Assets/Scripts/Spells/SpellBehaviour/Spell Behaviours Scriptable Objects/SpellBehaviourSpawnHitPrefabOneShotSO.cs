@@ -4,7 +4,7 @@ using UnityEngine;
 /// Scriptable object responsible for spawning hit prefab.
 /// </summary>
 [CreateAssetMenu(menuName = "Spells/Spell Behaviour/Spell Behaviour Spawn Hit Prefab", fileName = "Spell Behaviour Spawn Hit Prefab")]
-public class SpellBehaviourSpawnHitPrefabSO : SpellBehaviourAbstractOneShotSO
+public class SpellBehaviourSpawnHitPrefabOneShotSO : SpellBehaviourAbstractOneShotSO
 {
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
@@ -41,14 +41,14 @@ public class SpellBehaviourSpawnHitPrefabSO : SpellBehaviourAbstractOneShotSO
 
         // Creates spell hit
         // Update() will run from its monobehaviour script
-        if (parent.Spell.OnHitBehaviour != null)
+        if (parent.Spell.OnHitBehaviourOneShot != null)
         {
             // Spawns hit in direction of collider hit normal
             GameObject onHitBehaviourGameObject = SpellHitPoolCreator.Pool.InstantiateFromPool(
                 parent.Spell.Name, parent.transform.position,
                 spellLookRotation);
 
-            if (onHitBehaviourGameObject.TryGetComponent<SpellOnHitBehaviour>(out SpellOnHitBehaviour onHitBehaviour))
+            if (onHitBehaviourGameObject.TryGetComponent<SpellOnHitBehaviourOneShot>(out SpellOnHitBehaviourOneShot onHitBehaviour))
             {
                 onHitBehaviour.Spell = parent.Spell;
             }

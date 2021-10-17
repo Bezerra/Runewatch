@@ -17,7 +17,8 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         GetWindow<SpellManagerEditor>().Show();
     }
 
-    private CreateNewSpellData createNewSpellData;
+    private CreateNewSpellOneShotData createNewSpellOneShotData;
+    private CreateNewSpellContinuousData createNewSpellContinuousData;
     private CreateContinuousBehaviourData continuousBehaviourData;
     private CreateForwardBehaviourData forwardBehaviourData;
     private CreateSelfHealOneShotBehaviourData selfHealOneShotBehaviourData;
@@ -43,7 +44,8 @@ public class SpellManagerEditor : OdinMenuEditorWindow
     {
         OdinMenuTree tree = new OdinMenuTree();
 
-        createNewSpellData = new CreateNewSpellData();
+        createNewSpellOneShotData = new CreateNewSpellOneShotData();
+        createNewSpellContinuousData = new CreateNewSpellContinuousData();
         continuousBehaviourData = new CreateContinuousBehaviourData();
         forwardBehaviourData = new CreateForwardBehaviourData();
         selfHealOneShotBehaviourData = new CreateSelfHealOneShotBehaviourData();
@@ -72,16 +74,17 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         tree.Add("Create New Behaviour/New Behaviour Stop Spell On Hit", new CreateStopSpellOnHitData());
         tree.Add("Create New Behaviour/New Behaviour Update Mana And Cooldown", new CreateUpdateManaAndCooldownData());
 
-        tree.AddAllAssetsAtPath("Spell Behaviours", 
-            "Assets/Resources/Scriptable Objects/Spell Behaviours", typeof(SpellBehaviourAbstractSO));
-        tree.AddAllAssetsAtPath("Spell Behaviours", 
-            "Assets/Resources/Scriptable Objects/Spell Behaviours/Apply Damage Behaviours", typeof(SpellBehaviourAbstractSO));
         tree.AddAllAssetsAtPath("Spell Behaviours",
-            "Assets/Resources/Scriptable Objects/Spell Behaviours/Common Behaviours", typeof(SpellBehaviourAbstractSO));
+            "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot", typeof(SpellBehaviourAbstractSO));
         tree.AddAllAssetsAtPath("Spell Behaviours",
-            "Assets/Resources/Scriptable Objects/Spell Behaviours/Stop Spells Behaviours", typeof(SpellBehaviourAbstractSO));
+            "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/Apply Damage Behaviours", typeof(SpellBehaviourAbstractSO));
+        tree.AddAllAssetsAtPath("Spell Behaviours",
+            "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/Common Behaviours", typeof(SpellBehaviourAbstractSO));
+        tree.AddAllAssetsAtPath("Spell Behaviours",
+            "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/Stop Spells Behaviours", typeof(SpellBehaviourAbstractSO));
 
-        tree.Add("Create New Spell", new CreateNewSpellData());
+        tree.Add("Create New One Shot Spell", new CreateNewSpellOneShotData());
+        tree.Add("Create New Continuous Spell", new CreateNewSpellContinuousData());
         tree.AddAllAssetsAtPath("Spell Data", "Assets/Resources/Scriptable Objects/Spells", typeof(SpellSO));
 
         return tree;
@@ -100,7 +103,8 @@ public class SpellManagerEditor : OdinMenuEditorWindow
                 string path = AssetDatabase.GetAssetPath(selectedObject);
                 AssetDatabase.DeleteAsset(path);
 
-                createNewSpellData.UpdateAllSpellsList();
+                createNewSpellOneShotData.UpdateAllSpellsList();
+                createNewSpellContinuousData.UpdateAllSpellsList();
 
                 AssetDatabase.SaveAssets();
             }
@@ -111,8 +115,11 @@ public class SpellManagerEditor : OdinMenuEditorWindow
     protected override void OnDestroy()
     {
         base.OnDestroy();
-        if (createNewSpellData != null)
-            DestroyImmediate(createNewSpellData.Spell);
+        if (createNewSpellOneShotData != null)
+            DestroyImmediate(createNewSpellOneShotData.Spell);
+
+        if (createNewSpellContinuousData != null)
+            DestroyImmediate(createNewSpellContinuousData.Spell);
 
         if (continuousBehaviourData != null)
             DestroyImmediate(continuousBehaviourData.Spell);
@@ -157,15 +164,15 @@ public class SpellManagerEditor : OdinMenuEditorWindow
     /// <summary>
     /// Creates new spell data on odin window.
     /// </summary>
-    public class CreateNewSpellData
+    public class CreateNewSpellOneShotData
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
-        public SpellSO Spell { get; private set; }
+        public SpellOneShotSO Spell { get; private set; }
 
-        public CreateNewSpellData()
+        public CreateNewSpellOneShotData()
         {
-            Spell = ScriptableObject.CreateInstance<SpellSO>();
+            Spell = ScriptableObject.CreateInstance<SpellOneShotSO>();
         }
 
         [Button("Create", ButtonSizes.Large)]
@@ -175,7 +182,50 @@ public class SpellManagerEditor : OdinMenuEditorWindow
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
-            Spell = ScriptableObject.CreateInstance<SpellSO>();
+            Spell = ScriptableObject.CreateInstance<SpellOneShotSO>();
+
+            UpdateAllSpellsList();
+        }
+
+        public void UpdateAllSpellsList()
+        {
+            string[] spellsPaths = AssetDatabase.FindAssets("t:SpellSO");
+            string[] allSpellsPath = AssetDatabase.FindAssets("t:AllSpellsSO");
+
+            AllSpellsSO allSpells =
+                (AllSpellsSO)AssetDatabase.LoadAssetAtPath(
+                    AssetDatabase.GUIDToAssetPath(allSpellsPath[0]), typeof(AllSpellsSO));
+
+            allSpells.SpellList = new List<SpellSO>();
+
+            foreach (string spellPath in spellsPaths)
+            {
+                allSpells.SpellList.Add(
+                    (SpellSO)AssetDatabase.LoadAssetAtPath(
+                        AssetDatabase.GUIDToAssetPath(spellPath), typeof(SpellSO)));
+            }
+        }
+    }
+
+    public class CreateNewSpellContinuousData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public SpellContinuousSO Spell { get; private set; }
+
+        public CreateNewSpellContinuousData()
+        {
+            Spell = ScriptableObject.CreateInstance<SpellContinuousSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell, "Assets/Resources/Scriptable Objects/Spells/New Spell " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<SpellContinuousSO>();
 
             UpdateAllSpellsList();
         }
@@ -238,7 +288,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         private void CreateNewData()
         {
             AssetDatabase.CreateAsset(Spell,
-                "Assets/Resources/Scriptable Objects/Spell Behaviours/New Spell Continuous Behaviour " +
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/New Spell Continuous Behaviour " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
@@ -261,7 +311,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         private void CreateNewData()
         {
             AssetDatabase.CreateAsset(Spell,
-                "Assets/Resources/Scriptable Objects/Spell Behaviours/New Spell Self Heal Behaviour " +
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/New Spell Self Heal Behaviour " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
@@ -284,7 +334,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         private void CreateNewData()
         {
             AssetDatabase.CreateAsset(Spell,
-                "Assets/Resources/Scriptable Objects/Spell Behaviours/New Spell Apply Damage Pierce Behaviour " +
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/New Spell Apply Damage Pierce Behaviour " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
@@ -307,7 +357,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         private void CreateNewData()
         {
             AssetDatabase.CreateAsset(Spell,
-                "Assets/Resources/Scriptable Objects/Spell Behaviours/New Spell Apply Damage Behaviour " +
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/New Spell Apply Damage Behaviour " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
@@ -330,7 +380,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         private void CreateNewData()
         {
             AssetDatabase.CreateAsset(Spell,
-                "Assets/Resources/Scriptable Objects/Spell Behaviours/New Spell Bounce On Hit Behaviour " +
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/New Spell Bounce On Hit Behaviour " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
@@ -353,7 +403,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         private void CreateNewData()
         {
             AssetDatabase.CreateAsset(Spell,
-                "Assets/Resources/Scriptable Objects/Spell Behaviours/New Spell Common Behaviour " +
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/New Spell Common Behaviour " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
@@ -376,7 +426,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         private void CreateNewData()
         {
             AssetDatabase.CreateAsset(Spell,
-                "Assets/Resources/Scriptable Objects/Spell Behaviours/New Spell Disable Projectile After Seconds Behaviour " +
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/New Spell Disable Projectile After Seconds Behaviour " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
@@ -399,7 +449,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         private void CreateNewData()
         {
             AssetDatabase.CreateAsset(Spell,
-                "Assets/Resources/Scriptable Objects/Spell Behaviours/New Spell Disable Projectile Velocity Zero Behaviour " +
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/New Spell Disable Projectile Velocity Zero Behaviour " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
@@ -411,22 +461,22 @@ public class SpellManagerEditor : OdinMenuEditorWindow
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
-        public SpellBehaviourSpawnHitPrefabSO Spell { get; private set; }
+        public SpellBehaviourSpawnHitPrefabOneShotSO Spell { get; private set; }
 
         public CreateSpawnHitPrefabData()
         {
-            Spell = ScriptableObject.CreateInstance<SpellBehaviourSpawnHitPrefabSO>();
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourSpawnHitPrefabOneShotSO>();
         }
 
         [Button("Create", ButtonSizes.Large)]
         private void CreateNewData()
         {
             AssetDatabase.CreateAsset(Spell,
-                "Assets/Resources/Scriptable Objects/Spell Behaviours/New Spell Spawn Hit Prefab Behaviour " +
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/New Spell Spawn Hit Prefab Behaviour " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
-            Spell = ScriptableObject.CreateInstance<SpellBehaviourSpawnHitPrefabSO>();
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourSpawnHitPrefabOneShotSO>();
         }
     }
 
@@ -434,22 +484,22 @@ public class SpellManagerEditor : OdinMenuEditorWindow
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
-        public SpellBehaviourSpawnMuzzlePrefabSO Spell { get; private set; }
+        public SpellBehaviourSpawnMuzzlePrefabOneShotSO Spell { get; private set; }
 
         public CreateSpawnMuzzlePrefabData()
         {
-            Spell = ScriptableObject.CreateInstance<SpellBehaviourSpawnMuzzlePrefabSO>();
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourSpawnMuzzlePrefabOneShotSO>();
         }
 
         [Button("Create", ButtonSizes.Large)]
         private void CreateNewData()
         {
             AssetDatabase.CreateAsset(Spell,
-                "Assets/Resources/Scriptable Objects/Spell Behaviours/New Spell Spawn Muzzle Prefab Behaviour " +
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/New Spell Spawn Muzzle Prefab Behaviour " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
-            Spell = ScriptableObject.CreateInstance<SpellBehaviourSpawnMuzzlePrefabSO>();
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourSpawnMuzzlePrefabOneShotSO>();
         }
     }
 
@@ -468,7 +518,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         private void CreateNewData()
         {
             AssetDatabase.CreateAsset(Spell,
-                "Assets/Resources/Scriptable Objects/Spell Behaviours/New Spell Stop Spell On Hit Behaviour " +
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/New Spell Stop Spell On Hit Behaviour " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
@@ -491,7 +541,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         private void CreateNewData()
         {
             AssetDatabase.CreateAsset(Spell,
-                "Assets/Resources/Scriptable Objects/Spell Behaviours/New Spell Update Mana And Cooldown Behaviour " +
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/New Spell Update Mana And Cooldown Behaviour " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
