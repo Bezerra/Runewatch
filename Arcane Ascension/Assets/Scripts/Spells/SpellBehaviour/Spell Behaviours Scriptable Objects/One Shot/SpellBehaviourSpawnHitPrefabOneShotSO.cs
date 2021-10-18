@@ -3,7 +3,8 @@ using UnityEngine;
 /// <summary>
 /// Scriptable object responsible for spawning hit prefab.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Spell Behaviour/Spell Behaviour Spawn Hit Prefab", fileName = "Spell Behaviour Spawn Hit Prefab")]
+[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Spawn Hit Prefab", 
+    fileName = "Spell Behaviour Spawn Hit Prefab")]
 public class SpellBehaviourSpawnHitPrefabOneShotSO : SpellBehaviourAbstractOneShotSO
 {
     public override void StartBehaviour(SpellBehaviourOneShot parent)

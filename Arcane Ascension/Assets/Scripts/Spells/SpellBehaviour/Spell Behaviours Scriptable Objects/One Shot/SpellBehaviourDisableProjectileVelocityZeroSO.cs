@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Scriptable object responsible for disable parent spell behaviour when velocity is zero.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Spell Behaviour/Spell Behaviour Disable Projectile If Velocity Zero", 
+[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Disable Projectile If Velocity Zero", 
     fileName = "Spell Behaviour Disable Projectile If Velocity Zero")]
 public class SpellBehaviourDisableProjectileVelocityZeroSO : SpellBehaviourAbstractOneShotSO
 {

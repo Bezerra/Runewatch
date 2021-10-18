@@ -16,12 +16,16 @@ public class SpellBehaviourContinuous : SpellBehaviourAbstract
     public float LastTimeHit { get; set; }
     public LineRenderer LineRender { get; private set; }
     public float CurrentSpellDistance { get; set; }
-    public IList<IDamageable> IDamageableTarget { get; set; }
+    public Collider DamageableTarget { get; set; }
 
     private void Awake()
     {
         LineRender = GetComponent<LineRenderer>();
-        IDamageableTarget = new List<IDamageable>();
+    }
+
+    private void OnDisable()
+    {
+        DamageableTarget = null;
     }
 
     /// <summary>

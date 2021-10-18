@@ -4,7 +4,8 @@ using UnityEngine;
 /// <summary>
 /// Scriptable object responsible for bouncing on hit.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Spell Behaviour/Spell Behaviour Bounce On Hit", fileName = "Spell Behaviour Bounce On Hit")]
+[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Bounce On Hit", 
+    fileName = "Spell Behaviour Bounce On Hit")]
 public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
 {
     [Header("Walls and floor layer numbers")]

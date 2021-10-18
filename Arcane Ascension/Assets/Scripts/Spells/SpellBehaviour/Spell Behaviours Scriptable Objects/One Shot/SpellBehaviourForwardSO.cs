@@ -3,7 +3,8 @@ using UnityEngine;
 /// <summary>
 /// Scriptable object responsible for moving the spell forward on start.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Spell Behaviour/Spell Behaviour Forward", fileName = "Spell Behaviour Forward")]
+[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Forward", 
+    fileName = "Spell Behaviour Forward")]
 sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
 {
     [Header("In this spell, this variable only checks the direction of the spell")]

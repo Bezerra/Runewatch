@@ -30,14 +30,14 @@ public class SpellManagerEditor : OdinMenuEditorWindow
     private readonly string SPELLSPATH = "Assets/Resources/Scriptable Objects/Spells";
 
     private readonly string CREATENEWONHITONESHOTBEHAVIOUR = "Create New On Hit Behaviour/One Shot";
-    private readonly string ONHITBEHAVIOURSONESHOTPATH = "Assets/Resources/Scriptable Objects/Spell Hit Behaviours";
+    private readonly string ONHITBEHAVIOURSONESHOTPATH = "Assets/Resources/Scriptable Objects/Spell Hit Behaviours/One Shot";
 
     private readonly string CREATENEWMUZZLEBEHAVIOUR = "Create New Muzzle Behaviour/One Shot";
-    private readonly string MUZZLEBEHAVIOURSONESHOTPATH = "Assets/Resources/Scriptable Objects/Spell Muzzle Behaviours";
+    private readonly string MUZZLEBEHAVIOURSONESHOTPATH = "Assets/Resources/Scriptable Objects/Spell Muzzle Behaviours/One Shot";
 
     private CreateNewSpellOneShotData createNewSpellOneShotData;
     private CreateNewSpellContinuousData createNewSpellContinuousData;
-    private CreateContinuousBehaviourData continuousBehaviourData;
+    
     private CreateForwardBehaviourData forwardBehaviourData;
     private CreateSelfHealOneShotBehaviourData selfHealOneShotBehaviourData;
     private CreateApplyDamagePierceBehaviourData applyDamagePierceBehaviourData;
@@ -57,6 +57,9 @@ public class SpellManagerEditor : OdinMenuEditorWindow
     private CreateSpellMuzzleDisableData spellMuzzleDisableData;
     private CreateSpellOnHitDisableData spellOnHitDisableData;
 
+    private CreateContinuousBehaviourData continuousBehaviourData;
+    private CreateNewSpellContinuousApplyDamageData continuousApplyDamageBehaviourData;
+
     protected override void OnGUI()
     {
         SirenixEditorGUI.Title("Spell Manager", "", TextAlignment.Center, true, true);
@@ -70,7 +73,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
 
         createNewSpellOneShotData = new CreateNewSpellOneShotData();
         createNewSpellContinuousData = new CreateNewSpellContinuousData();
-        continuousBehaviourData = new CreateContinuousBehaviourData();
+        
         forwardBehaviourData = new CreateForwardBehaviourData();
         selfHealOneShotBehaviourData = new CreateSelfHealOneShotBehaviourData();
         applyDamagePierceBehaviourData = new CreateApplyDamagePierceBehaviourData();
@@ -90,6 +93,10 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         spellMuzzleDisableData = new CreateSpellMuzzleDisableData();
         spellOnHitDisableData = new CreateSpellOnHitDisableData();
 
+        continuousBehaviourData = new CreateContinuousBehaviourData();
+        continuousApplyDamageBehaviourData = new CreateNewSpellContinuousApplyDamageData();
+
+        // One shot behaviours
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Forward", forwardBehaviourData);
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Self Heal", selfHealOneShotBehaviourData);
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Apply Damage Pierce", applyDamagePierceBehaviourData);
@@ -102,15 +109,21 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Spawn Muzzle Prefab", spawnMuzzlePrefabData);
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Stop Spell On Hit", stopSpellOnHitData);
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Update Mana And Cooldown", updateManaAndCooldownData);
-        tree.Add($"{CREATENEWCONTINUOUSBEHAVIOUR}/New Behaviour Continuous", continuousBehaviourData);
 
+        // Continuous Behaviours
+        tree.Add($"{CREATENEWCONTINUOUSBEHAVIOUR}/New Behaviour Continuous", continuousBehaviourData);
+        tree.Add($"{CREATENEWCONTINUOUSBEHAVIOUR}/New Behaviour Continuous Apply Damage", continuousApplyDamageBehaviourData);
+
+        // Damage behaviours
         tree.Add($"{CREATENEWDAMAGEBEHAVIOUR}/New Behaviour Damage Single Target", spellDamageSingleTarget);
         tree.Add($"{CREATENEWDAMAGEBEHAVIOUR}/New Behaviour Damage Overtime", spellDamageOvertime);
         tree.Add($"{CREATENEWDAMAGEBEHAVIOUR}/New Behaviour Damage AoE", spellDamageAoE);
         tree.Add($"{CREATENEWDAMAGEBEHAVIOUR}/New Behaviour Damage AoE Overtime", spellDamageAoEOvertime);
 
+        // One shot on hit behaviours
         tree.Add($"{CREATENEWONHITONESHOTBEHAVIOUR}/New On Hit Disable Behaviour", spellOnHitDisableData);
 
+        // One shot muzzle behaviours
         tree.Add($"{CREATENEWMUZZLEBEHAVIOUR}/New Muzzle Disable Behaviour", spellMuzzleDisableData);
 
         tree.AddAllAssetsAtPath("Spell Behaviours/One Shot",
@@ -225,6 +238,9 @@ public class SpellManagerEditor : OdinMenuEditorWindow
 
         if (spellMuzzleDisableData != null)
             DestroyImmediate(spellMuzzleDisableData.Spell);
+
+        if (continuousApplyDamageBehaviourData != null)
+            DestroyImmediate(continuousApplyDamageBehaviourData.Spell);
     }
 
     /// <summary>
@@ -679,7 +695,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         private void CreateNewData()
         {
             AssetDatabase.CreateAsset(Spell,
-                "Assets/Resources/Scriptable Objects/Spell Muzzle Behaviours/New Spell Muzzle Behaviour Disable " +
+                "Assets/Resources/Scriptable Objects/Spell Muzzle Behaviours/One Shot/New Spell Muzzle Behaviour Disable " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
@@ -702,7 +718,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         private void CreateNewData()
         {
             AssetDatabase.CreateAsset(Spell,
-                "Assets/Resources/Scriptable Objects/Spell Hit Behaviours/New Spell Hit Behaviour Disable " +
+                "Assets/Resources/Scriptable Objects/Spell Hit Behaviours/One Shot/New Spell Hit Behaviour Disable " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
@@ -751,5 +767,30 @@ public class SpellManagerEditor : OdinMenuEditorWindow
                         AssetDatabase.GUIDToAssetPath(spellPath), typeof(SpellSO)));
             }
         }
+    }
+
+    public class CreateNewSpellContinuousApplyDamageData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public SpellBehaviourContinuousApplyDamageSO Spell { get; private set; }
+
+        public CreateNewSpellContinuousApplyDamageData()
+        {
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourContinuousApplyDamageSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell, 
+                $"Assets/Resources/Scriptable Objects/Spell Behaviours/Continuous/New Spell Continuous Apply Damage " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourContinuousApplyDamageSO>();
+
+        }
+
     }
 }

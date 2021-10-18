@@ -3,7 +3,8 @@ using UnityEngine;
 /// <summary>
 /// Scriptable object responsible for self healing.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Spell Behaviour/Spell Behaviour Self Heal", fileName = "Spell Behaviour Self Heal")]
+[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Self Heal", 
+    fileName = "Spell Behaviour Self Heal")]
 sealed public class SpellBehaviourOneShotSelfHealSO : SpellBehaviourAbstractOneShotSO
 {
     [SerializeField] private StatsType healingStats;

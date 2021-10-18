@@ -3,7 +3,8 @@ using UnityEngine;
 /// <summary>
 /// Scriptable object responsible for creating a spell's behaviour.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Spell Behaviour/Spell Behaviour Spawn Muzzle Prefab", fileName = "Spell Behaviour Spawn Muzzle Prefab")]
+[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Spawn Muzzle Prefab", 
+    fileName = "Spell Behaviour Spawn Muzzle Prefab")]
 sealed public class SpellBehaviourSpawnMuzzlePrefabOneShotSO : SpellBehaviourAbstractOneShotSO
 {
     public override void StartBehaviour(SpellBehaviourOneShot parent)

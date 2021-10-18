@@ -3,7 +3,8 @@ using UnityEngine;
 /// <summary>
 /// Scriptable Object responsible for disabling the spell muzzle gameobject.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Spell Muzzle Behaviour/Spell Muzzle Behaviour Disable", fileName = "Spell Muzzle Behaviour Disable")]
+[CreateAssetMenu(menuName = "Spells/Spell Muzzle Behaviour/One Shot/Spell Muzzle Behaviour Disable", 
+    fileName = "Spell Muzzle Behaviour Disable")]
 public class SpellMuzzleBehaviourDisable : SpellMuzzleBehaviourAbstractOneShotSO
 {
     [Range(0, 20)] [SerializeField] private byte disableAfterSeconds;

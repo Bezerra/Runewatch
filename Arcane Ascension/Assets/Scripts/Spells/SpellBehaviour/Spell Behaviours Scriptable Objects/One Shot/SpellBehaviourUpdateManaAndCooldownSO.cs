@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Scriptable object responsible for creating a spell's behaviour.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Spell Behaviour/Spell Behaviour Update Mana and Cooldown", 
+[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Update Mana and Cooldown", 
     fileName = "Spell Behaviour Update Mana and Cooldown")]
 sealed public class SpellBehaviourUpdateManaAndCooldownSO : SpellBehaviourAbstractOneShotSO
 {

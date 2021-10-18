@@ -4,7 +4,8 @@ using ExtensionMethods;
 /// <summary>
 /// Scriptable object responsible for creating a spell's continuous spawning behaviour.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Spell Behaviour/Spell Behaviour Continuous", fileName = "Spell Behaviour Continuous")]
+[CreateAssetMenu(menuName = "Spells/Spell Behaviour/Continuous/Spell Behaviour Continuous", 
+    fileName = "Spell Behaviour Continuous")]
 sealed public class SpellBehaviourContinuousSO : SpellBehaviourAbstractContinuousSO
 {
     [Range(1, 50)][SerializeField] private float spellMaxDistance;
@@ -39,7 +40,6 @@ sealed public class SpellBehaviourContinuousSO : SpellBehaviourAbstractContinuou
         // Now, it creates a ray from HAND to eyes previous target
         Ray handForward = new Ray(parent.Hand.position, parent.Hand.position.Direction(eyesTarget));
         Vector3 finalTarget;
-        IDamageable damageable = null;
         if (Physics.Raycast(handForward, out RaycastHit handObjectHit, spellMaxDistance))
         {
             // If it its something, then it will lerp spell distance into that point
@@ -47,12 +47,11 @@ sealed public class SpellBehaviourContinuousSO : SpellBehaviourAbstractContinuou
             parent.CurrentSpellDistance = 
                 Mathf.Lerp(parent.CurrentSpellDistance, handObjectHit.distance, parent.Spell.Speed * Time.deltaTime);
 
-            // If the point reached the target, it tryes to get its IDamageable interface
-            if (parent.CurrentSpellDistance.Similiar(handObjectHit.distance, 0.5f) &&
-                objectHit.collider.gameObject.TryGetComponentInParent(out damageable))
+            // If the point reached the target, it gets its collider
+            if (parent.CurrentSpellDistance.Similiar(handObjectHit.distance, 0.5f))
             {
-                if (parent.IDamageableTarget.Contains(damageable) == false)
-                    parent.IDamageableTarget.Add(damageable);
+                if (parent.DamageableTarget != objectHit.collider)
+                    parent.DamageableTarget = objectHit.collider;
             }
         }
         else
@@ -61,10 +60,9 @@ sealed public class SpellBehaviourContinuousSO : SpellBehaviourAbstractContinuou
             finalTarget = eyesTarget;
             parent.CurrentSpellDistance += parent.Spell.Speed * Time.deltaTime;
 
-            // If parent had a damageable target it will remove it
-            if (parent.IDamageableTarget.Contains(damageable))
-                parent.IDamageableTarget.Remove(damageable);
- 
+            // If parent had a 
+            if (parent.DamageableTarget != null)
+                parent.DamageableTarget = null;
         }
 
         // Renderers line second point with the distance being updated
