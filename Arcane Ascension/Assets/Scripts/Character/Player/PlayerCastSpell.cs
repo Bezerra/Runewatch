@@ -52,7 +52,7 @@ public class PlayerCastSpell : MonoBehaviour
                 {
                     playerSpells.ActiveSpell.AttackBehaviourOneShot.Attack(playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
                 }
-                else if (playerSpells.ActiveSpell.CastType == SpellCastType.OneShotCast)
+                else if (playerSpells.ActiveSpell.CastType == SpellCastType.ContinuousCast)
                 {
                     playerSpells.ActiveSpell.AttackBehaviourContinuous.Attack(playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
                 }

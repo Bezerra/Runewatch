@@ -26,6 +26,7 @@ public class AttackBehaviourContinuousSO : AttackBehaviourAbstractContinuousSO
         // Gets behaviour of the spawned spell. Starts the behaviour and passes whoCast object (stats) to the behaviour.
         spellBehaviour = spawnedSpell.GetComponent<SpellBehaviourContinuous>();
         spellBehaviour.WhoCast = characterStats;
+        spellBehaviour.TriggerStartBehaviour();
     }
 
     /// <summary>

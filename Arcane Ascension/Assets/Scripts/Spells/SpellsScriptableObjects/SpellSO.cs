@@ -107,7 +107,6 @@ public abstract class SpellSO : ScriptableObject, ISpell
     public byte SpellID => spellID;
     public ElementType Element => element;
     public float ManaCost => manaCost;
-    public SpellDamageType DamageType => damageType;
     public bool AppliesDamageOvertime => appliesDamageOvertime;
     public float TimeInterval { get => timeInterval; set => timeInterval = value; }
     public float MaxTime { get => maxTime; set => maxTime = value; }

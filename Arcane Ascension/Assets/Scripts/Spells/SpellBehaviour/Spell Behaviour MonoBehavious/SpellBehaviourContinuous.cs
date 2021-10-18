@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -9,8 +10,19 @@ public class SpellBehaviourContinuous : SpellBehaviourAbstract
 
     public override ISpell Spell => spell;
 
-    // Variables to control spell behaviour
+    /// <summary>
+    /// Used to control everytime the spell hits something.
+    /// </summary>
     public float LastTimeHit { get; set; }
+    public LineRenderer LineRender { get; private set; }
+    public float CurrentSpellDistance { get; set; }
+    public IList<IDamageable> IDamageableTarget { get; set; }
+
+    private void Awake()
+    {
+        LineRender = GetComponent<LineRenderer>();
+        IDamageableTarget = new List<IDamageable>();
+    }
 
     /// <summary>
     /// Method called after instantiating the spell.
@@ -32,16 +44,22 @@ public class SpellBehaviourContinuous : SpellBehaviourAbstract
                 foreach (SpellBehaviourAbstractContinuousSO behaviour in spell.SpellBehaviourContinuous)
                     behaviour.DisableSpell(this);
             }
+            else
+            {
+                foreach (SpellBehaviourAbstractContinuousSO behaviour in spell.SpellBehaviourContinuous)
+                    behaviour.ContinuousUpdateBehaviour(this);
+            }
         }
-
-        foreach (SpellBehaviourAbstractContinuousSO behaviour in spell.SpellBehaviourContinuous)
-            behaviour.ContinuousUpdateBehaviour(this);
     }
 
     private void FixedUpdate()
     {
-        foreach (SpellBehaviourAbstractContinuousSO behaviour in spell.SpellBehaviourContinuous)
-            behaviour.ContinuousFixedUpdateBehaviour(this);
+        // If who cast doesn't have enough mana, it will immediatly cancel the spell
+        if (WhoCast != null)
+        {
+            foreach (SpellBehaviourAbstractContinuousSO behaviour in spell.SpellBehaviourContinuous)
+                behaviour.ContinuousFixedUpdateBehaviour(this);
+        }
     }
 
     /// <summary>

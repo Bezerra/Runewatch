@@ -2,18 +2,97 @@ using UnityEngine;
 using ExtensionMethods;
 
 /// <summary>
-/// Scriptable object responsible for creating a spell's behaviour.
+/// Scriptable object responsible for creating a spell's continuous spawning behaviour.
 /// </summary>
 [CreateAssetMenu(menuName = "Spells/Spell Behaviour/Spell Behaviour Continuous", fileName = "Spell Behaviour Continuous")]
 sealed public class SpellBehaviourContinuousSO : SpellBehaviourAbstractContinuousSO
 {
-    [Range(1, 50)][SerializeField] private float spellDistance;
+    [Range(1, 50)][SerializeField] private float spellMaxDistance;
 
     public override void StartBehaviour(SpellBehaviourContinuous parent)
     {
-        parent.LastTimeHit = Time.time;
+        // Left blank on purpose
     }
 
+    /// <summary>
+    /// Lers a line from player's hand to walls or forward.
+    /// </summary>
+    /// <param name="parent">Parent spell behaviour.</param>
+    public override void ContinuousUpdateBehaviour(SpellBehaviourContinuous parent)
+    {
+        // Sets line first point
+        parent.LineRender.SetPosition(0, parent.Hand.position);
+
+        // Creates rays from eyes to forward
+        Ray eyesForward = new Ray(parent.Eyes.position, parent.Eyes.forward);
+        Vector3 eyesTarget;
+        if (Physics.Raycast(eyesForward, out RaycastHit objectHit, spellMaxDistance))
+        {
+            // If it collides against a wall gets a point
+            eyesTarget = objectHit.point;
+        }
+        else
+        {
+            // Else it will go forward until spell's max distance
+            eyesTarget = parent.Eyes.position + parent.Eyes.forward * spellMaxDistance;
+        }
+        // Now, it creates a ray from HAND to eyes previous target
+        Ray handForward = new Ray(parent.Hand.position, parent.Hand.position.Direction(eyesTarget));
+        Vector3 finalTarget;
+        IDamageable damageable = null;
+        if (Physics.Raycast(handForward, out RaycastHit handObjectHit, spellMaxDistance))
+        {
+            // If it its something, then it will lerp spell distance into that point
+            finalTarget = handObjectHit.point;
+            parent.CurrentSpellDistance = 
+                Mathf.Lerp(parent.CurrentSpellDistance, handObjectHit.distance, parent.Spell.Speed * Time.deltaTime);
+
+            // If the point reached the target, it tryes to get its IDamageable interface
+            if (parent.CurrentSpellDistance.Similiar(handObjectHit.distance, 0.5f) &&
+                objectHit.collider.gameObject.TryGetComponentInParent(out damageable))
+            {
+                if (parent.IDamageableTarget.Contains(damageable) == false)
+                    parent.IDamageableTarget.Add(damageable);
+            }
+        }
+        else
+        {
+            // Else it will grow forward until spell's max distance
+            finalTarget = eyesTarget;
+            parent.CurrentSpellDistance += parent.Spell.Speed * Time.deltaTime;
+
+            // If parent had a damageable target it will remove it
+            if (parent.IDamageableTarget.Contains(damageable))
+                parent.IDamageableTarget.Remove(damageable);
+ 
+        }
+
+        // Renderers line second point with the distance being updated
+        parent.LineRender.SetPosition(1, 
+            parent.Hand.position + parent.Hand.position.Direction(finalTarget) * parent.CurrentSpellDistance);
+    }
+
+    public override void ContinuousFixedUpdateBehaviour(SpellBehaviourContinuous parent)
+    {
+        // Left blank on purpose
+    }
+
+    public override void HitBehaviour(Collider other, SpellBehaviourContinuous parent)
+    {
+        // Left blank on purpose
+    }
+
+
+
+
+
+
+
+
+
+
+
+    /*
     public override void ContinuousUpdateBehaviour(SpellBehaviourContinuous parent)
     {
         if (parent.Hand != null)
@@ -70,4 +149,5 @@ sealed public class SpellBehaviourContinuousSO : SpellBehaviourAbstractContinuou
     {
         // Left blank on purpose
     }
+    */
 }

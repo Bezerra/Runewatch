@@ -3,7 +3,6 @@
 /// </summary>
 public interface ISpellDamage
 {
-    SpellDamageType DamageType { get; }
     bool AppliesDamageOvertime { get; }
     ElementType Element { get; }
     float TimeInterval { get; }

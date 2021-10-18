@@ -30,6 +30,9 @@ public abstract class AttackBehaviourAbstractSO : ScriptableObject
     /// Disables spell gameobject.
     /// </summary>
     /// <param name="spellBehaviour">Behaviour of the spell.</param>
-    public void DisableSpell(SpellBehaviourAbstract spellBehaviour) =>
-        spellBehaviour.DisableSpell(spellBehaviour);
+    public void DisableSpell(SpellBehaviourAbstract spellBehaviour)
+    {
+        if (spellBehaviour != null)
+            spellBehaviour.DisableSpell(spellBehaviour);
+    }
 }
