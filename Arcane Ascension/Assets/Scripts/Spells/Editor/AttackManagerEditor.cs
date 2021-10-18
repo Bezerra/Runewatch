@@ -37,7 +37,7 @@ public class AttackManagerEditor : OdinMenuEditorWindow
         tree.Add("Create New Behaviour/New Behaviour Continuous", createNewAttackBehaviourContinuousData);
 
         tree.AddAllAssetsAtPath("Attack Behaviours",
-            "Assets/Resources/Scriptable Objects/Spells/Attack Behaviour", typeof(AttackBehaviourAbstractSO));
+            "Assets/Resources/Scriptable Objects/Attack Behaviours", typeof(AttackBehaviourAbstractSO));
 
         return tree;
     }
