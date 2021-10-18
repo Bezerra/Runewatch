@@ -68,24 +68,24 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         spellDamageAoEOvertime = new CreateSpellDamageAoEOvertimeData();
         spellDamageOvertime = new CreateSpellDamageOvertimeData();
 
-        tree.Add("Create New Behaviour/New Behaviour Forward", new CreateForwardBehaviourData());
-        tree.Add("Create New Behaviour/New Behaviour Continuous", new CreateContinuousBehaviourData());
-        tree.Add("Create New Behaviour/New Behaviour Self Heal", new CreateSelfHealOneShotBehaviourData());
-        tree.Add("Create New Behaviour/New Behaviour Apply Damage Pierce", new CreateApplyDamagePierceBehaviourData());
-        tree.Add("Create New Behaviour/New Behaviour Apply Damage", new CreateApplyDamageBehaviourData());
-        tree.Add("Create New Behaviour/New Behaviour Bounce On Hit", new CreateBounceOnHitBehaviourData());
-        tree.Add("Create New Behaviour/New Behaviour Common Behaviours", new CreateCommonBehavioursData());
-        tree.Add("Create New Behaviour/New Behaviour Disable Projectile After Seconds", new CreateDisableProjectileAfterSecondsData());
-        tree.Add("Create New Behaviour/New Behaviour Disable Projectile Velocity Zero", new CreateDisableProjectileVelocityZeroData());
-        tree.Add("Create New Behaviour/New Behaviour Spawn Hit Prefab", new CreateSpawnHitPrefabData());
-        tree.Add("Create New Behaviour/New Behaviour Spawn Muzzle Prefab", new CreateSpawnMuzzlePrefabData());
-        tree.Add("Create New Behaviour/New Behaviour Stop Spell On Hit", new CreateStopSpellOnHitData());
-        tree.Add("Create New Behaviour/New Behaviour Update Mana And Cooldown", new CreateUpdateManaAndCooldownData());
+        tree.Add("Create New Behaviour/New Behaviour Forward", forwardBehaviourData);
+        tree.Add("Create New Behaviour/New Behaviour Continuous", continuousBehaviourData);
+        tree.Add("Create New Behaviour/New Behaviour Self Heal", selfHealOneShotBehaviourData);
+        tree.Add("Create New Behaviour/New Behaviour Apply Damage Pierce", applyDamagePierceBehaviourData);
+        tree.Add("Create New Behaviour/New Behaviour Apply Damage", applyDamageBehaviourData);
+        tree.Add("Create New Behaviour/New Behaviour Bounce On Hit", bounceOnHitBehaviourData);
+        tree.Add("Create New Behaviour/New Behaviour Common Behaviours", commonBehavioursData);
+        tree.Add("Create New Behaviour/New Behaviour Disable Projectile After Seconds", disableProjectileAfterSecondsData);
+        tree.Add("Create New Behaviour/New Behaviour Disable Projectile Velocity Zero", disableProjectileVelocityZeroData);
+        tree.Add("Create New Behaviour/New Behaviour Spawn Hit Prefab", spawnHitPrefabData);
+        tree.Add("Create New Behaviour/New Behaviour Spawn Muzzle Prefab", spawnMuzzlePrefabData);
+        tree.Add("Create New Behaviour/New Behaviour Stop Spell On Hit", stopSpellOnHitData);
+        tree.Add("Create New Behaviour/New Behaviour Update Mana And Cooldown", updateManaAndCooldownData);
 
-        tree.Add("Create New Damage Behaviour/New Behaviour Damage Single Target", new CreateSpellDamageSingleTargetData());
-        tree.Add("Create New Damage Behaviour/New Behaviour Damage Overtime", new CreateSpellDamageOvertimeData());
-        tree.Add("Create New Damage Behaviour/New Behaviour Damage AoE", new CreateSpellDamageAoEData());
-        tree.Add("Create New Damage Behaviour/New Behaviour Damage AoE Overtime", new CreateSpellDamageAoEOvertimeData());
+        tree.Add("Create New Damage Behaviour/New Behaviour Damage Single Target", spellDamageSingleTarget);
+        tree.Add("Create New Damage Behaviour/New Behaviour Damage Overtime", spellDamageOvertime);
+        tree.Add("Create New Damage Behaviour/New Behaviour Damage AoE", spellDamageAoE);
+        tree.Add("Create New Damage Behaviour/New Behaviour Damage AoE Overtime", spellDamageAoEOvertime);
 
         tree.AddAllAssetsAtPath("Spell Damage Behaviours",
             "Assets/Resources/Scriptable Objects/Spell Damage Behaviours", typeof(DamageBehaviourAbstractSO));
@@ -98,8 +98,8 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         tree.AddAllAssetsAtPath("Spell Behaviours",
             "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/Stop Spells Behaviours", typeof(SpellBehaviourAbstractSO));
 
-        tree.Add("Create New One Shot Spell", new CreateNewSpellOneShotData());
-        tree.Add("Create New Continuous Spell", new CreateNewSpellContinuousData());
+        tree.Add("Create New One Shot Spell", createNewSpellOneShotData);
+        tree.Add("Create New Continuous Spell", createNewSpellContinuousData);
         tree.AddAllAssetsAtPath("Spell Data", "Assets/Resources/Scriptable Objects/Spells", typeof(SpellSO));
 
         return tree;

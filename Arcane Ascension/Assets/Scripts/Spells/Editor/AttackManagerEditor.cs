@@ -33,8 +33,8 @@ public class AttackManagerEditor : OdinMenuEditorWindow
         createNewAttackBehaviourOneShotData = new CreateAttackBehaviourOneShot();
         createNewAttackBehaviourContinuousData = new CreateAttackBehaviourContinuous();
 
-        tree.Add("Create New Behaviour/New Behaviour One Shot", new CreateAttackBehaviourOneShot());
-        tree.Add("Create New Behaviour/New Behaviour Continuous", new CreateAttackBehaviourContinuous());
+        tree.Add("Create New Behaviour/New Behaviour One Shot", createNewAttackBehaviourOneShotData);
+        tree.Add("Create New Behaviour/New Behaviour Continuous", createNewAttackBehaviourContinuousData);
 
         tree.AddAllAssetsAtPath("Attack Behaviours",
             "Assets/Resources/Scriptable Objects/Spells/Attack Behaviour", typeof(AttackBehaviourAbstractSO));

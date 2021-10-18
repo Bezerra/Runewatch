@@ -23,13 +23,21 @@ public class AIEditor : OdinMenuEditorWindow
         base.OnGUI();
     }
 
+    private CreateNewAction createNewAction;
+    private CreateNewDecision createNewDecision;
+    private CreateNewState createNewState;
+
     protected override OdinMenuTree BuildMenuTree()
     {
         OdinMenuTree tree = new OdinMenuTree();
 
-        tree.Add("Create New Action", new CreateNewAction());
-        tree.Add("Create New Decision", new CreateNewDecision());
-        tree.Add("Create New State", new CreateNewState());
+        createNewAction = new CreateNewAction();
+        createNewDecision = new CreateNewDecision();
+        createNewState = new CreateNewState();
+
+        tree.Add("Create New Action", createNewAction);
+        tree.Add("Create New Decision", createNewDecision);
+        tree.Add("Create New State", createNewState);
 
         tree.AddAllAssetsAtPath("Actions", "Assets/Resources/Scriptable Objects/AI", typeof(FSMAction));
         tree.AddAllAssetsAtPath("Decisions", "Assets/Resources/Scriptable Objects/AI", typeof(FSMDecision));
@@ -56,14 +64,29 @@ public class AIEditor : OdinMenuEditorWindow
         SirenixEditorGUI.EndHorizontalToolbar();
     }
 
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        if (createNewAction != null)
+            DestroyImmediate(createNewAction.AIAction);
+
+        if (createNewDecision != null)
+            DestroyImmediate(createNewDecision.AIDecision);
+
+        if (createNewState != null)
+            DestroyImmediate(createNewState.AIState);
+    }
+
     public class CreateNewAction
     {
+        public FSMAction AIAction { get; private set; }
+
         [Button("Create action - Roll", ButtonSizes.Large)]
         private void CreateRoll()
         {
-            ActionRoll roll = ScriptableObject.CreateInstance<ActionRoll>();
+            AIAction = ScriptableObject.CreateInstance<ActionRoll>();
             AssetDatabase.CreateAsset(
-                roll, "Assets/Resources/Scriptable Objects/AI/" + "Action Roll " +
+                AIAction, "Assets/Resources/Scriptable Objects/AI/" + "Action Roll " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
@@ -73,8 +96,8 @@ public class AIEditor : OdinMenuEditorWindow
         [Button("Create action - Chase Player", ButtonSizes.Large)]
         private void CreateChasePlayer()
         {
-            ActionChasePlayer chase = ScriptableObject.CreateInstance<ActionChasePlayer>();
-            AssetDatabase.CreateAsset(chase,
+            AIAction = ScriptableObject.CreateInstance<ActionChasePlayer>();
+            AssetDatabase.CreateAsset(AIAction,
                 "Assets/Resources/Scriptable Objects/AI/" + "Action Chase Player " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
@@ -85,8 +108,8 @@ public class AIEditor : OdinMenuEditorWindow
         [Button("Create action - Random Patrol", ButtonSizes.Large)]
         private void CreateRandomPatrol()
         {
-            ActionRandomPatrol patrol = ScriptableObject.CreateInstance<ActionRandomPatrol>();
-            AssetDatabase.CreateAsset(patrol,
+            AIAction = ScriptableObject.CreateInstance<ActionRandomPatrol>();
+            AssetDatabase.CreateAsset(AIAction,
                 "Assets/Resources/Scriptable Objects/AI/" + "Action Random Patrol " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
@@ -97,8 +120,8 @@ public class AIEditor : OdinMenuEditorWindow
         [Button("Create action - Random Attack", ButtonSizes.Large)]
         private void CreateRandomAttack()
         {
-            ActionAttack randomAttack = ScriptableObject.CreateInstance<ActionAttack>();
-            AssetDatabase.CreateAsset(randomAttack,
+            AIAction = ScriptableObject.CreateInstance<ActionAttack>();
+            AssetDatabase.CreateAsset(AIAction,
                 "Assets/Resources/Scriptable Objects/AI/" + "Action Random Attack " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
@@ -109,12 +132,14 @@ public class AIEditor : OdinMenuEditorWindow
 
     public class CreateNewDecision
     {
+        public FSMDecision AIDecision { get; private set; }
+
         [Button("Create decision - Can see player", ButtonSizes.Large)]
         private void CreateCanSeePlayer()
         {
-            DecisionCanSeePlayer canSee = ScriptableObject.CreateInstance<DecisionCanSeePlayer>();
+            AIDecision = ScriptableObject.CreateInstance<DecisionCanSeePlayer>();
             AssetDatabase.CreateAsset(
-                canSee, "Assets/Resources/Scriptable Objects/AI/" + "Decision Can See Player " +
+                AIDecision, "Assets/Resources/Scriptable Objects/AI/" + "Decision Can See Player " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
@@ -124,9 +149,9 @@ public class AIEditor : OdinMenuEditorWindow
         [Button("Create decision - Decision Chasing Player", ButtonSizes.Large)]
         private void DecisionChasingPlayer()
         {
-            DecisionChasingPlayer chasePlayer = ScriptableObject.CreateInstance<DecisionChasingPlayer>();
+            AIDecision = ScriptableObject.CreateInstance<DecisionChasingPlayer>();
             AssetDatabase.CreateAsset(
-                chasePlayer, "Assets/Resources/Scriptable Objects/AI/" + "Decision Chasing Player " +
+                AIDecision, "Assets/Resources/Scriptable Objects/AI/" + "Decision Chasing Player " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
@@ -136,12 +161,14 @@ public class AIEditor : OdinMenuEditorWindow
 
     public class CreateNewState
     {
+        public FSMState AIState { get; private set; }
+
         [Button("Create New State", ButtonSizes.Large)]
         private void CreateState()
         {
-            FSMState state = ScriptableObject.CreateInstance<FSMState>();
+            AIState = ScriptableObject.CreateInstance<FSMState>();
             AssetDatabase.CreateAsset(
-                state, "Assets/Resources/Scriptable Objects/AI/" + "State " +
+                AIState, "Assets/Resources/Scriptable Objects/AI/" + "State " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 

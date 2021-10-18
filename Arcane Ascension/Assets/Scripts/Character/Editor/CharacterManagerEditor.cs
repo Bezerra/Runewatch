@@ -39,11 +39,11 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
         createNewPlayerCharacterData = new CreateNewPlayerCharacterData();
         createNewEnemyCharacterData = new CreateNewEnemyCharacterData();
 
-        tree.Add("Create New Character/Player Character", new CreateNewPlayerCharacterData());
-        tree.Add("Create New Character/Enemy Character", new CreateNewEnemyCharacterData());
-        tree.Add("Create New Values/Player", new CreateNewPlayerValuesData());
-        tree.Add("Create New Values/Enemy", new CreateNewEnemyValuesData());
-        tree.Add("Create New Stats", new CreateNewStatsData());
+        tree.Add("Create New Character/Player Character", createNewPlayerCharacterData);
+        tree.Add("Create New Character/Enemy Character", createNewEnemyCharacterData);
+        tree.Add("Create New Values/Player", createNewPlayerValuesData);
+        tree.Add("Create New Values/Enemy", createNewEnemyValuesData);
+        tree.Add("Create New Stats", createNewStatsData);
 
         tree.AddAllAssetsAtPath(
             "Stats/Player Stats", "Assets/Resources/Scriptable Objects/Player", 
