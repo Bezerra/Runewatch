@@ -32,6 +32,10 @@ public class SpellManagerEditor : OdinMenuEditorWindow
     private CreateSpawnMuzzlePrefabData spawnMuzzlePrefabData;
     private CreateStopSpellOnHitData stopSpellOnHitData;
     private CreateUpdateManaAndCooldownData updateManaAndCooldownData;
+    private CreateSpellDamageSingleTargetData spellDamageSingleTarget;
+    private CreateSpellDamageAoEData spellDamageAoE;
+    private CreateSpellDamageAoEOvertimeData spellDamageAoEOvertime;
+    private CreateSpellDamageOvertimeData spellDamageOvertime;
 
     protected override void OnGUI()
     {
@@ -59,6 +63,10 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         spawnMuzzlePrefabData = new CreateSpawnMuzzlePrefabData();
         stopSpellOnHitData = new CreateStopSpellOnHitData();
         updateManaAndCooldownData = new CreateUpdateManaAndCooldownData();
+        spellDamageSingleTarget = new CreateSpellDamageSingleTargetData();
+        spellDamageAoE = new CreateSpellDamageAoEData();
+        spellDamageAoEOvertime = new CreateSpellDamageAoEOvertimeData();
+        spellDamageOvertime = new CreateSpellDamageOvertimeData();
 
         tree.Add("Create New Behaviour/New Behaviour Forward", new CreateForwardBehaviourData());
         tree.Add("Create New Behaviour/New Behaviour Continuous", new CreateContinuousBehaviourData());
@@ -74,6 +82,13 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         tree.Add("Create New Behaviour/New Behaviour Stop Spell On Hit", new CreateStopSpellOnHitData());
         tree.Add("Create New Behaviour/New Behaviour Update Mana And Cooldown", new CreateUpdateManaAndCooldownData());
 
+        tree.Add("Create New Damage Behaviour/New Behaviour Damage Single Target", new CreateSpellDamageSingleTargetData());
+        tree.Add("Create New Damage Behaviour/New Behaviour Damage Overtime", new CreateSpellDamageOvertimeData());
+        tree.Add("Create New Damage Behaviour/New Behaviour Damage AoE", new CreateSpellDamageAoEData());
+        tree.Add("Create New Damage Behaviour/New Behaviour Damage AoE Overtime", new CreateSpellDamageAoEOvertimeData());
+
+        tree.AddAllAssetsAtPath("Spell Damage Behaviours",
+            "Assets/Resources/Scriptable Objects/Spell Damage Behaviours", typeof(DamageBehaviourAbstractSO));
         tree.AddAllAssetsAtPath("Spell Behaviours",
             "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot", typeof(SpellBehaviourAbstractSO));
         tree.AddAllAssetsAtPath("Spell Behaviours",
@@ -159,6 +174,18 @@ public class SpellManagerEditor : OdinMenuEditorWindow
 
         if (updateManaAndCooldownData != null)
             DestroyImmediate(updateManaAndCooldownData.Spell);
+
+        if (spellDamageSingleTarget != null)
+            DestroyImmediate(spellDamageSingleTarget.Spell);
+
+        if (spellDamageOvertime != null)
+            DestroyImmediate(spellDamageOvertime.Spell);
+
+        if (spellDamageAoE != null)
+            DestroyImmediate(spellDamageAoE.Spell);
+
+        if (spellDamageAoEOvertime != null)
+            DestroyImmediate(spellDamageAoEOvertime.Spell);
     }
 
     /// <summary>
@@ -546,6 +573,98 @@ public class SpellManagerEditor : OdinMenuEditorWindow
             AssetDatabase.SaveAssets();
 
             Spell = ScriptableObject.CreateInstance<SpellBehaviourUpdateManaAndCooldownSO>();
+        }
+    }
+
+    public class CreateSpellDamageSingleTargetData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public DamageSingleTargetSO Spell { get; private set; }
+
+        public CreateSpellDamageSingleTargetData()
+        {
+            Spell = ScriptableObject.CreateInstance<DamageSingleTargetSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                "Assets/Resources/Scriptable Objects/Spell Damage Behaviours/New Spell Damage Single Target " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<DamageSingleTargetSO>();
+        }
+    }
+
+    public class CreateSpellDamageOvertimeData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public DamageOvertimeSO Spell { get; private set; }
+
+        public CreateSpellDamageOvertimeData()
+        {
+            Spell = ScriptableObject.CreateInstance<DamageOvertimeSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                "Assets/Resources/Scriptable Objects/Spell Damage Behaviours/New Spell Damage Overtime " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<DamageOvertimeSO>();
+        }
+    }
+
+    public class CreateSpellDamageAoEData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public DamageAoESO Spell { get; private set; }
+
+        public CreateSpellDamageAoEData()
+        {
+            Spell = ScriptableObject.CreateInstance<DamageAoESO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                "Assets/Resources/Scriptable Objects/Spell Damage Behaviours/New Spell Damage AoE " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<DamageAoESO>();
+        }
+    }
+
+    public class CreateSpellDamageAoEOvertimeData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public DamageAoEOvertimeSO Spell { get; private set; }
+
+        public CreateSpellDamageAoEOvertimeData()
+        {
+            Spell = ScriptableObject.CreateInstance<DamageAoEOvertimeSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                "Assets/Resources/Scriptable Objects/Spell Damage Behaviours/New Spell Damage AoE Overtime " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<DamageAoEOvertimeSO>();
         }
     }
 }
