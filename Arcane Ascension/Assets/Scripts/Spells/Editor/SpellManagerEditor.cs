@@ -17,6 +17,21 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         GetWindow<SpellManagerEditor>().Show();
     }
 
+    private readonly string CREATENEWONESHOTBEHAVIOUR = "Create New One Shot Behaviour";
+    private readonly string ONESHOTBEHAVIOURPATH = "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot";
+
+    private readonly string CREATENEWDAMAGEBEHAVIOUR = "Create New Damage Behaviour";
+    private readonly string SPELLDAMAGEBEHAVIOURSPATH = "Assets/Resources/Scriptable Objects/Spell Damage Behaviours";
+
+    private readonly string CREATENEWSPELL = "Create New Spell";
+    private readonly string SPELLSPATH = "Assets/Resources/Scriptable Objects/Spells";
+
+    private readonly string CREATENEWONHITONESHOTBEHAVIOUR = "Create New On Hit Behaviour";
+    private readonly string ONHITBEHAVIOURSONESHOTPATH = "Assets/Resources/Scriptable Objects/Spell Hit Behaviours";
+
+    private readonly string CREATENEWMUZZLEBEHAVIOUR = "Create New Muzzle Behaviour";
+    private readonly string MUZZLEBEHAVIOURSONESHOTPATH = "Assets/Resources/Scriptable Objects/Spell Muzzle Behaviours";
+
     private CreateNewSpellOneShotData createNewSpellOneShotData;
     private CreateNewSpellContinuousData createNewSpellContinuousData;
     private CreateContinuousBehaviourData continuousBehaviourData;
@@ -36,6 +51,8 @@ public class SpellManagerEditor : OdinMenuEditorWindow
     private CreateSpellDamageAoEData spellDamageAoE;
     private CreateSpellDamageAoEOvertimeData spellDamageAoEOvertime;
     private CreateSpellDamageOvertimeData spellDamageOvertime;
+    private CreateSpellMuzzleDisableData spellMuzzleDisableData;
+    private CreateSpellOnHitDisableData spellOnHitDisableData;
 
     protected override void OnGUI()
     {
@@ -67,40 +84,50 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         spellDamageAoE = new CreateSpellDamageAoEData();
         spellDamageAoEOvertime = new CreateSpellDamageAoEOvertimeData();
         spellDamageOvertime = new CreateSpellDamageOvertimeData();
+        spellMuzzleDisableData = new CreateSpellMuzzleDisableData();
+        spellOnHitDisableData = new CreateSpellOnHitDisableData();
 
-        tree.Add("Create New Behaviour/New Behaviour Forward", forwardBehaviourData);
-        tree.Add("Create New Behaviour/New Behaviour Continuous", continuousBehaviourData);
-        tree.Add("Create New Behaviour/New Behaviour Self Heal", selfHealOneShotBehaviourData);
-        tree.Add("Create New Behaviour/New Behaviour Apply Damage Pierce", applyDamagePierceBehaviourData);
-        tree.Add("Create New Behaviour/New Behaviour Apply Damage", applyDamageBehaviourData);
-        tree.Add("Create New Behaviour/New Behaviour Bounce On Hit", bounceOnHitBehaviourData);
-        tree.Add("Create New Behaviour/New Behaviour Common Behaviours", commonBehavioursData);
-        tree.Add("Create New Behaviour/New Behaviour Disable Projectile After Seconds", disableProjectileAfterSecondsData);
-        tree.Add("Create New Behaviour/New Behaviour Disable Projectile Velocity Zero", disableProjectileVelocityZeroData);
-        tree.Add("Create New Behaviour/New Behaviour Spawn Hit Prefab", spawnHitPrefabData);
-        tree.Add("Create New Behaviour/New Behaviour Spawn Muzzle Prefab", spawnMuzzlePrefabData);
-        tree.Add("Create New Behaviour/New Behaviour Stop Spell On Hit", stopSpellOnHitData);
-        tree.Add("Create New Behaviour/New Behaviour Update Mana And Cooldown", updateManaAndCooldownData);
+        tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Forward", forwardBehaviourData);
+        tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Continuous", continuousBehaviourData);
+        tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Self Heal", selfHealOneShotBehaviourData);
+        tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Apply Damage Pierce", applyDamagePierceBehaviourData);
+        tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Apply Damage", applyDamageBehaviourData);
+        tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Bounce On Hit", bounceOnHitBehaviourData);
+        tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Common Behaviours", commonBehavioursData);
+        tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Disable Projectile After Seconds", disableProjectileAfterSecondsData);
+        tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Disable Projectile Velocity Zero", disableProjectileVelocityZeroData);
+        tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Spawn Hit Prefab", spawnHitPrefabData);
+        tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Spawn Muzzle Prefab", spawnMuzzlePrefabData);
+        tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Stop Spell On Hit", stopSpellOnHitData);
+        tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Update Mana And Cooldown", updateManaAndCooldownData);
 
-        tree.Add("Create New Damage Behaviour/New Behaviour Damage Single Target", spellDamageSingleTarget);
-        tree.Add("Create New Damage Behaviour/New Behaviour Damage Overtime", spellDamageOvertime);
-        tree.Add("Create New Damage Behaviour/New Behaviour Damage AoE", spellDamageAoE);
-        tree.Add("Create New Damage Behaviour/New Behaviour Damage AoE Overtime", spellDamageAoEOvertime);
+        tree.Add($"{CREATENEWDAMAGEBEHAVIOUR}/New Behaviour Damage Single Target", spellDamageSingleTarget);
+        tree.Add($"{CREATENEWDAMAGEBEHAVIOUR}/New Behaviour Damage Overtime", spellDamageOvertime);
+        tree.Add($"{CREATENEWDAMAGEBEHAVIOUR}/New Behaviour Damage AoE", spellDamageAoE);
+        tree.Add($"{CREATENEWDAMAGEBEHAVIOUR}/New Behaviour Damage AoE Overtime", spellDamageAoEOvertime);
 
+        tree.Add($"{CREATENEWONHITONESHOTBEHAVIOUR}/New On Hit Disable Behaviour", spellOnHitDisableData);
+
+        tree.Add($"{CREATENEWMUZZLEBEHAVIOUR}/New Muzzle Disable Behaviour", spellMuzzleDisableData);
+
+        tree.AddAllAssetsAtPath("Spell Behaviours",
+            $"{ONESHOTBEHAVIOURPATH}", typeof(SpellBehaviourAbstractSO));
+        tree.AddAllAssetsAtPath("Spell Behaviours",
+            $"{ONESHOTBEHAVIOURPATH}/Apply Damage Behaviours", typeof(SpellBehaviourAbstractSO));
+        tree.AddAllAssetsAtPath("Spell Behaviours",
+            $"{ONESHOTBEHAVIOURPATH}/Common Behaviours", typeof(SpellBehaviourAbstractSO));
+        tree.AddAllAssetsAtPath("Spell Behaviours",
+            $"{ONESHOTBEHAVIOURPATH}/Stop Spells Behaviours", typeof(SpellBehaviourAbstractSO));
         tree.AddAllAssetsAtPath("Spell Damage Behaviours",
-            "Assets/Resources/Scriptable Objects/Spell Damage Behaviours", typeof(DamageBehaviourAbstractSO));
-        tree.AddAllAssetsAtPath("Spell Behaviours",
-            "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot", typeof(SpellBehaviourAbstractSO));
-        tree.AddAllAssetsAtPath("Spell Behaviours",
-            "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/Apply Damage Behaviours", typeof(SpellBehaviourAbstractSO));
-        tree.AddAllAssetsAtPath("Spell Behaviours",
-            "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/Common Behaviours", typeof(SpellBehaviourAbstractSO));
-        tree.AddAllAssetsAtPath("Spell Behaviours",
-            "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/Stop Spells Behaviours", typeof(SpellBehaviourAbstractSO));
+            $"{SPELLDAMAGEBEHAVIOURSPATH}", typeof(DamageBehaviourAbstractSO));
+        tree.AddAllAssetsAtPath("Spell On Hit Behaviours",
+            $"{ONHITBEHAVIOURSONESHOTPATH}", typeof(SpellOnHitBehaviourAbstractSO));
+        tree.AddAllAssetsAtPath("Spell Muzzle Behaviours",
+            $"{MUZZLEBEHAVIOURSONESHOTPATH}", typeof(SpellMuzzleBehaviourAbstractSO));
 
-        tree.Add("Create New One Shot Spell", createNewSpellOneShotData);
-        tree.Add("Create New Continuous Spell", createNewSpellContinuousData);
-        tree.AddAllAssetsAtPath("Spell Data", "Assets/Resources/Scriptable Objects/Spells", typeof(SpellSO));
+        tree.Add($"{CREATENEWSPELL}/Create New One Shot Spell", createNewSpellOneShotData);
+        tree.Add($"{CREATENEWSPELL}/Create New Continuous Spell", createNewSpellContinuousData);
+        tree.AddAllAssetsAtPath("Spell Data", $"{SPELLSPATH}", typeof(SpellSO));
 
         return tree;
     }
@@ -186,6 +213,12 @@ public class SpellManagerEditor : OdinMenuEditorWindow
 
         if (spellDamageAoEOvertime != null)
             DestroyImmediate(spellDamageAoEOvertime.Spell);
+
+        if (spellOnHitDisableData != null)
+            DestroyImmediate(spellOnHitDisableData.Spell);
+
+        if (spellMuzzleDisableData != null)
+            DestroyImmediate(spellMuzzleDisableData.Spell);
     }
 
     /// <summary>
@@ -248,7 +281,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         [Button("Create", ButtonSizes.Large)]
         private void CreateNewData()
         {
-            AssetDatabase.CreateAsset(Spell, "Assets/Resources/Scriptable Objects/Spells/New Spell " +
+            AssetDatabase.CreateAsset(Spell, $"Assets/Resources/Scriptable Objects/Spells/New Spell " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
@@ -665,6 +698,52 @@ public class SpellManagerEditor : OdinMenuEditorWindow
             AssetDatabase.SaveAssets();
 
             Spell = ScriptableObject.CreateInstance<DamageAoEOvertimeSO>();
+        }
+    }
+
+    public class CreateSpellMuzzleDisableData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public SpellMuzzleBehaviourDisable Spell { get; private set; }
+
+        public CreateSpellMuzzleDisableData()
+        {
+            Spell = ScriptableObject.CreateInstance<SpellMuzzleBehaviourDisable>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                "Assets/Resources/Scriptable Objects/Spell Muzzle Behaviours/New Spell Muzzle Behaviour Disable " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<SpellMuzzleBehaviourDisable>();
+        }
+    }
+
+    public class CreateSpellOnHitDisableData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public SpellOnHitBehaviourDisable Spell { get; private set; }
+
+        public CreateSpellOnHitDisableData()
+        {
+            Spell = ScriptableObject.CreateInstance<SpellOnHitBehaviourDisable>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                "Assets/Resources/Scriptable Objects/Spell Hit Behaviours/New Spell Hit Behaviour Disable " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<SpellOnHitBehaviourDisable>();
         }
     }
 }
