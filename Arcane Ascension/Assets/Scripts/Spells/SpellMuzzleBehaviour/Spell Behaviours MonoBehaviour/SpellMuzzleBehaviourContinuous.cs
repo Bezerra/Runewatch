@@ -16,7 +16,8 @@ public class SpellMuzzleBehaviourContinuous : SpellMuzzleBehaviourAbstract
 
     private void Awake()
     {
-        MuzzleEffect = gameObject.GetComponentInChildren<VisualEffect>();
+        MuzzleEffect = GetComponentInChildren<VisualEffect>();
+        Debug.Log(MuzzleEffect);
     }
 
     /// <summary>
@@ -25,10 +26,6 @@ public class SpellMuzzleBehaviourContinuous : SpellMuzzleBehaviourAbstract
     private void OnEnable()
     {
         Spell?.MuzzleBehaviourContinuous.StartBehaviour(this);
-    }
-
-    private void OnDisable()
-    {
     }
 
     /// <summary>
