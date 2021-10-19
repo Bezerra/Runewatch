@@ -3,9 +3,9 @@ using UnityEngine;
 /// <summary>
 /// Scriptable object responsible for creating a spell's behaviour.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Update Mana and Cooldown", 
-    fileName = "Spell Behaviour Update Mana and Cooldown")]
-sealed public class SpellBehaviourUpdateManaAndCooldownSO : SpellBehaviourAbstractOneShotSO
+[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Mana and Cooldown Update", 
+    fileName = "Spell Behaviour Mana and Cooldown UpdateUpdate")]
+sealed public class SpellBehaviourManaAndCooldownUpdateSO : SpellBehaviourAbstractOneShotSO
 {
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {

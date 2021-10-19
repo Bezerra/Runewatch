@@ -56,9 +56,10 @@ public class SpellManagerEditor : OdinMenuEditorWindow
     private CreateSpellDamageOvertimeData spellDamageOvertime;
     private CreateSpellMuzzleDisableData spellMuzzleDisableData;
     private CreateSpellOnHitDisableData spellOnHitDisableData;
-
+    
     private CreateContinuousBehaviourData continuousBehaviourData;
-    private CreateNewSpellContinuousApplyDamageData continuousApplyDamageBehaviourData;
+    private CreateSpellContinuousApplyDamageData continuousApplyDamageBehaviourData;
+    private CreateSpellManaUpdateData continuousSpellManaUpdateData;
 
     protected override void OnGUI()
     {
@@ -94,7 +95,8 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         spellOnHitDisableData = new CreateSpellOnHitDisableData();
 
         continuousBehaviourData = new CreateContinuousBehaviourData();
-        continuousApplyDamageBehaviourData = new CreateNewSpellContinuousApplyDamageData();
+        continuousApplyDamageBehaviourData = new CreateSpellContinuousApplyDamageData();
+        continuousSpellManaUpdateData = new CreateSpellManaUpdateData();
 
         // One shot behaviours
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Forward", forwardBehaviourData);
@@ -108,11 +110,12 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Spawn Hit Prefab", spawnHitPrefabData);
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Spawn Muzzle Prefab", spawnMuzzlePrefabData);
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Stop Spell On Hit", stopSpellOnHitData);
-        tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Update Mana And Cooldown", updateManaAndCooldownData);
+        tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Mana And Cooldown Update", updateManaAndCooldownData);
 
         // Continuous Behaviours
         tree.Add($"{CREATENEWCONTINUOUSBEHAVIOUR}/New Behaviour Continuous", continuousBehaviourData);
         tree.Add($"{CREATENEWCONTINUOUSBEHAVIOUR}/New Behaviour Continuous Apply Damage", continuousApplyDamageBehaviourData);
+        tree.Add($"{CREATENEWCONTINUOUSBEHAVIOUR}/New Behaviour Mana Update", continuousSpellManaUpdateData);
 
         // Damage behaviours
         tree.Add($"{CREATENEWDAMAGEBEHAVIOUR}/New Behaviour Damage Single Target", spellDamageSingleTarget);
@@ -241,6 +244,9 @@ public class SpellManagerEditor : OdinMenuEditorWindow
 
         if (continuousApplyDamageBehaviourData != null)
             DestroyImmediate(continuousApplyDamageBehaviourData.Spell);
+
+        if (continuousSpellManaUpdateData != null)
+            DestroyImmediate(continuousSpellManaUpdateData.Spell);
     }
 
     /// <summary>
@@ -569,22 +575,22 @@ public class SpellManagerEditor : OdinMenuEditorWindow
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
-        public SpellBehaviourUpdateManaAndCooldownSO Spell { get; private set; }
+        public SpellBehaviourManaAndCooldownUpdateSO Spell { get; private set; }
 
         public CreateUpdateManaAndCooldownData()
         {
-            Spell = ScriptableObject.CreateInstance<SpellBehaviourUpdateManaAndCooldownSO>();
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourManaAndCooldownUpdateSO>();
         }
 
         [Button("Create", ButtonSizes.Large)]
         private void CreateNewData()
         {
             AssetDatabase.CreateAsset(Spell,
-                "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/New Spell Update Mana And Cooldown Behaviour " +
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/New Spell Mana And Cooldown Update Behaviour " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
-            Spell = ScriptableObject.CreateInstance<SpellBehaviourUpdateManaAndCooldownSO>();
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourManaAndCooldownUpdateSO>();
         }
     }
 
@@ -769,13 +775,13 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         }
     }
 
-    public class CreateNewSpellContinuousApplyDamageData
+    public class CreateSpellContinuousApplyDamageData
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
         public SpellBehaviourContinuousApplyDamageSO Spell { get; private set; }
 
-        public CreateNewSpellContinuousApplyDamageData()
+        public CreateSpellContinuousApplyDamageData()
         {
             Spell = ScriptableObject.CreateInstance<SpellBehaviourContinuousApplyDamageSO>();
         }
@@ -784,13 +790,34 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         private void CreateNewData()
         {
             AssetDatabase.CreateAsset(Spell, 
-                $"Assets/Resources/Scriptable Objects/Spell Behaviours/Continuous/New Spell Continuous Apply Damage " +
+                $"Assets/Resources/Scriptable Objects/Spell Behaviours/Continuous/New Behaviour Continuous Apply Damage " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
             Spell = ScriptableObject.CreateInstance<SpellBehaviourContinuousApplyDamageSO>();
+        }
+    }
 
+    public class CreateSpellManaUpdateData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public SpellBehaviourContinuousManaUpdateSO Spell { get; private set; }
+
+        public CreateSpellManaUpdateData()
+        {
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourContinuousManaUpdateSO>();
         }
 
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                $"Assets/Resources/Scriptable Objects/Spell Behaviours/Continuous/New Behaviour Continuous Mana Update " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourContinuousManaUpdateSO>();
+        }
     }
 }

@@ -3,9 +3,9 @@ using UnityEngine;
 /// <summary>
 /// Scriptable object responsible for creating a spell's continuous apply damage.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Spell Behaviour/Continuous/Spell Behaviour Continuous Apply Damage",
-    fileName = "Spell Behaviour Continuous Apply Damage")]
-public class SpellBehaviourContinuousApplyDamageSO : SpellBehaviourAbstractContinuousSO
+[CreateAssetMenu(menuName = "Spells/Spell Behaviour/Continuous/Spell Behaviour Continuous Mana Update",
+    fileName = "Spell Behaviour Continuous Mana Update")]
+public class SpellBehaviourContinuousManaUpdateSO : SpellBehaviourAbstractContinuousSO
 {
     public override void StartBehaviour(SpellBehaviourContinuous parent)
     {
@@ -19,7 +19,7 @@ public class SpellBehaviourContinuousApplyDamageSO : SpellBehaviourAbstractConti
             // If the spell is in hit time (updated on parent)
             if (Time.time > parent.LastTimeHit + parent.Spell.Cooldown)
             {
-                parent.Spell.DamageBehaviour.Damage(parent.DamageableTarget, parent);
+                parent.WhoCast.ReduceMana(parent.Spell.ManaCost);
             }
         }
     }

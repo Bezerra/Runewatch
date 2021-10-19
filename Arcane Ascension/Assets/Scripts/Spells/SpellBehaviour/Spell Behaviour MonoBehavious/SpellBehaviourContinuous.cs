@@ -23,6 +23,11 @@ public class SpellBehaviourContinuous : SpellBehaviourAbstract
         LineRender = GetComponent<LineRenderer>();
     }
 
+    private void OnEnable()
+    {
+        LastTimeHit = Time.time;
+    }
+
     private void OnDisable()
     {
         DamageableTarget = null;
@@ -52,6 +57,12 @@ public class SpellBehaviourContinuous : SpellBehaviourAbstract
             {
                 foreach (SpellBehaviourAbstractContinuousSO behaviour in spell.SpellBehaviourContinuous)
                     behaviour.ContinuousUpdateBehaviour(this);
+
+                // Every spell.Cooldown  time, the spell will update last hit current time
+                if (Time.time > LastTimeHit + Spell.Cooldown)
+                {
+                    LastTimeHit = Time.time;
+                }
             }
         }
     }
