@@ -68,9 +68,11 @@ public class SpellManagerEditor : OdinMenuEditorWindow
     private CreateSpellContinuousApplyDamageData continuousApplyDamageBehaviourData;
     private CreateSpellContinuousManaUpdateData continuousSpellManaUpdateData;
     private CreateSpawnMuzzlePrefabContinuousData continuousSpawnMuzzlePrefabData;
+    private CreateSpellBehaviourSpawnOnHitPrefabContinuousData continuousSpawnOnHitPrefabData;
 
     // Continuous Hits and Muzzles
     private CreateSpellContinuousUpdatePositionAndDisableData continuousUpdateMuzzleAndDisable;
+    private CreateContinuousSpellOnHitBehaviourDisableData continuousHitAndDisable;
 
     // Damage
     private CreateSpellDamageSingleTargetData spellDamageSingleTarget;
@@ -115,9 +117,11 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         continuousApplyDamageBehaviourData = new CreateSpellContinuousApplyDamageData();
         continuousSpellManaUpdateData = new CreateSpellContinuousManaUpdateData();
         continuousSpawnMuzzlePrefabData = new CreateSpawnMuzzlePrefabContinuousData();
+        continuousSpawnOnHitPrefabData = new CreateSpellBehaviourSpawnOnHitPrefabContinuousData();
 
         // Continuous Hits and muzzles
         continuousUpdateMuzzleAndDisable = new CreateSpellContinuousUpdatePositionAndDisableData();
+        continuousHitAndDisable = new CreateContinuousSpellOnHitBehaviourDisableData();
 
         // Damage
         spellDamageSingleTarget = new CreateSpellDamageSingleTargetData();
@@ -143,7 +147,8 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         tree.Add($"{CREATENEWCONTINUOUSBEHAVIOUR}/New Behaviour Continuous", continuousBehaviourData);
         tree.Add($"{CREATENEWCONTINUOUSBEHAVIOUR}/New Behaviour Continuous Apply Damage", continuousApplyDamageBehaviourData);
         tree.Add($"{CREATENEWCONTINUOUSBEHAVIOUR}/New Behaviour Mana Update", continuousSpellManaUpdateData);
-        tree.Add($"{CREATENEWCONTINUOUSBEHAVIOUR}/New Behaviour Spawn Muzzle", continuousSpawnMuzzlePrefabData);
+        tree.Add($"{CREATENEWCONTINUOUSBEHAVIOUR}/New Behaviour Spawn Muzzle Prefab", continuousSpawnMuzzlePrefabData);
+        tree.Add($"{CREATENEWCONTINUOUSBEHAVIOUR}/New Behaviour Spawn On Hit Prefab", continuousSpawnOnHitPrefabData);
 
         // One shot on hit and muzzles
         tree.Add($"{CREATENEWONHITONESHOTBEHAVIOUR}/New On Hit Disable Behaviour", spellOnHitDisableData);
@@ -151,6 +156,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
 
         // Continuous on hit and muzzles
         tree.Add($"{CREATENEWMUZZLECONTINUOUSBEHAVIOUR}/New Muzzle Position And Disable Behaviour", continuousUpdateMuzzleAndDisable);
+        tree.Add($"{CREATENEWMUZZLECONTINUOUSBEHAVIOUR}/New Hit Disable Behaviour", continuousHitAndDisable);
 
         // Damage behaviours
         tree.Add($"{CREATENEWDAMAGEBEHAVIOUR}/New Behaviour Damage Single Target", spellDamageSingleTarget);
@@ -291,6 +297,13 @@ public class SpellManagerEditor : OdinMenuEditorWindow
 
         if (continuousUpdateMuzzleAndDisable != null)
             DestroyImmediate(continuousUpdateMuzzleAndDisable.Spell);
+
+        if (continuousSpawnOnHitPrefabData != null)
+            DestroyImmediate(continuousSpawnOnHitPrefabData.Spell);
+
+        if (continuousHitAndDisable != null)
+            DestroyImmediate(continuousHitAndDisable.Spell);
+        
     }
 
     /// <summary>
@@ -757,11 +770,11 @@ public class SpellManagerEditor : OdinMenuEditorWindow
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
-        public SpellOnHitBehaviourOneShotDisable Spell { get; private set; }
+        public SpellOnHitBehaviourOneShotDisableSO Spell { get; private set; }
 
         public CreateSpellOnHitDisableOneShotData()
         {
-            Spell = ScriptableObject.CreateInstance<SpellOnHitBehaviourOneShotDisable>();
+            Spell = ScriptableObject.CreateInstance<SpellOnHitBehaviourOneShotDisableSO>();
         }
 
         [Button("Create", ButtonSizes.Large)]
@@ -772,7 +785,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
-            Spell = ScriptableObject.CreateInstance<SpellOnHitBehaviourOneShotDisable>();
+            Spell = ScriptableObject.CreateInstance<SpellOnHitBehaviourOneShotDisableSO>();
         }
     }
 
@@ -908,6 +921,52 @@ public class SpellManagerEditor : OdinMenuEditorWindow
             AssetDatabase.SaveAssets();
 
             Spell = ScriptableObject.CreateInstance<SpellMuzzleBehaviourContinuousPositionDisableSO>();
+        }
+    }
+
+    public class CreateSpellBehaviourSpawnOnHitPrefabContinuousData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public SpellBehaviourSpawnOnHitPrefabContinuousSO Spell { get; private set; }
+
+        public CreateSpellBehaviourSpawnOnHitPrefabContinuousData()
+        {
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourSpawnOnHitPrefabContinuousSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/Continuous/New Spell Spawn On Hit Prefab " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourSpawnOnHitPrefabContinuousSO>();
+        }
+    }
+
+    public class CreateContinuousSpellOnHitBehaviourDisableData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public SpellOnHitBehaviourContinuousDisableSO Spell { get; private set; }
+
+        public CreateContinuousSpellOnHitBehaviourDisableData()
+        {
+            Spell = ScriptableObject.CreateInstance<SpellOnHitBehaviourContinuousDisableSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                "Assets/Resources/Scriptable Objects/Spell Hit Behaviours/Continuous/New Spell On Hit Disable " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<SpellOnHitBehaviourContinuousDisableSO>();
         }
     }
 }

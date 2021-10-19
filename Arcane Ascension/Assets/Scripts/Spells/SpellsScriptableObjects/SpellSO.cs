@@ -125,6 +125,7 @@ public abstract class SpellSO : ScriptableObject, ISpell
     public virtual SpellOnHitBehaviourAbstractContinuousSO OnHitBehaviourContinuous { get; }
     public virtual SpellMuzzleBehaviourAbstractContinuousSO MuzzleBehaviourContinuous { get; }
     public virtual AttackBehaviourAbstractContinuousSO AttackBehaviourContinuous { get; }
+
     public DamageBehaviourAbstractSO DamageBehaviour => damageBehaviour;
 
     /// <summary>
