@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Monobehaviour for one shot spell hits.
 /// </summary>
-public class SpellOnHitBehaviourOneShot : SpellOnHitBehaviourAbstract
+public class SpellOnHitBehaviourContinuous : SpellOnHitBehaviourAbstract
 {
     /// <summary>
     /// This variable is set on spell behaviour after the spell is cast.
@@ -19,7 +19,7 @@ public class SpellOnHitBehaviourOneShot : SpellOnHitBehaviourAbstract
     {
         TimeSpawned = Time.time;
 
-        Spell?.OnHitBehaviourOneShot.StartBehaviour(this);
+        Spell?.OnHitBehaviourContinuous.StartBehaviour(this);
     }
 
     /// <summary>
@@ -27,7 +27,6 @@ public class SpellOnHitBehaviourOneShot : SpellOnHitBehaviourAbstract
     /// </summary>
     private void Update()
     {
-        Spell?.OnHitBehaviourOneShot.ContinuousUpdateBehaviour(this);
+        Spell?.OnHitBehaviourContinuous.ContinuousUpdateBehaviour(this);
     }
 }
-        

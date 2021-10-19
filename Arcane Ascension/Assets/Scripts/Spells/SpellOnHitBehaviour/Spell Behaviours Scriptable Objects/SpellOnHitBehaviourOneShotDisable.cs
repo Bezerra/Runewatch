@@ -24,6 +24,6 @@ sealed public class SpellOnHitBehaviourOneShotDisable : SpellOnHitBehaviourAbstr
     public override void ContinuousUpdateBehaviour(SpellOnHitBehaviourOneShot parent)
     {
         if (Time.time - parent.TimeSpawned > disableAfterSeconds)
-            DisableHitSpell(parent);
+            parent.DisableHitSpell();
     }
 }

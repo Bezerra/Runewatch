@@ -7,23 +7,5 @@ using Sirenix.OdinInspector;
 [InlineEditor]
 public abstract class SpellMuzzleBehaviourAbstractSO : ScriptableObject
 {
-    /// <summary>
-    /// Executes when prefab is enabled.
-    /// </summary>
-    public virtual void StartBehaviour(SpellMuzzleBehaviourOneShot parent) { }
-
-    /// <summary>
-    /// Executes on update.
-    /// </summary>
-    public virtual void ContinuousUpdateBehaviour(SpellMuzzleBehaviourOneShot parent) { }
-
-    /// <summary>
-    /// Executes when prefab is enabled.
-    /// </summary>
-    public virtual void StartBehaviour(SpellMuzzleBehaviourContinuous parent) { }
-
-    /// <summary>
-    /// Executes on update.
-    /// </summary>
-    public virtual void ContinuousUpdateBehaviour(SpellMuzzleBehaviourContinuous parent) { }
+    // Abstract type for muzzles
 }

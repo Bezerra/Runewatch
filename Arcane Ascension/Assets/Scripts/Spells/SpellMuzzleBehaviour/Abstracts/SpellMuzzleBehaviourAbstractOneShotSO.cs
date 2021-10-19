@@ -6,10 +6,10 @@ public abstract class SpellMuzzleBehaviourAbstractOneShotSO : SpellMuzzleBehavio
     /// <summary>
     /// Executes when prefab is enabled.
     /// </summary>
-    public override abstract void StartBehaviour(SpellMuzzleBehaviourOneShot parent);
+    public abstract void StartBehaviour(SpellMuzzleBehaviourOneShot parent);
 
     /// <summary>
     /// Executes on update.
     /// </summary>
-    public override abstract void ContinuousUpdateBehaviour(SpellMuzzleBehaviourOneShot parent);
+    public abstract void ContinuousUpdateBehaviour(SpellMuzzleBehaviourOneShot parent);
 }

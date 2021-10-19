@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.VFX;
 
 /// <summary>
 /// Scriptable Object responsible for disabling the spell muzzle gameobject.

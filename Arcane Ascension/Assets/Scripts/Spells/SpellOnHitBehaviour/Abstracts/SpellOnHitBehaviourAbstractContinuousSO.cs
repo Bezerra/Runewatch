@@ -6,10 +6,10 @@ public abstract class SpellOnHitBehaviourAbstractContinuousSO : SpellOnHitBehavi
     /// <summary>
     /// Executes when prefab is enabled.
     /// </summary>
-    public override abstract void StartBehaviour(SpellOnHitBehaviourOneShot parent);
+    public abstract void StartBehaviour(SpellOnHitBehaviourContinuous parent);
 
     /// <summary>
     /// Executes on update.
     /// </summary>
-    public override abstract void ContinuousUpdateBehaviour(SpellOnHitBehaviourOneShot parent);
+    public abstract void ContinuousUpdateBehaviour(SpellOnHitBehaviourContinuous parent);
 }

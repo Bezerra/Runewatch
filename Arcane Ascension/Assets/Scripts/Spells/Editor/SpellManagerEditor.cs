@@ -152,13 +152,13 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         // Continuous on hit and muzzles
         tree.Add($"{CREATENEWMUZZLECONTINUOUSBEHAVIOUR}/New Muzzle Position And Disable Behaviour", continuousUpdateMuzzleAndDisable);
 
-
         // Damage behaviours
         tree.Add($"{CREATENEWDAMAGEBEHAVIOUR}/New Behaviour Damage Single Target", spellDamageSingleTarget);
         tree.Add($"{CREATENEWDAMAGEBEHAVIOUR}/New Behaviour Damage Overtime", spellDamageOvertime);
         tree.Add($"{CREATENEWDAMAGEBEHAVIOUR}/New Behaviour Damage AoE", spellDamageAoE);
         tree.Add($"{CREATENEWDAMAGEBEHAVIOUR}/New Behaviour Damage AoE Overtime", spellDamageAoEOvertime);
 
+        // One Shot
         tree.AddAllAssetsAtPath("Spell Behaviours/One Shot",
             $"{ONESHOTBEHAVIOURPATH}", typeof(SpellBehaviourAbstractOneShotSO));
         tree.AddAllAssetsAtPath("Spell Behaviours/One Shot",
@@ -167,16 +167,24 @@ public class SpellManagerEditor : OdinMenuEditorWindow
             $"{ONESHOTBEHAVIOURPATH}/Common Behaviours", typeof(SpellBehaviourAbstractSO));
         tree.AddAllAssetsAtPath("Spell Behaviours/One Shot",
             $"{ONESHOTBEHAVIOURPATH}/Stop Spells Behaviours", typeof(SpellBehaviourAbstractSO));
-        tree.AddAllAssetsAtPath("Spell Damage Behaviours",
-            $"{SPELLDAMAGEBEHAVIOURSPATH}", typeof(DamageBehaviourAbstractSO));
         tree.AddAllAssetsAtPath("Spell On Hit Behaviours/One Shot",
             $"{ONHITBEHAVIOURSONESHOTPATH}", typeof(SpellOnHitBehaviourAbstractSO));
         tree.AddAllAssetsAtPath("Spell Muzzle Behaviours/One Shot",
             $"{MUZZLEBEHAVIOURSONESHOTPATH}", typeof(SpellMuzzleBehaviourAbstractSO));
+
+        // Continuous
         tree.AddAllAssetsAtPath("Spell Behaviours/Continuous",
             $"{CONTINUOUSBEHAVIOURPATH}", typeof(SpellBehaviourAbstractContinuousSO));
+        tree.AddAllAssetsAtPath("Spell On Hit Behaviours/Continuous",
+            $"{ONHITBEHAVIOURSCONTINUOUSPATH}", typeof(SpellOnHitBehaviourAbstractSO));
+        tree.AddAllAssetsAtPath("Spell Muzzle Behaviours/Continuous",
+            $"{MUZZLEBEHAVIOURSCONTINUOUSPATH}", typeof(SpellMuzzleBehaviourAbstractSO));
 
+        // Damage
+        tree.AddAllAssetsAtPath("Spell Damage Behaviours",
+            $"{SPELLDAMAGEBEHAVIOURSPATH}", typeof(DamageBehaviourAbstractSO));
 
+        // Create new spells
         tree.Add($"{CREATENEWSPELL}/Create New One Shot Spell", createNewSpellOneShotData);
         tree.Add($"{CREATENEWSPELL}/Create New Continuous Spell", createNewSpellContinuousData);
         tree.AddAllAssetsAtPath("Spell Data", $"{SPELLSPATH}", typeof(SpellSO));
