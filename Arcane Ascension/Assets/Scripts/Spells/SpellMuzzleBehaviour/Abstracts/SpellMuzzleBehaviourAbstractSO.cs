@@ -10,19 +10,20 @@ public abstract class SpellMuzzleBehaviourAbstractSO : ScriptableObject
     /// <summary>
     /// Executes when prefab is enabled.
     /// </summary>
-    public abstract void StartBehaviour(SpellMuzzleBehaviourOneShot parent);
+    public virtual void StartBehaviour(SpellMuzzleBehaviourOneShot parent) { }
 
     /// <summary>
     /// Executes on update.
     /// </summary>
-    public abstract void ContinuousUpdateBehaviour(SpellMuzzleBehaviourOneShot parent);
+    public virtual void ContinuousUpdateBehaviour(SpellMuzzleBehaviourOneShot parent) { }
 
     /// <summary>
-    /// Disables spell Muzzle.
+    /// Executes when prefab is enabled.
     /// </summary>
-    /// <param name="parent"></param>
-    public void DisableMuzzleSpell(SpellMuzzleBehaviourOneShot parent)
-    {
-        parent.gameObject.SetActive(false);
-    }
+    public virtual void StartBehaviour(SpellMuzzleBehaviourContinuous parent) { }
+
+    /// <summary>
+    /// Executes on update.
+    /// </summary>
+    public virtual void ContinuousUpdateBehaviour(SpellMuzzleBehaviourContinuous parent) { }
 }

@@ -17,10 +17,10 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         GetWindow<SpellManagerEditor>().Show();
     }
 
-    private readonly string CREATENEWONESHOTBEHAVIOUR = "Create New One Shot Behaviour";
+    private readonly string CREATENEWONESHOTBEHAVIOUR = "Create New Behaviour/One Shot";
     private readonly string ONESHOTBEHAVIOURPATH = "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot";
 
-    private readonly string CREATENEWCONTINUOUSBEHAVIOUR = "Create New Continuous Behaviour";
+    private readonly string CREATENEWCONTINUOUSBEHAVIOUR = "Create New Behaviour/Continuous";
     private readonly string CONTINUOUSBEHAVIOURPATH = "Assets/Resources/Scriptable Objects/Spell Behaviours/Continuous";
 
     private readonly string CREATENEWDAMAGEBEHAVIOUR = "Create New Damage Behaviour";
@@ -32,34 +32,51 @@ public class SpellManagerEditor : OdinMenuEditorWindow
     private readonly string CREATENEWONHITONESHOTBEHAVIOUR = "Create New On Hit Behaviour/One Shot";
     private readonly string ONHITBEHAVIOURSONESHOTPATH = "Assets/Resources/Scriptable Objects/Spell Hit Behaviours/One Shot";
 
-    private readonly string CREATENEWMUZZLEBEHAVIOUR = "Create New Muzzle Behaviour/One Shot";
+    private readonly string CREATENEWMUZZLEONESHOTBEHAVIOUR = "Create New Muzzle Behaviour/One Shot";
     private readonly string MUZZLEBEHAVIOURSONESHOTPATH = "Assets/Resources/Scriptable Objects/Spell Muzzle Behaviours/One Shot";
 
+    private readonly string CREATENEWONHITCONTINUOUSBEHAVIOUR = "Create New On Hit Behaviour/Continuous";
+    private readonly string ONHITBEHAVIOURSCONTINUOUSPATH = "Assets/Resources/Scriptable Objects/Spell Hit Behaviours/Continuous";
+
+    private readonly string CREATENEWMUZZLECONTINUOUSBEHAVIOUR = "Create New Muzzle Behaviour/Continuous";
+    private readonly string MUZZLEBEHAVIOURSCONTINUOUSPATH = "Assets/Resources/Scriptable Objects/Spell Muzzle Behaviours/Continuous";
+
+    // New spells
     private CreateNewSpellOneShotData createNewSpellOneShotData;
     private CreateNewSpellContinuousData createNewSpellContinuousData;
     
-    private CreateForwardBehaviourData forwardBehaviourData;
-    private CreateSelfHealOneShotBehaviourData selfHealOneShotBehaviourData;
-    private CreateApplyDamagePierceBehaviourData applyDamagePierceBehaviourData;
-    private CreateApplyDamageBehaviourData applyDamageBehaviourData;
-    private CreateBounceOnHitBehaviourData bounceOnHitBehaviourData;
-    private CreateCommonBehavioursData commonBehavioursData;
-    private CreateDisableProjectileAfterSecondsData disableProjectileAfterSecondsData;
-    private CreateDisableProjectileVelocityZeroData disableProjectileVelocityZeroData;
-    private CreateSpawnHitPrefabData spawnHitPrefabData;
-    private CreateSpawnMuzzlePrefabData spawnMuzzlePrefabData;
-    private CreateStopSpellOnHitData stopSpellOnHitData;
-    private CreateUpdateManaAndCooldownData updateManaAndCooldownData;
+    // One Shot Behaviours
+    private CreateSpellForwardBehaviourData forwardBehaviourData;
+    private CreateSpellSelfHealOneShotBehaviourData selfHealOneShotBehaviourData;
+    private CreateSpellApplyDamagePierceBehaviourData applyDamagePierceBehaviourData;
+    private CreateSpellApplyDamageBehaviourData applyDamageBehaviourData;
+    private CreateSpellBounceOnHitBehaviourData bounceOnHitBehaviourData;
+    private CreateSpellCommonBehavioursOneShotData commonBehavioursData;
+    private CreateSpellDisableProjectileAfterSecondsOneShotData disableProjectileAfterSecondsData;
+    private CreateSpellDisableProjectileVelocityZeroOneShotData disableProjectileVelocityZeroData;
+    private CreateSpellStopSpellOnHitOneShotData stopSpellOnHitData;
+    private CreateSpellUpdateManaAndCooldownOneShotData updateManaAndCooldownData;
+    private CreateHitSpawnHitPrefabData spawnHitPrefabData;
+    private CreateMuzzleSpawnMuzzlePrefabOneShotData spawnMuzzlePrefabData;
+
+    // One Shot Hits and Muzzles
+    private CreateSpellMuzzleDisableOneShotData spellMuzzleDisableData;
+    private CreateSpellOnHitDisableOneShotData spellOnHitDisableData;
+
+    // Continuous Behaviours
+    private CreateSpellContinuousBehaviourData continuousBehaviourData;
+    private CreateSpellContinuousApplyDamageData continuousApplyDamageBehaviourData;
+    private CreateSpellContinuousManaUpdateData continuousSpellManaUpdateData;
+    private CreateSpawnMuzzlePrefabContinuousData continuousSpawnMuzzlePrefabData;
+
+    // Continuous Hits and Muzzles
+    private CreateSpellContinuousUpdatePositionAndDisableData continuousUpdateMuzzleAndDisable;
+
+    // Damage
     private CreateSpellDamageSingleTargetData spellDamageSingleTarget;
     private CreateSpellDamageAoEData spellDamageAoE;
     private CreateSpellDamageAoEOvertimeData spellDamageAoEOvertime;
     private CreateSpellDamageOvertimeData spellDamageOvertime;
-    private CreateSpellMuzzleDisableData spellMuzzleDisableData;
-    private CreateSpellOnHitDisableData spellOnHitDisableData;
-    
-    private CreateContinuousBehaviourData continuousBehaviourData;
-    private CreateSpellContinuousApplyDamageData continuousApplyDamageBehaviourData;
-    private CreateSpellManaUpdateData continuousSpellManaUpdateData;
 
     protected override void OnGUI()
     {
@@ -75,28 +92,38 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         createNewSpellOneShotData = new CreateNewSpellOneShotData();
         createNewSpellContinuousData = new CreateNewSpellContinuousData();
         
-        forwardBehaviourData = new CreateForwardBehaviourData();
-        selfHealOneShotBehaviourData = new CreateSelfHealOneShotBehaviourData();
-        applyDamagePierceBehaviourData = new CreateApplyDamagePierceBehaviourData();
-        applyDamageBehaviourData = new CreateApplyDamageBehaviourData();
-        bounceOnHitBehaviourData = new CreateBounceOnHitBehaviourData();
-        commonBehavioursData = new CreateCommonBehavioursData();
-        disableProjectileAfterSecondsData = new CreateDisableProjectileAfterSecondsData();
-        disableProjectileVelocityZeroData = new CreateDisableProjectileVelocityZeroData();
-        spawnHitPrefabData = new CreateSpawnHitPrefabData();
-        spawnMuzzlePrefabData = new CreateSpawnMuzzlePrefabData();
-        stopSpellOnHitData = new CreateStopSpellOnHitData();
-        updateManaAndCooldownData = new CreateUpdateManaAndCooldownData();
+        // One Shot behaviours
+        forwardBehaviourData = new CreateSpellForwardBehaviourData();
+        selfHealOneShotBehaviourData = new CreateSpellSelfHealOneShotBehaviourData();
+        applyDamagePierceBehaviourData = new CreateSpellApplyDamagePierceBehaviourData();
+        applyDamageBehaviourData = new CreateSpellApplyDamageBehaviourData();
+        bounceOnHitBehaviourData = new CreateSpellBounceOnHitBehaviourData();
+        commonBehavioursData = new CreateSpellCommonBehavioursOneShotData();
+        disableProjectileAfterSecondsData = new CreateSpellDisableProjectileAfterSecondsOneShotData();
+        disableProjectileVelocityZeroData = new CreateSpellDisableProjectileVelocityZeroOneShotData();
+        spawnHitPrefabData = new CreateHitSpawnHitPrefabData();
+        spawnMuzzlePrefabData = new CreateMuzzleSpawnMuzzlePrefabOneShotData();
+        stopSpellOnHitData = new CreateSpellStopSpellOnHitOneShotData();
+        updateManaAndCooldownData = new CreateSpellUpdateManaAndCooldownOneShotData();
+     
+        // One Shot hits and muzzles
+        spellMuzzleDisableData = new CreateSpellMuzzleDisableOneShotData();
+        spellOnHitDisableData = new CreateSpellOnHitDisableOneShotData();
+
+        // Continuous Behavioiurs
+        continuousBehaviourData = new CreateSpellContinuousBehaviourData();
+        continuousApplyDamageBehaviourData = new CreateSpellContinuousApplyDamageData();
+        continuousSpellManaUpdateData = new CreateSpellContinuousManaUpdateData();
+        continuousSpawnMuzzlePrefabData = new CreateSpawnMuzzlePrefabContinuousData();
+
+        // Continuous Hits and muzzles
+        continuousUpdateMuzzleAndDisable = new CreateSpellContinuousUpdatePositionAndDisableData();
+
+        // Damage
         spellDamageSingleTarget = new CreateSpellDamageSingleTargetData();
         spellDamageAoE = new CreateSpellDamageAoEData();
         spellDamageAoEOvertime = new CreateSpellDamageAoEOvertimeData();
         spellDamageOvertime = new CreateSpellDamageOvertimeData();
-        spellMuzzleDisableData = new CreateSpellMuzzleDisableData();
-        spellOnHitDisableData = new CreateSpellOnHitDisableData();
-
-        continuousBehaviourData = new CreateContinuousBehaviourData();
-        continuousApplyDamageBehaviourData = new CreateSpellContinuousApplyDamageData();
-        continuousSpellManaUpdateData = new CreateSpellManaUpdateData();
 
         // One shot behaviours
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Forward", forwardBehaviourData);
@@ -116,18 +143,21 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         tree.Add($"{CREATENEWCONTINUOUSBEHAVIOUR}/New Behaviour Continuous", continuousBehaviourData);
         tree.Add($"{CREATENEWCONTINUOUSBEHAVIOUR}/New Behaviour Continuous Apply Damage", continuousApplyDamageBehaviourData);
         tree.Add($"{CREATENEWCONTINUOUSBEHAVIOUR}/New Behaviour Mana Update", continuousSpellManaUpdateData);
+        tree.Add($"{CREATENEWCONTINUOUSBEHAVIOUR}/New Behaviour Spawn Muzzle", continuousSpawnMuzzlePrefabData);
+
+        // One shot on hit and muzzles
+        tree.Add($"{CREATENEWONHITONESHOTBEHAVIOUR}/New On Hit Disable Behaviour", spellOnHitDisableData);
+        tree.Add($"{CREATENEWMUZZLEONESHOTBEHAVIOUR}/New Muzzle Disable Behaviour", spellMuzzleDisableData);
+
+        // Continuous on hit and muzzles
+        tree.Add($"{CREATENEWMUZZLECONTINUOUSBEHAVIOUR}/New Muzzle Position And Disable Behaviour", continuousUpdateMuzzleAndDisable);
+
 
         // Damage behaviours
         tree.Add($"{CREATENEWDAMAGEBEHAVIOUR}/New Behaviour Damage Single Target", spellDamageSingleTarget);
         tree.Add($"{CREATENEWDAMAGEBEHAVIOUR}/New Behaviour Damage Overtime", spellDamageOvertime);
         tree.Add($"{CREATENEWDAMAGEBEHAVIOUR}/New Behaviour Damage AoE", spellDamageAoE);
         tree.Add($"{CREATENEWDAMAGEBEHAVIOUR}/New Behaviour Damage AoE Overtime", spellDamageAoEOvertime);
-
-        // One shot on hit behaviours
-        tree.Add($"{CREATENEWONHITONESHOTBEHAVIOUR}/New On Hit Disable Behaviour", spellOnHitDisableData);
-
-        // One shot muzzle behaviours
-        tree.Add($"{CREATENEWMUZZLEBEHAVIOUR}/New Muzzle Disable Behaviour", spellMuzzleDisableData);
 
         tree.AddAllAssetsAtPath("Spell Behaviours/One Shot",
             $"{ONESHOTBEHAVIOURPATH}", typeof(SpellBehaviourAbstractOneShotSO));
@@ -247,6 +277,12 @@ public class SpellManagerEditor : OdinMenuEditorWindow
 
         if (continuousSpellManaUpdateData != null)
             DestroyImmediate(continuousSpellManaUpdateData.Spell);
+
+        if (continuousSpawnMuzzlePrefabData != null)
+            DestroyImmediate(continuousSpawnMuzzlePrefabData.Spell);
+
+        if (continuousUpdateMuzzleAndDisable != null)
+            DestroyImmediate(continuousUpdateMuzzleAndDisable.Spell);
     }
 
     /// <summary>
@@ -295,13 +331,13 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         }
     }
 
-    public class CreateForwardBehaviourData
+    public class CreateSpellForwardBehaviourData
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
         public SpellBehaviourForwardSO Spell { get; private set; }
 
-        public CreateForwardBehaviourData()
+        public CreateSpellForwardBehaviourData()
         {
             Spell = ScriptableObject.CreateInstance<SpellBehaviourForwardSO>();
         }
@@ -318,13 +354,13 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         }
     }
 
-    public class CreateContinuousBehaviourData
+    public class CreateSpellContinuousBehaviourData
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
         public SpellBehaviourContinuousSO Spell { get; private set; }
 
-        public CreateContinuousBehaviourData()
+        public CreateSpellContinuousBehaviourData()
         {
             Spell = ScriptableObject.CreateInstance<SpellBehaviourContinuousSO>();
         }
@@ -341,13 +377,13 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         }
     }
 
-    public class CreateSelfHealOneShotBehaviourData
+    public class CreateSpellSelfHealOneShotBehaviourData
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
         public SpellBehaviourOneShotSelfHealSO Spell { get; private set; }
 
-        public CreateSelfHealOneShotBehaviourData()
+        public CreateSpellSelfHealOneShotBehaviourData()
         {
             Spell = ScriptableObject.CreateInstance<SpellBehaviourOneShotSelfHealSO>();
         }
@@ -364,13 +400,13 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         }
     }
 
-    public class CreateApplyDamagePierceBehaviourData
+    public class CreateSpellApplyDamagePierceBehaviourData
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
         public SpellBehaviourApplyDamagePierceSO Spell { get; private set; }
 
-        public CreateApplyDamagePierceBehaviourData()
+        public CreateSpellApplyDamagePierceBehaviourData()
         {
             Spell = ScriptableObject.CreateInstance<SpellBehaviourApplyDamagePierceSO>();
         }
@@ -387,13 +423,13 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         }
     }
 
-    public class CreateApplyDamageBehaviourData
+    public class CreateSpellApplyDamageBehaviourData
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
         public SpellBehaviourApplyDamageSO Spell { get; private set; }
 
-        public CreateApplyDamageBehaviourData()
+        public CreateSpellApplyDamageBehaviourData()
         {
             Spell = ScriptableObject.CreateInstance<SpellBehaviourApplyDamageSO>();
         }
@@ -410,13 +446,13 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         }
     }
 
-    public class CreateBounceOnHitBehaviourData
+    public class CreateSpellBounceOnHitBehaviourData
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
         public SpellBehaviourBounceOnHitSO Spell { get; private set; }
 
-        public CreateBounceOnHitBehaviourData()
+        public CreateSpellBounceOnHitBehaviourData()
         {
             Spell = ScriptableObject.CreateInstance<SpellBehaviourBounceOnHitSO>();
         }
@@ -433,13 +469,13 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         }
     }
 
-    public class CreateCommonBehavioursData
+    public class CreateSpellCommonBehavioursOneShotData
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
         public SpellBehaviourCommonBehavioursSO Spell { get; private set; }
 
-        public CreateCommonBehavioursData()
+        public CreateSpellCommonBehavioursOneShotData()
         {
             Spell = ScriptableObject.CreateInstance<SpellBehaviourCommonBehavioursSO>();
         }
@@ -456,13 +492,13 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         }
     }
 
-    public class CreateDisableProjectileAfterSecondsData
+    public class CreateSpellDisableProjectileAfterSecondsOneShotData
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
         public SpellBehaviourDisableProjectileAfterSecondsSO Spell { get; private set; }
 
-        public CreateDisableProjectileAfterSecondsData()
+        public CreateSpellDisableProjectileAfterSecondsOneShotData()
         {
             Spell = ScriptableObject.CreateInstance<SpellBehaviourDisableProjectileAfterSecondsSO>();
         }
@@ -479,13 +515,13 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         }
     }
 
-    public class CreateDisableProjectileVelocityZeroData
+    public class CreateSpellDisableProjectileVelocityZeroOneShotData
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
         public SpellBehaviourDisableProjectileVelocityZeroSO Spell { get; private set; }
 
-        public CreateDisableProjectileVelocityZeroData()
+        public CreateSpellDisableProjectileVelocityZeroOneShotData()
         {
             Spell = ScriptableObject.CreateInstance<SpellBehaviourDisableProjectileVelocityZeroSO>();
         }
@@ -502,13 +538,13 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         }
     }
 
-    public class CreateSpawnHitPrefabData
+    public class CreateHitSpawnHitPrefabData
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
         public SpellBehaviourSpawnHitPrefabOneShotSO Spell { get; private set; }
 
-        public CreateSpawnHitPrefabData()
+        public CreateHitSpawnHitPrefabData()
         {
             Spell = ScriptableObject.CreateInstance<SpellBehaviourSpawnHitPrefabOneShotSO>();
         }
@@ -525,13 +561,13 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         }
     }
 
-    public class CreateSpawnMuzzlePrefabData
+    public class CreateMuzzleSpawnMuzzlePrefabOneShotData
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
         public SpellBehaviourSpawnMuzzlePrefabOneShotSO Spell { get; private set; }
 
-        public CreateSpawnMuzzlePrefabData()
+        public CreateMuzzleSpawnMuzzlePrefabOneShotData()
         {
             Spell = ScriptableObject.CreateInstance<SpellBehaviourSpawnMuzzlePrefabOneShotSO>();
         }
@@ -548,13 +584,13 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         }
     }
 
-    public class CreateStopSpellOnHitData
+    public class CreateSpellStopSpellOnHitOneShotData
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
         public SpellBehaviourStopSpellOnHitSO Spell { get; private set; }
 
-        public CreateStopSpellOnHitData()
+        public CreateSpellStopSpellOnHitOneShotData()
         {
             Spell = ScriptableObject.CreateInstance<SpellBehaviourStopSpellOnHitSO>();
         }
@@ -571,13 +607,13 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         }
     }
 
-    public class CreateUpdateManaAndCooldownData
+    public class CreateSpellUpdateManaAndCooldownOneShotData
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
         public SpellBehaviourManaAndCooldownUpdateSO Spell { get; private set; }
 
-        public CreateUpdateManaAndCooldownData()
+        public CreateSpellUpdateManaAndCooldownOneShotData()
         {
             Spell = ScriptableObject.CreateInstance<SpellBehaviourManaAndCooldownUpdateSO>();
         }
@@ -686,15 +722,15 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         }
     }
 
-    public class CreateSpellMuzzleDisableData
+    public class CreateSpellMuzzleDisableOneShotData
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
-        public SpellMuzzleBehaviourDisable Spell { get; private set; }
+        public SpellMuzzleBehaviourOneShotDisableSO Spell { get; private set; }
 
-        public CreateSpellMuzzleDisableData()
+        public CreateSpellMuzzleDisableOneShotData()
         {
-            Spell = ScriptableObject.CreateInstance<SpellMuzzleBehaviourDisable>();
+            Spell = ScriptableObject.CreateInstance<SpellMuzzleBehaviourOneShotDisableSO>();
         }
 
         [Button("Create", ButtonSizes.Large)]
@@ -705,19 +741,19 @@ public class SpellManagerEditor : OdinMenuEditorWindow
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
-            Spell = ScriptableObject.CreateInstance<SpellMuzzleBehaviourDisable>();
+            Spell = ScriptableObject.CreateInstance<SpellMuzzleBehaviourOneShotDisableSO>();
         }
     }
 
-    public class CreateSpellOnHitDisableData
+    public class CreateSpellOnHitDisableOneShotData
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
-        public SpellOnHitBehaviourDisable Spell { get; private set; }
+        public SpellOnHitBehaviourOneShotDisable Spell { get; private set; }
 
-        public CreateSpellOnHitDisableData()
+        public CreateSpellOnHitDisableOneShotData()
         {
-            Spell = ScriptableObject.CreateInstance<SpellOnHitBehaviourDisable>();
+            Spell = ScriptableObject.CreateInstance<SpellOnHitBehaviourOneShotDisable>();
         }
 
         [Button("Create", ButtonSizes.Large)]
@@ -728,7 +764,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
-            Spell = ScriptableObject.CreateInstance<SpellOnHitBehaviourDisable>();
+            Spell = ScriptableObject.CreateInstance<SpellOnHitBehaviourOneShotDisable>();
         }
     }
 
@@ -798,13 +834,13 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         }
     }
 
-    public class CreateSpellManaUpdateData
+    public class CreateSpellContinuousManaUpdateData
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
         public SpellBehaviourContinuousManaUpdateSO Spell { get; private set; }
 
-        public CreateSpellManaUpdateData()
+        public CreateSpellContinuousManaUpdateData()
         {
             Spell = ScriptableObject.CreateInstance<SpellBehaviourContinuousManaUpdateSO>();
         }
@@ -818,6 +854,52 @@ public class SpellManagerEditor : OdinMenuEditorWindow
             AssetDatabase.SaveAssets();
 
             Spell = ScriptableObject.CreateInstance<SpellBehaviourContinuousManaUpdateSO>();
+        }
+    }
+
+    public class CreateSpawnMuzzlePrefabContinuousData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public SpellBehaviourSpawnMuzzlePrefabContinuousSO Spell { get; private set; }
+
+        public CreateSpawnMuzzlePrefabContinuousData()
+        {
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourSpawnMuzzlePrefabContinuousSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                $"Assets/Resources/Scriptable Objects/Spell Behaviours/Continuous/New Behaviour Spawn Muzzle Prefab " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourSpawnMuzzlePrefabContinuousSO>();
+        }
+    }
+
+    public class CreateSpellContinuousUpdatePositionAndDisableData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public SpellMuzzleBehaviourContinuousPositionDisableSO Spell { get; private set; }
+
+        public CreateSpellContinuousUpdatePositionAndDisableData()
+        {
+            Spell = ScriptableObject.CreateInstance<SpellMuzzleBehaviourContinuousPositionDisableSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                "Assets/Resources/Scriptable Objects/Spell Hit Behaviours/Continuous/New Spell Muzzle Update Position and Disable " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<SpellMuzzleBehaviourContinuousPositionDisableSO>();
         }
     }
 }

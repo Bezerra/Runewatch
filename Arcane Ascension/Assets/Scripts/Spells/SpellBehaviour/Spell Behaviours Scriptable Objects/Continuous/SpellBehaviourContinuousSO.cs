@@ -75,77 +75,8 @@ sealed public class SpellBehaviourContinuousSO : SpellBehaviourAbstractContinuou
         // Left blank on purpose
     }
 
-    public override void HitBehaviour(Collider other, SpellBehaviourContinuous parent)
+    public override void HitTriggerBehaviour(Collider other, SpellBehaviourContinuous parent)
     {
         // Left blank on purpose
     }
-
-
-
-
-
-
-
-
-
-
-
-    /*
-    public override void ContinuousUpdateBehaviour(SpellBehaviourContinuous parent)
-    {
-        if (parent.Hand != null)
-        {
-            parent.transform.position = parent.Hand.position;
-            parent.transform.rotation = parent.Hand.rotation;
-        }
-
-        if (Time.time > parent.LastTimeHit + parent.Spell.TimeInterval)
-        {
-            if (parent.WhoCast.Mana - parent.Spell.ManaCost >= 0)
-            {
-                RaycastHit objectHit;
-                Ray forward = new Ray(parent.Eyes.position, parent.Eyes.forward);
-
-                if (Physics.Raycast(forward, out objectHit, spellDistance)) // Creates a raycast to see if eyes are hiting something
-                {
-                    Vector3 direction = parent.Hand.Direction(objectHit.point); // Direction to object
-                    Ray spellToObjectHit = new Ray(parent.Hand.position, direction); // Creates new ray with that direction
-
-                    if (Physics.Raycast(spellToObjectHit, out objectHit, spellDistance + 0.1f)) // Creates raycast with new ray
-                    {
-                        if (objectHit.collider.gameObject.TryGetComponentInParent(out IDamageable damageable))
-                        {
-                            damageable.TakeDamage(
-                                parent.WhoCast.Attributes.BaseDamageMultiplier * parent.Spell.Damage, 
-                                parent.Spell.Element);
-                        }
-                    }
-                }
-                else
-                {
-
-                }
-
-                // Burns mana
-                parent.WhoCast.ReduceMana(parent.Spell.ManaCost);
-            }
-            else
-            {
-                // Does nothing
-            }
-
-            parent.LastTimeHit = Time.time;
-        }
-    }
-
-    public override void ContinuousFixedUpdateBehaviour(SpellBehaviourContinuous parent)
-    {
-        // Left blank on purpose
-    }
-
-    public override void HitBehaviour(Collider other, SpellBehaviourContinuous parent)
-    {
-        // Left blank on purpose
-    }
-    */
 }

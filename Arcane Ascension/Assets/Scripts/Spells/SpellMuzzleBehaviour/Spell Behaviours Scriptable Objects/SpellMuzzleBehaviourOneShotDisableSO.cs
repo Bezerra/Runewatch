@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 [CreateAssetMenu(menuName = "Spells/Spell Muzzle Behaviour/One Shot/Spell Muzzle Behaviour Disable", 
     fileName = "Spell Muzzle Behaviour Disable")]
-public class SpellMuzzleBehaviourDisable : SpellMuzzleBehaviourAbstractOneShotSO
+public class SpellMuzzleBehaviourOneShotDisableSO : SpellMuzzleBehaviourAbstractOneShotSO
 {
     [Range(0, 20)] [SerializeField] private byte disableAfterSeconds;
 
@@ -25,6 +25,6 @@ public class SpellMuzzleBehaviourDisable : SpellMuzzleBehaviourAbstractOneShotSO
     public override void ContinuousUpdateBehaviour(SpellMuzzleBehaviourOneShot parent)
     {
         if (Time.time - parent.TimeSpawned > disableAfterSeconds)
-            DisableMuzzleSpell(parent);
+            parent.DisableMuzzleSpell();
     }
 }

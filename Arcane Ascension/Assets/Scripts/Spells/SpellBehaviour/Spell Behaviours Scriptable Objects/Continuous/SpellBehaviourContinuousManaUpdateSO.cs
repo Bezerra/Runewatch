@@ -29,7 +29,7 @@ public class SpellBehaviourContinuousManaUpdateSO : SpellBehaviourAbstractContin
         // Left blank on purpose
     }
 
-    public override void HitBehaviour(Collider other, SpellBehaviourContinuous parent)
+    public override void HitTriggerBehaviour(Collider other, SpellBehaviourContinuous parent)
     {
         // Left blank on purpose
     }

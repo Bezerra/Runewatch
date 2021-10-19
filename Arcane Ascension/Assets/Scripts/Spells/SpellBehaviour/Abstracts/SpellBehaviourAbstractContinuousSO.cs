@@ -24,5 +24,5 @@ public abstract class SpellBehaviourAbstractContinuousSO: SpellBehaviourAbstract
     /// Executes on hit.
     /// </summary>
     /// <param name="other">Collider.</param>
-    public abstract void HitBehaviour(Collider other, SpellBehaviourContinuous parent);
+    public abstract void HitTriggerBehaviour(Collider other, SpellBehaviourContinuous parent);
 }

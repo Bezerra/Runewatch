@@ -56,14 +56,15 @@ public class SpellBehaviourContinuous : SpellBehaviourAbstract
             else
             {
                 foreach (SpellBehaviourAbstractContinuousSO behaviour in spell.SpellBehaviourContinuous)
-                    behaviour.ContinuousUpdateBehaviour(this);
-
-                // Every spell.Cooldown  time, the spell will update last hit current time
-                if (Time.time > LastTimeHit + Spell.Cooldown)
-                {
-                    LastTimeHit = Time.time;
-                }
+                    behaviour.ContinuousUpdateBehaviour(this); 
             }
+        }
+
+        // Every spell.Cooldown  time, the spell will update last hit current time
+        // This time is used inside behaviours to have control of the update times
+        if (Time.time > LastTimeHit + Spell.Cooldown)
+        {
+            LastTimeHit = Time.time;
         }
     }
 
@@ -75,15 +76,5 @@ public class SpellBehaviourContinuous : SpellBehaviourAbstract
             foreach (SpellBehaviourAbstractContinuousSO behaviour in spell.SpellBehaviourContinuous)
                 behaviour.ContinuousFixedUpdateBehaviour(this);
         }
-    }
-
-    /// <summary>
-    /// Immediatly disables spell gameobject.
-    /// </summary>
-    /// <param name="parent">Spell parent.</param>
-    public override void DisableSpell(SpellBehaviourAbstract parent)
-    {
-        foreach (SpellBehaviourAbstractSO behaviour in spell.SpellBehaviourContinuous)
-            behaviour.DisableSpell(parent);
     }
 }

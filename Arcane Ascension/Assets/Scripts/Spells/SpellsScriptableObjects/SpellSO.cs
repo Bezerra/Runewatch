@@ -81,7 +81,7 @@ public abstract class SpellSO : ScriptableObject, ISpell
 
     // Continuous spells have cooldown too (ex. player equiped a spell, it has 1 seconds cooldown until it's possible to use it)
     [BoxGroup("Spell Type")]
-    [Tooltip("Cooldown of the spells WHEN EQUIPED and OneShotCasts spells after being used")]
+    [Tooltip("Cooldown of the spells WHEN EQUIPED. One Shot cooldowns after fire. Continuous spell hit time.")]
     [Range(0, 10)] [SerializeField] protected float cooldown;
 
     [BoxGroup("Prefabs")]

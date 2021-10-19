@@ -18,7 +18,7 @@ public abstract class SpellOnHitBehaviourAbstractSO : ScriptableObject
     public abstract void ContinuousUpdateBehaviour(SpellOnHitBehaviourOneShot parent);
 
     /// <summary>
-    /// 
+    /// Disables parent game object.
     /// </summary>
     /// <param name="parent"></param>
     public void DisableHitSpell(SpellOnHitBehaviourOneShot parent)

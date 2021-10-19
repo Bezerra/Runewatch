@@ -33,6 +33,6 @@ public abstract class AttackBehaviourAbstractSO : ScriptableObject
     public void DisableSpell(SpellBehaviourAbstract spellBehaviour)
     {
         if (spellBehaviour != null)
-            spellBehaviour.DisableSpell(spellBehaviour);
+            spellBehaviour.DisableSpell();
     }
 }

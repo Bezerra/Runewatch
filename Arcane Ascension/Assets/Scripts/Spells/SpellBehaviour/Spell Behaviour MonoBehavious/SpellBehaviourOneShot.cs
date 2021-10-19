@@ -67,14 +67,4 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
             lastHitGameObject = other.gameObject;
         }
     }
-
-    /// <summary>
-    /// Immediatly disables spell gameobject.
-    /// </summary>
-    /// <param name="parent">Spell parent.</param>
-    public override void DisableSpell(SpellBehaviourAbstract parent)
-    {
-        foreach (SpellBehaviourAbstractSO behaviour in spell.SpellBehaviourOneShot)
-            behaviour.DisableSpell(parent);
-    }
 }
