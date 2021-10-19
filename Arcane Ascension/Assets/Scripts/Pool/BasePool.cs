@@ -9,18 +9,18 @@ public class BasePool
 {
     [SerializeField] protected string name;
     [SerializeField] protected GameObject prefab;
-    [Range(0, 200)] [SerializeField] protected int size;
+    [Range(1, 255)][SerializeField] protected byte size;
 
     public virtual string Name => name;
     public virtual GameObject Prefab => prefab;
-    public virtual int Size => size;
+    public virtual byte Size => size;
 
     /// <summary>
     /// Constructor for prefab and size.
     /// </summary>
     /// <param name="prefab">GameObject prefab.</param>
     /// <param name="size">Size of the pool.</param>
-    public BasePool(GameObject prefab, int size)
+    public BasePool(GameObject prefab, byte size)
     {
         this.prefab = prefab;
         this.size = size;
@@ -32,7 +32,7 @@ public class BasePool
     /// <param name="name">GameObject name.</param>
     /// <param name="prefab">GameObject prefab.</param>
     /// <param name="size">Size of the pool.</param>
-    public BasePool(string name, GameObject prefab, int size)
+    public BasePool(string name, GameObject prefab, byte size)
     {
         this.name = name;
         this.prefab = prefab;

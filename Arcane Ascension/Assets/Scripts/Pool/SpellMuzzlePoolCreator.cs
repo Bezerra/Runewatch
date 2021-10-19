@@ -10,7 +10,7 @@ public class SpellMuzzlePoolCreator : MonoBehaviour
 
     private IList<SpellPool> listSpellMuzzlePools;
 
-    [SerializeField] private byte poolSize;
+    [Range(1, 255)] [SerializeField] private byte poolSize;
 
     public static ObjectPool<SpellPool> Pool { get; private set; }
 

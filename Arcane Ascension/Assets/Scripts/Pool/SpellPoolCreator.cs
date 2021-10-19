@@ -11,7 +11,7 @@ public class SpellPoolCreator : MonoBehaviour
     // IList with pool for every spell
     private IList<SpellPool> listSpellPools;
 
-    [SerializeField] private byte poolSize;
+    [Range(1, 255)][SerializeField] private byte poolSize;
 
     public static ObjectPool<SpellPool> Pool { get; private set; }
 

@@ -26,7 +26,7 @@ sealed public class SpellPool: BasePool
     /// </summary>
     /// <param name="prefab">Spell prefab.</param>
     /// <param name="size">Size of pool.</param>
-    public SpellPool(GameObject prefab, int size) : base(prefab, size)
+    public SpellPool(GameObject prefab, byte size) : base(prefab, size)
     { }
 
     /// <summary>
@@ -35,7 +35,7 @@ sealed public class SpellPool: BasePool
     /// <param name="prefab">Hit or muzzle prefab.</param>
     /// <param name="parentSpellPrefab">Spell prefab.</param>
     /// <param name="size">Size of the pool.</param>
-    public SpellPool(GameObject prefab, GameObject parentSpellPrefab, int size) : base(prefab, size)
+    public SpellPool(GameObject prefab, GameObject parentSpellPrefab, byte size) : base(prefab, size)
     {
         this.parentSpellPrefab = parentSpellPrefab;
     }

@@ -10,7 +10,7 @@ public class SpellHandEffectPoolCreator : MonoBehaviour
 
     private IList<SpellPool> listHandEffectPools;
 
-    [SerializeField] private byte poolSize;
+    [Range(1, 255)] [SerializeField] private byte poolSize;
 
     public static ObjectPool<SpellPool> Pool { get; private set; }
 

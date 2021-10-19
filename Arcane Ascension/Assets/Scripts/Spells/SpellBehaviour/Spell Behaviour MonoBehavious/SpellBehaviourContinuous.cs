@@ -16,7 +16,11 @@ public class SpellBehaviourContinuous : SpellBehaviourAbstract
     public LineRenderer LineRender { get; private set; }
     public float CurrentSpellDistance { get; set; }
     public Collider DamageableTarget { get; set; }
-    public RaycastHit HandObjectHit { get; set; }
+    public RaycastHit HitPoint { get; set; }
+    /// <summary>
+    /// Used to control hit spawn on wall.
+    /// </summary>
+    public float LastTimeSpellWallHit { get; set; }
 
     private void Awake()
     {
@@ -26,12 +30,14 @@ public class SpellBehaviourContinuous : SpellBehaviourAbstract
     private void OnEnable()
     {
         LastTimeHit = Time.time;
+        LastTimeSpellWallHit = Time.time;
     }
 
     private void OnDisable()
     {
+        LastTimeSpellWallHit = 0;
         CurrentSpellDistance = 0;
-        HandObjectHit = default;
+        HitPoint = default;
         DamageableTarget = null;
     }
 

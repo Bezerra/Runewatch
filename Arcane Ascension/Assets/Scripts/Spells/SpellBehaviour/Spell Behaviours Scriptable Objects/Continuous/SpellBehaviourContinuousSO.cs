@@ -42,7 +42,7 @@ sealed public class SpellBehaviourContinuousSO : SpellBehaviourAbstractContinuou
         Vector3 finalTarget;
         if (Physics.Raycast(handForward, out RaycastHit handObjectHit, spellMaxDistance))
         {
-            parent.HandObjectHit = handObjectHit;
+            parent.HitPoint = handObjectHit;
 
             // If it its something, then it will lerp spell distance into that point
             finalTarget = handObjectHit.point;
@@ -59,7 +59,7 @@ sealed public class SpellBehaviourContinuousSO : SpellBehaviourAbstractContinuou
         }
         else
         {
-            parent.HandObjectHit = default;
+            parent.HitPoint = default;
 
             // Else it will grow forward until spell's max distance
             finalTarget = eyesTarget;

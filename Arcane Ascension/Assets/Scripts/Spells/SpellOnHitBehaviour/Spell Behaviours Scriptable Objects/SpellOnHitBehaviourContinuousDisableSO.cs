@@ -7,9 +7,11 @@ using UnityEngine;
     fileName = "Spell On Hit Behaviour Disable")]
 public class SpellOnHitBehaviourContinuousDisableSO : SpellOnHitBehaviourAbstractContinuousSO
 {
+    [Range(0f, 10f)] [SerializeField] private float disableAfterSeconds;
+
     public override void StartBehaviour(SpellOnHitBehaviourContinuous parent)
     {
-        //throw new System.NotImplementedException();
+        // Left blank on purpose
     }
 
     /// <summary>
@@ -19,31 +21,22 @@ public class SpellOnHitBehaviourContinuousDisableSO : SpellOnHitBehaviourAbstrac
     /// <param name="parent"></param>
     public override void ContinuousUpdateBehaviour(SpellOnHitBehaviourContinuous parent)
     {
-        //if (parent.SpellMonoBehaviour != null)
-        //{
-        //    // If parent spell mono behaviour is false
-        //    if (parent.SpellMonoBehaviour.gameObject.activeSelf == false)
-        //    {
-        //        if (parent.MuzzleEffect != null)
-        //        {
-        //            parent.MuzzleEffect.Stop();
-        //
-        //            if (parent.MuzzleEffect.aliveParticleCount == 0)
-        //                parent.DisableMuzzleSpell();
-        //        }
-        //        else
-        //        {
-        //            parent.DisableMuzzleSpell();
-        //        }
-        //    }
-        //    else
-        //    {
-        //        parent.transform.SetPositionAndRotation(
-        //            parent.SpellMonoBehaviour.Hand.position, 
-        //            parent.SpellMonoBehaviour.Hand.rotation);
-        //
-        //        parent.TimeSpawned = Time.time;
-        //    }
-        //}
+        if (Time.time - parent.TimeSpawned > disableAfterSeconds)
+        {
+            if (parent.HitEffect != null)
+            {
+                parent.HitEffect.Stop();
+
+                if (parent.HitEffect.aliveParticleCount == 0)
+                    parent.DisableHitSpell();
+
+                return;
+            }
+        }
+
+        if (parent.HitEffect == null)
+        {
+            parent.DisableHitSpell();
+        }
     }
 }

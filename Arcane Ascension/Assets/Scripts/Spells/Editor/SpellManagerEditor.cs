@@ -156,7 +156,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
 
         // Continuous on hit and muzzles
         tree.Add($"{CREATENEWMUZZLECONTINUOUSBEHAVIOUR}/New Muzzle Position And Disable Behaviour", continuousUpdateMuzzleAndDisable);
-        tree.Add($"{CREATENEWMUZZLECONTINUOUSBEHAVIOUR}/New Hit Disable Behaviour", continuousHitAndDisable);
+        tree.Add($"{CREATENEWONHITCONTINUOUSBEHAVIOUR}/New Hit Disable Behaviour", continuousHitAndDisable);
 
         // Damage behaviours
         tree.Add($"{CREATENEWDAMAGEBEHAVIOUR}/New Behaviour Damage Single Target", spellDamageSingleTarget);
