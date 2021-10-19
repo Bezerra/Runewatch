@@ -17,6 +17,7 @@ public class SpellBehaviourContinuous : SpellBehaviourAbstract
     public LineRenderer LineRender { get; private set; }
     public float CurrentSpellDistance { get; set; }
     public Collider DamageableTarget { get; set; }
+    public RaycastHit HandObjectHit { get; set; }
 
     private void Awake()
     {
@@ -30,6 +31,8 @@ public class SpellBehaviourContinuous : SpellBehaviourAbstract
 
     private void OnDisable()
     {
+        CurrentSpellDistance = 0;
+        HandObjectHit = default;
         DamageableTarget = null;
     }
 

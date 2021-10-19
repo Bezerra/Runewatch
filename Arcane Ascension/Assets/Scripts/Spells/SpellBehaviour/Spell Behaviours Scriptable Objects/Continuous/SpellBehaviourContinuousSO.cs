@@ -42,8 +42,11 @@ sealed public class SpellBehaviourContinuousSO : SpellBehaviourAbstractContinuou
         Vector3 finalTarget;
         if (Physics.Raycast(handForward, out RaycastHit handObjectHit, spellMaxDistance))
         {
+            parent.HandObjectHit = handObjectHit;
+
             // If it its something, then it will lerp spell distance into that point
             finalTarget = handObjectHit.point;
+
             parent.CurrentSpellDistance = 
                 Mathf.Lerp(parent.CurrentSpellDistance, handObjectHit.distance, parent.Spell.Speed * Time.deltaTime);
 
@@ -56,11 +59,15 @@ sealed public class SpellBehaviourContinuousSO : SpellBehaviourAbstractContinuou
         }
         else
         {
+            parent.HandObjectHit = default;
+
             // Else it will grow forward until spell's max distance
             finalTarget = eyesTarget;
-            parent.CurrentSpellDistance += parent.Spell.Speed * Time.deltaTime;
 
-            // If parent had a 
+            if (parent.CurrentSpellDistance < spellMaxDistance)
+                parent.CurrentSpellDistance += parent.Spell.Speed * Time.deltaTime * 2; // Faster growth
+
+            // If parent had a damageable target it sets it to null
             if (parent.DamageableTarget != null)
                 parent.DamageableTarget = null;
         }

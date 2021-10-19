@@ -17,7 +17,6 @@ public class SpellMuzzleBehaviourContinuous : SpellMuzzleBehaviourAbstract
     private void Awake()
     {
         MuzzleEffect = GetComponentInChildren<VisualEffect>();
-        Debug.Log(MuzzleEffect);
     }
 
     /// <summary>

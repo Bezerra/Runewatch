@@ -14,13 +14,10 @@ public class SpellBehaviourContinuousManaUpdateSO : SpellBehaviourAbstractContin
 
     public override void ContinuousUpdateBehaviour(SpellBehaviourContinuous parent)
     {
-        if (parent.DamageableTarget != null)
+        // If the spell is in hit time (updated on parent)
+        if (Time.time > parent.LastTimeHit + parent.Spell.Cooldown)
         {
-            // If the spell is in hit time (updated on parent)
-            if (Time.time > parent.LastTimeHit + parent.Spell.Cooldown)
-            {
-                parent.WhoCast.ReduceMana(parent.Spell.ManaCost);
-            }
+            parent.WhoCast.ReduceMana(parent.Spell.ManaCost);
         }
     }
 
