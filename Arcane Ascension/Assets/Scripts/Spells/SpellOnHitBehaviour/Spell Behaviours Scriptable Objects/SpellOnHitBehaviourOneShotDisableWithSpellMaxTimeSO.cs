@@ -24,9 +24,16 @@ sealed public class SpellOnHitBehaviourOneShotDisableWithSpellMaxTimeSO : SpellO
     {
         if (Time.time - parent.TimeSpawned > parent.Spell.MaxTime)
         {
-            parent.HitEffect.Stop();
+            if (parent.HitEffect != null)
+            {
+                parent.HitEffect.Stop();
 
-            if (parent.HitEffect.aliveParticleCount == 0)
+                if (parent.HitEffect.aliveParticleCount == 0)
+                {
+                    parent.DisableHitSpell();
+                }
+            }
+            else
             {
                 parent.DisableHitSpell();
             }

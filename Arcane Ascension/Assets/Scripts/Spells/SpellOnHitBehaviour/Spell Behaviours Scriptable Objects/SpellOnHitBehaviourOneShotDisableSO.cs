@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Spells/Spell Hit Behaviour/One Shot/Spell Hit Behaviour Disable", fileName = "Spell Hit Behaviour Disable")]
 sealed public class SpellOnHitBehaviourOneShotDisableSO : SpellOnHitBehaviourAbstractOneShotSO
 {
-    [Range(0, 20)][SerializeField] private byte disableAfterSeconds;
+    [Range(0.1f, 20)][SerializeField] private float disableAfterSeconds;
 
     /// <summary>
     /// Executed when the spell is enabled.
@@ -24,6 +24,20 @@ sealed public class SpellOnHitBehaviourOneShotDisableSO : SpellOnHitBehaviourAbs
     public override void ContinuousUpdateBehaviour(SpellOnHitBehaviourOneShot parent)
     {
         if (Time.time - parent.TimeSpawned > disableAfterSeconds)
-            parent.DisableHitSpell();
+        {
+            if (parent.HitEffect != null)
+            {
+                parent.HitEffect.Stop();
+
+                if (parent.HitEffect.aliveParticleCount == 0)
+                {
+                    parent.DisableHitSpell();
+                }
+            }
+            else
+            {
+                parent.DisableHitSpell();
+            }
+        }
     }
 }
