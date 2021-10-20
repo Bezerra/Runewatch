@@ -39,27 +39,18 @@ public abstract class SpellSO : ScriptableObject, ISpell
     /// ---------------
 
     [BoxGroup("Damage")]
-    [Tooltip("Type of damage of the spell")]
-    [SerializeField, EnumToggleButtons] protected SpellDamageType damageType;
-
-    [BoxGroup("Damage")]
-    [ShowIf("damageType", SpellDamageType.AreaDamage)]
     [Tooltip("When this option is turned on, remember that MaxTime is the time the spell will remain active on the area.")]
-    [SerializeField] protected bool appliesDamageOvertime;
+    [SerializeField] protected bool areaSpellRemainActive;
 
     [BoxGroup("Damage")]
     [Tooltip("Interval between damage with Overtime damage spells or interval between damage with continuous spells.")]
-    [DisableIf("damageType", SpellDamageType.SingleTarget)]
     [Range(0.01f, 100)] [SerializeField] protected float timeInterval;
 
     [BoxGroup("Damage")]
     [Tooltip("Time duration of overtime spell damage.")]
-    [DisableIf("damageType", SpellDamageType.SingleTarget)]
     [Range(0.1f, 100)] [SerializeField] protected float maxTime;
 
     [BoxGroup("Damage")]
-    [DisableIf("@this.damageType == SpellDamageType.SingleTarget || this.damageType == SpellDamageType.Overtime || " +
-        "this.damageType == SpellDamageType.Self")]
     [Tooltip("Radius of effect after an AreaDamage spell hits something")]
     [Range(2f, 10f)] [SerializeField] protected float areaOfEffect;
 
@@ -75,7 +66,6 @@ public abstract class SpellSO : ScriptableObject, ISpell
     //private SpellCastType spellCastType;
 
     [BoxGroup("Spell Type")]
-    [DisableIf("damageType", SpellDamageType.Self)]
     [Tooltip("Speed of the spell")]
     [Range(1f, 100)] [SerializeField] protected float speed;
 
@@ -107,7 +97,7 @@ public abstract class SpellSO : ScriptableObject, ISpell
     public byte SpellID => spellID;
     public ElementType Element => element;
     public float ManaCost => manaCost;
-    public bool AppliesDamageOvertime => appliesDamageOvertime;
+    public bool AreaSpellRemainActive => areaSpellRemainActive;
     public float TimeInterval { get => timeInterval; set => timeInterval = value; }
     public float MaxTime { get => maxTime; set => maxTime = value; }
     public float AreaOfEffect { get => areaOfEffect; set => areaOfEffect = value; }

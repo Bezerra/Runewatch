@@ -62,6 +62,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
     // One Shot Hits and Muzzles
     private CreateSpellMuzzleDisableOneShotData spellMuzzleDisableData;
     private CreateSpellOnHitDisableOneShotData spellOnHitDisableData;
+    private CreateSpellOnHitDisableSpellMaxTimeOneShotData spellOnHitDisableWithSpellMaxTimeData;
 
     // Continuous Behaviours
     private CreateSpellContinuousBehaviourData continuousBehaviourData;
@@ -111,6 +112,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         // One Shot hits and muzzles
         spellMuzzleDisableData = new CreateSpellMuzzleDisableOneShotData();
         spellOnHitDisableData = new CreateSpellOnHitDisableOneShotData();
+        spellOnHitDisableWithSpellMaxTimeData = new CreateSpellOnHitDisableSpellMaxTimeOneShotData();
 
         // Continuous Behavioiurs
         continuousBehaviourData = new CreateSpellContinuousBehaviourData();
@@ -151,8 +153,9 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         tree.Add($"{CREATENEWCONTINUOUSBEHAVIOUR}/New Behaviour Spawn On Hit Prefab", continuousSpawnOnHitPrefabData);
 
         // One shot on hit and muzzles
-        tree.Add($"{CREATENEWONHITONESHOTBEHAVIOUR}/New On Hit Disable Behaviour", spellOnHitDisableData);
         tree.Add($"{CREATENEWMUZZLEONESHOTBEHAVIOUR}/New Muzzle Disable Behaviour", spellMuzzleDisableData);
+        tree.Add($"{CREATENEWONHITONESHOTBEHAVIOUR}/New On Hit Disable Behaviour", spellOnHitDisableData);
+        tree.Add($"{CREATENEWONHITONESHOTBEHAVIOUR}/New On Hit Disable With Spell Max TimeBehaviour", spellOnHitDisableWithSpellMaxTimeData);
 
         // Continuous on hit and muzzles
         tree.Add($"{CREATENEWMUZZLECONTINUOUSBEHAVIOUR}/New Muzzle Position And Disable Behaviour", continuousUpdateMuzzleAndDisable);
@@ -283,6 +286,9 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         if (spellOnHitDisableData != null)
             DestroyImmediate(spellOnHitDisableData.Spell);
 
+        if (spellOnHitDisableWithSpellMaxTimeData != null)
+            DestroyImmediate(spellOnHitDisableWithSpellMaxTimeData.Spell);
+        
         if (spellMuzzleDisableData != null)
             DestroyImmediate(spellMuzzleDisableData.Spell);
 
@@ -786,6 +792,29 @@ public class SpellManagerEditor : OdinMenuEditorWindow
             AssetDatabase.SaveAssets();
 
             Spell = ScriptableObject.CreateInstance<SpellOnHitBehaviourOneShotDisableSO>();
+        }
+    }
+
+    public class CreateSpellOnHitDisableSpellMaxTimeOneShotData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public SpellOnHitBehaviourOneShotDisableWithSpellMaxTimeSO Spell { get; private set; }
+
+        public CreateSpellOnHitDisableSpellMaxTimeOneShotData()
+        {
+            Spell = ScriptableObject.CreateInstance<SpellOnHitBehaviourOneShotDisableWithSpellMaxTimeSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                "Assets/Resources/Scriptable Objects/Spell Hit Behaviours/One Shot/New Spell Hit Behaviour Disable With Spell Max Time " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<SpellOnHitBehaviourOneShotDisableWithSpellMaxTimeSO>();
         }
     }
 
