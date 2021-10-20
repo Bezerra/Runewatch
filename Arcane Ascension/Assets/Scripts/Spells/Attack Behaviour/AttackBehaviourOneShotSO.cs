@@ -57,7 +57,8 @@ public class AttackBehaviourOneShotSO : AttackBehaviourAbstractOneShotSO
     /// Triggered when attack key is released.
     /// </summary>
     /// <param name="spellBehaviour">Parent spell behaviour.</param>
-    public override void AttackKeyRelease(SpellBehaviourAbstract spellBehaviour)
+    public override void AttackKeyRelease(
+        ISpell spell, Character character, Stats characterStats, ref SpellBehaviourAbstract spellBehaviour)
     {
         // Left blank on purpose
     }

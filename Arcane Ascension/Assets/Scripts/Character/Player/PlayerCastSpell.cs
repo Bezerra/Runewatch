@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -36,7 +35,7 @@ public class PlayerCastSpell : MonoBehaviour
     }
 
     /// <summary>
-    /// Casts a spell. Happens when the player presses fire key.
+    /// Casts a spell. Happens when the player presses attack key.
     /// </summary>
     private void AttackKeyPress()
     {
@@ -55,11 +54,11 @@ public class PlayerCastSpell : MonoBehaviour
     }
 
     /// <summary>
-    /// Disables continuous cast parent behaviour gameobject.
+    /// Triggered when attack key is released..
     /// </summary>
     private void AttackKeyRelease()
     {
         playerSpells.ActiveSpell.AttackBehaviour.AttackKeyRelease(
-            spellBehaviour);
+            playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
     }
 }

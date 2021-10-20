@@ -44,8 +44,12 @@ public class AttackBehaviourContinuousSO : AttackBehaviourAbstractContinuousSO
     /// <summary>
     /// Disables continuous spell monobehaviour.
     /// </summary>
-    /// <param name="spellBehaviour">Parent spell behaviour.</param>
-    public override void AttackKeyRelease(SpellBehaviourAbstract spellBehaviour)
+    /// <param name="spell">Cast spell.</param>
+    /// <param name="character">Character who casts the spell.</param>
+    /// <param name="characterStats">Character stats.</param>
+    /// <param name="spellBehaviour">Behaviour of the spell.</param>
+    public override void AttackKeyRelease(
+        ISpell spell, Character character, Stats characterStats, ref SpellBehaviourAbstract spellBehaviour)
     {
         DisableSpell(spellBehaviour);
     }
