@@ -17,10 +17,15 @@ sealed public class SpellBehaviourDisableProjectileAfterSecondsSO : SpellBehavio
 
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
     {
-        if (parent.Rb.velocity != Vector3.zero)
+        if (parent.SpellStartedMoving)
         {
-            if (Time.time - parent.TimeSpawned > disableAfterSeconds)
-                DisableSpell(parent);
+            if (parent.Rb.velocity != Vector3.zero)
+            {
+                if (Time.time - parent.TimeSpawned > disableAfterSeconds)
+                {
+                    DisableSpell(parent);
+                } 
+            }
         }
     }
 

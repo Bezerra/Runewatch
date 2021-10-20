@@ -9,19 +9,36 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
 
     public override ISpell Spell => spell;
 
-    // Variables to control spell behaviour
+    // Variables to control spawn and impact
     public float TimeSpawned { get; private set; }
     public float TimeOfImpact { get; private set; }
-    public byte CurrentPierceHitQuantity { get; set; }
-    public byte CurrentWallHitQuantity { get; set; }
+    
+    // Components
     public Rigidbody Rb { get; private set; }
     public SphereCollider ColliderTrigger { get; private set; }
 
+    // Whenever the spells colide with anything it sets this variable to that gameobject hit
     private GameObject lastHitGameObject;
+
+    /// <summary>
+    /// Used for pierce behaviours.
+    /// </summary>
+    public byte CurrentPierceHitQuantity { get; set; }
+
+    /// <summary>
+    /// Used for wall bouncing behaviours.
+    /// </summary>
+    public byte CurrentWallHitQuantity { get; set; }
+
     /// <summary>
     /// Is set to true if spells collides with something that's supposed to stop it.
     /// </summary>
     public bool DisableSpellAfterCollision { get; set; }
+
+    /// <summary>
+    /// Set to true when the spell starts moving.
+    /// </summary>
+    public bool SpellStartedMoving { get; set; }
 
     private void Awake()
     {
@@ -31,11 +48,14 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
 
     private void OnEnable()
     {
+        Rb.velocity = Vector3.zero;
+        SpellStartedMoving = false;
         DisableSpellAfterCollision = false;
         CurrentPierceHitQuantity = 0;
         CurrentWallHitQuantity = 0;
         lastHitGameObject = null;
         TimeSpawned = Time.time;
+        TimeOfImpact = Time.time;
     }
 
     /// <summary>

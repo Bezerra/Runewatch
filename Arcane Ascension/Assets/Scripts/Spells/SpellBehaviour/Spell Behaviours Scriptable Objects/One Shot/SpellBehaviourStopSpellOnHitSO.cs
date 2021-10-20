@@ -27,13 +27,10 @@ public class SpellBehaviourStopSpellOnHitSO : SpellBehaviourAbstractOneShotSO
 
     public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
-        foreach(int i in layersToStopTheSpell)
+        if (layersToStopTheSpell.Contains(other.gameObject.layer))
         {
-            if (other.gameObject.layer == i)
-            {
-                parent.DisableSpellAfterCollision = true;
-                parent.Rb.velocity = Vector3.zero;
-            }
+            parent.DisableSpellAfterCollision = true;
+            parent.Rb.velocity = Vector3.zero;
         }
     }
 }

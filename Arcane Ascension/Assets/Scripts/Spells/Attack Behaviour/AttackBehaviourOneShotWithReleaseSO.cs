@@ -23,7 +23,6 @@ public class AttackBehaviourOneShotWithReleaseSO : AttackBehaviourAbstractOneSho
                 spell.Name, character.
                 Hand.position,
                 Quaternion.identity);
-
     }
 
     /// <summary>
@@ -50,10 +49,16 @@ public class AttackBehaviourOneShotWithReleaseSO : AttackBehaviourAbstractOneSho
         ref GameObject currentlyCastSpell, ISpell spell, Character character, 
         Stats characterStats, ref SpellBehaviourAbstract spellBehaviour)
     {
-        // Gets behaviour of the spawned spell. Starts the behaviour and passes whoCast object (stats) to the behaviour.
-        spellBehaviour = currentlyCastSpell?.GetComponent<SpellBehaviourOneShot>();
-        spellBehaviour.WhoCast = characterStats;
-        spellBehaviour.TriggerStartBehaviour();
-        currentlyCastSpell = null;
+
+        // If a spell was spawned on attack press
+        if (currentlyCastSpell != null)
+        {
+            currentlyCastSpell.transform.SetPositionAndRotation(character.Hand.position, Quaternion.identity);
+
+            // Gets behaviour of the spawned spell. Starts the behaviour and passes whoCast object (stats) to the behaviour.
+            spellBehaviour = currentlyCastSpell.GetComponent<SpellBehaviourOneShot>();
+            spellBehaviour.WhoCast = characterStats;
+            spellBehaviour.TriggerStartBehaviour();
+        }
     }
 }

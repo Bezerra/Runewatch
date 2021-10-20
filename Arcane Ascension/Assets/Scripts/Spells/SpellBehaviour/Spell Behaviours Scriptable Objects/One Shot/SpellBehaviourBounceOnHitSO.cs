@@ -29,18 +29,16 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
 
     public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
-        foreach (int i in layersToStopTheSpell)
+        if (layersToStopTheSpell.Contains(other.gameObject.layer))
         {
-            if (other.gameObject.layer == i)
+            if (++parent.CurrentWallHitQuantity < hitQuantity)
             {
-                if (++parent.CurrentWallHitQuantity < hitQuantity)
-                {
-                    RotateProjectile(other, parent);
-                }
-                else
-                {
-                    parent.Rb.velocity = Vector3.zero;
-                }
+                RotateProjectile(other, parent);
+            }
+            else
+            {
+                parent.DisableSpellAfterCollision = true;
+                parent.Rb.velocity = Vector3.zero;
             }
         }
     }

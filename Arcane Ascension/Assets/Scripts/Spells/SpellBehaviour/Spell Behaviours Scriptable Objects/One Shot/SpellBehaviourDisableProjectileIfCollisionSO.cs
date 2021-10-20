@@ -18,7 +18,7 @@ public class SpellBehaviourDisableProjectileIfCollisionSO : SpellBehaviourAbstra
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
     {
         // If the spell hits something
-        if (parent.DisableSpellAfterCollision)
+        if (parent.DisableSpellAfterCollision && parent.SpellStartedMoving)
         {
             if (Time.time - parent.TimeOfImpact > disableAfterSecondsAfterCollision)
                 DisableSpell(parent);

@@ -13,7 +13,7 @@ public class PlayerCastSpell : MonoBehaviour
 
     // Current cast spell behaviour
     private SpellBehaviourAbstract spellBehaviour;
-    private GameObject currentlySpawnedSpell;
+    private GameObject currentlyCastSpell;
 
     private void Awake()
     {
@@ -47,10 +47,8 @@ public class PlayerCastSpell : MonoBehaviour
             // If player has enough mana to cast the active spell
             if (playerStats.Mana - playerSpells.ActiveSpell.ManaCost >= 0)
             {
-                currentlySpawnedSpell = null;
-                spellBehaviour = null;
                 playerSpells.ActiveSpell.AttackBehaviour.AttackKeyPress(
-                    ref currentlySpawnedSpell, playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
+                    ref currentlyCastSpell, playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
             }
         }
     }
@@ -61,6 +59,9 @@ public class PlayerCastSpell : MonoBehaviour
     private void AttackKeyRelease()
     {
         playerSpells.ActiveSpell.AttackBehaviour.AttackKeyRelease(
-            ref currentlySpawnedSpell, playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
+                ref currentlyCastSpell, playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
+
+        currentlyCastSpell = null;
+        spellBehaviour = null;
     }
 }
