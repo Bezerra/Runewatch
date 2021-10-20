@@ -24,6 +24,13 @@ public class AttackBehaviourOneShotWithReleaseSO : AttackBehaviourAbstractOneSho
                 spell.Name, character.
                 Hand.position,
                 Quaternion.identity);
+
+        
+        // Gets behaviour of the spawned spell. Starts the behaviour and passes whoCast object (stats) to the behaviour.
+        spellBehaviour = currentlyCastSpell.GetComponent<SpellBehaviourOneShot>();
+
+        // This has to happen here, so the scripts will have access to spellbehaviouroneshot variables
+        spellBehaviour.WhoCast = characterStats;
     }
 
     /// <summary>
@@ -53,13 +60,10 @@ public class AttackBehaviourOneShotWithReleaseSO : AttackBehaviourAbstractOneSho
         // Now that the spell was instantiated, if the player releases fire key, it will trigger it's behaviours, etc
 
         // If a spell was spawned on attack press
+        // Sets position and rotation and triggers its start behaviour
         if (currentlyCastSpell != null)
         {
             currentlyCastSpell.transform.SetPositionAndRotation(character.Hand.position, Quaternion.identity);
-
-            // Gets behaviour of the spawned spell. Starts the behaviour and passes whoCast object (stats) to the behaviour.
-            spellBehaviour = currentlyCastSpell.GetComponent<SpellBehaviourOneShot>();
-            spellBehaviour.WhoCast = characterStats;
             spellBehaviour.TriggerStartBehaviour();
         }
     }

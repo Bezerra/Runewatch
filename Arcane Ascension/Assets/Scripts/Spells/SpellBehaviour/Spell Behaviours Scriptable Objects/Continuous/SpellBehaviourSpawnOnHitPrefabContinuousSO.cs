@@ -28,7 +28,7 @@ sealed public class SpellBehaviourSpawnOnHitPrefabContinuousSO : SpellBehaviourA
                 // Creates spell muzzle prefab
                 GameObject spellOnHitBehaviourGameObject = SpellHitPoolCreator.Pool.InstantiateFromPool(
                     parent.Spell.Name, parent.HitPoint.point + parent.HitPoint.normal * distanceFromWall,
-                    Quaternion.LookRotation(parent.transform.forward, parent.transform.up));
+                    Quaternion.LookRotation(parent.HitPoint.normal, parent.transform.up));
 
                 // Gets muzzle behaviour from it
                 if (spellOnHitBehaviourGameObject.TryGetComponent<SpellOnHitBehaviourContinuous>

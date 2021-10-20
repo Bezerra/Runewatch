@@ -10,7 +10,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     public override ISpell Spell => spell;
 
     // Variables to control spawn and impact
-    public float TimeSpawned { get; private set; }
+    public float TimeSpawned { get; set; }
     public float TimeOfImpact { get; private set; }
     
     // Components
@@ -53,15 +53,20 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
 
     private void OnEnable()
     {
-        AreaHoverVFX = null;
-        Rb.velocity = Vector3.zero;
         SpellStartedMoving = false;
+        
+        TimeOfImpact = Time.time;
+    }
+
+    private void OnDisable()
+    {
+        AreaHoverVFX = null;
+        SpellStartedMoving = false;
+        Rb.velocity = Vector3.zero;
         DisableSpellAfterCollision = false;
         CurrentPierceHitQuantity = 0;
         CurrentWallHitQuantity = 0;
         lastHitGameObject = null;
-        TimeSpawned = Time.time;
-        TimeOfImpact = Time.time;
     }
 
     /// <summary>
@@ -76,8 +81,16 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
 
     private void Update()
     {
-        foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviourOneShot)
-            behaviour.ContinuousUpdateBehaviour(this);
+        if (SpellStartedMoving)
+        {
+            foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviourOneShot)
+                behaviour.ContinuousUpdateBehaviour(this);
+        }
+        else
+        {
+            foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviourOneShot)
+                behaviour.ContinuousUpdateBeforeSpellBehaviour(this);
+        }
     }
 
     private void FixedUpdate()

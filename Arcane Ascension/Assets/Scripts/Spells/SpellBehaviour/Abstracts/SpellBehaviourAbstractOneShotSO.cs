@@ -16,6 +16,11 @@ public abstract class SpellBehaviourAbstractOneShotSO: SpellBehaviourAbstractSO
     public abstract void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent);
 
     /// <summary>
+    /// Executes on update before spell is fired.  DEPOIS METER ABSTRACT QND HOUVER TEMPO
+    /// </summary>
+    public virtual void ContinuousUpdateBeforeSpellBehaviour(SpellBehaviourOneShot parent) { }
+
+    /// <summary>
     /// Executes on fixed update.
     /// </summary>
     public abstract void ContinuousFixedUpdateBehaviour(SpellBehaviourOneShot parent);

@@ -21,7 +21,9 @@ public class SpellBehaviourDisableProjectileIfCollisionSO : SpellBehaviourAbstra
         if (parent.DisableSpellAfterCollision && parent.SpellStartedMoving)
         {
             if (Time.time - parent.TimeOfImpact > disableAfterSecondsAfterCollision)
+            {
                 DisableSpell(parent);
+            }
         }
     }
 

@@ -27,9 +27,11 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
             parent.transform.LookAt(finalDirection);
         }
 
-        // Moves the spell forward
+        // Moves the spell forward and sets important variables
         parent.Rb.velocity = parent.transform.forward * parent.Spell.Speed;
         parent.SpellStartedMoving = true;
+        parent.ColliderTrigger.enabled = true;
+        parent.TimeSpawned = Time.time;
     }
 
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
