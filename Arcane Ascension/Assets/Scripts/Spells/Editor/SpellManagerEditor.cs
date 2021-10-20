@@ -53,7 +53,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
     private CreateSpellBounceOnHitBehaviourData bounceOnHitBehaviourData;
     private CreateSpellCommonBehavioursOneShotData commonBehavioursData;
     private CreateSpellDisableProjectileAfterSecondsOneShotData disableProjectileAfterSecondsData;
-    private CreateSpellDisableProjectileVelocityZeroOneShotData disableProjectileVelocityZeroData;
+    private CreateSpellDisableProjectileAfterCollisionOneShotData disableProjectileAfterCollisionData;
     private CreateSpellStopSpellOnHitOneShotData stopSpellOnHitData;
     private CreateSpellUpdateManaAndCooldownOneShotData updateManaAndCooldownData;
     private CreateHitSpawnHitPrefabData spawnHitPrefabData;
@@ -103,7 +103,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         bounceOnHitBehaviourData = new CreateSpellBounceOnHitBehaviourData();
         commonBehavioursData = new CreateSpellCommonBehavioursOneShotData();
         disableProjectileAfterSecondsData = new CreateSpellDisableProjectileAfterSecondsOneShotData();
-        disableProjectileVelocityZeroData = new CreateSpellDisableProjectileVelocityZeroOneShotData();
+        disableProjectileAfterCollisionData = new CreateSpellDisableProjectileAfterCollisionOneShotData();
         spawnHitPrefabData = new CreateHitSpawnHitPrefabData();
         spawnMuzzlePrefabData = new CreateMuzzleSpawnMuzzlePrefabOneShotData();
         stopSpellOnHitData = new CreateSpellStopSpellOnHitOneShotData();
@@ -139,7 +139,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Bounce On Hit", bounceOnHitBehaviourData);
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Common Behaviours", commonBehavioursData);
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Disable Projectile After Seconds", disableProjectileAfterSecondsData);
-        tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Disable Projectile Velocity Zero", disableProjectileVelocityZeroData);
+        tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Disable Projectile After Collision", disableProjectileAfterCollisionData);
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Spawn Hit Prefab", spawnHitPrefabData);
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Spawn Muzzle Prefab", spawnMuzzlePrefabData);
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Stop Spell On Hit", stopSpellOnHitData);
@@ -256,8 +256,8 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         if (disableProjectileAfterSecondsData != null)
             DestroyImmediate(disableProjectileAfterSecondsData.Spell);
 
-        if (disableProjectileVelocityZeroData != null)
-            DestroyImmediate(disableProjectileVelocityZeroData.Spell);
+        if (disableProjectileAfterCollisionData != null)
+            DestroyImmediate(disableProjectileAfterCollisionData.Spell);
 
         if (spawnHitPrefabData != null)
             DestroyImmediate(spawnHitPrefabData.Spell);
@@ -542,26 +542,26 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         }
     }
 
-    public class CreateSpellDisableProjectileVelocityZeroOneShotData
+    public class CreateSpellDisableProjectileAfterCollisionOneShotData
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
-        public SpellBehaviourDisableProjectileVelocityZeroSO Spell { get; private set; }
+        public SpellBehaviourDisableProjectileIfCollisionSO Spell { get; private set; }
 
-        public CreateSpellDisableProjectileVelocityZeroOneShotData()
+        public CreateSpellDisableProjectileAfterCollisionOneShotData()
         {
-            Spell = ScriptableObject.CreateInstance<SpellBehaviourDisableProjectileVelocityZeroSO>();
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourDisableProjectileIfCollisionSO>();
         }
 
         [Button("Create", ButtonSizes.Large)]
         private void CreateNewData()
         {
             AssetDatabase.CreateAsset(Spell,
-                "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/New Spell Disable Projectile Velocity Zero Behaviour " +
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/New Spell Disable Projectile After Collision Behaviour " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
-            Spell = ScriptableObject.CreateInstance<SpellBehaviourDisableProjectileVelocityZeroSO>();
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourDisableProjectileIfCollisionSO>();
         }
     }
 

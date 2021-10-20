@@ -30,7 +30,10 @@ public class SpellBehaviourStopSpellOnHitSO : SpellBehaviourAbstractOneShotSO
         foreach(int i in layersToStopTheSpell)
         {
             if (other.gameObject.layer == i)
+            {
+                parent.DisableSpellAfterCollision = true;
                 parent.Rb.velocity = Vector3.zero;
+            }
         }
     }
 }

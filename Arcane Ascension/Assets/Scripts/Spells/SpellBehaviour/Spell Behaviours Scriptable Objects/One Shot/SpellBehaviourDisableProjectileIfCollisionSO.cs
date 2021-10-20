@@ -3,9 +3,9 @@ using UnityEngine;
 /// <summary>
 /// Scriptable object responsible for disable parent spell behaviour when velocity is zero.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Disable Projectile If Velocity Zero", 
-    fileName = "Spell Behaviour Disable Projectile If Velocity Zero")]
-public class SpellBehaviourDisableProjectileVelocityZeroSO : SpellBehaviourAbstractOneShotSO
+[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Disable Projectile If Collision", 
+    fileName = "Spell Behaviour Disable Projectile If Collision")]
+public class SpellBehaviourDisableProjectileIfCollisionSO : SpellBehaviourAbstractOneShotSO
 {
     [Header("This variables is used to disable the spell after colliding with something")]
     [Range(1, 10)] [SerializeField] private float disableAfterSecondsAfterCollision;
@@ -18,7 +18,7 @@ public class SpellBehaviourDisableProjectileVelocityZeroSO : SpellBehaviourAbstr
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
     {
         // If the spell hits something
-        if (parent.Rb.velocity == Vector3.zero)
+        if (parent.DisableSpellAfterCollision)
         {
             if (Time.time - parent.TimeOfImpact > disableAfterSecondsAfterCollision)
                 DisableSpell(parent);

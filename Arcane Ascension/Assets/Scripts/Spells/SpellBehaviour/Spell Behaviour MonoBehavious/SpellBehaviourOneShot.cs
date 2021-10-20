@@ -18,6 +18,10 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     public SphereCollider ColliderTrigger { get; private set; }
 
     private GameObject lastHitGameObject;
+    /// <summary>
+    /// Is set to true if spells collides with something that's supposed to stop it.
+    /// </summary>
+    public bool DisableSpellAfterCollision { get; set; }
 
     private void Awake()
     {
@@ -27,6 +31,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
 
     private void OnEnable()
     {
+        DisableSpellAfterCollision = false;
         CurrentPierceHitQuantity = 0;
         CurrentWallHitQuantity = 0;
         lastHitGameObject = null;

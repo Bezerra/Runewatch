@@ -10,13 +10,20 @@ public class AttackBehaviourOneShotWithReleaseSO : AttackBehaviourAbstractOneSho
     /// <summary>
     /// Attack behaviour for one shot spells. Instantiates the spell from a pool and triggers its start behaviour.
     /// </summary>
+    /// <param name="playerCastSpell">Script from where the spell was cast from.</param> 
     /// <param name="spell">Spell to cast.</param>
     /// <param name="character">Character that cast the spell.</param>
     /// <param name="characterStats">Character that cast the spell stats.</param>
     /// <param name="spellBehaviour">Behaviour of the spell cast.</param>
-    public override void AttackKeyPress(ISpell spell, Character character, Stats characterStats, ref SpellBehaviourAbstract spellBehaviour)
+    public override void AttackKeyPress(ref GameObject currentlyCastSpell, ISpell spell, 
+        Character character, Stats characterStats, ref SpellBehaviourAbstract spellBehaviour)
     {
-        Debug.Log("Will print area on target");
+        currentlyCastSpell =
+            SpellPoolCreator.Pool.InstantiateFromPool(
+                spell.Name, character.
+                Hand.position,
+                Quaternion.identity);
+
     }
 
     /// <summary>
@@ -34,22 +41,19 @@ public class AttackBehaviourOneShotWithReleaseSO : AttackBehaviourAbstractOneSho
     /// <summary>
     /// Triggered when attack key is released.
     /// </summary>
+    /// <param name="currentlyCastSpell">Current spell being cast.</param> 
     /// <param name="spell">Cast spell.</param>
     /// <param name="character">Character who casts the spell.</param>
     /// <param name="characterStats">Character stats.</param>
     /// <param name="spellBehaviour">Behaviour of the spell.</param>
     public override void AttackKeyRelease(
-        ISpell spell, Character character, Stats characterStats, ref SpellBehaviourAbstract spellBehaviour)
+        ref GameObject currentlyCastSpell, ISpell spell, Character character, 
+        Stats characterStats, ref SpellBehaviourAbstract spellBehaviour)
     {
-        GameObject spawnedSpell =
-            SpellPoolCreator.Pool.InstantiateFromPool(
-                spell.Name, character.
-                Hand.position,
-                Quaternion.identity);
-
         // Gets behaviour of the spawned spell. Starts the behaviour and passes whoCast object (stats) to the behaviour.
-        spellBehaviour = spawnedSpell.GetComponent<SpellBehaviourOneShot>();
+        spellBehaviour = currentlyCastSpell?.GetComponent<SpellBehaviourOneShot>();
         spellBehaviour.WhoCast = characterStats;
         spellBehaviour.TriggerStartBehaviour();
+        currentlyCastSpell = null;
     }
 }
