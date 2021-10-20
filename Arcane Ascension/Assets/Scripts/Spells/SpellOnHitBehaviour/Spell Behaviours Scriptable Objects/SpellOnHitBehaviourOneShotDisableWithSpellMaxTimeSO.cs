@@ -23,6 +23,13 @@ sealed public class SpellOnHitBehaviourOneShotDisableWithSpellMaxTimeSO : SpellO
     public override void ContinuousUpdateBehaviour(SpellOnHitBehaviourOneShot parent)
     {
         if (Time.time - parent.TimeSpawned > parent.Spell.MaxTime)
-            parent.DisableHitSpell();
+        {
+            parent.HitEffect.Stop();
+
+            if (parent.HitEffect.aliveParticleCount == 0)
+            {
+                parent.DisableHitSpell();
+            }
+        } 
     }
 }
