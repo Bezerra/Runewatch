@@ -24,6 +24,7 @@ public class AttackManagerEditor : OdinMenuEditorWindow
     }
 
     private CreateAttackBehaviourOneShot createNewAttackBehaviourOneShotData;
+    private CreateAttackBehaviourOneShotWithRelease createNewAttackBehaviourOneShotWithReleaseData;
     private CreateAttackBehaviourContinuous createNewAttackBehaviourContinuousData;
 
     protected override OdinMenuTree BuildMenuTree()
@@ -34,6 +35,7 @@ public class AttackManagerEditor : OdinMenuEditorWindow
         createNewAttackBehaviourContinuousData = new CreateAttackBehaviourContinuous();
 
         tree.Add("Create New Behaviour/New Behaviour One Shot", createNewAttackBehaviourOneShotData);
+        tree.Add("Create New Behaviour/New Behaviour One Shot With Release", createNewAttackBehaviourOneShotWithReleaseData);
         tree.Add("Create New Behaviour/New Behaviour Continuous", createNewAttackBehaviourContinuousData);
 
         tree.AddAllAssetsAtPath("Attack Behaviours",
@@ -66,8 +68,11 @@ public class AttackManagerEditor : OdinMenuEditorWindow
         if (createNewAttackBehaviourOneShotData != null)
             DestroyImmediate(createNewAttackBehaviourOneShotData.Behaviour);
 
+        if (createNewAttackBehaviourOneShotWithReleaseData != null)
+            DestroyImmediate(createNewAttackBehaviourOneShotWithReleaseData.Behaviour);
+
         if (createNewAttackBehaviourContinuousData != null)
-            DestroyImmediate(createNewAttackBehaviourContinuousData.Behaviour);
+            DestroyImmediate(createNewAttackBehaviourContinuousData.Behaviour);        
     }
 
     public class CreateAttackBehaviourOneShot
@@ -113,6 +118,29 @@ public class AttackManagerEditor : OdinMenuEditorWindow
             AssetDatabase.SaveAssets();
 
             Behaviour = ScriptableObject.CreateInstance<AttackBehaviourContinuousSO>();
+        }
+    }
+
+    public class CreateAttackBehaviourOneShotWithRelease
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public AttackBehaviourOneShotWithReleaseSO Behaviour { get; private set; }
+
+        public CreateAttackBehaviourOneShotWithRelease()
+        {
+            Behaviour = ScriptableObject.CreateInstance<AttackBehaviourOneShotWithReleaseSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Behaviour,
+                "Assets/Resources/Scriptable Objects/Spells/Attack Behaviours/New Attack Behaviour One Shot With Release" +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Behaviour = ScriptableObject.CreateInstance<AttackBehaviourOneShotWithReleaseSO>();
         }
     }
 }
