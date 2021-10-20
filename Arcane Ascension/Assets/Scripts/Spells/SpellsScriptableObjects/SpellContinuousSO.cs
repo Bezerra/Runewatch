@@ -30,7 +30,7 @@ public class SpellContinuousSO : SpellSO
 
     public override SpellMuzzleBehaviourAbstractContinuousSO MuzzleBehaviourContinuous => muzzleBehaviourContinuous;
 
-    public override AttackBehaviourAbstractContinuousSO AttackBehaviourContinuous => attackBehaviourContinuous;
+    public override AttackBehaviourAbstractSO AttackBehaviour => attackBehaviourContinuous;
 
     public override SpellCastType CastType => SpellCastType.ContinuousCast;
 }

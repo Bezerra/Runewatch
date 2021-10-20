@@ -8,5 +8,4 @@ public interface ISpellContinuousBehaviour
     IList<SpellBehaviourAbstractContinuousSO> SpellBehaviourContinuous { get; }
     SpellOnHitBehaviourAbstractContinuousSO OnHitBehaviourContinuous { get; }
     SpellMuzzleBehaviourAbstractContinuousSO MuzzleBehaviourContinuous { get; }
-    AttackBehaviourAbstractContinuousSO AttackBehaviourContinuous { get; }
 }

@@ -110,13 +110,13 @@ public abstract class SpellSO : ScriptableObject, ISpell
     public virtual IList<SpellBehaviourAbstractOneShotSO> SpellBehaviourOneShot { get; }
     public virtual SpellOnHitBehaviourAbstractOneShotSO OnHitBehaviourOneShot { get; }
     public virtual SpellMuzzleBehaviourAbstractOneShotSO MuzzleBehaviourOneShot { get; }
-    public virtual AttackBehaviourAbstractOneShotSO AttackBehaviourOneShot { get; }
     public virtual IList<SpellBehaviourAbstractContinuousSO> SpellBehaviourContinuous { get; }
     public virtual SpellOnHitBehaviourAbstractContinuousSO OnHitBehaviourContinuous { get; }
     public virtual SpellMuzzleBehaviourAbstractContinuousSO MuzzleBehaviourContinuous { get; }
-    public virtual AttackBehaviourAbstractContinuousSO AttackBehaviourContinuous { get; }
 
     public DamageBehaviourAbstractSO DamageBehaviour => damageBehaviour;
+
+    public abstract AttackBehaviourAbstractSO AttackBehaviour { get; }
 
     /// <summary>
     /// Item1 is spell Prefab. Item2 is spell hit prefab. Item 3 is spell muzzle prefab.

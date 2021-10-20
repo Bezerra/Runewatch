@@ -13,7 +13,7 @@ public class AttackBehaviourContinuousSO : AttackBehaviourAbstractContinuousSO
     /// <param name="character">Character who casts the spell.</param>
     /// <param name="characterStats">Character stats.</param>
     /// <param name="spellBehaviour">Behaviour of the spell.</param>
-    public override void Attack(ISpell spell, Character character, Stats characterStats, ref SpellBehaviourAbstract spellBehaviour)
+    public override void AttackKeyPress(ISpell spell, Character character, Stats characterStats, ref SpellBehaviourAbstract spellBehaviour)
     {
         GameObject spawnedSpell =
             SpellPoolCreator.Pool.InstantiateFromPool(
@@ -36,8 +36,17 @@ public class AttackBehaviourContinuousSO : AttackBehaviourAbstractContinuousSO
     /// <param name="spell">Cast spell.</param>
     /// <param name="character">Character (state controller) who casts the spell.</param>
     /// <param name="characterStats">Character stats.</param>
-    public override void Attack(ISpell spell, StateController character, Stats characterStats)
+    public override void AttackKeyPress(ISpell spell, StateController character, Stats characterStats)
     {
         // Temp blank
+    }
+
+    /// <summary>
+    /// Disables continuous spell monobehaviour.
+    /// </summary>
+    /// <param name="spellBehaviour">Parent spell behaviour.</param>
+    public override void AttackKeyRelease(SpellBehaviourAbstract spellBehaviour)
+    {
+        DisableSpell(spellBehaviour);
     }
 }

@@ -13,7 +13,7 @@ public class AttackBehaviourOneShotSO : AttackBehaviourAbstractOneShotSO
     /// <param name="character">Character that cast the spell.</param>
     /// <param name="characterStats">Character that cast the spell stats.</param>
     /// <param name="spellBehaviour">Behaviour of the spell cast.</param>
-    public override void Attack(ISpell spell, Character character, Stats characterStats, ref SpellBehaviourAbstract spellBehaviour)
+    public override void AttackKeyPress(ISpell spell, Character character, Stats characterStats, ref SpellBehaviourAbstract spellBehaviour)
     {
         GameObject spawnedSpell =
             SpellPoolCreator.Pool.InstantiateFromPool(
@@ -34,7 +34,7 @@ public class AttackBehaviourOneShotSO : AttackBehaviourAbstractOneShotSO
     /// <param name="spell">Cast spell.</param>
     /// <param name="character">Character (state controller) who casts the spell.</param>
     /// <param name="characterStats">Character stats.</param>
-    public override void Attack(ISpell spell, StateController character, Stats characterStats)
+    public override void AttackKeyPress(ISpell spell, StateController character, Stats characterStats)
     {
         Vector3 finalDirection =
                         character.transform.position +
@@ -51,5 +51,14 @@ public class AttackBehaviourOneShotSO : AttackBehaviourAbstractOneShotSO
         SpellBehaviourOneShot spellBehaviour = spawnedSpell.GetComponent<SpellBehaviourOneShot>();
         spellBehaviour.WhoCast = characterStats;
         spellBehaviour.TriggerStartBehaviour();
+    }
+
+    /// <summary>
+    /// Triggered when attack key is released.
+    /// </summary>
+    /// <param name="spellBehaviour">Parent spell behaviour.</param>
+    public override void AttackKeyRelease(SpellBehaviourAbstract spellBehaviour)
+    {
+        // Left blank on purpose
     }
 }

@@ -25,20 +25,20 @@ public class PlayerCastSpell : MonoBehaviour
 
     private void OnEnable()
     {
-        input.CastSpell += Cast;
-        input.StopCastSpell += DisableSpell;
+        input.CastSpell += AttackKeyPress;
+        input.StopCastSpell += AttackKeyRelease;
     }
 
     private void OnDisable()
     {
-        input.CastSpell -= Cast;
-        input.StopCastSpell -= DisableSpell;
+        input.CastSpell -= AttackKeyPress;
+        input.StopCastSpell -= AttackKeyRelease;
     }
 
     /// <summary>
     /// Casts a spell. Happens when the player presses fire key.
     /// </summary>
-    private void Cast()
+    private void AttackKeyPress()
     {
         // If spell is not in cooldown
         // Important for OneShot spells (continuous don't have cooldown)
@@ -48,14 +48,8 @@ public class PlayerCastSpell : MonoBehaviour
             if (playerStats.Mana - playerSpells.ActiveSpell.ManaCost >= 0)
             {
                 spellBehaviour = null;
-                if (playerSpells.ActiveSpell.CastType == SpellCastType.OneShotCast)
-                {
-                    playerSpells.ActiveSpell.AttackBehaviourOneShot.Attack(playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
-                }
-                else if (playerSpells.ActiveSpell.CastType == SpellCastType.ContinuousCast)
-                {
-                    playerSpells.ActiveSpell.AttackBehaviourContinuous.Attack(playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
-                }
+                playerSpells.ActiveSpell.AttackBehaviour.AttackKeyPress(
+                    playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
             }
         }
     }
@@ -63,11 +57,9 @@ public class PlayerCastSpell : MonoBehaviour
     /// <summary>
     /// Disables continuous cast parent behaviour gameobject.
     /// </summary>
-    private void DisableSpell()
+    private void AttackKeyRelease()
     {
-        if (playerSpells.ActiveSpell.CastType == SpellCastType.ContinuousCast)
-        {
-            playerSpells.ActiveSpell.AttackBehaviourContinuous.DisableSpell(spellBehaviour);
-        }
+        playerSpells.ActiveSpell.AttackBehaviour.AttackKeyRelease(
+            spellBehaviour);
     }
 }

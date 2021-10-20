@@ -8,5 +8,4 @@ public interface ISpellOneShotBehaviour
     IList<SpellBehaviourAbstractOneShotSO> SpellBehaviourOneShot { get; }
     SpellOnHitBehaviourAbstractOneShotSO OnHitBehaviourOneShot { get; }
     SpellMuzzleBehaviourAbstractOneShotSO MuzzleBehaviourOneShot { get; }
-    AttackBehaviourAbstractOneShotSO AttackBehaviourOneShot { get; }
 }

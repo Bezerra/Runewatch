@@ -7,4 +7,5 @@ public interface ISpellBehaviour: ISpellOneShotBehaviour, ISpellContinuousBehavi
     float Speed { get; }
     float Cooldown { get; }
     float CooldownCounter { get; set; }
+    AttackBehaviourAbstractSO AttackBehaviour { get; }
 }
