@@ -4,7 +4,7 @@ using UnityEngine;
 /// Scriptable object for continuous attacks.
 /// </summary>
 [CreateAssetMenu(menuName = "Attack Behaviour/Attack Behaviour Continuous", fileName = "Attack Behaviour Continuous")]
-public class AttackBehaviourContinuousSO : ScriptableObject
+public class AttackBehaviourContinuousSO : AttackBehaviourAbstractContinuousSO
 {
     /// <summary>
     /// Spawns a spell until the player releases the fire key.
@@ -14,7 +14,7 @@ public class AttackBehaviourContinuousSO : ScriptableObject
     /// <param name="character">Character who casts the spell.</param>
     /// <param name="characterStats">Character stats.</param>
     /// <param name="spellBehaviour">Behaviour of the spell.</param>
-    public void AttackKeyPress(ref GameObject currentlyCastSpell, ISpell spell, 
+    public override void AttackKeyPress(ref GameObject currentlyCastSpell, ISpell spell, 
         Character character, Stats characterStats, ref SpellBehaviourAbstract spellBehaviour)
     {
         GameObject spawnedSpell =
@@ -38,7 +38,7 @@ public class AttackBehaviourContinuousSO : ScriptableObject
     /// <param name="spell">Cast spell.</param>
     /// <param name="character">Character (state controller) who casts the spell.</param>
     /// <param name="characterStats">Character stats.</param>
-    public void AttackKeyPress(
+    public override void AttackKeyPress(
         ISpell spell, StateController character, Stats characterStats)
     {
         // Temp blank
@@ -52,10 +52,10 @@ public class AttackBehaviourContinuousSO : ScriptableObject
     /// <param name="character">Character who casts the spell.</param>
     /// <param name="characterStats">Character stats.</param>
     /// <param name="spellBehaviour">Behaviour of the spell.</param>
-    public void AttackKeyRelease(
+    public override void AttackKeyRelease(
         ref GameObject currentlyCastSpell, ISpell spell, Character character, 
         Stats characterStats, ref SpellBehaviourAbstract spellBehaviour)
     {
-        //DisableSpell(spellBehaviour);
+        DisableSpell(spellBehaviour);
     }
 }

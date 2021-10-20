@@ -86,6 +86,9 @@ public abstract class SpellSO : ScriptableObject, ISpell
     [BoxGroup("Prefabs")]
     [Tooltip("Effect that will be shown in player's hand")]
     [SerializeField] protected GameObject spellHandEffectPrefab;
+    [BoxGroup("Prefabs")]
+    [Tooltip("Effect that will be shown for spells that have an area target vfx")]
+    [SerializeField] protected GameObject areaHoverPrefab;
 
     [BoxGroup("Behaviours")]
     [Tooltip("What kind of damage will it be")]
@@ -115,13 +118,13 @@ public abstract class SpellSO : ScriptableObject, ISpell
     public virtual SpellMuzzleBehaviourAbstractContinuousSO MuzzleBehaviourContinuous { get; }
 
     public DamageBehaviourAbstractSO DamageBehaviour => damageBehaviour;
-
     public abstract AttackBehaviourAbstractSO AttackBehaviour { get; }
 
     /// <summary>
     /// Item1 is spell Prefab. Item2 is spell hit prefab. Item 3 is spell muzzle prefab.
     /// </summary>
-    public (GameObject, GameObject, GameObject, GameObject) Prefab => (spellPrefab, spellHitPrefab, spellMuzzlePrefab, spellHandEffectPrefab);
+    public (GameObject, GameObject, GameObject, GameObject, GameObject) Prefab => 
+        (spellPrefab, spellHitPrefab, spellMuzzlePrefab, spellHandEffectPrefab, areaHoverPrefab);
 
 
 #if UNITY_EDITOR

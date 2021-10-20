@@ -58,10 +58,15 @@ public class PlayerCastSpell : MonoBehaviour
     /// </summary>
     private void AttackKeyRelease()
     {
-        playerSpells.ActiveSpell.AttackBehaviour.AttackKeyRelease(
+        // If spell is not in cooldown
+        // So this will one be triggered when attackKeyPress is triggered aswell
+        if (playerSpells.CooldownOver(playerSpells.ActiveSpell))
+        {
+            playerSpells.ActiveSpell.AttackBehaviour.AttackKeyRelease(
                 ref currentlyCastSpell, playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
 
-        currentlyCastSpell = null;
-        spellBehaviour = null;
+            currentlyCastSpell = null;
+            spellBehaviour = null;
+        }
     }
 }

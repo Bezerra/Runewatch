@@ -4,7 +4,7 @@ using UnityEngine;
 /// Scriptable object for one shot attacks.
 /// </summary>
 [CreateAssetMenu(menuName = "Attack Behaviour/Attack Behaviour One Shot", fileName = "Attack Behaviour One Shot")]
-public class AttackBehaviourOneShotSO : ScriptableObject
+public class AttackBehaviourOneShotSO : AttackBehaviourAbstractOneShotSO
 {
     /// <summary>
     /// Attack behaviour for one shot spells. Instantiates the spell from a pool and triggers its start behaviour.
@@ -14,7 +14,7 @@ public class AttackBehaviourOneShotSO : ScriptableObject
     /// <param name="character">Character that cast the spell.</param>
     /// <param name="characterStats">Character that cast the spell stats.</param>
     /// <param name="spellBehaviour">Behaviour of the spell cast.</param>
-    public void AttackKeyPress(ref GameObject currentlyCastSpell, ISpell spell, 
+    public override void AttackKeyPress(ref GameObject currentlyCastSpell, ISpell spell, 
         Character character, Stats characterStats, ref SpellBehaviourAbstract spellBehaviour)
     {
         currentlyCastSpell =
@@ -36,7 +36,7 @@ public class AttackBehaviourOneShotSO : ScriptableObject
     /// <param name="spell">Cast spell.</param>
     /// <param name="character">Character (state controller) who casts the spell.</param>
     /// <param name="characterStats">Character stats.</param>
-    public void AttackKeyPress(
+    public override void AttackKeyPress(
         ISpell spell, StateController character, Stats characterStats)
     {
         Vector3 finalDirection =
@@ -67,7 +67,7 @@ public class AttackBehaviourOneShotSO : ScriptableObject
     /// <param name="character">Character who casts the spell.</param>
     /// <param name="characterStats">Character stats.</param>
     /// <param name="spellBehaviour">Behaviour of the spell.</param>
-    public void AttackKeyRelease(
+    public override void AttackKeyRelease(
         ref GameObject currentlyCastSpell, ISpell spell, Character character, 
         Stats characterStats, ref SpellBehaviourAbstract spellBehaviour)
     {

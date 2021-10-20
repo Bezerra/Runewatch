@@ -40,6 +40,11 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     /// </summary>
     public bool SpellStartedMoving { get; set; }
 
+    /// <summary>
+    /// Set when area hover is spawned.
+    /// </summary>
+    public GameObject AreaHoverVFX { get; set; }
+
     private void Awake()
     {
         Rb = GetComponent<Rigidbody>();
@@ -48,6 +53,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
 
     private void OnEnable()
     {
+        AreaHoverVFX = null;
         Rb.velocity = Vector3.zero;
         SpellStartedMoving = false;
         DisableSpellAfterCollision = false;

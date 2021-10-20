@@ -8,7 +8,7 @@ using UnityEngine;
 public class AttackBehaviourOneShotWithReleaseSO : AttackBehaviourAbstractOneShotSO
 {
     /// <summary>
-    /// Attack behaviour for one shot spells. Instantiates the spell from a pool and triggers its start behaviour.
+    /// Attack behaviour for one shot spells. Instantiates the spell from a pool.
     /// </summary>
     /// <param name="playerCastSpell">Script from where the spell was cast from.</param> 
     /// <param name="spell">Spell to cast.</param>
@@ -18,6 +18,7 @@ public class AttackBehaviourOneShotWithReleaseSO : AttackBehaviourAbstractOneSho
     public override void AttackKeyPress(ref GameObject currentlyCastSpell, ISpell spell, 
         Character character, Stats characterStats, ref SpellBehaviourAbstract spellBehaviour)
     {
+        // This spell is only instantiated in here, it will be used on method AttackKeyRelease
         currentlyCastSpell =
             SpellPoolCreator.Pool.InstantiateFromPool(
                 spell.Name, character.
@@ -49,6 +50,7 @@ public class AttackBehaviourOneShotWithReleaseSO : AttackBehaviourAbstractOneSho
         ref GameObject currentlyCastSpell, ISpell spell, Character character, 
         Stats characterStats, ref SpellBehaviourAbstract spellBehaviour)
     {
+        // Now that the spell was instantiated, if the player releases fire key, it will trigger it's behaviours, etc
 
         // If a spell was spawned on attack press
         if (currentlyCastSpell != null)
