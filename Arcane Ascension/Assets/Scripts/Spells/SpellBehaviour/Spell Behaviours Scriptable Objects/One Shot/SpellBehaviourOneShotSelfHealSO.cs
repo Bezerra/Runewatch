@@ -15,6 +15,11 @@ sealed public class SpellBehaviourOneShotSelfHealSO : SpellBehaviourAbstractOneS
         character.Heal(parent.Spell.Damage, healingStats);
     }
 
+    public override void ContinuousUpdateBeforeSpellBehaviour(SpellBehaviourOneShot parent)
+    {
+        // Left blank on purpose
+    }
+
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
     {
         // Disables spell after it reached max time

@@ -17,6 +17,11 @@ sealed public class SpellBehaviourManaAndCooldownUpdateSO : SpellBehaviourAbstra
         parent.WhoCast.ReduceMana(parent.Spell.ManaCost);
     }
 
+    public override void ContinuousUpdateBeforeSpellBehaviour(SpellBehaviourOneShot parent)
+    {
+        // Left blank on purpose
+    }
+
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
     {
         // Left blank on purpose

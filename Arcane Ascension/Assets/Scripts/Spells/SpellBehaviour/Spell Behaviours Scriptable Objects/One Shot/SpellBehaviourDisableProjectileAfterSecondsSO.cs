@@ -15,6 +15,11 @@ sealed public class SpellBehaviourDisableProjectileAfterSecondsSO : SpellBehavio
         // Left blank on purpose
     }
 
+    public override void ContinuousUpdateBeforeSpellBehaviour(SpellBehaviourOneShot parent)
+    {
+        // Left blank on purpose
+    }
+
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
     {
         if (parent.SpellStartedMoving)

@@ -23,6 +23,11 @@ sealed public class SpellBehaviourSpawnMuzzlePrefabOneShotSO : SpellBehaviourAbs
         }
     }
 
+    public override void ContinuousUpdateBeforeSpellBehaviour(SpellBehaviourOneShot parent)
+    {
+        // Left blank on purpose
+    }
+
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
     {
         // Left blank on purpose

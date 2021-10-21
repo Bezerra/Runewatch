@@ -16,6 +16,12 @@ public class SpellBehaviourCommonBehavioursSO : SpellBehaviourAbstractOneShotSO
             behaviour.StartBehaviour(parent);
     }
 
+    public override void ContinuousUpdateBeforeSpellBehaviour(SpellBehaviourOneShot parent)
+    {
+        foreach (SpellBehaviourAbstractOneShotSO behaviour in commonBehaviours)
+            behaviour.ContinuousUpdateBeforeSpellBehaviour(parent);
+    }
+
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
     {
         foreach (SpellBehaviourAbstractOneShotSO behaviour in commonBehaviours)

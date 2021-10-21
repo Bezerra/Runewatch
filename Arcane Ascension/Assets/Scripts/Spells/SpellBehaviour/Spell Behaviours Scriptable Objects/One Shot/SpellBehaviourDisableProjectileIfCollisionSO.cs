@@ -15,6 +15,11 @@ public class SpellBehaviourDisableProjectileIfCollisionSO : SpellBehaviourAbstra
         // Left blank on purpose
     }
 
+    public override void ContinuousUpdateBeforeSpellBehaviour(SpellBehaviourOneShot parent)
+    {
+        // Left blank on purpose
+    }
+
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
     {
         // If the spell hits something

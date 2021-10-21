@@ -19,6 +19,11 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
             parent.transform.position.x, parent.transform.position.y, parent.transform.position.z);
     }
 
+    public override void ContinuousUpdateBeforeSpellBehaviour(SpellBehaviourOneShot parent)
+    {
+        // Left blank on purpose
+    }
+
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
     {
         // Left blank on purpose
@@ -61,18 +66,20 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
     /// <param name="parent"></param>
     private void RotateProjectile(Collider other, SpellBehaviourOneShot parent)
     {
-        Vector3 directionToPlayer = parent.transform.Direction(parent.PositionOnSpawn);
+        // Direction of the current hit to initial spawn
+        Vector3 directionToInitialSpawn = parent.transform.Direction(parent.PositionOnSpawn);
 
+        // Direction to do a raycast.
+        // Uses directionToInitialSpawn so the hit will be a little behind the wall to prevent bugs
         Ray direction = new Ray(
-            parent.transform.position + directionToPlayer * 0.1f, 
-            ((parent.transform.position + directionToPlayer * 0.1f).Direction(other.ClosestPoint(parent.transform.position))));
+            parent.transform.position + directionToInitialSpawn * 0.1f, 
+            ((parent.transform.position + directionToInitialSpawn * 0.1f).Direction(other.ClosestPoint(parent.transform.position))));
 
-        
+        // Reflects the current movement vector of the spell
         if (Physics.Raycast(direction, out RaycastHit spellHitPoint))
         {
             Vector3 reflection = Vector3.Reflect(parent.Rb.velocity, spellHitPoint.normal).normalized;
 
-            parent.TEMP = spellHitPoint.point + spellHitPoint.normal;
             parent.transform.position = spellHitPoint.point + spellHitPoint.normal * 0.1f;
             parent.Rb.velocity = reflection * parent.Spell.Speed;
             parent.PositionOnSpawn = parent.transform.position;
