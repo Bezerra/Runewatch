@@ -58,6 +58,8 @@ public class SpellManagerEditor : OdinMenuEditorWindow
     private CreateSpellUpdateManaAndCooldownOneShotData updateManaAndCooldownData;
     private CreateHitSpawnHitPrefabData spawnHitPrefabData;
     private CreateMuzzleSpawnMuzzlePrefabOneShotData spawnMuzzlePrefabData;
+    private CreateSpellHoverAreaVFXFloorData spawnAreaHoverEffectWallsFloor;
+    private CreateSpellHoverAreaVFXWallsFloorData spawnAreaHoverEffectFloor;
 
     // One Shot Hits and Muzzles
     private CreateSpellMuzzleDisableOneShotData spellMuzzleDisableData;
@@ -108,7 +110,9 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         spawnMuzzlePrefabData = new CreateMuzzleSpawnMuzzlePrefabOneShotData();
         stopSpellOnHitData = new CreateSpellStopSpellOnHitOneShotData();
         updateManaAndCooldownData = new CreateSpellUpdateManaAndCooldownOneShotData();
-     
+        spawnAreaHoverEffectWallsFloor = new CreateSpellHoverAreaVFXFloorData();
+        spawnAreaHoverEffectFloor = new CreateSpellHoverAreaVFXWallsFloorData();
+
         // One Shot hits and muzzles
         spellMuzzleDisableData = new CreateSpellMuzzleDisableOneShotData();
         spellOnHitDisableData = new CreateSpellOnHitDisableOneShotData();
@@ -144,6 +148,8 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Spawn Muzzle Prefab", spawnMuzzlePrefabData);
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Stop Spell On Hit", stopSpellOnHitData);
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Mana And Cooldown Update", updateManaAndCooldownData);
+        tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Area VFX Hover Walls Floor", spawnAreaHoverEffectWallsFloor);
+        tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Area VFX Hover Floor", spawnAreaHoverEffectFloor);
 
         // Continuous Behaviours
         tree.Add($"{CREATENEWCONTINUOUSBEHAVIOUR}/New Behaviour Continuous", continuousBehaviourData);
@@ -309,7 +315,12 @@ public class SpellManagerEditor : OdinMenuEditorWindow
 
         if (continuousHitAndDisable != null)
             DestroyImmediate(continuousHitAndDisable.Spell);
-        
+
+        if (spawnAreaHoverEffectWallsFloor != null)
+            DestroyImmediate(spawnAreaHoverEffectWallsFloor.Spell);
+
+        if (spawnAreaHoverEffectFloor != null)
+            DestroyImmediate(spawnAreaHoverEffectFloor.Spell);
     }
 
     /// <summary>
@@ -996,6 +1007,52 @@ public class SpellManagerEditor : OdinMenuEditorWindow
             AssetDatabase.SaveAssets();
 
             Spell = ScriptableObject.CreateInstance<SpellOnHitBehaviourContinuousDisableSO>();
+        }
+    }
+
+    public class CreateSpellHoverAreaVFXWallsFloorData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public SpellBehaviourSpawnAreaHoverEffectWallsAndFloorSO Spell { get; private set; }
+
+        public CreateSpellHoverAreaVFXWallsFloorData()
+        {
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourSpawnAreaHoverEffectWallsAndFloorSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/New Spell Area Hover VFX Walls And Floor " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourSpawnAreaHoverEffectWallsAndFloorSO>();
+        }
+    }
+
+    public class CreateSpellHoverAreaVFXFloorData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public SpellBehaviourSpawnAreaHoverEffectOnFloorSO Spell { get; private set; }
+
+        public CreateSpellHoverAreaVFXFloorData()
+        {
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourSpawnAreaHoverEffectOnFloorSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/New Spell Area Hover VFX On Floor " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourSpawnAreaHoverEffectOnFloorSO>();
         }
     }
 }
