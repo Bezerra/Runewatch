@@ -4,9 +4,9 @@ using ExtensionMethods;
 /// <summary>
 /// Scriptable object responsible for moving the spell forward on start.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Spawn Area Hover Effect Walls And Floor", 
-    fileName = "Spell Behaviour Spawn Area Hover Effect Walls And Floor")]
-sealed public class SpellBehaviourSpawnAreaHoverEffectWallsAndFloorSO : SpellBehaviourAbstractOneShotSO
+[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Spawn Area Hover Effect On Floor", 
+    fileName = "Spell Behaviour Spawn Area Hover Effect On Floor")]
+sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviourAbstractOneShotSO
 {
     [SerializeField] private LayerMask layersToCheck;
     [Range(0f, 0.3f)] [SerializeField] private float distanceFromWall = 0.1f;
@@ -21,7 +21,6 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectWallsAndFloorSO : SpellBeh
     {
         if (parent.AreaHoverVFX == null)
         {
-            // Spawns the vfx distant from the scene
             parent.AreaHoverVFX =
                 SpellAreaHoverPoolCreator.Pool.InstantiateFromPool(
                 parent.Spell.Name, DISTANTVECTOR,
@@ -38,11 +37,24 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectWallsAndFloorSO : SpellBeh
             Ray handForward = new Ray(parent.Hand.position, parent.Hand.position.Direction(objectHit.point));
             if (Physics.Raycast(handForward, out RaycastHit handObjectHit, 100, layersToCheck))
             {
-                // Sets position to the raycast hit and rotation to that hit normal
-                parent.AreaHoverVFX.transform.SetPositionAndRotation(
-                    handObjectHit.point + handObjectHit.normal * distanceFromWall,
-                    Quaternion.LookRotation(handObjectHit.normal, handObjectHit.collider.transform.up));
-                return;
+                // Now, it creates a ray from that last hit point to the floor
+                Ray handHitToFloor = new Ray(handObjectHit.normal, handObjectHit.normal.Direction(-Vector3.up));
+                if (Physics.Raycast(handHitToFloor, out RaycastHit floorHit, 100, layersToCheck))
+                {
+                    // Sets position to the raycast hit and rotation to that hit normal
+                    parent.AreaHoverVFX.transform.SetPositionAndRotation(
+                        floorHit.point + floorHit.normal * distanceFromWall,
+                        Quaternion.LookRotation(floorHit.normal, floorHit.collider.transform.up));
+                    return;
+                }
+                else
+                {
+                    // Sets position far from the scene
+                    parent.AreaHoverVFX.transform.SetPositionAndRotation(
+                        DISTANTVECTOR,
+                        Quaternion.identity);
+                    return;
+                }
             }
             else
             {

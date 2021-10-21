@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using ExtensionMethods;
 
 /// <summary>
 /// Scriptable object responsible for bouncing on hit.
@@ -27,6 +28,11 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
         // Left blank on purpose
     }
 
+    /// <summary>
+    /// On trigger, rotates the projectle if current hit quantity isn't max quantity yet.
+    /// </summary>
+    /// <param name="other">Other collider.</param>
+    /// <param name="parent">Parent behaviour.</param>
     public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
         if (layersToStopTheSpell.Contains(other.gameObject.layer))
@@ -41,16 +47,31 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
                 parent.Rb.velocity = Vector3.zero;
             }
         }
+        else
+        {
+            parent.DisableSpellAfterCollision = true;
+            parent.Rb.velocity = Vector3.zero;
+        }
     }
 
+    /// <summary>
+    /// Reflects projectile.
+    /// </summary>
+    /// <param name="other"></param>
+    /// <param name="parent"></param>
     private void RotateProjectile(Collider other, SpellBehaviourOneShot parent)
     {
-        if (Physics.Raycast(parent.transform.position,
-            (other.ClosestPoint(parent.transform.position) - parent.transform.position).normalized,
-            out RaycastHit spellHitPoint))
+        Ray direction = new Ray(
+            parent.transform.position, 
+            (parent.transform.position.Direction(other.ClosestPoint(parent.transform.position))));
+
+        parent.TEMP = parent.transform.position;
+
+        if (Physics.Raycast(direction, out RaycastHit spellHitPoint))
         {
             Vector3 reflection = Vector3.Reflect(parent.Rb.velocity, spellHitPoint.normal).normalized;
 
+            parent.Rb.velocity = Vector3.zero;
             parent.Rb.velocity = reflection * parent.Spell.Speed;
         }
     }

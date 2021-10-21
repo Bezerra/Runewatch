@@ -42,7 +42,8 @@ public class SpellBehaviourSpawnHitPrefabOneShotSO : SpellBehaviourAbstractOneSh
 
         // Creates spell hit
         // Update() will run from its monobehaviour script
-        if (parent.Spell.OnHitBehaviourOneShot != null)
+        if (parent.Spell.OnHitBehaviourOneShot != null &&
+            other.gameObject.layer != parent.WhoCast.gameObject.layer)
         {
             // Spawns hit in direction of collider hit normal
             GameObject onHitBehaviourGameObject = SpellHitPoolCreator.Pool.InstantiateFromPool(

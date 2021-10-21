@@ -111,4 +111,10 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
             lastHitGameObject = other.gameObject;
         }
     }
+
+    public Vector3 TEMP { get; set; }
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(TEMP, 0.5f);
+    }
 }
