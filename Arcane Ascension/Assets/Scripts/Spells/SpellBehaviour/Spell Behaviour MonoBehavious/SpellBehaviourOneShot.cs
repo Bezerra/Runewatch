@@ -45,7 +45,12 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     /// </summary>
     public GameObject AreaHoverVFX { get; set; }
 
+    /// <summary>
+    /// Area Hit for hover vfx.
+    /// </summary>
     public RaycastHit AreaHoverAreaHit { get; set; }
+
+    public Vector3 PositionOnSpawn { get; set; }
 
     private void Awake()
     {
@@ -70,6 +75,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         CurrentPierceHitQuantity = 0;
         CurrentWallHitQuantity = 0;
         lastHitGameObject = null;
+        PositionOnSpawn = default;
     }
 
     /// <summary>

@@ -15,7 +15,8 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
 
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
-        // Left blank on purpose
+        parent.PositionOnSpawn = new Vector3(
+            parent.transform.position.x, parent.transform.position.y, parent.transform.position.z);
     }
 
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
@@ -50,7 +51,6 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
         else
         {
             parent.DisableSpellAfterCollision = true;
-            parent.Rb.velocity = Vector3.zero;
         }
     }
 
@@ -61,18 +61,21 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
     /// <param name="parent"></param>
     private void RotateProjectile(Collider other, SpellBehaviourOneShot parent)
     {
+        Vector3 directionToPlayer = parent.transform.Direction(parent.PositionOnSpawn);
+
         Ray direction = new Ray(
-            parent.transform.position, 
-            (parent.transform.position.Direction(other.ClosestPoint(parent.transform.position))));
+            parent.transform.position + directionToPlayer * 0.1f, 
+            ((parent.transform.position + directionToPlayer * 0.1f).Direction(other.ClosestPoint(parent.transform.position))));
 
-        parent.TEMP = parent.transform.position;
-
+        
         if (Physics.Raycast(direction, out RaycastHit spellHitPoint))
         {
             Vector3 reflection = Vector3.Reflect(parent.Rb.velocity, spellHitPoint.normal).normalized;
 
-            parent.Rb.velocity = Vector3.zero;
+            parent.TEMP = spellHitPoint.point + spellHitPoint.normal;
+            parent.transform.position = spellHitPoint.point + spellHitPoint.normal * 0.1f;
             parent.Rb.velocity = reflection * parent.Spell.Speed;
+            parent.PositionOnSpawn = parent.transform.position;
         }
     }
 }
