@@ -22,8 +22,9 @@ public class SpellBehaviourContinuous : SpellBehaviourAbstract
     /// </summary>
     public float LastTimeSpellWallHit { get; set; }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         LineRender = GetComponent<LineRenderer>();
     }
 

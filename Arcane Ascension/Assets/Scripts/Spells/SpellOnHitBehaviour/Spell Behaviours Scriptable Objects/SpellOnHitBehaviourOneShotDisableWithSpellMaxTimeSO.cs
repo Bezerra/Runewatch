@@ -15,7 +15,7 @@ sealed public class SpellOnHitBehaviourOneShotDisableWithSpellMaxTimeSO : SpellO
     {
         // Left blank on purpose
     }
-
+    
     /// <summary>
     /// Executed every update.
     /// </summary>
@@ -24,11 +24,11 @@ sealed public class SpellOnHitBehaviourOneShotDisableWithSpellMaxTimeSO : SpellO
     {
         if (Time.time - parent.TimeSpawned > parent.Spell.MaxTime)
         {
-            if (parent.HitEffect != null)
+            if (parent.EffectNotNull)
             {
-                parent.HitEffect.Stop();
+                parent.EffectStop();
 
-                if (parent.HitEffect.aliveParticleCount == 0)
+                if (parent.EffectGetAliveParticles == 0)
                 {
                     parent.DisableHitSpell();
                 }

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.VFX;
 
 /// <summary>
 /// Monobehaviour for one shot spell hits.
@@ -10,13 +9,8 @@ public class SpellOnHitBehaviourOneShot : SpellOnHitBehaviourAbstract
     /// This variable is set on spell behaviour after the spell is cast.
     /// </summary>
     public override ISpell Spell { get; set; }
-    public VisualEffect HitEffect { get; set; }
+    
     public override float TimeSpawned { get; set; }
-
-    private void Awake()
-    {
-        HitEffect = GetComponentInChildren<VisualEffect>();
-    }
 
     /// <summary>
     /// Runs start behaviour when enabled with with pool.

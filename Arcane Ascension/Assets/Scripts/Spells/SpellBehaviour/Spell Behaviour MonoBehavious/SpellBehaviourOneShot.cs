@@ -52,8 +52,9 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
 
     public Vector3 PositionOnSpawn { get; set; }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         Rb = GetComponent<Rigidbody>();
         ColliderTrigger = GetComponent<SphereCollider>();
     }
