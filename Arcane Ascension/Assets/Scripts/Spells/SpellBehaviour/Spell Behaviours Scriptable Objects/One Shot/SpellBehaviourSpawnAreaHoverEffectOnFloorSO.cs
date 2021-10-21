@@ -38,9 +38,14 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
             if (Physics.Raycast(handForward, out RaycastHit handObjectHit, 100, layersToCheck))
             {
                 // Now, it creates a ray from that last hit point to the floor
-                Ray handHitToFloor = new Ray(handObjectHit.normal, handObjectHit.normal.Direction(-Vector3.up));
+                Ray handHitToFloor = new Ray(
+                    handObjectHit.point + handObjectHit.normal, -Vector3.up);
+
                 if (Physics.Raycast(handHitToFloor, out RaycastHit floorHit, 100, layersToCheck))
                 {
+                    // Sets area hover hit
+                    parent.AreaHoverAreaHit = floorHit;
+
                     // Sets position to the raycast hit and rotation to that hit normal
                     parent.AreaHoverVFX.transform.SetPositionAndRotation(
                         floorHit.point + floorHit.normal * distanceFromWall,

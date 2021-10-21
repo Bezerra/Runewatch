@@ -45,6 +45,8 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     /// </summary>
     public GameObject AreaHoverVFX { get; set; }
 
+    public RaycastHit AreaHoverAreaHit { get; set; }
+
     private void Awake()
     {
         Rb = GetComponent<Rigidbody>();
@@ -60,6 +62,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
 
     private void OnDisable()
     {
+        AreaHoverAreaHit = default;
         AreaHoverVFX = null;
         SpellStartedMoving = false;
         Rb.velocity = Vector3.zero;
@@ -112,9 +115,13 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         }
     }
 
+
+
     public Vector3 TEMP { get; set; }
+    public Ray TEMPRAY { get; set; }
     private void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(TEMP, 0.5f);
+        Gizmos.DrawSphere(TEMP, 0.2f);
+        Gizmos.DrawRay(TEMPRAY);
     }
 }
