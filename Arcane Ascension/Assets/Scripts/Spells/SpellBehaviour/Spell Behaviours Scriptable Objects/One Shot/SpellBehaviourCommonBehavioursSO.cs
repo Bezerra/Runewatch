@@ -8,7 +8,7 @@ using UnityEngine;
     fileName = "Spell Behaviour Common Behaviours")]
 public class SpellBehaviourCommonBehavioursSO : SpellBehaviourAbstractOneShotSO
 {
-    [SerializeField] private List<SpellBehaviourAbstractSO> commonBehaviours;
+    [SerializeField] private List<SpellBehaviourAbstractOneShotSO> commonBehaviours;
 
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {

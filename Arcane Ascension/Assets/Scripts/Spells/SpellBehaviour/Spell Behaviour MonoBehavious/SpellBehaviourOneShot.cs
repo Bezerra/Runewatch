@@ -113,6 +113,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     {
         if (lastHitGameObject != other.gameObject)
         {
+            Debug.Log(TimeOfImpact);
             // If this spell is hitting something for the first time
             TimeOfImpact = Time.time;
             foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviourOneShot)
