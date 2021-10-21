@@ -54,6 +54,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
     private CreateSpellCommonBehavioursOneShotData commonBehavioursData;
     private CreateSpellDisableProjectileAfterSecondsOneShotData disableProjectileAfterSecondsData;
     private CreateSpellDisableProjectileAfterCollisionOneShotData disableProjectileAfterCollisionData;
+    private CreateSpellDisableWithSpellMaxTimeData disableProjectileSpellMaxTime;
     private CreateSpellStopSpellOnHitOneShotData stopSpellOnHitData;
     private CreateSpellUpdateManaAndCooldownOneShotData updateManaAndCooldownData;
     private CreateHitSpawnHitPrefabData spawnHitPrefabData;
@@ -106,6 +107,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         commonBehavioursData = new CreateSpellCommonBehavioursOneShotData();
         disableProjectileAfterSecondsData = new CreateSpellDisableProjectileAfterSecondsOneShotData();
         disableProjectileAfterCollisionData = new CreateSpellDisableProjectileAfterCollisionOneShotData();
+        disableProjectileSpellMaxTime = new CreateSpellDisableWithSpellMaxTimeData();
         spawnHitPrefabData = new CreateHitSpawnHitPrefabData();
         spawnMuzzlePrefabData = new CreateMuzzleSpawnMuzzlePrefabOneShotData();
         stopSpellOnHitData = new CreateSpellStopSpellOnHitOneShotData();
@@ -144,6 +146,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Common Behaviours", commonBehavioursData);
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Disable Projectile After Seconds", disableProjectileAfterSecondsData);
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Disable Projectile After Collision", disableProjectileAfterCollisionData);
+        tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Disable Projectile After Collision", disableProjectileSpellMaxTime);
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Spawn Hit Prefab", spawnHitPrefabData);
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Spawn Muzzle Prefab", spawnMuzzlePrefabData);
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Stop Spell On Hit", stopSpellOnHitData);
@@ -265,6 +268,9 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         if (disableProjectileAfterCollisionData != null)
             DestroyImmediate(disableProjectileAfterCollisionData.Spell);
 
+        if (disableProjectileSpellMaxTime != null)
+            DestroyImmediate(disableProjectileSpellMaxTime.Spell);
+        
         if (spawnHitPrefabData != null)
             DestroyImmediate(spawnHitPrefabData.Spell);
 
@@ -1053,6 +1059,29 @@ public class SpellManagerEditor : OdinMenuEditorWindow
             AssetDatabase.SaveAssets();
 
             Spell = ScriptableObject.CreateInstance<SpellBehaviourSpawnAreaHoverEffectOnFloorSO>();
+        }
+    }
+
+    public class CreateSpellDisableWithSpellMaxTimeData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public SpellBehaviourDisableProjectileSpellMaxTimeSO Spell { get; private set; }
+
+        public CreateSpellDisableWithSpellMaxTimeData()
+        {
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourDisableProjectileSpellMaxTimeSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/New Spell Disable Projectile Spell Max Time " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourDisableProjectileSpellMaxTimeSO>();
         }
     }
 }
