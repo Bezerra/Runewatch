@@ -25,6 +25,27 @@ public class SpellMuzzleBehaviourOneShotDisableSO : SpellMuzzleBehaviourAbstract
     public override void ContinuousUpdateBehaviour(SpellMuzzleBehaviourOneShot parent)
     {
         if (Time.time - parent.TimeSpawned > disableAfterSeconds)
+        {
+            if (parent.EffectNotNull)
+            {
+                parent.EffectStop();
+
+                if (parent.EffectGetAliveParticles == 0)
+                    parent.DisableMuzzleSpell();
+
+                return;
+            }
+        }
+
+        if (parent.EffectNotNull)
+        {
             parent.DisableMuzzleSpell();
+        }
+
+        // Safety measure if too much time passes and the effect didn't get disabled
+        if (Time.time - parent.TimeSpawned > disableAfterSeconds * 3)
+        {
+            parent.DisableMuzzleSpell();
+        }
     }
 }

@@ -38,5 +38,11 @@ public class SpellOnHitBehaviourContinuousDisableSO : SpellOnHitBehaviourAbstrac
         {
             parent.DisableHitSpell();
         }
+
+        // Safety measure if too much time passes and the effect didn't get disabled
+        if (Time.time - parent.TimeSpawned > disableAfterSeconds * 3)
+        {
+            parent.DisableHitSpell();
+        }
     }
 }

@@ -38,6 +38,12 @@ public class SpellBehaviourDisableProjectileSpellMaxTimeSO : SpellBehaviourAbstr
                     parent.DisableSpell();
                 }
             }
+
+            // Safety measure if too much time passes and the effect didn't get disabled
+            if (Time.time - parent.TimeSpawned > parent.Spell.MaxTime * 3)
+            {
+                parent.DisableSpell();
+            }
         }
     }
 

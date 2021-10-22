@@ -31,7 +31,7 @@ sealed public class SpellBehaviourDisableProjectileAfterSecondsSO : SpellBehavio
                     if (parent.EffectNotNull)
                     {
                         parent.EffectStop();
-                        Debug.Log(parent.EffectGetAliveParticles);
+
                         if (parent.EffectGetAliveParticles == 0)
                         {
                             parent.DisableSpell();
@@ -41,7 +41,13 @@ sealed public class SpellBehaviourDisableProjectileAfterSecondsSO : SpellBehavio
                     {
                         parent.DisableSpell();
                     }
-                } 
+                }
+
+                // Safety measure if too much time passes and the effect didn't get disabled
+                if (Time.time - parent.TimeSpawned > disableAfterSeconds * 3)
+                {
+                    parent.DisableSpell();
+                }
             }
         }
     }
