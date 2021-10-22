@@ -11,12 +11,12 @@ public class DamageAoESO : DamageBehaviourAbstractSO
     /// <summary>
     /// Applies AoE damage. Works with a collider.
     /// </summary>
-    /// <param name="other">Colliger to get IDamageables to damage.</param>
     /// <param name="parent">Parent spell behaviour.</param>
+    /// <param name="other">Colliger to get IDamageables to damage.</param>
     /// <param name="damageMultiplier">Damage multiplier. It's 1 by default.</param>
-    public override void Damage(Collider other, SpellBehaviourAbstract parent, float damageMultiplier = 1)
+    public override void Damage(SpellBehaviourAbstract parent, Collider other = null, float damageMultiplier = 1)
     {
-        DamageLogic(other, parent, damageMultiplier);
+        DamageLogic(parent, other, damageMultiplier);
     }
 
     /// <summary>
@@ -25,7 +25,7 @@ public class DamageAoESO : DamageBehaviourAbstractSO
     /// <param name="other">Collider to get IDamageables to damage.</param>
     /// <param name="parent">Parent spell behaviour.</param>
     /// <param name="damageMultiplier">Damage multiplier. It's 1 by default.</param>
-    protected override void DamageLogic(Collider other, SpellBehaviourAbstract parent, float damageMultiplier = 1)
+    protected override void DamageLogic(SpellBehaviourAbstract parent, Collider other = null, float damageMultiplier = 1)
     {
         Collider[] collisions = Physics.OverlapSphere(
                     parent.transform.position, parent.Spell.AreaOfEffect, Layers.EnemyWithWalls);
@@ -34,11 +34,14 @@ public class DamageAoESO : DamageBehaviourAbstractSO
         IList<IDamageable> charactersToDoDamage = new List<IDamageable>();
 
         // If the enemy is directly hit
-        if (other.gameObject.TryGetComponentInParent<IDamageable>(out IDamageable enemyDirectHit))
+        if (other != null)
         {
-            if (!enemyDirectHit.Equals(parent.ThisIDamageable))
+            if (other.gameObject.TryGetComponentInParent<IDamageable>(out IDamageable enemyDirectHit))
             {
-                charactersToDoDamage.Add(enemyDirectHit);
+                if (!enemyDirectHit.Equals(parent.ThisIDamageable))
+                {
+                    charactersToDoDamage.Add(enemyDirectHit);
+                }
             }
         }
 

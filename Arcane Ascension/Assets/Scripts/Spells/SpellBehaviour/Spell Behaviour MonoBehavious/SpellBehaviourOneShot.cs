@@ -50,7 +50,15 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     /// </summary>
     public RaycastHit AreaHoverAreaHit { get; set; }
 
-    public Vector3 PositionOnSpawn { get; set; }
+    /// <summary>
+    /// Gets position on spawn or everytime it hits.
+    /// </summary>
+    public Vector3 PositionOnSpawnAndHit { get; set; }
+
+    /// <summary>
+    /// Updated everytime the spell damages an enemy.
+    /// </summary>
+    public float LastTimeDamaged { get; set; }
 
     protected override void Awake()
     {
@@ -76,7 +84,8 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         CurrentPierceHitQuantity = 0;
         CurrentWallHitQuantity = 0;
         lastHitGameObject = null;
-        PositionOnSpawn = default;
+        PositionOnSpawnAndHit = default;
+        LastTimeDamaged = 0;
     }
 
     /// <summary>

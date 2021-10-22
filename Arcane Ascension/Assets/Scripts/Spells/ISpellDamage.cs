@@ -4,7 +4,6 @@
 public interface ISpellDamage
 {
     ElementType Element { get; }
-    bool AreaSpellRemainActive { get; }
     float TimeInterval { get; }
     float MaxTime { get; }
     float AreaOfEffect { get; }

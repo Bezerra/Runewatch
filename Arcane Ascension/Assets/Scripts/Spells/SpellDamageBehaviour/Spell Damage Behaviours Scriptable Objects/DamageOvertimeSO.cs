@@ -10,21 +10,21 @@ public class DamageOvertimeSO : DamageBehaviourAbstractSO
     /// <summary>
     /// Applies damage overtime once. Works with a collider.
     /// </summary>
-    /// <param name="other">Collider to damage.</param>
     /// <param name="parent">Parent spell behaviour.</param>
+    /// <param name="other">Collider to damage.</param>
     /// <param name="damageMultiplier">Damage multiplier. It's 1 by default.</param>
-    public override void Damage(Collider other, SpellBehaviourAbstract parent, float damageMultiplier = 1)
+    public override void Damage(SpellBehaviourAbstract parent, Collider other = null, float damageMultiplier = 1)
     {
-        DamageLogic(other, parent, damageMultiplier);
+        DamageLogic(parent, other, damageMultiplier);
     }
 
     /// <summary>
     /// Damage logic.
     /// </summary>
-    /// <param name="other">Collider to get IDamageables to damage.</param>
     /// <param name="parent">Parent spell behaviour.</param>
+    /// <param name="other">Collider to get IDamageables to damage.</param>
     /// <param name="damageMultiplier">Damage multiplier. It's 1 by default.</param>
-    protected override void DamageLogic(Collider other, SpellBehaviourAbstract parent, float damageMultiplier = 1)
+    protected override void DamageLogic(SpellBehaviourAbstract parent, Collider other = null, float damageMultiplier = 1)
     {
         if (other.gameObject.TryGetComponentInParent<IDamageable>(out IDamageable character))
         {

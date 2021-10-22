@@ -39,10 +39,6 @@ public abstract class SpellSO : ScriptableObject, ISpell
     /// ---------------
 
     [BoxGroup("Damage")]
-    [Tooltip("When this option is turned on, remember that MaxTime is the time the spell will remain active on the area.")]
-    [SerializeField] protected bool areaSpellRemainActive;
-
-    [BoxGroup("Damage")]
     [Tooltip("Interval between damage with Overtime damage spells or interval between damage with continuous spells.")]
     [Range(0.01f, 100)] [SerializeField] protected float timeInterval;
 
@@ -100,7 +96,6 @@ public abstract class SpellSO : ScriptableObject, ISpell
     public byte SpellID => spellID;
     public ElementType Element => element;
     public float ManaCost => manaCost;
-    public bool AreaSpellRemainActive => areaSpellRemainActive;
     public float TimeInterval { get => timeInterval; set => timeInterval = value; }
     public float MaxTime { get => maxTime; set => maxTime = value; }
     public float AreaOfEffect { get => areaOfEffect; set => areaOfEffect = value; }

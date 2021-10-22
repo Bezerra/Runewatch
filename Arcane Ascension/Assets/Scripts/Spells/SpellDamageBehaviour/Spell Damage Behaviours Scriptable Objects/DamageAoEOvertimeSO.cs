@@ -11,21 +11,21 @@ public class DamageAoEOvertimeSO : DamageBehaviourAbstractSO
     /// <summary>
     /// Applies damage overtime to an area. Works with a collider.
     /// </summary>
-    /// <param name="other">Collider to get IDamageables to damage.</param>
     /// <param name="parent">Parent spell behaviour.</param>
+    /// <param name="other">Collider to get IDamageables to damage.</param>
     /// <param name="damageMultiplier">Damage multiplier. It's 1 by default.</param>
-    public override void Damage(Collider other, SpellBehaviourAbstract parent, float damageMultiplier = 1)
+    public override void Damage(SpellBehaviourAbstract parent, Collider other = null, float damageMultiplier = 1)
     {
-        DamageLogic(other, parent, damageMultiplier);
+        DamageLogic(parent, other, damageMultiplier);
     }
 
     /// <summary>
     /// Damage logic.
     /// </summary>
-    /// <param name="other">Collider to get IDamageables to damage.</param>
     /// <param name="parent">Parent spell behaviour.</param>
+    /// <param name="other">Collider to get IDamageables to damage.</param>
     /// <param name="damageMultiplier">Damage multiplier. It's 1 by default.</param>
-    protected override void DamageLogic(Collider other, SpellBehaviourAbstract parent, float damageMultiplier = 1)
+    protected override void DamageLogic(SpellBehaviourAbstract parent, Collider other = null, float damageMultiplier = 1)
     {
         // Creates a new list with IDamageable characters
         IList<IDamageable> charactersToDoDamage = new List<IDamageable>();

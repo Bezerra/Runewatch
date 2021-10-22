@@ -19,7 +19,7 @@ public class SpellBehaviourContinuousApplyDamageSO : SpellBehaviourAbstractConti
             // If the spell is in hit time (updated on parent)
             if (Time.time > parent.LastTimeHit + parent.Spell.Cooldown)
             {
-                parent.Spell.DamageBehaviour.Damage(parent.DamageableTarget, parent);
+                parent.Spell.DamageBehaviour.Damage(parent, parent.DamageableTarget);
             }
         }
     }

@@ -37,7 +37,7 @@ sealed public class SpellBehaviourApplyDamagePierceSO : SpellBehaviourAbstractOn
 
     public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
-        parent.Spell.DamageBehaviour.Damage(other, parent, CalculateModifier(parent.CurrentPierceHitQuantity, typeOfPierce));
+        parent.Spell.DamageBehaviour.Damage(parent, other, CalculateModifier(parent.CurrentPierceHitQuantity, typeOfPierce));
 
         // If it hits an enemy
         if (other.gameObject.layer == enemyLayerNumber)

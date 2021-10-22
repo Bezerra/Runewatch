@@ -15,7 +15,7 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
 
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
-        parent.PositionOnSpawn = new Vector3(
+        parent.PositionOnSpawnAndHit = new Vector3(
             parent.transform.position.x, parent.transform.position.y, parent.transform.position.z);
     }
 
@@ -67,7 +67,7 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
     private void RotateProjectile(Collider other, SpellBehaviourOneShot parent)
     {
         // Direction of the current hit to initial spawn
-        Vector3 directionToInitialSpawn = parent.transform.Direction(parent.PositionOnSpawn);
+        Vector3 directionToInitialSpawn = parent.transform.Direction(parent.PositionOnSpawnAndHit);
 
         // Direction to do a raycast.
         // Uses directionToInitialSpawn so the hit will be a little behind the wall to prevent bugs
@@ -89,7 +89,7 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
                 Quaternion.LookRotation(parent.Rb.velocity.Direction(parent.Rb.velocity+reflection), Vector3.up);
 
             // Sets the last position of the hit to the current hit
-            parent.PositionOnSpawn = 
+            parent.PositionOnSpawnAndHit = 
                 new Vector3(
                     parent.transform.position.x, 
                     parent.transform.position.y, 
