@@ -28,7 +28,19 @@ sealed public class SpellBehaviourDisableProjectileAfterSecondsSO : SpellBehavio
             {
                 if (Time.time - parent.TimeSpawned > disableAfterSeconds)
                 {
-                    DisableSpell(parent);
+                    if (parent.EffectNotNull)
+                    {
+                        parent.EffectStop();
+
+                        if (parent.EffectGetAliveParticles == 0)
+                        {
+                            parent.DisableSpell();
+                        }
+                    }
+                    else
+                    {
+                        parent.DisableSpell();
+                    }
                 } 
             }
         }

@@ -25,9 +25,27 @@ public class SpellBehaviourDisableProjectileIfCollisionSO : SpellBehaviourAbstra
         // If the spell hits something
         if (parent.DisableSpellAfterCollision && parent.SpellStartedMoving)
         {
+            if (parent.Rb.velocity == Vector3.zero)
+            {
+                if (parent.EffectNotNull)
+                {
+                    parent.EffectStop();
+                }
+            }
+
             if (Time.time - parent.TimeOfImpact > disableAfterSecondsAfterCollision)
             {
-                DisableSpell(parent);
+                if (parent.EffectNotNull)
+                {
+                    if (parent.EffectGetAliveParticles == 0)
+                    {
+                        parent.DisableSpell();
+                    }
+                }
+                else
+                {
+                    parent.DisableSpell();
+                }
             }
         }
     }
