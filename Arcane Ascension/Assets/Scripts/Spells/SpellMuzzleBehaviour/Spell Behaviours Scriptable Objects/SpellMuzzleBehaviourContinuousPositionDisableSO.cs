@@ -24,11 +24,11 @@ public class SpellMuzzleBehaviourContinuousPositionDisableSO : SpellMuzzleBehavi
             // If parent spell mono behaviour is false
             if (parent.SpellMonoBehaviour.gameObject.activeSelf == false)
             {
-                if (parent.MuzzleEffect != null)
+                if (parent.EffectNotNull)
                 {
-                    parent.MuzzleEffect.Stop();
+                    parent.EffectStop();
 
-                    if (parent.MuzzleEffect.aliveParticleCount == 0)
+                    if (parent.EffectGetAliveParticles == 0)
                         parent.DisableMuzzleSpell();
                 }
                 else

@@ -7,8 +7,8 @@ using UnityEngine.VFX;
 public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
 {
     // Effects
-    private VisualEffect hitEffectVFX;
-    private ParticleSystem hitEffectParticleSystem;
+    private VisualEffect[] hitEffectVFX;
+    private ParticleSystem[] hitEffectParticleSystem;
     public abstract ISpell Spell { get; }
     public Transform Hand { get; private set; }
     public Transform Eyes { get; private set; }
@@ -32,8 +32,8 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
 
     protected virtual void Awake()
     {
-        hitEffectVFX = GetComponentInChildren<VisualEffect>();
-        hitEffectParticleSystem = GetComponentInChildren<ParticleSystem>();
+        hitEffectVFX = GetComponentsInChildren<VisualEffect>();
+        hitEffectParticleSystem = GetComponentsInChildren<ParticleSystem>();
     }
 
     /// <summary>
@@ -52,23 +52,51 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
 
     public void EffectPlay()
     {
-        if (hitEffectVFX != null) hitEffectVFX.Play();
-        if (hitEffectParticleSystem != null) hitEffectParticleSystem.Play();
+        if (hitEffectVFX != null)
+        {
+            foreach (VisualEffect visualEffect in hitEffectVFX)
+                visualEffect.Play();
+        }
+        if (hitEffectParticleSystem != null)
+        {
+            foreach (ParticleSystem particleSystem in hitEffectParticleSystem)
+                particleSystem.Play();
+        }
+                
     }
 
     public void EffectStop()
     {
-        if (hitEffectVFX != null) hitEffectVFX.Stop();
-        if (hitEffectParticleSystem != null) hitEffectParticleSystem.Stop();
+        if (hitEffectVFX != null)
+        {
+            foreach (VisualEffect visualEffect in hitEffectVFX)
+                visualEffect.Stop();
+        }
+        if (hitEffectParticleSystem != null)
+        {
+            foreach (ParticleSystem particleSystem in hitEffectParticleSystem)
+                particleSystem.Stop();
+        }
     }
 
     public int EffectGetAliveParticles
     {
         get
         {
-            if (hitEffectVFX != null) return hitEffectVFX.aliveParticleCount;
-            if (hitEffectParticleSystem != null) return hitEffectParticleSystem.particleCount;
-            return 0;
+            int result = 0;
+
+            if (hitEffectVFX != null)
+            {
+                foreach (VisualEffect visualEffect in hitEffectVFX)
+                    result += visualEffect.aliveParticleCount;
+            }
+            if (hitEffectParticleSystem != null)
+            {
+                foreach (ParticleSystem particleSystem in hitEffectParticleSystem)
+                    result += particleSystem.particleCount;
+            }
+
+            return result;
         }
     }
 

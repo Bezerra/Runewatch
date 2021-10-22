@@ -14,8 +14,9 @@ public class SpellOnHitBehaviourContinuous : SpellOnHitBehaviourAbstract
     public SpellBehaviourContinuous SpellMonoBehaviour { get; set; }
     public VisualEffect HitEffect { get; private set; }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         HitEffect = GetComponentInChildren<VisualEffect>();
     }
 

@@ -13,8 +13,9 @@ public class SpellMuzzleBehaviourContinuous : SpellMuzzleBehaviourAbstract
     public SpellBehaviourContinuous SpellMonoBehaviour { get; set; }
     public VisualEffect MuzzleEffect { get; private set; }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         MuzzleEffect = GetComponentInChildren<VisualEffect>();
     }
 
