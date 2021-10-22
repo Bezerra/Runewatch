@@ -70,7 +70,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     private void OnEnable()
     {
         SpellStartedMoving = false;
-        
+        LastTimeDamaged = Time.time;
         TimeOfImpact = Time.time;
     }
 
@@ -85,7 +85,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         CurrentWallHitQuantity = 0;
         lastHitGameObject = null;
         PositionOnSpawnAndHit = default;
-        LastTimeDamaged = 0;
+        
     }
 
     /// <summary>

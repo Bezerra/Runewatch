@@ -61,6 +61,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
     private CreateMuzzleSpawnMuzzlePrefabOneShotData spawnMuzzlePrefabData;
     private CreateSpellHoverAreaVFXFloorData spawnAreaHoverEffectWallsFloor;
     private CreateSpellHoverAreaVFXWallsFloorData spawnAreaHoverEffectFloor;
+    private CreateSpellBehaviourApplyDamageAreaRemainActiveData spellAreaRemainActive;
 
     // One Shot Hits and Muzzles
     private CreateSpellMuzzleDisableOneShotData spellMuzzleDisableData;
@@ -114,6 +115,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         updateManaAndCooldownData = new CreateSpellUpdateManaAndCooldownOneShotData();
         spawnAreaHoverEffectWallsFloor = new CreateSpellHoverAreaVFXFloorData();
         spawnAreaHoverEffectFloor = new CreateSpellHoverAreaVFXWallsFloorData();
+        spellAreaRemainActive = new CreateSpellBehaviourApplyDamageAreaRemainActiveData();
 
         // One Shot hits and muzzles
         spellMuzzleDisableData = new CreateSpellMuzzleDisableOneShotData();
@@ -153,6 +155,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Mana And Cooldown Update", updateManaAndCooldownData);
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Area VFX Hover Walls Floor", spawnAreaHoverEffectWallsFloor);
         tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Area VFX Hover Floor", spawnAreaHoverEffectFloor);
+        tree.Add($"{CREATENEWONESHOTBEHAVIOUR}/New Behaviour Spell Area Remain Active", spellAreaRemainActive);
 
         // Continuous Behaviours
         tree.Add($"{CREATENEWCONTINUOUSBEHAVIOUR}/New Behaviour Continuous", continuousBehaviourData);
@@ -327,6 +330,10 @@ public class SpellManagerEditor : OdinMenuEditorWindow
 
         if (spawnAreaHoverEffectFloor != null)
             DestroyImmediate(spawnAreaHoverEffectFloor.Spell);
+
+        if (spellAreaRemainActive != null)
+            DestroyImmediate(spellAreaRemainActive.Spell);
+        
     }
 
     /// <summary>
@@ -1082,6 +1089,29 @@ public class SpellManagerEditor : OdinMenuEditorWindow
             AssetDatabase.SaveAssets();
 
             Spell = ScriptableObject.CreateInstance<SpellBehaviourDisableProjectileSpellMaxTimeSO>();
+        }
+    }
+
+    public class CreateSpellBehaviourApplyDamageAreaRemainActiveData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public SpellBehaviourApplyDamageAreaRemainActiveSO Spell { get; private set; }
+
+        public CreateSpellBehaviourApplyDamageAreaRemainActiveData()
+        {
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourApplyDamageAreaRemainActiveSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Spell,
+                "Assets/Resources/Scriptable Objects/Spell Behaviours/One Shot/New Spell Apply Damage Area Remain Active " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Spell = ScriptableObject.CreateInstance<SpellBehaviourApplyDamageAreaRemainActiveSO>();
         }
     }
 }
