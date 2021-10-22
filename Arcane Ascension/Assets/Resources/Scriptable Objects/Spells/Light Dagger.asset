@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa9d642721915f846be63fa9e31b1ec0, type: 3}
-  m_Name: faca
+  m_Name: Light Dagger
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  name: faca
+  name: Light Dagger
   spellID: 3
   description: 
-  element: 0
+  element: 6
   manaCost: 0.01
   areaSpellRemainActive: 0
   timeInterval: 0.01
   maxTime: 0.1
   areaOfEffect: 2
   damage: {x: 0, y: 0}
-  speed: 14
+  speed: 25
   cooldown: 0.15
-  spellPrefab: {fileID: 0}
-  spellHitPrefab: {fileID: 0}
-  spellMuzzlePrefab: {fileID: 0}
-  spellHandEffectPrefab: {fileID: 0}
-  areaHoverPrefab: {fileID: 0}
+  spellPrefab: {fileID: 4544114618391733411, guid: a65f98e3b4741ed4dbe17da8ec297d11, type: 3}
+  spellHitPrefab: {fileID: 1692217177674820475, guid: 249ff8fdfe400894fa30033cc0488cde, type: 3}
+  spellMuzzlePrefab: {fileID: 7228047335470632946, guid: eda80f7073e91d048b22ed402743ac54, type: 3}
+  spellHandEffectPrefab: {fileID: 5965007050869265157, guid: 280d2b34b0ce0e549a6782d20b15f614, type: 3}
+  areaHoverPrefab: {fileID: 1369274409782311434, guid: 176e62a48f04bfe4e93aae5bed3bd903, type: 3}
   damageBehaviour: {fileID: 11400000, guid: f61f29a589d8b6b49ab8eb8d558e9ac2, type: 2}
   spellBehaviourOneShot:
   - {fileID: 11400000, guid: 20cb4169d3aa11d468e125db71cf86b6, type: 2}
