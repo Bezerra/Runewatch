@@ -18,7 +18,7 @@ public class SpellOnHitBehaviourOneShot : SpellOnHitBehaviourAbstract
     private void OnEnable()
     {
         TimeSpawned = Time.time;
-
+        EffectPlay();
         Spell?.OnHitBehaviourOneShot.StartBehaviour(this);
     }
 

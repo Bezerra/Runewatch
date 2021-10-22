@@ -18,7 +18,7 @@ public class SpellMuzzleBehaviourOneShot : SpellMuzzleBehaviourAbstract
     private void OnEnable()
     {
         TimeSpawned = Time.time;
-
+        EffectPlay();
         Spell?.MuzzleBehaviourOneShot.StartBehaviour(this);
     }
 

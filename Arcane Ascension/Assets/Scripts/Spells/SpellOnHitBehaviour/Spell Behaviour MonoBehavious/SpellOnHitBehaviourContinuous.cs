@@ -26,7 +26,7 @@ public class SpellOnHitBehaviourContinuous : SpellOnHitBehaviourAbstract
     private void OnEnable()
     {
         TimeSpawned = Time.time;
-
+        EffectPlay();
         Spell?.OnHitBehaviourContinuous.StartBehaviour(this);
     }
 

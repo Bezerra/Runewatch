@@ -30,6 +30,7 @@ public class SpellBehaviourContinuous : SpellBehaviourAbstract
 
     private void OnEnable()
     {
+        EffectPlay();
         LastTimeHit = Time.time;
         LastTimeSpellWallHit = Time.time;
     }

@@ -12,7 +12,7 @@ sealed public class SpellBehaviourContinuousSO : SpellBehaviourAbstractContinuou
 
     public override void StartBehaviour(SpellBehaviourContinuous parent)
     {
-        parent.EffectPlay();
+        // Left blank on purpose
     }
 
     /// <summary>

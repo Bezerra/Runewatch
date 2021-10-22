@@ -31,7 +31,7 @@ sealed public class SpellBehaviourDisableProjectileAfterSecondsSO : SpellBehavio
                     if (parent.EffectNotNull)
                     {
                         parent.EffectStop();
-
+                        Debug.Log(parent.EffectGetAliveParticles);
                         if (parent.EffectGetAliveParticles == 0)
                         {
                             parent.DisableSpell();

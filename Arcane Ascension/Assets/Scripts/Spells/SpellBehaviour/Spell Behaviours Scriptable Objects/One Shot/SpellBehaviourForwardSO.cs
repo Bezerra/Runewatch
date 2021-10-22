@@ -32,7 +32,6 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
         parent.SpellStartedMoving = true;
         parent.ColliderTrigger.enabled = true;
         parent.TimeSpawned = Time.time;
-        parent.EffectPlay();
     }
 
     public override void ContinuousUpdateBeforeSpellBehaviour(SpellBehaviourOneShot parent)

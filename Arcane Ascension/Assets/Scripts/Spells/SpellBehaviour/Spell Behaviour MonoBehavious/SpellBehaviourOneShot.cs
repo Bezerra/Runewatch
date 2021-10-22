@@ -69,9 +69,10 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
 
     private void OnEnable()
     {
+        EffectPlay();
         SpellStartedMoving = false;
-        LastTimeDamaged = Time.time;
-        TimeOfImpact = Time.time;
+        TimeOfImpact = Time.time + Mathf.Infinity; // algum bug? meter Time.time
+        LastTimeDamaged = Time.time + Mathf.Infinity;
     }
 
     private void OnDisable()

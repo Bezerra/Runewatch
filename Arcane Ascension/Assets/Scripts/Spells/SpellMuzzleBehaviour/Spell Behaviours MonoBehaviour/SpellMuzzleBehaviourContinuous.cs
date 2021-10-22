@@ -24,6 +24,7 @@ public class SpellMuzzleBehaviourContinuous : SpellMuzzleBehaviourAbstract
     /// </summary>
     private void OnEnable()
     {
+        EffectPlay();
         Spell?.MuzzleBehaviourContinuous.StartBehaviour(this);
     }
 
