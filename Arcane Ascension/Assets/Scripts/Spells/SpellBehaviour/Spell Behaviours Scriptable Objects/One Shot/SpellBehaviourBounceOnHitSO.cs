@@ -73,16 +73,16 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
         // Uses directionToInitialSpawn so the hit will be a little behind the wall to prevent bugs
         Ray direction = new Ray(
             parent.transform.position + directionToInitialSpawn * 0.1f, 
-            ((parent.transform.position + directionToInitialSpawn * 0.1f).Direction(other.ClosestPoint(parent.transform.position))));
+            ((parent.transform.position + directionToInitialSpawn * 0.1f).
+            Direction(other.ClosestPoint(parent.transform.position))));
 
         // Reflects the current movement vector of the spell
         if (Physics.Raycast(direction, out RaycastHit spellHitPoint))
         {
             Vector3 reflection = Vector3.Reflect(parent.Rb.velocity, spellHitPoint.normal).normalized;
 
-            parent.transform.position = spellHitPoint.point + spellHitPoint.normal * 0.1f;
             parent.Rb.velocity = reflection * parent.Spell.Speed;
-            parent.PositionOnSpawn = parent.transform.position;
+            parent.PositionOnSpawn = new Vector3(parent.transform.position.x, parent.transform.position.y, parent.transform.position.z);
         }
     }
 }
