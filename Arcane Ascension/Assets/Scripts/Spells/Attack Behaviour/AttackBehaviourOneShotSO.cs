@@ -41,7 +41,7 @@ public class AttackBehaviourOneShotSO : AttackBehaviourAbstractOneShotSO
     {
         Vector3 finalDirection =
                         character.transform.position +
-                        (character.CurrentTarget.position - character.transform.position);
+                        (character.CurrentTarget.position - character.transform.position).normalized;
 
         GameObject spawnedSpell =
             SpellPoolCreator.Pool.InstantiateFromPool(

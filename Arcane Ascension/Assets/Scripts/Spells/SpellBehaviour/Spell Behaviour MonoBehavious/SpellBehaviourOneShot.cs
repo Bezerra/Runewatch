@@ -1,4 +1,5 @@
 using UnityEngine;
+using ExtensionMethods;
 
 /// <summary>
 /// Parent spell behaviour for one shot spells.
@@ -119,16 +120,44 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
             behaviour.ContinuousFixedUpdateBehaviour(this);
     }
 
+    /// <summary>
+    /// Will check if it's a player or an enemy. If it's the same enemy or player hit twice in a row
+    /// it will ignore that hit. Else it will hit everything normally.
+    /// </summary>
+    /// <param name="other">Collider of collision.</param>
     private void OnTriggerEnter(Collider other)
     {
-        if (lastHitGameObject != other.gameObject)
+        if (other.gameObject.TryGetComponentInParent<SelectionBase>(out SelectionBase component))
         {
-            // If this spell is hitting something for the first time
-            TimeOfImpact = Time.time;
-            foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviourOneShot)
-                behaviour.HitTriggerBehaviour(other, this);
+            // If the enemy hit is DIFFERENT than the last one
+            if (lastHitGameObject != component.gameObject)
+            {
+                // If this spell is hitting something for the first time
+                TimeOfImpact = Time.time;
+                foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviourOneShot)
+                    behaviour.HitTriggerBehaviour(other, this);
 
-            lastHitGameObject = other.gameObject;
+                lastHitGameObject = component.gameObject;
+            }
+            // If the enemy or player is the same as the last one, it will ignore this hit and the rest of the code
+            else
+            {
+                // Ignores the rest of the code
+                return;
+            }
+        }
+        else
+        {
+            // If it wasn't a player or enemy it will hit normally
+            if (lastHitGameObject != other.gameObject)
+            {
+                // If this spell is hitting something for the first time
+                TimeOfImpact = Time.time;
+                foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviourOneShot)
+                    behaviour.HitTriggerBehaviour(other, this);
+
+                lastHitGameObject = other.gameObject;
+            }
         }
     }
 

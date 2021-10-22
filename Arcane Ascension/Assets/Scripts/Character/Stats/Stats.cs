@@ -1,6 +1,7 @@
+using System;
 using System.Collections;
-using UnityEngine;
 using System.Text;
+using UnityEngine;
 
 /// <summary>
 /// Class responsible for controlling character stats.
@@ -138,6 +139,8 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth, IMana, IArm
                 Destroy(gameObject);
             }
         }
+
+        OnEventTakeDamage(damageToReceive);
 
         // Temp
         if (Health > 0 || Armor > 0) Debug.Log("Health: " + Health + " || Armor: " + Armor);
@@ -321,4 +324,8 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth, IMana, IArm
             $"Damage: {Attributes.BaseDamageMultiplier.ToString():2f} |" + $"Character Element: {Attributes.Element}");
         return str.ToString();
     }
+
+    // Events
+    protected virtual void OnEventTakeDamage(float damageToReceive) => EventTakeDamage.Invoke(damageToReceive);
+    public Action<float> EventTakeDamage;
 }

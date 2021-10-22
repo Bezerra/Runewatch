@@ -113,6 +113,14 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""CheatConsole"",
+                    ""type"": ""Button"",
+                    ""id"": ""a9a81bc7-7db8-40a3-bf95-74d3c0778866"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -289,6 +297,17 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Computer"",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ab603c11-a92f-435e-855d-cee8b175dace"",
+                    ""path"": ""<Keyboard>/f12"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Computer"",
+                    ""action"": ""CheatConsole"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -820,6 +839,44 @@ public class @InputActions : IInputActionCollection, IDisposable
             ]
         },
         {
+            ""name"": ""CheatsConsole"",
+            ""id"": ""752ab6fc-31a5-4a71-95bf-7dadfb4c65de"",
+            ""actions"": [
+                {
+                    ""name"": ""CheatConsole"",
+                    ""type"": ""Button"",
+                    ""id"": ""dbcffa74-c8b6-4b56-90e0-318ea036a73f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""3a6f58b2-914d-4fe6-bfad-8f0ed135012e"",
+                    ""path"": ""<Keyboard>/f12"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Computer"",
+                    ""action"": ""CheatConsole"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4e0dbf79-a2b8-48a2-b0fa-f0f7d8db96fb"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Computer"",
+                    ""action"": ""CheatConsole"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
             ""name"": ""Nothing"",
             ""id"": ""d8f646cc-9fdc-44a7-a5c3-12f6fc07dc55"",
             ""actions"": [],
@@ -859,6 +916,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Gameplay_QuickSave = m_Gameplay.FindAction("QuickSave", throwIfNotFound: true);
         m_Gameplay_QuickLoad = m_Gameplay.FindAction("QuickLoad", throwIfNotFound: true);
         m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
+        m_Gameplay_CheatConsole = m_Gameplay.FindAction("CheatConsole", throwIfNotFound: true);
         // Interface
         m_Interface = asset.FindActionMap("Interface", throwIfNotFound: true);
         m_Interface_TrackedDeviceOrientation = m_Interface.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
@@ -872,6 +930,9 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Interface_Submit = m_Interface.FindAction("Submit", throwIfNotFound: true);
         m_Interface_Navigate = m_Interface.FindAction("Navigate", throwIfNotFound: true);
         m_Interface_Pause = m_Interface.FindAction("Pause", throwIfNotFound: true);
+        // CheatsConsole
+        m_CheatsConsole = asset.FindActionMap("CheatsConsole", throwIfNotFound: true);
+        m_CheatsConsole_CheatConsole = m_CheatsConsole.FindAction("CheatConsole", throwIfNotFound: true);
         // Nothing
         m_Nothing = asset.FindActionMap("Nothing", throwIfNotFound: true);
     }
@@ -935,6 +996,7 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_QuickSave;
     private readonly InputAction m_Gameplay_QuickLoad;
     private readonly InputAction m_Gameplay_Pause;
+    private readonly InputAction m_Gameplay_CheatConsole;
     public struct GameplayActions
     {
         private @InputActions m_Wrapper;
@@ -951,6 +1013,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @QuickSave => m_Wrapper.m_Gameplay_QuickSave;
         public InputAction @QuickLoad => m_Wrapper.m_Gameplay_QuickLoad;
         public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
+        public InputAction @CheatConsole => m_Wrapper.m_Gameplay_CheatConsole;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -996,6 +1059,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Pause.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
+                @CheatConsole.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCheatConsole;
+                @CheatConsole.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCheatConsole;
+                @CheatConsole.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCheatConsole;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -1036,6 +1102,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @CheatConsole.started += instance.OnCheatConsole;
+                @CheatConsole.performed += instance.OnCheatConsole;
+                @CheatConsole.canceled += instance.OnCheatConsole;
             }
         }
     }
@@ -1154,6 +1223,39 @@ public class @InputActions : IInputActionCollection, IDisposable
     }
     public InterfaceActions @Interface => new InterfaceActions(this);
 
+    // CheatsConsole
+    private readonly InputActionMap m_CheatsConsole;
+    private ICheatsConsoleActions m_CheatsConsoleActionsCallbackInterface;
+    private readonly InputAction m_CheatsConsole_CheatConsole;
+    public struct CheatsConsoleActions
+    {
+        private @InputActions m_Wrapper;
+        public CheatsConsoleActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @CheatConsole => m_Wrapper.m_CheatsConsole_CheatConsole;
+        public InputActionMap Get() { return m_Wrapper.m_CheatsConsole; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CheatsConsoleActions set) { return set.Get(); }
+        public void SetCallbacks(ICheatsConsoleActions instance)
+        {
+            if (m_Wrapper.m_CheatsConsoleActionsCallbackInterface != null)
+            {
+                @CheatConsole.started -= m_Wrapper.m_CheatsConsoleActionsCallbackInterface.OnCheatConsole;
+                @CheatConsole.performed -= m_Wrapper.m_CheatsConsoleActionsCallbackInterface.OnCheatConsole;
+                @CheatConsole.canceled -= m_Wrapper.m_CheatsConsoleActionsCallbackInterface.OnCheatConsole;
+            }
+            m_Wrapper.m_CheatsConsoleActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @CheatConsole.started += instance.OnCheatConsole;
+                @CheatConsole.performed += instance.OnCheatConsole;
+                @CheatConsole.canceled += instance.OnCheatConsole;
+            }
+        }
+    }
+    public CheatsConsoleActions @CheatsConsole => new CheatsConsoleActions(this);
+
     // Nothing
     private readonly InputActionMap m_Nothing;
     private INothingActions m_NothingActionsCallbackInterface;
@@ -1201,6 +1303,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnQuickSave(InputAction.CallbackContext context);
         void OnQuickLoad(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnCheatConsole(InputAction.CallbackContext context);
     }
     public interface IInterfaceActions
     {
@@ -1215,6 +1318,10 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnSubmit(InputAction.CallbackContext context);
         void OnNavigate(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+    }
+    public interface ICheatsConsoleActions
+    {
+        void OnCheatConsole(InputAction.CallbackContext context);
     }
     public interface INothingActions
     {

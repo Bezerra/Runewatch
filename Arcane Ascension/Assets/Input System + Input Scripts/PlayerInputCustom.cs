@@ -35,7 +35,6 @@ public class PlayerInputCustom : MonoBehaviour
     public Vector2 Movement { get; private set; }
     public Vector2 Camera { get; private set; }
 
-
     public void SwitchActionMapToGameplay()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -50,8 +49,22 @@ public class PlayerInputCustom : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
 
+        Movement = Vector3.zero;
+        Camera = Vector3.zero;
+
         uiModule.enabled = true;
         controls.SwitchCurrentActionMap("Interface");
+    }
+
+    public void SwitchActionMapToCheatConsole()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+        Movement = Vector3.zero;
+        Camera = Vector3.zero;
+
+        uiModule.enabled = true;
+        controls.SwitchCurrentActionMap("CheatsConsole");
     }
 
     public void DisableAll()
@@ -112,6 +125,10 @@ public class PlayerInputCustom : MonoBehaviour
     {
         if (context.started) OnPauseGame();
     }
+    public void HandleCheatConsole(InputAction.CallbackContext context)
+    {
+        if (context.started) OnCheatConsole();
+    }
     ///////////////////////// Events /////////////////////////////////////////
     protected virtual void OnDash() => Dash?.Invoke();
     public event Action Dash;
@@ -127,4 +144,6 @@ public class PlayerInputCustom : MonoBehaviour
     public event Action<Direction> Click;
     protected virtual void OnPauseGame() => PauseGame?.Invoke();
     public event Action PauseGame;
+    protected virtual void OnCheatConsole() => CheatConsole?.Invoke();
+    public event Action CheatConsole;
 }
