@@ -103,6 +103,7 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth, IMana, IArm
     public void TakeDamage(float damage, ElementType element)
     {
         float damageToReceive = Mathf.Floor(damage * (ElementsDamage.CalculateDamage(element, Attributes.Element)));
+        OnEventTakeDamage(damageToReceive);
 
         // Spawn damage text
         if (character.CommonValues.CharacterValues.Type != CharacterType.Player)
@@ -136,14 +137,11 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth, IMana, IArm
                 // die
                 print("Character died");
                 if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
+                // Temp
+                if (Health > 0 || Armor > 0) Debug.Log("Health: " + Health + " || Armor: " + Armor);
                 Destroy(gameObject);
             }
         }
-
-        OnEventTakeDamage(damageToReceive);
-
-        // Temp
-        if (Health > 0 || Armor > 0) Debug.Log("Health: " + Health + " || Armor: " + Armor);
     }
 
     /// <summary>
@@ -161,6 +159,7 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth, IMana, IArm
 
         // Claculates final damage
         float damageToReceive = Mathf.Floor(damage * (ElementsDamage.CalculateDamage(element, Attributes.Element)));
+        OnEventTakeDamage(damageToReceive);
 
         // Spawn damage text
         if (character.CommonValues.CharacterValues.Type != CharacterType.Player)
@@ -194,12 +193,11 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth, IMana, IArm
                 // die
                 print("Character died");
                 if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
+                // Temp
+                if (Health > 0 || Armor > 0) Debug.Log("Health: " + Health + " || Armor: " + Armor);
                 Destroy(gameObject);
             }
         }
-
-        // Temp
-        if (Health > 0 || Armor > 0) Debug.Log("Health: " + Health + " || Armor: " + Armor);
     }
 
     /// <summary>
@@ -210,6 +208,8 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth, IMana, IArm
     {
         if (Mana - amount > 0) Mana -= amount;
         else Mana = 0;
+
+        OnEventSpentMana(amount);
     }
 
     /// <summary>
@@ -326,6 +326,8 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth, IMana, IArm
     }
 
     // Events
-    protected virtual void OnEventTakeDamage(float damageToReceive) => EventTakeDamage.Invoke(damageToReceive);
+    protected virtual void OnEventTakeDamage(float damageToReceive) => EventTakeDamage?.Invoke(damageToReceive);
     public Action<float> EventTakeDamage;
+    protected virtual void OnEventSpentMana(float manaToSpend) => EventSpentMana?.Invoke(manaToSpend);
+    public Action<float> EventSpentMana;
 }

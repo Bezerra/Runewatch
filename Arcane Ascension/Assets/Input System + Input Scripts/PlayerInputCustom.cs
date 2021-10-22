@@ -59,7 +59,6 @@ public class PlayerInputCustom : MonoBehaviour
     public void SwitchActionMapToCheatConsole()
     {
         Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
         Movement = Vector3.zero;
         Camera = Vector3.zero;
 

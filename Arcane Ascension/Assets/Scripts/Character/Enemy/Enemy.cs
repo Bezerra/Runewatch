@@ -18,11 +18,8 @@ public class Enemy : Character
     public float RollDelay { get; set; }
     public Direction RollDirection { get; set; }
 
-
     public CharacterController Controller { get; private set; }
     public Stats EnemyStats { get; private set; }
-    public GameObject LastTargetHit;
-
 
     private NavMeshAgent agent;
     private void Awake()
