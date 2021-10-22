@@ -70,8 +70,7 @@ public class PlayerInputCustom : MonoBehaviour
         if (context.performed) Movement = context.ReadValue<Vector2>();
     }
     public void HandleRun(InputAction.CallbackContext context) {
-        if (context.started) OnRun(true);
-        if (context.canceled) OnRun(false);
+        if (context.started) OnDash();
     }
     public void HandleCamera(InputAction.CallbackContext context) {
         if (context.performed) Camera = context.ReadValue<Vector2>();
@@ -114,8 +113,8 @@ public class PlayerInputCustom : MonoBehaviour
         if (context.started) OnPauseGame();
     }
     ///////////////////////// Events /////////////////////////////////////////
-    protected virtual void OnRun(bool running) => Run?.Invoke(running);
-    public event Action<bool> Run;
+    protected virtual void OnDash() => Dash?.Invoke();
+    public event Action Dash;
     protected virtual void OnJump() => Jump?.Invoke();
     public event Action Jump;
     protected virtual void OnCastSpell() => CastSpell?.Invoke();
