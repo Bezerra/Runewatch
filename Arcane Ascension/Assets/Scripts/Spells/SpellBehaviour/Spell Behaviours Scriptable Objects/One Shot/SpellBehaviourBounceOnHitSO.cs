@@ -81,8 +81,19 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
         {
             Vector3 reflection = Vector3.Reflect(parent.Rb.velocity, spellHitPoint.normal).normalized;
 
+            // Sets new speed based on rotation
             parent.Rb.velocity = reflection * parent.Spell.Speed;
-            parent.PositionOnSpawn = new Vector3(parent.transform.position.x, parent.transform.position.y, parent.transform.position.z);
+
+            // Rotates the projectile towards that new speed vector
+            parent.transform.rotation = 
+                Quaternion.LookRotation(parent.Rb.velocity.Direction(parent.Rb.velocity+reflection), Vector3.up);
+
+            // Sets the last position of the hit to the current hit
+            parent.PositionOnSpawn = 
+                new Vector3(
+                    parent.transform.position.x, 
+                    parent.transform.position.y, 
+                    parent.transform.position.z);
         }
     }
 }
