@@ -31,8 +31,15 @@ public class DamageSingleTargetSO : DamageBehaviourAbstractSO
             // If IDamageable hit is different than who casts the spell
             if (!character.Equals(parent.ThisIDamageable))
             {
+                float criticalChance = parent.WhoCast.Attributes.CriticalChance;
+
+                if (Physics.OverlapSphere(parent.transform.position, 0.2f, Layers.EnemySensiblePoint).Length > 0)
+                {
+                    criticalChance = 1;
+                }
+
                 character.TakeDamage(parent.WhoCast.Attributes.BaseDamageMultiplier *
-                    parent.Spell.Damage * damageMultiplier, parent.WhoCast.Attributes.CriticalChance, parent.Spell.Element);
+                    parent.Spell.Damage * damageMultiplier, criticalChance, parent.Spell.Element);
             }
         }
     }
