@@ -33,6 +33,7 @@ public class DamageSingleTargetSO : DamageBehaviourAbstractSO
             {
                 float criticalChance = parent.WhoCast.Attributes.CriticalChance;
 
+                // Critical on sensible point
                 if (Physics.OverlapSphere(parent.transform.position, 0.2f, Layers.EnemySensiblePoint).Length > 0)
                 {
                     criticalChance = 1;

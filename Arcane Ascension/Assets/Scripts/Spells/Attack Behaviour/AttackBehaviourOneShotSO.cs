@@ -1,4 +1,5 @@
 using UnityEngine;
+using ExtensionMethods;
 
 /// <summary>
 /// Scriptable object for one shot attacks.
@@ -39,9 +40,7 @@ public class AttackBehaviourOneShotSO : AttackBehaviourAbstractOneShotSO
     public override void AttackKeyPress(
         ISpell spell, StateController character, Stats characterStats)
     {
-        Vector3 finalDirection =
-                        character.transform.position +
-                        (character.CurrentTarget.position - character.transform.position).normalized;
+        Vector3 finalDirection = character.transform.Direction(character.CurrentTarget);
 
         GameObject spawnedSpell =
             SpellPoolCreator.Pool.InstantiateFromPool(
