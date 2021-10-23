@@ -1,3 +1,4 @@
+using System
 using UnityEngine;
 
 /// <summary>
@@ -49,6 +50,7 @@ public class PlayerCastSpell : MonoBehaviour
             {
                 playerSpells.ActiveSpell.AttackBehaviour.AttackKeyPress(
                     ref currentlyCastSpell, playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
+                OnEventAttack(playerSpells.ActiveSpell.CastType);
             }
         }
     }
@@ -69,4 +71,8 @@ public class PlayerCastSpell : MonoBehaviour
             spellBehaviour = null;
         }
     }
+
+    // Registered on DelayedCamera for screen shake
+    protected virtual void OnEventAttack(SpellCastType castType) => EventAttack(castType);
+    public event Action<SpellCastType> EventAttack;
 }

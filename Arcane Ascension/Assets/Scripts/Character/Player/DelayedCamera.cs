@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using Cinemachine;
 
 /// <summary>
 /// Class responsible for handling delayed camera rotation and movement towards final camera transform.
@@ -8,6 +9,9 @@ public class DelayedCamera : MonoBehaviour
 {
     // Components
     private Player player;
+    private PlayerMovement playerMovement;
+    private PlayerCastSpell playerCastSpell;
+    private CinemachineBasicMultiChannelPerlin cinemachineNoise;
 
     // Desired camera position + rotation
     [SerializeField] private Transform targetCameraTransform;
@@ -20,6 +24,9 @@ public class DelayedCamera : MonoBehaviour
     private void Awake()
     {
         player = transform.parent.GetComponentInChildren<Player>();
+        playerMovement = player.GetComponent<PlayerMovement>();
+        playerCastSpell = player.GetComponent<PlayerCastSpell>();
+        cinemachineNoise = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
         // Adds overlay camera (hands camera) to main camera stack
         // This has to happen through code because the player is not initially set on the game,
@@ -28,6 +35,22 @@ public class DelayedCamera : MonoBehaviour
         cameraData.cameraStack.Add(handsCamera);
     }
 
+    /// <summary>
+    /// Updates camera noise.
+    /// </summary>
+    private void Update()
+    {
+        // Can't be an event because the player can be stopped pressing running key
+        // ( and the camera would shake more in that situation too )
+        if (playerMovement.Speed != player.Values.Speed)
+            cinemachineNoise.m_FrequencyGain = 2.5f;
+        else
+            cinemachineNoise.m_FrequencyGain = 0.8f;
+    }
+
+    /// <summary>
+    /// Controls camera movement.
+    /// </summary>
     private void FixedUpdate()
     {
         if (player != null)

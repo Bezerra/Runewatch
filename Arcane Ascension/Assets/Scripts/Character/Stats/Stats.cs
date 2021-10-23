@@ -326,8 +326,10 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth, IMana, IArm
     }
 
     // Events
+    // Registered on CheatsConsole, EnemyScript.
     protected virtual void OnEventTakeDamage(float damageToReceive) => EventTakeDamage?.Invoke(damageToReceive);
     public Action<float> EventTakeDamage;
+    // Regsitered on CheatsConsole.
     protected virtual void OnEventSpentMana(float manaToSpend) => EventSpentMana?.Invoke(manaToSpend);
     public Action<float> EventSpentMana;
 }

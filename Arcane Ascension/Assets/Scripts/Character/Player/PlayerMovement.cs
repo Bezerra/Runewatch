@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
 
     // Movement
     private Vector3 direction;
-    private float speed;
+    public float Speed { get; private set; }
 
     // Dashing
     private float dashCurrentValue;
@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         wffu = new WaitForFixedUpdate();
         jumpTime = new WaitForSeconds(player.Values.JumpTime);
-        speed = player.Values.Speed;
+        Speed = player.Values.Speed;
         dashing = false;
         gravityIncrement = DEFAULTGRAVITYINCREMENT;
         dashCurrentValue = player.Values.DashDefaultValue;
@@ -69,8 +69,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        Vector3 sideMovement = input.Movement.x * speed * transform.right;
-        Vector3 forwardMovement = input.Movement.y * speed * transform.forward;
+        Vector3 sideMovement = input.Movement.x * Speed * transform.right;
+        Vector3 forwardMovement = input.Movement.y * Speed * transform.forward;
         direction = sideMovement + forwardMovement;
         if (input.Movement == Vector2.zero) direction = Vector3.zero;
     }
@@ -170,8 +170,8 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void Run(bool condition)
     {
-        if (condition) speed = player.Values.RunningSpeed;
-        else speed = player.Values.Speed;
+        if (condition) Speed = player.Values.RunningSpeed;
+        else Speed = player.Values.Speed;
     }
 
     /// <summary>
