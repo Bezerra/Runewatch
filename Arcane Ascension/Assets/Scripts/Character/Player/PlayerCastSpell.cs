@@ -1,4 +1,4 @@
-using System
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -50,7 +50,13 @@ public class PlayerCastSpell : MonoBehaviour
             {
                 playerSpells.ActiveSpell.AttackBehaviour.AttackKeyPress(
                     ref currentlyCastSpell, playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
-                OnEventAttack(playerSpells.ActiveSpell.CastType);
+
+                if (playerSpells.ActiveSpell.CastType != SpellCastType.OneShotCastWithRelease)
+                    OnEventAttack(playerSpells.ActiveSpell.CastType);
+            }
+            else
+            {
+                OnEventCancelAttack();
             }
         }
     }
@@ -69,10 +75,18 @@ public class PlayerCastSpell : MonoBehaviour
 
             currentlyCastSpell = null;
             spellBehaviour = null;
+
+            if (playerSpells.ActiveSpell.CastType != SpellCastType.OneShotCastWithRelease)
+                OnEventCancelAttack();
+            else
+                OnEventAttack(playerSpells.ActiveSpell.CastType);
         }
     }
 
     // Registered on DelayedCamera for screen shake
-    protected virtual void OnEventAttack(SpellCastType castType) => EventAttack(castType);
+    protected virtual void OnEventAttack(SpellCastType castType) => EventAttack?.Invoke(castType);
     public event Action<SpellCastType> EventAttack;
+    // Registered on DelayedCamera for screen shake
+    protected virtual void OnEventCancelAttack() => EventCancelAttack.Invoke();
+    public event Action EventCancelAttack;
 }

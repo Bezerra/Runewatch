@@ -45,6 +45,19 @@ public class PlayerValuesSO : CharacterValuesSO
     [Range(5, 25)] [SerializeField] private float cameraSpeed;
     public float CameraSpeed => cameraSpeed;
 
+    [Range(0.1f, 0.5f)][SerializeField] private float cameraShakeTime = 0.3f;
+    public float CameraShakeTime => cameraShakeTime;
+
+    [Range(1f, 30f)] [SerializeField] private float cameraShakeForce = 15f;
+    public float CameraShakeForce => cameraShakeForce;
+
+    [Range(0f, 1f)] [SerializeField] private float defaultNoiseFrequencyValue = 0.8f;
+    public float DefaultNoiseFrequencyValue => defaultNoiseFrequencyValue;
+
+    [Range(1f, 5f)] [SerializeField] private float noiseFrequencyValueWhileRunning = 2.5f;
+    public float NoiseFrequencyValueWhileRunning => noiseFrequencyValueWhileRunning;
+
+
     [Range(0.1f, 4)] [SerializeField] private float cameraTilt;
     public float CameraTilt => cameraTilt;
 

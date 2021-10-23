@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using Cinemachine;
@@ -13,6 +14,9 @@ public class DelayedCamera : MonoBehaviour
     private PlayerCastSpell playerCastSpell;
     private CinemachineBasicMultiChannelPerlin cinemachineNoise;
 
+    private YieldInstruction wffu;
+    private IEnumerator shakeCoroutine;
+
     // Desired camera position + rotation
     [SerializeField] private Transform targetCameraTransform;
 
@@ -27,6 +31,7 @@ public class DelayedCamera : MonoBehaviour
         playerMovement = player.GetComponent<PlayerMovement>();
         playerCastSpell = player.GetComponent<PlayerCastSpell>();
         cinemachineNoise = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        wffu = new WaitForFixedUpdate();
 
         // Adds overlay camera (hands camera) to main camera stack
         // This has to happen through code because the player is not initially set on the game,
@@ -35,17 +40,33 @@ public class DelayedCamera : MonoBehaviour
         cameraData.cameraStack.Add(handsCamera);
     }
 
+    private void OnEnable()
+    {
+        playerCastSpell.EventAttack += ScreenShake;
+        playerCastSpell.EventCancelAttack += CancelContinuousScreenShake;
+    }
+
+    private void OnDisable()
+    {
+        playerCastSpell.EventAttack -= ScreenShake;
+        playerCastSpell.EventCancelAttack -= CancelContinuousScreenShake;
+    }
+
     /// <summary>
     /// Updates camera noise.
     /// </summary>
     private void Update()
     {
-        // Can't be an event because the player can be stopped pressing running key
-        // ( and the camera would shake more in that situation too )
-        if (playerMovement.Speed != player.Values.Speed)
-            cinemachineNoise.m_FrequencyGain = 2.5f;
-        else
-            cinemachineNoise.m_FrequencyGain = 0.8f;
+        // Screen not shaking
+        if (shakeCoroutine == null)
+        {
+            // Can't be an event because the player can be stopped pressing running key
+            // ( and the camera would shake more in that situation too )
+            if (playerMovement.Speed != player.Values.Speed)
+                cinemachineNoise.m_FrequencyGain = player.Values.NoiseFrequencyValueWhileRunning;
+            else
+                cinemachineNoise.m_FrequencyGain = player.Values.DefaultNoiseFrequencyValue;
+        }
     }
 
     /// <summary>
@@ -72,5 +93,65 @@ public class DelayedCamera : MonoBehaviour
                     targetCameraTransform.transform.rotation,
                     Time.fixedDeltaTime * player.Values.DelayedCameraRotationSpeed);
         }
+    }
+
+    /// <summary>
+    /// Starts screen shake coroutine.
+    /// </summary>
+    /// <param name="castType">Type of cast.</param>
+    private void ScreenShake(SpellCastType castType)
+    {
+        if (shakeCoroutine != null) StopCoroutine(shakeCoroutine);
+
+        if (castType == SpellCastType.OneShotCast || castType == SpellCastType.OneShotCastWithRelease)
+            shakeCoroutine = ScreenShakeOneShotCoroutine();
+        else
+            shakeCoroutine = ScreenShakeContinuousCoroutine();
+
+        StartCoroutine(shakeCoroutine);
+    }
+
+    /// <summary>
+    /// Shakes screen for an amount of time.
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator ScreenShakeOneShotCoroutine()
+    {
+        cinemachineNoise.m_FrequencyGain = player.Values.CameraShakeForce;
+
+        float shakeTime = 0;
+        while(shakeTime < player.Values.CameraShakeTime)
+        {
+            cinemachineNoise.m_FrequencyGain = 
+                Mathf.Lerp(cinemachineNoise.m_FrequencyGain, player.Values.DefaultNoiseFrequencyValue, Time.deltaTime * 5);
+            yield return wffu;
+            shakeTime += Time.deltaTime;
+        }
+
+        shakeCoroutine = null;
+        cinemachineNoise.m_FrequencyGain = player.Values.DefaultNoiseFrequencyValue;
+    }
+
+    /// <summary>
+    /// Shakes screen while this is true.
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator ScreenShakeContinuousCoroutine()
+    {
+        cinemachineNoise.m_FrequencyGain = player.Values.CameraShakeForce * 0.5f;
+
+        while (shakeCoroutine != null)
+        {
+            yield return wffu;
+        }
+    }
+
+    /// <summary>
+    /// Cance
+    /// </summary>
+    private void CancelContinuousScreenShake()
+    {
+        shakeCoroutine = null;
+        cinemachineNoise.m_FrequencyGain = player.Values.DefaultNoiseFrequencyValue;
     }
 }
