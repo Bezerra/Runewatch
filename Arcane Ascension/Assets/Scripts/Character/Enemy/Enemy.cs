@@ -18,8 +18,10 @@ public class Enemy : Character
     public float RollDelay { get; set; }
     public Direction RollDirection { get; set; }
 
+    // General properties for ai
     public CharacterController Controller { get; private set; }
     public Stats EnemyStats { get; private set; }
+    public bool TookDamage { get; set; }
 
     private NavMeshAgent agent;
     private void Awake()
@@ -33,4 +35,21 @@ public class Enemy : Character
     {
         agent.speed = Values.Speed;
     }
+
+    private void OnEnable()
+    {
+        EnemyStats.EventTakeDamage += EventTakeDamage;
+    }
+
+    private void OnDisable()
+    {
+        EnemyStats.EventTakeDamage -= EventTakeDamage;
+    }
+
+    /// <summary>
+    /// Sets TookDamage to true.
+    /// </summary>
+    /// <param name="temp"></param>
+    private void EventTakeDamage(float temp) => TookDamage = true;
+
 }

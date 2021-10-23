@@ -48,7 +48,7 @@ public class AIEditor : OdinMenuEditorWindow
 
     protected override void OnBeginDrawEditors()
     {
-        OdinMenuTreeSelection selectedAsset = this.MenuTree.Selection;
+        OdinMenuTreeSelection selectedAsset = this.MenuTree?.Selection;
 
         SirenixEditorGUI.BeginHorizontalToolbar();
         {

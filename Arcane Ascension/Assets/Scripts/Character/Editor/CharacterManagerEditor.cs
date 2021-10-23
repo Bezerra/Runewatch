@@ -71,7 +71,7 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
 
     protected override void OnBeginDrawEditors()
     {
-        OdinMenuTreeSelection selected = this.MenuTree.Selection;
+        OdinMenuTreeSelection selected = this.MenuTree?.Selection;
 
         SirenixEditorGUI.BeginHorizontalToolbar();
         {

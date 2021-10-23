@@ -131,14 +131,14 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth, IMana, IArm
             if (Health - restOfTheDamage > 0)
             {
                 Health -= restOfTheDamage;
+                // Temp
+                Debug.Log("Health: " + Health + " || Armor: " + Armor);
             }
             else
             {
                 // die
                 print("Character died");
                 if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
-                // Temp
-                if (Health > 0 || Armor > 0) Debug.Log("Health: " + Health + " || Armor: " + Armor);
                 Destroy(gameObject);
             }
         }
@@ -187,14 +187,14 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth, IMana, IArm
             if (Health - restOfTheDamage > 0)
             {
                 Health -= restOfTheDamage;
+                // Temp
+                Debug.Log("Health: " + Health + " || Armor: " + Armor);
             }
             else
             {
                 // die
                 print("Character died");
                 if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
-                // Temp
-                if (Health > 0 || Armor > 0) Debug.Log("Health: " + Health + " || Armor: " + Armor);
                 Destroy(gameObject);
             }
         }

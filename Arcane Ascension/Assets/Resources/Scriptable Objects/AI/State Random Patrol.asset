@@ -22,5 +22,9 @@ MonoBehaviour:
     decision: {fileID: 11400000, guid: 9b53d9dde600d4b479ee679ff66a0fe2, type: 2}
     ifTrue: {fileID: 11400000, guid: 9f6df4cfa91960241a1d6ae6bdc0ac0c, type: 2}
     ifFalse: {fileID: 11400000, guid: 08f51d3545ba1914cb620bd622627574, type: 2}
+  - notes: If the enemy takes damage, it will switch to chase state.
+    decision: {fileID: 11400000, guid: bfd67f181f6eb3f4b860085eab56d4a2, type: 2}
+    ifTrue: {fileID: 11400000, guid: 9f6df4cfa91960241a1d6ae6bdc0ac0c, type: 2}
+    ifFalse: {fileID: 11400000, guid: 08f51d3545ba1914cb620bd622627574, type: 2}
   onEnterStateActions: []
   onExitStateActions: []
