@@ -6,11 +6,13 @@ public class PlayerMovement : MonoBehaviour
     // Components
     private PlayerInputCustom input;
     private Player player;
+    private PlayerCastSpell playerCastSpell;
     private CharacterController characterController;
 
     // Movement
     private Vector3 direction;
     public float Speed { get; private set; }
+    private bool castingContinuousSpell;
 
     // Dashing
     private float dashCurrentValue;
@@ -35,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     {
         input = FindObjectOfType<PlayerInputCustom>();
         player = GetComponent<Player>();
+        playerCastSpell = GetComponent<PlayerCastSpell>();
         characterController = GetComponent<CharacterController>();
         wffu = new WaitForFixedUpdate();
         jumpTime = new WaitForSeconds(player.Values.JumpTime);
@@ -49,6 +52,8 @@ public class PlayerMovement : MonoBehaviour
         input.Jump += JumpPress;
         input.Dash += Dash;
         input.Run += Run;
+        playerCastSpell.EventAttack += ReduceSpeedOnContinuousAttack;
+        playerCastSpell.EventCancelAttack += NormalSpeedAfterContinuousAttack;
     }
 
     private void OnDisable()
@@ -56,6 +61,8 @@ public class PlayerMovement : MonoBehaviour
         input.Jump -= JumpPress;
         input.Dash -= Dash;
         input.Run += Run;
+        playerCastSpell.EventAttack -= ReduceSpeedOnContinuousAttack;
+        playerCastSpell.EventCancelAttack -= NormalSpeedAfterContinuousAttack;
     }
 
     private void JumpPress()
@@ -170,8 +177,26 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void Run(bool condition)
     {
-        if (condition) Speed = player.Values.RunningSpeed;
-        else Speed = player.Values.Speed;
+        if (castingContinuousSpell == false)
+        {
+            if (condition) Speed = player.Values.RunningSpeed;
+            else Speed = player.Values.Speed;
+        }
+    }
+
+    private void ReduceSpeedOnContinuousAttack(SpellCastType spellCastType)
+    {
+        if (spellCastType == SpellCastType.ContinuousCast)
+        {
+            castingContinuousSpell = true;
+            Speed = player.Values.Speed * 0.5f;
+        }
+    }
+
+    private void NormalSpeedAfterContinuousAttack()
+    {
+        castingContinuousSpell = false;
+        Speed = Speed = player.Values.Speed;
     }
 
     /// <summary>

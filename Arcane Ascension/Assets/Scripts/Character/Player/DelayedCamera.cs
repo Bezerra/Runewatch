@@ -62,7 +62,7 @@ public class DelayedCamera : MonoBehaviour
         {
             // Can't be an event because the player can be stopped pressing running key
             // ( and the camera would shake more in that situation too )
-            if (playerMovement.Speed != player.Values.Speed)
+            if (playerMovement.Speed > player.Values.Speed)
                 cinemachineNoise.m_FrequencyGain = player.Values.NoiseFrequencyValueWhileRunning;
             else
                 cinemachineNoise.m_FrequencyGain = player.Values.DefaultNoiseFrequencyValue;
