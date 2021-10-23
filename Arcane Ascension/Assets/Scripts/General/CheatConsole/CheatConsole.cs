@@ -15,7 +15,6 @@ public class CheatConsole : MonoBehaviour
     // Variables
     [SerializeField] private GameObject consoleGameObject;
     [SerializeField] private TMP_InputField inputField;
-    private string inputFromField;
     private bool showConsole;
     private YieldInstruction wffu;
     private EventSystem eventSystem;
@@ -55,6 +54,8 @@ public class CheatConsole : MonoBehaviour
         allSpells = FindObjectOfType<AllSpells>();
     }
 
+    /////////////////////////////////// Cheats code /////////////////////////////////////
+    #region Cheats
     /// <summary>
     /// On value submited.
     /// </summary>
@@ -62,7 +63,10 @@ public class CheatConsole : MonoBehaviour
     public void OnInputFieldSubmit(string input)
     {
         if (input.Length == 0)
+        {
+
             return;
+        }
 
         if (playerSpells == null || playerStats == null || allSpells == null)
             FindRequiredComponents();
@@ -128,13 +132,13 @@ public class CheatConsole : MonoBehaviour
 
                 case "mana 1":
                     Debug.Log("Infinite mana activated");
-                    playerStats.EventTakeDamage += InfiniteMana;
+                    playerStats.EventSpentMana += InfiniteMana;
                     DisableConsole();
                     break;
 
                 case "mana 0":
                     Debug.Log("Infinite mana deactivated");
-                    playerStats.EventTakeDamage -= InfiniteMana;
+                    playerStats.EventSpentMana -= InfiniteMana;
                     DisableConsole();
                     break;
 
@@ -146,7 +150,6 @@ public class CheatConsole : MonoBehaviour
         }
     }
 
-    /////////////////////////////////// Cheats code /////////////////////////////////////
     private void AddSpell(SpellSO spell, byte slotNumber)
     {
         playerSpells.RemoveSpell(slotNumber - 1);
@@ -166,14 +169,8 @@ public class CheatConsole : MonoBehaviour
         yield return wffu;
         playerStats.Heal(playerStats.Attributes.MaxMana, StatsType.Mana);
     }
+    #endregion
     /////////////////////////////////// Cheats code /////////////////////////////////////
-
-    /// <summary>
-    /// Updated when input field is changed.
-    /// </summary>
-    /// <param name="inputFromField"></param>
-    public void OnValueChanged(string inputFromField) =>
-        this.inputFromField = inputFromField;
 
     /// <summary>
     /// Controls console.
@@ -191,9 +188,7 @@ public class CheatConsole : MonoBehaviour
         }
         else
         {
-            OnInputFieldSubmit(inputFromField);
             DisableConsole();
-            inputFromField = "";
         }
     }
 
