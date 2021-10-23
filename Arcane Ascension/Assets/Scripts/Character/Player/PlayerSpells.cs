@@ -33,6 +33,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
 
     private void Start()
     {
+        //CurrentSpells.Length
         // TEMPORARY TESTS // Adds 4 spells to current spells
         for (int i = 0; i < CurrentSpells.Length; i++)
         {
@@ -106,14 +107,17 @@ public class PlayerSpells : MonoBehaviour, ISaveable
         // If the player selects an active spell different than the one currently selected
         if (index != currentSpellIndex)
         {
-            if (CooldownOver(CurrentSpells[index]))
+            if (CurrentSpells[index] != null)
             {
-                if (CurrentSpells[index] != null)
-                    currentSpellIndex = index;
+                if (CooldownOver(CurrentSpells[index]))
+                {
+                    if (CurrentSpells[index] != null)
+                        currentSpellIndex = index;
 
-                playerHandEffect.UpdatePlayerHandEffect(ActiveSpell);
+                    playerHandEffect.UpdatePlayerHandEffect(ActiveSpell);
 
-                StartSpellCooldown();
+                    StartSpellCooldown();
+                }
             }
         }
     }
@@ -167,15 +171,36 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     }
 
     /// <summary>
+    /// Add spell to current spells.
+    /// </summary>
+    /// <param name="spellToAdd">Spell to add.</param>
+    /// <param name="slotNumber">Slot number to add the spell to.</param> 
+    public void AddSpell(SpellSO spellToAdd, int slotNumber)
+    {
+        if (CurrentSpells.Contains(spellToAdd) == false)
+        {
+            for (int i = 0; i < CurrentSpells.Length; i++)
+            {
+                if (CurrentSpells[i] == null && i == slotNumber)
+                {
+                    if (playerStats.Attributes.AvailableSpells.Contains(spellToAdd) == false)
+                        playerStats.Attributes.AvailableSpells.Add(spellToAdd);
+                    CurrentSpells[i] = spellToAdd;
+                    StartSpellCooldown(CurrentSpells[i]);
+                    break;
+                }
+            }
+        }
+    }
+
+    /// <summary>
     /// Removes a spell from current spells.
     /// </summary>
     /// <param name="indexOfSpellToRemove">Spell to remove.</param>
     public void RemoveSpell(int indexOfSpellToRemove)
     {
-        if (indexOfSpellToRemove > 0)
+        if (CurrentSpells[indexOfSpellToRemove] != null)
             CurrentSpells[indexOfSpellToRemove] = null;
-        else
-            throw new System.Exception("Can't remove default spell.");
     }
 
     /// <summary>
@@ -192,14 +217,13 @@ public class PlayerSpells : MonoBehaviour, ISaveable
 
         if (canSwap)
         {
-            if (spell1 > 0 && spell2 > 0)
+            if (spell1 >= 0 && spell1 < 4 &&
+                spell2 >= 0 && spell2 < 4)
             {
                 ISpell temporarySlotSpell = CurrentSpells[spell2];
                 CurrentSpells[spell2] = CurrentSpells[spell1];
                 CurrentSpells[spell1] = temporarySlotSpell;
             }
-            else
-                throw new System.Exception("Can't swap default spell.");
         }
     }
 

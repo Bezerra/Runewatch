@@ -17,6 +17,8 @@ public class CheatConsole : MonoBehaviour
 
     // Variables for cheats
     private Stats playerStats;
+    private PlayerSpells playerSpells;
+    private AllSpells allSpells;
     
 
     private void Awake()
@@ -24,7 +26,9 @@ public class CheatConsole : MonoBehaviour
         input = FindObjectOfType<PlayerInputCustom>();
         wffu = new WaitForFixedUpdate();
 
+        playerSpells = FindObjectOfType<Player>().GetComponent<PlayerSpells>();
         playerStats = FindObjectOfType<Player>().GetComponent<Stats>();
+        allSpells = FindObjectOfType<AllSpells>();
     }
 
     private void OnEnable()
@@ -39,37 +43,88 @@ public class CheatConsole : MonoBehaviour
 
     public void OnInputFieldSubmit(string input)
     {
-        switch(input.ToLower().Trim())
+        string[] splitWords = input.ToLower().Trim().Split(' ');
+        byte spellNumber = 0;
+        byte slotNumber = 0;
+
+        if (splitWords.Length == 3)
         {
-            case "god 1":
-                Debug.Log("God mode activated");
-                playerStats.EventTakeDamage += Godmode;
-                DeactivateConsole();
-                break;
-
-            case "god 0":
-                Debug.Log("God mode deactivated");
-                playerStats.EventTakeDamage -= Godmode;
-                DeactivateConsole();
-                break;
-
-            case "mana 1":
-                Debug.Log("Infinite mana activated");
-                playerStats.EventTakeDamage += InfiniteMana;
-                DeactivateConsole();
-                break;
-
-            case "mana 0":
-                Debug.Log("Infinite mana deactivated");
-                playerStats.EventTakeDamage -= InfiniteMana;
-                DeactivateConsole();
-                break;
-
-            default:
-                inputField.text = "";
-                inputField.ActivateInputField();
-                break;
+            spellNumber = Convert.ToByte(splitWords[1]);
+            slotNumber = Convert.ToByte(splitWords[2]);
         }
+
+        if (splitWords.Length == 3 &&
+            splitWords[0] == "spell" && 
+            (spellNumber >= 0 && spellNumber <= Byte.MaxValue) &&
+            (slotNumber >= 1 && slotNumber <= 4))
+        {
+            bool playerAlreadyHasSpell = false;
+            foreach(SpellSO spell in playerSpells.CurrentSpells)
+            {
+                if (spell != null)
+                {
+                    if (spell.SpellID == spellNumber)
+                        playerAlreadyHasSpell = true;
+                }
+            }
+
+            if (playerAlreadyHasSpell == false)
+            {
+                foreach (SpellSO spell in allSpells.SpellList)
+                {
+                    if (spell.SpellID == Convert.ToByte(splitWords[1]))
+                    {
+                        AddSpell(spell, Convert.ToByte(splitWords[2]));
+                        DeactivateConsole();
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                DeactivateConsole();
+            }
+        }
+        else
+        {
+            switch (input.ToLower().Trim())
+            {
+                case "god 1":
+                    Debug.Log("God mode activated");
+                    playerStats.EventTakeDamage += Godmode;
+                    DeactivateConsole();
+                    break;
+
+                case "god 0":
+                    Debug.Log("God mode deactivated");
+                    playerStats.EventTakeDamage -= Godmode;
+                    DeactivateConsole();
+                    break;
+
+                case "mana 1":
+                    Debug.Log("Infinite mana activated");
+                    playerStats.EventTakeDamage += InfiniteMana;
+                    DeactivateConsole();
+                    break;
+
+                case "mana 0":
+                    Debug.Log("Infinite mana deactivated");
+                    playerStats.EventTakeDamage -= InfiniteMana;
+                    DeactivateConsole();
+                    break;
+
+                default:
+                    inputField.text = " ";
+                    inputField.ActivateInputField();
+                    break;
+            }
+        }
+    }
+
+    private void AddSpell(SpellSO spell, byte slotNumber)
+    {
+        playerSpells.RemoveSpell(slotNumber - 1);
+        playerSpells.AddSpell(spell, slotNumber - 1);
     }
 
     private void Godmode(float temp) => StartCoroutine(GodmodeCoroutine());
@@ -106,7 +161,6 @@ public class CheatConsole : MonoBehaviour
 
     public void DeactivateConsole()
     {
-        inputField.text = "";
         inputField.gameObject.SetActive(false);
         consoleGameObject.SetActive(false);
         input.SwitchActionMapToGameplay();
