@@ -1,9 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.EventSystems;
 
+/// <summary>
+/// Class responsible for controling console and applying cheats.
+/// </summary>
 public class CheatConsole : MonoBehaviour
 {
     // Components
@@ -12,8 +15,10 @@ public class CheatConsole : MonoBehaviour
     // Variables
     [SerializeField] private GameObject consoleGameObject;
     [SerializeField] private TMP_InputField inputField;
+    private string inputFromField;
     private bool showConsole;
     private YieldInstruction wffu;
+    private EventSystem eventSystem;
 
     // Variables for cheats
     private Stats playerStats;
@@ -25,10 +30,9 @@ public class CheatConsole : MonoBehaviour
     {
         input = FindObjectOfType<PlayerInputCustom>();
         wffu = new WaitForFixedUpdate();
+        eventSystem = FindObjectOfType<EventSystem>();
 
-        playerSpells = FindObjectOfType<Player>().GetComponent<PlayerSpells>();
-        playerStats = FindObjectOfType<Player>().GetComponent<Stats>();
-        allSpells = FindObjectOfType<AllSpells>();
+        FindRequiredComponents();
     }
 
     private void OnEnable()
@@ -41,8 +45,28 @@ public class CheatConsole : MonoBehaviour
         input.CheatConsole -= ShowConsole;
     }
 
+    /// <summary>
+    /// Finds required components for cheats.
+    /// </summary>
+    private void FindRequiredComponents()
+    {
+        playerSpells = FindObjectOfType<Player>().GetComponent<PlayerSpells>();
+        playerStats = FindObjectOfType<Player>().GetComponent<Stats>();
+        allSpells = FindObjectOfType<AllSpells>();
+    }
+
+    /// <summary>
+    /// On value submited.
+    /// </summary>
+    /// <param name="input">Player's input from input field.</param>
     public void OnInputFieldSubmit(string input)
     {
+        if (input.Length == 0)
+            return;
+
+        if (playerSpells == null || playerStats == null || allSpells == null)
+            FindRequiredComponents();
+
         string[] splitWords = input.ToLower().Trim().Split(' ');
         byte spellNumber = 0;
         byte slotNumber = 0;
@@ -75,14 +99,15 @@ public class CheatConsole : MonoBehaviour
                     if (spell.SpellID == Convert.ToByte(splitWords[1]))
                     {
                         AddSpell(spell, Convert.ToByte(splitWords[2]));
-                        DeactivateConsole();
+                        DisableConsole();
                         break;
                     }
                 }
             }
             else
             {
-                DeactivateConsole();
+                inputField.text = " ";
+                inputField.ActivateInputField();
             }
         }
         else
@@ -92,35 +117,36 @@ public class CheatConsole : MonoBehaviour
                 case "god 1":
                     Debug.Log("God mode activated");
                     playerStats.EventTakeDamage += Godmode;
-                    DeactivateConsole();
+                    DisableConsole();
                     break;
 
                 case "god 0":
                     Debug.Log("God mode deactivated");
                     playerStats.EventTakeDamage -= Godmode;
-                    DeactivateConsole();
+                    DisableConsole();
                     break;
 
                 case "mana 1":
                     Debug.Log("Infinite mana activated");
                     playerStats.EventTakeDamage += InfiniteMana;
-                    DeactivateConsole();
+                    DisableConsole();
                     break;
 
                 case "mana 0":
                     Debug.Log("Infinite mana deactivated");
                     playerStats.EventTakeDamage -= InfiniteMana;
-                    DeactivateConsole();
+                    DisableConsole();
                     break;
 
                 default:
-                    inputField.text = " ";
+                    inputField.text = "";
                     inputField.ActivateInputField();
                     break;
             }
         }
     }
 
+    /////////////////////////////////// Cheats code /////////////////////////////////////
     private void AddSpell(SpellSO spell, byte slotNumber)
     {
         playerSpells.RemoveSpell(slotNumber - 1);
@@ -140,10 +166,22 @@ public class CheatConsole : MonoBehaviour
         yield return wffu;
         playerStats.Heal(playerStats.Attributes.MaxMana, StatsType.Mana);
     }
+    /////////////////////////////////// Cheats code /////////////////////////////////////
 
+    /// <summary>
+    /// Updated when input field is changed.
+    /// </summary>
+    /// <param name="inputFromField"></param>
+    public void OnValueChanged(string inputFromField) =>
+        this.inputFromField = inputFromField;
+
+    /// <summary>
+    /// Controls console.
+    /// </summary>
     private void ShowConsole()
     {
         showConsole = !showConsole;
+
         if (showConsole == true)
         {
             input.SwitchActionMapToCheatConsole();
@@ -153,17 +191,28 @@ public class CheatConsole : MonoBehaviour
         }
         else
         {
-            inputField.gameObject.SetActive(false);
-            consoleGameObject.SetActive(false);
-            input.SwitchActionMapToGameplay();
+            OnInputFieldSubmit(inputFromField);
+            DisableConsole();
+            inputFromField = "";
         }
     }
 
-    public void DeactivateConsole()
+    /// <summary>
+    /// Disables console entirely.
+    /// </summary>
+    private void DisableConsole()
     {
-        inputField.gameObject.SetActive(false);
+        inputField.text = "";
         consoleGameObject.SetActive(false);
         input.SwitchActionMapToGameplay();
-        showConsole = false;
+    }
+
+    private void Update()
+    {
+        if (consoleGameObject.activeSelf)
+        {
+            if (eventSystem.currentSelectedGameObject == null)
+                inputField.ActivateInputField();
+        }
     }
 }
