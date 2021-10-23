@@ -48,12 +48,14 @@ public class PlayerMovement : MonoBehaviour
     {
         input.Jump += JumpPress;
         input.Dash += Dash;
+        input.Run += Run;
     }
 
     private void OnDisable()
     {
         input.Jump -= JumpPress;
         input.Dash -= Dash;
+        input.Run += Run;
     }
 
     private void JumpPress()
@@ -161,6 +163,15 @@ public class PlayerMovement : MonoBehaviour
             dashing = false;
             return;
         }
+    }
+
+    /// <summary>
+    /// Updates player's velocity.
+    /// </summary>
+    private void Run(bool condition)
+    {
+        if (condition) speed = player.Values.RunningSpeed;
+        else speed = player.Values.Speed;
     }
 
     /// <summary>

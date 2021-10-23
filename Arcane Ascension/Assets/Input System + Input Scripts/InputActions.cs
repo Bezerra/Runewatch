@@ -91,6 +91,14 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""b975ce31-d459-45ff-ad6e-ee541fe973c0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
                     ""name"": ""QuickSave"",
                     ""type"": ""Button"",
                     ""id"": ""0f25e72a-a24c-4efb-82f7-6d450cdf9928"",
@@ -319,6 +327,17 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Computer"",
                     ""action"": ""CheatConsole"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d8ea6f7d-2b8a-4e14-bb8a-3134a01f0505"",
+                    ""path"": ""<Keyboard>/leftAlt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Computer"",
+                    ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -946,6 +965,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Gameplay_SelectSpell3 = m_Gameplay.FindAction("SelectSpell3", throwIfNotFound: true);
         m_Gameplay_SelectSpell4 = m_Gameplay.FindAction("SelectSpell4", throwIfNotFound: true);
         m_Gameplay_Run = m_Gameplay.FindAction("Run", throwIfNotFound: true);
+        m_Gameplay_Dash = m_Gameplay.FindAction("Dash", throwIfNotFound: true);
         m_Gameplay_QuickSave = m_Gameplay.FindAction("QuickSave", throwIfNotFound: true);
         m_Gameplay_QuickLoad = m_Gameplay.FindAction("QuickLoad", throwIfNotFound: true);
         m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
@@ -1026,6 +1046,7 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_SelectSpell3;
     private readonly InputAction m_Gameplay_SelectSpell4;
     private readonly InputAction m_Gameplay_Run;
+    private readonly InputAction m_Gameplay_Dash;
     private readonly InputAction m_Gameplay_QuickSave;
     private readonly InputAction m_Gameplay_QuickLoad;
     private readonly InputAction m_Gameplay_Pause;
@@ -1043,6 +1064,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @SelectSpell3 => m_Wrapper.m_Gameplay_SelectSpell3;
         public InputAction @SelectSpell4 => m_Wrapper.m_Gameplay_SelectSpell4;
         public InputAction @Run => m_Wrapper.m_Gameplay_Run;
+        public InputAction @Dash => m_Wrapper.m_Gameplay_Dash;
         public InputAction @QuickSave => m_Wrapper.m_Gameplay_QuickSave;
         public InputAction @QuickLoad => m_Wrapper.m_Gameplay_QuickLoad;
         public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
@@ -1083,6 +1105,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Run.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRun;
                 @Run.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRun;
                 @Run.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRun;
+                @Dash.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
+                @Dash.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
+                @Dash.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
                 @QuickSave.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnQuickSave;
                 @QuickSave.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnQuickSave;
                 @QuickSave.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnQuickSave;
@@ -1126,6 +1151,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Run.started += instance.OnRun;
                 @Run.performed += instance.OnRun;
                 @Run.canceled += instance.OnRun;
+                @Dash.started += instance.OnDash;
+                @Dash.performed += instance.OnDash;
+                @Dash.canceled += instance.OnDash;
                 @QuickSave.started += instance.OnQuickSave;
                 @QuickSave.performed += instance.OnQuickSave;
                 @QuickSave.canceled += instance.OnQuickSave;
@@ -1333,6 +1361,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnSelectSpell3(InputAction.CallbackContext context);
         void OnSelectSpell4(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
         void OnQuickSave(InputAction.CallbackContext context);
         void OnQuickLoad(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
