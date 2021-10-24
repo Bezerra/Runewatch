@@ -8,6 +8,14 @@ using Sirenix.OdinInspector;
 [CreateAssetMenu(menuName = "Values/Enemy Values", fileName = "Enemy Values")]
 public class EnemyValuesSO : CharacterValuesSO
 {
+    [Tooltip("Random Time to wait after reaching final position")]
+    [RangeMinMax(0.5f, 10f)] [SerializeField] private Vector2 waitingTime;
+    public Vector2 WaitingTime => waitingTime;
+
+    [Tooltip("Random distance allowed to move")]
+    [RangeMinMax(1f, 20f)] [SerializeField] private Vector2 distance;
+    public Vector2 Distance => distance;
+
     [Tooltip("Maximum distance of vision")]
     [Range(1, 20f)] [SerializeField] private float visionRange = 15f;
     public float VisionRange => visionRange;

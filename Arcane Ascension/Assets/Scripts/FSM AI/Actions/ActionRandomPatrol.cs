@@ -6,19 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "FSM/Actions/Action Random Patrol", fileName = "Action Random Patrol")]
 sealed public class ActionRandomPatrol : FSMAction
 {
-    [RangeMinMax(0.5f, 10f)][SerializeField] private Vector2 waitingTimeRange;
-    [RangeMinMax(1f, 20f)] [SerializeField] private Vector2 distanceRange;
-
-    private float waitingTime;
-    private float distance;
-    private float timePointReached;
-    private bool reachedPoint;
-
-    private void OnEnable()
-    {
-        reachedPoint = true;
-    }
-
     /// <summary>
     /// Runs on update.
     /// </summary>
@@ -37,34 +24,45 @@ sealed public class ActionRandomPatrol : FSMAction
         // If the agent has reached its final destination
         if (aiCharacter.Agent.remainingDistance <= aiCharacter.Agent.stoppingDistance && !aiCharacter.Agent.pathPending)
         {
-            if (reachedPoint)
+            if (aiCharacter.EnemyScript.ReachedPoint)
             {
-                distance = Random.Range(distanceRange.x, distanceRange.y);
-                waitingTime = Random.Range(waitingTimeRange.x, waitingTimeRange.y);
-                reachedPoint = false;
-                timePointReached = Time.time;
+                UpdateVariablesValues(aiCharacter);
             }
 
-            if (Time.time - timePointReached > waitingTime)
+            if (Time.time - aiCharacter.EnemyScript.TimePointReached > aiCharacter.EnemyScript.WaitingTime)
             {
                 Vector3 finalDestination =
-                    new Vector3(Random.Range(-distance, distance), 0, Random.Range(-distance, distance));
+                    new Vector3(
+                        Random.Range(-aiCharacter.EnemyScript.Distance, aiCharacter.EnemyScript.Distance), 
+                        0, 
+                        Random.Range(-aiCharacter.EnemyScript.Distance, aiCharacter.EnemyScript.Distance));
 
                 aiCharacter.Agent.SetDestination(aiCharacter.transform.position + finalDestination);
 
-                reachedPoint = true;
+                aiCharacter.EnemyScript.ReachedPoint = true;
             }
         }
+    }
+
+    /// <summary>
+    /// Updates movement variables;
+    /// </summary>
+    private void UpdateVariablesValues(StateController aiCharacter)
+    {
+        aiCharacter.EnemyScript.Distance = Random.Range(
+            aiCharacter.EnemyScript.Values.Distance.x, aiCharacter.EnemyScript.Values.Distance.y);
+
+        aiCharacter.EnemyScript.WaitingTime = Random.Range(
+            aiCharacter.EnemyScript.Values.WaitingTime.x, aiCharacter.EnemyScript.Values.WaitingTime.y);
+
+        aiCharacter.EnemyScript.ReachedPoint = false;
+        aiCharacter.EnemyScript.TimePointReached = Time.time;
     }
 
     public override void OnEnter(StateController aiCharacter)
     {
         aiCharacter.Agent.isStopped = false;
-
-        distance = Random.Range(distanceRange.x, distanceRange.y);
-        waitingTime = Random.Range(waitingTimeRange.x, waitingTimeRange.y);
-        reachedPoint = false;
-        timePointReached = Time.time;
+        UpdateVariablesValues(aiCharacter);
     }
 
     public override void OnExit(StateController aiCharacter)

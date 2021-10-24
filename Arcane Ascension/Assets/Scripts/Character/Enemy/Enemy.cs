@@ -13,6 +13,12 @@ public class Enemy : Character
     /// </summary>
     public EnemyCharacterSO AllValues => allValues as EnemyCharacterSO;
 
+    // Movement properties
+    public float WaitingTime { get; set; }
+    public float Distance {get; set; }
+    public float TimePointReached {get; set; }
+    public bool ReachedPoint {get; set; }
+
     // Roll properties
     public float RollTime { get; set; }
     public float RollDelay { get; set; }
