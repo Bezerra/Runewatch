@@ -12,8 +12,8 @@ public class DecisionTookDamage : FSMDecision
 
         if (tookDamage && aiCharacter.EnemyScript.PlayerScript != null)
         {
-            if (aiCharacter.CurrentTarget == null)
-                aiCharacter.CurrentTarget = FindObjectOfType<Player>().Eyes.transform;
+            if (aiCharacter.EnemyScript.CurrentTarget == null)
+                aiCharacter.EnemyScript.CurrentTarget = FindObjectOfType<Player>().Eyes.transform;
         }
         return tookDamage;
     }

@@ -8,7 +8,7 @@ public class DecisionChasingPlayer : FSMDecision
 {
     public override bool CheckDecision(StateController aiController)
     {
-        bool hasTarget = aiController.CurrentTarget != null ? true : false;
+        bool hasTarget = aiController.EnemyScript.CurrentTarget != null ? true : false;
         return hasTarget;
     }
 

@@ -22,10 +22,10 @@ sealed public class ActionAttack : FSMAction
         // If it's not in attack delay
         if (Time.time - aiCharacter.EnemyScript.TimeOfLastAttack > aiCharacter.EnemyScript.AttackDelay)
         {
-            if (aiCharacter.CurrentTarget != null)
+            if (aiCharacter.EnemyScript.CurrentTarget != null)
             {
                 // If the enemy is looking towards the player (with tolerance)
-                if (aiCharacter.transform.IsLookingTowards(aiCharacter.CurrentTarget.position, 20))
+                if (aiCharacter.EnemyScript.transform.IsLookingTowards(aiCharacter.EnemyScript.CurrentTarget.position, 20))
                 {
                     int randomSpell = Random.Range(0, aiCharacter.EnemyScript.AllValues.CharacterStats.AvailableSpells.Count);
 

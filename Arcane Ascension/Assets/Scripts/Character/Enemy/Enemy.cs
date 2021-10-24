@@ -32,20 +32,23 @@ public class Enemy : Character
     public CharacterController Controller { get; private set; }
     public Stats EnemyStats { get; private set; }
     public bool TookDamage { get; set; }
-
-    private NavMeshAgent agent;
+    public NavMeshAgent Agent { get; private set; }
+    public Transform CurrentTarget { get; set; }
     public Player PlayerScript { get; private set; }
+    public StateController StateMachine { get; private set; }
     private void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
+        Agent = GetComponent<NavMeshAgent>();
         Controller = GetComponent<CharacterController>();
         EnemyStats = GetComponent<Stats>();
         PlayerScript = FindObjectOfType<Player>();
+        StateMachine = new StateController(this);
     }
 
     private void Start()
     {
-        agent.speed = Values.Speed;
+        Agent.speed = Values.Speed;
+        StateMachine.Start();
     }
 
     private void OnEnable()
@@ -56,6 +59,11 @@ public class Enemy : Character
     private void OnDisable()
     {
         EnemyStats.EventTakeDamage -= EventTakeDamage;
+    }
+
+    private void Update()
+    {
+        StateMachine.Update();
     }
 
     /// <summary>

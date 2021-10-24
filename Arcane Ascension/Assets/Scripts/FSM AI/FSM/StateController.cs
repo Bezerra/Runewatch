@@ -4,7 +4,7 @@ using UnityEngine.AI;
 /// <summary>
 /// Controls AI states. Class used by enemy game object.
 /// </summary>
-public class StateController : MonoBehaviour
+public class StateController
 {
     private const float MINIMUMTIMETOSTAYINSTATE = 2f;
 
@@ -12,9 +12,8 @@ public class StateController : MonoBehaviour
     private FSMState nullState;
 
     // Components needed to control AI on states
-    public NavMeshAgent Agent { get; private set; }
+    
     public Enemy EnemyScript { get; private set; }
-    public Transform CurrentTarget { get; set; }
 
     // Time elapsed on state
     public float StateTimeElapsed { get; private set; }
@@ -22,20 +21,19 @@ public class StateController : MonoBehaviour
     // Variable to confirm if state can run
     public bool StateRunning { get; set; }
 
-    private void Awake()
+    public StateController(Enemy enemy)
     {
-        Agent = GetComponent<NavMeshAgent>();
-        EnemyScript = GetComponent<Enemy>();
+        EnemyScript = enemy;
         currentState = EnemyScript.AllValues.InitialState;
         nullState = EnemyScript.AllValues.NullState;
     }
 
-    private void Start()
+    public void Start()
     {
         StateRunning = true;
     }
 
-    private void Update()
+    public void Update()
     {
         if (StateRunning)
         {

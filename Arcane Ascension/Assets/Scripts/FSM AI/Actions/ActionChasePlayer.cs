@@ -18,22 +18,23 @@ sealed public class ActionChasePlayer : FSMAction
 
     private void ChasePlayer(StateController aiCharacter)
     {
-        if (aiCharacter.CurrentTarget != null)
+        if (aiCharacter.EnemyScript.CurrentTarget != null)
         {
-            aiCharacter.transform.LookAtYLerp(aiCharacter.CurrentTarget, ROTATIONSPEED);
+            aiCharacter.EnemyScript.transform.LookAtYLerp(aiCharacter.EnemyScript.CurrentTarget, ROTATIONSPEED);
         }
 
         // If the agent has reached its final destination
-        if (aiCharacter.CurrentTarget != null)
+        if (aiCharacter.EnemyScript.CurrentTarget != null)
         {
-            if (Vector3.Distance(aiCharacter.transform.position, aiCharacter.CurrentTarget.position) < distanceFromTarget)
+            if (Vector3.Distance(
+                aiCharacter.EnemyScript.transform.position, aiCharacter.EnemyScript.CurrentTarget.position) < distanceFromTarget)
             {
-                aiCharacter.Agent.isStopped = true;
+                aiCharacter.EnemyScript.Agent.isStopped = true;
             }
             else
             {
-                aiCharacter.Agent.isStopped = false;
-                aiCharacter.Agent.SetDestination(aiCharacter.CurrentTarget.transform.position);
+                aiCharacter.EnemyScript.Agent.isStopped = false;
+                aiCharacter.EnemyScript.Agent.SetDestination(aiCharacter.EnemyScript.CurrentTarget.transform.position);
             }
         }
     }

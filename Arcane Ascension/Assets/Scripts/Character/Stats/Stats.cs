@@ -131,14 +131,17 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth, IMana, IArm
             if (Health - restOfTheDamage > 0)
             {
                 Health -= restOfTheDamage;
-                // Temp
-                Debug.Log("Health: " + Health + " || Armor: " + Armor);
             }
             else
             {
-                // die
-                print("Character died");
                 if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
+
+                if (character.CommonValues.CharacterValues.Type == CharacterType.Player)
+                {
+                    FindObjectOfType<CameraPostProcessOff>().PostProcessOn();
+                    FindObjectOfType<PlayerCastSpell>().AttackKeyRelease();
+                }
+
                 Destroy(GetComponentInParent<SelectionBase>().gameObject);
             }
         }
@@ -187,14 +190,17 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth, IMana, IArm
             if (Health - restOfTheDamage > 0)
             {
                 Health -= restOfTheDamage;
-                // Temp
-                Debug.Log("Health: " + Health + " || Armor: " + Armor);
             }
             else
             {
-                // die
-                print("Character died");
                 if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
+
+                if (character.CommonValues.CharacterValues.Type == CharacterType.Player)
+                {
+                    FindObjectOfType<CameraPostProcessOff>().PostProcessOn();
+                    FindObjectOfType<PlayerCastSpell>().AttackKeyRelease();
+                }
+
                 Destroy(GetComponentInParent<SelectionBase>().gameObject);
             }
         }

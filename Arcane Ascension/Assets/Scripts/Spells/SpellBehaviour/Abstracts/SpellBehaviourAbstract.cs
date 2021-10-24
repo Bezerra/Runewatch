@@ -52,8 +52,8 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
                     Eyes = character.Eyes;
                 }
 
-                if (whoCast.TryGetComponent<StateController>(out StateController stateController))
-                    AICharacter = stateController;
+                if (whoCast.TryGetComponent<Enemy>(out Enemy enemyStateController))
+                    AICharacter = enemyStateController.StateMachine;
                 else
                     AICharacter = null;
 

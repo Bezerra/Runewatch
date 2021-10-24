@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -17,5 +15,12 @@ public class CameraPostProcessOff : MonoBehaviour
         UniversalAdditionalCameraData cameraData = Camera.main.GetUniversalAdditionalCameraData();
 
         cameraData.renderPostProcessing = false;
+    }
+
+    public void PostProcessOn()
+    {
+        UniversalAdditionalCameraData cameraData = Camera.main.GetUniversalAdditionalCameraData();
+
+        cameraData.renderPostProcessing = true;
     }
 }

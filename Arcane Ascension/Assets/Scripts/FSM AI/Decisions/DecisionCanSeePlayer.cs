@@ -25,21 +25,21 @@ sealed public class DecisionCanSeePlayer : FSMDecision
     private bool LookForPlayer(StateController aiController)
     {
         Collider[] colliders = Physics.OverlapSphere(
-            aiController.transform.position, aiController.EnemyScript.Values.VisionRange, playerLayer);
+            aiController.EnemyScript.transform.position, aiController.EnemyScript.Values.VisionRange, playerLayer);
 
         if (colliders.Length > 0)
         {
             for (int i = 0; i < colliders.Length; i++)
             {
-                if (aiController.transform.CanSee(colliders[i].transform, layersToCheck))
+                if (aiController.EnemyScript.transform.CanSee(colliders[i].transform, layersToCheck))
                 {
                     if (colliders[i].TryGetComponentInParent<Player>(out Player player))
                     {
-                        aiController.CurrentTarget = player.Eyes.transform;
+                        aiController.EnemyScript.CurrentTarget = player.Eyes.transform;
                     }
                     else
                     {
-                        aiController.CurrentTarget = colliders[i].transform;
+                        aiController.EnemyScript.CurrentTarget = colliders[i].transform;
                     }
                     
                     return true;
@@ -47,7 +47,7 @@ sealed public class DecisionCanSeePlayer : FSMDecision
             } 
         }
 
-        aiController.CurrentTarget = null;
+        aiController.EnemyScript.CurrentTarget = null;
         return false;
     }
 

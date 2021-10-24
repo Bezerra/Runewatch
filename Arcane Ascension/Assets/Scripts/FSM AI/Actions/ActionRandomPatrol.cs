@@ -22,7 +22,9 @@ sealed public class ActionRandomPatrol : FSMAction
     private void Patrol(StateController aiCharacter)
     {
         // If the agent has reached its final destination
-        if (aiCharacter.Agent.remainingDistance <= aiCharacter.Agent.stoppingDistance && !aiCharacter.Agent.pathPending)
+        if (aiCharacter.EnemyScript.Agent.remainingDistance <= 
+            aiCharacter.EnemyScript.Agent.stoppingDistance && 
+            !aiCharacter.EnemyScript.Agent.pathPending)
         {
             if (aiCharacter.EnemyScript.ReachedPoint)
             {
@@ -37,7 +39,7 @@ sealed public class ActionRandomPatrol : FSMAction
                         0, 
                         Random.Range(-aiCharacter.EnemyScript.Distance, aiCharacter.EnemyScript.Distance));
 
-                aiCharacter.Agent.SetDestination(aiCharacter.transform.position + finalDestination);
+                aiCharacter.EnemyScript.Agent.SetDestination(aiCharacter.EnemyScript.transform.position + finalDestination);
 
                 aiCharacter.EnemyScript.ReachedPoint = true;
             }
@@ -61,7 +63,7 @@ sealed public class ActionRandomPatrol : FSMAction
 
     public override void OnEnter(StateController aiCharacter)
     {
-        aiCharacter.Agent.isStopped = false;
+        aiCharacter.EnemyScript.Agent.isStopped = false;
         UpdateVariablesValues(aiCharacter);
     }
 

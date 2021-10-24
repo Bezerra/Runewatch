@@ -38,10 +38,12 @@ public class SpellMuzzleBehaviourContinuousPositionDisableSO : SpellMuzzleBehavi
             }
             else
             {
-                parent.transform.SetPositionAndRotation(
-                    parent.SpellMonoBehaviour.Hand.position, 
-                    parent.SpellMonoBehaviour.Hand.rotation);
-
+                if (parent.SpellMonoBehaviour.WhoCast != null)
+                {
+                    parent.transform.SetPositionAndRotation(
+                       parent.SpellMonoBehaviour.Hand.position,
+                       parent.SpellMonoBehaviour.Hand.rotation);
+                }
                 parent.TimeSpawned = Time.time;
             }
         }

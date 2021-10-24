@@ -18,12 +18,12 @@ sealed public class ActionRoll: FSMAction
     private void Roll(StateController aiCharacter)
     {
         Vector3 movement = aiCharacter.EnemyScript.RollDirection == Direction.Right ?
-            aiCharacter.transform.right : -aiCharacter.transform.right;
+            aiCharacter.EnemyScript.transform.right : -aiCharacter.EnemyScript.transform.right;
 
         if (Time.time - aiCharacter.EnemyScript.RollTime > aiCharacter.EnemyScript.RollDelay)
         {
             // Checks if it has ground on the movement direction
-            if (Physics.OverlapSphere(aiCharacter.transform.position + movement * 3, 1.5f).Length > 0)
+            if (Physics.OverlapSphere(aiCharacter.EnemyScript.transform.position + movement * 3, 1.5f).Length > 0)
             {
                 // Moves enemy
                 aiCharacter.EnemyScript.Controller.Move(

@@ -81,7 +81,7 @@ public class PlayerCastSpell : MonoBehaviour
     /// <summary>
     /// Triggered when attack key is released.
     /// </summary>
-    private void AttackKeyRelease()
+    public void AttackKeyRelease()
     {
         // If spell is not in cooldown
         // So this will one be triggered when attackKeyPress is triggered aswell
