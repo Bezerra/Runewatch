@@ -56,6 +56,11 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     /// </summary>
     public float LastTimeDamaged { get; set; }
 
+    /// <summary>
+    /// Used so all behaviours can work properly without being afected by reflection first.
+    /// </summary>
+    public bool ProjectileReflected { get; set; }
+
     protected override void Awake()
     {
         base.Awake();
@@ -83,6 +88,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         CurrentPierceHitQuantity = 0;
         CurrentWallHitQuantity = 0;
         lastHitGameObject = null;
+        ProjectileReflected = false;
     }
 
     /// <summary>
@@ -123,6 +129,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     private void OnTriggerEnter(Collider other)
     {
         PositionOnSpawnAndHit = transform.position;
+
         if (other.gameObject.TryGetComponentInParent<SelectionBase>(out SelectionBase component))
         {
             // If the enemy hit is DIFFERENT than the last one

@@ -30,6 +30,8 @@ public class SpellBehaviourSpawnHitPrefabOneShotSO : SpellBehaviourAbstractOneSh
 
     public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
+        
+
         // Direction of the current hit to initial spawn
         Vector3 directionToInitialSpawn = parent.transform.Direction(parent.PositionOnSpawnAndHit);
 
@@ -42,9 +44,10 @@ public class SpellBehaviourSpawnHitPrefabOneShotSO : SpellBehaviourAbstractOneSh
             ((parent.transform.position + directionToInitialSpawn * 0.1f).
             Direction(other.ClosestPoint(parent.transform.position))));
 
+        RaycastHit spellHitPoint;
         // Calculates rotation of the spell to cast
         Quaternion spellLookRotation;
-        if (Physics.Raycast(direction, out RaycastHit spellHitPoint))
+        if (Physics.Raycast(direction, out spellHitPoint))
         {
             spellLookRotation =
                 Quaternion.LookRotation(spellHitPoint.normal, other.transform.up);
@@ -56,6 +59,16 @@ public class SpellBehaviourSpawnHitPrefabOneShotSO : SpellBehaviourAbstractOneSh
                 Quaternion.LookRotation(parent.transform.position.Direction(directionToInitialSpawn),
                     parent.WhoCast.transform.up);
             positionToSpawnHit = parent.transform.position + directionToInitialSpawn * 0.3f;
+        }
+
+        // This piece of code prevents undesired hit spawns, and ONLY happens if projectile wasn't reflected.
+        // This variable is set on SpelLBehaviourBounce.
+        // For ex: if the player shoots upwards on the corner of a wall, the detection
+        // will happen on the next frame and it will spawn the hit prefab on the other side of the wall
+        if (parent.ProjectileReflected == false)
+        {
+            if (Vector3.Dot(parent.transform.forward, spellHitPoint.normal) > 0)
+                return;
         }
 
         // Creates spell hit

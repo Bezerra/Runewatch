@@ -23,6 +23,11 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
     /// </summary>
     public Vector3 PositionOnSpawnAndHit { get; set; }
 
+    /// <summary>
+    /// Updated when spawned with parent position.
+    /// </summary>
+    public Vector3 PositonOfParentWhenSpawned { get; set; }
+
     public IDamageable ThisIDamageable { get; private set; }
     private Stats whoCast;
     public Stats WhoCast 
@@ -38,6 +43,7 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
                 Eyes = WhoCast.GetComponent<Character>().Eyes;
                 LayerOfWhoCast = whoCast.gameObject.layer;
                 ThisIDamageable = WhoCast.GetComponent<IDamageable>();
+                PositonOfParentWhenSpawned = Hand.transform.position;
             }
         }
     }
@@ -50,6 +56,7 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
 
     protected virtual void OnEnable()
     {
+        if (whoCast != null) PositonOfParentWhenSpawned = Hand.transform.position;
         PositionOnSpawnAndHit = transform.position;
     }
 

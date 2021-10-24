@@ -65,8 +65,10 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
     /// <param name="parent"></param>
     private void RotateProjectile(Collider other, SpellBehaviourOneShot parent)
     {
+        parent.ProjectileReflected = false;
+
         // Direction of the current hit to initial spawn
-        Vector3 directionToInitialSpawn = parent.transform.Direction(parent.WhoCast.transform);
+        Vector3 directionToInitialSpawn = parent.transform.Direction(parent.PositionOnSpawnAndHit);
 
         // Direction to do a raycast.
         // Uses directionToInitialSpawn so the hit will be a little behind the wall to prevent bugs
@@ -88,18 +90,13 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
 
             // Sets new speed based on rotation
             parent.Rb.velocity = reflection * parent.Spell.Speed;
-
+            
             // Rotates the projectile towards that new speed vector
             parent.transform.rotation = 
                 Quaternion.LookRotation(parent.Rb.velocity.Direction(parent.Rb.velocity+reflection), Vector3.up);
 
-            // This is set on parent trigger enter, this is just a safety precaution
-            // Sets the last position of the hit to the current hit
-            parent.PositionOnSpawnAndHit = 
-                new Vector3(
-                    parent.transform.position.x, 
-                    parent.transform.position.y, 
-                    parent.transform.position.z);
+            // So other behaviours can work properly without being afected by reflection first
+            parent.ProjectileReflected = true;
         }
     }
 }
