@@ -31,6 +31,9 @@ public class Enemy : Character
     public float TimeOfLastAttack   { get; set; }
     public float AttackDelay        { get; set; }
 
+    // Movement properties
+    public float TimeOfMovement { get; set; }
+
     // General properties for ai
     public CharacterController Controller   { get; private set; }
     public Stats EnemyStats                 { get; private set; }

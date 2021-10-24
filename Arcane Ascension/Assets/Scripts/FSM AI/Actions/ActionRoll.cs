@@ -27,7 +27,7 @@ sealed public class ActionRoll: FSMAction
             {
                 // Moves enemy
                 ai.Controller.Controller.Move(
-                    movement * ai.Controller.Values.RollMovementQuantity * Time.deltaTime);
+                    ai.Controller.Values.RollMovementQuantity * Time.deltaTime * movement);
 
                 // If rollTime has exceeded the limit
                 if (Time.time - ai.Controller.RollTime > 
@@ -35,8 +35,8 @@ sealed public class ActionRoll: FSMAction
                 {
                     // Resets roll variables and breaks the loop
                     ai.Controller.RollTime = Time.time;
-                    ai.Controller.RollDirection = 
-                        Random.Range(0, 2) > 0 ? ai.Controller.RollDirection = Direction.Right : 
+                    ai.Controller.RollDirection =
+                    Random.Range(0, 2) > 0 ? ai.Controller.RollDirection = Direction.Right :
                         ai.Controller.RollDirection = Direction.Left;
                     ai.Controller.RollDelay = Random.Range(
                         ai.Controller.Values.RollDelay.x, ai.Controller.Values.RollDelay.y);
@@ -63,8 +63,8 @@ sealed public class ActionRoll: FSMAction
     public override void OnEnter(StateController<Enemy> ai)
     {
         ai.Controller.RollTime = 0;
-        ai.Controller.RollDirection = 
-            Random.Range(0, 2) > 0 ? ai.Controller.RollDirection = Direction.Right : 
+        ai.Controller.RollDirection =
+            Random.Range(0, 2) > 0 ? ai.Controller.RollDirection = Direction.Right :
             ai.Controller.RollDirection = Direction.Left;
         ai.Controller.RollDelay = Random.Range(
             ai.Controller.Values.RollDelay.x, ai.Controller.Values.RollDelay.y);
