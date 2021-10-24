@@ -23,7 +23,7 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
         }
         else
         {
-            Vector3 finalDirection = parent.Eyes.position + parent.Eyes.forward * 15f;
+            Vector3 finalDirection = parent.Eyes.position + parent.Eyes.forward * spellDistance;
             parent.transform.LookAt(finalDirection);
         }
 

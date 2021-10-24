@@ -1,4 +1,5 @@
 using UnityEngine;
+using ExtensionMethods;
 
 /// <summary>
 /// Scriptable object responsible for spawning hit prefab.
@@ -29,20 +30,33 @@ public class SpellBehaviourSpawnHitPrefabOneShotSO : SpellBehaviourAbstractOneSh
 
     public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
+        // Direction of the current hit to initial spawn
+        Vector3 directionToInitialSpawn = parent.transform.Direction(parent.PositionOnSpawnAndHit);
+
+        Vector3 positionToSpawnHit;
+
+        // Direction to do a raycast.
+        // Uses directionToInitialSpawn so the hit will be a little behind the wall to prevent bugs
+        Ray direction = new Ray(
+            parent.transform.position + directionToInitialSpawn * 0.1f,
+            ((parent.transform.position + directionToInitialSpawn * 0.1f).
+            Direction(other.ClosestPoint(parent.transform.position))));
+
         // Calculates rotation of the spell to cast
         Quaternion spellLookRotation;
-        if (Physics.Raycast(parent.transform.position,
-            (other.ClosestPoint(parent.transform.position) - parent.transform.position).normalized,
-            out RaycastHit spellHitPoint))
+        if (Physics.Raycast(direction, out RaycastHit spellHitPoint))
         {
             spellLookRotation =
                 Quaternion.LookRotation(spellHitPoint.normal, other.transform.up);
+            positionToSpawnHit = spellHitPoint.point + spellHitPoint.normal * 0.3f;
         }
         else
         {
             spellLookRotation =
-                Quaternion.LookRotation(
-                    (other.transform.position - parent.PositionOnSpawnAndHit).normalized, other.transform.up);
+                Quaternion.LookRotation(parent.transform.position.Direction(directionToInitialSpawn),
+                    parent.WhoCast.transform.up);
+            positionToSpawnHit = parent.transform.position + directionToInitialSpawn * 0.3f;
+            Debug.Log("FOI");
         }
 
         // Creates spell hit
@@ -52,7 +66,7 @@ public class SpellBehaviourSpawnHitPrefabOneShotSO : SpellBehaviourAbstractOneSh
         {
             // Spawns hit in direction of collider hit normal
             GameObject onHitBehaviourGameObject = SpellHitPoolCreator.Pool.InstantiateFromPool(
-                parent.Spell.Name, parent.transform.position,
+                parent.Spell.Name, positionToSpawnHit,
                 spellLookRotation);
 
             if (onHitBehaviourGameObject.TryGetComponent<SpellOnHitBehaviourOneShot>(out SpellOnHitBehaviourOneShot onHitBehaviour))
