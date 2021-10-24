@@ -139,7 +139,7 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth, IMana, IArm
                 // die
                 print("Character died");
                 if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
-                Destroy(gameObject);
+                Destroy(GetComponentInParent<SelectionBase>().gameObject);
             }
         }
     }
@@ -195,7 +195,7 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth, IMana, IArm
                 // die
                 print("Character died");
                 if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
-                Destroy(gameObject);
+                Destroy(GetComponentInParent<SelectionBase>().gameObject);
             }
         }
     }
@@ -288,6 +288,10 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth, IMana, IArm
                     Attributes.ManaRegenTime += amountToIncrement;
 
                 wft = new WaitForSeconds(Attributes.ManaRegenTime);
+                break;
+
+            case StatsType.ManaRegenSteal:
+                Attributes.ManaRegenSteal += amountToIncrement;
                 break;
 
             case StatsType.Armor:

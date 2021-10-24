@@ -51,6 +51,14 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""CastBasicSpell"",
+                    ""type"": ""Button"",
+                    ""id"": ""088ad916-c193-4bce-b8e2-52e5e13fa1d7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
                     ""name"": ""SelectSpell1"",
                     ""type"": ""Button"",
                     ""id"": ""4a2539f9-315d-4a8b-889a-a0a1b6b3ae2e"",
@@ -338,6 +346,17 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Computer"",
                     ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3f23a4fe-532a-44c3-8194-a249b01b665d"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Computer"",
+                    ""action"": ""CastBasicSpell"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -960,6 +979,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_Camera = m_Gameplay.FindAction("Camera", throwIfNotFound: true);
         m_Gameplay_CastSpell = m_Gameplay.FindAction("CastSpell", throwIfNotFound: true);
+        m_Gameplay_CastBasicSpell = m_Gameplay.FindAction("CastBasicSpell", throwIfNotFound: true);
         m_Gameplay_SelectSpell1 = m_Gameplay.FindAction("SelectSpell1", throwIfNotFound: true);
         m_Gameplay_SelectSpell2 = m_Gameplay.FindAction("SelectSpell2", throwIfNotFound: true);
         m_Gameplay_SelectSpell3 = m_Gameplay.FindAction("SelectSpell3", throwIfNotFound: true);
@@ -1041,6 +1061,7 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Jump;
     private readonly InputAction m_Gameplay_Camera;
     private readonly InputAction m_Gameplay_CastSpell;
+    private readonly InputAction m_Gameplay_CastBasicSpell;
     private readonly InputAction m_Gameplay_SelectSpell1;
     private readonly InputAction m_Gameplay_SelectSpell2;
     private readonly InputAction m_Gameplay_SelectSpell3;
@@ -1059,6 +1080,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @Camera => m_Wrapper.m_Gameplay_Camera;
         public InputAction @CastSpell => m_Wrapper.m_Gameplay_CastSpell;
+        public InputAction @CastBasicSpell => m_Wrapper.m_Gameplay_CastBasicSpell;
         public InputAction @SelectSpell1 => m_Wrapper.m_Gameplay_SelectSpell1;
         public InputAction @SelectSpell2 => m_Wrapper.m_Gameplay_SelectSpell2;
         public InputAction @SelectSpell3 => m_Wrapper.m_Gameplay_SelectSpell3;
@@ -1090,6 +1112,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @CastSpell.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCastSpell;
                 @CastSpell.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCastSpell;
                 @CastSpell.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCastSpell;
+                @CastBasicSpell.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCastBasicSpell;
+                @CastBasicSpell.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCastBasicSpell;
+                @CastBasicSpell.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCastBasicSpell;
                 @SelectSpell1.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectSpell1;
                 @SelectSpell1.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectSpell1;
                 @SelectSpell1.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectSpell1;
@@ -1136,6 +1161,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @CastSpell.started += instance.OnCastSpell;
                 @CastSpell.performed += instance.OnCastSpell;
                 @CastSpell.canceled += instance.OnCastSpell;
+                @CastBasicSpell.started += instance.OnCastBasicSpell;
+                @CastBasicSpell.performed += instance.OnCastBasicSpell;
+                @CastBasicSpell.canceled += instance.OnCastBasicSpell;
                 @SelectSpell1.started += instance.OnSelectSpell1;
                 @SelectSpell1.performed += instance.OnSelectSpell1;
                 @SelectSpell1.canceled += instance.OnSelectSpell1;
@@ -1356,6 +1384,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnCamera(InputAction.CallbackContext context);
         void OnCastSpell(InputAction.CallbackContext context);
+        void OnCastBasicSpell(InputAction.CallbackContext context);
         void OnSelectSpell1(InputAction.CallbackContext context);
         void OnSelectSpell2(InputAction.CallbackContext context);
         void OnSelectSpell3(InputAction.CallbackContext context);

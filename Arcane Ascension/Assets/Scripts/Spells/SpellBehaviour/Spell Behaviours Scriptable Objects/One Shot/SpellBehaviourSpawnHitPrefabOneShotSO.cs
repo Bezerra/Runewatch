@@ -57,7 +57,7 @@ public class SpellBehaviourSpawnHitPrefabOneShotSO : SpellBehaviourAbstractOneSh
         {
             spellLookRotation =
                 Quaternion.LookRotation(parent.transform.position.Direction(directionToInitialSpawn),
-                    parent.WhoCast.transform.up);
+                    parent.transform.up);
             positionToSpawnHit = parent.transform.position + directionToInitialSpawn * 0.3f;
         }
 

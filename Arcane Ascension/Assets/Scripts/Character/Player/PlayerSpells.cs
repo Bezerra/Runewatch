@@ -1,4 +1,3 @@
-using System.Text;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,6 +19,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
 
     // Currently active spell from available spells
     public ISpell ActiveSpell => CurrentSpells[currentSpellIndex];
+    public ISpell SecondarySpell => allSpells[0];
 
     private void Awake()
     {
@@ -35,17 +35,18 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     {
         //CurrentSpells.Length
         // TEMPORARY TESTS // Adds 4 spells to current spells
-        for (int i = 0; i < CurrentSpells.Length; i++)
+        for (int i = 1; i < allSpells.Count; i++)
         {
-            if (i < allSpells.Count)
+            if (i <= CurrentSpells.Length)
             {
                 // THIS IS TEMP, WHILE IN GAME PLAYER WILL ONLY CAST THE SPELLS ON HIS AVAILABLE SPELLS, NOT THIS ONE
-                if (allSpells[i] != null)
-                    AddSpell(allSpells[i]);
+
+                AddSpell(allSpells[i]);
             }
         }
 
         SelectSpell(0, true);
+        StartSpellCooldown(SecondarySpell);
         StartSpellCooldown();
     }
 

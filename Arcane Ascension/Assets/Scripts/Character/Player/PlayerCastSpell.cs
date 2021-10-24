@@ -28,12 +28,28 @@ public class PlayerCastSpell : MonoBehaviour
     {
         input.CastSpell += AttackKeyPress;
         input.StopCastSpell += AttackKeyRelease;
+        input.CastBasicSpell += SecondaryAttackKeyPress;
     }
 
     private void OnDisable()
     {
         input.CastSpell -= AttackKeyPress;
         input.StopCastSpell -= AttackKeyRelease;
+        input.CastBasicSpell -= SecondaryAttackKeyPress;
+    }
+
+    /// <summary>
+    /// Casts secondary basic spell.
+    /// </summary>
+    private void SecondaryAttackKeyPress()
+    {
+        // If main spell is not in cooldown
+        if (playerSpells.CooldownOver(playerSpells.ActiveSpell) &&
+            playerSpells.CooldownOver(playerSpells.SecondarySpell))
+        {
+            playerSpells.SecondarySpell.AttackBehaviour.AttackKeyPress(
+                    ref currentlyCastSpell, playerSpells.SecondarySpell, player, playerStats, ref spellBehaviour);
+        }
     }
 
     /// <summary>
@@ -43,7 +59,8 @@ public class PlayerCastSpell : MonoBehaviour
     {
         // If spell is not in cooldown
         // Important for OneShot spells (continuous don't have cooldown)
-        if (playerSpells.CooldownOver(playerSpells.ActiveSpell))
+        if (playerSpells.CooldownOver(playerSpells.ActiveSpell) &&
+            playerSpells.CooldownOver(playerSpells.SecondarySpell))
         {
             // If player has enough mana to cast the active spell
             if (playerStats.Mana - playerSpells.ActiveSpell.ManaCost >= 0)
@@ -68,7 +85,8 @@ public class PlayerCastSpell : MonoBehaviour
     {
         // If spell is not in cooldown
         // So this will one be triggered when attackKeyPress is triggered aswell
-        if (playerSpells.CooldownOver(playerSpells.ActiveSpell))
+        if (playerSpells.CooldownOver(playerSpells.ActiveSpell) &&
+            playerSpells.CooldownOver(playerSpells.SecondarySpell))
         {
             playerSpells.ActiveSpell.AttackBehaviour.AttackKeyRelease(
                 ref currentlyCastSpell, playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);

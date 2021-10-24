@@ -27,7 +27,7 @@ sealed public class SpellBehaviourContinuousSO : SpellBehaviourAbstractContinuou
         // Creates rays from eyes to forward
         Ray eyesForward = new Ray(parent.Eyes.position, parent.Eyes.forward);
         Vector3 eyesTarget;
-        if (Physics.Raycast(eyesForward, out RaycastHit objectHit, spellMaxDistance))
+        if (Physics.Raycast(eyesForward, out RaycastHit objectHit, spellMaxDistance, Layers.EnemyWithWalls))
         {
             // If it collides against a wall gets a point
             eyesTarget = objectHit.point;

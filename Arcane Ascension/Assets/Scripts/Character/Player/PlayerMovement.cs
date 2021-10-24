@@ -254,10 +254,4 @@ public class PlayerMovement : MonoBehaviour
         gravityIncrement = DEFAULTGRAVITYINCREMENT;
         fallingCoroutine = null;
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.layer == Layers.EnemyLayer)
-            Debug.Log("AH");
-    }
 }

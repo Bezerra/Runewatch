@@ -99,6 +99,11 @@ public class PlayerInputCustom : MonoBehaviour
         if (context.started) OnCastSpell();
         if (context.canceled) OnStopCastSpell();
     }
+    public void HandleCastBasicSpell(InputAction.CallbackContext context)
+    {
+        if (context.started) OnCastBasicSpell();
+        if (context.canceled) OnStopBasicCastSpell();
+    }
     public void HandleSelectFirstSpell(InputAction.CallbackContext context) {
         if (context.started) SelectSpell(0);
     }
@@ -142,8 +147,12 @@ public class PlayerInputCustom : MonoBehaviour
     public event Action Jump;
     protected virtual void OnCastSpell() => CastSpell?.Invoke();
     public event Action CastSpell;
+    protected virtual void OnCastBasicSpell() => CastBasicSpell?.Invoke();
+    public event Action CastBasicSpell;
     protected virtual void OnStopCastSpell() => StopCastSpell?.Invoke();
     public event Action StopCastSpell;
+    protected virtual void OnStopBasicCastSpell() => StopBasicCastSpell?.Invoke();
+    public event Action StopBasicCastSpell;
     protected virtual void OnSelectSpell(byte index) => SelectSpell?.Invoke(index);
     public event Action<byte> SelectSpell;
     protected virtual void OnClick(Direction dir) => Click?.Invoke(dir);

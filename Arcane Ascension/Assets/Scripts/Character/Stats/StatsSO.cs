@@ -31,6 +31,8 @@ public class StatsSO : ScriptableObject
     [Range(0.1f, 10)] [SerializeField] private float defaultManaRegenAmount;
     [BoxGroup("Mana Stats")]
     [Range(0.01f, 2)] [SerializeField] private float defaultManaRegenTime;
+    [BoxGroup("Mana Stats")]
+    [Range(0.1f, 10)] [SerializeField] private float defaultManaRegenSteal;
 
     [BoxGroup("Damage Stats")]
     [DetailedInfoBox("Base Damage percentage of spell damage", "Base Damage percentage of spell damage")]
@@ -47,6 +49,7 @@ public class StatsSO : ScriptableObject
     public float MaxMana { get; set; }
     public float ManaRegenAmount { get; set; }
     public float ManaRegenTime { get; set; }
+    public float ManaRegenSteal { get; set; }
     public float MaxArmor { get; set; }
     public float BaseDamageMultiplier { get => baseDamageMultiplier; set => baseDamageMultiplier = value; }
     public float CriticalChance { get => criticalChance; set => criticalChance = value; }
@@ -55,11 +58,13 @@ public class StatsSO : ScriptableObject
 
     private void OnEnable()
     {
+        // If the game wasn't loaded it loads default stats
         MaxHealth = defaultHealth;
         MaxMana = defaultMana;
         MaxArmor = defaultArmor;
         ManaRegenAmount = defaultManaRegenAmount;
         ManaRegenTime = defaultManaRegenTime;
+        ManaRegenSteal = defaultManaRegenSteal;
     }
 
 

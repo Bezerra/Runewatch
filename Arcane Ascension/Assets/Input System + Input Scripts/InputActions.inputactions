@@ -38,6 +38,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "CastBasicSpell",
+                    "type": "Button",
+                    "id": "088ad916-c193-4bce-b8e2-52e5e13fa1d7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "SelectSpell1",
                     "type": "Button",
                     "id": "4a2539f9-315d-4a8b-889a-a0a1b6b3ae2e",
@@ -325,6 +333,17 @@
                     "processors": "",
                     "groups": "Computer",
                     "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3f23a4fe-532a-44c3-8194-a249b01b665d",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Computer",
+                    "action": "CastBasicSpell",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

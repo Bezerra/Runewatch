@@ -4,6 +4,7 @@ public enum StatsType
     Mana,
     ManaRegenAmount,
     ManaRegenTime,
+    ManaRegenSteal,
     Armor,
     Damage,
     CriticalChance,

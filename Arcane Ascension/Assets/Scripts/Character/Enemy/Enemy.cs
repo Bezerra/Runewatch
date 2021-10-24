@@ -34,11 +34,13 @@ public class Enemy : Character
     public bool TookDamage { get; set; }
 
     private NavMeshAgent agent;
+    public Player PlayerScript { get; private set; }
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         Controller = GetComponent<CharacterController>();
         EnemyStats = GetComponent<Stats>();
+        PlayerScript = FindObjectOfType<Player>();
     }
 
     private void Start()
