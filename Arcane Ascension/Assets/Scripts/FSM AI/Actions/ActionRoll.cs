@@ -6,14 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "FSM/Actions/Action Roll", fileName = "Action Roll")]
 sealed public class ActionRoll: FSMAction
 {
-    [Header("Roll")]
-    [Tooltip("How much does the enemy move")]
-    [Range(1, 25f)] [SerializeField] private float rollMovementQuantity;
-    [Tooltip("How long does the roll last")]
-    [Range(0.01f, 0.5f)] [SerializeField] private float rollMovementTime;
-    [Tooltip("Roll every X seconds (X is defined by a random number between these values")]
-    [RangeMinMax(3, 15f)] [SerializeField] private Vector2 rollDelay;
-
     public override void Execute(StateController aiCharacter)
     {
         Roll(aiCharacter);
@@ -35,11 +27,11 @@ sealed public class ActionRoll: FSMAction
             {
                 // Moves enemy
                 aiCharacter.EnemyScript.Controller.Move(
-                    movement * rollMovementQuantity * Time.deltaTime);
+                    movement * aiCharacter.EnemyScript.Values.RollMovementQuantity * Time.deltaTime);
 
                 // If rollTime has exceeded the limit
                 if (Time.time - aiCharacter.EnemyScript.RollTime > 
-                    aiCharacter.EnemyScript.RollDelay + rollMovementTime)
+                    aiCharacter.EnemyScript.RollDelay + aiCharacter.EnemyScript.Values.RollMovementTime)
                 {
                     // Resets roll variables and breaks the loop
                     aiCharacter.EnemyScript.RollTime = Time.time;
@@ -47,7 +39,7 @@ sealed public class ActionRoll: FSMAction
                         Random.Range(0, 2) > 0 ? aiCharacter.EnemyScript.RollDirection = Direction.Right : 
                         aiCharacter.EnemyScript.RollDirection = Direction.Left;
                     aiCharacter.EnemyScript.RollDelay = Random.Range(
-                        rollDelay.x, rollDelay.y);
+                        aiCharacter.EnemyScript.Values.RollDelay.x, aiCharacter.EnemyScript.Values.RollDelay.y);
                 }
             }
             else // If there is no ground on the movement direction
@@ -75,7 +67,7 @@ sealed public class ActionRoll: FSMAction
             Random.Range(0, 2) > 0 ? aiCharacter.EnemyScript.RollDirection = Direction.Right : 
             aiCharacter.EnemyScript.RollDirection = Direction.Left;
         aiCharacter.EnemyScript.RollDelay = Random.Range(
-            rollDelay.x, rollDelay.y);
+            aiCharacter.EnemyScript.Values.RollDelay.x, aiCharacter.EnemyScript.Values.RollDelay.y);
     }
 
     public override void OnExit(StateController aiCharacter)

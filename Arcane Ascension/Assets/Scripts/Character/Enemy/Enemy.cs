@@ -13,10 +13,14 @@ public class Enemy : Character
     /// </summary>
     public EnemyCharacterSO AllValues => allValues as EnemyCharacterSO;
 
-    // Roll variables
+    // Roll properties
     public float RollTime { get; set; }
     public float RollDelay { get; set; }
     public Direction RollDirection { get; set; }
+
+    // Attack properties
+    public float TimeOfLastAttack { get; set; }
+    public float AttackDelay { get; set; }
 
     // General properties for ai
     public CharacterController Controller { get; private set; }

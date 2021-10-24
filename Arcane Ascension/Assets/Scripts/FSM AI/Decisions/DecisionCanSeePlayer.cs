@@ -31,7 +31,7 @@ sealed public class DecisionCanSeePlayer : FSMDecision
         {
             for (int i = 0; i < colliders.Length; i++)
             {
-                if (aiController.EnemyScript.Hand.transform.CanSee(colliders[i].transform, layersToCheck))
+                if (aiController.transform.CanSee(colliders[i].transform, layersToCheck))
                 {
                     if (colliders[i].TryGetComponentInParent<Player>(out Player player))
                     {

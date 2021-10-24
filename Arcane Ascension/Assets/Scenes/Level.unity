@@ -2386,6 +2386,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 515008283}
     m_Modifications:
+    - target: {fileID: 535917827, guid: d2075db750418ff4ba595da60d813a9f, type: 3}
+      propertyPath: m_Shape
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 535917827, guid: d2075db750418ff4ba595da60d813a9f, type: 3}
+      propertyPath: m_Extents.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 535917827, guid: d2075db750418ff4ba595da60d813a9f, type: 3}
+      propertyPath: m_Extents.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 535917827, guid: d2075db750418ff4ba595da60d813a9f, type: 3}
+      propertyPath: m_Extents.z
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 535917827, guid: d2075db750418ff4ba595da60d813a9f, type: 3}
+      propertyPath: m_CarveOnlyStationary
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8624258032535686394, guid: d2075db750418ff4ba595da60d813a9f, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -4887,6 +4907,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Example (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 9025810407791128881, guid: 06489e406766804408603eccfb45dbc5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06489e406766804408603eccfb45dbc5, type: 3}
 --- !u!4 &1737250386 stripped
@@ -5904,10 +5928,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2520053496412323051, guid: 2da427394fb02334db729088200f4b9c, type: 3}
-      propertyPath: poolSize
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 2838240291654124508, guid: 2da427394fb02334db729088200f4b9c, type: 3}
       propertyPath: m_RootOrder
       value: 5

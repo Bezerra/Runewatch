@@ -7,16 +7,9 @@ using ExtensionMethods;
 [CreateAssetMenu(menuName = "FSM/Actions/Action Random Attack", fileName = "Action Random Attack")]
 sealed public class ActionAttack : FSMAction
 {
-    private float timeOfAttack;
-
     public override void Execute(StateController aiCharacter)
     {
         Attack(aiCharacter);
-    }
-
-    private void OnEnable()
-    {
-        timeOfAttack = Time.time;
     }
 
     /// <summary>
@@ -27,7 +20,7 @@ sealed public class ActionAttack : FSMAction
     private void Attack(StateController aiCharacter)
     {
         // If it's not in attack delay
-        if (Time.time - timeOfAttack > aiCharacter.EnemyScript.Values.AttackDelay)
+        if (Time.time - aiCharacter.EnemyScript.TimeOfLastAttack > aiCharacter.EnemyScript.AttackDelay)
         {
             if (aiCharacter.CurrentTarget != null)
             {
@@ -44,7 +37,10 @@ sealed public class ActionAttack : FSMAction
                             AttackBehaviour.AttackKeyPress(spell, aiCharacter, aiCharacter.EnemyScript.EnemyStats);
                     }
 
-                    timeOfAttack = Time.time;
+                    aiCharacter.EnemyScript.TimeOfLastAttack = Time.time;
+
+                    aiCharacter.EnemyScript.AttackDelay = Random.Range(
+                        aiCharacter.EnemyScript.Values.AttackDelay.x, aiCharacter.EnemyScript.Values.AttackDelay.y);
                 }
             }
         }
@@ -52,7 +48,10 @@ sealed public class ActionAttack : FSMAction
 
     public override void OnEnter(StateController aiCharacter)
     {
-        timeOfAttack = Time.time;
+        aiCharacter.EnemyScript.TimeOfLastAttack = Time.time;
+
+        aiCharacter.EnemyScript.AttackDelay = Random.Range(
+            aiCharacter.EnemyScript.Values.AttackDelay.x, aiCharacter.EnemyScript.Values.AttackDelay.y);
     }
 
     public override void OnExit(StateController aiCharacter)
