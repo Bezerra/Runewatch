@@ -39,6 +39,9 @@ public class PlayerUI : MonoBehaviour
             }
         }
 
+        spellsUI[4].fillAmount =
+                    playerSpells.SecondarySpell.CooldownCounter / playerSpells.SecondarySpell.Cooldown;
+
         health.fillAmount =
             playerStats.Health / playerStats.Attributes.MaxHealth;
 
