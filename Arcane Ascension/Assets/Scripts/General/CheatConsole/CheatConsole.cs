@@ -23,7 +23,7 @@ public class CheatConsole : MonoBehaviour
     private Stats playerStats;
     private PlayerSpells playerSpells;
     private AllSpells allSpells;
-
+    private SelectionBase playerRoot;
 
     [Header("Enemy")]
     [SerializeField] private GameObject dummyEnemy;
@@ -55,6 +55,7 @@ public class CheatConsole : MonoBehaviour
         playerSpells = FindObjectOfType<Player>().GetComponent<PlayerSpells>();
         playerStats = FindObjectOfType<Player>().GetComponent<Stats>();
         allSpells = FindObjectOfType<AllSpells>();
+        playerRoot = FindObjectOfType<Player>().GetComponentInParent<SelectionBase>();
     }
 
     /////////////////////////////////// Cheats code /////////////////////////////////////
@@ -152,10 +153,45 @@ public class CheatConsole : MonoBehaviour
                     DisableConsole();
                     break;
 
+                case "invisible 1":
+                    Debug.Log("Player invisible true");
+                    ChangeLayersAllChilds(playerRoot.transform, Layers.PlayerLayerNum, Layers.IgnoreLayerNum, true);
+                    DisableConsole();
+                    break;
+
+                case "invisible 0":
+                    Debug.Log("Player invisible false");
+                    playerStats.gameObject.layer = Layers.PlayerLayerNum;
+                    ChangeLayersAllChilds(playerRoot.transform, Layers.PlayerLayerNum, Layers.IgnoreLayerNum, false);
+                    DisableConsole();
+                    break;
+
                 default:
                     inputField.text = "";
                     inputField.ActivateInputField();
                     break;
+            }
+        }
+    }
+
+    private void ChangeLayersAllChilds(Transform obj, int playerLayer, int ignoreLayer, bool turnInvisible)
+    {
+        Transform[] childs = obj.GetComponentsInChildren<Transform>();
+
+        if (turnInvisible)
+        {
+            foreach (Transform child in childs)
+            {
+                if (child.gameObject.layer == playerLayer)
+                    child.gameObject.layer = ignoreLayer;
+            }
+        }
+        else
+        {
+            foreach (Transform child in childs)
+            {
+                if (child.gameObject.layer == ignoreLayer)
+                    child.gameObject.layer = playerLayer;
             }
         }
     }
