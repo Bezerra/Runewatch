@@ -12,6 +12,10 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
     public abstract ISpell Spell { get; }
     public Transform Hand { get; private set; }
     public Transform Eyes { get; private set; }
+    /// <summary>
+    /// Updated when who cast is set.
+    /// </summary>
+    public LayerMask LayerOfWhoCast { get; set; }
     public IDamageable ThisIDamageable { get; private set; }
     private Stats whoCast;
     public Stats WhoCast 
@@ -25,6 +29,7 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
                 whoCast = value;
                 Hand = WhoCast.GetComponent<Character>().Hand;
                 Eyes = WhoCast.GetComponent<Character>().Eyes;
+                LayerOfWhoCast = whoCast.gameObject.layer;
                 ThisIDamageable = WhoCast.GetComponent<IDamageable>();
             }
         }

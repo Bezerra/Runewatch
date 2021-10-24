@@ -42,13 +42,13 @@ public class SpellBehaviourSpawnHitPrefabOneShotSO : SpellBehaviourAbstractOneSh
         {
             spellLookRotation =
                 Quaternion.LookRotation(
-                    (other.transform.position - parent.WhoCast.transform.position).normalized, other.transform.up);
+                    (other.transform.position - parent.PositionOnSpawnAndHit).normalized, other.transform.up);
         }
 
         // Creates spell hit
         // Update() will run from its monobehaviour script
         if (parent.Spell.OnHitBehaviourOneShot != null &&
-            other.gameObject.layer != parent.WhoCast.gameObject.layer)
+            other.gameObject.layer != parent.LayerOfWhoCast)
         {
             // Spawns hit in direction of collider hit normal
             GameObject onHitBehaviourGameObject = SpellHitPoolCreator.Pool.InstantiateFromPool(
