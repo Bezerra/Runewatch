@@ -9,7 +9,7 @@ public class DecisionTookDamage : FSMDecision
     public override bool CheckDecision(StateController aiCharacter)
     {
         bool tookDamage = aiCharacter.EnemyScript.TookDamage;
-        if (tookDamage) aiCharacter.CurrentTarget = FindObjectOfType<Player>().transform;
+        if (tookDamage) aiCharacter.CurrentTarget = FindObjectOfType<Player>().Eyes.transform;
         return tookDamage;
     }
 

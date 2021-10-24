@@ -1,4 +1,5 @@
 using UnityEngine;
+using ExtensionMethods;
 
 /// <summary>
 /// Scriptable object responsible for moving the spell forward on start.
@@ -13,17 +14,27 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
 
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
-        // Direction of the spell
-        Ray forward = new Ray(parent.Eyes.position, parent.Eyes.forward);
+        // If it's the player shooting
+        if (parent.AICharacter == null)
+        {
+            // Direction of the spell
+            Ray forward = new Ray(parent.Eyes.position, parent.Eyes.forward);
 
-        // Creates a raycast to see if eyes are hiting something
-        if (Physics.Raycast(forward, out RaycastHit objectHit, spellDistance, layersToCheck)) 
-        {
-            parent.transform.LookAt(objectHit.point);
+            // Creates a raycast to see if eyes are hiting something
+            if (Physics.Raycast(forward, out RaycastHit objectHit, spellDistance, layersToCheck))
+            {
+                parent.transform.LookAt(objectHit.point);
+            }
+            else
+            {
+                Vector3 finalDirection = parent.Eyes.position + parent.Eyes.forward * spellDistance;
+                parent.transform.LookAt(finalDirection);
+            }
         }
-        else
+        else // Else if it's the enemy
         {
-            Vector3 finalDirection = parent.Eyes.position + parent.Eyes.forward * spellDistance;
+            Vector3 finalDirection = 
+                parent.Hand.position + parent.Hand.position.Direction(parent.AICharacter.CurrentTarget.position);
             parent.transform.LookAt(finalDirection);
         }
 

@@ -17,6 +17,11 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
     /// Updated when who cast is set.
     /// </summary>
     public LayerMask LayerOfWhoCast { get; set; }
+
+    /// <summary>
+    /// Layer of the last character hit.
+    /// </summary>
+    public LayerMask LayerOfCharacterHit { get; set; }
     
     /// <summary>
     /// Gets position on spawn or everytime it hits.
@@ -26,8 +31,9 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
     /// <summary>
     /// Updated when spawned with parent position.
     /// </summary>
-    public Vector3 PositonOfParentWhenSpawned { get; set; }
+    public Vector3 PositonOfParentWhenSpawned { get; private set; }
 
+    public StateController AICharacter { get; private set; }
     public IDamageable ThisIDamageable { get; private set; }
     private Stats whoCast;
     public Stats WhoCast 
@@ -39,11 +45,19 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
             if (whoCast != value)
             {
                 whoCast = value;
-                Hand = WhoCast.GetComponent<Character>().Hand;
-                Eyes = WhoCast.GetComponent<Character>().Eyes;
                 LayerOfWhoCast = whoCast.gameObject.layer;
+                if (whoCast.TryGetComponent<Character>(out Character character))
+                {
+                    Hand = character.Hand;
+                    Eyes = character.Eyes;
+                }
+
+                if (whoCast.TryGetComponent<StateController>(out StateController stateController))
+                    AICharacter = stateController;
+                else
+                    AICharacter = null;
+
                 ThisIDamageable = WhoCast.GetComponent<IDamageable>();
-                PositonOfParentWhenSpawned = Hand.transform.position;
             }
         }
     }
@@ -58,11 +72,13 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
     {
         if (whoCast != null) PositonOfParentWhenSpawned = Hand.transform.position;
         PositionOnSpawnAndHit = transform.position;
+        if (Hand != null) PositonOfParentWhenSpawned = Hand.transform.position;
     }
 
     protected virtual void OnDisable()
     {
         PositionOnSpawnAndHit = default;
+        LayerOfCharacterHit = LayerOfWhoCast;
     }
 
     /// <summary>

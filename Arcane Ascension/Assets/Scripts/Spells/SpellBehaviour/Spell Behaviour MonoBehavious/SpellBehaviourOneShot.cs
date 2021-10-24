@@ -132,15 +132,22 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
 
         if (other.gameObject.TryGetComponentInParent<SelectionBase>(out SelectionBase component))
         {
-            // If the enemy hit is DIFFERENT than the last one
+            // If the enemy or player hit is DIFFERENT than the last one
             if (lastHitGameObject != component.gameObject)
             {
-                // If this spell is hitting something for the first time
-                TimeOfImpact = Time.time;
-                foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviourOneShot)
-                    behaviour.HitTriggerBehaviour(other, this);
+                // If the enemy or player layer hit is DIFFERENT than the layer of who is casting the spell
+                // (meaning enemies won't damage them selves)
+                if (LayerOfWhoCast != component.gameObject.layer)
+                {
+                    // If this spell is hitting something for the first time
+                    TimeOfImpact = Time.time;
+                    foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviourOneShot)
+                        behaviour.HitTriggerBehaviour(other, this);
 
-                lastHitGameObject = component.gameObject;
+                    // Updates last character hit variables
+                    LayerOfCharacterHit = component.gameObject.layer;
+                    lastHitGameObject = component.gameObject;
+                }
             }
             // If the enemy or player is the same as the last one, it will ignore this hit and the rest of the code
             else

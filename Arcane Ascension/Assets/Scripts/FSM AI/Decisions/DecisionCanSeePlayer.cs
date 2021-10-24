@@ -33,7 +33,15 @@ sealed public class DecisionCanSeePlayer : FSMDecision
             {
                 if (aiController.EnemyScript.Hand.transform.CanSee(colliders[i].transform, layersToCheck))
                 {
-                    aiController.CurrentTarget = colliders[i].transform;
+                    if (colliders[i].TryGetComponentInParent<Player>(out Player player))
+                    {
+                        aiController.CurrentTarget = player.Eyes.transform;
+                    }
+                    else
+                    {
+                        aiController.CurrentTarget = colliders[i].transform;
+                    }
+                    
                     return true;
                 }
             } 

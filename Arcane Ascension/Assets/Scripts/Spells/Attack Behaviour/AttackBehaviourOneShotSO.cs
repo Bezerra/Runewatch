@@ -20,8 +20,7 @@ public class AttackBehaviourOneShotSO : AttackBehaviourAbstractOneShotSO
     {
         currentlyCastSpell =
             SpellPoolCreator.Pool.InstantiateFromPool(
-                spell.Name, character.
-                Hand.position,
+                spell.Name, character.Hand.position,
                 Quaternion.identity);
 
         // Gets behaviour of the spawned spell. Starts the behaviour and passes whoCast object (stats) to the behaviour.
@@ -40,15 +39,10 @@ public class AttackBehaviourOneShotSO : AttackBehaviourAbstractOneShotSO
     public override void AttackKeyPress(
         ISpell spell, StateController character, Stats characterStats)
     {
-        Vector3 finalDirection = character.transform.Direction(character.CurrentTarget);
-
         GameObject spawnedSpell =
             SpellPoolCreator.Pool.InstantiateFromPool(
-                spell.Name, character.EnemyScript.
-                Hand.position,
+                spell.Name, character.EnemyScript.Hand.position,
                 Quaternion.identity);
-
-        spawnedSpell.transform.LookAt(finalDirection);
 
         SpellBehaviourOneShot  spellBehaviour = spawnedSpell.GetComponent<SpellBehaviourOneShot>();
         spellBehaviour.WhoCast = characterStats;
