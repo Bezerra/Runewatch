@@ -39,7 +39,7 @@ public class AttackBehaviourContinuousSO : AttackBehaviourAbstractContinuousSO
     /// <param name="character">Character (state controller) who casts the spell.</param>
     /// <param name="characterStats">Character stats.</param>
     public override void AttackKeyPress(
-        ISpell spell, StateController character, Stats characterStats)
+        ISpell spell, StateController<Enemy> character, Stats characterStats)
     {
         // Temp blank
     }

@@ -6,18 +6,18 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "FSM/Decisions/Decision Chasing Player", fileName = "Decision Chasing Player")]
 public class DecisionChasingPlayer : FSMDecision
 {
-    public override bool CheckDecision(StateController aiController)
+    public override bool CheckDecision(StateController<Enemy> ai)
     {
-        bool hasTarget = aiController.EnemyScript.CurrentTarget != null ? true : false;
+        bool hasTarget = ai.Controller.CurrentTarget != null;
         return hasTarget;
     }
 
-    public override void OnEnter(StateController aiCharacter)
+    public override void OnEnter(StateController<Enemy> ai)
     {
         // Left blank on purpose
     }
 
-    public override void OnExit(StateController aiCharacter)
+    public override void OnExit(StateController<Enemy> ai)
     {
         // Left blank on purpose
     }

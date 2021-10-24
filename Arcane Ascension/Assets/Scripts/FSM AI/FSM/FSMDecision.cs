@@ -31,17 +31,17 @@ public abstract class FSMDecision : ScriptableObject
     /// </summary>
     /// <param name="aiController">Ai Character.</param>
     /// <returns>True if decision is true, else it's false.</returns>
-    public abstract bool CheckDecision(StateController aiCharacter);
+    public abstract bool CheckDecision(StateController<Enemy> aiCharacter);
 
     /// <summary>
     /// Executes once on enter.
     /// </summary>
     /// <param name="aiCharacter">AI Character.</param>
-    public abstract void OnEnter(StateController aiCharacter);
+    public abstract void OnEnter(StateController<Enemy> aiCharacter);
 
     /// <summary>
     /// Executes once on exit.
     /// </summary>
     /// <param name="aiCharacter">AI Character.</param>
-    public abstract void OnExit(StateController aiCharacter);
+    public abstract void OnExit(StateController<Enemy> aiCharacter);
 }

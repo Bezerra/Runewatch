@@ -40,7 +40,7 @@ public class AttackBehaviourOneShotWithReleaseSO : AttackBehaviourAbstractOneSho
     /// <param name="spell">Cast spell.</param>
     /// <param name="character">Character (state controller) who casts the spell.</param>
     /// <param name="characterStats">Character stats.</param>
-    public override void AttackKeyPress(ISpell spell, StateController character, Stats characterStats)
+    public override void AttackKeyPress(ISpell spell, StateController<Enemy> character, Stats characterStats)
     {
         // Left blank on purpose
     }

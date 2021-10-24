@@ -10,7 +10,7 @@ sealed public class ActionRandomPatrol : FSMAction
     /// Runs on update.
     /// </summary>
     /// <param name="aiCharacter"></param>
-    public override void Execute(StateController aiCharacter)
+    public override void Execute(StateController<Enemy> aiCharacter)
     {
         Patrol(aiCharacter);
     }
@@ -19,29 +19,29 @@ sealed public class ActionRandomPatrol : FSMAction
     /// Patrols an area with random values.
     /// </summary>
     /// <param name="aiCharacter">AI Character.</param>
-    private void Patrol(StateController aiCharacter)
+    private void Patrol(StateController<Enemy> aiCharacter)
     {
         // If the agent has reached its final destination
-        if (aiCharacter.EnemyScript.Agent.remainingDistance <= 
-            aiCharacter.EnemyScript.Agent.stoppingDistance && 
-            !aiCharacter.EnemyScript.Agent.pathPending)
+        if (aiCharacter.Controller.Agent.remainingDistance <= 
+            aiCharacter.Controller.Agent.stoppingDistance && 
+            !aiCharacter.Controller.Agent.pathPending)
         {
-            if (aiCharacter.EnemyScript.ReachedPoint)
+            if (aiCharacter.Controller.ReachedPoint)
             {
                 UpdateVariablesValues(aiCharacter);
             }
 
-            if (Time.time - aiCharacter.EnemyScript.TimePointReached > aiCharacter.EnemyScript.WaitingTime)
+            if (Time.time - aiCharacter.Controller.TimePointReached > aiCharacter.Controller.WaitingTime)
             {
                 Vector3 finalDestination =
                     new Vector3(
-                        Random.Range(-aiCharacter.EnemyScript.Distance, aiCharacter.EnemyScript.Distance), 
+                        Random.Range(-aiCharacter.Controller.Distance, aiCharacter.Controller.Distance), 
                         0, 
-                        Random.Range(-aiCharacter.EnemyScript.Distance, aiCharacter.EnemyScript.Distance));
+                        Random.Range(-aiCharacter.Controller.Distance, aiCharacter.Controller.Distance));
 
-                aiCharacter.EnemyScript.Agent.SetDestination(aiCharacter.EnemyScript.transform.position + finalDestination);
+                aiCharacter.Controller.Agent.SetDestination(aiCharacter.Controller.transform.position + finalDestination);
 
-                aiCharacter.EnemyScript.ReachedPoint = true;
+                aiCharacter.Controller.ReachedPoint = true;
             }
         }
     }
@@ -49,25 +49,25 @@ sealed public class ActionRandomPatrol : FSMAction
     /// <summary>
     /// Updates movement variables;
     /// </summary>
-    private void UpdateVariablesValues(StateController aiCharacter)
+    private void UpdateVariablesValues(StateController<Enemy> aiCharacter)
     {
-        aiCharacter.EnemyScript.Distance = Random.Range(
-            aiCharacter.EnemyScript.Values.Distance.x, aiCharacter.EnemyScript.Values.Distance.y);
+        aiCharacter.Controller.Distance = Random.Range(
+            aiCharacter.Controller.Values.Distance.x, aiCharacter.Controller.Values.Distance.y);
 
-        aiCharacter.EnemyScript.WaitingTime = Random.Range(
-            aiCharacter.EnemyScript.Values.WaitingTime.x, aiCharacter.EnemyScript.Values.WaitingTime.y);
+        aiCharacter.Controller.WaitingTime = Random.Range(
+            aiCharacter.Controller.Values.WaitingTime.x, aiCharacter.Controller.Values.WaitingTime.y);
 
-        aiCharacter.EnemyScript.ReachedPoint = false;
-        aiCharacter.EnemyScript.TimePointReached = Time.time;
+        aiCharacter.Controller.ReachedPoint = false;
+        aiCharacter.Controller.TimePointReached = Time.time;
     }
 
-    public override void OnEnter(StateController aiCharacter)
+    public override void OnEnter(StateController<Enemy> aiCharacter)
     {
-        aiCharacter.EnemyScript.Agent.isStopped = false;
+        aiCharacter.Controller.Agent.isStopped = false;
         UpdateVariablesValues(aiCharacter);
     }
 
-    public override void OnExit(StateController aiCharacter)
+    public override void OnExit(StateController<Enemy> aiCharacter)
     {
         // Left blank on purpose
     }

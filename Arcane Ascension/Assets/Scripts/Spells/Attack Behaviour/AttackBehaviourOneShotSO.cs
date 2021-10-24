@@ -37,11 +37,11 @@ public class AttackBehaviourOneShotSO : AttackBehaviourAbstractOneShotSO
     /// <param name="character">Character (state controller) who casts the spell.</param>
     /// <param name="characterStats">Character stats.</param>
     public override void AttackKeyPress(
-        ISpell spell, StateController character, Stats characterStats)
+        ISpell spell, StateController<Enemy> character, Stats characterStats)
     {
         GameObject spawnedSpell =
             SpellPoolCreator.Pool.InstantiateFromPool(
-                spell.Name, character.EnemyScript.Hand.position,
+                spell.Name, character.Controller.Hand.position,
                 Quaternion.identity);
 
         SpellBehaviourOneShot  spellBehaviour = spawnedSpell.GetComponent<SpellBehaviourOneShot>();

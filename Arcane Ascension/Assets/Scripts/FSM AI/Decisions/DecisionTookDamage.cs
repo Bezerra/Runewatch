@@ -6,25 +6,25 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "FSM/Decisions/Decision Took Damage", fileName = "Decision Took Damage")]
 public class DecisionTookDamage : FSMDecision
 {
-    public override bool CheckDecision(StateController aiCharacter)
+    public override bool CheckDecision(StateController<Enemy> ai)
     {
-        bool tookDamage = aiCharacter.EnemyScript.TookDamage;
+        bool tookDamage = ai.Controller.TookDamage;
 
-        if (tookDamage && aiCharacter.EnemyScript.PlayerScript != null)
+        if (tookDamage && ai.Controller.PlayerScript != null)
         {
-            if (aiCharacter.EnemyScript.CurrentTarget == null)
-                aiCharacter.EnemyScript.CurrentTarget = FindObjectOfType<Player>().Eyes.transform;
+            if (ai.Controller.CurrentTarget == null)
+                ai.Controller.CurrentTarget = FindObjectOfType<Player>().Eyes.transform;
         }
         return tookDamage;
     }
 
-    public override void OnEnter(StateController aiCharacter)
+    public override void OnEnter(StateController<Enemy> ai)
     {
         // Left blank on purpose
     }
 
-    public override void OnExit(StateController aiCharacter)
+    public override void OnExit(StateController<Enemy> ai)
     {
-        aiCharacter.EnemyScript.TookDamage = false;
+        ai.Controller.TookDamage = false;
     }
 }

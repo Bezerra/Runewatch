@@ -35,22 +35,22 @@ public class FSMState : ScriptableObject
     /// <summary>
     /// Runs every update.
     /// </summary>
-    /// <param name="aiCharacter">Ai Character.</param>
-    public void UpdateState(StateController aiCharacter)
+    /// <param name="ai">Ai Character.</param>
+    public void UpdateState(StateController<Enemy> ai)
     {
-        ExecuteActions(aiCharacter);
-        CheckTransitions(aiCharacter);
+        ExecuteActions(ai);
+        CheckTransitions(ai);
     }
 
     /// <summary>
     /// Executes all actions.
     /// </summary>
-    /// <param name="aiCharacter">Ai Character.</param>
-    private void ExecuteActions(StateController aiCharacter)
+    /// <param name="ai">Ai Character.</param>
+    private void ExecuteActions(StateController<Enemy> ai)
     {
         for (int i = 0; i < actions.Length; i++)
         {
-            if (actions[i] != null) actions[i].Execute(aiCharacter);
+            if (actions[i] != null) actions[i].Execute(ai);
         }
     }
 
@@ -58,22 +58,22 @@ public class FSMState : ScriptableObject
     /// Checks all transitions. If a decision from a transition is true, it will change the
     /// current fsm state to the desired state of the transition.
     /// </summary>
-    /// <param name="aiCharacter">Ai Character.</param>
-    private void CheckTransitions(StateController aiCharacter)
+    /// <param name="ai">Ai Character.</param>
+    private void CheckTransitions(StateController<Enemy> ai)
     {
         for (int i = 0; i < transitions.Length; i++)
         {
             if (transitions[i] != null)
             {
-                bool decisionSuccess = transitions[i].Decision.CheckDecision(aiCharacter);
+                bool decisionSuccess = transitions[i].Decision.CheckDecision(ai);
 
                 if (decisionSuccess)
                 {
-                    aiCharacter.Transition(transitions[i].IfTrue);
+                    ai.Transition(transitions[i].IfTrue, ai);
                 }
                 else
                 {
-                    aiCharacter.Transition(transitions[i].IfFalse);
+                    ai.Transition(transitions[i].IfFalse, ai);
                 }
             }
         }
@@ -82,44 +82,44 @@ public class FSMState : ScriptableObject
     /// <summary>
     /// Runs once when entering this state.
     /// </summary>
-    /// <param name="aiCharacter">Ai Character.</param>
-    public void OnEnter(StateController aiCharacter)
+    /// <param name="ai">Ai Character.</param>
+    public void OnEnter(StateController<Enemy> ai)
     {
         for (int i = 0; i < onEnterStateActions.Length; i++)
         {
-            if (onEnterStateActions[i] != null) onEnterStateActions[i].Execute(aiCharacter);
+            if (onEnterStateActions[i] != null) onEnterStateActions[i].Execute(ai);
         }
 
         for (int i = 0; i < actions.Length; i++)
         {
-            if (actions[i] != null) actions[i].OnEnter(aiCharacter);
+            if (actions[i] != null) actions[i].OnEnter(ai);
         }
 
         for (int i = 0; i < transitions.Length; i++)
         {
-            if (transitions[i] != null) transitions[i].Decision.OnEnter(aiCharacter);
+            if (transitions[i] != null) transitions[i].Decision.OnEnter(ai);
         }
     }
 
     /// <summary>
     /// Runs once when leaving this state.
     /// </summary>
-    /// <param name="aiCharacter">Ai Character.</param>
-    public void OnExit(StateController aiCharacter)
+    /// <param name="ai">Ai Character.</param>
+    public void OnExit(StateController<Enemy> ai)
     {
         for (int i = 0; i < onExitStateActions.Length; i++)
         {
-            if (onExitStateActions[i] != null) onExitStateActions[i].Execute(aiCharacter);
+            if (onExitStateActions[i] != null) onExitStateActions[i].Execute(ai);
         }
 
         for (int i = 0; i < actions.Length; i++)
         {
-            if (actions[i] != null) actions[i].OnExit(aiCharacter);
+            if (actions[i] != null) actions[i].OnExit(ai);
         }
 
         for (int i = 0; i < transitions.Length; i++)
         {
-            if (transitions[i] != null) transitions[i].Decision.OnExit(aiCharacter);
+            if (transitions[i] != null) transitions[i].Decision.OnExit(ai);
         }
     }
 }

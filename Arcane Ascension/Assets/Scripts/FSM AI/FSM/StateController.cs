@@ -1,43 +1,60 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 /// <summary>
 /// Controls AI states. Class used by enemy game object.
 /// </summary>
-public class StateController
+public class StateController<T> where T : Enemy
 {
-    private const float MINIMUMTIMETOSTAYINSTATE = 2f;
-
+    private readonly float MINIMUMTIMETOSTAYINSTATE;
+    private readonly FSMState nullState;
     private FSMState currentState;
-    private FSMState nullState;
 
-    // Components needed to control AI on states
-    
-    public Enemy EnemyScript { get; private set; }
+    /// <summary>
+    /// Character controlling this state machine.
+    /// </summary>
+    public T Controller { get; private set; }
 
-    // Time elapsed on state
+    /// <summary>
+    /// Time elapsed while in current state.
+    /// </summary>
     public float StateTimeElapsed { get; private set; }
 
-    // Variable to confirm if state can run
+    /// <summary>
+    /// Getter to know if state is running.
+    /// </summary>
     public bool StateRunning { get; set; }
 
-    public StateController(Enemy enemy)
+    /// <summary>
+    /// Constructor for StateController.
+    /// </summary>
+    /// <param name="character">Character controlling this state machine.</param>
+    /// <param name="timeToStayInState">Minimum time to stay in current state.</param>
+    public StateController(T character, float timeToStayInState)
     {
-        EnemyScript = enemy;
-        currentState = EnemyScript.AllValues.InitialState;
-        nullState = EnemyScript.AllValues.NullState;
+        MINIMUMTIMETOSTAYINSTATE = timeToStayInState;
+        Controller = character;
+        currentState = Controller.AllValues.InitialState;
+        nullState = Controller.AllValues.NullState;
     }
 
-    public void Start()
+    /// <summary>
+    /// Starts current state.
+    /// </summary>
+    /// <param name="ai">StateController of this state machine.</param>
+    public void Start(StateController<Enemy> ai)
     {
         StateRunning = true;
     }
 
-    public void Update()
+    /// <summary>
+    /// Updates current state.
+    /// </summary>
+    /// <param name="ai">StateController of this state machine.</param>
+    public void Update(StateController<Enemy> ai)
     {
         if (StateRunning)
         {
-            currentState.UpdateState(this);
+            currentState.UpdateState(ai);
             StateTimeElapsed += Time.deltaTime;
         }
     }
@@ -48,16 +65,17 @@ public class StateController
     /// and state OnEnter. Changes to new State.
     /// Runs OnExit for all state actions and decisions, and state OnExit. 
     /// </summary>
-    /// <param name="nextState"></param>
-    public void Transition(FSMState nextState)
+    /// <param name="nextState">Next state to change into.</param>
+    /// <param name="ai">StateController of this state machine.</param>
+    public void Transition(FSMState nextState, StateController<Enemy> ai)
     {
         if (StateTimeElapsed > MINIMUMTIMETOSTAYINSTATE)
         {
             if (nextState != nullState)
             {
-                currentState.OnExit(this);
+                currentState.OnExit(ai);
                 currentState = nextState;
-                currentState.OnEnter(this);
+                currentState.OnEnter(ai);
                 StateTimeElapsed = 0;
             }
         }

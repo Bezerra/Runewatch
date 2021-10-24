@@ -34,7 +34,7 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
         else // Else if it's the enemy
         {
             Vector3 finalDirection = 
-                parent.Hand.position + parent.Hand.position.Direction(parent.AICharacter.EnemyScript.CurrentTarget.position);
+                parent.Hand.position + parent.Hand.position.Direction(parent.AICharacter.CurrentTarget.position);
             parent.transform.LookAt(finalDirection);
         }
 

@@ -30,17 +30,17 @@ public abstract class FSMAction : ScriptableObject
     /// Executes a certain action.
     /// </summary>
     /// <param name="aiCharacter">AI Character.</param>
-    public abstract void Execute(StateController aiCharacter);
+    public abstract void Execute(StateController<Enemy> aiCharacter);
 
     /// <summary>
     /// Executes once on enter.
     /// </summary>
     /// <param name="aiCharacter">AI Character.</param>
-    public abstract void OnEnter(StateController aiCharacter);
+    public abstract void OnEnter(StateController<Enemy> aiCharacter);
 
     /// <summary>
     /// Executes once on exit.
     /// </summary>
     /// <param name="aiCharacter">AI Character.</param>
-    public abstract void OnExit(StateController aiCharacter);
+    public abstract void OnExit(StateController<Enemy> aiCharacter);
 }

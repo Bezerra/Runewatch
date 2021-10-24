@@ -33,7 +33,10 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
     /// </summary>
     public Vector3 PositonOfParentWhenSpawned { get; private set; }
 
-    public StateController AICharacter { get; private set; }
+    /// <summary>
+    /// Used if the character who cast the spell is an enemy.
+    /// </summary>
+    public Enemy AICharacter { get; private set; }
     public IDamageable ThisIDamageable { get; private set; }
     private Stats whoCast;
     public Stats WhoCast 
@@ -52,8 +55,8 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
                     Eyes = character.Eyes;
                 }
 
-                if (whoCast.TryGetComponent<Enemy>(out Enemy enemyStateController))
-                    AICharacter = enemyStateController.StateMachine;
+                if (whoCast.TryGetComponent<Enemy>(out Enemy enemy))
+                    AICharacter = enemy;
                 else
                     AICharacter = null;
 

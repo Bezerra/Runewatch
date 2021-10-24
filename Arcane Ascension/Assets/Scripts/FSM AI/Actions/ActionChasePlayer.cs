@@ -11,40 +11,40 @@ sealed public class ActionChasePlayer : FSMAction
 
     private readonly float ROTATIONSPEED = 3;
 
-    public override void Execute(StateController aiCharacter)
+    public override void Execute(StateController<Enemy> ai)
     {
-        ChasePlayer(aiCharacter);
+        ChasePlayer(ai);
     }
 
-    private void ChasePlayer(StateController aiCharacter)
+    private void ChasePlayer(StateController<Enemy> ai)
     {
-        if (aiCharacter.EnemyScript.CurrentTarget != null)
+        if (ai.Controller.CurrentTarget != null)
         {
-            aiCharacter.EnemyScript.transform.LookAtYLerp(aiCharacter.EnemyScript.CurrentTarget, ROTATIONSPEED);
+            ai.Controller.transform.LookAtYLerp(ai.Controller.CurrentTarget, ROTATIONSPEED);
         }
 
         // If the agent has reached its final destination
-        if (aiCharacter.EnemyScript.CurrentTarget != null)
+        if (ai.Controller.CurrentTarget != null)
         {
             if (Vector3.Distance(
-                aiCharacter.EnemyScript.transform.position, aiCharacter.EnemyScript.CurrentTarget.position) < distanceFromTarget)
+                ai.Controller.transform.position, ai.Controller.CurrentTarget.position) < distanceFromTarget)
             {
-                aiCharacter.EnemyScript.Agent.isStopped = true;
+                ai.Controller.Agent.isStopped = true;
             }
             else
             {
-                aiCharacter.EnemyScript.Agent.isStopped = false;
-                aiCharacter.EnemyScript.Agent.SetDestination(aiCharacter.EnemyScript.CurrentTarget.transform.position);
+                ai.Controller.Agent.isStopped = false;
+                ai.Controller.Agent.SetDestination(ai.Controller.CurrentTarget.transform.position);
             }
         }
     }
 
-    public override void OnEnter(StateController aiCharacter)
+    public override void OnEnter(StateController<Enemy> ai)
     {
         // Left blank on purpose
     }
 
-    public override void OnExit(StateController aiCharacter)
+    public override void OnExit(StateController<Enemy> ai)
     {
         // Left blank on purpose
     }

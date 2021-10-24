@@ -6,52 +6,52 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "FSM/Actions/Action Roll", fileName = "Action Roll")]
 sealed public class ActionRoll: FSMAction
 {
-    public override void Execute(StateController aiCharacter)
+    public override void Execute(StateController<Enemy> ai)
     {
-        Roll(aiCharacter);
+        Roll(ai);
     }
 
     /// <summary>
     /// Every X seconds, AI character rolls randomly to the right or to the left.
     /// </summary>
-    /// <param name="aiCharacter">AI Character.</param>
-    private void Roll(StateController aiCharacter)
+    /// <param name="ai">AI Character.</param>
+    private void Roll(StateController<Enemy> ai)
     {
-        Vector3 movement = aiCharacter.EnemyScript.RollDirection == Direction.Right ?
-            aiCharacter.EnemyScript.transform.right : -aiCharacter.EnemyScript.transform.right;
+        Vector3 movement = ai.Controller.RollDirection == Direction.Right ?
+            ai.Controller.transform.right : -ai.Controller.transform.right;
 
-        if (Time.time - aiCharacter.EnemyScript.RollTime > aiCharacter.EnemyScript.RollDelay)
+        if (Time.time - ai.Controller.RollTime > ai.Controller.RollDelay)
         {
             // Checks if it has ground on the movement direction
-            if (Physics.OverlapSphere(aiCharacter.EnemyScript.transform.position + movement * 3, 1.5f).Length > 0)
+            if (Physics.OverlapSphere(ai.Controller.transform.position + movement * 3, 1.5f).Length > 0)
             {
                 // Moves enemy
-                aiCharacter.EnemyScript.Controller.Move(
-                    movement * aiCharacter.EnemyScript.Values.RollMovementQuantity * Time.deltaTime);
+                ai.Controller.Controller.Move(
+                    movement * ai.Controller.Values.RollMovementQuantity * Time.deltaTime);
 
                 // If rollTime has exceeded the limit
-                if (Time.time - aiCharacter.EnemyScript.RollTime > 
-                    aiCharacter.EnemyScript.RollDelay + aiCharacter.EnemyScript.Values.RollMovementTime)
+                if (Time.time - ai.Controller.RollTime > 
+                    ai.Controller.RollDelay + ai.Controller.Values.RollMovementTime)
                 {
                     // Resets roll variables and breaks the loop
-                    aiCharacter.EnemyScript.RollTime = Time.time;
-                    aiCharacter.EnemyScript.RollDirection = 
-                        Random.Range(0, 2) > 0 ? aiCharacter.EnemyScript.RollDirection = Direction.Right : 
-                        aiCharacter.EnemyScript.RollDirection = Direction.Left;
-                    aiCharacter.EnemyScript.RollDelay = Random.Range(
-                        aiCharacter.EnemyScript.Values.RollDelay.x, aiCharacter.EnemyScript.Values.RollDelay.y);
+                    ai.Controller.RollTime = Time.time;
+                    ai.Controller.RollDirection = 
+                        Random.Range(0, 2) > 0 ? ai.Controller.RollDirection = Direction.Right : 
+                        ai.Controller.RollDirection = Direction.Left;
+                    ai.Controller.RollDelay = Random.Range(
+                        ai.Controller.Values.RollDelay.x, ai.Controller.Values.RollDelay.y);
                 }
             }
             else // If there is no ground on the movement direction
             {
                 // Switches to another direction
-                aiCharacter.EnemyScript.RollDirection = 
-                    aiCharacter.EnemyScript.RollDirection == Direction.Right ?
-                    aiCharacter.EnemyScript.RollDirection = Direction.Left :
-                    aiCharacter.EnemyScript.RollDirection = Direction.Right;
+                ai.Controller.RollDirection = 
+                    ai.Controller.RollDirection == Direction.Right ?
+                    ai.Controller.RollDirection = Direction.Left :
+                    ai.Controller.RollDirection = Direction.Right;
 
                 // Resets roll time
-                aiCharacter.EnemyScript.RollTime = Time.time;
+                ai.Controller.RollTime = Time.time;
             }
         }
     }
@@ -59,18 +59,18 @@ sealed public class ActionRoll: FSMAction
     /// <summary>
     /// Resets roll variables.
     /// </summary>
-    /// <param name="aiCharacter">AI Character.</param>
-    public override void OnEnter(StateController aiCharacter)
+    /// <param name="ai">AI Character.</param>
+    public override void OnEnter(StateController<Enemy> ai)
     {
-        aiCharacter.EnemyScript.RollTime = 0;
-        aiCharacter.EnemyScript.RollDirection = 
-            Random.Range(0, 2) > 0 ? aiCharacter.EnemyScript.RollDirection = Direction.Right : 
-            aiCharacter.EnemyScript.RollDirection = Direction.Left;
-        aiCharacter.EnemyScript.RollDelay = Random.Range(
-            aiCharacter.EnemyScript.Values.RollDelay.x, aiCharacter.EnemyScript.Values.RollDelay.y);
+        ai.Controller.RollTime = 0;
+        ai.Controller.RollDirection = 
+            Random.Range(0, 2) > 0 ? ai.Controller.RollDirection = Direction.Right : 
+            ai.Controller.RollDirection = Direction.Left;
+        ai.Controller.RollDelay = Random.Range(
+            ai.Controller.Values.RollDelay.x, ai.Controller.Values.RollDelay.y);
     }
 
-    public override void OnExit(StateController aiCharacter)
+    public override void OnExit(StateController<Enemy> ai)
     {
         // Left blank on purpose
     }

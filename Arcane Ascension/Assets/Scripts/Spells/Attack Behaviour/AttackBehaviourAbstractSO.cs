@@ -40,7 +40,7 @@ public abstract class AttackBehaviourAbstractSO : ScriptableObject
     /// <param name="character">Character (state controller) who casts the spell.</param>
     /// <param name="characterStats">Character stats.</param>
     public abstract void AttackKeyPress(
-        ISpell spell, StateController character, Stats characterStats);
+        ISpell spell, StateController<Enemy> character, Stats characterStats);
 
     /// <summary>
     /// Disables spell gameobject.

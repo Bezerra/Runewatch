@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// Class responsible for enemies.
+/// </summary>
 public class Enemy : Character
 {
     /// <summary>
@@ -14,41 +17,41 @@ public class Enemy : Character
     public EnemyCharacterSO AllValues => allValues as EnemyCharacterSO;
 
     // Movement properties
-    public float WaitingTime { get; set; }
-    public float Distance {get; set; }
-    public float TimePointReached {get; set; }
-    public bool ReachedPoint {get; set; }
+    public float WaitingTime        { get; set; }
+    public float Distance           { get; set; }
+    public float TimePointReached   { get; set; }
+    public bool ReachedPoint        { get; set; }
 
     // Roll properties
-    public float RollTime { get; set; }
-    public float RollDelay { get; set; }
-    public Direction RollDirection { get; set; }
+    public float RollTime           { get; set; }
+    public float RollDelay          { get; set; }
+    public Direction RollDirection  { get; set; }
 
     // Attack properties
-    public float TimeOfLastAttack { get; set; }
-    public float AttackDelay { get; set; }
+    public float TimeOfLastAttack   { get; set; }
+    public float AttackDelay        { get; set; }
 
     // General properties for ai
-    public CharacterController Controller { get; private set; }
-    public Stats EnemyStats { get; private set; }
-    public bool TookDamage { get; set; }
-    public NavMeshAgent Agent { get; private set; }
-    public Transform CurrentTarget { get; set; }
-    public Player PlayerScript { get; private set; }
-    public StateController StateMachine { get; private set; }
+    public CharacterController Controller   { get; private set; }
+    public Stats EnemyStats                 { get; private set; }
+    public bool TookDamage                  { get; set; }
+    public NavMeshAgent Agent               { get; private set; }
+    public Transform CurrentTarget          { get; set; }
+    public Player PlayerScript              { get; private set; }
+    public StateController<Enemy> StateMachine { get; private set; }
     private void Awake()
     {
         Agent = GetComponent<NavMeshAgent>();
         Controller = GetComponent<CharacterController>();
         EnemyStats = GetComponent<Stats>();
         PlayerScript = FindObjectOfType<Player>();
-        StateMachine = new StateController(this);
+        StateMachine = new StateController<Enemy>(this, 2);
     }
 
     private void Start()
     {
         Agent.speed = Values.Speed;
-        StateMachine.Start();
+        StateMachine.Start(StateMachine);
     }
 
     private void OnEnable()
@@ -63,7 +66,7 @@ public class Enemy : Character
 
     private void Update()
     {
-        StateMachine.Update();
+        StateMachine.Update(StateMachine);
     }
 
     /// <summary>

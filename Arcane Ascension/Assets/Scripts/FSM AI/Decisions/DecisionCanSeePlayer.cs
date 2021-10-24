@@ -12,34 +12,34 @@ sealed public class DecisionCanSeePlayer : FSMDecision
     [Header("Layers that will be checked. For ex: Walls, Player, Floor, Objects, Player layer MUST be here")]
     [SerializeField] private LayerMask layersToCheck;
 
-    public override bool CheckDecision(StateController aiController)
+    public override bool CheckDecision(StateController<Enemy> ai)
     {
-        return LookForPlayer(aiController);
+        return LookForPlayer(ai);
     }
 
     /// <summary>
     /// Looks for player.
     /// </summary>
-    /// <param name="aiController">AI Controller.</param>
+    /// <param name="ai">AI Controller.</param>
     /// <returns>True if it detects a player without a wall in front.</returns>
-    private bool LookForPlayer(StateController aiController)
+    private bool LookForPlayer(StateController<Enemy> ai)
     {
         Collider[] colliders = Physics.OverlapSphere(
-            aiController.EnemyScript.transform.position, aiController.EnemyScript.Values.VisionRange, playerLayer);
+            ai.Controller.transform.position, ai.Controller.Values.VisionRange, playerLayer);
 
         if (colliders.Length > 0)
         {
             for (int i = 0; i < colliders.Length; i++)
             {
-                if (aiController.EnemyScript.transform.CanSee(colliders[i].transform, layersToCheck))
+                if (ai.Controller.transform.CanSee(colliders[i].transform, layersToCheck))
                 {
                     if (colliders[i].TryGetComponentInParent<Player>(out Player player))
                     {
-                        aiController.EnemyScript.CurrentTarget = player.Eyes.transform;
+                        ai.Controller.CurrentTarget = player.Eyes.transform;
                     }
                     else
                     {
-                        aiController.EnemyScript.CurrentTarget = colliders[i].transform;
+                        ai.Controller.CurrentTarget = colliders[i].transform;
                     }
                     
                     return true;
@@ -47,16 +47,16 @@ sealed public class DecisionCanSeePlayer : FSMDecision
             } 
         }
 
-        aiController.EnemyScript.CurrentTarget = null;
+        ai.Controller.CurrentTarget = null;
         return false;
     }
 
-    public override void OnEnter(StateController aiCharacter)
+    public override void OnEnter(StateController<Enemy> aiCharacter)
     {
         // Left blank on purpose
     }
 
-    public override void OnExit(StateController aiCharacter)
+    public override void OnExit(StateController<Enemy> aiCharacter)
     {
         // Left blank on purpose
     }
