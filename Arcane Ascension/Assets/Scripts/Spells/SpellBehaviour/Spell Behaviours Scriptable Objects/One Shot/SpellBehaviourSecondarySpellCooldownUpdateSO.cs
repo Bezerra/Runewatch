@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 [CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Secondary Spell Cooldown Update", 
     fileName = "Spell Behaviour Secondary Spell Cooldown Update")]
-sealed public class SpellBehaviourSecondarySpellCooldownUpdate : SpellBehaviourAbstractOneShotSO
+sealed public class SpellBehaviourSecondarySpellCooldownUpdateSO : SpellBehaviourAbstractOneShotSO
 {
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {

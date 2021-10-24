@@ -157,6 +157,18 @@ public class AIEditor : OdinMenuEditorWindow
 
             ScriptableObject.CreateInstance<DecisionChasingPlayer>();
         }
+
+        [Button("Create decision - Took Damage", ButtonSizes.Large)]
+        private void DecisionTookDamage()
+        {
+            AIDecision = ScriptableObject.CreateInstance<DecisionTookDamage>();
+            AssetDatabase.CreateAsset(
+                AIDecision, "Assets/Resources/Scriptable Objects/AI/" + "Decision Took Damage " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            ScriptableObject.CreateInstance<DecisionTookDamage>();
+        }
     }
 
     public class CreateNewState
