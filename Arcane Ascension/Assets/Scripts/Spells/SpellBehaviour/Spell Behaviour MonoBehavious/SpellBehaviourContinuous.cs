@@ -33,15 +33,17 @@ public class SpellBehaviourContinuous : SpellBehaviourAbstract
         LineRender = GetComponent<LineRenderer>();
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         EffectPlay();
         LastTimeHit = Time.time;
         LastTimeSpellWallHit = Time.time;
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         LastTimeSpellWallHit = 0;
         CurrentSpellDistance = 0;
         HitPoint = default;

@@ -16,7 +16,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     
     // Components
     public Rigidbody Rb { get; private set; }
-    public SphereCollider ColliderTrigger { get; private set; }
+    public CapsuleCollider ColliderTrigger { get; private set; }
 
     // Whenever the spells colide with anything it sets this variable to that gameobject hit
     private GameObject lastHitGameObject;
@@ -60,19 +60,21 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     {
         base.Awake();
         Rb = GetComponent<Rigidbody>();
-        ColliderTrigger = GetComponent<SphereCollider>();
+        ColliderTrigger = GetComponent<CapsuleCollider>();
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         EffectPlay();
         SpellStartedMoving = false;
         TimeOfImpact = Time.time + Mathf.Infinity; // algum bug? meter Time.time
         LastTimeDamaged = Time.time + Mathf.Infinity;
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         AreaHoverAreaHit = default;
         AreaHoverVFX = null;
         SpellStartedMoving = false;
@@ -81,8 +83,6 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         CurrentPierceHitQuantity = 0;
         CurrentWallHitQuantity = 0;
         lastHitGameObject = null;
-        PositionOnSpawnAndHit = default;
-        
     }
 
     /// <summary>

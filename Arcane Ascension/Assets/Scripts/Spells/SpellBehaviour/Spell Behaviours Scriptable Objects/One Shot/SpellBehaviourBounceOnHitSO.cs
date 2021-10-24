@@ -15,8 +15,7 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
 
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
-        parent.PositionOnSpawnAndHit = new Vector3(
-            parent.transform.position.x, parent.transform.position.y, parent.transform.position.z);
+        // Left blank on purpose
     }
 
     public override void ContinuousUpdateBeforeSpellBehaviour(SpellBehaviourOneShot parent)
@@ -67,7 +66,7 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
     private void RotateProjectile(Collider other, SpellBehaviourOneShot parent)
     {
         // Direction of the current hit to initial spawn
-        Vector3 directionToInitialSpawn = parent.transform.Direction(parent.PositionOnSpawnAndHit);
+        Vector3 directionToInitialSpawn = parent.transform.Direction(parent.WhoCast.transform);
 
         // Direction to do a raycast.
         // Uses directionToInitialSpawn so the hit will be a little behind the wall to prevent bugs
@@ -81,6 +80,12 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
         {
             Vector3 reflection = Vector3.Reflect(parent.Rb.velocity, spellHitPoint.normal).normalized;
 
+            // This piece of code prevents undesired reflections.
+            // For ex: if the player shoots upwards on the corner of a wall, the detection
+            // will happen on the next frame and it will reflect the projectile towards INSIDE the wall
+            if (Vector3.Dot(parent.transform.forward, spellHitPoint.normal) > 0)
+                return;
+
             // Sets new speed based on rotation
             parent.Rb.velocity = reflection * parent.Spell.Speed;
 
@@ -88,6 +93,7 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
             parent.transform.rotation = 
                 Quaternion.LookRotation(parent.Rb.velocity.Direction(parent.Rb.velocity+reflection), Vector3.up);
 
+            // This is set on parent trigger enter, this is just a safety precaution
             // Sets the last position of the hit to the current hit
             parent.PositionOnSpawnAndHit = 
                 new Vector3(

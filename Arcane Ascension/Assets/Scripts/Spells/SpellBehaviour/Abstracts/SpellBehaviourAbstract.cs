@@ -48,6 +48,16 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
         hitEffectParticleSystem = GetComponentsInChildren<ParticleSystem>();
     }
 
+    protected virtual void OnEnable()
+    {
+        PositionOnSpawnAndHit = transform.position;
+    }
+
+    protected virtual void OnDisable()
+    {
+        PositionOnSpawnAndHit = default;
+    }
+
     /// <summary>
     /// Method called after instantiating the spell.
     /// Must be called manually through this method instead of OnEnable or Start in order to prevent bugs.
