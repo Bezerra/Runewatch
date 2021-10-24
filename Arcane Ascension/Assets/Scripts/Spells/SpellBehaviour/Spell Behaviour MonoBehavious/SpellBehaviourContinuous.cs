@@ -16,7 +16,12 @@ public class SpellBehaviourContinuous : SpellBehaviourAbstract
     public LineRenderer LineRender { get; private set; }
     public float CurrentSpellDistance { get; set; }
     public Collider DamageableTarget { get; set; }
-    public RaycastHit HitPoint { get; set; }
+
+    private RaycastHit hitPoint;
+    public RaycastHit HitPoint { 
+        get { return hitPoint; } 
+        set { hitPoint = value; PositionOnSpawnAndHit = hitPoint.point; } }
+
     /// <summary>
     /// Used to control hit spawn on wall.
     /// </summary>

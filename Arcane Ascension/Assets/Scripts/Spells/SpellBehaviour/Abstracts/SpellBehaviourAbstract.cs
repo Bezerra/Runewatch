@@ -12,10 +12,17 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
     public abstract ISpell Spell { get; }
     public Transform Hand { get; private set; }
     public Transform Eyes { get; private set; }
+
     /// <summary>
     /// Updated when who cast is set.
     /// </summary>
     public LayerMask LayerOfWhoCast { get; set; }
+    
+    /// <summary>
+    /// Gets position on spawn or everytime it hits.
+    /// </summary>
+    public Vector3 PositionOnSpawnAndHit { get; set; }
+
     public IDamageable ThisIDamageable { get; private set; }
     private Stats whoCast;
     public Stats WhoCast 

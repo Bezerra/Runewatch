@@ -34,11 +34,17 @@ public class DamageSingleTargetSO : DamageBehaviourAbstractSO
                 float criticalChance = parent.WhoCast.Attributes.CriticalChance;
 
                 // Critical on sensible point
-                if (Physics.OverlapSphere(parent.transform.position, 0.2f, Layers.EnemySensiblePoint).Length > 0)
+                if (other != null)
                 {
-                    criticalChance = 1;
-                }
+                    float sphereSize = parent.Spell.CastType == SpellCastType.ContinuousCast ?
+                        sphereSize = 0.1f : sphereSize = 0.2f;
 
+                    if (Physics.OverlapSphere(parent.PositionOnSpawnAndHit, sphereSize, Layers.EnemySensiblePoint).Length > 0)
+                    {
+                        criticalChance = 1;
+                    }
+                }
+                
                 character.TakeDamage(parent.WhoCast.Attributes.BaseDamageMultiplier *
                     parent.Spell.Damage * damageMultiplier, criticalChance, parent.Spell.Element);
             }

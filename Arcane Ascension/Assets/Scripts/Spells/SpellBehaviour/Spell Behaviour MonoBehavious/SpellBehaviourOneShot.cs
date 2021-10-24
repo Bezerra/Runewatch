@@ -52,11 +52,6 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     public RaycastHit AreaHoverAreaHit { get; set; }
 
     /// <summary>
-    /// Gets position on spawn or everytime it hits.
-    /// </summary>
-    public Vector3 PositionOnSpawnAndHit { get; set; }
-
-    /// <summary>
     /// Updated everytime the spell damages an enemy.
     /// </summary>
     public float LastTimeDamaged { get; set; }
@@ -127,6 +122,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     /// <param name="other">Collider of collision.</param>
     private void OnTriggerEnter(Collider other)
     {
+        PositionOnSpawnAndHit = transform.position;
         if (other.gameObject.TryGetComponentInParent<SelectionBase>(out SelectionBase component))
         {
             // If the enemy hit is DIFFERENT than the last one
