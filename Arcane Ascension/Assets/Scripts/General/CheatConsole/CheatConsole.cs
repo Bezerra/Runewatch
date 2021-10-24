@@ -23,7 +23,10 @@ public class CheatConsole : MonoBehaviour
     private Stats playerStats;
     private PlayerSpells playerSpells;
     private AllSpells allSpells;
-    
+
+
+    [Header("Enemy")]
+    [SerializeField] private GameObject dummyEnemy;
 
     private void Awake()
     {
@@ -139,6 +142,13 @@ public class CheatConsole : MonoBehaviour
                 case "mana 0":
                     Debug.Log("Infinite mana deactivated");
                     playerStats.EventSpentMana -= InfiniteMana;
+                    DisableConsole();
+                    break;
+
+                case "enemy":
+                    Debug.Log("Spawn enemy");
+                    Instantiate(
+                        dummyEnemy, playerStats.transform.position + playerStats.transform.forward * 5, Quaternion.identity);
                     DisableConsole();
                     break;
 
