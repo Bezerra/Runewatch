@@ -12,10 +12,12 @@ public class DelayedCamera : MonoBehaviour
     private Player player;
     private PlayerMovement playerMovement;
     private PlayerCastSpell playerCastSpell;
+    private CinemachineVirtualCamera virtualCinemachine;
     private CinemachineBasicMultiChannelPerlin cinemachineNoise;
 
     private YieldInstruction wffu;
     private IEnumerator shakeCoroutine;
+    private IEnumerator runFOVUpdateCoroutine;
 
     // Desired camera position + rotation
     [SerializeField] private Transform targetCameraTransform;
@@ -30,7 +32,8 @@ public class DelayedCamera : MonoBehaviour
         player = transform.parent.GetComponentInChildren<Player>();
         playerMovement = player.GetComponent<PlayerMovement>();
         playerCastSpell = player.GetComponent<PlayerCastSpell>();
-        cinemachineNoise = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        virtualCinemachine = GetComponent<CinemachineVirtualCamera>();
+        cinemachineNoise = virtualCinemachine.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         wffu = new WaitForFixedUpdate();
 
         // Adds overlay camera (hands camera) to main camera stack
@@ -40,16 +43,23 @@ public class DelayedCamera : MonoBehaviour
         cameraData.cameraStack.Add(handsCamera);
     }
 
+    private void Start()
+    {
+        virtualCinemachine.m_Lens.FieldOfView = player.Values.DefaultFOV;
+    }
+
     private void OnEnable()
     {
         playerCastSpell.EventAttack += ScreenShake;
         playerCastSpell.EventCancelAttack += CancelContinuousScreenShake;
+        playerMovement.EventRun += RunFOVUpdate;
     }
 
     private void OnDisable()
     {
         playerCastSpell.EventAttack -= ScreenShake;
         playerCastSpell.EventCancelAttack -= CancelContinuousScreenShake;
+        playerMovement.EventRun -= RunFOVUpdate;
     }
 
     /// <summary>
@@ -147,11 +157,39 @@ public class DelayedCamera : MonoBehaviour
     }
 
     /// <summary>
-    /// Cance
+    /// Cancels screen shake.
     /// </summary>
     private void CancelContinuousScreenShake()
     {
         shakeCoroutine = null;
         cinemachineNoise.m_FrequencyGain = player.Values.DefaultNoiseFrequencyValue;
+    }
+
+    private void RunFOVUpdate(bool condition)
+    {
+        if (runFOVUpdateCoroutine != null) StopCoroutine(runFOVUpdateCoroutine);
+        runFOVUpdateCoroutine = RunFOVUpdateCoroutine(condition);
+        StartCoroutine(runFOVUpdateCoroutine);
+    }
+    private IEnumerator RunFOVUpdateCoroutine(bool condition)
+    {
+        if (condition) // Run true
+        {
+            while (virtualCinemachine.m_Lens.FieldOfView < player.Values.FOVWhileRunning)
+            {
+                virtualCinemachine.m_Lens.FieldOfView = Mathf.Lerp(
+                    virtualCinemachine.m_Lens.FieldOfView, player.Values.FOVWhileRunning, Time.fixedDeltaTime * 13);
+                yield return wffu;
+            }
+        }
+        else
+        {
+            while (virtualCinemachine.m_Lens.FieldOfView > player.Values.DefaultFOV)
+            {
+                virtualCinemachine.m_Lens.FieldOfView = Mathf.Lerp(
+                    virtualCinemachine.m_Lens.FieldOfView, player.Values.DefaultFOV, Time.fixedDeltaTime * 13);
+                yield return wffu;
+            }
+        }
     }
 }

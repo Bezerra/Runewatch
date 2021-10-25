@@ -198,6 +198,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (condition) Speed = player.Values.RunningSpeed;
             else Speed = player.Values.Speed;
+            OnEventRun(condition);
         }
     }
 
@@ -275,4 +276,7 @@ public class PlayerMovement : MonoBehaviour
 
     protected virtual void OnEventDash() => EventDash?.Invoke();
     public event Action EventDash;
+
+    protected virtual void OnEventRun(bool condition) => EventRun?.Invoke(condition);
+    public event Action<bool> EventRun;
 }

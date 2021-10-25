@@ -68,6 +68,14 @@ public class PlayerValuesSO : CharacterValuesSO
     [Range(1, 20)] [SerializeField] private float cameraTiltSpeed;
     public float CameraTiltSpeed => cameraTiltSpeed;
 
+    [BoxGroup("Camera")]
+    [Range(40, 60)] [SerializeField] private float defaultFOV = 50;
+    public float DefaultFOV => defaultFOV;
+
+    [BoxGroup("Camera")]
+    [Range(40, 60)] [SerializeField] private float fovWhileRunning = 54;
+    public float FOVWhileRunning => fovWhileRunning;
+
     [BoxGroup("Camera/Shake")]
     [Range(0.1f, 0.5f)] [SerializeField] private float cameraShakeTime = 0.3f;
     public float CameraShakeTime => cameraShakeTime;
