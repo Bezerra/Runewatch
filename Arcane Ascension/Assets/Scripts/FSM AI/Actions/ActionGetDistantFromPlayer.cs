@@ -83,6 +83,6 @@ sealed public class ActionGetDistantFromPlayer : FSMAction
 
     public override void OnExit(StateController<Enemy> ai)
     {
-        // Left blank on purpose
+        ai.Controller.WalkingBackwards = false;
     }
 }

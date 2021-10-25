@@ -33,6 +33,11 @@ public class Enemy : Character
     public bool WalkingBackwards { get; set; }
 
     /// <summary>
+    /// Current distance for patrols.
+    /// </summary>
+    public bool RunningBackwards { get; set; }
+
+    /// <summary>
     /// Exact time the enemy stopped walking backwards.
     /// </summary>
     public float TimeStoppedWalkingBackwards { get; set; }

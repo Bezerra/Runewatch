@@ -16,7 +16,10 @@ sealed public class ActionLookToPlayer : FSMAction
     {
         if (ai.Controller.CurrentTarget != null)
         {
-            ai.Controller.transform.LookAtYLerp(ai.Controller.CurrentTarget, ai.Controller.Values.RotationSpeed);
+            if (ai.Controller.RunningBackwards == false)
+            {
+                ai.Controller.transform.LookAtYLerp(ai.Controller.CurrentTarget, ai.Controller.Values.RotationSpeed);
+            }
         }
     }
 
