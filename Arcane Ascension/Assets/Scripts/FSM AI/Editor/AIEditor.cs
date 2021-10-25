@@ -185,13 +185,13 @@ public class AIEditor : OdinMenuEditorWindow
         [Button("Create decision - Decision Chasing Player", ButtonSizes.Large)]
         private void DecisionChasingPlayer()
         {
-            AIDecision = ScriptableObject.CreateInstance<DecisionChasingPlayer>();
+            AIDecision = ScriptableObject.CreateInstance<DecisionTargettingPlayer>();
             AssetDatabase.CreateAsset(
-                AIDecision, "Assets/Resources/Scriptable Objects/AI/" + "Decision Chasing Player " +
+                AIDecision, "Assets/Resources/Scriptable Objects/AI/" + "Decision Targetting Player " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
-            ScriptableObject.CreateInstance<DecisionChasingPlayer>();
+            ScriptableObject.CreateInstance<DecisionTargettingPlayer>();
         }
 
         [Button("Create decision - Took Damage", ButtonSizes.Large)]

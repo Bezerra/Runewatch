@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 414867ae40476434b9e9db17afe857e9, type: 3}
+  m_Name: State Aggressive
+  m_EditorClassIdentifier: 
+  fileName: State Aggressive
+  notes: 'Enemy chases the player and keeps a certain distance.
+
+    Enemy will keep
+    attacking the player with random spells from the available spell list.
+
+    Enemy
+    will roll every X seconds.'
+  actions:
+  - {fileID: 11400000, guid: 43eccaa6cdac6bd468b07464cf801acc, type: 2}
+  - {fileID: 11400000, guid: 10d373ddff7a96b4cb7c6f463415e764, type: 2}
+  - {fileID: 11400000, guid: 55334ae44e50f214eb5633e5417fc543, type: 2}
+  - {fileID: 11400000, guid: f6f2fa32602892646a40b423e88f590e, type: 2}
+  - {fileID: 11400000, guid: b6a395b3bb2a6ec48abebc5be994761f, type: 2}
+  transitions:
+  - notes: While the enemy has a target, it will keep inside this state. else it
+      will change to another state.
+    decision: {fileID: 11400000, guid: abc136ec320925e4b8a23b90b6a82fc2, type: 2}
+    ifTrue: {fileID: 11400000, guid: 08f51d3545ba1914cb620bd622627574, type: 2}
+    ifFalse: {fileID: 11400000, guid: 9a1665c4788615e45ae6782191d82513, type: 2}
+  - notes: If the enemy can see the target  stays on the current state, else it will
+      change to patrol state.
+    decision: {fileID: 11400000, guid: 9b53d9dde600d4b479ee679ff66a0fe2, type: 2}
+    ifTrue: {fileID: 11400000, guid: 08f51d3545ba1914cb620bd622627574, type: 2}
+    ifFalse: {fileID: 11400000, guid: 9a1665c4788615e45ae6782191d82513, type: 2}
+  onEnterStateActions: []
+  onExitStateActions: []

@@ -84,5 +84,6 @@ sealed public class ActionGetDistantFromPlayer : FSMAction
     public override void OnExit(StateController<Enemy> ai)
     {
         ai.Controller.WalkingBackwards = false;
+        ai.Controller.Agent.angularSpeed = ai.Controller.Values.AgentAngularSpeed;
     }
 }
