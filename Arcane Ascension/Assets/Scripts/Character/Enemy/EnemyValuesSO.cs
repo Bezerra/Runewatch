@@ -23,6 +23,11 @@ public class EnemyValuesSO : CharacterValuesSO
     [Range(1, 7f)] [SerializeField] private float rotationSpeed = 3f;
     public float RotationSpeed => rotationSpeed;
 
+    [BoxGroup("Movement and Rotation")]
+    [Tooltip("Speed of agent rotation")]
+    [Range(1, 7f)] [SerializeField] private float agentAngularSpeed = 500f;
+    public float AgentAngularSpeed => agentAngularSpeed;
+
     [BoxGroup("Target and Chase")]
     [Tooltip("Random minim distance to keep from target")]
     [RangeMinMax(1f, 23f)] [SerializeField] private Vector2 distanceToKeepFromTarget;

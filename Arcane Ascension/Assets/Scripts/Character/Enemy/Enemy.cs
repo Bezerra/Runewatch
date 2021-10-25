@@ -25,7 +25,17 @@ public class Enemy : Character
     /// <summary>
     /// Current distance for patrols.
     /// </summary>
+    public Direction DirectionIfBackBlocked { get; set; }
+
+    /// <summary>
+    /// Current distance for patrols.
+    /// </summary>
     public bool WalkingBackwards { get; set; }
+
+    /// <summary>
+    /// Exact time the enemy stopped walking backwards.
+    /// </summary>
+    public float TimeStoppedWalkingBackwards { get; set; }
 
     /// <summary>
     /// Current distance for patrols.
