@@ -47,17 +47,21 @@ sealed public class DecisionCanSeePlayer : FSMDecision
             } 
         }
 
-        ai.Controller.CurrentTarget = null;
         return false;
     }
 
-    public override void OnEnter(StateController<Enemy> aiCharacter)
+    public override void OnEnter(StateController<Enemy> ai)
     {
         // Left blank on purpose
     }
 
-    public override void OnExit(StateController<Enemy> aiCharacter)
+    public override void OnExit(StateController<Enemy> ai)
     {
-        // Left blank on purpose
+        if (ai.Controller.CurrentTarget != null)
+        {
+            ai.Controller.PlayerLastKnownPosition = ai.Controller.CurrentTarget.position;
+        }
+
+        ai.Controller.CurrentTarget = null;
     }
 }

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 414867ae40476434b9e9db17afe857e9, type: 3}
+  m_Name: State Lost Player
+  m_EditorClassIdentifier: 
+  fileName: State Lost Player
+  notes: 
+  actions: []
+  transitions:
+  - notes: If the enemy can see the player, it will start chasing him.
+    decision: {fileID: 11400000, guid: 9b53d9dde600d4b479ee679ff66a0fe2, type: 2}
+    ifTrue: {fileID: 11400000, guid: 9f6df4cfa91960241a1d6ae6bdc0ac0c, type: 2}
+    ifFalse: {fileID: 11400000, guid: 08f51d3545ba1914cb620bd622627574, type: 2}
+  - notes: If max time in state was reached when the enemy stopped, it will change
+      back to random patrol.
+    decision: {fileID: 11400000, guid: 60638ef507edf294b96ed3518d1ac10b, type: 2}
+    ifTrue: {fileID: 11400000, guid: dc6de11d36309cd49892fc9b34ca0fb5, type: 2}
+    ifFalse: {fileID: 11400000, guid: 08f51d3545ba1914cb620bd622627574, type: 2}
+  onEnterStateActions:
+  - {fileID: 11400000, guid: 92b4da5c861f1a649bb0af22bb961d7d, type: 2}
+  onExitStateActions: []

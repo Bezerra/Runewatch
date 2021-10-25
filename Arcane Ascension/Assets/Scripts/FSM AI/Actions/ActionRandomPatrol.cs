@@ -33,15 +33,7 @@ sealed public class ActionRandomPatrol : FSMAction
 
             if (Time.time - aiCharacter.Controller.TimePointReached > aiCharacter.Controller.WaitingTime)
             {
-                Vector3 finalDestination =
-                    new Vector3(
-                        Random.Range(-aiCharacter.Controller.Distance, aiCharacter.Controller.Distance), 
-                        0, 
-                        Random.Range(-aiCharacter.Controller.Distance, aiCharacter.Controller.Distance));
-
-                aiCharacter.Controller.Agent.SetDestination(aiCharacter.Controller.transform.position + finalDestination);
-
-                aiCharacter.Controller.ReachedPoint = true;
+                SetNewDestination(aiCharacter);
             }
         }
     }
@@ -61,10 +53,28 @@ sealed public class ActionRandomPatrol : FSMAction
         aiCharacter.Controller.TimePointReached = Time.time;
     }
 
+    /// <summary>
+    /// Sets new destination with random values.
+    /// </summary>
+    /// <param name="aiCharacter">AI character.</param>
+    private void SetNewDestination(StateController<Enemy> aiCharacter)
+    {
+        Vector3 finalDestination =
+                    new Vector3(
+                        Random.Range(-aiCharacter.Controller.Distance, aiCharacter.Controller.Distance),
+                        0,
+                        Random.Range(-aiCharacter.Controller.Distance, aiCharacter.Controller.Distance));
+
+        aiCharacter.Controller.Agent.SetDestination(aiCharacter.Controller.transform.position + finalDestination);
+
+        aiCharacter.Controller.ReachedPoint = true;
+    }
+
     public override void OnEnter(StateController<Enemy> aiCharacter)
     {
         aiCharacter.Controller.Agent.isStopped = false;
         UpdateVariablesValues(aiCharacter);
+        SetNewDestination(aiCharacter);
     }
 
     public override void OnExit(StateController<Enemy> aiCharacter)

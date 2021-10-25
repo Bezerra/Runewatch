@@ -21,6 +21,19 @@ public class Enemy : Character
     public float Distance           { get; set; }
     public float TimePointReached   { get; set; }
     public bool ReachedPoint        { get; set; }
+    private Vector3 playerLastKnownPosition;
+    public Vector3 PlayerLastKnownPosition
+    {
+        get => playerLastKnownPosition;
+        set
+        {
+            Vector3 offset = 
+                new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
+            playerLastKnownPosition = value + offset;
+        }
+    }
+
+    public float TimeWhenReachedFinalPosition { get; set; }
 
     // Roll properties
     public float RollTime           { get; set; }
@@ -35,17 +48,60 @@ public class Enemy : Character
     public float TimeOfMovement { get; set; }
 
     // General properties for ai
-    public CharacterController Controller   { get; private set; }
+
+    /// <summary>
+    /// Character controller.
+    /// </summary>
+    public CharacterController CharController   { get; private set; }
+
+    /// <summary>
+    /// Stats script.
+    /// </summary>
     public Stats EnemyStats                 { get; private set; }
+
+    /// <summary>
+    /// Used to know if the enemy just took damage.
+    /// </summary>
     public bool TookDamage                  { get; set; }
+
+    /// <summary>
+    /// Navmesh agent.
+    /// </summary>
     public NavMeshAgent Agent               { get; private set; }
-    public Transform CurrentTarget          { get; set; }
+
+    private Transform currentTarget;
+    /// <summary>
+    /// Current target of the ai.
+    /// </summary>
+    public Transform CurrentTarget
+    {
+        get => currentTarget;
+        set
+        {
+            currentTarget = value;
+            QuantityFighting = value != null ? QuantityFighting++ : QuantityFighting--;
+        }
+    }
+
+    /// <summary>
+    /// Static Getter to know quantity of enemies fighting the player
+    /// </summary>
+    public static int QuantityFighting { get; private set; }
+
+    /// <summary>
+    /// Player script.
+    /// </summary>
     public Player PlayerScript              { get; private set; }
+
+    /// <summary>
+    /// State machine property.
+    /// </summary>
     public StateController<Enemy> StateMachine { get; private set; }
+
     private void Awake()
     {
         Agent = GetComponent<NavMeshAgent>();
-        Controller = GetComponent<CharacterController>();
+        CharController = GetComponent<CharacterController>();
         EnemyStats = GetComponent<Stats>();
         PlayerScript = FindObjectOfType<Player>();
         StateMachine = new StateController<Enemy>(this, 2);
@@ -77,5 +133,4 @@ public class Enemy : Character
     /// </summary>
     /// <param name="temp"></param>
     private void EventTakeDamage(float temp) => TookDamage = true;
-
 }

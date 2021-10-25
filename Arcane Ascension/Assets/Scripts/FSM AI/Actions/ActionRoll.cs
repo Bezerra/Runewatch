@@ -26,7 +26,7 @@ sealed public class ActionRoll: FSMAction
             if (Physics.OverlapSphere(ai.Controller.transform.position + movement * 3, 1.5f).Length > 0)
             {
                 // Moves enemy
-                ai.Controller.Controller.Move(
+                ai.Controller.CharController.Move(
                     ai.Controller.Values.RollMovementQuantity * Time.deltaTime * movement);
 
                 // If rollTime has exceeded the limit

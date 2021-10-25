@@ -88,6 +88,7 @@ public class FSMState : ScriptableObject
         for (int i = 0; i < onEnterStateActions.Length; i++)
         {
             if (onEnterStateActions[i] != null) onEnterStateActions[i].Execute(ai);
+            if (onEnterStateActions[i] != null) onEnterStateActions[i].OnEnter(ai);
         }
 
         for (int i = 0; i < actions.Length; i++)
@@ -110,6 +111,7 @@ public class FSMState : ScriptableObject
         for (int i = 0; i < onExitStateActions.Length; i++)
         {
             if (onExitStateActions[i] != null) onExitStateActions[i].Execute(ai);
+            if (onExitStateActions[i] != null) onExitStateActions[i].OnExit(ai);
         }
 
         for (int i = 0; i < actions.Length; i++)

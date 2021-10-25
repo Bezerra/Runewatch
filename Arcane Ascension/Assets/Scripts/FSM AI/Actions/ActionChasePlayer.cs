@@ -29,12 +29,11 @@ sealed public class ActionChasePlayer : FSMAction
             if (Vector3.Distance(
                 ai.Controller.transform.position, ai.Controller.CurrentTarget.position) < distanceFromTarget)
             {
-                ai.Controller.Agent.isStopped = true;
+                
             }
             else
             {
-                ai.Controller.Agent.isStopped = false;
-                ai.Controller.Agent.SetDestination(ai.Controller.CurrentTarget.transform.position);
+                ai.Controller.Agent.SetDestination(ai.Controller.transform.position + ai.Controller.transform.forward);
             }
         }
     }
