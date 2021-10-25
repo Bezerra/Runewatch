@@ -25,7 +25,17 @@ public class Enemy : Character
     /// <summary>
     /// Current distance for patrols.
     /// </summary>
+    public bool WalkingBackwards { get; set; }
+
+    /// <summary>
+    /// Current distance for patrols.
+    /// </summary>
     public float CurrentDistance { get; set; }
+
+    /// <summary>
+    /// Current distance for patrols.
+    /// </summary>
+    public float DistanceToKeepFromTarget { get; set; }
 
     /// <summary>
     /// Getter used to know the time a final point was reached.

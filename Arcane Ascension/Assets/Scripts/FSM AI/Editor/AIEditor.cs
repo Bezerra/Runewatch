@@ -140,6 +140,30 @@ public class AIEditor : OdinMenuEditorWindow
 
             ScriptableObject.CreateInstance<ActionMoveLastKnownPosition>();
         }
+
+        [Button("Create action - Look To Player", ButtonSizes.Large)]
+        private void ActionLookToPlayer()
+        {
+            AIAction = ScriptableObject.CreateInstance<ActionLookToPlayer>();
+            AssetDatabase.CreateAsset(AIAction,
+                "Assets/Resources/Scriptable Objects/AI/" + "Action Look To Player " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            ScriptableObject.CreateInstance<ActionLookToPlayer>();
+        }
+        
+        [Button("Create action - Get Distant From Player", ButtonSizes.Large)]
+        private void ActionGetDistantFromPlayer()
+        {
+            AIAction = ScriptableObject.CreateInstance<ActionGetDistantFromPlayer>();
+            AssetDatabase.CreateAsset(AIAction,
+                "Assets/Resources/Scriptable Objects/AI/" + "Action Get Distant From Player " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            ScriptableObject.CreateInstance<ActionGetDistantFromPlayer>();
+        }
     }
 
     public class CreateNewDecision

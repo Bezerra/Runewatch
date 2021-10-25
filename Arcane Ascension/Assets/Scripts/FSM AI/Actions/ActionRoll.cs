@@ -17,6 +17,9 @@ sealed public class ActionRoll: FSMAction
     /// <param name="ai">AI Character.</param>
     private void Roll(StateController<Enemy> ai)
     {
+        if (ai.Controller.WalkingBackwards)
+            return;
+
         Vector3 movement = ai.Controller.RollDirection == Direction.Right ?
             ai.Controller.transform.right : -ai.Controller.transform.right;
 

@@ -25,7 +25,8 @@ sealed public class ActionAttack : FSMAction
             if (ai.Controller.CurrentTarget != null)
             {
                 // If the enemy is looking towards the player (with tolerance)
-                if (ai.Controller.transform.IsLookingTowards(ai.Controller.CurrentTarget.position, 20))
+                if (ai.Controller.transform.IsLookingTowards(
+                    ai.Controller.CurrentTarget.position, ai.Controller.Values.FireAllowedAngle))
                 {
                     int randomSpell = Random.Range(0, ai.Controller.AllValues.CharacterStats.AvailableSpells.Count);
 

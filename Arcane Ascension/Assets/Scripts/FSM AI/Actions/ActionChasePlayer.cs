@@ -1,5 +1,4 @@
 using UnityEngine;
-using ExtensionMethods;
 
 /// <summary>
 /// Action to chase player.
@@ -7,10 +6,6 @@ using ExtensionMethods;
 [CreateAssetMenu(menuName = "FSM/Actions/Action Chase Player", fileName = "Action Chase Player")]
 sealed public class ActionChasePlayer : FSMAction
 {
-    [Range(1, 15)] [SerializeField] private float distanceFromTarget;
-
-    private readonly float ROTATIONSPEED = 3;
-
     public override void Execute(StateController<Enemy> ai)
     {
         ChasePlayer(ai);
@@ -18,29 +13,24 @@ sealed public class ActionChasePlayer : FSMAction
 
     private void ChasePlayer(StateController<Enemy> ai)
     {
-        if (ai.Controller.CurrentTarget != null)
-        {
-            ai.Controller.transform.LookAtYLerp(ai.Controller.CurrentTarget, ROTATIONSPEED);
-        }
-
         // If the agent has reached its final destination
         if (ai.Controller.CurrentTarget != null)
         {
             if (Vector3.Distance(
-                ai.Controller.transform.position, ai.Controller.CurrentTarget.position) < distanceFromTarget)
+                ai.Controller.transform.position, ai.Controller.CurrentTarget.position) > ai.Controller.DistanceToKeepFromTarget)
             {
-                
-            }
-            else
-            {
-                ai.Controller.Agent.SetDestination(ai.Controller.transform.position + ai.Controller.transform.forward);
+                if (ai.Controller.WalkingBackwards == false)
+                {
+                    ai.Controller.Agent.SetDestination(ai.Controller.transform.position + ai.Controller.transform.forward);
+                }
             }
         }
     }
 
     public override void OnEnter(StateController<Enemy> ai)
     {
-        // Left blank on purpose
+        ai.Controller.DistanceToKeepFromTarget = Random.Range(
+            ai.Controller.Values.DistanceToKeepFromTarget.x, ai.Controller.Values.DistanceToKeepFromTarget.y);
     }
 
     public override void OnExit(StateController<Enemy> ai)

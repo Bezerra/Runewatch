@@ -12,7 +12,8 @@ namespace ExtensionMethods
         /// Has a maximum angle to look.
         /// </summary>
         /// <param name="from">This transform.</param>
-        /// <param name="finalPosition">Final position to check.</param>
+        /// <param name="finalPosition">Final position to check. 
+        /// Direction is not needed, only the vector3 with position.</param>
         /// <returns>Returns true if this transform is looking towards that 
         /// position.</returns>
         public static bool IsLookingTowards(this Transform from,
@@ -28,7 +29,8 @@ namespace ExtensionMethods
         /// Has a maximum angle to look.
         /// </summary>
         /// <param name="from">This transform.</param>
-        /// <param name="finalPosition">Final position to check.</param>
+        /// <param name="finalPosition">Final position to check.
+        /// Direction is not needed, only the vector3 with position.</param>
         /// <returns>Returns true if this transform is looking towards that 
         /// position.</returns>
         public static bool IsLookingTowards(this Transform from,

@@ -15,11 +15,11 @@ public abstract class CharacterValuesSO : ScriptableObject
     [InlineButton("ChangeFileName", "Update File Name")]
     [SerializeField] private new string name;
 
-    // Type of this character
+    [BoxGroup("General Values")]
     [SerializeField] private CharacterType characterType;
     public CharacterType Type => characterType;
 
-    // Movement speed
+    [BoxGroup("General Values")]
     [Range(1, 10)] [SerializeField] protected float speed;
     public float Speed => speed;
 
