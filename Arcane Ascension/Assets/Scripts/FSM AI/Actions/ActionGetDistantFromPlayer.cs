@@ -25,7 +25,7 @@ sealed public class ActionGetDistantFromPlayer : FSMAction
                 ai.Controller.WalkingBackwards = true;
 
                 Ray rayToback = new Ray(ai.Controller.transform.position + ai.Controller.transform.forward, -ai.Controller.transform.forward);
-                if (Physics.Raycast(rayToback, 3, Layers.Walls))
+                if (Physics.Raycast(rayToback, 3, Layers.WallsFloor))
                 {
                     Ray rayToSide;
                     if (ai.Controller.DirectionIfBackBlocked == Direction.Right)
@@ -33,7 +33,7 @@ sealed public class ActionGetDistantFromPlayer : FSMAction
                     else
                         rayToSide = new Ray(ai.Controller.transform.position, -ai.Controller.transform.right);
 
-                    if (Physics.Raycast(rayToSide, 3, Layers.Walls))
+                    if (Physics.Raycast(rayToSide, 3, Layers.WallsFloor))
                     {
                         if (ai.Controller.DirectionIfBackBlocked == Direction.Right)
                         {

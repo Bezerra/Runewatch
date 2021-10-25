@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -32,6 +33,10 @@ public class PlayerMovement : MonoBehaviour
     private float gravityIncrement;
     private readonly float DEFAULTGRAVITYINCREMENT = 1;    
     private readonly float GRAVITY = 100f;
+
+    // Character controller collider, don't change these values
+    private readonly float CONTROLLERRADIUSDEFAULT = 0.75f;
+    private readonly float CONTROLLERRADIUSONAIR = 0.5f;
 
     private void Awake()
     {
@@ -80,6 +85,17 @@ public class PlayerMovement : MonoBehaviour
         Vector3 forwardMovement = input.Movement.y * Speed * transform.forward;
         direction = sideMovement + forwardMovement;
         if (input.Movement == Vector2.zero) direction = Vector3.zero;
+
+        if (characterController.isGrounded)
+        {
+            if (characterController.radius != CONTROLLERRADIUSDEFAULT)
+                characterController.radius =
+                    Mathf.Lerp(characterController.radius, CONTROLLERRADIUSDEFAULT, Time.deltaTime * 50f);
+        }
+        else
+        {
+            characterController.radius = CONTROLLERRADIUSONAIR;
+        }
     }
 
     private void FixedUpdate()
@@ -131,6 +147,7 @@ public class PlayerMovement : MonoBehaviour
             dashingTimer = Time.time;
             lastDirectionPressed = direction;
             canDash = false;
+            OnEventDash();
 
             // Cancels jump and gravity
             if (jumpingCoroutine != null)
@@ -216,6 +233,7 @@ public class PlayerMovement : MonoBehaviour
         {
             yield return wffu;
 
+            // Starts incrementing gravity until it reaches its peak
             if (gravityIncrement >= 20) gravityIncrement = 20;
             else gravityIncrement += player.Values.GravityIncrement;
 
@@ -254,4 +272,7 @@ public class PlayerMovement : MonoBehaviour
         gravityIncrement = DEFAULTGRAVITYINCREMENT;
         fallingCoroutine = null;
     }
+
+    protected virtual void OnEventDash() => EventDash?.Invoke();
+    public event Action EventDash;
 }
