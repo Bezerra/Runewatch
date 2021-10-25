@@ -7,16 +7,16 @@ using UnityEngine;
 public class PlayerFinalCameraDashEvent : MonoBehaviour
 {
     private PlayerMovement playerMovement;
+    private Player player;
     private YieldInstruction wffu;
     private Vector3 defaultCameraPosition;
-    private float dashHalfTime;
 
     private void Awake()
     {
         playerMovement = GetComponentInParent<PlayerMovement>();
         wffu = new WaitForFixedUpdate();
         defaultCameraPosition = transform.localPosition;
-        dashHalfTime = GetComponentInParent<Player>().Values.DashingTime * 0.5f;
+        player = GetComponentInParent<Player>();
     }
 
     private void OnEnable()
@@ -39,17 +39,17 @@ public class PlayerFinalCameraDashEvent : MonoBehaviour
     private IEnumerator DashCoroutine()
     {
         float currentTime = 0;
-        while (currentTime < dashHalfTime)
+        while (currentTime < player.Values.DashingTime * 0.5f)
         {
             transform.localPosition = Vector3.MoveTowards(
-                transform.localPosition, defaultCameraPosition + Vector3.up, Time.fixedDeltaTime * 2.5f);
+                transform.localPosition, defaultCameraPosition + Vector3.up, Time.fixedDeltaTime * player.Values.CameraForOnDash);
             currentTime += Time.fixedDeltaTime;
             yield return wffu;
         }
         while(transform.localPosition.y > defaultCameraPosition.y)
         {
             transform.localPosition = Vector3.MoveTowards(
-                transform.localPosition, defaultCameraPosition, Time.fixedDeltaTime * 1.5f);
+                transform.localPosition, defaultCameraPosition, Time.fixedDeltaTime * player.Values.CameraForOnDash * 0.66f);
             yield return wffu;
         }
     }

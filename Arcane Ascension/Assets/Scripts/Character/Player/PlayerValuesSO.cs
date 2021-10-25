@@ -9,9 +9,9 @@ using Sirenix.OdinInspector;
 public class PlayerValuesSO : CharacterValuesSO
 {
     [BoxGroup("General Values")]
-    [Tooltip("Multiplies normal speed for this value")]
-    [Range(1.1f, 2f)] [SerializeField] private float runningSpeedMultiplier;
-    public float RunningSpeed => speed * runningSpeedMultiplier;
+    [Tooltip("Running speed.")]
+    [Range(5f, 15)] [SerializeField] private float runningSpeed = 10f;
+    public float RunningSpeed => runningSpeed;
 
     [BoxGroup("Jump")]
     [Range(0, 1f)] [SerializeField] private float gravityIncrement;
@@ -37,12 +37,16 @@ public class PlayerValuesSO : CharacterValuesSO
 
     [BoxGroup("Dash")]
     [Tooltip("Default value = 7.5f. Initial dash force.")]
-    [Range(3, 11f)] [SerializeField] private float dashDefaultValue = 7.5f;
+    [Range(5, 10)] [SerializeField] private float dashDefaultValue = 7.5f;
     public float DashDefaultValue => dashDefaultValue;
 
     [BoxGroup("Arms")]
     [Range(1, 15)] [SerializeField] private float handsMovementSpeed;
     public float HandsMovementSpeed => handsMovementSpeed;
+
+    [BoxGroup("Camera")]
+    [Range(2, 10f)] [SerializeField] private float cameraForOnDash;
+    public float CameraForOnDash => cameraForOnDash;
 
     [BoxGroup("Camera")]
     [Range(10, 40)] [SerializeField] private float delayedCameraRotationSpeed;
