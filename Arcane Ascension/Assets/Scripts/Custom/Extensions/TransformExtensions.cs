@@ -92,6 +92,19 @@ namespace ExtensionMethods
         }
 
         /// <summary>
+        /// Rotates this transform towards another transform on Y only.
+        /// </summary>
+        /// <param name="from">This transform.</param>
+        /// <param name="to">Other vector3.</param>
+        /// <param name="rotationSpeed">Speed of the rotation.</param>
+        public static void LookAtYLerp(this Transform from, Vector3 to, float rotationSpeed = 1)
+        {
+            Quaternion finalRotation = Quaternion.LookRotation(from.Direction(to), Vector3.up);
+            from.transform.rotation = Quaternion.Lerp(from.transform.rotation, finalRotation, Time.deltaTime * rotationSpeed);
+            from.transform.eulerAngles = new Vector3(0, from.transform.eulerAngles.y, 0);
+        }
+
+        /// <summary>
         /// Returns direction to some position.
         /// </summary>
         /// <param name="from">Initial transform position.</param>

@@ -41,12 +41,10 @@ sealed public class DecisionCanSeePlayer : FSMDecision
                     {
                         ai.Controller.CurrentTarget = colliders[i].transform;
                     }
-                    
                     return true;
                 }
             } 
         }
-
         return false;
     }
 

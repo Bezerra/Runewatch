@@ -29,11 +29,13 @@ sealed public class ActionGetDistantFromPlayer : FSMAction
                 {
                     Ray rayToSide;
                     if (ai.Controller.DirectionIfBackBlocked == Direction.Right)
-                        rayToSide = new Ray(ai.Controller.transform.position, ai.Controller.transform.right);
+                        rayToSide = new Ray(ai.Controller.transform.position + ai.Controller.transform.right,
+                            -ai.Controller.transform.right);
                     else
-                        rayToSide = new Ray(ai.Controller.transform.position, -ai.Controller.transform.right);
+                        rayToSide = new Ray(ai.Controller.transform.position - ai.Controller.transform.right,
+                            ai.Controller.transform.right);
 
-                    if (Physics.Raycast(rayToSide, 3, Layers.WallsFloor))
+                    if (Physics.Raycast(rayToSide, 4, Layers.WallsFloor))
                     {
                         if (ai.Controller.DirectionIfBackBlocked == Direction.Right)
                         {

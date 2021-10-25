@@ -164,6 +164,43 @@ public class AIEditor : OdinMenuEditorWindow
 
             ScriptableObject.CreateInstance<ActionGetDistantFromPlayer>();
         }
+
+        [Button("Create action - Run From Player", ButtonSizes.Large)]
+        private void ActionRunFromPlayer()
+        {
+            AIAction = ScriptableObject.CreateInstance<ActionRunFromPlayer>();
+            AssetDatabase.CreateAsset(AIAction,
+                "Assets/Resources/Scriptable Objects/AI/" + "Action Run From Player " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            ScriptableObject.CreateInstance<ActionRunFromPlayer>();
+        }
+
+        [Button("Create action - Look Away From Player", ButtonSizes.Large)]
+        private void ActionLookAwayFromPlayer()
+        {
+            AIAction = ScriptableObject.CreateInstance<ActionLookAwayFromPlayer>();
+            AssetDatabase.CreateAsset(AIAction,
+                "Assets/Resources/Scriptable Objects/AI/" + "Action Look Away From Player " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            ScriptableObject.CreateInstance<ActionLookAwayFromPlayer>();
+        }
+
+        [Button("Create action - Get Player Target", ButtonSizes.Large)]
+        private void ActionGetPlayerTarget()
+        {
+            AIAction = ScriptableObject.CreateInstance<ActionGetPlayerTarget>();
+            AssetDatabase.CreateAsset(AIAction,
+                "Assets/Resources/Scriptable Objects/AI/" + "Action Get Player Target " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            ScriptableObject.CreateInstance<ActionGetPlayerTarget>();
+        }
+        
     }
 
     public class CreateNewDecision

@@ -13,7 +13,7 @@ public class DecisionTookDamage : FSMDecision
         if (tookDamage && ai.Controller.PlayerScript != null)
         {
             if (ai.Controller.CurrentTarget == null)
-                ai.Controller.CurrentTarget = FindObjectOfType<Player>().Eyes.transform;
+                ai.Controller.CurrentTarget = ai.Controller.PlayerScript.Eyes.transform;
         }
         return tookDamage;
     }
