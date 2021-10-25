@@ -17,23 +17,41 @@ public class Enemy : Character
     public EnemyCharacterSO AllValues => allValues as EnemyCharacterSO;
 
     // Movement properties
-    public float WaitingTime        { get; set; }
-    public float Distance           { get; set; }
-    public float TimePointReached   { get; set; }
-    public bool ReachedPoint        { get; set; }
+    /// <summary>
+    /// Getter used to know if the enemy is picking a patrol position.
+    /// </summary>
+    public bool PickingPatrolPosition { get; set; }
+
+    /// <summary>
+    /// Current distance for patrols.
+    /// </summary>
+    public float CurrentDistance { get; set; }
+
+    /// <summary>
+    /// Getter used to know the time a final point was reached.
+    /// </summary>
+    public float TimePointReached { get; set; }
+
+    /// <summary>
+    /// Current waiting time after reaching a final point.
+    /// </summary>
+    public float CurrentWaitingTime { get; set; }
+
     private Vector3 playerLastKnownPosition;
+    /// <summary>
+    /// Sets player's last known position with a random offset depending on values distance.
+    /// </summary>
     public Vector3 PlayerLastKnownPosition
     {
         get => playerLastKnownPosition;
         set
         {
             Vector3 offset = 
-                new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
+                new Vector3(Random.Range(-Values.Distance.x, Values.Distance.x), 0, 
+                Random.Range(-Values.Distance.x, Values.Distance.x));
             playerLastKnownPosition = value + offset;
         }
     }
-
-    public float TimeWhenReachedFinalPosition { get; set; }
 
     // Roll properties
     public float RollTime           { get; set; }
@@ -44,11 +62,8 @@ public class Enemy : Character
     public float TimeOfLastAttack   { get; set; }
     public float AttackDelay        { get; set; }
 
-    // Movement properties
-    public float TimeOfMovement { get; set; }
 
     // General properties for ai
-
     /// <summary>
     /// Character controller.
     /// </summary>

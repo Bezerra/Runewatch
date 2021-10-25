@@ -9,31 +9,31 @@ sealed public class ActionRandomPatrol : FSMAction
     /// <summary>
     /// Runs on update.
     /// </summary>
-    /// <param name="aiCharacter"></param>
-    public override void Execute(StateController<Enemy> aiCharacter)
+    /// <param name="ai"></param>
+    public override void Execute(StateController<Enemy> ai)
     {
-        Patrol(aiCharacter);
+        Patrol(ai);
     }
 
     /// <summary>
     /// Patrols an area with random values.
     /// </summary>
-    /// <param name="aiCharacter">AI Character.</param>
-    private void Patrol(StateController<Enemy> aiCharacter)
+    /// <param name="ai">AI Character.</param>
+    private void Patrol(StateController<Enemy> ai)
     {
         // If the agent has reached its final destination
-        if (aiCharacter.Controller.Agent.remainingDistance <= 
-            aiCharacter.Controller.Agent.stoppingDistance && 
-            !aiCharacter.Controller.Agent.pathPending)
+        if (ai.Controller.Agent.remainingDistance <= 
+            ai.Controller.Agent.stoppingDistance && 
+            !ai.Controller.Agent.pathPending)
         {
-            if (aiCharacter.Controller.ReachedPoint)
+            if (ai.Controller.PickingPatrolPosition)
             {
-                UpdateVariablesValues(aiCharacter);
+                UpdateVariablesValues(ai);
             }
 
-            if (Time.time - aiCharacter.Controller.TimePointReached > aiCharacter.Controller.WaitingTime)
+            if (Time.time - ai.Controller.TimePointReached > ai.Controller.CurrentWaitingTime)
             {
-                SetNewDestination(aiCharacter);
+                SetNewDestination(ai);
             }
         }
     }
@@ -41,43 +41,43 @@ sealed public class ActionRandomPatrol : FSMAction
     /// <summary>
     /// Updates movement variables;
     /// </summary>
-    private void UpdateVariablesValues(StateController<Enemy> aiCharacter)
+    private void UpdateVariablesValues(StateController<Enemy> ai)
     {
-        aiCharacter.Controller.Distance = Random.Range(
-            aiCharacter.Controller.Values.Distance.x, aiCharacter.Controller.Values.Distance.y);
+        ai.Controller.CurrentDistance = Random.Range(
+            ai.Controller.Values.Distance.x, ai.Controller.Values.Distance.y);
 
-        aiCharacter.Controller.WaitingTime = Random.Range(
-            aiCharacter.Controller.Values.WaitingTime.x, aiCharacter.Controller.Values.WaitingTime.y);
+        ai.Controller.CurrentWaitingTime = Random.Range(
+            ai.Controller.Values.WaitingTime.x, ai.Controller.Values.WaitingTime.y);
 
-        aiCharacter.Controller.ReachedPoint = false;
-        aiCharacter.Controller.TimePointReached = Time.time;
+        ai.Controller.PickingPatrolPosition = false;
+        ai.Controller.TimePointReached = Time.time;
     }
 
     /// <summary>
     /// Sets new destination with random values.
     /// </summary>
-    /// <param name="aiCharacter">AI character.</param>
-    private void SetNewDestination(StateController<Enemy> aiCharacter)
+    /// <param name="ai">AI character.</param>
+    private void SetNewDestination(StateController<Enemy> ai)
     {
         Vector3 finalDestination =
                     new Vector3(
-                        Random.Range(-aiCharacter.Controller.Distance, aiCharacter.Controller.Distance),
+                        Random.Range(-ai.Controller.CurrentDistance, ai.Controller.CurrentDistance),
                         0,
-                        Random.Range(-aiCharacter.Controller.Distance, aiCharacter.Controller.Distance));
+                        Random.Range(-ai.Controller.CurrentDistance, ai.Controller.CurrentDistance));
 
-        aiCharacter.Controller.Agent.SetDestination(aiCharacter.Controller.transform.position + finalDestination);
+        ai.Controller.Agent.SetDestination(ai.Controller.transform.position + finalDestination);
 
-        aiCharacter.Controller.ReachedPoint = true;
+        ai.Controller.PickingPatrolPosition = true;
     }
 
-    public override void OnEnter(StateController<Enemy> aiCharacter)
+    public override void OnEnter(StateController<Enemy> ai)
     {
-        aiCharacter.Controller.Agent.isStopped = false;
-        UpdateVariablesValues(aiCharacter);
-        SetNewDestination(aiCharacter);
+        ai.Controller.Agent.isStopped = false;
+        UpdateVariablesValues(ai);
+        SetNewDestination(ai);
     }
 
-    public override void OnExit(StateController<Enemy> aiCharacter)
+    public override void OnExit(StateController<Enemy> ai)
     {
         // Left blank on purpose
     }

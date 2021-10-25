@@ -128,6 +128,18 @@ public class AIEditor : OdinMenuEditorWindow
 
             ScriptableObject.CreateInstance<ActionAttack>();
         }
+
+        [Button("Create action - Move To Last Known Position", ButtonSizes.Large)]
+        private void ActionMoveLastKnownPosition()
+        {
+            AIAction = ScriptableObject.CreateInstance<ActionMoveLastKnownPosition>();
+            AssetDatabase.CreateAsset(AIAction,
+                "Assets/Resources/Scriptable Objects/AI/" + "Action Move To Last Known Position " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            ScriptableObject.CreateInstance<ActionMoveLastKnownPosition>();
+        }
     }
 
     public class CreateNewDecision
@@ -168,6 +180,18 @@ public class AIEditor : OdinMenuEditorWindow
             AssetDatabase.SaveAssets();
 
             ScriptableObject.CreateInstance<DecisionTookDamage>();
+        }
+
+        [Button("Create decision - Max Time In State When Stopped", ButtonSizes.Large)]
+        private void DecisionMaxTimeInStateWhenStopped()
+        {
+            AIDecision = ScriptableObject.CreateInstance<DecisionMaxTimeInStateWhenStopped>();
+            AssetDatabase.CreateAsset(
+                AIDecision, "Assets/Resources/Scriptable Objects/AI/" + "Decision Max Time In State When Stopped " +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            ScriptableObject.CreateInstance<DecisionMaxTimeInStateWhenStopped>();
         }
     }
 

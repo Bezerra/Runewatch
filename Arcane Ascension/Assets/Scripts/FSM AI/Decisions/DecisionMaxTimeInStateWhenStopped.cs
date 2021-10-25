@@ -8,26 +8,24 @@ using ExtensionMethods;
     fileName = "Decision Max Time In State When Stopped")]
 sealed public class DecisionMaxTimeInStateWhenStopped : FSMDecision
 {
-    [SerializeField] private float timeToStayInState;
-
     public override bool CheckDecision(StateController<Enemy> ai)
     {
         return RemainInState(ai);
     }
 
     /// <summary>
-    /// Looks for player.
+    /// Remains in this state for a random value depending on the enemy waiting time.
     /// </summary>
     /// <param name="ai">AI Controller.</param>
     /// <returns>True if it detects a player without a wall in front.</returns>
     private bool RemainInState(StateController<Enemy> ai)
     {
         if (ai.Controller.Agent.remainingDistance < 2f)
-            ai.Controller.TimeWhenReachedFinalPosition += Time.deltaTime;
+            ai.Controller.TimePointReached += Time.deltaTime;
         else
-            ai.Controller.TimeWhenReachedFinalPosition = 0;
+            ai.Controller.TimePointReached = 0;
 
-        if (ai.Controller.TimeWhenReachedFinalPosition > timeToStayInState)
+        if (ai.Controller.TimePointReached > ai.Controller.CurrentWaitingTime)
             return true;
 
         return false;
@@ -35,7 +33,10 @@ sealed public class DecisionMaxTimeInStateWhenStopped : FSMDecision
 
     public override void OnEnter(StateController<Enemy> ai)
     {
-        ai.Controller.TimeWhenReachedFinalPosition = 0;
+        ai.Controller.TimePointReached = 0;
+
+        ai.Controller.CurrentWaitingTime = Random.Range(
+            ai.Controller.Values.WaitingTime.x, ai.Controller.Values.WaitingTime.y);
     }
 
     public override void OnExit(StateController<Enemy> ai)
