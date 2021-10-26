@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f89d26ff51bb574b844d8cff4149c89, type: 3}
-  m_Name: Player Stats
+  m_Name: Enemy Dummy Stats
   m_EditorClassIdentifier: 
-  name: Player Stats
+  name: Enemy Example Stats
   notes: 
-  defaultHealth: 100
+  defaultHealth: 2000
   defaultArmor: 0
   element: 0
-  defaultMana: 100
-  defaultManaRegenAmount: 2
-  defaultManaRegenTime: 1
-  defaultManaRegenSteal: 10
+  defaultMana: 1
+  defaultManaRegenAmount: 0.1
+  defaultManaRegenTime: 2
+  defaultManaRegenSteal: 0.1
   baseDamageMultiplier: 1
   criticalChance: 0.1
   availableSpells:
   - {fileID: 11400000, guid: ece89201399664e43a5c2cc72bd908d8, type: 2}
+  - {fileID: 11400000, guid: 5ddab0765f7d6c146bbd1e54f2bab83e, type: 2}
