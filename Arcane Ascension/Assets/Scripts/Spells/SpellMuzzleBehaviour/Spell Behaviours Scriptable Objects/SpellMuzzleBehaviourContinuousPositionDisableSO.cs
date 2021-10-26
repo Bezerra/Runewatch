@@ -9,7 +9,7 @@ public class SpellMuzzleBehaviourContinuousPositionDisableSO : SpellMuzzleBehavi
 {
     public override void StartBehaviour(SpellMuzzleBehaviourContinuous parent)
     {
-        //throw new System.NotImplementedException();
+        // Left blank on purpose
     }
 
     /// <summary>

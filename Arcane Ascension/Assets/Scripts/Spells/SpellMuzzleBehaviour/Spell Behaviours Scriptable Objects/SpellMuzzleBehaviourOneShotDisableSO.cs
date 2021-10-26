@@ -7,7 +7,8 @@ using UnityEngine;
     fileName = "Spell Muzzle Behaviour Disable")]
 public class SpellMuzzleBehaviourOneShotDisableSO : SpellMuzzleBehaviourAbstractOneShotSO
 {
-    [Range(0, 20)] [SerializeField] private byte disableAfterSeconds;
+    // 4 secs minimum so it doesn't cut sounds
+    [Range(4, 20f)] [SerializeField] private byte disableAfterSeconds;
 
     /// <summary>
     /// Executed when the spell is enabled.
@@ -35,11 +36,10 @@ public class SpellMuzzleBehaviourOneShotDisableSO : SpellMuzzleBehaviourAbstract
 
                 return;
             }
-        }
-
-        if (parent.EffectNotNull)
-        {
-            parent.DisableMuzzleSpell();
+            else
+            {
+                parent.DisableMuzzleSpell();
+            }
         }
 
         // Safety measure if too much time passes and the effect didn't get disabled

@@ -43,6 +43,11 @@ sealed public class SpellBehaviourForwardSO : SpellBehaviourAbstractOneShotSO
         parent.SpellStartedMoving = true;
         parent.ColliderTrigger.enabled = true;
         parent.TimeSpawned = Time.time;
+
+        if (parent.Spell.Sounds.Projectile != null)
+        {
+            parent.Spell.Sounds.Projectile.PlaySound(parent.AudioS);
+        }
     }
 
     public override void ContinuousUpdateBeforeSpellBehaviour(SpellBehaviourOneShot parent)

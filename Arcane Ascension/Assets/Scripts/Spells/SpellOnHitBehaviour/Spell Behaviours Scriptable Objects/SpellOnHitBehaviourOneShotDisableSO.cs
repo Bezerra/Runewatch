@@ -7,7 +7,7 @@ using UnityEngine;
     fileName = "Spell Hit Behaviour Disable")]
 sealed public class SpellOnHitBehaviourOneShotDisableSO : SpellOnHitBehaviourAbstractOneShotSO
 {
-    [Range(0.1f, 20)][SerializeField] private float disableAfterSeconds;
+    [Range(3f, 20)][SerializeField] private float disableAfterSeconds;
 
     /// <summary>
     /// Executed when the spell is enabled.

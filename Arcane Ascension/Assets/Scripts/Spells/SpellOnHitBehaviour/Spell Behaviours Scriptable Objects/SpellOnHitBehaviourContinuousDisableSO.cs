@@ -7,7 +7,7 @@ using UnityEngine;
     fileName = "Spell On Hit Behaviour Disable")]
 public class SpellOnHitBehaviourContinuousDisableSO : SpellOnHitBehaviourAbstractContinuousSO
 {
-    [Range(0f, 10f)] [SerializeField] private float disableAfterSeconds;
+    [Range(1f, 10f)] [SerializeField] private float disableAfterSeconds;
 
     public override void StartBehaviour(SpellOnHitBehaviourContinuous parent)
     {

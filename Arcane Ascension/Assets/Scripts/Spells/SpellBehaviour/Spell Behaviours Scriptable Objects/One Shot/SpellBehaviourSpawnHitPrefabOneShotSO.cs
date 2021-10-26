@@ -30,8 +30,6 @@ public class SpellBehaviourSpawnHitPrefabOneShotSO : SpellBehaviourAbstractOneSh
 
     public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
-        
-
         // Direction of the current hit to initial spawn
         Vector3 directionToInitialSpawn = parent.transform.Direction(parent.PositionOnSpawnAndHit);
 
@@ -83,7 +81,13 @@ public class SpellBehaviourSpawnHitPrefabOneShotSO : SpellBehaviourAbstractOneSh
 
             if (onHitBehaviourGameObject.TryGetComponent<SpellOnHitBehaviourOneShot>(out SpellOnHitBehaviourOneShot onHitBehaviour))
             {
-                onHitBehaviour.Spell = parent.Spell;
+                if (onHitBehaviour.Spell != parent.Spell)
+                    onHitBehaviour.Spell = parent.Spell;
+
+                if (parent.Spell.Sounds.Hit != null)
+                {
+                    onHitBehaviour.Spell.Sounds.Hit.PlaySound(onHitBehaviour.AudioS);
+                }
             }
         }
     }

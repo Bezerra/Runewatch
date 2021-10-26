@@ -6,8 +6,19 @@ using UnityEngine.VFX;
 /// </summary>
 public abstract class SpellOnHitBehaviourAbstract : MonoBehaviour, IVisualEffect
 {
+    /// <summary>
+    /// Spell audio source.
+    /// </summary>
+    public AudioSource AudioS { get; private set; }
+
+    /// <summary>
+    /// Spell interface property.
+    /// </summary>
     public abstract ISpell Spell { get; set; }
 
+    /// <summary>
+    /// Time of spawn.
+    /// </summary>
     public abstract float TimeSpawned { get; set; }
 
     // Effects
@@ -18,6 +29,7 @@ public abstract class SpellOnHitBehaviourAbstract : MonoBehaviour, IVisualEffect
     {
         hitEffectVFX = GetComponentsInChildren<VisualEffect>();
         hitEffectParticleSystem = GetComponentsInChildren<ParticleSystem>();
+        AudioS = GetComponent<AudioSource>();
     }
 
     /// <summary>

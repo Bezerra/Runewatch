@@ -11,6 +11,11 @@ public abstract class SpellMuzzleBehaviourAbstract : MonoBehaviour, IVisualEffec
     private ParticleSystem[] hitEffectParticleSystem;
 
     /// <summary>
+    /// Spell audio source.
+    /// </summary>
+    public AudioSource AudioS { get; private set; }
+
+    /// <summary>
     /// This variable is set on spell behaviour after the spell is cast.
     /// </summary>
     public abstract ISpell Spell { get; set; }
@@ -19,6 +24,7 @@ public abstract class SpellMuzzleBehaviourAbstract : MonoBehaviour, IVisualEffec
 
     protected virtual void Awake()
     {
+        AudioS = GetComponent<AudioSource>();
         hitEffectVFX = GetComponentsInChildren<VisualEffect>();
         hitEffectParticleSystem = GetComponentsInChildren<ParticleSystem>();
     }

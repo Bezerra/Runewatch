@@ -20,6 +20,11 @@ sealed public class SpellBehaviourSpawnMuzzlePrefabOneShotSO : SpellBehaviourAbs
         {
             if (muzzleBehaviour.Spell != parent.Spell)
                 muzzleBehaviour.Spell = parent.Spell;
+
+            if (parent.Spell.Sounds.Muzzle != null)
+            {
+                muzzleBehaviour.Spell.Sounds.Muzzle.PlaySound(muzzleBehaviour.AudioS);
+            }
         }
     }
 
