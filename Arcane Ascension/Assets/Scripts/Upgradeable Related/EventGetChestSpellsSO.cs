@@ -24,6 +24,7 @@ public class EventGetChestSpellsSO : EventAbstractSO
 
         // Array with 3 random spells
         ISpell[] results = GetSpell();
+        Debug.Log("Got 3 spells");
     }
 
     private ISpell[] GetSpell()

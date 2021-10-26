@@ -15,9 +15,4 @@ public class EventOnInteraction : MonoBehaviour, IInterectable
         if (eventOnInteraction != null)
             eventOnInteraction.Execute();
     }
-
-    private void Start()
-    {
-        Execute();
-    }
 }

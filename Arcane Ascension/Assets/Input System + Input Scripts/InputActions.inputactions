@@ -124,6 +124,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "e10cad96-58af-4949-8508-f2e9f3b6bb5e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -344,6 +352,17 @@
                     "processors": "",
                     "groups": "Computer",
                     "action": "CastBasicSpell",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e53e149f-386b-4e13-bffb-45ceb490a43f",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Computer",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

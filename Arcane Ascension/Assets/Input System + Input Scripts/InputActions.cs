@@ -137,6 +137,14 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""e10cad96-58af-4949-8508-f2e9f3b6bb5e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -357,6 +365,17 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Computer"",
                     ""action"": ""CastBasicSpell"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e53e149f-386b-4e13-bffb-45ceb490a43f"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Computer"",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -990,6 +1009,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Gameplay_QuickLoad = m_Gameplay.FindAction("QuickLoad", throwIfNotFound: true);
         m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
         m_Gameplay_CheatConsole = m_Gameplay.FindAction("CheatConsole", throwIfNotFound: true);
+        m_Gameplay_Interact = m_Gameplay.FindAction("Interact", throwIfNotFound: true);
         // Interface
         m_Interface = asset.FindActionMap("Interface", throwIfNotFound: true);
         m_Interface_TrackedDeviceOrientation = m_Interface.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
@@ -1072,6 +1092,7 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_QuickLoad;
     private readonly InputAction m_Gameplay_Pause;
     private readonly InputAction m_Gameplay_CheatConsole;
+    private readonly InputAction m_Gameplay_Interact;
     public struct GameplayActions
     {
         private @InputActions m_Wrapper;
@@ -1091,6 +1112,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @QuickLoad => m_Wrapper.m_Gameplay_QuickLoad;
         public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
         public InputAction @CheatConsole => m_Wrapper.m_Gameplay_CheatConsole;
+        public InputAction @Interact => m_Wrapper.m_Gameplay_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1145,6 +1167,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @CheatConsole.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCheatConsole;
                 @CheatConsole.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCheatConsole;
                 @CheatConsole.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCheatConsole;
+                @Interact.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -1194,6 +1219,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @CheatConsole.started += instance.OnCheatConsole;
                 @CheatConsole.performed += instance.OnCheatConsole;
                 @CheatConsole.canceled += instance.OnCheatConsole;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
         }
     }
@@ -1395,6 +1423,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnQuickLoad(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnCheatConsole(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
     public interface IInterfaceActions
     {

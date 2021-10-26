@@ -138,6 +138,10 @@ public class PlayerInputCustom : MonoBehaviour
     {
         if (context.started) OnCheatConsole();
     }
+    public void HandleInteract(InputAction.CallbackContext context)
+    {
+        if (context.started) OnInteract();
+    }
     ///////////////////////// Events /////////////////////////////////////////
     protected virtual void OnDash() => Dash?.Invoke();
     public event Action Dash;
@@ -161,4 +165,6 @@ public class PlayerInputCustom : MonoBehaviour
     public event Action PauseGame;
     protected virtual void OnCheatConsole() => CheatConsole?.Invoke();
     public event Action CheatConsole;
+    protected virtual void OnInteract() => Interact?.Invoke();
+    public event Action Interact;
 }
