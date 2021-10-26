@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Interface for all spells.
 /// </summary>
-public interface ISpell: ISpellBehaviour, ISpellDamage
+public interface ISpell: ISpellBehaviour, ISpellDamage, ISpellSound
 {
     Texture Icon { get; }
     string Name { get; }

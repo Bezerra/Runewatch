@@ -57,10 +57,26 @@ public class AudioEmitter : MonoBehaviour
         sound[index].PlaySound(audioSource);
     }
 
+    /// <summary>
+    /// Plays a sound received on the parameter..
+    /// </summary>
+    /// <param name="sound">Sound asset to play.</param>
+    public void PlaySound(AbstractSoundScriptableObject sound)
+    {
+        sound.PlaySound(audioSource);
+    }
+
     private void Start()
     {
         audioSource.loop = loop ? audioSource.loop = true : audioSource.loop = false;
-        if (playOnAwake) PlaySound(playOnAwakeClipIndex);
+
+        // If sounds list contains any sounds, it plays that sound.
+        if (sound.Count > 0)
+        {
+            if (playOnAwake) 
+                PlaySound(playOnAwakeClipIndex);
+        }
+        
     }
 
     /// <summary>

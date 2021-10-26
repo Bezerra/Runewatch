@@ -90,6 +90,9 @@ public abstract class SpellSO : ScriptableObject, ISpell
     [Tooltip("What kind of damage will it be")]
     [SerializeField] protected DamageBehaviourAbstractSO damageBehaviour;
 
+    [BoxGroup("Sounds")]
+    [SerializeField] protected SpellSound sounds;
+
     // Properties
     public Texture Icon => icon;
     public string Name => name;
@@ -121,6 +124,7 @@ public abstract class SpellSO : ScriptableObject, ISpell
     public (GameObject, GameObject, GameObject, GameObject, GameObject) Prefab => 
         (spellPrefab, spellHitPrefab, spellMuzzlePrefab, spellHandEffectPrefab, areaHoverPrefab);
 
+    public SpellSound Sounds => sounds;
 
 #if UNITY_EDITOR
     protected void ChangeFileName()
