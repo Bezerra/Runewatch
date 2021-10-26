@@ -1,17 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
 
+/// <summary>
+/// Class implemented by audio emitters with possible occlusion.
+/// </summary>
 [RequireComponent(typeof(AudioSource))]
-public class AudioEmitter : MonoBehaviour
+public class AudioEmitterWithOcclusion : MonoBehaviour
 {
-    [SerializeField] private List<AbstractSoundScriptableObject> sound;
-
-    [SerializeField] private bool playOnAwake;
-    [SerializeField] private int playOnAwakeClipIndex;
-    [SerializeField] private bool loop;
-
     [Header("Should be equal to max distance on audio source")]
     [SerializeField] private float soundMaxDistance = 15f;
 
@@ -49,40 +44,9 @@ public class AudioEmitter : MonoBehaviour
     }
 
     /// <summary>
-    /// Plays a sound for a list of sound assets.
-    /// </summary>
-    /// <param name="index">Index of sounds asset list.</param>
-    public void PlaySound(int index)
-    {
-        sound[index].PlaySound(audioSource);
-    }
-
-    /// <summary>
-    /// Plays a sound received on the parameter..
-    /// </summary>
-    /// <param name="sound">Sound asset to play.</param>
-    public void PlaySound(AbstractSoundScriptableObject sound)
-    {
-        sound.PlaySound(audioSource);
-    }
-
-    private void Start()
-    {
-        audioSource.loop = loop ? audioSource.loop = true : audioSource.loop = false;
-
-        // If sounds list contains any sounds, it plays that sound.
-        if (sound.Count > 0)
-        {
-            if (playOnAwake) 
-                PlaySound(playOnAwakeClipIndex);
-        }
-        
-    }
-
-    /// <summary>
     /// If object is in a minimum distance from audio listener, it starts calls CheckSoundOcclusion method.
     /// </summary>
-    private void Update()
+    private void FixedUpdate()
     {
         if (listener != null)
         {

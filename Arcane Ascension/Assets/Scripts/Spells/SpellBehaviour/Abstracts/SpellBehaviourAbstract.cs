@@ -9,8 +9,25 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
     // Effects
     private VisualEffect[] hitEffectVFX;
     private ParticleSystem[] hitEffectParticleSystem;
+
+    /// <summary>
+    /// Spell interface property.
+    /// </summary>
     public abstract ISpell Spell { get; }
+
+    /// <summary>
+    /// Spell audio source.
+    /// </summary>
+    public AudioSource AudioS { get; private set; }
+
+    /// <summary>
+    /// Who cast character's hands.
+    /// </summary>
     public Transform Hand { get; private set; }
+
+    /// <summary>
+    /// Who cast character's eyes.
+    /// </summary>
     public Transform Eyes { get; private set; }
 
     /// <summary>
@@ -69,6 +86,7 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
     {
         hitEffectVFX = GetComponentsInChildren<VisualEffect>();
         hitEffectParticleSystem = GetComponentsInChildren<ParticleSystem>();
+        AudioS = GetComponent<AudioSource>();
     }
 
     protected virtual void OnEnable()
