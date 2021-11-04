@@ -6,8 +6,14 @@ using TMPro;
 /// </summary>
 public class AbilitySpellCard : MonoBehaviour
 {
-    // Spell of this card
+    /// <summary>
+    /// Property to know which spell this card contains.
+    /// </summary>
     public ISpell SpellOnCard { get; set; }
+
+    /// <summary>
+    /// Property used to know which spell was obtained.
+    /// </summary>
     public ISpell NewObtainedSpell { get; set; }
 
     // Components
@@ -15,7 +21,7 @@ public class AbilitySpellCard : MonoBehaviour
     private PlayerSpells playerSpells;
     private AbilitiesCanvas abilitiesCanvas;
 
-    // Full spells variables
+    // Full spells canvas
     [SerializeField] private GameObject fullSpellsCanvas;
 
     private void Awake()
@@ -66,6 +72,7 @@ public class AbilitySpellCard : MonoBehaviour
     /// <param name="slot"></param>
     public void AddSpellToSlot(int slot)
     {
+        playerSpells.RemoveSpell(slot);
         playerSpells.AddSpell(NewObtainedSpell as SpellSO, slot);
         abilitiesCanvas.DisableAll();
     }
