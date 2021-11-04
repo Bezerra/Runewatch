@@ -4,13 +4,20 @@ using UnityEngine;
 /// <summary>
 /// Scritable object responsible for getting 3 random spells from all spells list.
 /// </summary>
-[CreateAssetMenu(menuName = "Events/Event Get Chest Spell",
-    fileName = "Event Get Chest Spell")]
-public class EventGetChestSpellsSO : EventAbstractSO
+[CreateAssetMenu(menuName = "Events/Event Get Three Random Spells",
+    fileName = "Event Get Three Random Spells")]
+public class EventGetThreeRandomSpellSO : EventAbstractSO
 {
+    // Components to get possible spells
     private IList<SpellSO> allSpells;
     private PlayerSpells playerSpells;
 
+    // Scriptable object that saves spells result
+    [SerializeField] private RandomAbilitiesToChooseSO abilitiesToChose;
+
+    /// <summary>
+    /// Finds all spells and executes GetSpell method.
+    /// </summary>
     public override void Execute()
     {
         if (playerSpells == null)
@@ -21,12 +28,15 @@ public class EventGetChestSpellsSO : EventAbstractSO
         foreach (SpellSO spell in allSpellsDefault)
             allSpells.Add(spell);
 
-
-        // Array with 3 random spells
-        ISpell[] results = GetSpell();
+        // Creates array with 3 random spells
+        abilitiesToChose.SpellResult = GetSpell();
         Debug.Log("Got 3 spells");
     }
 
+    /// <summary>
+    /// Gets three random spells without repetition from the list of all spells.
+    /// </summary>
+    /// <returns></returns>
     private ISpell[] GetSpell()
     {
         ISpell[] resultSpells = new ISpell[3];

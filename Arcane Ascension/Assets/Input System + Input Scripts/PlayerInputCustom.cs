@@ -56,6 +56,18 @@ public class PlayerInputCustom : MonoBehaviour
         controls.SwitchCurrentActionMap("Interface");
     }
 
+    public void SwitchActionMapToAbilitiesUI()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+
+        Movement = Vector3.zero;
+        Camera = Vector3.zero;
+
+        uiModule.enabled = true;
+        controls.SwitchCurrentActionMap("AbilityChoice");
+    }
+
     public void SwitchActionMapToCheatConsole()
     {
         Cursor.lockState = CursorLockMode.Confined;

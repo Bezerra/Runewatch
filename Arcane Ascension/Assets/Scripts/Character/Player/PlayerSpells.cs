@@ -33,9 +33,9 @@ public class PlayerSpells : MonoBehaviour, ISaveable
 
     private void Start()
     {
-        //CurrentSpells.Length
+        //allSpells.Count
         // TEMPORARY TESTS // Adds 4 spells to current spells
-        for (int i = 1; i < allSpells.Count; i++)
+        for (int i = 1; i < 2; i++)
         {
             if (i <= CurrentSpells.Length)
             {
