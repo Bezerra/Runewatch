@@ -10,6 +10,7 @@ public class InterectableCanvasText : MonoBehaviour, IInterectableWithCanvas
     [Range(1f, 15f)][SerializeField] private float rangeToActivate;
     [SerializeField] private TextMeshProUGUI textMeshPro;
 
+    // Components
     private Camera cam;
 
     private void Awake()

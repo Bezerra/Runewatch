@@ -8,13 +8,18 @@ using UnityEngine;
 /// </summary>
 public class PlayerSpells : MonoBehaviour, ISaveable
 {
+    [SerializeField] private GameObject spellScroll;
+
+    // Components
     private PlayerInputCustom input;
     private PlayerHandEffect playerHandEffect;
     private Stats playerStats;
     private IList<SpellSO> allSpells;
 
-    // Array with all available spells.
+    // Array with all available spells
     public ISpell[] CurrentSpells { get; private set; }
+
+    // Currently selected spell index
     private byte currentSpellIndex;
 
     // Currently active spell from available spells
@@ -202,6 +207,18 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     {
         if (CurrentSpells[indexOfSpellToRemove] != null)
             CurrentSpells[indexOfSpellToRemove] = null;
+    }
+
+    /// <summary>
+    /// Creates a new spell scroll with the dropped spell.
+    /// </summary>
+    /// <param name="spellToDrop">Spell to drop.</param>
+    public void DropSpell(SpellSO spellToDrop)
+    {
+        GameObject spellDropped = 
+            Instantiate(spellScroll, transform.position + transform.forward * 2, Quaternion.identity);
+        spellDropped.GetComponent<DroppedSpell>().SpellDropped = spellToDrop;
+        spellDropped.GetComponent<InterectableCanvasText>().UpdateInformation(spellToDrop.Name);
     }
 
     /// <summary>

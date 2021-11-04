@@ -3449,6 +3449,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 515008283}
     m_Modifications:
+    - target: {fileID: 1474042433, guid: d2075db750418ff4ba595da60d813a9f, type: 3}
+      propertyPath: spellScroll
+      value: 
+      objectReference: {fileID: 2172836827759931067, guid: e03589534e1e01e44b2c636c354b6ecc, type: 3}
+    - target: {fileID: 1090331632516666571, guid: d2075db750418ff4ba595da60d813a9f, type: 3}
+      propertyPath: m_Lens.m_SensorSize.x
+      value: 1.7786561
+      objectReference: {fileID: 0}
     - target: {fileID: 8624258032535686394, guid: d2075db750418ff4ba595da60d813a9f, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -8490,7 +8498,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 460959769742836823, guid: 953f7e9858ac7a14f9d3f0745c7b5a4b, type: 3}
       propertyPath: m_Name
-      value: Scroll
+      value: Scroll Unknown Spells
+      objectReference: {fileID: 0}
+    - target: {fileID: 460959769742836823, guid: 953f7e9858ac7a14f9d3f0745c7b5a4b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 953f7e9858ac7a14f9d3f0745c7b5a4b, type: 3}
@@ -8551,6 +8563,67 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2da427394fb02334db729088200f4b9c, type: 3}
+--- !u!1001 &2877676396936737953
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2172836827759931065, guid: e03589534e1e01e44b2c636c354b6ecc, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172836827759931065, guid: e03589534e1e01e44b2c636c354b6ecc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172836827759931065, guid: e03589534e1e01e44b2c636c354b6ecc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172836827759931065, guid: e03589534e1e01e44b2c636c354b6ecc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.132
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172836827759931065, guid: e03589534e1e01e44b2c636c354b6ecc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172836827759931065, guid: e03589534e1e01e44b2c636c354b6ecc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172836827759931065, guid: e03589534e1e01e44b2c636c354b6ecc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172836827759931065, guid: e03589534e1e01e44b2c636c354b6ecc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172836827759931065, guid: e03589534e1e01e44b2c636c354b6ecc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172836827759931065, guid: e03589534e1e01e44b2c636c354b6ecc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172836827759931065, guid: e03589534e1e01e44b2c636c354b6ecc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172836827759931067, guid: e03589534e1e01e44b2c636c354b6ecc, type: 3}
+      propertyPath: m_Name
+      value: Scroll Known Spell
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172836827759931067, guid: e03589534e1e01e44b2c636c354b6ecc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e03589534e1e01e44b2c636c354b6ecc, type: 3}
 --- !u!1001 &5293588720824103080
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -36,6 +36,9 @@ public class AbilitySpellCard : MonoBehaviour
         UpdateInformation();
     }
 
+    /// <summary>
+    /// Updates card info.
+    /// </summary>
     public void UpdateInformation()
     {
         if (SpellOnCard != null)
@@ -60,8 +63,7 @@ public class AbilitySpellCard : MonoBehaviour
         else
         {
             // Activates new canvas and sets the currently selected spell on that canvas
-            gameObject.SetActive(false);
-            fullSpellsCanvas.GetComponent<AbilityFullSpellChoice>().SelectedSpell = SpellOnCard; // THIS BEFORE SETTING ACTIVE
+            fullSpellsCanvas.GetComponent<AbilityFullSpellChoice>().NewObtainedSpell = SpellOnCard; // THIS BEFORE SETTING ACTIVE
             fullSpellsCanvas.SetActive(true);
         }
     }
@@ -72,6 +74,7 @@ public class AbilitySpellCard : MonoBehaviour
     /// <param name="slot"></param>
     public void AddSpellToSlot(int slot)
     {
+        playerSpells.DropSpell(playerSpells.CurrentSpells[slot] as SpellSO);
         playerSpells.RemoveSpell(slot);
         playerSpells.AddSpell(NewObtainedSpell as SpellSO, slot);
         abilitiesCanvas.DisableAll();

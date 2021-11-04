@@ -26,7 +26,7 @@ public class AbilitiesCanvas : MonoBehaviour
     public void DisableAll()
     {
         threeSpellCanvas.SetActive(false);
-        //oneSpellCanvas.SetActive(false);
+        oneSpellCanvas.SetActive(false);
         //threePassiveCanvas.SetActive(false);
         spellsFullCanvas.SetActive(false);
         input.SwitchActionMapToGameplay();

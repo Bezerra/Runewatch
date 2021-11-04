@@ -12,7 +12,7 @@ public class AbilityFullSpellChoice : MonoBehaviour
     /// <summary>
     /// Property set on AbilitySpellChoice, to know which spell was selected.
     /// </summary>
-    public ISpell SelectedSpell { get; set; }
+    public ISpell NewObtainedSpell { get; set; }
 
     [SerializeField] private AbilitySpellCard[] allCards;
 
@@ -27,11 +27,14 @@ public class AbilityFullSpellChoice : MonoBehaviour
         {
             allCards[i].SpellOnCard = playerSpells.CurrentSpells[i];
         }
-        allCards[4].SpellOnCard = SelectedSpell;
 
+        // Sets obtained spell to last card
+        allCards[4].SpellOnCard = NewObtainedSpell;
+
+        // Updates info and sets obtained spell variable of all cards.
         foreach (AbilitySpellCard card in allCards)
         {
-            card.NewObtainedSpell = SelectedSpell;
+            card.NewObtainedSpell = NewObtainedSpell;
             card.UpdateInformation();
         }
     }
