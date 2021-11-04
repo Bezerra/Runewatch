@@ -10,8 +10,8 @@ public class PlayerInteraction : MonoBehaviour
     // Target variables
     private Ray forwardRay;
     private RaycastHit objectHit;
-    private IInterectableWithCanvas currentTargetCanvas;
     private bool objectTargeted;
+    public GameObject LastObjectInteracted { get; set; }
 
     // Components
     private YieldInstruction wfs;

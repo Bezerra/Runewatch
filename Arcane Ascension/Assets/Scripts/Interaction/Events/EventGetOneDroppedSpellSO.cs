@@ -5,7 +5,6 @@ using UnityEngine;
 /// </summary>
 [CreateAssetMenu(menuName = "Events/Event Get One Dropped Spell",
     fileName = "Event Get One Dropped Spell")]
-
 public class EventGetOneDroppedSpellSO : EventAbstractSO
 {
     // Scriptable object that saves spells result

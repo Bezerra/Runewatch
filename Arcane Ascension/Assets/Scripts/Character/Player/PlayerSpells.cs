@@ -218,7 +218,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
         GameObject spellDropped = 
             Instantiate(spellScroll, transform.position + transform.forward * 2, Quaternion.identity);
         spellDropped.GetComponent<DroppedSpell>().SpellDropped = spellToDrop;
-        spellDropped.GetComponent<InterectableCanvasText>().UpdateInformation(spellToDrop.Name);
+        spellDropped.GetComponent<IInterectableWithCanvas>().UpdateInformation(spellToDrop.Name);
     }
 
     /// <summary>

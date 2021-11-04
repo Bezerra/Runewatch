@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
 
 /// <summary>
 /// Class responsible for three random abilities canvas and logic.
@@ -30,8 +26,6 @@ public class AbilitySpellChoice : MonoBehaviour
             }
         }
     }
-
-
 
     public void TEMPBACKTOGAME()
     {

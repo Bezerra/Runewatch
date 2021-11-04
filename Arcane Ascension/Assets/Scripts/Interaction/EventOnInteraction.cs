@@ -8,6 +8,13 @@ public class EventOnInteraction : MonoBehaviour, IInterectable
 {
     [SerializeField] private List<EventAbstractSO> eventOnInteraction;
 
+    private PlayerInteraction playerInteraction;
+
+    private void Awake()
+    {
+        playerInteraction = FindObjectOfType<PlayerInteraction>();
+    }
+
     /// <summary>
     /// Executes an event.
     /// </summary>
@@ -15,6 +22,7 @@ public class EventOnInteraction : MonoBehaviour, IInterectable
     {
         if (eventOnInteraction.Count > 0)
         {
+            playerInteraction.LastObjectInteracted = this.gameObject;
             foreach (EventAbstractSO eve in eventOnInteraction)
             {
                 if (eve != null)

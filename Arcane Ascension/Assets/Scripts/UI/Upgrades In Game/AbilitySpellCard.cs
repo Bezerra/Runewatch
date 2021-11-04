@@ -19,6 +19,7 @@ public class AbilitySpellCard : MonoBehaviour
     // Components
     private TextMeshProUGUI textInCard;
     private PlayerSpells playerSpells;
+    private PlayerInteraction playerInteraction;
     private AbilitiesCanvas abilitiesCanvas;
 
     // Full spells canvas
@@ -27,6 +28,7 @@ public class AbilitySpellCard : MonoBehaviour
     private void Awake()
     {
         abilitiesCanvas = GetComponentInParent<AbilitiesCanvas>();
+        playerInteraction = FindObjectOfType<PlayerInteraction>();
         playerSpells = FindObjectOfType<PlayerSpells>();
         textInCard = GetComponentInChildren<TextMeshProUGUI>();
     }
@@ -58,8 +60,9 @@ public class AbilitySpellCard : MonoBehaviour
         {
             playerSpells.AddSpell(SpellOnCard as SpellSO);
             abilitiesCanvas.DisableAll();
+            Destroy(playerInteraction.LastObjectInteracted.gameObject);
         }
-        // ELse if there are not slots, it will open a new canvas with 4 slots to select.
+        // Else if there are not slots, it will open a new canvas with 4 slots to select.
         else
         {
             // Activates new canvas and sets the currently selected spell on that canvas
@@ -74,6 +77,7 @@ public class AbilitySpellCard : MonoBehaviour
     /// <param name="slot"></param>
     public void AddSpellToSlot(int slot)
     {
+        Destroy(playerInteraction.LastObjectInteracted.gameObject);
         playerSpells.DropSpell(playerSpells.CurrentSpells[slot] as SpellSO);
         playerSpells.RemoveSpell(slot);
         playerSpells.AddSpell(NewObtainedSpell as SpellSO, slot);

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Class responsible for informing this gameobject is a dropped spell.
+/// Class responsible for informing this gameobject is a spell.
 /// </summary>
 public class DroppedSpell : MonoBehaviour
 {
