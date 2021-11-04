@@ -11,6 +11,7 @@ public class AbilitiesCanvas : MonoBehaviour
     [SerializeField] private GameObject threeSpellCanvas;
     [SerializeField] private GameObject oneSpellCanvas;
     [SerializeField] private GameObject threePassiveCanvas;
+    [SerializeField] private GameObject spellsFullCanvas;
 
     private void Awake() => input = FindObjectOfType<PlayerInputCustom>();
     public void EnableThreeSpellCanvas() =>
@@ -24,9 +25,10 @@ public class AbilitiesCanvas : MonoBehaviour
 
     public void DisableAll()
     {
-        threeSpellCanvas?.SetActive(false);
+        threeSpellCanvas.SetActive(false);
         //oneSpellCanvas.SetActive(false);
         //threePassiveCanvas.SetActive(false);
+        spellsFullCanvas.SetActive(false);
         input.SwitchActionMapToGameplay();
         Time.timeScale = 1;
     }

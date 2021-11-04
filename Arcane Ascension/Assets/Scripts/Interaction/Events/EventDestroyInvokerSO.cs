@@ -9,6 +9,6 @@ public class EventDestroyInvokerSO : EventAbstractSO
 {
     public override void Execute(EventOnInteraction invoker)
     {
-        invoker.DestroyInvoker();
+        Destroy(invoker.gameObject);
     }
 }
