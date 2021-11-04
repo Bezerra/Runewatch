@@ -5,10 +5,14 @@ using UnityEngine;
 /// </summary>
 public class AbilitiesCanvas : MonoBehaviour
 {
+    // Components
+    private PlayerInputCustom input;
+
     [SerializeField] private GameObject threeSpellCanvas;
     [SerializeField] private GameObject oneSpellCanvas;
     [SerializeField] private GameObject threePassiveCanvas;
 
+    private void Awake() => input = FindObjectOfType<PlayerInputCustom>();
     public void EnableThreeSpellCanvas() =>
         threeSpellCanvas.SetActive(true);
 
@@ -17,4 +21,13 @@ public class AbilitiesCanvas : MonoBehaviour
 
     public void EnableThreePassiveCanvas() =>
         threePassiveCanvas.SetActive(true);
+
+    public void DisableAll()
+    {
+        threeSpellCanvas?.SetActive(false);
+        //oneSpellCanvas.SetActive(false);
+        //threePassiveCanvas.SetActive(false);
+        input.SwitchActionMapToGameplay();
+        Time.timeScale = 1;
+    }
 }

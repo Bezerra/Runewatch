@@ -12,22 +12,25 @@ public class AbilitySpellChoice : MonoBehaviour
     // Scriptable object with random abilities
     [SerializeField] private RandomAbilitiesToChooseSO randomAbilities;
 
-    [SerializeField] private List<TextMeshProUGUI> spellPanels;
+    // Panels with 3 spells
+    private AbilitySpellCard[] spellCards;
+
+    private void Awake()
+    {
+        spellCards = GetComponentsInChildren<AbilitySpellCard>();
+    }
 
     private void OnEnable()
     {
-        for (int i = 0; i < spellPanels.Count; i++)
+        for (int i = 0; i < spellCards.Length; i++)
         {
             if (randomAbilities.SpellResult[i] != null)
             {
-                spellPanels[i].text = randomAbilities.SpellResult[i].Name;
-            }
-            else
-            {
-                spellPanels[i].text = "No spell found";
+                spellCards[i].SpellOnCard = randomAbilities.SpellResult[i];
             }
         }
     }
+
 
 
     public void TEMPBACKTOGAME()

@@ -7,7 +7,7 @@ using UnityEngine;
     fileName = "Event Open Three Spells Menu")]
 public class EventOpenThreeSpellsMenuSO : EventAbstractSO
 {
-    public override void Execute()
+    public override void Execute(EventOnInteraction invoker)
     {
         FindObjectOfType<AbilitiesCanvas>().EnableThreeSpellCanvas();
     }

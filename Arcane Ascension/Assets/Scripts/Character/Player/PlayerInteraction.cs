@@ -37,6 +37,10 @@ public class PlayerInteraction : MonoBehaviour
         input.Interact -= Interact;
     }
 
+    /// <summary>
+    /// Every WFS casts a ray to check if the player is aiming towards some interectable object.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator Start()
     {
         while (true)
@@ -55,6 +59,9 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Exected when the player clicks the object on the crosshair.
+    /// </summary>
     private void Interact()
     {
         if (objectTargeted)

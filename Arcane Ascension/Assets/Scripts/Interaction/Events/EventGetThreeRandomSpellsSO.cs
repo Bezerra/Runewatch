@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 [CreateAssetMenu(menuName = "Events/Event Get Three Random Spells",
     fileName = "Event Get Three Random Spells")]
-public class EventGetThreeRandomSpellSO : EventAbstractSO
+public class EventGetThreeRandomSpellsSO : EventAbstractSO
 {
     // Components to get possible spells
     private IList<SpellSO> allSpells;
@@ -18,7 +18,7 @@ public class EventGetThreeRandomSpellSO : EventAbstractSO
     /// <summary>
     /// Finds all spells and executes GetSpell method.
     /// </summary>
-    public override void Execute()
+    public override void Execute(EventOnInteraction invoker)
     {
         if (playerSpells == null)
             playerSpells = FindObjectOfType<PlayerSpells>();

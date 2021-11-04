@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 /// <summary>
 /// Class used by gameobjects that can be interected with and trigger a scriptable object event.
@@ -19,7 +20,7 @@ public class EventOnInteraction : MonoBehaviour, IInterectable
             {
                 if (eve != null)
                 {
-                    eve.Execute();
+                    eve.Execute(this);
                 }
             }
                 
@@ -28,5 +29,21 @@ public class EventOnInteraction : MonoBehaviour, IInterectable
         {
             Debug.Log("Has no event to execute");
         }
+    }
+
+    /// <summary>
+    /// Executes destroy coroutine.
+    /// </summary>
+    public void DestroyInvoker() =>
+        StartCoroutine(DestroyInvokerCoroutine());
+
+    /// <summary>
+    /// Destroys gameobject.
+    /// </summary>
+    /// <returns>WFFU.</returns>
+    private IEnumerator DestroyInvokerCoroutine()
+    {
+        yield return new WaitForFixedUpdate();
+        Destroy(gameObject);
     }
 }
