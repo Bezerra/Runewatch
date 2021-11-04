@@ -11,7 +11,6 @@ public class RoomWeightsSO : ScriptableObject
 {
     [SerializeField] private List<Weight> piecesWithWeight;
     public List<Weight> PiecesWithWeight => piecesWithWeight;
-    [PropertySpace(20)]
 
 #if UNITY_EDITOR
 

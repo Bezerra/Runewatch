@@ -180,7 +180,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 finalDirection = sideMovement + forwardMovement;
         
         // Dashes
-        characterController.Move(finalDirection * dashCurrentValue * Time.fixedDeltaTime);
+        characterController.Move(dashCurrentValue * Time.fixedDeltaTime * finalDirection);
 
         // Cancels dash and resets dash value
         if (Time.time - dashingTimer > player.Values.DashingTime)

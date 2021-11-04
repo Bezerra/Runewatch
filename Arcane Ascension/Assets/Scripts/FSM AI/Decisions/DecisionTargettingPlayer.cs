@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Decision that checks if enemy is chasing the player.
 /// </summary>
-[CreateAssetMenu(menuName = "FSM/Decisions/Decision Targetting Player", fileName = "Decision Targetting Player")]
+[CreateAssetMenu(menuName = "FSM/Decisions/Decision Targeting Player", fileName = "Decision Targeting Player")]
 public class DecisionTargettingPlayer : FSMDecision
 {
     public override bool CheckDecision(StateController<Enemy> ai)

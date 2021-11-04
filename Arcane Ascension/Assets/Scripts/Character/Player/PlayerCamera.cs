@@ -39,7 +39,7 @@ public class PlayerCamera : MonoBehaviour
             new Vector3(cameraX, finalDirection.transform.eulerAngles.y, finalDirection.transform.eulerAngles.z);
 
         // Rotates the player on Y axis (horizontal)
-        transform.Rotate(Vector3.up * input.Camera.x * player.Values.CameraSpeed * Time.fixedDeltaTime);
+        transform.Rotate(input.Camera.x * player.Values.CameraSpeed * Time.fixedDeltaTime * Vector3.up);
     }
 
     /// <summary>
