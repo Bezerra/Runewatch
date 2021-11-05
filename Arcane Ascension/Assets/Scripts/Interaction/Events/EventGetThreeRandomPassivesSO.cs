@@ -27,66 +27,50 @@ public class EventGetThreeRandomPassivesSO : EventAbstractSO
         {
             bool addSkill = false;
 
-            // If player doesn't have the passive yet
-            if (playerStats.CurrentPassives.Contains(passive) == false)
+            // Ignores this loop if player already has this spell
+            if (playerStats.CurrentPassives.Contains(passive))
             {
-                // If player has no abilities yet, it will add everything
-                if (playerStats.CurrentPassives.Count == 0)
-                {
-                    if (passive.PassiveTier == 1)
-                        allPassives.Add(passive);
+                continue;
+            }
 
-                    continue;
-                }
+            // If player has no abilities yet, it will add everything
+            if (playerStats.CurrentPassives.Count == 0)
+            {
+                if (passive.PassiveTier == 1)
+                    allPassives.Add(passive);
 
-                // All passives in player
-                foreach(IPassive passiveInPlayer in playerStats.CurrentPassives)
+                continue;
+            }
+
+            // All passives in player
+            foreach(IPassive passiveInPlayer in playerStats.CurrentPassives)
+            {
+                // If the types are the same
+                if (passive.PassiveType == passiveInPlayer.PassiveType)
                 {
-                    // If the types are the same
-                    if (passiveInPlayer.PassiveType == passive.PassiveType)
+                    // And the tier is 1 level higher max
+                    if (passive.PassiveTier == passiveInPlayer.PassiveTier + 1)
                     {
-                        // And the tier is 1 level higher max
-                        if (passive.PassiveTier == passiveInPlayer.PassiveTier + 1)
-                        {
-                            addSkill = true;
-                            break;
-                        }
-                        else
-                        {
-                            addSkill = false;
-                        }
+                        addSkill = true;
+                        break;
                     }
                     else
                     {
-                        if (passive.PassiveTier == 1)
-                            addSkill = true;
+                        addSkill = false;
                     }
                 }
-
-                if (addSkill == true)
-                    allPassives.Add(passive);
-            }           
+                else
+                {
+                    if (passive.PassiveTier == 1)
+                        addSkill = true;
+                }
+            }
+            if (addSkill == true)
+                allPassives.Add(passive);       
         }
 
         // Creates array with 3 random spells
         abilitiesToChose.PassiveResult = GetPassive();
-
-        //foreach (IPassive pass in abilitiesToChose.PassiveResult)
-        //{
-        //
-        //        Debug.Log(pass);
-        //
-        //    
-        //}
-
-        playerStats.CurrentPassives.Add(abilitiesToChose.PassiveResult[0]);
-
-        foreach (IPassive pass in playerStats.CurrentPassives)
-        {
-    
-                Debug.Log(pass);
-            
-        }
     }
 
     /// <summary>
