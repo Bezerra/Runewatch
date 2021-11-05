@@ -224,11 +224,11 @@ public class PlayerStats : Stats, IMana, IArmor
         switch (statsType)
         {
             case StatsType.Health:
-                PlayerAttributes.MaxHealth += amountToIncrement;
+                PlayerAttributes.MaxHealth += PlayerAttributes.MaxHealth * amountToIncrement;
                 break;
 
             case StatsType.Mana:
-                PlayerAttributes.MaxMana += amountToIncrement;
+                PlayerAttributes.MaxMana += PlayerAttributes.MaxMana * amountToIncrement;
                 break;
 
             case StatsType.MovementSpeedMultiplier:
@@ -265,11 +265,11 @@ public class PlayerStats : Stats, IMana, IArmor
                 break;
 
             case StatsType.CriticalChance:
-                PlayerAttributes.CriticalDamageModifier += amountToIncrement;
+                PlayerAttributes.CriticalChance += amountToIncrement;
                 break;
 
             case StatsType.CriticalDamageMultiplier:
-                PlayerAttributes.CriticalChance += amountToIncrement;
+                PlayerAttributes.CriticalDamageModifier += amountToIncrement;
                 break;
 
             case StatsType.IgnisDamage:

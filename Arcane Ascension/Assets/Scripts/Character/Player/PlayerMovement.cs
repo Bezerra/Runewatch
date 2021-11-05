@@ -149,7 +149,9 @@ public class PlayerMovement : MonoBehaviour
             dashingTimer = Time.time;
             // If player is running it divides this value so dash is always the same
             lastDirectionPressed = Speed == 
-                player.Values.Speed ? direction : direction.normalized * player.Values.Speed;
+                player.Values.Speed ? direction : 
+                direction.normalized * 
+                player.Values.Speed * playerStats.CommonAttributes.MovementSpeedMultiplier;
             canDash = false;
             OnEventDash();
 
