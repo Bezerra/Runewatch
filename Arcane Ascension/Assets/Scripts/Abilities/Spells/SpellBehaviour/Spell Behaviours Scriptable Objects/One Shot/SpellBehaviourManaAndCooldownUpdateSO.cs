@@ -13,8 +13,9 @@ sealed public class SpellBehaviourManaAndCooldownUpdateSO : SpellBehaviourAbstra
         if (parent.WhoCast.TryGetComponent<PlayerSpells>(out PlayerSpells playerSpells))
             playerSpells.StartSpellCooldown(playerSpells.ActiveSpell);
 
-        // Takes mana from player
-        parent.WhoCast.ReduceMana(parent.Spell.ManaCost);
+        // Takes mana from character
+        if (parent.ThisIMana != null)
+            parent.ThisIMana.ReduceMana(parent.Spell.ManaCost);
     }
 
     public override void ContinuousUpdateBeforeSpellBehaviour(SpellBehaviourOneShot parent)

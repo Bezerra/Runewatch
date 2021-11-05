@@ -54,7 +54,17 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
     /// Used if the character who cast the spell is an enemy.
     /// </summary>
     public Enemy AICharacter { get; private set; }
+
+    /// <summary>
+    /// Character damageable interface.
+    /// </summary>
     public IDamageable ThisIDamageable { get; private set; }
+
+    /// <summary>
+    /// Character mana interface.
+    /// </summary>
+    public IMana ThisIMana { get; private set; }
+
     private Stats whoCast;
     public Stats WhoCast 
     { 
@@ -78,6 +88,7 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
                     AICharacter = null;
 
                 ThisIDamageable = WhoCast.GetComponent<IDamageable>();
+                ThisIMana = WhoCast.GetComponent<IMana>();
             }
         }
     }

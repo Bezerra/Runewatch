@@ -17,7 +17,9 @@ public class SpellBehaviourContinuousManaUpdateSO : SpellBehaviourAbstractContin
         // If the spell is in hit time (updated on parent)
         if (Time.time > parent.LastTimeHit + parent.Spell.Cooldown)
         {
-            parent.WhoCast.ReduceMana(parent.Spell.ManaCost);
+            // Takes mana from character
+            if (parent.ThisIMana != null)
+                parent.ThisIMana.ReduceMana(parent.Spell.ManaCost);
         }
     }
 

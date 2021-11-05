@@ -63,9 +63,10 @@ public class SpellBehaviourContinuous : SpellBehaviourAbstract
     private void Update()
     {
         // If who cast doesn't have enough mana, it will immediatly cancel the spell
-        if (WhoCast != null)
+        // Takes mana from character
+        if (ThisIMana != null)
         {
-            if (WhoCast.Mana - spell.ManaCost <= 0)
+            if (ThisIMana.Mana - spell.ManaCost <= 0)
             {
                 foreach (SpellBehaviourAbstractContinuousSO behaviour in spell.SpellBehaviourContinuous)
                     behaviour.DisableSpell(this);
@@ -73,7 +74,15 @@ public class SpellBehaviourContinuous : SpellBehaviourAbstract
             else
             {
                 foreach (SpellBehaviourAbstractContinuousSO behaviour in spell.SpellBehaviourContinuous)
-                    behaviour.ContinuousUpdateBehaviour(this); 
+                    behaviour.ContinuousUpdateBehaviour(this);
+            }
+        }
+        else
+        {
+            if (WhoCast != null)
+            {
+                foreach (SpellBehaviourAbstractContinuousSO behaviour in spell.SpellBehaviourContinuous)
+                    behaviour.ContinuousUpdateBehaviour(this);
             }
         }
 
@@ -88,10 +97,27 @@ public class SpellBehaviourContinuous : SpellBehaviourAbstract
     private void FixedUpdate()
     {
         // If who cast doesn't have enough mana, it will immediatly cancel the spell
-        if (WhoCast != null)
+        // Takes mana from character
+        if (ThisIMana != null)
         {
-            foreach (SpellBehaviourAbstractContinuousSO behaviour in spell.SpellBehaviourContinuous)
-                behaviour.ContinuousFixedUpdateBehaviour(this);
+            if (ThisIMana.Mana - spell.ManaCost <= 0)
+            {
+                foreach (SpellBehaviourAbstractContinuousSO behaviour in spell.SpellBehaviourContinuous)
+                    behaviour.DisableSpell(this);
+            }
+            else
+            {
+                foreach (SpellBehaviourAbstractContinuousSO behaviour in spell.SpellBehaviourContinuous)
+                    behaviour.ContinuousFixedUpdateBehaviour(this);
+            }
+        }
+        else
+        {
+            if (WhoCast != null)
+            {
+                foreach (SpellBehaviourAbstractContinuousSO behaviour in spell.SpellBehaviourContinuous)
+                    behaviour.ContinuousFixedUpdateBehaviour(this);
+            }
         }
     }
 }

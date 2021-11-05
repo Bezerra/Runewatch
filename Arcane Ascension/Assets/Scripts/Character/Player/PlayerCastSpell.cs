@@ -8,7 +8,7 @@ public class PlayerCastSpell : MonoBehaviour
 {
     // Components
     private PlayerInputCustom input;
-    private Stats playerStats;
+    private PlayerStats playerStats;
     private PlayerSpells playerSpells;
     private Player player;
 
@@ -19,7 +19,7 @@ public class PlayerCastSpell : MonoBehaviour
     private void Awake()
     {
         input = FindObjectOfType<PlayerInputCustom>();
-        playerStats = GetComponent<Stats>();
+        playerStats = GetComponent<PlayerStats>();
         playerSpells = GetComponent<PlayerSpells>();
         player = GetComponent<Player>();
     }

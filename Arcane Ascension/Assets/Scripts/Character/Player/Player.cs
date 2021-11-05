@@ -26,7 +26,7 @@ public class Player : Character, ISaveable
         // Stats
         if (this != null) // Do not remove <
         {
-            Stats playerStats = GetComponent<Stats>();
+            PlayerStats playerStats = GetComponent<PlayerStats>();
             saveData.PlayerSavedData.Health = playerStats.Health;
             saveData.PlayerSavedData.Armor = playerStats.Armor;
             saveData.PlayerSavedData.Mana = playerStats.Mana;
@@ -47,7 +47,7 @@ public class Player : Character, ISaveable
         // Stats
         if (this != null) // Do not remove <
         {
-            Stats playerStats = GetComponent<Stats>();
+            PlayerStats playerStats = GetComponent<PlayerStats>();
 
             // Loads stats
             playerStats.SetStats(saveData.PlayerSavedData.Health, saveData.PlayerSavedData.Armor, saveData.PlayerSavedData.Mana);

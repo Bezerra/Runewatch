@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class PlayerUI : MonoBehaviour
 {
     private PlayerSpells playerSpells;
-    private Stats playerStats;
+    private PlayerStats playerStats;
 
     [SerializeField] private List<Image> spellsUI;
     [SerializeField] private Image health;
@@ -18,7 +18,7 @@ public class PlayerUI : MonoBehaviour
     private void Awake()
     {
         playerSpells = GetComponentInParent<PlayerSpells>();
-        playerStats = GetComponentInParent<Stats>();
+        playerStats = GetComponentInParent<PlayerStats>();
     }
 
     /// <summary>

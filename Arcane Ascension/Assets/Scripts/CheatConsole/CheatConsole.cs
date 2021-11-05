@@ -20,7 +20,7 @@ public class CheatConsole : MonoBehaviour
     private EventSystem eventSystem;
 
     // Variables for cheats
-    private Stats playerStats;
+    private PlayerStats playerStats;
     private PlayerSpells playerSpells;
     private AllSpells allSpells;
     private SelectionBase playerRoot;
@@ -52,8 +52,8 @@ public class CheatConsole : MonoBehaviour
     /// </summary>
     private void FindRequiredComponents()
     {
-        playerSpells = FindObjectOfType<Player>().GetComponent<PlayerSpells>();
-        playerStats = FindObjectOfType<Player>().GetComponent<Stats>();
+        playerSpells = FindObjectOfType<PlayerSpells>();
+        playerStats = FindObjectOfType<PlayerStats>();
         allSpells = FindObjectOfType<AllSpells>();
         playerRoot = FindObjectOfType<Player>().GetComponentInParent<SelectionBase>();
     }
