@@ -6,32 +6,44 @@ using UnityEngine;
 public class AbilityFullSpellChoiceKnownSpell : MonoBehaviour
 {
     // Components
+    private PlayerInputCustom input;
     private PlayerSpells playerSpells;
 
+    // Scriptable object with dropped spells values
     [SerializeField] private RandomAbilitiesToChooseSO droppedSpellResult;
 
+    // Cards on the UI
     [SerializeField] private AbilitySpellCard[] allCards;
+    [SerializeField] private AbilitySpellCard obtainedSpellCard;
 
     private void Awake()
     {
+        input = FindObjectOfType<PlayerInputCustom>();
         playerSpells = FindObjectOfType<PlayerSpells>();
     }
 
     private void OnEnable()
     {
-        for (int i = 0; i < allCards.Length -1; i++)
+        // Updates current cards with player's spells
+        for (int i = 0; i < allCards.Length; i++)
         {
             allCards[i].SpellOnCard = playerSpells.CurrentSpells[i];
         }
 
         // Sets obtained spell to last card
-        allCards[4].SpellOnCard = droppedSpellResult.SpellResult[0];
+        obtainedSpellCard.SpellOnCard = droppedSpellResult.DroppedSpell;
 
         // Updates info and sets obtained spell variable of all cards.
         foreach (AbilitySpellCard card in allCards)
         {
-            card.NewObtainedSpell = droppedSpellResult.SpellResult[0];
+            card.NewObtainedSpell = droppedSpellResult.DroppedSpell;
             card.UpdateInformation();
         }
+    }
+
+    public void BackToGame()
+    {
+        input.SwitchActionMapToGameplay();
+        Time.timeScale = 1;
     }
 }

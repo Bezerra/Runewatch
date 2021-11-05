@@ -43,7 +43,7 @@ public class AbilitySpellCard : MonoBehaviour
     /// </summary>
     public void UpdateInformation()
     {
-        if (SpellOnCard != null)
+        if (SpellOnCard != null && textInCard != null)
         {
             textInCard.text = SpellOnCard.Name;
         }
@@ -66,7 +66,8 @@ public class AbilitySpellCard : MonoBehaviour
         else
         {
             // Activates new canvas and sets the currently selected spell on that canvas
-            fullSpellsCanvas.GetComponent<AbilityFullSpellChoice>().NewObtainedSpell = SpellOnCard; // THIS BEFORE SETTING ACTIVE
+            // THIS MUST BE BEFORE SETTING ACTIVE BECAUSE CANVAS WILL HAVE LOGIC ON ITS ENABLE
+            fullSpellsCanvas.GetComponent<AbilityFullSpellChoice>().NewObtainedSpell = SpellOnCard; 
             fullSpellsCanvas.SetActive(true);
         }
     }
@@ -77,11 +78,19 @@ public class AbilitySpellCard : MonoBehaviour
     /// <param name="slot"></param>
     public void AddSpellToSlot(int slot)
     {
-        Destroy(playerInteraction.LastObjectInteracted.gameObject);
-        playerSpells.DropSpell(playerSpells.CurrentSpells[slot] as SpellSO);
-        playerSpells.RemoveSpell(slot);
-        playerSpells.AddSpell(NewObtainedSpell as SpellSO, slot);
-        abilitiesCanvas.DisableAll();
+        if (playerSpells.CurrentSpells[slot] != null)
+        {
+            // Destroys the spell scroll
+            Destroy(playerInteraction.LastObjectInteracted.gameObject);
+
+            // Drops a spell and updates player's spell list
+            playerSpells.DropSpell(playerSpells.CurrentSpells[slot] as SpellSO);
+            playerSpells.RemoveSpell(slot);
+            playerSpells.AddSpell(NewObtainedSpell as SpellSO, slot);
+
+            // Disables all abilities ui canvas
+            abilitiesCanvas.DisableAll();
+        }
     }
 
     /// <summary>

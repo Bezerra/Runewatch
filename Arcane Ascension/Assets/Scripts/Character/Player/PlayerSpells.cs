@@ -2,6 +2,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ExtensionMethods;
 
 /// <summary>
 /// Class responsible for controlling player spells and shot action.
@@ -216,9 +217,14 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     public void DropSpell(SpellSO spellToDrop)
     {
         GameObject spellDropped = 
-            Instantiate(spellScroll, transform.position + transform.forward * 2, Quaternion.identity);
-        spellDropped.GetComponent<DroppedSpell>().SpellDropped = spellToDrop;
-        spellDropped.GetComponent<IInterectableWithCanvas>().UpdateInformation(spellToDrop.Name);
+            Instantiate(spellScroll, transform.position + transform.forward, Quaternion.identity);
+        spellDropped.transform.RotateTo(transform.position);
+
+        // Updates dropped spell information with the dropped spell
+        if (spellDropped.TryGetComponent(out IDroppedSpell droppedSpell))
+            droppedSpell.DroppedSpell = spellToDrop;
+        if (spellDropped.TryGetComponent(out IInterectableWithCanvas interectableCanvas))
+            interectableCanvas.UpdateInformation(spellToDrop.Name);
     }
 
     /// <summary>

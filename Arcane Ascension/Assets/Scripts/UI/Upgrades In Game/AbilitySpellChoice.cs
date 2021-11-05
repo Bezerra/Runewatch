@@ -11,13 +11,18 @@ public class AbilitySpellChoice : MonoBehaviour
     // Panels with 3 spells
     private AbilitySpellCard[] spellCards;
 
+    // Components
+    private PlayerInputCustom input;
+
     private void Awake()
     {
         spellCards = GetComponentsInChildren<AbilitySpellCard>();
+        input = FindObjectOfType<PlayerInputCustom>();
     }
 
     private void OnEnable()
     {
+        // Updates spell cards with random spells obtained
         for (int i = 0; i < spellCards.Length; i++)
         {
             if (randomAbilities.SpellResult[i] != null)
@@ -27,9 +32,9 @@ public class AbilitySpellChoice : MonoBehaviour
         }
     }
 
-    public void TEMPBACKTOGAME()
+    public void BackToGame()
     {
-        FindObjectOfType<PlayerInputCustom>().SwitchActionMapToGameplay();
+        input.SwitchActionMapToGameplay();
         Time.timeScale = 1;
     }
 }

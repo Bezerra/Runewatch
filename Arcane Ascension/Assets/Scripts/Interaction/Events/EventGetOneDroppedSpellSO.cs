@@ -10,8 +10,12 @@ public class EventGetOneDroppedSpellSO : EventAbstractSO
     // Scriptable object that saves spells result
     [SerializeField] private RandomAbilitiesToChooseSO abilitiesToChose;
 
+    /// <summary>
+    /// Updates drop abilities asset with the dropped spell.
+    /// </summary>
+    /// <param name="invoker">Who invoked this event.</param>
     public override void Execute(EventOnInteraction invoker)
     {
-        abilitiesToChose.SpellResult[0] = invoker.gameObject.GetComponent<DroppedSpell>().SpellDropped;
+        abilitiesToChose.DroppedSpell = invoker.gameObject.GetComponent<SpellScroll>().DroppedSpell;
     }
 }

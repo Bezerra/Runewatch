@@ -15,6 +15,7 @@ public class AbilityFullSpellChoice : MonoBehaviour
     public ISpell NewObtainedSpell { get; set; }
 
     [SerializeField] private AbilitySpellCard[] allCards;
+    [SerializeField] private AbilitySpellCard obtainedSpellCard;
 
     private void Awake()
     {
@@ -23,13 +24,13 @@ public class AbilityFullSpellChoice : MonoBehaviour
 
     private void OnEnable()
     {
-        for (int i = 0; i < allCards.Length -1; i++)
+        for (int i = 0; i < allCards.Length; i++)
         {
             allCards[i].SpellOnCard = playerSpells.CurrentSpells[i];
         }
 
         // Sets obtained spell to last card
-        allCards[4].SpellOnCard = NewObtainedSpell;
+        obtainedSpellCard.SpellOnCard = NewObtainedSpell;
 
         // Updates info and sets obtained spell variable of all cards.
         foreach (AbilitySpellCard card in allCards)
@@ -37,5 +38,8 @@ public class AbilityFullSpellChoice : MonoBehaviour
             card.NewObtainedSpell = NewObtainedSpell;
             card.UpdateInformation();
         }
+
+        // Updates info of obtained spell card
+        obtainedSpellCard.UpdateInformation();
     }
 }

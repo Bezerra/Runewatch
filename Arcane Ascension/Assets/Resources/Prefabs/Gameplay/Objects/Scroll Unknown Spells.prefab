@@ -380,7 +380,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 460959768785444057}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -396,6 +396,7 @@ GameObject:
   - component: {fileID: 460959769742836821}
   - component: {fileID: 460959769742836822}
   - component: {fileID: 460959769742836820}
+  - component: {fileID: 460959769650890269}
   m_Layer: 15
   m_Name: Scroll Unknown Spells
   m_TagString: Untagged
@@ -435,7 +436,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0b012d21c2118c9459706f9ed8b3c36d, type: 2}
   - {fileID: 11400000, guid: 8e83cfedb0295d444a7dbb8d0d422abf, type: 2}
   - {fileID: 11400000, guid: 892b2d67598d9664ca9ad2404aa4bdfa, type: 2}
-  - {fileID: 11400000, guid: f6cac9f48effd054394444838244f212, type: 2}
 --- !u!114 &460959769742836820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,3 +451,16 @@ MonoBehaviour:
   canvas: {fileID: 460959768200289850}
   rangeToActivate: 5
   textMeshPro: {fileID: 460959768731075677}
+--- !u!114 &460959769650890269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460959769742836823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb924610ff9a9c4f9a42fbd98e2b2a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToDestroy: 10
