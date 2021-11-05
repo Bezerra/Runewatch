@@ -206,14 +206,14 @@ public class CheatConsole : MonoBehaviour
     private IEnumerator GodmodeCoroutine()
     {
         yield return wffu;
-        playerStats.Heal(playerStats.Attributes.MaxHealth, StatsType.Health);
+        playerStats.Heal(playerStats.CommonAttributes.MaxHealth, StatsType.Health);
     }
 
     private void InfiniteMana(float temp) => StartCoroutine(InfiniteManaCoroutine());
     private IEnumerator InfiniteManaCoroutine()
     {
         yield return wffu;
-        playerStats.Heal(playerStats.Attributes.MaxMana, StatsType.Mana);
+        playerStats.Heal(playerStats.PlayerAttributes.MaxMana, StatsType.Mana);
     }
     #endregion
     /////////////////////////////////// Cheats code /////////////////////////////////////

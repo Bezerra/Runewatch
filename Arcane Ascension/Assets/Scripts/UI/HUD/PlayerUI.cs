@@ -43,13 +43,13 @@ public class PlayerUI : MonoBehaviour
                     playerSpells.SecondarySpell.CooldownCounter / playerSpells.SecondarySpell.Cooldown;
 
         health.fillAmount =
-            playerStats.Health / playerStats.Attributes.MaxHealth;
+            playerStats.Health / playerStats.CommonAttributes.MaxHealth;
 
         armor.fillAmount =
-            playerStats.Armor / playerStats.Attributes.MaxArmor;
+            playerStats.Armor / playerStats.PlayerAttributes.MaxArmor;
 
         mana.fillAmount =
-            playerStats.Mana / playerStats.Attributes.MaxMana;
+            playerStats.Mana / playerStats.PlayerAttributes.MaxMana;
         
     }
 }

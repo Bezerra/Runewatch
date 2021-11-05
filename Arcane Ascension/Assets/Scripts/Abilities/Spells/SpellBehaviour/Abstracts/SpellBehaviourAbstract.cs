@@ -92,7 +92,7 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
             }
         }
     }
-
+    
     protected virtual void Awake()
     {
         hitEffectVFX = GetComponentsInChildren<VisualEffect>();

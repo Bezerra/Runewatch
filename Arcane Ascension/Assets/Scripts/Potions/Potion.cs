@@ -16,11 +16,11 @@ public class Potion : MonoBehaviour
             {
                 if (potionType == PotionType.Health)
                 {
-                    stats.Heal(percentage * stats.Attributes.MaxHealth / 100, StatsType.Health);
+                    stats.Heal(percentage * stats.CommonAttributes.MaxHealth / 100, StatsType.Health);
                 }
                 else
                 {
-                    stats.Heal(percentage * stats.Attributes.MaxHealth / 100, StatsType.Mana);
+                    stats.Heal(percentage * stats.CommonAttributes.MaxHealth / 100, StatsType.Mana);
                 }
             }
             Destroy(gameObject);

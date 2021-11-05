@@ -9,13 +9,13 @@ public class BezerraDreamSpellSpawner : MonoBehaviour
     [Range(0f,1f)][SerializeField] private float timeScale;
 
     private Character character;
-    private Stats characterStats;
+    private PlayerStats characterStats;
     private SpellBehaviourAbstract spellBehaviour;
 
     private void Awake()
     {
         character = FindObjectOfType<Player>();
-        characterStats = character.GetComponent<Stats>();
+        characterStats = character.GetComponent<PlayerStats>();
     }
 
     private IEnumerator Start()

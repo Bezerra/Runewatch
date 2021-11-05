@@ -9,19 +9,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f89d26ff51bb574b844d8cff4149c89, type: 3}
+  m_Script: {fileID: 11500000, guid: ee6025555c38aa54b9e2f8c1d43cb619, type: 3}
   m_Name: Player Stats
   m_EditorClassIdentifier: 
-  name: Player Stats
+  name: 
   notes: 
-  defaultHealth: 100
-  defaultArmor: 0
   element: 0
-  defaultMana: 100
-  defaultManaRegenAmount: 2
-  defaultManaRegenTime: 1
-  defaultManaRegenSteal: 10
+  defaultHealth: 100
   baseDamageMultiplier: 1
+  ignisMultiplier: 1
+  fulgurMultiplier: 1
+  aquaMultiplier: 1
+  terraMultiplier: 1
+  naturaMultiplier: 1
+  luxMultiplier: 1
+  umbraMultiplier: 1
   criticalChance: 0.1
   availableSpells:
   - {fileID: 11400000, guid: ece89201399664e43a5c2cc72bd908d8, type: 2}
+  - {fileID: 11400000, guid: 5ddab0765f7d6c146bbd1e54f2bab83e, type: 2}
+  - {fileID: 11400000, guid: 83e561bf20a8e67478edb6946594d227, type: 2}
+  defaultArmor: 0
+  defaultMana: 100
+  defaultManaRegenAmount: 1
+  defaultManaRegenTime: 0.1
+  defaultManaRegenSteal: 5

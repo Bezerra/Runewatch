@@ -10,7 +10,7 @@ using UnityEditor;
 /// Scriptable object with stats for a character.
 /// </summary>
 [InlineEditor]
-[CreateAssetMenu(menuName = "Stats", fileName = "Stats")]
+[CreateAssetMenu(menuName = "Stats/Common Stats", fileName = "Common Stats")]
 public class StatsSO : ScriptableObject
 {
     [PropertySpace(15)]
@@ -19,52 +19,59 @@ public class StatsSO : ScriptableObject
     [SerializeField] [TextArea(3, 3)] private string notes;
 
     [BoxGroup("General Stats")]
-    [Range(1, 2000)] [SerializeField] private float defaultHealth;
-    [BoxGroup("General Stats")]
-    [Range(0, 2000)] [SerializeField] private float defaultArmor;
-    [BoxGroup("General Stats")]
     [EnumToggleButtons] [SerializeField] private ElementType element;
 
-    [BoxGroup("Mana Stats")]
-    [Range(0, 2000)] [SerializeField] private float defaultMana;
-    [BoxGroup("Mana Stats")]
-    [Range(0.1f, 10)] [SerializeField] private float defaultManaRegenAmount;
-    [BoxGroup("Mana Stats")]
-    [Range(0.01f, 2)] [SerializeField] private float defaultManaRegenTime;
-    [BoxGroup("Mana Stats")]
-    [Range(0.1f, 10)] [SerializeField] private float defaultManaRegenSteal;
-
+    [BoxGroup("General Stats")]
+    [Range(1, 2000)] [SerializeField] private float defaultHealth;
+    
     [BoxGroup("Damage Stats")]
     [DetailedInfoBox("Base Damage percentage of spell damage", "Base Damage percentage of spell damage")]
     [Range(1, 2)] [SerializeField] private float baseDamageMultiplier;
     [BoxGroup("Damage Stats")]
+    [Range(1f, 2f)] [SerializeField] private float ignisMultiplier;
+    [BoxGroup("Damage Stats")]
+    [Range(1f, 2f)] [SerializeField] private float fulgurMultiplier;
+    [BoxGroup("Damage Stats")]
+    [Range(1f, 2f)] [SerializeField] private float aquaMultiplier;
+    [BoxGroup("Damage Stats")]
+    [Range(1f, 2f)] [SerializeField] private float terraMultiplier;
+    [BoxGroup("Damage Stats")]
+    [Range(1f, 2f)] [SerializeField] private float naturaMultiplier;
+    [BoxGroup("Damage Stats")]
+    [Range(1f, 2f)] [SerializeField] private float luxMultiplier;
+    [BoxGroup("Damage Stats")]
+    [Range(1f, 2f)] [SerializeField] private float umbraMultiplier;
+    [BoxGroup("Damage Stats")]
     [Header("Chance of critical hit with each attack")]
     [Range(0, 1)] [SerializeField] private float criticalChance;
     [BoxGroup("Damage Stats")] [Required("A spell is required")]
-    [Header("If the character is an enemy, it will only fire OneShot cast type spells (ex: spells with Forward Behaviour)")]
+    [Header("Character list of spells")]
     [SerializeField] private List<SpellSO> availableSpells;
 
     public string Name => name;
     public float MaxHealth { get; set; }
-    public float MaxMana { get; set; }
-    public float ManaRegenAmount { get; set; }
-    public float ManaRegenTime { get; set; }
-    public float ManaRegenSteal { get; set; }
-    public float MaxArmor { get; set; }
+    
     public float BaseDamageMultiplier { get => baseDamageMultiplier; set => baseDamageMultiplier = value; }
     public float CriticalChance { get => criticalChance; set => criticalChance = value; }
     public ElementType Element => element;
     public List<SpellSO> AvailableSpells => availableSpells;
 
-    private void OnEnable()
+    // Dictionary for elements damage multiplier
+    private IDictionary<ElementType, float> damageElementMultiplier;
+    public IDictionary<ElementType, float> DamageElementMultiplier => damageElementMultiplier;
+
+    protected virtual void OnEnable()
     {
         // If the game wasn't loaded it loads default stats
         MaxHealth = defaultHealth;
-        MaxMana = defaultMana;
-        MaxArmor = defaultArmor;
-        ManaRegenAmount = defaultManaRegenAmount;
-        ManaRegenTime = defaultManaRegenTime;
-        ManaRegenSteal = defaultManaRegenSteal;
+
+        damageElementMultiplier = new Dictionary<ElementType, float>
+        {
+            { ElementType.Fire, ignisMultiplier }, { ElementType.Electric, fulgurMultiplier },
+            { ElementType.Water, aquaMultiplier }, { ElementType.Earth, terraMultiplier },
+            { ElementType.Nature, naturaMultiplier }, { ElementType.Light, luxMultiplier },
+            { ElementType.Dark, umbraMultiplier },
+        };
     }
 
 

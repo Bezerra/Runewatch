@@ -31,22 +31,28 @@ public class DamageSingleTargetSO : DamageBehaviourAbstractSO
             // If IDamageable hit is different than who casts the spell
             if (!character.Equals(parent.ThisIDamageable))
             {
-                float criticalChance = parent.WhoCast.Attributes.CriticalChance;
+                float criticalChance = parent.WhoCast.CommonAttributes.CriticalChance;
 
                 // Critical on sensible point
                 if (other != null)
                 {
                     float sphereSize = parent.Spell.CastType == SpellCastType.ContinuousCast ?
-                        sphereSize = 0.1f : sphereSize = 0.2f;
+                        0.1f : 0.25f;
 
                     if (Physics.OverlapSphere(parent.PositionOnSpawnAndHit, sphereSize, Layers.EnemySensiblePoint).Length > 0)
                     {
+                        Debug.Log("CRITICAL");
                         criticalChance = 1;
                     }
                 }
                 
-                character.TakeDamage(parent.WhoCast.Attributes.BaseDamageMultiplier *
-                    parent.Spell.Damage * damageMultiplier, criticalChance, parent.Spell.Element);
+                character.TakeDamage(
+                    parent.WhoCast.CommonAttributes.BaseDamageMultiplier *
+                    parent.WhoCast.CommonAttributes.DamageElementMultiplier[parent.Spell.Element] *
+                    parent.Spell.Damage *
+                    damageMultiplier,
+                    criticalChance,
+                    parent.Spell.Element);
             }
         }
     }

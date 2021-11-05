@@ -10,16 +10,20 @@ using UnityEditor;
 /// </summary>
 public abstract class CharacterSO : ScriptableObject
 {
-    [PropertySpace(15)]
     [InlineButton("ChangeFileName", "Update File Name")]
     [SerializeField] protected new string name;
 
     [SerializeField] protected CharacterValuesSO characterValues;
-
-    [PropertySpace(20)]
     [SerializeField] protected StatsSO characterStats;
 
+    /// <summary>
+    /// Values for editor logic.
+    /// </summary>
     public CharacterValuesSO CharacterValues => characterValues;
+
+    /// <summary>
+    /// Character gameplay stats.
+    /// </summary>
     public StatsSO CharacterStats => characterStats;
 
 #if UNITY_EDITOR

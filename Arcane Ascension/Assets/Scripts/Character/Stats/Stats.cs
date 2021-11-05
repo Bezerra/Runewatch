@@ -11,7 +11,7 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     protected System.Random random;
     protected Character character;
 
-    public virtual StatsSO Attributes => character.CommonValues.CharacterStats;
+    public StatsSO CommonAttributes => character.CommonValues.CharacterStats;
 
     public float Health { get; protected set; }
 
@@ -25,7 +25,7 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
 
     protected virtual void Start()
     {
-        Health = Attributes.MaxHealth;
+        Health = CommonAttributes.MaxHealth;
     }
 
     /// <summary>
@@ -71,7 +71,7 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     /// <param name="element">Element of the damage.</param>
     public virtual void TakeDamage(float damage, ElementType element)
     {
-        float damageToReceive = Mathf.Floor(damage * (ElementsDamage.CalculateDamage(element, Attributes.Element)));
+        float damageToReceive = Mathf.Floor(damage * (ElementsDamage.CalculateDamage(element, CommonAttributes.Element)));
         OnEventTakeDamage(damageToReceive);
 
         // Spawn damage text
@@ -117,7 +117,7 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
         damage = criticalHit ? damage *= 2 : damage *= 1;
 
         // Claculates final damage
-        float damageToReceive = Mathf.Floor(damage * (ElementsDamage.CalculateDamage(element, Attributes.Element)));
+        float damageToReceive = Mathf.Floor(damage * (ElementsDamage.CalculateDamage(element, CommonAttributes.Element)));
         OnEventTakeDamage(damageToReceive);
 
         // Spawn damage text
@@ -142,8 +142,6 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
         }
     }
 
-    
-
     /// <summary>
     /// Heal Health, Mana or Armor.
     /// </summary>
@@ -154,13 +152,13 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
         switch (healType)
         {
             case StatsType.Health:
-                if (Health + amountOfHeal < Attributes.MaxHealth)
+                if (Health + amountOfHeal < CommonAttributes.MaxHealth)
                 {
                     Health += amountOfHeal;
                 }
                 else
                 {
-                    Health = Attributes.MaxHealth;
+                    Health = CommonAttributes.MaxHealth;
                 }
                 break;
 
@@ -173,8 +171,8 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     {
         StringBuilder str = new StringBuilder();
         str.Append($"Health: {Health.ToString():2f} |" +
-            $"Damage: {Attributes.BaseDamageMultiplier.ToString():2f} |" + 
-            $"Character Element: {Attributes.Element}");
+            $"Damage: {CommonAttributes.BaseDamageMultiplier.ToString():2f} |" + 
+            $"Character Element: {CommonAttributes.Element}");
         return str.ToString();
     }
 

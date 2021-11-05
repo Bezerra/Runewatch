@@ -75,7 +75,7 @@ public class DamageAoEOvertimeSO : DamageBehaviourAbstractSO
             for (int i = 0; i < charactersToDoDamage.Count; i++)
             {
                 charactersToDoDamage[i].TakeDamageOvertime(
-                        parent.WhoCast.Attributes.BaseDamageMultiplier * parent.Spell.Damage,
+                        parent.WhoCast.CommonAttributes.BaseDamageMultiplier * parent.Spell.Damage,
                         parent.Spell.Element,
                         parent.Spell.TimeInterval,
                         parent.Spell.MaxTime);

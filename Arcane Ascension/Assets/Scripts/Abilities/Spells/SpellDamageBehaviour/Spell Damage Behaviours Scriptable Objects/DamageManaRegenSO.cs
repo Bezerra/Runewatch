@@ -31,7 +31,7 @@ public class DamageManaRegenSO : DamageBehaviourAbstractSO
             // If IDamageable hit is different than who casts the spell
             if (!character.Equals(parent.ThisIDamageable))
             {
-                float criticalChance = parent.WhoCast.Attributes.CriticalChance;
+                float criticalChance = parent.WhoCast.CommonAttributes.CriticalChance;
 
                 // Critical on sensible point
                 if (other != null)
@@ -45,10 +45,15 @@ public class DamageManaRegenSO : DamageBehaviourAbstractSO
                     }
                 }
                 
-                character.TakeDamage(parent.WhoCast.Attributes.BaseDamageMultiplier *
+                character.TakeDamage(parent.WhoCast.CommonAttributes.BaseDamageMultiplier *
                     parent.Spell.Damage * damageMultiplier, criticalChance, parent.Spell.Element);
 
-                parent.WhoCast.Heal(parent.WhoCast.Attributes.ManaRegenSteal, StatsType.Mana);
+                if (parent.ThisIMana != null)
+                {
+                    parent.WhoCast.Heal(
+                        (parent.WhoCast as PlayerStats).
+                        PlayerAttributes.ManaRegenSteal, StatsType.Mana);
+                }
             }
         }
     }

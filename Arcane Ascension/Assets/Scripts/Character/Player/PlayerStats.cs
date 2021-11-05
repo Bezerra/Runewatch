@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerStats : Stats, IMana, IArmor
 {
-    public override StatsSO Attributes => character.CommonValues.CharacterStats;
+    public PlayerStatsSO PlayerAttributes => character.CommonValues.CharacterStats as PlayerStatsSO;
 
     private IEnumerator regenManaCoroutine;
     private YieldInstruction wft;
@@ -16,12 +16,12 @@ public class PlayerStats : Stats, IMana, IArmor
     protected override void Start()
     {
         base.Start();
-        Mana = Attributes.MaxMana;
-        Armor = Attributes.MaxArmor;
+        Mana = PlayerAttributes.MaxMana;
+        Armor = PlayerAttributes.MaxArmor;
 
         // Starts regen Mana coroutine
         regenManaCoroutine = RegenManaCoroutine();
-        wft = new WaitForSeconds(Attributes.ManaRegenTime);
+        wft = new WaitForSeconds(PlayerAttributes.ManaRegenTime);
         StartCoroutine(regenManaCoroutine);
     }
 
@@ -35,13 +35,13 @@ public class PlayerStats : Stats, IMana, IArmor
         {
             yield return wft;
 
-            if (Mana + Attributes.ManaRegenAmount < Attributes.MaxMana)
+            if (Mana + PlayerAttributes.ManaRegenAmount < PlayerAttributes.MaxMana)
             {
-                Mana += Attributes.ManaRegenAmount;
+                Mana += PlayerAttributes.ManaRegenAmount;
             }
             else
             {
-                Mana = Attributes.MaxMana;
+                Mana = PlayerAttributes.MaxMana;
             }
         }
     }
@@ -53,7 +53,7 @@ public class PlayerStats : Stats, IMana, IArmor
     /// <param name="element">Element of the damage.</param>
     public override void TakeDamage(float damage, ElementType element)
     {
-        float damageToReceive = Mathf.Floor(damage * (ElementsDamage.CalculateDamage(element, Attributes.Element)));
+        float damageToReceive = Mathf.Floor(damage * (ElementsDamage.CalculateDamage(element, PlayerAttributes.Element)));
         OnEventTakeDamage(damageToReceive);
 
         // Spawn damage text
@@ -112,7 +112,7 @@ public class PlayerStats : Stats, IMana, IArmor
         damage = criticalHit ? damage *= 2 : damage *= 1;
 
         // Claculates final damage
-        float damageToReceive = Mathf.Floor(damage * (ElementsDamage.CalculateDamage(element, Attributes.Element)));
+        float damageToReceive = Mathf.Floor(damage * (ElementsDamage.CalculateDamage(element, PlayerAttributes.Element)));
         OnEventTakeDamage(damageToReceive);
 
         // Spawn damage text
@@ -176,35 +176,35 @@ public class PlayerStats : Stats, IMana, IArmor
         switch (healType)
         {
             case StatsType.Health:
-                if (Health + amountOfHeal < Attributes.MaxHealth)
+                if (Health + amountOfHeal < PlayerAttributes.MaxHealth)
                 {
                     Health += amountOfHeal;
                 }
                 else
                 {
-                    Health = Attributes.MaxHealth;
+                    Health = PlayerAttributes.MaxHealth;
                 }
                 break;
 
             case StatsType.Mana:
-                if (Mana + amountOfHeal < Attributes.MaxMana)
+                if (Mana + amountOfHeal < PlayerAttributes.MaxMana)
                 {
                     Mana += amountOfHeal;
                 }
                 else
                 {
-                    Mana = Attributes.MaxMana;
+                    Mana = PlayerAttributes.MaxMana;
                 }
                 break;
 
             case StatsType.Armor:
-                if (Armor + amountOfHeal < Attributes.MaxArmor)
+                if (Armor + amountOfHeal < PlayerAttributes.MaxArmor)
                 {
                     Armor += amountOfHeal;
                 }
                 else
                 {
-                    Armor = Attributes.MaxArmor;
+                    Armor = PlayerAttributes.MaxArmor;
                 }
                 break;
 
@@ -223,43 +223,43 @@ public class PlayerStats : Stats, IMana, IArmor
         switch (statsType)
         {
             case StatsType.Health:
-                Attributes.MaxHealth += amountToIncrement;
+                PlayerAttributes.MaxHealth += amountToIncrement;
                 break;
 
             case StatsType.Mana:
-                Attributes.MaxMana += amountToIncrement;
+                PlayerAttributes.MaxMana += amountToIncrement;
                 break;
 
             case StatsType.ManaRegenAmount:
-                Attributes.ManaRegenAmount += amountToIncrement;
+                PlayerAttributes.ManaRegenAmount += amountToIncrement;
                 break;
 
             case StatsType.ManaRegenTime: // INCREMENTS time to regen, user must add amount to increment with negative sign
 
-                if (Attributes.ManaRegenTime + amountToIncrement < 0.01f)
-                    Attributes.ManaRegenTime = 0.01f;
+                if (PlayerAttributes.ManaRegenTime + amountToIncrement < 0.01f)
+                    PlayerAttributes.ManaRegenTime = 0.01f;
                 else
-                    Attributes.ManaRegenTime += amountToIncrement;
+                    PlayerAttributes.ManaRegenTime += amountToIncrement;
 
                 StopCoroutine(regenManaCoroutine);
-                wft = new WaitForSeconds(Attributes.ManaRegenTime);
+                wft = new WaitForSeconds(PlayerAttributes.ManaRegenTime);
                 StartCoroutine(regenManaCoroutine);
                 break;
 
             case StatsType.ManaRegenSteal:
-                Attributes.ManaRegenSteal += amountToIncrement;
+                PlayerAttributes.ManaRegenSteal += amountToIncrement;
                 break;
 
             case StatsType.Armor:
-                Attributes.MaxArmor += amountToIncrement;
+                PlayerAttributes.MaxArmor += amountToIncrement;
                 break;
 
             case StatsType.Damage:
-                Attributes.BaseDamageMultiplier += amountToIncrement;
+                PlayerAttributes.BaseDamageMultiplier += amountToIncrement;
                 break;
 
             case StatsType.CriticalChance:
-                Attributes.CriticalChance += amountToIncrement;
+                PlayerAttributes.CriticalChance += amountToIncrement;
                 break;
         }
     }

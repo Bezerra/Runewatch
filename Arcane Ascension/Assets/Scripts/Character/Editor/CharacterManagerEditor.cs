@@ -16,7 +16,8 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
         GetWindow<CharacterManagerEditor>().Show();
     }
 
-    private CreateNewStatsData createNewStatsData;
+    private CreateNewEnemyStatsData createNewEnemyStatsData;
+    private CreateNewPlayerStatsData createNewPlayerStatsData;
     private CreateNewPlayerValuesData createNewPlayerValuesData;
     private CreateNewEnemyValuesData createNewEnemyValuesData;
     private CreateNewPlayerCharacterData createNewPlayerCharacterData;
@@ -33,7 +34,8 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
     {
         OdinMenuTree tree = new OdinMenuTree();
 
-        createNewStatsData = new CreateNewStatsData();
+        createNewEnemyStatsData = new CreateNewEnemyStatsData();
+        createNewPlayerStatsData = new CreateNewPlayerStatsData();
         createNewPlayerValuesData = new CreateNewPlayerValuesData();
         createNewEnemyValuesData = new CreateNewEnemyValuesData();
         createNewPlayerCharacterData = new CreateNewPlayerCharacterData();
@@ -43,7 +45,8 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
         tree.Add("Create New Character/Enemy Character", createNewEnemyCharacterData);
         tree.Add("Create New Values/Player", createNewPlayerValuesData);
         tree.Add("Create New Values/Enemy", createNewEnemyValuesData);
-        tree.Add("Create New Stats", createNewStatsData);
+        tree.Add("Create New Stats/Player", createNewPlayerStatsData);
+        tree.Add("Create New Stats/Enemy", createNewEnemyStatsData);
 
         tree.AddAllAssetsAtPath(
             "Stats/Player Stats", "Assets/Resources/Scriptable Objects/Player", 
@@ -90,8 +93,11 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
     protected override void OnDestroy()
     {
         base.OnDestroy();
-        if (createNewStatsData != null)
-            DestroyImmediate(createNewStatsData.CharacterStats);
+        if (createNewEnemyStatsData != null)
+            DestroyImmediate(createNewEnemyStatsData.CharacterStats);
+
+        if (createNewPlayerStatsData != null)
+            DestroyImmediate(createNewPlayerStatsData.CharacterStats);
 
         if (createNewPlayerCharacterData != null)
             DestroyImmediate(createNewPlayerCharacterData.CharacterData);
@@ -109,13 +115,13 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
     /// <summary>
     /// Creates new stats data on odin window.
     /// </summary>
-    public class CreateNewStatsData
+    public class CreateNewEnemyStatsData
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
         public StatsSO CharacterStats { get; private set; }
 
-        public CreateNewStatsData()
+        public CreateNewEnemyStatsData()
         {
             CharacterStats = ScriptableObject.CreateInstance<StatsSO>();
         }
@@ -131,6 +137,21 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
 
             CharacterStats = ScriptableObject.CreateInstance<StatsSO>();
         }
+    }
+
+    /// <summary>
+    /// Creates new stats data on odin window.
+    /// </summary>
+    public class CreateNewPlayerStatsData
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public PlayerStatsSO CharacterStats { get; private set; }
+
+        public CreateNewPlayerStatsData()
+        {
+            CharacterStats = ScriptableObject.CreateInstance<PlayerStatsSO>();
+        }
 
         [Button("Create New Player Stats - Adds to Player Folder", ButtonSizes.Large)]
         private void CreateNewPlayer()
@@ -141,7 +162,7 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
-            CharacterStats = ScriptableObject.CreateInstance<StatsSO>();
+            CharacterStats = ScriptableObject.CreateInstance<PlayerStatsSO>();
         }
     }
 
