@@ -12,8 +12,9 @@ public interface IDamageable
     /// </summary>
     /// <param name="damage">Damage to take.</param>
     /// <param name="criticalChance">Chance of critical hit.</param>
+    /// <param name="criticalDamageModifier">Damage modifier on critical hits.</param>
     /// <param name="element">Element of the damage.</param>
-    void TakeDamage(float damage, float criticalChance, ElementType element);
+    void TakeDamage(float damage, float criticalChance, float criticalDamageModifier, ElementType element);
 
     /// <summary>
     /// Starts a coroutine to take damage overtime.

@@ -48,6 +48,7 @@ public class DamageSingleTargetSO : DamageBehaviourAbstractSO
                     parent.Spell.Damage *
                     damageMultiplier,
                     criticalChance,
+                    parent.WhoCast.CommonAttributes.CriticalDamageModifier,
                     parent.Spell.Element);
             }
         }

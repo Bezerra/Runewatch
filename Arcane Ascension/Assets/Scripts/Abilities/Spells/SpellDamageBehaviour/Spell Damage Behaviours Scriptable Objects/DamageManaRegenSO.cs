@@ -51,6 +51,7 @@ public class DamageManaRegenSO : DamageBehaviourAbstractSO
                     parent.Spell.Damage *
                     damageMultiplier,
                     criticalChance,
+                    parent.WhoCast.CommonAttributes.CriticalDamageModifier,
                     parent.Spell.Element);
 
                 if (parent.ThisIMana != null)

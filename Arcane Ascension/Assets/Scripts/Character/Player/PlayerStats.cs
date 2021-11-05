@@ -99,17 +99,18 @@ public class PlayerStats : Stats, IMana, IArmor
     }
 
     /// <summary>
-    /// Reduces armor + Health.
+    /// Reduces armor + health.
     /// </summary>
     /// <param name="damage">Damage to take.</param>
     /// <param name="criticalChance">Chance of critical hit.</param>
+    /// <param name="criticalDamageModifier">Damage modifier on critical hits.</param>
     /// <param name="element">Element of the damage.</param>
-    public override void TakeDamage(float damage, float criticalChance, ElementType element)
+    public override void TakeDamage(float damage, float criticalChance, float criticalDamageModifier, ElementType element)
     {
         // Critical check
         // If random.NextDouble is less than critical chance, it will do double damage
         bool criticalHit = random.NextDouble() < criticalChance;
-        damage = criticalHit ? damage *= 2 : damage *= 1;
+        damage = criticalHit ? damage *= 2 * criticalDamageModifier : damage *= 1;
 
         // Claculates final damage
         float damageToReceive = Mathf.Floor(damage * (ElementsDamage.CalculateDamage(element, PlayerAttributes.Element)));
@@ -259,6 +260,10 @@ public class PlayerStats : Stats, IMana, IArmor
                 break;
 
             case StatsType.CriticalChance:
+                PlayerAttributes.CriticalDamageModifier += amountToIncrement;
+                break;
+
+            case StatsType.CriticalDamageMultiplier:
                 PlayerAttributes.CriticalChance += amountToIncrement;
                 break;
 

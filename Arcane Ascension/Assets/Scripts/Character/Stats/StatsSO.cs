@@ -26,33 +26,35 @@ public class StatsSO : ScriptableObject
     
     [BoxGroup("Damage Stats")]
     [DetailedInfoBox("Base Damage percentage of spell damage", "Base Damage percentage of spell damage")]
-    [Range(1, 2)] [SerializeField] private float baseDamageMultiplier;
+    [Range(0f, 2f)] [SerializeField] private float defaultBaseDamageMultiplier;
     [BoxGroup("Damage Stats")]
-    [Range(1f, 2f)] [SerializeField] private float ignisMultiplier;
+    [Range(1f, 2f)] [SerializeField] private float defaultIgnisMultiplier;
     [BoxGroup("Damage Stats")]
-    [Range(1f, 2f)] [SerializeField] private float fulgurMultiplier;
+    [Range(1f, 2f)] [SerializeField] private float defaultFulgurMultiplier;
     [BoxGroup("Damage Stats")]
-    [Range(1f, 2f)] [SerializeField] private float aquaMultiplier;
+    [Range(1f, 2f)] [SerializeField] private float defaultAquaMultiplier;
     [BoxGroup("Damage Stats")]
-    [Range(1f, 2f)] [SerializeField] private float terraMultiplier;
+    [Range(1f, 2f)] [SerializeField] private float defaultTerraMultiplier;
     [BoxGroup("Damage Stats")]
-    [Range(1f, 2f)] [SerializeField] private float naturaMultiplier;
+    [Range(1f, 2f)] [SerializeField] private float defaultNaturaMultiplier;
     [BoxGroup("Damage Stats")]
-    [Range(1f, 2f)] [SerializeField] private float luxMultiplier;
+    [Range(1f, 2f)] [SerializeField] private float defaultLuxMultiplier;
     [BoxGroup("Damage Stats")]
-    [Range(1f, 2f)] [SerializeField] private float umbraMultiplier;
+    [Range(1f, 2f)] [SerializeField] private float defaultUmbraMultiplier;
     [BoxGroup("Damage Stats")]
-    [Header("Chance of critical hit with each attack")]
-    [Range(0, 1)] [SerializeField] private float criticalChance;
+    [Range(0f, 1f)] [SerializeField] private float defaultCriticalChance;
+    [BoxGroup("Damage Stats")]
+    [Range(1f, 2f)] [SerializeField] private float defaultCriticalDamageModifier;
     [BoxGroup("Damage Stats")] [Required("A spell is required")]
     [Header("Character list of spells")]
     [SerializeField] private List<SpellSO> availableSpells;
 
     public string Name => name;
     public float MaxHealth { get; set; }
-    
-    public float BaseDamageMultiplier { get => baseDamageMultiplier; set => baseDamageMultiplier = value; }
-    public float CriticalChance { get => criticalChance; set => criticalChance = value; }
+    public float BaseDamageMultiplier { get; set; }
+    public float CriticalChance { get; set; }
+    public float CriticalDamageModifier { get; set; }
+
     public ElementType Element => element;
     public List<SpellSO> AvailableSpells => availableSpells;
 
@@ -64,13 +66,16 @@ public class StatsSO : ScriptableObject
     {
         // If the game wasn't loaded it loads default stats
         MaxHealth = defaultHealth;
+        BaseDamageMultiplier = defaultBaseDamageMultiplier;
+        CriticalChance = defaultCriticalChance;
+        CriticalDamageModifier = defaultCriticalDamageModifier;
 
         damageElementMultiplier = new Dictionary<ElementType, float>
         {
-            { ElementType.Fire, ignisMultiplier }, { ElementType.Electric, fulgurMultiplier },
-            { ElementType.Water, aquaMultiplier }, { ElementType.Earth, terraMultiplier },
-            { ElementType.Nature, naturaMultiplier }, { ElementType.Light, luxMultiplier },
-            { ElementType.Dark, umbraMultiplier },
+            { ElementType.Fire, defaultIgnisMultiplier }, { ElementType.Electric, defaultFulgurMultiplier },
+            { ElementType.Water, defaultAquaMultiplier }, { ElementType.Earth, defaultTerraMultiplier },
+            { ElementType.Nature, defaultNaturaMultiplier }, { ElementType.Light, defaultLuxMultiplier },
+            { ElementType.Dark, defaultUmbraMultiplier },
         };
     }
 

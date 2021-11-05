@@ -104,17 +104,18 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     }
 
     /// <summary>
-    /// Reduces armor + Health.
+    /// Reduces Health.
     /// </summary>
     /// <param name="damage">Damage to take.</param>
     /// <param name="criticalChance">Chance of critical hit.</param>
+    /// <param name="criticalDamageModifier">Damage modifier on critical hits.</param>
     /// <param name="element">Element of the damage.</param>
-    public virtual void TakeDamage(float damage, float criticalChance, ElementType element)
+    public virtual void TakeDamage(float damage, float criticalChance, float criticalDamageModifier, ElementType element)
     {
         // Critical check
         // If random.NextDouble is less than critical chance, it will do double damage
         bool criticalHit = random.NextDouble() < criticalChance;
-        damage = criticalHit ? damage *= 2 : damage *= 1;
+        damage = criticalHit ? damage *= 2 * criticalDamageModifier: damage *= 1;
 
         // Claculates final damage
         float damageToReceive = Mathf.Floor(damage * (ElementsDamage.CalculateDamage(element, CommonAttributes.Element)));
@@ -124,7 +125,7 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
         if (character.CommonValues.CharacterValues.Type != CharacterType.Player)
         {
             GameObject damageHitText =
-                        DamageHitPoolCreator.Pool.InstantiateFromPool("DamageHit", transform.position, Quaternion.identity);
+                    DamageHitPoolCreator.Pool.InstantiateFromPool("DamageHit", transform.position, Quaternion.identity);
             if (damageHitText.TryGetComponent<DamageHitText>(out DamageHitText outDamageHitText))
             {
                 outDamageHitText.UpdateShownDamage(damageToReceive, criticalHit);
