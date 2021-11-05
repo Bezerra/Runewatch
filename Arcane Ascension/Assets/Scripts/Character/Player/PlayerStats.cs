@@ -261,6 +261,34 @@ public class PlayerStats : Stats, IMana, IArmor
             case StatsType.CriticalChance:
                 PlayerAttributes.CriticalChance += amountToIncrement;
                 break;
+
+            case StatsType.IgnisDamage:
+                PlayerAttributes.DamageElementMultiplier[ElementType.Fire] += amountToIncrement;
+                break;
+
+            case StatsType.FulgurDamage:
+                PlayerAttributes.DamageElementMultiplier[ElementType.Electric] += amountToIncrement;
+                break;
+
+            case StatsType.AquaDamage:
+                PlayerAttributes.DamageElementMultiplier[ElementType.Water] += amountToIncrement;
+                break;
+
+            case StatsType.TerraDamage:
+                PlayerAttributes.DamageElementMultiplier[ElementType.Earth] += amountToIncrement;
+                break;
+
+            case StatsType.NaturaDamage:
+                PlayerAttributes.DamageElementMultiplier[ElementType.Nature] += amountToIncrement;
+                break;
+
+            case StatsType.LuxDamage:
+                PlayerAttributes.DamageElementMultiplier[ElementType.Light] += amountToIncrement;
+                break;
+
+            case StatsType.UmbraDamage:
+                PlayerAttributes.DamageElementMultiplier[ElementType.Dark] += amountToIncrement;
+                break;
         }
     }
 
