@@ -23,7 +23,8 @@ public class StatsSO : ScriptableObject
 
     [BoxGroup("General Stats")]
     [Range(1, 2000)] [SerializeField] private float defaultHealth;
-    
+    [BoxGroup("General Stats")]
+    [Range(0f, 2f)] [SerializeField] private float defaultMovementSpeedMultiplier;
     [BoxGroup("Damage Stats")]
     [DetailedInfoBox("Base Damage percentage of spell damage", "Base Damage percentage of spell damage")]
     [Range(0f, 2f)] [SerializeField] private float defaultBaseDamageMultiplier;
@@ -54,6 +55,7 @@ public class StatsSO : ScriptableObject
     public float BaseDamageMultiplier { get; set; }
     public float CriticalChance { get; set; }
     public float CriticalDamageModifier { get; set; }
+    public float MovementSpeedMultiplier { get; set; }
 
     public ElementType Element => element;
     public List<SpellSO> AvailableSpells => availableSpells;
@@ -69,6 +71,7 @@ public class StatsSO : ScriptableObject
         BaseDamageMultiplier = defaultBaseDamageMultiplier;
         CriticalChance = defaultCriticalChance;
         CriticalDamageModifier = defaultCriticalDamageModifier;
+        MovementSpeedMultiplier = defaultMovementSpeedMultiplier;
 
         damageElementMultiplier = new Dictionary<ElementType, float>
         {

@@ -12,6 +12,7 @@ public enum StatsType
     Damage,
     CriticalChance,
     CriticalDamageMultiplier,
+    MovementSpeedMultiplier,
     IgnisDamage,
     FulgurDamage,
     AquaDamage,

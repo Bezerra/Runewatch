@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private Player player;
     private PlayerCastSpell playerCastSpell;
     private CharacterController characterController;
+    private PlayerStats playerStats;
 
     // Movement
     private Vector3 direction;
@@ -44,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
         player = GetComponent<Player>();
         playerCastSpell = GetComponent<PlayerCastSpell>();
         characterController = GetComponent<CharacterController>();
+        playerStats = GetComponent<PlayerStats>();
         wffu = new WaitForFixedUpdate();
         jumpTime = new WaitForSeconds(player.Values.JumpTime);
         Speed = player.Values.Speed;
@@ -198,25 +200,31 @@ public class PlayerMovement : MonoBehaviour
     {
         if (castingContinuousSpell == false)
         {
-            if (condition) Speed = player.Values.RunningSpeed;
-            else Speed = player.Values.Speed;
+            if (condition) Speed = player.Values.RunningSpeed * playerStats.CommonAttributes.MovementSpeedMultiplier;
+            else Speed = player.Values.Speed * playerStats.CommonAttributes.MovementSpeedMultiplier;
             OnEventRun(condition);
         }
     }
+
+    /// <summary>
+    /// Updates speed variable.
+    /// </summary>
+    public void UpdateSpeed() =>
+        Speed = player.Values.Speed * playerStats.CommonAttributes.MovementSpeedMultiplier;
 
     private void ReduceSpeedOnContinuousAttack(SpellCastType spellCastType)
     {
         if (spellCastType == SpellCastType.ContinuousCast)
         {
             castingContinuousSpell = true;
-            Speed = player.Values.Speed * 0.5f;
+            Speed = playerStats.CommonAttributes.MovementSpeedMultiplier * player.Values.Speed * 0.5f;
         }
     }
 
     private void NormalSpeedAfterContinuousAttack()
     {
         castingContinuousSpell = false;
-        Speed = Speed = player.Values.Speed;
+        Speed = player.Values.Speed * playerStats.CommonAttributes.MovementSpeedMultiplier;
     }
 
     /// <summary>

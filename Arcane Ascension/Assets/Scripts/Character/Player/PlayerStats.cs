@@ -231,6 +231,11 @@ public class PlayerStats : Stats, IMana, IArmor
                 PlayerAttributes.MaxMana += amountToIncrement;
                 break;
 
+            case StatsType.MovementSpeedMultiplier:
+                PlayerAttributes.MovementSpeedMultiplier += amountToIncrement;
+                FindObjectOfType<PlayerMovement>().UpdateSpeed();
+                break;
+
             case StatsType.ManaRegenAmount:
                 PlayerAttributes.ManaRegenAmount += amountToIncrement;
                 break;

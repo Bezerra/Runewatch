@@ -149,9 +149,15 @@ public class Enemy : Character
 
     private void Start()
     {
-        Agent.speed = Values.Speed;
+        Agent.speed = Values.Speed * AllValues.CharacterStats.MovementSpeedMultiplier;
         StateMachine.Start(StateMachine);
     }
+
+    /// <summary>
+    /// Updates agent speed.
+    /// </summary>
+    public void UpdateSpeed() =>
+        Agent.speed = Values.Speed * AllValues.CharacterStats.MovementSpeedMultiplier;
 
     private void OnEnable()
     {
