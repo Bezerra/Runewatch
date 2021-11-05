@@ -18,5 +18,8 @@ public class RandomAbilitiesToChooseSO : ScriptableObject
     /// </summary>
     public ISpell DroppedSpell { get; set; }
 
-    // Fazer para passivas tambem
+    /// <summary>
+    /// Three passives from orbs and chests.
+    /// </summary>
+    public IPassive[] PassiveResult { get; set; }
 }

@@ -3,5 +3,6 @@
 /// </summary>
 public interface IPassive
 {
-    void UpdateStats();
+    int PassiveTier { get; }
+    PassiveType PassiveType { get; }
 }

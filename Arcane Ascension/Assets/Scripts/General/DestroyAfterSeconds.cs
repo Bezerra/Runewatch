@@ -11,12 +11,4 @@ public class DestroyAfterSeconds : MonoBehaviour
     {
         Destroy(gameObject, timeToDestroy);
     }
-
-
-    // TEMP
-    [SerializeField] private PassiveSO passive;
-    private void OnTriggerEnter(Collider other)
-    {
-        passive.UpdateStats();
-    }
 }

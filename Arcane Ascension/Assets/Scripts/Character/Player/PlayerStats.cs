@@ -10,8 +10,16 @@ public class PlayerStats : Stats, IMana, IArmor
     private IEnumerator regenManaCoroutine;
     private YieldInstruction wft;
 
+    public IList<IPassive> CurrentPassives;
+
     public float Mana { get; private set; }
     public float Armor { get; private set; }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        CurrentPassives = new List<IPassive>();
+    }
 
     protected override void Start()
     {

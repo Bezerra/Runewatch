@@ -31,10 +31,4 @@ public class AbilitySpellChoice : MonoBehaviour
             }
         }
     }
-
-    public void BackToGame()
-    {
-        input.SwitchActionMapToGameplay();
-        Time.timeScale = 1;
-    }
 }

@@ -17,7 +17,7 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
 
     protected IEnumerator damageOvertimeCoroutine;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         random = new System.Random();
         character = GetComponent<Character>();
