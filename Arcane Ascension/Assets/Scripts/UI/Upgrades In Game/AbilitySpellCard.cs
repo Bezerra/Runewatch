@@ -103,9 +103,9 @@ public class AbilitySpellCard : MonoBehaviour
         {
             if (spell == null)
             {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 }
