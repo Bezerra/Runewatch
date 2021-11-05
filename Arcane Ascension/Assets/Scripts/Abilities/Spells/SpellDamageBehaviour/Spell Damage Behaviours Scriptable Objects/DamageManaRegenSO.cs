@@ -37,16 +37,21 @@ public class DamageManaRegenSO : DamageBehaviourAbstractSO
                 if (other != null)
                 {
                     float sphereSize = parent.Spell.CastType == SpellCastType.ContinuousCast ?
-                        0.1f : 0.2f;
+                        0.15f : 0.3f;
 
                     if (Physics.OverlapSphere(parent.PositionOnSpawnAndHit, sphereSize, Layers.EnemySensiblePoint).Length > 0)
                     {
                         criticalChance = 1;
                     }
                 }
-                
-                character.TakeDamage(parent.WhoCast.CommonAttributes.BaseDamageMultiplier *
-                    parent.Spell.Damage * damageMultiplier, criticalChance, parent.Spell.Element);
+
+                character.TakeDamage(
+                    parent.WhoCast.CommonAttributes.BaseDamageMultiplier *
+                    parent.WhoCast.CommonAttributes.DamageElementMultiplier[parent.Spell.Element] *
+                    parent.Spell.Damage *
+                    damageMultiplier,
+                    criticalChance,
+                    parent.Spell.Element);
 
                 if (parent.ThisIMana != null)
                 {

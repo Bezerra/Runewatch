@@ -102,7 +102,6 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
 
     protected virtual void OnEnable()
     {
-        if (whoCast != null) PositonOfParentWhenSpawned = Hand.transform.position;
         PositionOnSpawnAndHit = transform.position;
         if (Hand != null) PositonOfParentWhenSpawned = Hand.transform.position;
     }

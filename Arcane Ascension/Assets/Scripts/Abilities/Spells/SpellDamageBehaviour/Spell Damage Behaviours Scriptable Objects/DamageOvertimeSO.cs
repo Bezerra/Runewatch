@@ -32,7 +32,9 @@ public class DamageOvertimeSO : DamageBehaviourAbstractSO
             if (!character.Equals(parent.ThisIDamageable))
             {
                 character.TakeDamageOvertime(
-                parent.WhoCast.CommonAttributes.BaseDamageMultiplier * parent.Spell.Damage,
+                parent.WhoCast.CommonAttributes.BaseDamageMultiplier *
+                parent.WhoCast.CommonAttributes.DamageElementMultiplier[parent.Spell.Element] *
+                parent.Spell.Damage,
                 parent.Spell.Element,
                 parent.Spell.TimeInterval,
                 parent.Spell.MaxTime);
