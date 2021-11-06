@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 /// <summary>
 /// Class responsible for handling player spells UI.
@@ -9,16 +10,20 @@ public class PlayerUI : MonoBehaviour
 {
     private PlayerSpells playerSpells;
     private PlayerStats playerStats;
+    private ICurrency playerCurrency;
 
     [SerializeField] private List<Image> spellsUI;
     [SerializeField] private Image health;
     [SerializeField] private Image armor;
     [SerializeField] private Image mana;
+    [SerializeField] private TextMeshProUGUI gold;
+    [SerializeField] private TextMeshProUGUI arcanePower;
 
     private void Awake()
     {
         playerSpells = GetComponentInParent<PlayerSpells>();
         playerStats = GetComponentInParent<PlayerStats>();
+        playerCurrency = GetComponentInParent<ICurrency>();
     }
 
     /// <summary>
@@ -50,6 +55,8 @@ public class PlayerUI : MonoBehaviour
 
         mana.fillAmount =
             playerStats.Mana / playerStats.PlayerAttributes.MaxMana;
-        
+
+        gold.text = "Gold : " + playerCurrency.Quantity.Item1;
+        arcanePower.text = "Arcane P : " + playerCurrency.Quantity.Item2;
     }
 }

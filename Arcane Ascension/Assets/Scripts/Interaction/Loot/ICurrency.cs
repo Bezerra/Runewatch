@@ -24,4 +24,9 @@ public interface ICurrency
     /// <param name="amount">Amount of currency to spend.</param>
     /// <returns>Returns true if currency can be spent.</returns>
     bool CanSpend(Currency currency, int amount);
+
+    /// <summary>
+    /// Quantity of gold and arcane power.
+    /// </summary>
+    (int, int) Quantity { get; }
 }

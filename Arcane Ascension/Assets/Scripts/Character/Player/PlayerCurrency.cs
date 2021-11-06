@@ -8,6 +8,12 @@ public class PlayerCurrency : MonoBehaviour, ICurrency, ISaveable
 {
     private Player player;
 
+    /// <summary>
+    /// Property to get gold (item 1) and arcane power (item 2).
+    /// </summary>
+    public (int, int) Quantity => 
+        (player.AllValues.Currency.Gold, player.AllValues.Currency.ArcanePower);
+
     private void Awake()
     {
         player = GetComponent<Player>();
