@@ -6,6 +6,9 @@ using System.Collections.Generic;
 /// </summary>
 public class EventOnInteraction : MonoBehaviour, IInterectable
 {
+    [TextArea]
+    [SerializeField] private string notes;
+
     [SerializeField] private List<EventAbstractSO> eventOnInteraction;
 
     private PlayerInteraction playerInteraction;
@@ -30,7 +33,7 @@ public class EventOnInteraction : MonoBehaviour, IInterectable
                     eve.Execute(this);
                 }
             }
-                
+            eventOnInteraction.Clear();
         }
         else
         {
