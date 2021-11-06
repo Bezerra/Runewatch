@@ -42,14 +42,14 @@ public class PlayerFinalCameraDashEvent : MonoBehaviour
         while (currentTime < player.Values.DashingTime * 0.5f)
         {
             transform.localPosition = Vector3.MoveTowards(
-                transform.localPosition, defaultCameraPosition + Vector3.up, Time.fixedDeltaTime * player.Values.CameraForOnDash);
+                transform.localPosition, defaultCameraPosition + Vector3.up, Time.fixedDeltaTime * player.Values.CameraForceOnDash);
             currentTime += Time.fixedDeltaTime;
             yield return wffu;
         }
         while(transform.localPosition.y > defaultCameraPosition.y)
         {
             transform.localPosition = Vector3.MoveTowards(
-                transform.localPosition, defaultCameraPosition, Time.fixedDeltaTime * player.Values.CameraForOnDash * 0.66f);
+                transform.localPosition, defaultCameraPosition, Time.fixedDeltaTime * player.Values.CameraForceOnDash * 0.66f);
             yield return wffu;
         }
     }

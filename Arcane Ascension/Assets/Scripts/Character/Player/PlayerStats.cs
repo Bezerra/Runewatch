@@ -377,7 +377,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
             {
                 passive.Execute(this);
             }
-
+ 
             // Loads stats
             SetStats(saveData.PlayerSavedData.Health, saveData.PlayerSavedData.Armor, saveData.PlayerSavedData.Mana);
         }

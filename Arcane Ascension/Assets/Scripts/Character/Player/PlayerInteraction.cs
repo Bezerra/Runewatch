@@ -17,13 +17,15 @@ public class PlayerInteraction : MonoBehaviour
     private YieldInstruction wfs;
     private Transform eyes;
     private PlayerInputCustom input;
+    private float rayLength;
 
 
     private void Awake()
     {
+        rayLength = GetComponent<Player>().Values.DefaultInteractionRayLength;
         eyes = GetComponent<Player>().Eyes;
         input = FindObjectOfType<PlayerInputCustom>();
-        wfs = new WaitForSeconds(0.2f);
+        wfs = new WaitForSeconds(GetComponent<Player>().Values.DefaultCheckInteractionDelay);
         objectTargeted = false;
     }
 
@@ -46,9 +48,8 @@ public class PlayerInteraction : MonoBehaviour
         while (true)
         {
             forwardRay = new Ray(eyes.position, eyes.forward);
-            if (Physics.Raycast(forwardRay, out objectHit, 2, Layers.Interectable))
+            if (Physics.Raycast(forwardRay, out objectHit, rayLength, Layers.Interectable))
             {
-                Debug.Log("hitting");
                 objectTargeted = true;
             }
             else

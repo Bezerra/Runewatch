@@ -45,8 +45,8 @@ public class PlayerValuesSO : CharacterValuesSO
     public float HandsMovementSpeed => handsMovementSpeed;
 
     [BoxGroup("Camera")]
-    [Range(2, 10f)] [SerializeField] private float cameraForOnDash;
-    public float CameraForOnDash => cameraForOnDash;
+    [Range(2, 10f)] [SerializeField] private float cameraForceOnDash = 4f;
+    public float CameraForceOnDash => cameraForceOnDash;
 
     [BoxGroup("Camera")]
     [Range(10, 40)] [SerializeField] private float delayedCameraRotationSpeed;
@@ -61,7 +61,7 @@ public class PlayerValuesSO : CharacterValuesSO
     public float CameraSpeed => cameraSpeed;
 
     [BoxGroup("Camera")]
-    [Range(1f, 5f)] [SerializeField] private float noiseFrequencyValueWhileRunning = 2.5f;
+    [Range(1f, 10f)] [SerializeField] private float noiseFrequencyValueWhileRunning = 2.5f;
     public float NoiseFrequencyValueWhileRunning => noiseFrequencyValueWhileRunning;
 
     [BoxGroup("Camera")]
@@ -91,4 +91,12 @@ public class PlayerValuesSO : CharacterValuesSO
     [BoxGroup("Camera/Shake")]
     [Range(0f, 1f)] [SerializeField] private float defaultNoiseFrequencyValue = 0.8f;
     public float DefaultNoiseFrequencyValue => defaultNoiseFrequencyValue;
+
+    [BoxGroup("Interaction")]
+    [Range(0f, 1f)] [SerializeField] private float defaultCheckInteractionDelay = 0.2f;
+    public float DefaultCheckInteractionDelay => defaultCheckInteractionDelay;
+
+    [BoxGroup("Interaction")]
+    [Range(1f, 5f)] [SerializeField] private float defaultInteractionRayLength = 2f;
+    public float DefaultInteractionRayLength => defaultInteractionRayLength;
 }

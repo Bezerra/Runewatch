@@ -6,9 +6,10 @@ using TMPro;
 /// </summary>
 public class InterectableCanvasText : MonoBehaviour, IInterectableWithCanvas
 {
-    [SerializeField] private GameObject canvas;
+    private GameObject canvas;
+    private TextMeshProUGUI textMeshPro;
     [Range(1f, 15f)][SerializeField] private float rangeToActivate;
-    [SerializeField] private TextMeshProUGUI textMeshPro;
+    [SerializeField] private string textOnCanvas;
 
     // Components
     private Camera cam;
@@ -16,7 +17,9 @@ public class InterectableCanvasText : MonoBehaviour, IInterectableWithCanvas
     private void Awake()
     {
         cam = Camera.main;
-        UpdateInformation("???");
+        canvas = GetComponentInChildren<Canvas>().gameObject;
+        textMeshPro = GetComponentInChildren<TextMeshProUGUI>();
+        UpdateInformation(textOnCanvas);
     }
 
     private void FixedUpdate()
