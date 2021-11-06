@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// Struct with player saved data.
@@ -17,4 +18,6 @@ public struct PlayerSaveData
 
     public byte[] CurrentSpells;
     public byte CurrentSpellIndex;
+
+    public byte[] CurrentPassives;
 }

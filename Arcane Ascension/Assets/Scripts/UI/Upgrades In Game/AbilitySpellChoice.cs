@@ -12,12 +12,14 @@ public class AbilitySpellChoice : MonoBehaviour
     private AbilitySpellCard[] spellCards;
 
     // Components
-    private PlayerInputCustom input;
+    private AbilitiesCanvas abilitiesCanvas;
+    private PlayerInteraction playerInteraction;
 
     private void Awake()
     {
+        abilitiesCanvas = GetComponentInParent<AbilitiesCanvas>();
         spellCards = GetComponentsInChildren<AbilitySpellCard>();
-        input = FindObjectOfType<PlayerInputCustom>();
+        playerInteraction = FindObjectOfType<PlayerInteraction>();
     }
 
     private void OnEnable()
@@ -29,6 +31,19 @@ public class AbilitySpellChoice : MonoBehaviour
             {
                 spellCards[i].SpellOnCard = randomAbilities.SpellResult[i];
             }
+        }
+
+        bool deactivateCanvas = true;
+        for (int i = 0; i < randomAbilities.SpellResult.Length; i++)
+        {
+            if (randomAbilities.SpellResult[i] != null)
+                deactivateCanvas = false;
+        }
+        if (deactivateCanvas)
+        {
+            // Destroys the spell scroll
+            Destroy(playerInteraction.LastObjectInteracted.gameObject);
+            abilitiesCanvas.DisableAll();
         }
     }
 }

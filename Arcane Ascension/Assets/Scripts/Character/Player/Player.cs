@@ -17,40 +17,26 @@ public class Player : Character, ISaveable
     public PlayerCharacterSO AllValues => allValues as PlayerCharacterSO;
 
     /// <summary>
-    /// Saves player stats.
+    /// Saves player position and rotation.
     /// </summary>
     /// <param name="saveData">Saved data class.</param>
     /// <returns>Null.</returns>
     public void SaveCurrentData(SaveData saveData)
     {
-        // Stats
         if (this != null) // Do not remove <
         {
-            PlayerStats playerStats = GetComponent<PlayerStats>();
-            saveData.PlayerSavedData.Health = playerStats.Health;
-            saveData.PlayerSavedData.Armor = playerStats.Armor;
-            saveData.PlayerSavedData.Mana = playerStats.Mana;
             saveData.PlayerSavedData.Position = transform.position;
             saveData.PlayerSavedData.Rotation = transform.rotation;
         }
     }
 
     /// <summary>
-    /// Loads player stats.
+    /// Null.
     /// </summary>
     /// <param name="saveData">Saved data class.</param>
     /// <returns>Null.</returns>
     public IEnumerator LoadData(SaveData saveData)
     {
-        yield return new WaitForFixedUpdate();
-
-        // Stats
-        if (this != null) // Do not remove <
-        {
-            PlayerStats playerStats = GetComponent<PlayerStats>();
-
-            // Loads stats
-            playerStats.SetStats(saveData.PlayerSavedData.Health, saveData.PlayerSavedData.Armor, saveData.PlayerSavedData.Mana);
-        }
+        yield return null;
     }
 }

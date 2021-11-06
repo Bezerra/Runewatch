@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStats : Stats, IMana, IArmor
+public class PlayerStats : Stats, IMana, IArmor, ISaveable
 {
     public PlayerStatsSO PlayerAttributes => character.CommonValues.CharacterStats as PlayerStatsSO;
 
@@ -326,4 +326,58 @@ public class PlayerStats : Stats, IMana, IArmor
     // Regsitered on CheatsConsole.
     protected virtual void OnEventSpentMana(float manaToSpend) => EventSpentMana?.Invoke(manaToSpend);
     public Action<float> EventSpentMana;
+
+    /// <summary>
+    /// Saves player stats.
+    /// </summary>
+    /// <param name="saveData">Saved data class.</param>
+    /// <returns>Null.</returns>
+    public void SaveCurrentData(SaveData saveData)
+    {
+        if (this != null) // Do not remove <
+        {
+            saveData.PlayerSavedData.Health = Health;
+            saveData.PlayerSavedData.Armor = Armor;
+            saveData.PlayerSavedData.Mana = Mana;
+
+            // Passives
+            saveData.PlayerSavedData.CurrentPassives = new byte[CurrentPassives.Count];
+            for (int i = 0; i < CurrentPassives.Count; i++)
+            {
+                saveData.PlayerSavedData.CurrentPassives[i] = CurrentPassives[i].PassiveID;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Loads player stats.
+    /// </summary>
+    /// <param name="saveData">Saved data class.</param>
+    /// <returns>Null.</returns>
+    public IEnumerator LoadData(SaveData saveData)
+    {
+        yield return new WaitForFixedUpdate();
+
+        // Stats
+        if (this != null) // Do not remove <
+        {
+            // Loads stats
+            SetStats(saveData.PlayerSavedData.Health, saveData.PlayerSavedData.Armor, saveData.PlayerSavedData.Mana);
+
+            // Passives
+            AllPassives allPassives = FindObjectOfType<AllPassives>();
+            for (int i = 0; i < saveData.PlayerSavedData.CurrentPassives.Length; i++)
+            {
+                for (int j = 0; j < allPassives.PassiveList.Count; j++)
+                {
+                    if (saveData.PlayerSavedData.CurrentPassives[i] == allPassives.PassiveList[j].PassiveID)
+                    {
+                        CurrentPassives.Add(allPassives.PassiveList[j]);
+                    }
+                }
+            }
+        }
+    }
+
+    
 }

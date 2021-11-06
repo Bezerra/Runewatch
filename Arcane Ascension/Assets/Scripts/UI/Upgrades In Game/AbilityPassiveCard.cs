@@ -48,6 +48,9 @@ public class AbilityPassiveCard : MonoBehaviour
     /// </summary>
     public void AddPassive()
     {
+        // Destroys the spell scroll
+        Destroy(playerInteraction.LastObjectInteracted.gameObject);
+
         PassiveOnCard.Execute(playerStats);
         playerStats.CurrentPassives.Add(PassiveOnCard);
         abilitiesCanvas.DisableAll();

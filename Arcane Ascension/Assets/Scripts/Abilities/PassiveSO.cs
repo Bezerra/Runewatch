@@ -12,6 +12,7 @@ public class PassiveSO : ScriptableObject, IPassive
 {
     [SerializeField] private new string name;
     [SerializeField] private string description;
+    [Range(0, 255)] [SerializeField] private byte passiveID;
 
     [Range(1, 7)] [SerializeField] private int passiveTier;
     [SerializeField] private PassiveType passiveType;
@@ -21,6 +22,7 @@ public class PassiveSO : ScriptableObject, IPassive
     public PassiveType PassiveType => passiveType;
     public string Name => name;
     public string Description => description;
+    public byte PassiveID => passiveID;
 
     /// <summary>
     /// Updates player's stats.
