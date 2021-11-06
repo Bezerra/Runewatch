@@ -23,7 +23,6 @@ public class Chest : MonoBehaviour
     {
         interectableCanvas.enabled = false;
         canvasText.SetActive(false);
-        eventOnInteraction.enabled = false;
     }
 
     public void ChestOpenedEndAnimationEvent()
