@@ -126,6 +126,18 @@ public class CheatConsole : MonoBehaviour
         {
             switch (input.ToLower().Trim())
             {
+                case "controls v1":
+                    Debug.Log("Controls switched to v1");
+                    PlayerPrefs.SetString("Controls", "v1");
+                    DisableConsole();
+                    break;
+
+                case "controls v2":
+                    Debug.Log("Controls switched to v2");
+                    PlayerPrefs.SetString("Controls", "v2");
+                    DisableConsole();
+                    break;
+
                 case "god 1":
                     Debug.Log("God mode activated");
                     playerStats.EventTakeDamage += Godmode;

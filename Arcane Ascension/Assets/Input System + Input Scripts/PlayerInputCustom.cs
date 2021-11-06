@@ -41,7 +41,11 @@ public class PlayerInputCustom : MonoBehaviour
         Cursor.visible = false;
 
         uiModule.enabled = true;
-        controls.SwitchCurrentActionMap("Gameplay");
+
+        if (PlayerPrefs.GetString("Controls", "v1") == "v1")
+            controls.SwitchCurrentActionMap("Gameplay");
+        else
+            controls.SwitchCurrentActionMap("Gameplayv2");
     }
 
     public void SwitchActionMapToUI()
