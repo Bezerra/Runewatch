@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78b2425a2284af743826c689403a4924, type: 3}
+  m_Name: UberParticle-Master
+  m_EditorClassIdentifier: 
+  m_functionInfo: "// Made with Amplify Shader Editor\n// Available at the Unity
+    Asset Store - http://u3d.as/y3X \n/*ASEBEGIN\nVersion=18912\n-1920;369;1920;1029;2650.334;1238.885;2.544992;True;True\nNode;AmplifyShaderEditor.CommentaryNode;2;-971.8239,-158.8198;Inherit;False;1149.81;574.9999;;6;13;12;10;9;7;6;Dissolve;0.4120226,0,1,1;0;0\nNode;AmplifyShaderEditor.CommentaryNode;1;-565.8976,543.5466;Inherit;False;724.9409;292.3195;;3;15;11;5;Mask;0,0,0,1;0;0\nNode;AmplifyShaderEditor.CommentaryNode;3;-1786.033,-824.7161;Inherit;False;1205.347;575;Adds
+    to main texture offset;6;22;19;18;17;16;14;Distort;0,1,0.9696944,1;0;0\nNode;AmplifyShaderEditor.FunctionNode;26;-1359.962,-606.6185;Inherit;False;ScrollableTexture;-1;;44;8bf62c10f13264141869f386395a9f5a;0;3;10;SAMPLER2D;;False;5;FLOAT2;0,0;False;8;FLOAT2;0,0;False;1;COLOR;0\nNode;AmplifyShaderEditor.SimpleMultiplyOpNode;20;371.2317,-284.262;Inherit;False;3;3;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;0;False;1;FLOAT;0\nNode;AmplifyShaderEditor.TextureCoordinatesNode;12;-921.8239,99.17978;Inherit;False;0;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4\nNode;AmplifyShaderEditor.ComponentMaskNode;15;-199.2463,589.9305;Inherit;False;True;False;False;False;1;0;COLOR;0,0,0,0;False;1;FLOAT;0\nNode;AmplifyShaderEditor.SimpleMultiplyOpNode;5;17.39147,660.6953;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0\nNode;AmplifyShaderEditor.TextureCoordinatesNode;22;-1736.033,-566.7161;Inherit;False;0;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4\nNode;AmplifyShaderEditor.SimpleMultiplyOpNode;19;-742.6858,-547.4501;Inherit;False;2;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0\nNode;AmplifyShaderEditor.Vector2Node;18;-1663.033,-413.7161;Inherit;False;Property;_DistortSpeed;Distort
+    Speed;6;0;Create;True;0;0;0;False;0;False;0,0;0,0;0;3;FLOAT2;0;FLOAT;1;FLOAT;2\nNode;AmplifyShaderEditor.FunctionNode;27;-524.0304,49.45959;Inherit;False;ScrollableTexture;-1;;45;8bf62c10f13264141869f386395a9f5a;0;3;10;SAMPLER2D;;False;5;FLOAT2;0,0;False;8;FLOAT2;0,0;False;1;COLOR;0\nNode;AmplifyShaderEditor.ComponentMaskNode;17;-1102.561,-607.9185;Inherit;False;True;False;False;False;1;0;COLOR;0,0,0,0;False;1;FLOAT;0\nNode;AmplifyShaderEditor.RangedFloatNode;10;-361.2134,-98.76779;Inherit;False;Property;_DissolveAmount;Dissolve
+    Amount;8;0;Create;True;0;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0\nNode;AmplifyShaderEditor.TexturePropertyNode;9;-900.8239,-108.8199;Inherit;True;Property;_DissolveTexture;Dissolve
+    Texture;7;1;[Header];Create;True;1;Dissolve;0;0;False;0;False;None;None;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1\nNode;AmplifyShaderEditor.StepOpNode;7;25.98602,-64.36771;Inherit;False;2;0;FLOAT;0;False;1;FLOAT;0;False;1;FLOAT;0\nNode;AmplifyShaderEditor.Vector2Node;6;-848.8229,252.1802;Inherit;False;Property;_DissolveSpeed;Dissolve
+    Speed;9;0;Create;True;0;0;0;False;0;False;0,0;0,0;0;3;FLOAT2;0;FLOAT;1;FLOAT;2\nNode;AmplifyShaderEditor.ComponentMaskNode;13;-289.1634,40.31601;Inherit;False;True;False;False;False;1;0;COLOR;0,0,0,0;False;1;FLOAT;0\nNode;AmplifyShaderEditor.TexturePropertyNode;14;-1715.033,-774.7161;Inherit;True;Property;_DistortTexture;Distort
+    Texture;4;1;[Header];Create;True;1;Distort;0;0;False;0;False;None;None;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1\nNode;AmplifyShaderEditor.RangedFloatNode;16;-1038.686,-482.4501;Inherit;False;Property;_DistortStrength;Distort
+    Strength;5;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0\nNode;AmplifyShaderEditor.SamplerNode;11;-515.8978,593.5464;Inherit;True;Property;_Mask;Mask;10;1;[Header];Create;True;1;Mask;0;0;False;0;False;-1;None;None;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4\nNode;AmplifyShaderEditor.FunctionNode;28;-183.1411,-487.0229;Inherit;False;MainColor;0;;46;eff4c11ecb7c49a48835fe7d21985ca2;0;1;24;FLOAT2;0,0;False;2;FLOAT3;0;FLOAT;10\nNode;AmplifyShaderEditor.FunctionOutput;0;741.092,-469.3846;Inherit;False;True;-1;Color;0;False;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0\nNode;AmplifyShaderEditor.FunctionOutput;24;733.2855,-291.8842;Inherit;False;False;-1;Alpha;1;False;1;0;FLOAT;0;False;1;FLOAT;0\nNode;AmplifyShaderEditor.CommentaryNode;4;-263.2368,-562.1025;Inherit;False;407.0948;227.3185;Works
+    with vertex color;0;Main Color;1,0,0,1;0;0\nWireConnection;26;10;14;0\nWireConnection;26;5;22;0\nWireConnection;26;8;18;0\nWireConnection;20;0;28;10\nWireConnection;20;1;7;0\nWireConnection;20;2;5;0\nWireConnection;15;0;11;0\nWireConnection;5;0;15;0\nWireConnection;5;1;11;4\nWireConnection;19;0;17;0\nWireConnection;19;1;16;0\nWireConnection;27;10;9;0\nWireConnection;27;5;12;0\nWireConnection;27;8;6;0\nWireConnection;17;0;26;0\nWireConnection;7;0;10;0\nWireConnection;7;1;13;0\nWireConnection;13;0;27;0\nWireConnection;28;24;19;0\nWireConnection;0;0;28;0\nWireConnection;24;0;20;0\nASEEND*/\n//CHKSM=18923558380FFE20D7127C641906A401380442C0"
+  m_functionName: 
+  m_description: 
+  m_additionalIncludes:
+    m_additionalIncludes: []
+    m_outsideIncludes: []
+  m_additionalPragmas:
+    m_additionalPragmas: []
+    m_outsidePragmas: []
+  m_additionalDirectives:
+    m_validData: 0
+    m_isDirty: 0
+    m_moduleName: ' Additional Directives'
+    m_independentModule: 1
+    m_customEdited: 0
+    m_additionalDirectives: []
+    m_shaderFunctionDirectives: []
+    m_nativeDirectives: []
+    m_nativeDirectivesIndex: -1
+    m_nativeDirectivesFoldout: 0
+    m_directivesSaveItems: []
+  m_nodeCategory: 3
+  m_customNodeCategory: 
+  m_previewPosition: 0
+  m_hidden: 0
