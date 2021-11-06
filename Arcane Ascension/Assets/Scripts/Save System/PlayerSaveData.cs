@@ -19,4 +19,7 @@ public struct PlayerSaveData
     public byte CurrentSpellIndex;
 
     public byte[] CurrentPassives;
+
+    public int Gold;
+    public int ArcanePower;
 }

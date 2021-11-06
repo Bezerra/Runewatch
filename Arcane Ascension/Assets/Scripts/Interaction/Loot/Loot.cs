@@ -16,7 +16,7 @@ public class Loot : MonoBehaviour
         {
             if (other.TryGetComponent<ICurrency>(out ICurrency currency))
             {
-                currency.GainCurrency(lootType, (uint)Random.Range(amount.x, amount.y));
+                currency.GainCurrency(lootType, (int)Random.Range(amount.x, amount.y));
             }
 
             Destroy(gameObject);
