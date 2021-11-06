@@ -38,21 +38,27 @@ public class SceneControl : MonoBehaviour, ISaveable
         // Destroy player
         if (FindObjectOfType<Player>() != null) Destroy(FindObjectOfType<Player>().transform.parent.gameObject);
 
-        // Destroy level
-        Destroy(FindObjectOfType<LevelGenerator>().gameObject);
-        GameObject[] levelParents = GameObject.FindGameObjectsWithTag("LevelParent");
-        if (levelParents.Length > 0) foreach (GameObject lvlParent in levelParents) Destroy(lvlParent?.gameObject);
 
-        // Creation
-        // Creates a new level
-        DungeonGenerator.GenerateDungeon(true, saveData);
+        // COMMENTED STUFF TO BE ABLE TO LOAD OUTSIDE OF GENERATED DUNGEONS
+        // Destroy level
+        //     Destroy(FindObjectOfType<LevelGenerator>().gameObject);
+        //     GameObject[] levelParents = GameObject.FindGameObjectsWithTag("LevelParent");
+        //     if (levelParents.Length > 0) foreach (GameObject lvlParent in levelParents) Destroy(lvlParent?.gameObject);
+        //     
+        //     // Creation
+        //     // Creates a new level
+        //     DungeonGenerator.GenerateDungeon(true, saveData);
 
         // Creates a new spell pool
         Instantiate(spellsPool, Vector3.zero, Quaternion.identity);
 
+        // DELETE THIS WHEN TESTS WITHOUT GENERATED DUNGEONS ARE OVER
+        SpawnPlayer();
+        //////////////////////////////////////
+
         // Will spawn player after the level is loaded
-        levelGenerated = FindObjectOfType<LevelGenerator>();
-        levelGenerated.EndedGeneration += SpawnPlayer;
+        //      levelGenerated = FindObjectOfType<LevelGenerator>();
+        //      levelGenerated.EndedGeneration += SpawnPlayer;
     }
 
     /// <summary>
@@ -72,7 +78,8 @@ public class SceneControl : MonoBehaviour, ISaveable
         // Enables controls
         FindObjectOfType<PlayerInputCustom>().SwitchActionMapToGameplay();
 
-        levelGenerated.EndedGeneration -= SpawnPlayer;
+        // COMMENTED STUFF TO BE ABLE TO LOAD OUTSIDE OF GENERATED DUNGEONS
+        //                 levelGenerated.EndedGeneration -= SpawnPlayer;
     }
 
 

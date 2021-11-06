@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 /// <summary>
 /// Class responsible for handling information of an ability passive card.
@@ -14,15 +15,15 @@ public class AbilityPassiveCard : MonoBehaviour
     // Components
     [SerializeField] private TextMeshProUGUI title;
     [SerializeField] private TextMeshProUGUI description;
+    private Button button;
 
     private PlayerStats playerStats;
-    private PlayerInteraction playerInteraction;
     private AbilitiesCanvas abilitiesCanvas;
 
     private void Awake()
     {
+        button = GetComponent<Button>();
         abilitiesCanvas = GetComponentInParent<AbilitiesCanvas>();
-        playerInteraction = FindObjectOfType<PlayerInteraction>();
         playerStats = FindObjectOfType<PlayerStats>();
     }
 
@@ -38,8 +39,15 @@ public class AbilityPassiveCard : MonoBehaviour
     {
         if (PassiveOnCard != null)
         {
+            button.enabled = true;
             title.text = PassiveOnCard.Name;
             description.text = PassiveOnCard.Description;
+        }
+        else
+        {
+            button.enabled = false;
+            title.text = "Passives limit";
+            description.text = "";
         }
     }
 
@@ -48,11 +56,11 @@ public class AbilityPassiveCard : MonoBehaviour
     /// </summary>
     public void AddPassive()
     {
-        // Destroys the spell scroll
-        Destroy(playerInteraction.LastObjectInteracted.gameObject);
-
-        PassiveOnCard.Execute(playerStats);
-        playerStats.CurrentPassives.Add(PassiveOnCard);
-        abilitiesCanvas.DisableAll();
+        if (PassiveOnCard != null)
+        {
+            PassiveOnCard.Execute(playerStats);
+            playerStats.CurrentPassives.Add(PassiveOnCard);
+            abilitiesCanvas.DisableAll();
+        }
     }
 }

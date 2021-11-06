@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 /// <summary>
 /// Class responsible for handling information of an ability spell card.
@@ -21,12 +22,14 @@ public class AbilitySpellCard : MonoBehaviour
     private PlayerSpells playerSpells;
     private PlayerInteraction playerInteraction;
     private AbilitiesCanvas abilitiesCanvas;
+    private Button button;
 
     // Full spells canvas
     [SerializeField] private GameObject fullSpellsCanvas;
 
     private void Awake()
     {
+        button = GetComponent<Button>();
         abilitiesCanvas = GetComponentInParent<AbilitiesCanvas>();
         playerInteraction = FindObjectOfType<PlayerInteraction>();
         playerSpells = FindObjectOfType<PlayerSpells>();
@@ -45,7 +48,13 @@ public class AbilitySpellCard : MonoBehaviour
     {
         if (SpellOnCard != null && textInCard != null)
         {
+            button.enabled = true;
             textInCard.text = SpellOnCard.Name;
+        }
+        else if(SpellOnCard == null && textInCard != null)
+        {
+            button.enabled = false;
+            textInCard.text = "Spell limit";
         }
     }
 

@@ -361,9 +361,6 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
         // Stats
         if (this != null) // Do not remove <
         {
-            // Loads stats
-            SetStats(saveData.PlayerSavedData.Health, saveData.PlayerSavedData.Armor, saveData.PlayerSavedData.Mana);
-
             // Passives
             AllPassives allPassives = FindObjectOfType<AllPassives>();
             for (int i = 0; i < saveData.PlayerSavedData.CurrentPassives.Length; i++)
@@ -376,8 +373,13 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
                     }
                 }
             }
+            foreach (IPassive passive in CurrentPassives)
+            {
+                passive.Execute(this);
+            }
+
+            // Loads stats
+            SetStats(saveData.PlayerSavedData.Health, saveData.PlayerSavedData.Armor, saveData.PlayerSavedData.Mana);
         }
     }
-
-    
 }

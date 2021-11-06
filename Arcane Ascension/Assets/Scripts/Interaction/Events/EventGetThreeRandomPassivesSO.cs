@@ -83,7 +83,7 @@ public class EventGetThreeRandomPassivesSO : EventAbstractSO
 
         for (int i = 0; i < 3; i++)
         {
-            if (allPassives.Count <= i)
+            if (allPassives.Count == 0)
             {
                 resultPassives[i] = null;
                 continue;

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using ExtensionMethods;
 
 /// <summary>
 /// Class responsible for saving and loading game.
@@ -41,12 +42,22 @@ public class SaveDataController : MonoBehaviour
     /// </summary>
     public static void LoadGame()
     {
-        IEnumerable<ISaveable> iSaveables = FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>();
+        HashSet<ISaveable> iSaveables = new HashSet<ISaveable>();
+        IEnumerable<GameObject> allGameObjects = FindObjectsOfType<GameObject>();
+
+        foreach (GameObject obj in allGameObjects)
+        {
+            if (obj.TryGetComponent<ISaveable>(out ISaveable save) &&
+                obj.TryGetComponentInParent<SelectionBase>(out SelectionBase character) == false)
+            {
+                iSaveables.Add(save);
+            }
+        }
 
         if (instance.fileManager.ReadFile("Save1.saveFile", out string json))
         {
             instance.saveData.LoadFromJson(json);
-
+  
             foreach (ISaveable iSaveable in iSaveables)
                 instance.StartCoroutine(iSaveable.LoadData(instance.saveData));
 

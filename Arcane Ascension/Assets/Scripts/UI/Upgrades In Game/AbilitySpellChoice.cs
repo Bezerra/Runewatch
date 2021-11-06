@@ -8,22 +8,21 @@ public class AbilitySpellChoice : MonoBehaviour
     // Scriptable object with random abilities
     [SerializeField] private RandomAbilitiesToChooseSO randomAbilities;
 
+    [SerializeField] private GameObject backButton;
+
     // Panels with 3 spells
     private AbilitySpellCard[] spellCards;
 
-    // Components
-    private AbilitiesCanvas abilitiesCanvas;
-    private PlayerInteraction playerInteraction;
 
     private void Awake()
     {
-        abilitiesCanvas = GetComponentInParent<AbilitiesCanvas>();
         spellCards = GetComponentsInChildren<AbilitySpellCard>();
-        playerInteraction = FindObjectOfType<PlayerInteraction>();
     }
 
     private void OnEnable()
     {
+        backButton.SetActive(false);
+
         // Updates spell cards with random spells obtained
         for (int i = 0; i < spellCards.Length; i++)
         {
@@ -33,6 +32,7 @@ public class AbilitySpellChoice : MonoBehaviour
             }
         }
 
+        // Enables a back button if there are no spells to choose
         bool deactivateCanvas = true;
         for (int i = 0; i < randomAbilities.SpellResult.Length; i++)
         {
@@ -41,9 +41,7 @@ public class AbilitySpellChoice : MonoBehaviour
         }
         if (deactivateCanvas)
         {
-            // Destroys the spell scroll
-            Destroy(playerInteraction.LastObjectInteracted.gameObject);
-            abilitiesCanvas.DisableAll();
+            backButton.SetActive(true);
         }
     }
 }
