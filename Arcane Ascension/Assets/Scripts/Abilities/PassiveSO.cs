@@ -10,7 +10,8 @@ using Sirenix.OdinInspector;
 [CreateAssetMenu(menuName = "Passive", fileName = "Passive")]
 public class PassiveSO : ScriptableObject, IPassive
 {
-    [SerializeField] private string notes;
+    [SerializeField] private new string name;
+    [SerializeField] private string description;
 
     [Range(1, 7)] [SerializeField] private int passiveTier;
     [SerializeField] private PassiveType passiveType;
@@ -18,14 +19,14 @@ public class PassiveSO : ScriptableObject, IPassive
 
     public int PassiveTier => passiveTier;
     public PassiveType PassiveType => passiveType;
+    public string Name => name;
+    public string Description => description;
 
     /// <summary>
     /// Updates player's stats.
     /// </summary>
-    public void UpdateStats()
+    public void Execute(PlayerStats playerStats)
     {
-        PlayerStats playerStats = FindObjectOfType<PlayerStats>();
-
         foreach(UpgradeStats upgrade in upgrades)
         {
             upgrade.Upgrade(playerStats);
