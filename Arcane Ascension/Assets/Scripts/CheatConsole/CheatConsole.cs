@@ -27,6 +27,10 @@ public class CheatConsole : MonoBehaviour
 
     [Header("Enemy")]
     [SerializeField] private GameObject dummyEnemy;
+    [SerializeField] private GameObject spellScroll;
+    [SerializeField] private GameObject passiveOrb;
+
+    [Range(2,5)][SerializeField] private float spawnDistance;
 
     private void Awake()
     {
@@ -147,9 +151,13 @@ public class CheatConsole : MonoBehaviour
                     break;
 
                 case "enemy":
-                    Debug.Log("Spawn enemy");
-                    Instantiate(
-                        dummyEnemy, playerStats.transform.position + playerStats.transform.forward * 5, Quaternion.identity);
+                    if (CanSpawn())
+                    {
+                        Debug.Log("Spawn enemy");
+                        Instantiate(
+                            dummyEnemy, playerStats.transform.position + 
+                            playerStats.transform.forward * spawnDistance, Quaternion.identity);
+                    }
                     DisableConsole();
                     break;
 
@@ -163,6 +171,28 @@ public class CheatConsole : MonoBehaviour
                     Debug.Log("Player invisible false");
                     playerStats.gameObject.layer = Layers.PlayerLayerNum;
                     ChangeLayersAllChilds(playerRoot.transform, Layers.PlayerLayerNum, Layers.IgnoreLayerNum, false);
+                    DisableConsole();
+                    break;
+
+                case "scroll":
+                    if (CanSpawn())
+                    {
+                        Debug.Log("Spawn spell scroll");
+                        Instantiate(
+                            spellScroll, playerStats.transform.position +
+                            playerStats.transform.forward * spawnDistance, Quaternion.identity);
+                    }
+                    DisableConsole();
+                    break;
+
+                case "orb":
+                    if (CanSpawn())
+                    {
+                        Debug.Log("Spawn passive orb");
+                        Instantiate(
+                            passiveOrb, playerStats.transform.position +
+                            playerStats.transform.forward * spawnDistance, Quaternion.identity);
+                    }
                     DisableConsole();
                     break;
 
@@ -255,5 +285,14 @@ public class CheatConsole : MonoBehaviour
             if (eventSystem.currentSelectedGameObject == null)
                 inputField.ActivateInputField();
         }
+    }
+
+    private bool CanSpawn()
+    {
+        Player player = playerRoot.GetComponentInChildren<Player>();
+        Ray forward = new Ray(player.Eyes.transform.position, player.Eyes.forward);
+        if (Physics.Raycast(forward, spawnDistance))
+            return false;
+        return true;
     }
 }
