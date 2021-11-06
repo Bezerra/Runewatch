@@ -8,5 +8,10 @@ using Sirenix.OdinInspector;
 [CreateAssetMenu(menuName = "Player Character", fileName = "Player Character")]
 public class PlayerCharacterSO : CharacterSO
 {
+    [SerializeField] private PlayerCurrencySO currency;
 
+    /// <summary>
+    /// Currency of player.
+    /// </summary>
+    public PlayerCurrencySO Currency => currency;
 }

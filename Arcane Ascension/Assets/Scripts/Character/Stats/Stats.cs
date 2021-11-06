@@ -13,7 +13,15 @@ public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
 
     public StatsSO CommonAttributes => character.CommonValues.CharacterStats;
 
+    /// <summary>
+    /// Property that keeps trace of character's current health.
+    /// </summary>
     public float Health { get; protected set; }
+
+    /// <summary>
+    /// Property only used to know max health with IHealable interface.
+    /// </summary>
+    public float MaxHealth => CommonAttributes.MaxHealth;
 
     protected IEnumerator damageOvertimeCoroutine;
 

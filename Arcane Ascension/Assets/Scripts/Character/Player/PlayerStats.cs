@@ -12,8 +12,20 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
 
     public IList<IPassive> CurrentPassives;
 
+    /// <summary>
+    /// Current mana of the character.
+    /// </summary>
     public float Mana { get; private set; }
+
+    /// <summary>
+    /// Current armor of the character.
+    /// </summary>
     public float Armor { get; private set; }
+
+    /// <summary>
+    /// Property to keep track of character max mana.
+    /// </summary>
+    public float MaxMana => PlayerAttributes.MaxMana;
 
     protected override void Awake()
     {

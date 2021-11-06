@@ -12,7 +12,7 @@ public class Player : Character, ISaveable
     public PlayerValuesSO Values => allValues.CharacterValues as PlayerValuesSO;
 
     /// <summary>
-    /// All values of enemy.
+    /// All values of player.
     /// </summary>
     public PlayerCharacterSO AllValues => allValues as PlayerCharacterSO;
 

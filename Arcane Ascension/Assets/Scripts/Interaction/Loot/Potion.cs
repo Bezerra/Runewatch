@@ -12,17 +12,21 @@ public class Potion : MonoBehaviour
     {
         if (other.gameObject.layer == Layers.PlayerLayerNum)
         {
-            if (other.TryGetComponent<Stats>(out Stats stats))
+            if (potionType == PotionType.Health)
             {
-                if (potionType == PotionType.Health)
+                if (other.TryGetComponent<IHealth>(out IHealth iHealable))
                 {
-                    stats.Heal(percentage * stats.CommonAttributes.MaxHealth / 100, StatsType.Health);
-                }
-                else
-                {
-                    stats.Heal(percentage * stats.CommonAttributes.MaxHealth / 100, StatsType.Mana);
+                    iHealable.Heal(percentage * iHealable.MaxHealth / 100, StatsType.Health);
                 }
             }
+            else
+            {
+                if (other.TryGetComponent<IMana>(out IMana iHealable))
+                {
+                    iHealable.Heal(percentage * iHealable.MaxMana / 100, StatsType.Mana);
+                }
+            }
+
             Destroy(gameObject);
         }
     }

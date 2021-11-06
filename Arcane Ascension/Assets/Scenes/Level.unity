@@ -3366,6 +3366,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 515008283}
     m_Modifications:
+    - target: {fileID: 1090331631598940413, guid: d2075db750418ff4ba595da60d813a9f, type: 3}
+      propertyPath: currency
+      value: 
+      objectReference: {fileID: 11400000, guid: 758f5fa1245cf1b40a87e8378e378e46, type: 2}
     - target: {fileID: 8624258032535686394, guid: d2075db750418ff4ba595da60d813a9f, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -8204,6 +8208,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4652332252834110, guid: d4919ac621f7e064cab421cf6e448698, type: 3}
   m_PrefabInstance: {fileID: 2111157894}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2135517462 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1090331631598940400, guid: d2075db750418ff4ba595da60d813a9f, type: 3}
+  m_PrefabInstance: {fileID: 807444378}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2135517473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2135517462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6972214c3fd10a4caf088e97ff5c0e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &746014395235832297
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8258,6 +8279,14 @@ PrefabInstance:
     - target: {fileID: 746014394078527373, guid: 970db1547be992a4ab2de3903b6e259a, type: 3}
       propertyPath: m_Name
       value: Arcane Power
+      objectReference: {fileID: 0}
+    - target: {fileID: 746014395103129589, guid: 970db1547be992a4ab2de3903b6e259a, type: 3}
+      propertyPath: amount.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 746014395103129589, guid: 970db1547be992a4ab2de3903b6e259a, type: 3}
+      propertyPath: amount.y
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 970db1547be992a4ab2de3903b6e259a, type: 3}
@@ -8444,6 +8473,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 515008283}
     m_Modifications:
+    - target: {fileID: 5179003015042285596, guid: 63983b83cea078545a4cb685bc0b57f9, type: 3}
+      propertyPath: amount.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5179003015042285596, guid: 63983b83cea078545a4cb685bc0b57f9, type: 3}
+      propertyPath: amount.y
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8722719063593831624, guid: 63983b83cea078545a4cb685bc0b57f9, type: 3}
       propertyPath: m_RootOrder
       value: 16
