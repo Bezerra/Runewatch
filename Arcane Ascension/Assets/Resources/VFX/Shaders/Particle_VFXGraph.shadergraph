@@ -34,6 +34,9 @@
             "m_Id": "f39db4896de54f62833b764aac5f348b"
         },
         {
+            "m_Id": "653d1f424c894a579de65a563b625bfe"
+        },
+        {
             "m_Id": "84960ae9d1cf495fa4965f30af4b56b5"
         },
         {
@@ -158,6 +161,15 @@
         },
         {
             "m_Id": "e6984735f9784d63ba9ab5368ae75c5a"
+        },
+        {
+            "m_Id": "d43e2a97855e41c2a42e2c237f262a5d"
+        },
+        {
+            "m_Id": "e1165a6ada8c45aaa628467775292853"
+        },
+        {
+            "m_Id": "422be0441e0e4676a5370859c42cc7fb"
         }
     ],
     "m_GroupDatas": [
@@ -252,9 +264,9 @@
             },
             "m_InputSlot": {
                 "m_Node": {
-                    "m_Id": "900061f31391421795ddd1580426551b"
+                    "m_Id": "e1165a6ada8c45aaa628467775292853"
                 },
-                "m_SlotId": 0
+                "m_SlotId": 1
             }
         },
         {
@@ -311,6 +323,20 @@
                     "m_Id": "d26d6f0774774d0f873dee6938b32c23"
                 },
                 "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "422be0441e0e4676a5370859c42cc7fb"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "e1165a6ada8c45aaa628467775292853"
+                },
+                "m_SlotId": 2
             }
         },
         {
@@ -610,6 +636,20 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
+                    "m_Id": "d43e2a97855e41c2a42e2c237f262a5d"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "e1165a6ada8c45aaa628467775292853"
+                },
+                "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
                     "m_Id": "d51330a77673446996a24cac616efc04"
                 },
                 "m_SlotId": 2
@@ -631,6 +671,20 @@
             "m_InputSlot": {
                 "m_Node": {
                     "m_Id": "94621c3a98f0458a9509ab70dcb7b147"
+                },
+                "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "e1165a6ada8c45aaa628467775292853"
+                },
+                "m_SlotId": 3
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "900061f31391421795ddd1580426551b"
                 },
                 "m_SlotId": 0
             }
@@ -847,10 +901,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -3879.0,
-            "y": -282.9999084472656,
-            "width": 106.99999237060547,
-            "height": 33.999996185302737
+            "x": -3879.000244140625,
+            "y": -410.0,
+            "width": 107.0,
+            "height": 34.0
         }
     },
     "m_Slots": [
@@ -1407,6 +1461,30 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
+    "m_ObjectId": "201fe334e6cb432d8722a9826f455957",
+    "m_Id": 3,
+    "m_DisplayName": "Out",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.FlipbookNode",
     "m_ObjectId": "227ac80a3ed9425e8ec6cdc88e8d91d3",
     "m_Group": {
@@ -1417,10 +1495,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2706.0,
-            "y": -1174.0001220703125,
-            "width": 160.00001525878907,
-            "height": 227.00001525878907
+            "x": -2890.0,
+            "y": -1353.0,
+            "width": 160.0,
+            "height": 227.0
         }
     },
     "m_Slots": [
@@ -1636,9 +1714,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -3123.000244140625,
-            "y": -1113.0001220703125,
-            "width": 149.00001525878907,
+            "x": -3307.0,
+            "y": -1292.0,
+            "width": 149.0,
             "height": 34.0
         }
     },
@@ -1671,10 +1749,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -3753.0,
-            "y": -204.00001525878907,
-            "width": 154.99998474121095,
-            "height": 142.0
+            "x": -3680.000244140625,
+            "y": -407.9999694824219,
+            "width": 155.0,
+            "height": 142.00001525878907
         }
     },
     "m_Slots": [
@@ -1746,6 +1824,20 @@
         "e32": 0.0,
         "e33": 1.0
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.BooleanMaterialSlot",
+    "m_ObjectId": "311ffbadb03144369ac2e14daee9ccf9",
+    "m_Id": 0,
+    "m_DisplayName": "FlipBook",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": false,
+    "m_DefaultValue": false
 }
 
 {
@@ -1907,6 +1999,39 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.UVNode",
+    "m_ObjectId": "422be0441e0e4676a5370859c42cc7fb",
+    "m_Group": {
+        "m_Id": "5739265311b94b8eaafbfe67832699b3"
+    },
+    "m_Name": "UV",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -2836.0,
+            "y": -979.0,
+            "width": 145.0,
+            "height": 130.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "be5f2b1a46d0456b8618e8e956daf543"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": false,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_OutputChannel": 0
 }
 
 {
@@ -2138,10 +2263,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2954.0,
-            "y": -1153.0001220703125,
-            "width": 120.00000762939453,
-            "height": 149.00001525878907
+            "x": -3138.0,
+            "y": -1332.0,
+            "width": 120.0,
+            "height": 149.0
         }
     },
     "m_Slots": [
@@ -2277,7 +2402,7 @@
     ],
     "synonyms": [],
     "m_Precision": 0,
-    "m_PreviewExpanded": true,
+    "m_PreviewExpanded": false,
     "m_PreviewMode": 0,
     "m_CustomColors": {
         "m_SerializableColors": []
@@ -2340,8 +2465,8 @@
     "m_ObjectId": "5739265311b94b8eaafbfe67832699b3",
     "m_Title": "Flipbook",
     "m_Position": {
-        "x": 10.0,
-        "y": 10.0
+        "x": -3332.000244140625,
+        "y": -1412.239990234375
     }
 }
 
@@ -2435,10 +2560,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -4009.0,
-            "y": -154.99993896484376,
-            "width": 129.99998474121095,
-            "height": 117.99999237060547
+            "x": -3936.000244140625,
+            "y": -359.0,
+            "width": 130.0,
+            "height": 118.0
         }
     },
     "m_Slots": [
@@ -2480,6 +2605,30 @@
         "y": 0.0
     },
     "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
+    "m_ObjectId": "5e4fa7d7a5df4466b7ab94e87ef1a287",
+    "m_Id": 2,
+    "m_DisplayName": "False",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "False",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    }
 }
 
 {
@@ -2553,6 +2702,26 @@
         "e32": 0.0,
         "e33": 1.0
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.BooleanShaderProperty",
+    "m_ObjectId": "653d1f424c894a579de65a563b625bfe",
+    "m_Guid": {
+        "m_GuidSerialized": "05a33d77-714b-41ff-a12e-197f198cc407"
+    },
+    "m_Name": "FlipBook",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "FlipBook",
+    "m_DefaultReferenceName": "FlipBook",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": false
 }
 
 {
@@ -3094,6 +3263,30 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
+    "m_ObjectId": "7ba61f1f82bd45aea2875b78ca130b07",
+    "m_Id": 1,
+    "m_DisplayName": "True",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "True",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0,
+        "w": 1.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
     "m_ObjectId": "7cd06e9e4ecc490da4bf5a66a7e2908e",
     "m_Id": 0,
@@ -3139,10 +3332,10 @@
     "m_Guid": {
         "m_GuidSerialized": "748756c1-5c52-4277-b41c-bbe832e52dfa"
     },
-    "m_Name": "Flipbook Sprite",
+    "m_Name": "Flipbook Tile",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Flipbook Sprite",
-    "m_DefaultReferenceName": "Flipbook_Sprite",
+    "m_RefNameGeneratedByDisplayName": "Flipbook Tile",
+    "m_DefaultReferenceName": "Flipbook_Tile",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
@@ -3184,9 +3377,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2990.0,
-            "y": -950.0000610351563,
-            "width": 156.00001525878907,
+            "x": -3174.0,
+            "y": -1129.0,
+            "width": 144.0,
             "height": 34.0
         }
     },
@@ -3545,10 +3738,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -4232.0,
-            "y": -107.00003051757813,
-            "width": 125.99999237060547,
-            "height": 172.99998474121095
+            "x": -4158.0,
+            "y": -310.9999694824219,
+            "width": 126.0,
+            "height": 173.0
         }
     },
     "m_Slots": [
@@ -3848,10 +4041,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -4195.0,
-            "y": -333.9999084472656,
+            "x": -4158.0,
+            "y": -375.9999694824219,
             "width": 144.0,
-            "height": 33.999996185302737
+            "height": 34.0
         }
     },
     "m_Slots": [
@@ -4001,7 +4194,7 @@
     ],
     "synonyms": [],
     "m_Precision": 0,
-    "m_PreviewExpanded": true,
+    "m_PreviewExpanded": false,
     "m_PreviewMode": 0,
     "m_CustomColors": {
         "m_SerializableColors": []
@@ -4149,6 +4342,31 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
+    "m_ObjectId": "be5f2b1a46d0456b8618e8e956daf543",
+    "m_Id": 0,
+    "m_DisplayName": "Out",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector2MaterialSlot",
     "m_ObjectId": "bef20095f2c7427181da88e725df69a2",
     "m_Id": 1,
@@ -4166,6 +4384,20 @@
         "y": 0.0
     },
     "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.BooleanMaterialSlot",
+    "m_ObjectId": "c03c66f2acfd4a5f88b579072fc74c54",
+    "m_Id": 0,
+    "m_DisplayName": "Predicate",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Predicate",
+    "m_StageCapability": 3,
+    "m_Value": false,
+    "m_DefaultValue": false
 }
 
 {
@@ -4417,7 +4649,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "ce412f0de9d140ab9c74ad6c21768f4a",
     "m_Id": 0,
-    "m_DisplayName": "Flipbook Sprite",
+    "m_DisplayName": "Flipbook Tile",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -4562,6 +4794,41 @@
     },
     "m_TextureType": 0,
     "m_NormalMapSpace": 0
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "d43e2a97855e41c2a42e2c237f262a5d",
+    "m_Group": {
+        "m_Id": "5739265311b94b8eaafbfe67832699b3"
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -2991.0,
+            "y": -1047.0,
+            "width": 124.0,
+            "height": 34.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "311ffbadb03144369ac2e14daee9ccf9"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "653d1f424c894a579de65a563b625bfe"
+    }
 }
 
 {
@@ -4793,6 +5060,47 @@
     },
     "m_Labels": [],
     "m_Channel": 0
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.BranchNode",
+    "m_ObjectId": "e1165a6ada8c45aaa628467775292853",
+    "m_Group": {
+        "m_Id": "5739265311b94b8eaafbfe67832699b3"
+    },
+    "m_Name": "Branch",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -2601.0,
+            "y": -1075.0,
+            "width": 208.0,
+            "height": 326.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "c03c66f2acfd4a5f88b579072fc74c54"
+        },
+        {
+            "m_Id": "7ba61f1f82bd45aea2875b78ca130b07"
+        },
+        {
+            "m_Id": "5e4fa7d7a5df4466b7ab94e87ef1a287"
+        },
+        {
+            "m_Id": "201fe334e6cb432d8722a9826f455957"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    }
 }
 
 {
