@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1639890570}
+  - component: {fileID: 1639890571}
   - component: {fileID: 1639890573}
   - component: {fileID: 1639890572}
-  - component: {fileID: 1639890571}
   m_Layer: 0
   m_Name: Minimap Camera
   m_TagString: Untagged
@@ -33,6 +33,21 @@ Transform:
   m_Father: {fileID: 5293588720916298049}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: -90, z: 0}
+--- !u!114 &1639890571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639890569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75fecc69c7551c1408825e706fa6ad1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minimapPlayerDirection: 1
+  camSize: 53
+  cam: {fileID: 1639890573}
 --- !u!20 &1639890573
 Camera:
   m_ObjectHideFlags: 0
@@ -60,7 +75,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 52.9
+  orthographic size: 53
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -108,18 +123,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!114 &1639890571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1639890569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75fecc69c7551c1408825e706fa6ad1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4105543714591749266
 GameObject:
   m_ObjectHideFlags: 0
