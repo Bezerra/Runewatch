@@ -33,7 +33,14 @@ public struct ObjectPool<T> where T : BasePool
                 obj.transform.parent = parent.transform;
             }
 
-            poolDictionary.Add(pools[i].Name, objectPool);
+            try
+            {
+                poolDictionary.Add(pools[i].Name, objectPool);
+            }
+            catch (System.ArgumentException)
+            {
+                Debug.Log(pools[i].Name + " projectile already exists on another spell. Change projectile.");
+            }
         }
     }
 

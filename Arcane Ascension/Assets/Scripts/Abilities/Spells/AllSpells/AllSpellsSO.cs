@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using System.Linq;
 
 /// <summary>
 /// Scriptable object with all spells scriptable objects.
@@ -14,4 +15,10 @@ public class AllSpellsSO : ScriptableObject
     [DisableIf("inspectorReadOnlyList", true)]
     [SerializeField] private List<SpellSO> spells;
     public List<SpellSO> SpellList { get => spells; set => spells = value; }
+
+    private void OnValidate() =>
+        spells = spells.OrderBy(i => i.SpellID).ToList();
+
+    private void OnEnable() =>
+        spells = spells.OrderBy(i => i.SpellID).ToList();
 }
