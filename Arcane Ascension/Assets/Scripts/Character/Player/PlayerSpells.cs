@@ -35,18 +35,6 @@ public class PlayerSpells : MonoBehaviour, ISaveable
         allSpells = FindObjectOfType<AllSpells>().SpellList;
 
         CurrentSpells = new SpellSO[4];
-
-        StartCoroutine(temp());
-        
-    }
-
-    private IEnumerator temp()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(1);
-            ItemLootPoolCreator.Pool.InstantiateFromPool(LootNamesType.Gold.ToString(), transform.position + transform.forward, Quaternion.identity);
-        }
     }
 
     private void Start()
@@ -294,7 +282,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
             {
                 for (int j = 0; j < allSpells.Count; j++)
                 {
-                    if (savedSpells[i] == allSpells[j].SpellID)
+                    if (savedSpells[i] == allSpells[j].ID)
                     {
                         CurrentSpells[i] = allSpells[j];
                         break;

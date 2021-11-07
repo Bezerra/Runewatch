@@ -24,6 +24,7 @@ public class CheatConsole : MonoBehaviour
     private PlayerSpells playerSpells;
     private AllSpells allSpells;
     private SelectionBase playerRoot;
+    private PlayerCurrency playerCurrency;
 
     [Header("Enemy")]
     [SerializeField] private GameObject dummyEnemy;
@@ -56,6 +57,7 @@ public class CheatConsole : MonoBehaviour
     /// </summary>
     private void FindRequiredComponents()
     {
+        playerCurrency = FindObjectOfType<PlayerCurrency>();
         playerSpells = FindObjectOfType<PlayerSpells>();
         playerStats = FindObjectOfType<PlayerStats>();
         allSpells = FindObjectOfType<AllSpells>();
@@ -76,30 +78,38 @@ public class CheatConsole : MonoBehaviour
             return;
         }
 
-        if (playerSpells == null || playerStats == null || allSpells == null)
+        if (playerSpells == null || playerStats == null || allSpells == null || playerCurrency == null)
             FindRequiredComponents();
 
         string[] splitWords = input.ToLower().Trim().Split(' ');
-        byte spellNumber = 0;
-        byte slotNumber = 0;
+        int number = 0;
+        int number2 = 0;
 
         if (splitWords.Length == 3)
         {
-            spellNumber = Convert.ToByte(splitWords[1]);
-            slotNumber = Convert.ToByte(splitWords[2]);
+            try
+            {
+                number = Convert.ToInt32(splitWords[1]);
+            }
+            catch { }
+            try
+            {
+                number2 = Convert.ToInt32(splitWords[2]);
+            }
+            catch { }
         }
 
         if (splitWords.Length == 3 &&
             splitWords[0] == "spell" && 
-            (spellNumber >= 0 && spellNumber <= Byte.MaxValue) &&
-            (slotNumber >= 1 && slotNumber <= 4))
+            (number >= 0 && number <= Byte.MaxValue) &&
+            (number2 >= 1 && number2 <= 4))
         {
             bool playerAlreadyHasSpell = false;
             foreach(SpellSO spell in playerSpells.CurrentSpells)
             {
                 if (spell != null)
                 {
-                    if (spell.SpellID == spellNumber)
+                    if (spell.ID == number)
                         playerAlreadyHasSpell = true;
                 }
             }
@@ -108,7 +118,7 @@ public class CheatConsole : MonoBehaviour
             {
                 foreach (SpellSO spell in allSpells.SpellList)
                 {
-                    if (spell.SpellID == Convert.ToByte(splitWords[1]))
+                    if (spell.ID == Convert.ToByte(splitWords[1]))
                     {
                         AddSpell(spell, Convert.ToByte(splitWords[2]));
                         DisableConsole();
@@ -120,6 +130,21 @@ public class CheatConsole : MonoBehaviour
             {
                 inputField.text = " ";
                 inputField.ActivateInputField();
+            }
+        }
+        else if (splitWords.Length == 3 &&
+                splitWords[0] == "currency" &&
+                (number2 >= 0 && number2 <= Int32.MaxValue))
+        {
+            if (splitWords[1] == "gold")
+            {
+                playerCurrency.GainCurrency(CurrencyType.Gold, number2);
+                DisableConsole();
+            }
+            if (splitWords[1] == "arcane")
+            {
+                playerCurrency.GainCurrency(CurrencyType.ArcanePower, number2);
+                DisableConsole();
             }
         }
         else
@@ -190,8 +215,9 @@ public class CheatConsole : MonoBehaviour
                     if (CanSpawn())
                     {
                         Debug.Log("Spawn spell scroll");
-                        Instantiate(
-                            spellScroll, playerStats.transform.position +
+                        ItemLootPoolCreator.Pool.InstantiateFromPool(
+                            LootNamesType.UnknownSpell.ToString(),
+                            playerStats.transform.position +
                             playerStats.transform.forward * spawnDistance, Quaternion.identity);
                     }
                     DisableConsole();
@@ -201,8 +227,9 @@ public class CheatConsole : MonoBehaviour
                     if (CanSpawn())
                     {
                         Debug.Log("Spawn passive orb");
-                        Instantiate(
-                            passiveOrb, playerStats.transform.position +
+                        ItemLootPoolCreator.Pool.InstantiateFromPool(
+                            LootNamesType.PassiveOrb.ToString(),
+                            playerStats.transform.position +
                             playerStats.transform.forward * spawnDistance, Quaternion.identity);
                     }
                     DisableConsole();
@@ -238,10 +265,10 @@ public class CheatConsole : MonoBehaviour
         }
     }
 
-    private void AddSpell(SpellSO spell, byte slotNumber)
+    private void AddSpell(SpellSO spell, int number2)
     {
-        playerSpells.RemoveSpell(slotNumber - 1);
-        playerSpells.AddSpell(spell, slotNumber - 1);
+        playerSpells.RemoveSpell(number2 - 1);
+        playerSpells.AddSpell(spell, number2 - 1);
     }
 
     private void Godmode(float temp) => StartCoroutine(GodmodeCoroutine());

@@ -100,7 +100,6 @@ public abstract class SpellSO : ScriptableObject, ISpell
     // Properties
     public Sprite Icon => icon;
     public string Name => name;
-    public byte SpellID => spellID;
     public byte ID => spellID;
     public int Tier => spellTier;
     public string Description => description;
