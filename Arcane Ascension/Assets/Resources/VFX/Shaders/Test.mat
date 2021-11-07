@@ -8,8 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Test
-  m_Shader: {fileID: 4800000, guid: 00ddc540bb4f4884d8b80c89d91ca1f0, type: 3}
-  m_ShaderKeywords: 
+  m_Shader: {fileID: 4800000, guid: 667bc581efc758f43a7bd86c68dc5b40, type: 3}
+  m_ShaderKeywords: _USECUSTOMDISSOLVE_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _DissolveTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 8b16b60bb17099d47b65a8c2e8bffc22, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DistortTexture:
@@ -28,17 +28,17 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 8b16b60bb17099d47b65a8c2e8bffc22, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mask:
-        m_Texture: {fileID: 2800000, guid: 34f750b790523de4e86dd1d2b8d03a43, type: 3}
+        m_Texture: {fileID: 2800000, guid: 641c06ae056719d4989ff4f3f368b9ac, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Texture: {fileID: 2800000, guid: b20956d0a77120e4ea5b9dbfcc902ffa, type: 3}
+        m_Scale: {x: -0.27, y: 1}
+        m_Offset: {x: 1.66, y: 1.35}
     - _texcoord:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -46,10 +46,14 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaCutoff: 0.5
-    - _DissolveAmount: 0
-    - _DistortStrength: 0
+    - _DissolveAmount: 0.602
+    - _DistortStrength: 0.52
+    - _ToggleSwitch0: 0
+    - _UseCustomData: 0
+    - _UseCustomDissolve: 1
+    - _UseStepDissolve: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 3.031433, g: 0.8083822, b: 0, a: 1}
     - _Color1: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _DistortSpeed: {r: 0, g: 0, b: 0, a: 0}
