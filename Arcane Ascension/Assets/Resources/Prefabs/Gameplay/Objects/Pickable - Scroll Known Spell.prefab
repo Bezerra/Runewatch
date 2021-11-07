@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2172836827759931065}
   - component: {fileID: 2172836827759931066}
-  - component: {fileID: 2172836827759931064}
+  - component: {fileID: 1194292508685672336}
+  - component: {fileID: 8529592847199808462}
   - component: {fileID: 4163851610553113115}
   m_Layer: 15
   m_Name: Pickable - Scroll Known Spell
@@ -53,7 +54,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f7df4f7c44d319c468d292f9b9d2f7a4, type: 2}
   - {fileID: 11400000, guid: 259fdf688c59c53409331eca31a3ae7a, type: 2}
   - {fileID: 11400000, guid: 892b2d67598d9664ca9ad2404aa4bdfa, type: 2}
---- !u!114 &2172836827759931064
+--- !u!114 &1194292508685672336
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -62,11 +63,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 2172836827759931067}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 593e9613883c7734883ae5e08ce60a1f, type: 3}
+  m_Script: {fileID: 11500000, guid: 6127bee3a4f10f34190285283ea5c38a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rangeToActivate: 5
-  textOnCanvas: 
+  textOnCanvas: ???
+--- !u!135 &8529592847199808462
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2172836827759931067}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.3
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &4163851610553113115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,7 +111,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2172836828364928213
 RectTransform:
   m_ObjectHideFlags: 0
@@ -174,9 +188,8 @@ GameObject:
   - component: {fileID: 2172836828689937972}
   - component: {fileID: 2172836828689937969}
   - component: {fileID: 2172836828689937970}
-  - component: {fileID: 2172836828689937971}
   m_Layer: 15
-  m_Name: Cube
+  m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -246,19 +259,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2172836828689937971
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2172836828689937973}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2172836828709184130
 GameObject:
   m_ObjectHideFlags: 0
