@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 public interface ISpell: ISpellBehaviour, ISpellDamage, ISpellSound
 {
-    Texture Icon { get; }
+    Sprite Icon { get; }
     string Name { get; }
     byte SpellID { get; }
     float ManaCost { get; }

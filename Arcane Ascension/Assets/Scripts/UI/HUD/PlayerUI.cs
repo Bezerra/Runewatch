@@ -35,6 +35,7 @@ public class PlayerUI : MonoBehaviour
         {
             if (playerSpells.CurrentSpells[i] != null)
             {
+                spellsUI[i].sprite = playerSpells.CurrentSpells[i].Icon;
                 spellsUI[i].fillAmount =
                     playerSpells.CurrentSpells[i].CooldownCounter / playerSpells.CurrentSpells[i].Cooldown;
             }
@@ -44,6 +45,7 @@ public class PlayerUI : MonoBehaviour
             }
         }
 
+        spellsUI[4].sprite = playerSpells.SecondarySpell.Icon;
         spellsUI[4].fillAmount =
                     playerSpells.SecondarySpell.CooldownCounter / playerSpells.SecondarySpell.Cooldown;
 

@@ -14,7 +14,7 @@ public abstract class SpellSO : ScriptableObject, ISpell
 {
     [BoxGroup("General")]
     [HorizontalGroup("General/Split", 72)]
-    [HideLabel, PreviewField(72)] [SerializeField] protected Texture icon;
+    [HideLabel, PreviewField(72)] [SerializeField] protected Sprite icon;
 
     [VerticalGroup("General/Split/Middle", 1), LabelWidth(60)]
     [InlineButton("ChangeFileName", "Update File Name")]
@@ -94,7 +94,7 @@ public abstract class SpellSO : ScriptableObject, ISpell
     [SerializeField] protected SpellSound sounds;
 
     // Properties
-    public Texture Icon => icon;
+    public Sprite Icon => icon;
     public string Name => name;
     public byte SpellID => spellID;
     public ElementType Element => element;
