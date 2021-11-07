@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3479426939413362820
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4799886289624334279}
+  - component: {fileID: 2166067030785841737}
+  m_Layer: 0
+  m_Name: ShopkeeperLootPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4799886289624334279
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3479426939413362820}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2166067030785841737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3479426939413362820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 533f5387d8a504e489e14e8c985bb829, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pool:
+  - name: Shopkeeper Healing Potion
+    prefab: {fileID: 5279502808649638455, guid: bf5e55e7a9f402b47990599b95db55d2, type: 3}
+    size: 7
+  - name: Shopkeeper Mana Potion
+    prefab: {fileID: 2713407993782939885, guid: 4f39dbfd89ca3c5478629a1e0c013d5a, type: 3}
+    size: 7
+  - name: Shopkeeper Spell Scroll
+    prefab: {fileID: 758232422960525802, guid: e0b1b2a3e996b574cad780c77900ef83, type: 3}
+    size: 7
+  - name: Shopkeeper Passive Orb
+    prefab: {fileID: 274803192554558697, guid: 859e4c0ea9e286e43bb3b341706b4a22, type: 3}
+    size: 7

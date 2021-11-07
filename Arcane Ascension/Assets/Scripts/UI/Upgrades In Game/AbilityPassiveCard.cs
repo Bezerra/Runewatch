@@ -61,7 +61,7 @@ public class AbilityPassiveCard : MonoBehaviour
     {
         if (PassiveOnCard != null)
         {
-            Destroy(playerInteraction.LastObjectInteracted.gameObject);
+            playerInteraction.LastObjectInteracted?.gameObject.SetActive(false);
 
             PassiveOnCard.Execute(playerStats);
             playerStats.CurrentPassives.Add(PassiveOnCard);

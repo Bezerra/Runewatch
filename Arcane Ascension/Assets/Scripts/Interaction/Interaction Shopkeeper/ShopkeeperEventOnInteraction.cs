@@ -43,9 +43,9 @@ public class ShopkeeperEventOnInteraction : AbstractEventOnInteraction, IInterec
                     }
                 }
 
+                // Disables object on pool
+                gameObject.SetActive(false);
                 PlayerCurrency.SpendCurrency(CurrencyType.Gold, price);
-                eventOnInteraction.Clear();
-                Destroy(GetComponentInParent<ShopkeeperInventorySlot>().gameObject);
             }
         }
         else

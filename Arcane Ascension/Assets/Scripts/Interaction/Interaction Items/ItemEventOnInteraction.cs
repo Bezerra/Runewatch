@@ -20,7 +20,6 @@ public class ItemEventOnInteraction : AbstractEventOnInteraction, IInterectable
                     eve.Execute(this);
                 }
             }
-            eventOnInteraction.Clear();
         }
         else
         {

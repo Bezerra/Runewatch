@@ -69,7 +69,7 @@ public class AbilitySpellCard : MonoBehaviour
         {
             playerSpells.AddSpell(SpellOnCard as SpellSO);
             abilitiesCanvas.DisableAll();
-            Destroy(playerInteraction.LastObjectInteracted.gameObject);
+            playerInteraction.LastObjectInteracted?.gameObject.SetActive(false);
         }
         // Else if there are not slots, it will open a new canvas with 4 slots to select.
         else
@@ -90,7 +90,7 @@ public class AbilitySpellCard : MonoBehaviour
         if (playerSpells.CurrentSpells[slot] != null)
         {
             // Destroys the spell scroll
-            Destroy(playerInteraction.LastObjectInteracted.gameObject);
+            playerInteraction.LastObjectInteracted?.gameObject.SetActive(false);
 
             // Drops a spell and updates player's spell list
             playerSpells.DropSpell(playerSpells.CurrentSpells[slot] as SpellSO);

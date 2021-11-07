@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 /// <summary>
 /// Generic struct that creates -T- pools of gameobjects.
@@ -64,6 +65,37 @@ public struct ObjectPool<T> where T : BasePool
         obj.transform.SetPositionAndRotation(position, rotation);
         poolDictionary[name].Enqueue(obj);
 
+        return obj;
+    }
+
+    /// <summary>
+    /// Spawns an object from a pool.
+    /// </summary>
+    /// <param name="name">Name of the object.</param>
+    /// <param name="position">Position of the object.</param>
+    /// <param name="rotation">Rotation of the object.</param>
+    /// <returns>Returns spawned gameobject.</returns>
+    public GameObject InstantiateFromPool(int number, Vector3 position, Quaternion rotation)
+    {
+        if (!poolDictionary.ContainsKey(poolDictionary.ElementAt(number).Key))
+        {
+            MonoBehaviour.print($"Pool doesn't exist.");
+            return null;
+        }
+
+        GameObject obj = null;
+        for (int i = 0; i < poolDictionary.Count; i++)
+        {
+            if (i == number)
+            {
+                obj = poolDictionary.ElementAt(number).Value.Dequeue();
+                obj.SetActive(true);
+                obj.transform.SetPositionAndRotation(position, rotation);
+                poolDictionary.ElementAt(number).Value.Enqueue(obj);
+
+                break;
+            }
+        }
         return obj;
     }
 
