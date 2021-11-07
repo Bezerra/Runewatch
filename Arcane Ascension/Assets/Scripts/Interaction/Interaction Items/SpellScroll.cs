@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -5,11 +6,17 @@ using UnityEngine;
 /// </summary>
 public class SpellScroll : MonoBehaviour, IDroppedSpell
 {
-    [Range(10, 60)][SerializeField] private float timeToDestroy;
+    [Range(10, 60)][SerializeField] private float timeToDeactivate;
 
-    private void Awake()
+    private IEnumerator Disable()
     {
-        Destroy(gameObject, timeToDestroy);
+        yield return new WaitForSeconds(timeToDeactivate);
+        gameObject.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        StartCoroutine(Disable());
     }
 
     public ISpell DroppedSpell { get; set; }

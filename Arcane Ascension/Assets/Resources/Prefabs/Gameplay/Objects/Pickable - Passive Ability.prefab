@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6291298513673249406}
   - component: {fileID: 5294600871184638544}
   - component: {fileID: 3610144545636596978}
-  - component: {fileID: 3092681746740860124}
+  - component: {fileID: 7337793762669776294}
   m_Layer: 15
   m_Name: Pickable - Passive Ability
   m_TagString: Untagged
@@ -82,7 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rangeToActivate: 5
   textOnCanvas: Passive Ability
---- !u!114 &3092681746740860124
+--- !u!114 &7337793762669776294
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,10 +91,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3092681746740860096}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8f0849a8e3136a44b663d12126eec94, type: 3}
+  m_Script: {fileID: 11500000, guid: df4643d3a9ab9f64c8f8c7717d7b6a89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToDestroy: 30
+  secondsToWait: 60
 --- !u!1 &3092681746826980112
 GameObject:
   m_ObjectHideFlags: 0

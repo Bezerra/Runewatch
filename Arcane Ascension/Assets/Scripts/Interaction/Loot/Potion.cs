@@ -26,7 +26,7 @@ public class Potion : MonoBehaviour
                 }
             }
 
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

@@ -19,7 +19,7 @@ public class Currency : MonoBehaviour
                     (int)Random.Range(currencySO.Amount.x, currencySO.Amount.y));
             }
 
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

@@ -89,7 +89,7 @@ public class AbilitySpellCard : MonoBehaviour
     {
         if (playerSpells.CurrentSpells[slot] != null)
         {
-            // Destroys the spell scroll
+            // DEactivates the spell scroll
             playerInteraction.LastObjectInteracted?.gameObject.SetActive(false);
 
             // Drops a spell and updates player's spell list

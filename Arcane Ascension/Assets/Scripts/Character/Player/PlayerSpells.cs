@@ -35,6 +35,18 @@ public class PlayerSpells : MonoBehaviour, ISaveable
         allSpells = FindObjectOfType<AllSpells>().SpellList;
 
         CurrentSpells = new SpellSO[4];
+
+        StartCoroutine(temp());
+        
+    }
+
+    private IEnumerator temp()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1);
+            ItemLootPoolCreator.Pool.InstantiateFromPool(LootNamesType.Gold.ToString(), transform.position + transform.forward, Quaternion.identity);
+        }
     }
 
     private void Start()
@@ -216,8 +228,10 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     /// <param name="spellToDrop">Spell to drop.</param>
     public void DropSpell(SpellSO spellToDrop)
     {
-        GameObject spellDropped = 
-            Instantiate(spellScroll, transform.position + transform.forward, Quaternion.identity);
+        GameObject spellDropped =
+            ItemLootPoolCreator.Pool.InstantiateFromPool("Known Spell",
+            transform.position + transform.forward, Quaternion.identity);
+
         spellDropped.transform.RotateTo(transform.position);
 
         // Updates dropped spell information with the dropped spell
