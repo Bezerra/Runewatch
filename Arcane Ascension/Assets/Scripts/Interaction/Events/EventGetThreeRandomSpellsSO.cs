@@ -30,7 +30,6 @@ public class EventGetThreeRandomSpellsSO : EventAbstractSO
 
         // Creates array with 3 random spells
         abilitiesToChose.SpellResult = GetSpell();
-        Debug.Log("Got 3 spells");
     }
 
     /// <summary>
