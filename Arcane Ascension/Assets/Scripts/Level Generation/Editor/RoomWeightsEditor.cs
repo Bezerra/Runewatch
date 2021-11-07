@@ -34,7 +34,7 @@ public class RoomWeightsEditor : OdinMenuEditorWindow
         tree.Add("Create New Room Weight/New Room Weight", createNewRoomWeight);
 
         tree.AddAllAssetsAtPath("Room Weights",
-            "Assets/Resources/Scriptable Objects/Room Weights", typeof(RoomWeightsSO));
+            "Assets/Resources/Scriptable Objects/Create Once _ General/Room Weights", typeof(RoomWeightsSO));
 
         return tree;
     }
@@ -79,7 +79,7 @@ public class RoomWeightsEditor : OdinMenuEditorWindow
         private void CreateNewData()
         {
             AssetDatabase.CreateAsset(Room,
-                "Assets/Resources/Scriptable Objects/Room Weights/New Room Weight" +
+                "Assets/Resources/Scriptable Objects/Create Once _ General/Room Weights/New Room Weight" +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 

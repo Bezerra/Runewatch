@@ -27,7 +27,7 @@ public class ElementsDamageManagerEditor : OdinMenuEditorWindow
         OdinMenuTree tree = new OdinMenuTree();
 
         tree.AddAllAssetsAtPath(
-            "Elements Damage", "Assets/Resources/Scriptable Objects/Elements Damage",
+            "Elements Damage", "Assets/Resources/Scriptable Objects/Create Once _ General",
             typeof(ElementsDamageSO));
 
         return tree;
