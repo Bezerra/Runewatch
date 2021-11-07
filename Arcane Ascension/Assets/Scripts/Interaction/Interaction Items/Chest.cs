@@ -9,13 +9,13 @@ public class Chest : MonoBehaviour
     [SerializeField] private List<EventAbstractSO> eventsToRunOnChestOpen;
 
     private GameObject canvasText;
-    private InterectableCanvasText interectableCanvas;
+    private InteractionCanvasText interectableCanvas;
     private EventOnInteraction eventOnInteraction;
 
     private void Awake()
     {
         canvasText = GetComponentInChildren<Canvas>().gameObject;
-        interectableCanvas = GetComponent<InterectableCanvasText>();
+        interectableCanvas = GetComponent<InteractionCanvasText>();
         eventOnInteraction = GetComponent<EventOnInteraction>();
     }
 
