@@ -25,7 +25,6 @@ public class MinimapEditor : OdinMenuEditorWindow
     {
         OdinMenuTree tree = new OdinMenuTree();
 
-
         tree.AddAllAssetsAtPath("Minimap Data", $"Assets/Resources/Scriptable Objects/Create Once _ General",
             typeof(MinimapIconsSO));
 

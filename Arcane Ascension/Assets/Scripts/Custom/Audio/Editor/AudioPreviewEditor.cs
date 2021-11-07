@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(AbstractSoundScriptableObject), true)]
+[CustomEditor(typeof(AbstractSoundSO), true)]
 public class AudioPreviewEditor : Editor
 {
 	[SerializeField] private AudioSource previewer;
@@ -24,7 +24,7 @@ public class AudioPreviewEditor : Editor
 		EditorGUI.BeginDisabledGroup(serializedObject.isEditingMultipleObjects);
 		if (GUILayout.Button("Preview"))
 		{
-			((AbstractSoundScriptableObject)target).PlaySound(previewer);
+			((AbstractSoundSO)target).PlaySound(previewer);
 		}
 		EditorGUI.EndDisabledGroup();
 	}

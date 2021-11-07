@@ -7,11 +7,11 @@ using UnityEngine;
 [Serializable]
 public struct SpellSound
 {
-    [SerializeField] private AbstractSoundScriptableObject projectile;
-    [SerializeField] private AbstractSoundScriptableObject muzzle;
-    [SerializeField] private AbstractSoundScriptableObject hit;
+    [SerializeField] private AbstractSoundSO projectile;
+    [SerializeField] private AbstractSoundSO muzzle;
+    [SerializeField] private AbstractSoundSO hit;
 
-    public AbstractSoundScriptableObject Projectile => projectile;
-    public AbstractSoundScriptableObject Muzzle => muzzle;
-    public AbstractSoundScriptableObject Hit => hit;
+    public AbstractSoundSO Projectile => projectile;
+    public AbstractSoundSO Muzzle => muzzle;
+    public AbstractSoundSO Hit => hit;
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 /// <summary>
 /// Scriptable object base class for all sounds.
 /// </summary>
-public abstract class AbstractSoundScriptableObject : ScriptableObject
+public abstract class AbstractSoundSO : ScriptableObject
 {
     [SerializeField] protected List<AudioClip> audioClips;
 

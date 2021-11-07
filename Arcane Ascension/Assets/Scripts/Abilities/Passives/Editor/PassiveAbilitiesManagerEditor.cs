@@ -8,12 +8,12 @@ using Sirenix.Utilities.Editor;
 /// <summary>
 /// Class responsible for creating passive abilities editor window.
 /// </summary>
-public class PassiveAbilitiesManager : OdinMenuEditorWindow
+public class PassiveAbilitiesManagerEditor : OdinMenuEditorWindow
 {
     [MenuItem("CustomEditor/Passive Abilities Editor")]
     private static void OpenWindow()
     {
-        GetWindow<PassiveAbilitiesManager>().Show();
+        GetWindow<PassiveAbilitiesManagerEditor>().Show();
     }
 
     protected override void OnGUI()
@@ -41,7 +41,7 @@ public class PassiveAbilitiesManager : OdinMenuEditorWindow
 
     protected override void OnBeginDrawEditors()
     {
-        OdinMenuTreeSelection selected = this.MenuTree.Selection;
+        OdinMenuTreeSelection selected = this.MenuTree?.Selection;
 
         SirenixEditorGUI.BeginHorizontalToolbar();
         {

@@ -4,9 +4,9 @@ using UnityEngine;
 /// Scriptable object responsible for playing a random sound from a list with random values.
 /// </summary>
 [CreateAssetMenu(menuName = "Audio/Random Sound Random Values", fileName = "Random Sound Random Values")]
-sealed public class RandomSoundRandomValuesSO : AbstractSoundScriptableObject
+sealed public class RandomSoundRandomValuesSO : AbstractSoundSO
 {
-    [SerializeField] private string description = "Plays one sound with random values";
+    [SerializeField] private string description = "Plays a random sound with random values";
 
     [RangeMinMax(0f, 2f)] [SerializeField] private Vector2 volume;
     [RangeMinMax(0f, 2f)] [SerializeField] private Vector2 pitch;

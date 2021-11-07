@@ -4,7 +4,7 @@ using UnityEngine;
 /// Scriptable object responsible for playing a sound from a list.
 /// </summary>
 [CreateAssetMenu(menuName = "Audio/Simple Sound", fileName = "Simple Sound")]
-sealed public class SimpleSoundSO : AbstractSoundScriptableObject
+sealed public class SimpleSoundSO : AbstractSoundSO
 {
     [SerializeField] private string description = "Plays one sound with defined values";
 
