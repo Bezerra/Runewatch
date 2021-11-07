@@ -9,14 +9,14 @@ public class MinimapIcon : MonoBehaviour
     [SerializeField] private MinimapIconsSO allIcons;
     [SerializeField] private MinimapIconType iconType;
 
-    private RawImage iconRawImage;
+    private Image iconImage;
     private RectTransform rectTransform;
     private Canvas canvas;
 
     private void Awake()
     {
         canvas = GetComponentInParent<Canvas>();
-        iconRawImage = GetComponent<RawImage>();
+        iconImage = GetComponent<Image>();
         rectTransform = GetComponent<RectTransform>();
 
         // Compares this icon with a list of all icons
@@ -25,7 +25,7 @@ public class MinimapIcon : MonoBehaviour
         {
             if (iconInfo.MinimapIconType == iconType)
             {
-                iconRawImage.texture = iconInfo.MinimapIconTexture;
+                iconImage.sprite = iconInfo.MinimapIconTexture;
                 rectTransform.localScale = new Vector3(iconInfo.Scale, iconInfo.Scale, iconInfo.Scale);
                 canvas.sortingOrder = iconInfo.CanvasOrder;
             }
