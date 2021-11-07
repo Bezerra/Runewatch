@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2713407993782939884}
+  - component: {fileID: 2339939707825635688}
   - component: {fileID: 1273707099619323352}
-  - component: {fileID: 4123534817483499566}
   m_Layer: 15
   m_Name: Shopkeeper - Potion Mana
   m_TagString: Untagged
@@ -33,20 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1273707099619323352
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2713407993782939885}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5, z: 0.5}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4123534817483499566
+--- !u!114 &2339939707825635688
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -55,13 +42,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 2713407993782939885}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1ef63357cdbc3b438f8dee2386bc01d, type: 3}
+  m_Script: {fileID: 11500000, guid: 67d3bccfc76dd614398b5d41f5b3344e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notes: Heals player's mana and destroys parent object.
+  notes: Heals the player mana, destroys gameobject, spends gold.
   eventOnInteraction:
   - {fileID: 11400000, guid: 356ba91a2cf916e45b8618b463295d35, type: 2}
-  - {fileID: 11400000, guid: f6cac9f48effd054394444838244f212, type: 2}
+  price: 1
+--- !u!65 &1273707099619323352
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2713407993782939885}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.5, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2713407993974103862
 GameObject:
   m_ObjectHideFlags: 0

@@ -239,8 +239,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4368204534753961743}
-  - component: {fileID: 4368204534753961736}
   - component: {fileID: 6134503343868897886}
+  - component: {fileID: 726106135511347117}
   - component: {fileID: 6134418267198431388}
   - component: {fileID: 4368204534753961741}
   - component: {fileID: 4368204534753961740}
@@ -267,23 +267,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4368204534753961736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4368204534753961742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1ef63357cdbc3b438f8dee2386bc01d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  notes: 
-  eventOnInteraction:
-  - {fileID: 11400000, guid: 8c749b8ee2e325d498f011af8b072b57, type: 2}
-  - {fileID: 11400000, guid: 892b2d67598d9664ca9ad2404aa4bdfa, type: 2}
-  - {fileID: 11400000, guid: 1402969763a329d4fac209e5bc36195e, type: 2}
 --- !u!208 &6134503343868897886
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -300,6 +283,24 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 1
+--- !u!114 &726106135511347117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4368204534753961742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b20753803e94e114a800e0c3ce52fc06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  notes: Executes animation of opening chest, gets three random passives, stops the
+    game. Three passives menu will be opened after animation is over.
+  eventOnInteraction:
+  - {fileID: 11400000, guid: 1402969763a329d4fac209e5bc36195e, type: 2}
+  - {fileID: 11400000, guid: 8c749b8ee2e325d498f011af8b072b57, type: 2}
+  - {fileID: 11400000, guid: 892b2d67598d9664ca9ad2404aa4bdfa, type: 2}
 --- !u!114 &6134418267198431388
 MonoBehaviour:
   m_ObjectHideFlags: 0

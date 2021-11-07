@@ -1,27 +1,14 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 /// <summary>
-/// Class used by gameobjects that can be interected with and trigger a scriptable object event.
+/// Class used by pickable item gameobjects that can be interected with and trigger a scriptable object event.
 /// </summary>
-public class EventOnInteraction : MonoBehaviour, IInterectable
+public class ItemEventOnInteraction : AbstractEventOnInteraction, IInterectable
 {
-    [TextArea]
-    [SerializeField] private string notes;
-
-    [SerializeField] private List<EventAbstractSO> eventOnInteraction;
-
-    private PlayerInteraction playerInteraction;
-
-    private void Awake()
-    {
-        playerInteraction = FindObjectOfType<PlayerInteraction>();
-    }
-
     /// <summary>
-    /// Executes an event.
+    /// Executes a list of events.
     /// </summary>
-    public void Execute()
+    public override void Execute()
     {
         if (eventOnInteraction.Count > 0)
         {

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 274803192554558699}
-  - component: {fileID: 274803192554558696}
+  - component: {fileID: 6125050623210449782}
   - component: {fileID: 1556636940001282308}
   m_Layer: 15
   m_Name: Shopkeeper - Passive Ability
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &274803192554558696
+--- !u!114 &6125050623210449782
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,16 +42,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 274803192554558697}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1ef63357cdbc3b438f8dee2386bc01d, type: 3}
+  m_Script: {fileID: 11500000, guid: 67d3bccfc76dd614398b5d41f5b3344e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notes: This ability gets three random passives, opens passives UI, pauses the game
-    and it's automatically destroyed when the player interacts with it.
+  notes: Gets three random passives, opens three passives menu, pauses game. Destroys
+    the gameobject and spends gold through code.
   eventOnInteraction:
   - {fileID: 11400000, guid: 8c749b8ee2e325d498f011af8b072b57, type: 2}
   - {fileID: 11400000, guid: 327b43562aec2114fa00f42e7a66202d, type: 2}
   - {fileID: 11400000, guid: 892b2d67598d9664ca9ad2404aa4bdfa, type: 2}
-  - {fileID: 11400000, guid: f6cac9f48effd054394444838244f212, type: 2}
+  price: 10
 --- !u!135 &1556636940001282308
 SphereCollider:
   m_ObjectHideFlags: 0

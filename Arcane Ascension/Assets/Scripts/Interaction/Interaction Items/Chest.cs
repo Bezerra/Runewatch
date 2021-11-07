@@ -10,13 +10,13 @@ public class Chest : MonoBehaviour
 
     private GameObject canvasText;
     private InteractionCanvasText interectableCanvas;
-    private EventOnInteraction eventOnInteraction;
+    private AbstractEventOnInteraction eventOnInteraction;
 
     private void Awake()
     {
         canvasText = GetComponentInChildren<Canvas>().gameObject;
         interectableCanvas = GetComponent<InteractionCanvasText>();
-        eventOnInteraction = GetComponent<EventOnInteraction>();
+        eventOnInteraction = GetComponent<AbstractEventOnInteraction>();
     }
 
     public void ChestOpeningStartAnimationEvent()

@@ -7,7 +7,7 @@ using UnityEngine;
     fileName = "Event Execute Animation")]
 public class EventExecuteAnimationSO : EventAbstractSO
 {
-    public override void Execute(EventOnInteraction invoker)
+    public override void Execute(AbstractEventOnInteraction invoker)
     {
         invoker.GetComponent<Animator>().SetTrigger("Execute");
     }

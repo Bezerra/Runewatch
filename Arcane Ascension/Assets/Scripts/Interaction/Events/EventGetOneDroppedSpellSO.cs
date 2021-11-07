@@ -14,7 +14,7 @@ public class EventGetOneDroppedSpellSO : EventAbstractSO
     /// Updates drop abilities asset with the dropped spell.
     /// </summary>
     /// <param name="invoker">Who invoked this event.</param>
-    public override void Execute(EventOnInteraction invoker)
+    public override void Execute(AbstractEventOnInteraction invoker)
     {
         abilitiesToChose.DroppedSpell = invoker.gameObject.GetComponent<SpellScroll>().DroppedSpell;
     }

@@ -9,7 +9,7 @@ public class EventPotionOnPlayerSO : EventAbstractSO
 {
     [SerializeField] private PotionSO potion;
 
-    public override void Execute(EventOnInteraction invoker)
+    public override void Execute(AbstractEventOnInteraction invoker)
     {
         PlayerStats playerStats = FindObjectOfType<PlayerStats>();
 

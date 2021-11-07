@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3092681746740860098}
-  - component: {fileID: 3092681746740860097}
   - component: {fileID: 6291298513673249406}
+  - component: {fileID: 5294600871184638544}
   - component: {fileID: 3610144545636596978}
   - component: {fileID: 3092681746740860124}
   m_Layer: 15
@@ -36,25 +36,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3092681746740860097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3092681746740860096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1ef63357cdbc3b438f8dee2386bc01d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  notes: This ability gets three random passives, opens passives UI, pauses the game
-    and it's automatically destroyed when the player interacts with it.
-  eventOnInteraction:
-  - {fileID: 11400000, guid: 8c749b8ee2e325d498f011af8b072b57, type: 2}
-  - {fileID: 11400000, guid: 327b43562aec2114fa00f42e7a66202d, type: 2}
-  - {fileID: 11400000, guid: 892b2d67598d9664ca9ad2404aa4bdfa, type: 2}
-  - {fileID: 11400000, guid: f6cac9f48effd054394444838244f212, type: 2}
 --- !u!135 &6291298513673249406
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -68,6 +49,24 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.3
   m_Center: {x: 0, y: 0.6, z: 0}
+--- !u!114 &5294600871184638544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3092681746740860096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b20753803e94e114a800e0c3ce52fc06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  notes: Gets three random passives, opens three passives menu, stops the game. Destroys
+    the gameobject through code.
+  eventOnInteraction:
+  - {fileID: 11400000, guid: 8c749b8ee2e325d498f011af8b072b57, type: 2}
+  - {fileID: 11400000, guid: 327b43562aec2114fa00f42e7a66202d, type: 2}
+  - {fileID: 11400000, guid: 892b2d67598d9664ca9ad2404aa4bdfa, type: 2}
 --- !u!114 &3610144545636596978
 MonoBehaviour:
   m_ObjectHideFlags: 0

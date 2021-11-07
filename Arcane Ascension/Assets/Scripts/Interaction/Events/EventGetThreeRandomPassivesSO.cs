@@ -17,7 +17,7 @@ public class EventGetThreeRandomPassivesSO : EventAbstractSO
     /// <summary>
     /// Finds all spells and executes GetSpell method.
     /// </summary>
-    public override void Execute(EventOnInteraction invoker)
+    public override void Execute(AbstractEventOnInteraction invoker)
     {
         PlayerStats playerStats = FindObjectOfType<PlayerStats>();
 

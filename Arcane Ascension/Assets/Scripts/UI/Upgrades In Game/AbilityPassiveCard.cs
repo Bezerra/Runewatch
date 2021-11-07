@@ -17,12 +17,15 @@ public class AbilityPassiveCard : MonoBehaviour
     [SerializeField] private TextMeshProUGUI description;
     private Button button;
 
+    // Components
     private PlayerStats playerStats;
     private AbilitiesCanvas abilitiesCanvas;
+    private PlayerInteraction playerInteraction;
 
     private void Awake()
     {
         button = GetComponent<Button>();
+        playerInteraction = FindObjectOfType<PlayerInteraction>();
         abilitiesCanvas = GetComponentInParent<AbilitiesCanvas>();
         playerStats = FindObjectOfType<PlayerStats>();
     }
@@ -58,6 +61,8 @@ public class AbilityPassiveCard : MonoBehaviour
     {
         if (PassiveOnCard != null)
         {
+            Destroy(playerInteraction.LastObjectInteracted.gameObject);
+
             PassiveOnCard.Execute(playerStats);
             playerStats.CurrentPassives.Add(PassiveOnCard);
             abilitiesCanvas.DisableAll();

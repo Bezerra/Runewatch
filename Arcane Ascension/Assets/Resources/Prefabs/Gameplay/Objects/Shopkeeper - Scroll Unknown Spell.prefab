@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 758232422960525800}
-  - component: {fileID: 758232422960525803}
+  - component: {fileID: 1951217822907382489}
   - component: {fileID: 7500912031837500405}
   m_Layer: 15
   m_Name: Shopkeeper - Scroll Unknown Spell
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &758232422960525803
+--- !u!114 &1951217822907382489
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,16 +42,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 758232422960525802}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1ef63357cdbc3b438f8dee2386bc01d, type: 3}
+  m_Script: {fileID: 11500000, guid: 67d3bccfc76dd614398b5d41f5b3344e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notes: This ability gets three random spells, opens spells UI, pauses the game.
-    This gameobject is destroyed through code on UI spell cards.
+  notes: Gets three random spells, opens three spells menu, pauses game. Destroys
+    the gameobject and spends gold through code.
   eventOnInteraction:
   - {fileID: 11400000, guid: 0b012d21c2118c9459706f9ed8b3c36d, type: 2}
   - {fileID: 11400000, guid: 8e83cfedb0295d444a7dbb8d0d422abf, type: 2}
   - {fileID: 11400000, guid: 892b2d67598d9664ca9ad2404aa4bdfa, type: 2}
-  - {fileID: 11400000, guid: f6cac9f48effd054394444838244f212, type: 2}
+  price: 10
 --- !u!135 &7500912031837500405
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5279502808649638452}
+  - component: {fileID: 1050230458841171023}
   - component: {fileID: 8069159963224745697}
-  - component: {fileID: 7483474882233698475}
   m_Layer: 15
   m_Name: Shopkeeper - Potion Healing
   m_TagString: Untagged
@@ -33,20 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8069159963224745697
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5279502808649638455}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5, z: 0.5}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7483474882233698475
+--- !u!114 &1050230458841171023
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -55,13 +42,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 5279502808649638455}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1ef63357cdbc3b438f8dee2386bc01d, type: 3}
+  m_Script: {fileID: 11500000, guid: 67d3bccfc76dd614398b5d41f5b3344e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notes: Heals player's health and destroys parent object.
+  notes: Heals the player health, destroys gameobject, spends gold.
   eventOnInteraction:
   - {fileID: 11400000, guid: ff8ca68618a5877439179f0740d28c64, type: 2}
-  - {fileID: 11400000, guid: f6cac9f48effd054394444838244f212, type: 2}
+  price: 1
+--- !u!65 &8069159963224745697
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5279502808649638455}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.5, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5279502810193796547
 GameObject:
   m_ObjectHideFlags: 0
