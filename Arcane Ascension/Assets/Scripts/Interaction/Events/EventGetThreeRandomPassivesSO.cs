@@ -36,7 +36,7 @@ public class EventGetThreeRandomPassivesSO : EventAbstractSO
             // If player has no abilities yet, it will add everything
             if (playerStats.CurrentPassives.Count == 0)
             {
-                if (passive.PassiveTier == 1)
+                if (passive.Tier == 1)
                     allPassives.Add(passive);
 
                 continue;
@@ -49,7 +49,7 @@ public class EventGetThreeRandomPassivesSO : EventAbstractSO
                 if (passive.PassiveType == passiveInPlayer.PassiveType)
                 {
                     // And the tier is 1 level higher max
-                    if (passive.PassiveTier == passiveInPlayer.PassiveTier + 1)
+                    if (passive.Tier == passiveInPlayer.Tier + 1)
                     {
                         addSkill = true;
                         break;
@@ -61,7 +61,7 @@ public class EventGetThreeRandomPassivesSO : EventAbstractSO
                 }
                 else
                 {
-                    if (passive.PassiveTier == 1)
+                    if (passive.Tier == 1)
                         addSkill = true;
                 }
             }

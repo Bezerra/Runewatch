@@ -17,8 +17,8 @@ public class AllSpellsSO : ScriptableObject
     public List<SpellSO> SpellList { get => spells; set => spells = value; }
 
     private void OnValidate() =>
-        spells = spells.OrderBy(i => i.SpellID).ToList();
+        spells = spells.OrderBy(i => i.ID).ToList();
 
     private void OnEnable() =>
-        spells = spells.OrderBy(i => i.SpellID).ToList();
+        spells = spells.OrderBy(i => i.ID).ToList();
 }

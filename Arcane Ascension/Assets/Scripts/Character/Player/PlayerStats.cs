@@ -356,7 +356,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
             saveData.PlayerSavedData.CurrentPassives = new byte[CurrentPassives.Count];
             for (int i = 0; i < CurrentPassives.Count; i++)
             {
-                saveData.PlayerSavedData.CurrentPassives[i] = CurrentPassives[i].PassiveID;
+                saveData.PlayerSavedData.CurrentPassives[i] = CurrentPassives[i].ID;
             }
         }
     }
@@ -379,7 +379,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
             {
                 for (int j = 0; j < allPassives.PassiveList.Count; j++)
                 {
-                    if (saveData.PlayerSavedData.CurrentPassives[i] == allPassives.PassiveList[j].PassiveID)
+                    if (saveData.PlayerSavedData.CurrentPassives[i] == allPassives.PassiveList[j].ID)
                     {
                         CurrentPassives.Add(allPassives.PassiveList[j]);
                     }

@@ -260,7 +260,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
             if (CurrentSpells[i] == null)
                 currentSpells[i] = 0;
             else
-                currentSpells[i] = CurrentSpells[i].SpellID;
+                currentSpells[i] = CurrentSpells[i].ID;
         }
 
         // Saves spells and current selected spell

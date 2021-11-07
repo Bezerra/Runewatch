@@ -22,7 +22,11 @@ public abstract class SpellSO : ScriptableObject, ISpell
 
     [VerticalGroup("General/Split/Middle", 1), LabelWidth(60)]
     [Tooltip("Single ID for every spell. No spells should have the same ID")]
-    [SerializeField] protected byte spellID;
+    [Range(0, 255)] [SerializeField] protected byte spellID;
+
+    [VerticalGroup("General/Split/Middle", 1), LabelWidth(60)]
+    [Tooltip("Spell tier")]
+    [Range(1, 3)] [SerializeField] private int spellTier;
 
     [VerticalGroup("General/Split/Right", 2)]
     [HideLabel, TextArea(4, 6), SerializeField] protected string description;
@@ -97,6 +101,9 @@ public abstract class SpellSO : ScriptableObject, ISpell
     public Sprite Icon => icon;
     public string Name => name;
     public byte SpellID => spellID;
+    public byte ID => spellID;
+    public int Tier => spellTier;
+    public string Description => description;
     public ElementType Element => element;
     public float ManaCost => manaCost;
     public float TimeInterval { get => timeInterval; set => timeInterval = value; }
