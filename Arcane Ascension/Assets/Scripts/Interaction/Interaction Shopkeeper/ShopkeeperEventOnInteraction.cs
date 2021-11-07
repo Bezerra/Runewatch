@@ -33,7 +33,7 @@ public class ShopkeeperEventOnInteraction : AbstractEventOnInteraction, IInterec
         {
             playerInteraction.LastObjectInteracted = this.gameObject;
 
-            if (PlayerCurrency.CanSpend(Currency.Gold, price))
+            if (PlayerCurrency.CanSpend(CurrencyType.Gold, price))
             {
                 foreach (EventAbstractSO eve in eventOnInteraction)
                 {
@@ -43,7 +43,7 @@ public class ShopkeeperEventOnInteraction : AbstractEventOnInteraction, IInterec
                     }
                 }
 
-                PlayerCurrency.SpendCurrency(Currency.Gold, price);
+                PlayerCurrency.SpendCurrency(CurrencyType.Gold, price);
                 eventOnInteraction.Clear();
                 Destroy(GetComponentInParent<ShopkeeperInventorySlot>().gameObject);
             }

@@ -19,9 +19,9 @@ public class PlayerCurrencySO : ScriptableObject
     /// </summary>
     /// <param name="currency">Type of currency.</param>
     /// <param name="amount">Amount to gain.</param>
-    public void GainCurrency(Currency currency, int amount)
+    public void GainCurrency(CurrencyType currency, int amount)
     {
-        if (currency == Currency.Gold) Gold += amount;
+        if (currency == CurrencyType.Gold) Gold += amount;
         else ArcanePower += amount;
     }
 
@@ -30,9 +30,9 @@ public class PlayerCurrencySO : ScriptableObject
     /// </summary>
     /// <param name="currency">Type of currency.</param>
     /// <param name="amount">Amount to spend.</param>
-    public void SpendCurrency(Currency currency, int amount)
+    public void SpendCurrency(CurrencyType currency, int amount)
     {
-        if (currency == Currency.Gold)
+        if (currency == CurrencyType.Gold)
         {
             if (Gold - amount >= 0) Gold -= amount;
             else Gold = 0;
@@ -50,9 +50,9 @@ public class PlayerCurrencySO : ScriptableObject
     /// <param name="currency">Type of currency.</param>
     /// <param name="amount">Amount of currency to spend.</param>
     /// <returns>Returns true if currency can be spent.</returns>
-    public bool CanSpend(Currency currency, int amount)
+    public bool CanSpend(CurrencyType currency, int amount)
     {
-        if (currency == Currency.Gold)
+        if (currency == CurrencyType.Gold)
         {
             if (Gold - amount >= 0) return true;
             else return false;

@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for player's currency behaviour.
 /// </summary>
-public class PlayerCurrency : MonoBehaviour, ICurrency, ISaveable
+public class PlayerCurrency : MonoBehaviour, IUseCurrency, ISaveable
 {
     private Player player;
 
@@ -24,7 +24,7 @@ public class PlayerCurrency : MonoBehaviour, ICurrency, ISaveable
     /// </summary>
     /// <param name="currency">Type of currency.</param>
     /// <param name="amount">Amount to gain.</param>
-    public void GainCurrency(Currency currency, int amount) =>
+    public void GainCurrency(CurrencyType currency, int amount) =>
         player.AllValues.Currency.GainCurrency(currency, amount);
 
     /// <summary>
@@ -32,7 +32,7 @@ public class PlayerCurrency : MonoBehaviour, ICurrency, ISaveable
     /// </summary>
     /// <param name="currency">Type of currency.</param>
     /// <param name="amount">Amount to spend.</param>
-    public void SpendCurrency(Currency currency, int amount) =>
+    public void SpendCurrency(CurrencyType currency, int amount) =>
         player.AllValues.Currency.SpendCurrency(currency, amount);
 
     /// <summary>
@@ -41,7 +41,7 @@ public class PlayerCurrency : MonoBehaviour, ICurrency, ISaveable
     /// <param name="currency">Type of currency.</param>
     /// <param name="amount">Amount of currency to spend.</param>
     /// <returns>Returns true if currency can be spent.</returns>
-    public bool CanSpend(Currency currency, int amount) =>
+    public bool CanSpend(CurrencyType currency, int amount) =>
         player.AllValues.Currency.CanSpend(currency, amount);
 
     /// <summary>
@@ -70,8 +70,8 @@ public class PlayerCurrency : MonoBehaviour, ICurrency, ISaveable
         // Currency
         if (this != null) // Do not remove <
         {
-            player.AllValues.Currency.GainCurrency(Currency.Gold, saveData.PlayerSavedData.Gold);
-            player.AllValues.Currency.GainCurrency(Currency.ArcanePower, saveData.PlayerSavedData.ArcanePower);
+            player.AllValues.Currency.GainCurrency(CurrencyType.Gold, saveData.PlayerSavedData.Gold);
+            player.AllValues.Currency.GainCurrency(CurrencyType.ArcanePower, saveData.PlayerSavedData.ArcanePower);
         }
     }
 }

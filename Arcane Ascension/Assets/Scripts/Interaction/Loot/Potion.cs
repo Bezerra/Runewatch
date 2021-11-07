@@ -29,6 +29,4 @@ public class Potion : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    
 }

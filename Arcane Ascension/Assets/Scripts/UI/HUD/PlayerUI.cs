@@ -10,7 +10,7 @@ public class PlayerUI : MonoBehaviour
 {
     private PlayerSpells playerSpells;
     private PlayerStats playerStats;
-    private ICurrency playerCurrency;
+    private IUseCurrency playerCurrency;
 
     [SerializeField] private List<Image> spellsUI;
     [SerializeField] private Image health;
@@ -23,7 +23,7 @@ public class PlayerUI : MonoBehaviour
     {
         playerSpells = GetComponentInParent<PlayerSpells>();
         playerStats = GetComponentInParent<PlayerStats>();
-        playerCurrency = GetComponentInParent<ICurrency>();
+        playerCurrency = GetComponentInParent<IUseCurrency>();
     }
 
     /// <summary>

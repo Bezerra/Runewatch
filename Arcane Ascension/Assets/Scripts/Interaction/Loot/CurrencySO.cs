@@ -10,17 +10,22 @@ using Sirenix.OdinInspector;
 /// Scriptable object with potions information.
 /// </summary>
 [InlineEditor]
-[CreateAssetMenu(menuName = "Loot/Potion", fileName ="Potion")]
-public class PotionSO : ScriptableObject
+[CreateAssetMenu(menuName = "Loot/Currency", fileName = "Currency")]
+public class CurrencySO : ScriptableObject
 {
     [InlineButton("ChangeFileName", "Update File Name")]
     [SerializeField] protected new string name = "New Spell";
 
-    [SerializeField] private PotionType potionType;
-    [Range(0f, 100f)] [SerializeField] private float percentage;
+    [SerializeField] private CurrencyType currencyType;
+    [RangeMinMax(1f, 100000f)] [SerializeField] private Vector2 defaultAmount;
 
-    public PotionType PotionType => potionType;
-    public float Percentage => percentage;
+    public CurrencyType CurrencyType => currencyType;
+    public Vector2 Amount { get; set; }
+
+    private void OnEnable()
+    {
+        Amount = defaultAmount;
+    }
 
 #if UNITY_EDITOR
     protected void ChangeFileName()
