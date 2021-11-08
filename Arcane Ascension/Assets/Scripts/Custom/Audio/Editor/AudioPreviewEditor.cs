@@ -22,7 +22,7 @@ public class AudioPreviewEditor : Editor
 		DrawDefaultInspector();
 
 		EditorGUI.BeginDisabledGroup(serializedObject.isEditingMultipleObjects);
-		if (GUILayout.Button("Preview"))
+		if (GUILayout.Button("Preview (enable editor audio first)"))
 		{
 			((AbstractSoundSO)target).PlaySound(previewer);
 		}

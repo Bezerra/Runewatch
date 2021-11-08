@@ -6,11 +6,19 @@ using UnityEngine;
 public class SpellOnHitBehaviourOneShot : SpellOnHitBehaviourAbstract
 {
     /// <summary>
-    /// This variable is set on spell behaviour after the spell is cast.
+    /// This property is set on spell behaviour after the spell is cast.
     /// </summary>
     public override ISpell Spell { get; set; }
-    
+
+    /// <summary>
+    /// Property used to know the time the spell was spawned.
+    /// </summary>
     public override float TimeSpawned { get; set; }
+
+    /// <summary>
+    /// Property used to know if the class already played a sound.
+    /// </summary>
+    public bool PlayedSound { get; set; }
 
     /// <summary>
     /// Runs start behaviour when enabled with with pool.
@@ -37,6 +45,11 @@ public class SpellOnHitBehaviourOneShot : SpellOnHitBehaviourAbstract
             foreach (SpellOnHitBehaviourAbstractOneShotSO onHitBehaviour in Spell.OnHitBehaviourOneShot)
                 onHitBehaviour.ContinuousUpdateBehaviour(this);
         }
+    }
+
+    private void OnDisable()
+    {
+        PlayedSound = false;
     }
 }
         

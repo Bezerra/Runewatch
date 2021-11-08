@@ -23,13 +23,9 @@ public class SpellBehaviourSpawnHitOnAoEHoverSO : SpellBehaviourAbstractOneShotS
 
             if (onHitBehaviourGameObject.TryGetComponent<SpellOnHitBehaviourOneShot>(out SpellOnHitBehaviourOneShot onHitBehaviour))
             {
+                // Sets hit Spell to this spell
                 if (onHitBehaviour.Spell != parent.Spell)
                     onHitBehaviour.Spell = parent.Spell;
-
-                if (parent.Spell.Sounds.Hit != null)
-                {
-                    onHitBehaviour.Spell.Sounds.Hit.PlaySound(onHitBehaviour.AudioS);
-                }
             }
         }
     }
