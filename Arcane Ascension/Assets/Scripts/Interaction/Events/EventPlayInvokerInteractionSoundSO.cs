@@ -3,13 +3,13 @@ using UnityEngine;
 /// <summary>
 /// Scritable object responsible for playing invoker ability interaction sound.
 /// </summary>
-[CreateAssetMenu(menuName = "Events/Event Play Invoker Ability Interaction Sound",
-    fileName = "Event Play Invoker Ability Interaction Sound")]
-public class EventPlayInvokerAbilityInteractionSoundSO : EventAbstractSO
+[CreateAssetMenu(menuName = "Events/Event Play Invoker Interaction Sound",
+    fileName = "Event Play Invoker Interaction Sound")]
+public class EventPlayInvokerInteractionSoundSO : EventAbstractSO
 {
     public override void Execute(AbstractEventOnInteraction invoker)
     {
-        if (invoker.TryGetComponent<IAbilityInterectable>(out IAbilityInterectable abilityInterectable))
+        if (invoker.TryGetComponent<IInterectableWithSound>(out IInterectableWithSound abilityInterectable))
         {
             LootSoundPoolCreator.Pool.InstantiateFromPool(
                 abilityInterectable.LootAndInteractionSoundType.ToString(), 
