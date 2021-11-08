@@ -30,17 +30,6 @@ public class AudioEmitterWithOcclusion : MonoBehaviour
         if (audioSource.maxDistance > soundMaxDistance) audioSource.maxDistance = soundMaxDistance;
 
         wffu = new WaitForFixedUpdate();
-
-        // Is this object occluded from player
-        if (Physics.Raycast(transform.position, (listener.transform.position - transform.position).normalized,
-            currentDistance, Layers.AllExceptPlayerAndEnemy))
-        {
-            currentlyOccluded = true;
-        }
-        else
-        {
-            currentlyOccluded = false;
-        }
     }
 
     /// <summary>
