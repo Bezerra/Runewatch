@@ -11,7 +11,9 @@ public class PlayerUI : MonoBehaviour
     private PlayerSpells playerSpells;
     private PlayerStats playerStats;
     private IUseCurrency playerCurrency;
+    private PlayerInputCustom input;
 
+    [SerializeField] private Image crosshair;
     [SerializeField] private List<Image> spellsUI;
     [SerializeField] private Image health;
     [SerializeField] private Image armor;
@@ -21,10 +23,36 @@ public class PlayerUI : MonoBehaviour
 
     private void Awake()
     {
+        input = FindObjectOfType<PlayerInputCustom>();
         playerSpells = GetComponentInParent<PlayerSpells>();
         playerStats = GetComponentInParent<PlayerStats>();
         playerCurrency = GetComponentInParent<IUseCurrency>();
     }
+
+    private void OnEnable()
+    {
+        input.CastSpell += CastSpell;
+        input.StopCastSpell += StopCastSpell;
+    }
+
+    /// <summary>
+    /// Disables crosshair.
+    /// </summary>
+    private void CastSpell()
+    {
+        if (playerSpells.ActiveSpell.CastType == SpellCastType.OneShotCastWithRelease)
+            crosshair.enabled = false;
+    }
+
+    /// <summary>
+    /// Enables crosshair.
+    /// </summary>
+    private void StopCastSpell()
+    {
+        if (crosshair.enabled == false)
+            crosshair.enabled = true;
+    }
+
 
     /// <summary>
     /// Updates the cooldown UI for all current spells and mana.

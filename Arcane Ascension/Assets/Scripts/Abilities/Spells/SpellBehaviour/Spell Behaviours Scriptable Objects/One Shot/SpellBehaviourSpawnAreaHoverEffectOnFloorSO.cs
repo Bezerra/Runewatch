@@ -89,7 +89,7 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
             // Sets position far from the scene
             parent.AreaHoverVFX.transform.SetPositionAndRotation(
                 DISTANTVECTOR,
-                Quaternion.identity);
+                Quaternion.identity);   
         }
     }
 
