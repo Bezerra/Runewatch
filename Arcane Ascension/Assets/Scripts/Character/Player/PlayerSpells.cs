@@ -9,8 +9,6 @@ using ExtensionMethods;
 /// </summary>
 public class PlayerSpells : MonoBehaviour, ISaveable
 {
-    [SerializeField] private GameObject spellScroll;
-
     // Components
     private PlayerInputCustom input;
     private PlayerHandEffect playerHandEffect;

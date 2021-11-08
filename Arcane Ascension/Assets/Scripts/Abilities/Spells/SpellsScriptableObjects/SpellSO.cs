@@ -78,6 +78,10 @@ public abstract class SpellSO : ScriptableObject, ISpell
     [Tooltip("Cooldown of the spells WHEN EQUIPED. One Shot cooldowns after fire. Continuous spell hit time.")]
     [Range(0, 10)] [SerializeField] protected float cooldown;
 
+    [BoxGroup("Spell Type")]
+    [Tooltip("Maximum distance of a spell")]
+    [Range(5, 35f)] [SerializeField] protected float maximumDistance;
+
     [BoxGroup("Prefabs")]
     [Tooltip("Spell prefab (vfx)")]
     [SerializeField] protected GameObject spellPrefab;
@@ -117,6 +121,7 @@ public abstract class SpellSO : ScriptableObject, ISpell
     public float Speed { get => speed; set => speed = value; }
     public float Cooldown => cooldown;
     public float CooldownCounter { get; set; }
+    public float MaximumDistance => maximumDistance;
 
     public virtual IList<SpellBehaviourAbstractOneShotSO> SpellBehaviourOneShot { get; }
     public virtual IList<SpellOnHitBehaviourAbstractOneShotSO> OnHitBehaviourOneShot { get; }

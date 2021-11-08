@@ -12,21 +12,18 @@ public class SpellBehaviourSpawnHitOnAoEHoverSO : SpellBehaviourAbstractOneShotS
         // Needed to run other behaviours
         parent.SpellStartedMoving = true;
 
-        if (parent.AimingToWallOrFloor)
+        parent.transform.position = parent.AreaHoverAreaHit.point + parent.AreaHoverAreaHit.normal;
+
+        // Spawns hit in direction of collider hit normal
+        GameObject onHitBehaviourGameObject = SpellHitPoolCreator.Pool.InstantiateFromPool(
+            parent.Spell.Name, parent.AreaHoverAreaHit.point,
+            Quaternion.identity);
+
+        if (onHitBehaviourGameObject.TryGetComponent<SpellOnHitBehaviourOneShot>(out SpellOnHitBehaviourOneShot onHitBehaviour))
         {
-            parent.transform.position = parent.AreaHoverAreaHit.point + parent.AreaHoverAreaHit.normal;
-
-            // Spawns hit in direction of collider hit normal
-            GameObject onHitBehaviourGameObject = SpellHitPoolCreator.Pool.InstantiateFromPool(
-                parent.Spell.Name, parent.AreaHoverAreaHit.point,
-                Quaternion.identity);
-
-            if (onHitBehaviourGameObject.TryGetComponent<SpellOnHitBehaviourOneShot>(out SpellOnHitBehaviourOneShot onHitBehaviour))
-            {
-                // Sets hit Spell to this spell
-                if (onHitBehaviour.Spell != parent.Spell)
-                    onHitBehaviour.Spell = parent.Spell;
-            }
+            // Sets hit Spell to this spell
+            if (onHitBehaviour.Spell != parent.Spell)
+                onHitBehaviour.Spell = parent.Spell;
         }
     }
 

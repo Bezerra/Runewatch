@@ -7,6 +7,8 @@ public interface ISpellBehaviour: ISpellOneShotBehaviour, ISpellContinuousBehavi
     float Speed { get; }
     float Cooldown { get; }
     float CooldownCounter { get; set; }
+    float MaximumDistance { get; }
+
     /// <summary>
     /// Spell's attack behaviour.
     /// </summary>
