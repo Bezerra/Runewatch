@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 /// Scriptable object with general PLAYER values.
 /// </summary>
 [InlineEditor]
-[CreateAssetMenu(menuName = "Values/Player Values", fileName = "Player Values")]
+[CreateAssetMenu(menuName = "Character/Values/Player Values", fileName = "Player Values")]
 public class PlayerValuesSO : CharacterValuesSO
 {
     [BoxGroup("General Values")]

@@ -10,8 +10,7 @@ using UnityEditor;
 /// Scriptable object with stats for a character.
 /// </summary>
 [InlineEditor]
-[CreateAssetMenu(menuName = "Stats/Common Stats", fileName = "Common Stats")]
-public class StatsSO : ScriptableObject
+public abstract class StatsSO : ScriptableObject
 {
     [PropertySpace(15)]
     [InlineButton("ChangeFileName", "Update File Name")]

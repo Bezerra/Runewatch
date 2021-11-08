@@ -97,7 +97,7 @@ public class Enemy : Character
     /// <summary>
     /// Stats script.
     /// </summary>
-    public Stats EnemyStats                 { get; private set; }
+    public EnemyStats EnemyStats                 { get; private set; }
 
     /// <summary>
     /// Used to know if the enemy just took damage.
@@ -142,7 +142,7 @@ public class Enemy : Character
     {
         Agent = GetComponent<NavMeshAgent>();
         CharController = GetComponent<CharacterController>();
-        EnemyStats = GetComponent<Stats>();
+        EnemyStats = GetComponent<EnemyStats>();
         PlayerScript = FindObjectOfType<Player>();
         StateMachine = new StateController<Enemy>(this, 2);
     }

@@ -119,11 +119,11 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
-        public StatsSO CharacterStats { get; private set; }
+        public EnemyStatsSO CharacterStats { get; private set; }
 
         public CreateNewEnemyStatsData()
         {
-            CharacterStats = ScriptableObject.CreateInstance<StatsSO>();
+            CharacterStats = ScriptableObject.CreateInstance<EnemyStatsSO>();
         }
 
         [Button("Create New Enemy Stats - Adds to Enemies Folder", ButtonSizes.Large)]
@@ -135,7 +135,7 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
-            CharacterStats = ScriptableObject.CreateInstance<StatsSO>();
+            CharacterStats = ScriptableObject.CreateInstance<EnemyStatsSO>();
         }
     }
 

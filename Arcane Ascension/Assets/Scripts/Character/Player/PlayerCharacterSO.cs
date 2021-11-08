@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 /// Scriptable object with player character whole information.
 /// </summary>
 [InlineEditor]
-[CreateAssetMenu(menuName = "Player Character", fileName = "Player Character")]
+[CreateAssetMenu(menuName = "Character/Player Character", fileName = "Player Character")]
 public class PlayerCharacterSO : CharacterSO
 {
     [SerializeField] private PlayerCurrencySO currency;

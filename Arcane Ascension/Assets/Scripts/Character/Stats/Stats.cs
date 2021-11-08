@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for controlling character stats.
 /// </summary>
-public class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
+public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
 {
     protected System.Random random;
     protected Character character;

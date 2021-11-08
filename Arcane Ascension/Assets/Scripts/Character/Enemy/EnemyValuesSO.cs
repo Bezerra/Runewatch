@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 /// Scriptable object with general ENEMY values.
 /// </summary>
 [InlineEditor]
-[CreateAssetMenu(menuName = "Values/Enemy Values", fileName = "Enemy Values")]
+[CreateAssetMenu(menuName = "Character/Values/Enemy Values", fileName = "Enemy Values")]
 public class EnemyValuesSO : CharacterValuesSO
 {
     [BoxGroup("Movement and Rotation")]

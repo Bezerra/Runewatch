@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
@@ -6,7 +5,7 @@ using Sirenix.OdinInspector;
 /// Scriptable object with stats for a player.
 /// </summary>
 [InlineEditor]
-[CreateAssetMenu(menuName = "Stats/Player Stats", fileName = "Player Stats")]
+[CreateAssetMenu(menuName = "Character/Stats/Player Stats", fileName = "Player Stats")]
 public class PlayerStatsSO : StatsSO
 {
     [BoxGroup("General Stats")]

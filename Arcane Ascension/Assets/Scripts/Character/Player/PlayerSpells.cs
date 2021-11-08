@@ -12,7 +12,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     // Components
     private PlayerInputCustom input;
     private PlayerHandEffect playerHandEffect;
-    private Stats playerStats;
+    private PlayerStats playerStats;
     private IList<SpellSO> allSpells;
 
     // Array with all available spells
@@ -29,7 +29,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     {
         input = FindObjectOfType<PlayerInputCustom>();
         playerHandEffect = FindObjectOfType<PlayerHandEffect>();
-        playerStats = GetComponent<Stats>();
+        playerStats = GetComponent<PlayerStats>();
         allSpells = FindObjectOfType<AllSpells>().SpellList;
 
         CurrentSpells = new SpellSO[4];

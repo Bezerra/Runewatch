@@ -20,9 +20,12 @@ public class SpellBehaviourDisableProjectileAtMaximumDistanceSO : SpellBehaviour
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
     {
         // If the spell hits something
-        if (Vector3.Distance(parent.transform.position, parent.WhoCast.transform.position) > parent.Spell.MaximumDistance)
+        if (parent.WhoCast != null)
         {
-            parent.DisableSpell();
+            if (Vector3.Distance(parent.transform.position, parent.WhoCast.transform.position) > parent.Spell.MaximumDistance)
+            {
+                parent.DisableSpell();
+            }
         }
     }
 

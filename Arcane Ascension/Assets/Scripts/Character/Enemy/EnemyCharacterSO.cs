@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 /// Scriptable object with enemy character whole information.
 /// </summary>
 [InlineEditor]
-[CreateAssetMenu(menuName = "Enemy Character", fileName = "Enemy Character")]
+[CreateAssetMenu(menuName = "Character/Enemy Character", fileName = "Enemy Character")]
 public class EnemyCharacterSO : CharacterSO
 {
     // Variable that updates depending if characterValuesSO is player or enemy
