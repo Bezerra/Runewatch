@@ -29,6 +29,8 @@ public class StatsSO : ScriptableObject
     [DetailedInfoBox("Base Damage percentage of spell damage", "Base Damage percentage of spell damage")]
     [Range(0f, 2f)] [SerializeField] private float defaultBaseDamageMultiplier;
     [BoxGroup("Damage Stats")]
+    [Range(1f, 2f)] [SerializeField] private float defaultNeutralMultiplier;
+    [BoxGroup("Damage Stats")]
     [Range(1f, 2f)] [SerializeField] private float defaultIgnisMultiplier;
     [BoxGroup("Damage Stats")]
     [Range(1f, 2f)] [SerializeField] private float defaultFulgurMultiplier;
@@ -78,7 +80,7 @@ public class StatsSO : ScriptableObject
             { ElementType.Fire, defaultIgnisMultiplier }, { ElementType.Electric, defaultFulgurMultiplier },
             { ElementType.Water, defaultAquaMultiplier }, { ElementType.Earth, defaultTerraMultiplier },
             { ElementType.Nature, defaultNaturaMultiplier }, { ElementType.Light, defaultLuxMultiplier },
-            { ElementType.Dark, defaultUmbraMultiplier },
+            { ElementType.Dark, defaultUmbraMultiplier }, {ElementType.Neutral, defaultNeutralMultiplier },
         };
     }
 
