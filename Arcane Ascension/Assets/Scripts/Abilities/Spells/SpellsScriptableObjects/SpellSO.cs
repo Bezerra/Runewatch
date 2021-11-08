@@ -80,7 +80,7 @@ public abstract class SpellSO : ScriptableObject, ISpell
 
     [BoxGroup("Spell Type")]
     [Tooltip("Maximum distance of a spell")]
-    [Range(5, 35f)] [SerializeField] protected float maximumDistance;
+    [Range(2, 45f)] [SerializeField] protected float maximumDistance;
 
     [BoxGroup("Prefabs")]
     [Tooltip("Spell prefab (vfx)")]

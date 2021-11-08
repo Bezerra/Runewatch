@@ -8,8 +8,6 @@ using ExtensionMethods;
     fileName = "Spell Behaviour Continuous")]
 sealed public class SpellBehaviourContinuousSO : SpellBehaviourAbstractContinuousSO
 {
-    [Range(1, 50)][SerializeField] private float spellMaxDistance;
-
     public override void StartBehaviour(SpellBehaviourContinuous parent)
     {
         // Left blank on purpose
@@ -27,7 +25,7 @@ sealed public class SpellBehaviourContinuousSO : SpellBehaviourAbstractContinuou
         // Creates rays from eyes to forward
         Ray eyesForward = new Ray(parent.Eyes.position, parent.Eyes.forward);
         Vector3 eyesTarget;
-        if (Physics.Raycast(eyesForward, out RaycastHit objectHit, spellMaxDistance, Layers.EnemyWithWalls))
+        if (Physics.Raycast(eyesForward, out RaycastHit objectHit, parent.Spell.MaximumDistance, Layers.EnemyWithWalls))
         {
             // If it collides against a wall gets a point
             eyesTarget = objectHit.point;
@@ -35,12 +33,12 @@ sealed public class SpellBehaviourContinuousSO : SpellBehaviourAbstractContinuou
         else
         {
             // Else it will go forward until spell's max distance
-            eyesTarget = parent.Eyes.position + parent.Eyes.forward * spellMaxDistance;
+            eyesTarget = parent.Eyes.position + parent.Eyes.forward * parent.Spell.MaximumDistance;
         }
         // Now, it creates a ray from HAND to eyes previous target
         Ray handForward = new Ray(parent.Hand.position, parent.Hand.position.Direction(eyesTarget));
         Vector3 finalTarget;
-        if (Physics.Raycast(handForward, out RaycastHit handObjectHit, spellMaxDistance))
+        if (Physics.Raycast(handForward, out RaycastHit handObjectHit, parent.Spell.MaximumDistance))
         {
             parent.HitPoint = handObjectHit;
 
@@ -64,7 +62,7 @@ sealed public class SpellBehaviourContinuousSO : SpellBehaviourAbstractContinuou
             // Else it will grow forward until spell's max distance
             finalTarget = eyesTarget;
 
-            if (parent.CurrentSpellDistance < spellMaxDistance)
+            if (parent.CurrentSpellDistance < parent.Spell.MaximumDistance)
                 parent.CurrentSpellDistance += parent.Spell.Speed * Time.deltaTime * 2; // Faster growth
 
             // If parent had a damageable target it sets it to null

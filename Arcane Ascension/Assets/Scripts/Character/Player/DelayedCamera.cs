@@ -50,15 +50,15 @@ public class DelayedCamera : MonoBehaviour
 
     private void OnEnable()
     {
-        playerCastSpell.EventAttack += ScreenShake;
-        playerCastSpell.EventCancelAttack += CancelContinuousScreenShake;
+        playerCastSpell.EventStartScreenShake += ScreenShake;
+        playerCastSpell.EventCancelScreenShake += CancelContinuousScreenShake;
         playerMovement.EventRun += RunFOVUpdate;
     }
 
     private void OnDisable()
     {
-        playerCastSpell.EventAttack -= ScreenShake;
-        playerCastSpell.EventCancelAttack -= CancelContinuousScreenShake;
+        playerCastSpell.EventStartScreenShake -= ScreenShake;
+        playerCastSpell.EventCancelScreenShake -= CancelContinuousScreenShake;
         playerMovement.EventRun -= RunFOVUpdate;
     }
 

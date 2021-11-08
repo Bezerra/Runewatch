@@ -16,12 +16,15 @@ public class PlayerCastSpell : MonoBehaviour
     private SpellBehaviourAbstract spellBehaviour;
     private GameObject currentlyCastSpell;
 
+    private bool currentlyCasting;
+
     private void Awake()
     {
         input = FindObjectOfType<PlayerInputCustom>();
         playerStats = GetComponent<PlayerStats>();
         playerSpells = GetComponent<PlayerSpells>();
         player = GetComponent<Player>();
+        currentlyCasting = false;
     }
 
     private void OnEnable()
@@ -45,7 +48,8 @@ public class PlayerCastSpell : MonoBehaviour
     {
         // If main spell is not in cooldown
         if (playerSpells.CooldownOver(playerSpells.ActiveSpell) &&
-            playerSpells.CooldownOver(playerSpells.SecondarySpell))
+            playerSpells.CooldownOver(playerSpells.SecondarySpell) &&
+            currentlyCasting == false)
         {
             playerSpells.SecondarySpell.AttackBehaviour.AttackKeyPress(
                     ref currentlyCastSpell, playerSpells.SecondarySpell, player, playerStats, ref spellBehaviour);
@@ -69,15 +73,21 @@ public class PlayerCastSpell : MonoBehaviour
                 playerSpells.ActiveSpell.AttackBehaviour.AttackKeyPress(
                     ref currentlyCastSpell, playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
 
-                // Events
+                currentlyCasting = true;
+
+                // Attack Events
+                // Screen Shake Events
                 if (playerSpells.ActiveSpell.CastType != SpellCastType.OneShotCastWithRelease)
                 {
+                    // For One Shot and Continuous
                     OnEventAttack(playerSpells.ActiveSpell.CastType);
+                    OnEventStartScreenShake(playerSpells.ActiveSpell.CastType);
                 }
             }
             else
             {
                 OnEventCancelAttack();
+                OnEventCancelScreenShake();
             }
         }
     }
@@ -90,26 +100,38 @@ public class PlayerCastSpell : MonoBehaviour
         // If spell is not in cooldown
         // So this will one be triggered when attackKeyPress is triggered aswell
         if (playerSpells.CooldownOver(playerSpells.ActiveSpell) &&
-            playerSpells.CooldownOver(playerSpells.SecondarySpell) &&
-            currentlyCastSpell != null)
+            playerSpells.CooldownOver(playerSpells.SecondarySpell))
         {
             playerSpells.ActiveSpell.AttackBehaviour.AttackKeyRelease(
                 ref currentlyCastSpell, playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
 
+            currentlyCasting = false;
             currentlyCastSpell = null;
             spellBehaviour = null;
 
             // Events
             if (playerSpells.ActiveSpell.CastType != SpellCastType.OneShotCastWithRelease)
+            {
+                // For One Shot and Continuous
                 OnEventCancelAttack();
+                OnEventCancelScreenShake();
+            }
             else
+            {
+                // For One Shot With Release
                 OnEventAttack(playerSpells.ActiveSpell.CastType);
+            }
         }
     }
-
 
     protected virtual void OnEventAttack(SpellCastType castType) => EventAttack?.Invoke(castType);
     public event Action<SpellCastType> EventAttack;
     protected virtual void OnEventCancelAttack() => EventCancelAttack.Invoke();
     public event Action EventCancelAttack;
+
+    // Registered on CameraDelay
+    protected virtual void OnEventStartScreenShake(SpellCastType castType) => EventStartScreenShake?.Invoke(castType);
+    public event Action<SpellCastType> EventStartScreenShake;
+    protected virtual void OnEventCancelScreenShake() => EventCancelScreenShake.Invoke();
+    public event Action EventCancelScreenShake;
 }
