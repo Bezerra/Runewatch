@@ -42,8 +42,8 @@ public class PlayerValuesSO : CharacterValuesSO
 
     [BoxGroup("Dash")]
     [Tooltip("Default value = 5f. Time to get a dash charge.")]
-    [Range(1, 10)] [SerializeField] private float timeToGetCharge = 5f;
-    public float TimeToGetCharge => timeToGetCharge;
+    [Range(1, 10)] [SerializeField] private float timeToGetDashCharge = 5f;
+    public float TimeToGetDashCharge => timeToGetDashCharge;
 
     [BoxGroup("Arms")]
     [Range(1, 15)] [SerializeField] private float handsMovementSpeed;

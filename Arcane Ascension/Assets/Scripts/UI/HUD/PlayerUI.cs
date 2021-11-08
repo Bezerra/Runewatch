@@ -88,7 +88,14 @@ public class PlayerUI : MonoBehaviour
                     playerSpells.SecondarySpell.CooldownCounter / playerSpells.SecondarySpell.Cooldown;
 
         // Updates dash
-        dash.fillAmount = 1 - playerMovement.CurrentTimeToGetCharge / player.Values.TimeToGetCharge;
+        if (playerStats.DashCharge != playerStats.PlayerAttributes.MaxDashCharge)
+        {
+            dash.fillAmount = 1 - playerMovement.CurrentTimeToGetCharge / player.Values.TimeToGetDashCharge;
+        } 
+        else
+        {
+            dash.fillAmount = 1;
+        }
         dashCharge.text = "x" + playerStats.DashCharge.ToString();
 
         // Updates HP/shield/mana bars

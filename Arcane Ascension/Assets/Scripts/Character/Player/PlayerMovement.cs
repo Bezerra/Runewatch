@@ -111,6 +111,7 @@ public class PlayerMovement : MonoBehaviour
             if (CurrentTimeToGetCharge <= 0)
             {
                 playerStats.DashCharge++;
+                CurrentTimeToGetCharge = player.Values.TimeToGetDashCharge;
             }
         }
     }
@@ -169,7 +170,6 @@ public class PlayerMovement : MonoBehaviour
             OnEventDash();
 
             playerStats.DashCharge--;
-            CurrentTimeToGetCharge = player.Values.TimeToGetCharge;
 
             // Cancels jump and gravity
             if (jumpingCoroutine != null)
