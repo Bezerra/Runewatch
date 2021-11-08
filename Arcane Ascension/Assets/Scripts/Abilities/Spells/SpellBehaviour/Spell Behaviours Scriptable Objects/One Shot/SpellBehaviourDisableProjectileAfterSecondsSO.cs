@@ -24,7 +24,37 @@ sealed public class SpellBehaviourDisableProjectileAfterSecondsSO : SpellBehavio
     {
         if (parent.SpellStartedMoving)
         {
-            if (parent.Rb.velocity != Vector3.zero)
+            // One shot spells
+            if (parent.Rb != null)
+            {
+                if (parent.Rb.velocity != Vector3.zero)
+                {
+                    if (Time.time - parent.TimeSpawned > disableAfterSeconds)
+                    {
+                        if (parent.EffectNotNull)
+                        {
+                            parent.EffectStop();
+
+                            if (parent.EffectGetAliveParticles == 0)
+                            {
+                                parent.DisableSpell();
+                            }
+                        }
+                        else
+                        {
+                            parent.DisableSpell();
+                        }
+                    }
+
+                    // Safety measure if too much time passes and the effect didn't get disabled
+                    if (Time.time - parent.TimeSpawned > disableAfterSeconds * 3)
+                    {
+                        parent.DisableSpell();
+                    }
+                }
+            }
+            // One shot spells with release
+            else
             {
                 if (Time.time - parent.TimeSpawned > disableAfterSeconds)
                 {

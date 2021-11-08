@@ -52,6 +52,16 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     public RaycastHit AreaHoverAreaHit { get; set; }
 
     /// <summary>
+    /// Used to know if player can cast an area spell with hover.
+    /// </summary>
+    public bool AimingToWallOrFloor { get; set; }
+
+    /// <summary>
+    /// Deals damage once with aoe hover one shot release spells.
+    /// </summary>
+    public bool AreaHoverDealtDamage { get; set; }
+
+    /// <summary>
     /// Updated everytime the spell damages an enemy.
     /// </summary>
     public float LastTimeDamaged { get; set; }
@@ -83,12 +93,15 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         AreaHoverAreaHit = default;
         AreaHoverVFX = null;
         SpellStartedMoving = false;
-        Rb.velocity = Vector3.zero;
         DisableSpellAfterCollision = false;
         CurrentPierceHitQuantity = 0;
         CurrentWallHitQuantity = 0;
         lastHitGameObject = null;
         ProjectileReflected = false;
+        AreaHoverDealtDamage = false;
+        AimingToWallOrFloor = false;
+
+        if (Rb != null) Rb.velocity = Vector3.zero;
     }
 
     /// <summary>

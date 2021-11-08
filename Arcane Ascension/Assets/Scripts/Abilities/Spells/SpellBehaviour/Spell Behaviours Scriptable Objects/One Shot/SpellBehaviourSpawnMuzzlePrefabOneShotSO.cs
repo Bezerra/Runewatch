@@ -12,8 +12,8 @@ sealed public class SpellBehaviourSpawnMuzzlePrefabOneShotSO : SpellBehaviourAbs
         // Creates spell muzzle prefab
         // Update() will run from its monobehaviour script
         GameObject spellMuzzleBehaviourGameObject = SpellMuzzlePoolCreator.Pool.InstantiateFromPool(
-            parent.Spell.Name, parent.transform.position,
-            Quaternion.LookRotation(parent.transform.forward, parent.transform.up));
+            parent.Spell.Name, parent.Hand.position,
+            Quaternion.LookRotation(parent.Hand.forward, parent.Hand.up));
 
         // Gets muzzle behaviour from it
         if (spellMuzzleBehaviourGameObject.TryGetComponent<SpellMuzzleBehaviourOneShot>(out SpellMuzzleBehaviourOneShot muzzleBehaviour))

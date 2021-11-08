@@ -28,8 +28,6 @@ public class CheatConsole : MonoBehaviour
 
     [Header("Enemy")]
     [SerializeField] private GameObject dummyEnemy;
-    [SerializeField] private GameObject spellScroll;
-    [SerializeField] private GameObject passiveOrb;
 
     [Range(2,5)][SerializeField] private float spawnDistance;
 

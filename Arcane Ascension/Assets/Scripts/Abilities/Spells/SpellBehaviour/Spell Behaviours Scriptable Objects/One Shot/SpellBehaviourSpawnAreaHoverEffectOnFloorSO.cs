@@ -2,7 +2,7 @@ using UnityEngine;
 using ExtensionMethods;
 
 /// <summary>
-/// Scriptable object responsible for moving the spell forward on start.
+/// Scriptable object responsible for spawning an hover vfx on ground.
 /// </summary>
 [CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Spawn Area Hover Effect On Floor", 
     fileName = "Spell Behaviour Spawn Area Hover Effect On Floor")]
@@ -28,7 +28,8 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
         }
 
         // Will be set to true in another movement behaviour start behaviour
-        parent.ColliderTrigger.enabled = false;
+        if (parent.ColliderTrigger != null)
+            parent.ColliderTrigger.enabled = false;
 
         Ray eyesForward = new Ray(parent.Eyes.position, parent.Eyes.forward);
         if (Physics.Raycast(eyesForward, out RaycastHit objectHit, 100, layersToCheck))
@@ -43,6 +44,9 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
 
                 if (Physics.Raycast(handHitToFloor, out RaycastHit floorHit, 100, layersToCheck))
                 {
+                    // Parent is aiming towards a wall or floor
+                    parent.AimingToWallOrFloor = true;
+
                     // Sets area hover hit
                     parent.AreaHoverAreaHit = floorHit;
 
@@ -50,10 +54,14 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
                     parent.AreaHoverVFX.transform.SetPositionAndRotation(
                         floorHit.point + floorHit.normal * distanceFromWall,
                         Quaternion.LookRotation(floorHit.normal, floorHit.collider.transform.up));
+
                     return;
                 }
                 else
                 {
+                    // Parent is NOT aiming towards a wall or floor
+                    parent.AimingToWallOrFloor = false;
+
                     // Sets position far from the scene
                     parent.AreaHoverVFX.transform.SetPositionAndRotation(
                         DISTANTVECTOR,
@@ -63,6 +71,9 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
             }
             else
             {
+                // Parent is NOT aiming towards a wall or floor
+                parent.AimingToWallOrFloor = false;
+
                 // Sets position far from the scene
                 parent.AreaHoverVFX.transform.SetPositionAndRotation(
                     DISTANTVECTOR,
@@ -72,6 +83,9 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
         }
         else
         {
+            // Parent is NOT aiming towards a wall or floor
+            parent.AimingToWallOrFloor = false;
+
             // Sets position far from the scene
             parent.AreaHoverVFX.transform.SetPositionAndRotation(
                 DISTANTVECTOR,

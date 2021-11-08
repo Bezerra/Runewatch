@@ -27,7 +27,8 @@ public class ItemLootPoolCreator : MonoBehaviour
         // Foreach pool
         for (int i = 0; i < pool.Count; i++)
         {
-            ItemLootPool spawnedGameObject = new ItemLootPool(pool[i].LootName.ToString(), pool[i].Prefab, pool[i].Size);
+            ItemLootPool spawnedGameObject = 
+                new ItemLootPool(pool[i].LootName.ToString(), pool[i].Prefab, pool[i].Size);
             listOfGameObjects.Add(spawnedGameObject);
         }
 
