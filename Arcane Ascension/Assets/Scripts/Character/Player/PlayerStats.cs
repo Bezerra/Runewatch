@@ -23,6 +23,11 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
     public float Armor { get; private set; }
 
     /// <summary>
+    /// Property with das charges.
+    /// </summary>
+    public int DashCharge { get; set; }
+
+    /// <summary>
     /// Property to keep track of character max mana.
     /// </summary>
     public float MaxMana => PlayerAttributes.MaxMana;
@@ -351,6 +356,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
             saveData.PlayerSavedData.Health = Health;
             saveData.PlayerSavedData.Armor = Armor;
             saveData.PlayerSavedData.Mana = Mana;
+            saveData.PlayerSavedData.DashCharge = DashCharge;
 
             // Passives
             saveData.PlayerSavedData.CurrentPassives = new byte[CurrentPassives.Count];
@@ -392,6 +398,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
  
             // Loads stats
             SetStats(saveData.PlayerSavedData.Health, saveData.PlayerSavedData.Armor, saveData.PlayerSavedData.Mana);
+            DashCharge = saveData.PlayerSavedData.DashCharge;
         }
     }
 }

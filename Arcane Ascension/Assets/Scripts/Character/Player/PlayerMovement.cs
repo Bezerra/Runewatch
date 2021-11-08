@@ -23,11 +23,8 @@ public class PlayerMovement : MonoBehaviour
     private float dashCurrentValue;
     private Vector3 lastDirectionPressed;
     private float dashingTimer;
-    private bool canDash;
     private bool dashing;
     public float CurrentTimeToGetCharge { get; private set; }
-    private float timeToGetCharge = 5f;
-    public int DashCharges { get; set; }
 
     // Jump
     private YieldInstruction wffu;
@@ -58,7 +55,6 @@ public class PlayerMovement : MonoBehaviour
         dashing = false;
         gravityIncrement = DEFAULTGRAVITYINCREMENT;
         dashCurrentValue = player.Values.DashDefaultValue;
-        DashCharges = 1;
         CurrentTimeToGetCharge = 0;
     }
 
@@ -109,12 +105,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Dash counter
-        if (DashCharges < 1)
+        if (playerStats.DashCharge < playerStats.PlayerAttributes.MaxDashCharge)
         {
             CurrentTimeToGetCharge -= Time.deltaTime;
             if (CurrentTimeToGetCharge <= 0)
             {
-                DashCharges++;
+                playerStats.DashCharge++;
             }
         }
     }
@@ -139,9 +135,6 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if (characterController.isGrounded)
-            canDash = true;
-
         // Happens if player pressed jump and JumpingCoroutine is running
         // Will keep pushing player upwards while the time is passing
         if (jumpingCoroutine != null)
@@ -162,8 +155,8 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void Dash()
     {
-        if (dashing == false && (direction.x != 0 || direction.z != 0) && canDash &&
-            DashCharges > 0)
+        if (dashing == false && (direction.x != 0 || direction.z != 0) &&
+            playerStats.DashCharge > 0)
         {
             dashing = true;
             dashingTimer = Time.time;
@@ -172,10 +165,11 @@ public class PlayerMovement : MonoBehaviour
                 player.Values.Speed ? direction : 
                 direction.normalized * 
                 player.Values.Speed * playerStats.CommonAttributes.MovementSpeedMultiplier;
-            canDash = false;
+
             OnEventDash();
-            DashCharges -= 1;
-            CurrentTimeToGetCharge = timeToGetCharge;
+
+            playerStats.DashCharge--;
+            CurrentTimeToGetCharge = player.Values.TimeToGetCharge;
 
             // Cancels jump and gravity
             if (jumpingCoroutine != null)
@@ -192,8 +186,6 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void Dashing()
     {
-        canDash = false;
-
         // Decrements dash force smoothly
         if (dashCurrentValue - Time.fixedDeltaTime * player.Values.DashingTimeReducer > 1)
             dashCurrentValue -= Time.fixedDeltaTime * player.Values.DashingTimeReducer;

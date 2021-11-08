@@ -11,6 +11,7 @@ public struct PlayerSaveData
     public float Health;
     public float Armor;
     public float Mana;
+    public int DashCharge;
 
     public Vector3 Position;
     public Quaternion Rotation;
@@ -22,4 +23,5 @@ public struct PlayerSaveData
 
     public int Gold;
     public int ArcanePower;
+
 }

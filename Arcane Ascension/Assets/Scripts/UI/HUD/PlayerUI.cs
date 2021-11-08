@@ -9,6 +9,7 @@ using TMPro;
 public class PlayerUI : MonoBehaviour
 {
     // Components
+    private Player player;
     private PlayerSpells playerSpells;
     private PlayerStats playerStats;
     private IUseCurrency playerCurrency;
@@ -28,6 +29,7 @@ public class PlayerUI : MonoBehaviour
 
     private void Awake()
     {
+        player = GetComponentInParent<Player>();
         input = FindObjectOfType<PlayerInputCustom>();
         playerMovement = GetComponentInParent<PlayerMovement>();
         playerSpells = GetComponentInParent<PlayerSpells>();
@@ -86,8 +88,8 @@ public class PlayerUI : MonoBehaviour
                     playerSpells.SecondarySpell.CooldownCounter / playerSpells.SecondarySpell.Cooldown;
 
         // Updates dash
-        dash.fillAmount = 1 - playerMovement.CurrentTimeToGetCharge / 5;
-        dashCharge.text = "x" + playerMovement.DashCharges.ToString();
+        dash.fillAmount = 1 - playerMovement.CurrentTimeToGetCharge / player.Values.TimeToGetCharge;
+        dashCharge.text = "x" + playerStats.DashCharge.ToString();
 
         // Updates HP/shield/mana bars
         health.fillAmount =
