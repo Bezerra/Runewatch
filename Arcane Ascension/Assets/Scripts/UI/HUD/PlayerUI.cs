@@ -40,7 +40,9 @@ public class PlayerUI : MonoBehaviour
     /// </summary>
     private void CastSpell()
     {
-        if (playerSpells.ActiveSpell.CastType == SpellCastType.OneShotCastWithRelease)
+        if (playerSpells.ActiveSpell.CastType == SpellCastType.OneShotCastWithRelease &&
+            playerSpells.CooldownOver(playerSpells.ActiveSpell) &&
+            playerSpells.CooldownOver(playerSpells.SecondarySpell))
             crosshair.enabled = false;
     }
 

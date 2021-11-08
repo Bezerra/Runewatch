@@ -11,12 +11,10 @@ public class DelayedCamera : MonoBehaviour
     // Components
     private Player player;
     private PlayerMovement playerMovement;
-    private PlayerCastSpell playerCastSpell;
     private CinemachineVirtualCamera virtualCinemachine;
     private CinemachineBasicMultiChannelPerlin cinemachineNoise;
 
     private YieldInstruction wffu;
-    private IEnumerator shakeCoroutine;
     private IEnumerator runFOVUpdateCoroutine;
 
     // Desired camera position + rotation
@@ -31,7 +29,6 @@ public class DelayedCamera : MonoBehaviour
     {
         player = transform.parent.GetComponentInChildren<Player>();
         playerMovement = player.GetComponent<PlayerMovement>();
-        playerCastSpell = player.GetComponent<PlayerCastSpell>();
         virtualCinemachine = GetComponent<CinemachineVirtualCamera>();
         cinemachineNoise = virtualCinemachine.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         wffu = new WaitForFixedUpdate();
@@ -50,15 +47,11 @@ public class DelayedCamera : MonoBehaviour
 
     private void OnEnable()
     {
-        playerCastSpell.EventStartScreenShake += ScreenShake;
-        playerCastSpell.EventCancelScreenShake += CancelContinuousScreenShake;
         playerMovement.EventRun += RunFOVUpdate;
     }
 
     private void OnDisable()
     {
-        playerCastSpell.EventStartScreenShake -= ScreenShake;
-        playerCastSpell.EventCancelScreenShake -= CancelContinuousScreenShake;
         playerMovement.EventRun -= RunFOVUpdate;
     }
 
@@ -67,16 +60,12 @@ public class DelayedCamera : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        // Screen not shaking
-        if (shakeCoroutine == null)
-        {
-            // Can't be an event because the player can be stopped pressing running key
-            // ( and the camera would shake more in that situation too )
-            if (playerMovement.Speed > player.Values.Speed)
-                cinemachineNoise.m_FrequencyGain = player.Values.NoiseFrequencyValueWhileRunning;
-            else
-                cinemachineNoise.m_FrequencyGain = player.Values.DefaultNoiseFrequencyValue;
-        }
+        // Can't be an event because the player can be stopped pressing running key
+        // ( and the camera would shake more in that situation too )
+        if (playerMovement.Speed > player.Values.Speed)
+            cinemachineNoise.m_FrequencyGain = player.Values.NoiseFrequencyValueWhileRunning;
+        else
+            cinemachineNoise.m_FrequencyGain = player.Values.DefaultNoiseFrequencyValue;
     }
 
     /// <summary>
@@ -103,66 +92,6 @@ public class DelayedCamera : MonoBehaviour
                     targetCameraTransform.transform.rotation,
                     Time.fixedDeltaTime * player.Values.DelayedCameraRotationSpeed);
         }
-    }
-
-    /// <summary>
-    /// Starts screen shake coroutine.
-    /// </summary>
-    /// <param name="castType">Type of cast.</param>
-    private void ScreenShake(SpellCastType castType)
-    {
-        if (shakeCoroutine != null) StopCoroutine(shakeCoroutine);
-
-        if (castType == SpellCastType.OneShotCast || castType == SpellCastType.OneShotCastWithRelease)
-            shakeCoroutine = ScreenShakeOneShotCoroutine();
-        else
-            shakeCoroutine = ScreenShakeContinuousCoroutine();
-
-        StartCoroutine(shakeCoroutine);
-    }
-
-    /// <summary>
-    /// Shakes screen for an amount of time.
-    /// </summary>
-    /// <returns></returns>
-    private IEnumerator ScreenShakeOneShotCoroutine()
-    {
-        cinemachineNoise.m_FrequencyGain = player.Values.CameraShakeForce;
-
-        float shakeTime = 0;
-        while(shakeTime < player.Values.CameraShakeTime)
-        {
-            cinemachineNoise.m_FrequencyGain = 
-                Mathf.Lerp(cinemachineNoise.m_FrequencyGain, player.Values.DefaultNoiseFrequencyValue, Time.deltaTime * 5);
-            yield return wffu;
-            shakeTime += Time.deltaTime;
-        }
-
-        shakeCoroutine = null;
-        cinemachineNoise.m_FrequencyGain = player.Values.DefaultNoiseFrequencyValue;
-    }
-
-    /// <summary>
-    /// Shakes screen while this is true.
-    /// </summary>
-    /// <returns></returns>
-    private IEnumerator ScreenShakeContinuousCoroutine()
-    {
-        cinemachineNoise.m_FrequencyGain = player.Values.CameraShakeForce * 0.5f;
-
-        while (shakeCoroutine != null)
-        {
-            yield return wffu;
-        }
-    }
-
-    /// <summary>
-    /// Cancels screen shake.
-    /// </summary>
-    private void CancelContinuousScreenShake()
-    {
-        shakeCoroutine = null;
-        cinemachineNoise.m_FrequencyGain = player.Values.DefaultNoiseFrequencyValue;
     }
 
     private void RunFOVUpdate(bool condition)

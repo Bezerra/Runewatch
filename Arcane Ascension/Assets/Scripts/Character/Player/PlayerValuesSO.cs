@@ -81,12 +81,12 @@ public class PlayerValuesSO : CharacterValuesSO
     public float FOVWhileRunning => fovWhileRunning;
 
     [BoxGroup("Camera/Shake")]
-    [Range(0.1f, 2f)] [SerializeField] private float cameraShakeTime = 0.3f;
-    public float CameraShakeTime => cameraShakeTime;
+    [Range(0f, 10f)] [SerializeField] private float amplitudeGain = 0.3f;
+    public float AmplitudeGain => amplitudeGain;
 
     [BoxGroup("Camera/Shake")]
-    [Range(1f, 50f)] [SerializeField] private float cameraShakeForce = 15f;
-    public float CameraShakeForce => cameraShakeForce;
+    [Range(0f, 10f)] [SerializeField] private float amplitudeForce = 15f;
+    public float AmplitudeForce => amplitudeForce;
 
     [BoxGroup("Camera/Shake")]
     [Range(0f, 2f)] [SerializeField] private float defaultNoiseFrequencyValue = 0.8f;

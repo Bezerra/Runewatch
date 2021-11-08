@@ -16,4 +16,7 @@ public class GenerateCinemachineImpulse : MonoBehaviour
         mainCam = Camera.main;
         cinemachineSource = GetComponent<CinemachineImpulseSource>();
     }
+
+    public virtual void GenerateImpulse() =>
+        cinemachineSource.GenerateImpulse(mainCam.transform.forward);
 }

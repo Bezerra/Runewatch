@@ -129,9 +129,9 @@ public class PlayerCastSpell : MonoBehaviour
     protected virtual void OnEventCancelAttack() => EventCancelAttack.Invoke();
     public event Action EventCancelAttack;
 
-    // Registered on CameraDelay
+    // Registered on PlayerGenerateCinemachineImpulse
     protected virtual void OnEventStartScreenShake(SpellCastType castType) => EventStartScreenShake?.Invoke(castType);
     public event Action<SpellCastType> EventStartScreenShake;
-    protected virtual void OnEventCancelScreenShake() => EventCancelScreenShake.Invoke();
+    protected virtual void OnEventCancelScreenShake() => EventCancelScreenShake?.Invoke();
     public event Action EventCancelScreenShake;
 }

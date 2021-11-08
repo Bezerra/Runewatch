@@ -3,7 +3,7 @@ using System.Collections;
 
 /// <summary>
 /// Class responsible for generating a spell hit cinemachine source impulse.
-/// Used by every gameobject that generates impulses.
+/// Used by every spell hit that generates impulses.
 /// </summary>
 public class SpellHitGenerateCinemachineImpulse : GenerateCinemachineImpulse
 {
@@ -32,7 +32,7 @@ public class SpellHitGenerateCinemachineImpulse : GenerateCinemachineImpulse
 
         if (spellBehaviour.Spell != null)
         {
-            cinemachineSource.GenerateImpulse(mainCam.transform.forward);
+            GenerateImpulse();
         }
     }
 }
