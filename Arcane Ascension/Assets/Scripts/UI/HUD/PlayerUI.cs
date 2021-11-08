@@ -8,12 +8,14 @@ using TMPro;
 /// </summary>
 public class PlayerUI : MonoBehaviour
 {
+    // Components
     private PlayerSpells playerSpells;
     private PlayerStats playerStats;
     private IUseCurrency playerCurrency;
     private PlayerInputCustom input;
     private PlayerMovement playerMovement;
 
+    // Fields to update
     [SerializeField] private Image crosshair;
     [SerializeField] private List<Image> spellsUI;
     [SerializeField] private Image dash;
@@ -65,6 +67,7 @@ public class PlayerUI : MonoBehaviour
     /// </summary>
     private void Update()
     {
+        // Updates spells
         for (int i = 0; i < playerSpells.CurrentSpells.Length; i++)
         {
             if (playerSpells.CurrentSpells[i] != null)
@@ -78,23 +81,23 @@ public class PlayerUI : MonoBehaviour
                 spellsUI[i].fillAmount = 0;
             }
         }
-
         spellsUI[4].sprite = playerSpells.SecondarySpell.Icon;
         spellsUI[4].fillAmount =
                     playerSpells.SecondarySpell.CooldownCounter / playerSpells.SecondarySpell.Cooldown;
 
-        dash.fillAmount = 1 - playerMovement.CurrentTimeToGetCharge * 0.20f;
+        // Updates dash
+        dash.fillAmount = 1 - playerMovement.CurrentTimeToGetCharge / 5;
         dashCharge.text = "x" + playerMovement.DashCharges.ToString();
 
+        // Updates HP/shield/mana bars
         health.fillAmount =
             playerStats.Health / playerStats.CommonAttributes.MaxHealth;
-
         armor.fillAmount =
             playerStats.Armor / playerStats.PlayerAttributes.MaxArmor;
-
         mana.fillAmount =
             playerStats.Mana / playerStats.PlayerAttributes.MaxMana;
 
+        // Updates loot
         gold.text = "Gold : " + playerCurrency.Quantity.Item1;
         arcanePower.text = "Arcane P : " + playerCurrency.Quantity.Item2;
     }

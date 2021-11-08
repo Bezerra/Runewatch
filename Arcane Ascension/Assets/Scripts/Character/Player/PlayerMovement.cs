@@ -101,21 +101,21 @@ public class PlayerMovement : MonoBehaviour
             // Character radius
             if (characterController.radius != CONTROLLERRADIUSDEFAULT)
                 characterController.radius =
-                    Mathf.Lerp(characterController.radius, CONTROLLERRADIUSDEFAULT, Time.deltaTime * 50f);
-
-            // Dash counter
-            if (DashCharges < 1)
-            {
-                CurrentTimeToGetCharge -= Time.deltaTime;
-                if(CurrentTimeToGetCharge <= 0)
-                {
-                    DashCharges++;
-                }
-            }
+                    Mathf.Lerp(characterController.radius, CONTROLLERRADIUSDEFAULT, Time.deltaTime * 50f); 
         }
         else
         {
             characterController.radius = CONTROLLERRADIUSONAIR;
+        }
+
+        // Dash counter
+        if (DashCharges < 1)
+        {
+            CurrentTimeToGetCharge -= Time.deltaTime;
+            if (CurrentTimeToGetCharge <= 0)
+            {
+                DashCharges++;
+            }
         }
     }
 
