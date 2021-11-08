@@ -31,7 +31,4 @@ public class SpellOneShotSO : SpellSO
     public override IList<SpellMuzzleBehaviourAbstractOneShotSO> MuzzleBehaviourOneShot => muzzleBehaviourOneShot;
 
     public override AttackBehaviourAbstractSO AttackBehaviour => attackBehaviourOneShot;
-
-    public override SpellCastType CastType => SpellCastType.OneShotCast;
-
 }

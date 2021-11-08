@@ -66,6 +66,10 @@ public abstract class SpellSO : ScriptableObject, ISpell
     //private SpellCastType spellCastType;
 
     [BoxGroup("Spell Type")]
+    [Tooltip("Type of this spell.")]
+    [SerializeField] private SpellCastType spellCastType;
+
+    [BoxGroup("Spell Type")]
     [Tooltip("Speed of the spell. On AoE one shot release spells it's used as timer to deal the damage.")]
     [Range(0.01f, 100)] [SerializeField] protected float speed;
 
@@ -109,7 +113,7 @@ public abstract class SpellSO : ScriptableObject, ISpell
     public float MaxTime { get => maxTime; set => maxTime = value; }
     public float AreaOfEffect { get => areaOfEffect; set => areaOfEffect = value; }
     public float Damage => Random.Range(damage.x, damage.y);
-    public abstract SpellCastType CastType { get; }
+    public SpellCastType CastType => spellCastType;
     public float Speed { get => speed; set => speed = value; }
     public float Cooldown => cooldown;
     public float CooldownCounter { get; set; }
