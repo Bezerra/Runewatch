@@ -18,7 +18,7 @@ public class CurrencySO : ScriptableObject
 
     [SerializeField] private CurrencyType currencyType;
     [RangeMinMax(1f, 100000f)] [SerializeField] private Vector2 defaultAmount;
-
+    
     public CurrencyType CurrencyType => currencyType;
     public Vector2 Amount { get; set; }
 

@@ -8,8 +8,8 @@ using System;
 public class ItemLootPool : BasePool
 {
     [Header("Loot Name substitutes name field in this class. Name can be blank.")]
-    [SerializeField] private LootNamesType lootName;
-    public LootNamesType LootName => lootName;
+    [SerializeField] private LootAndInteractionType lootName;
+    public LootAndInteractionType LootName => lootName;
 
     /// <summary>
     /// Constructor for spell pool.

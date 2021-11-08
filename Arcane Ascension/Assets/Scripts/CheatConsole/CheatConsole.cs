@@ -214,7 +214,7 @@ public class CheatConsole : MonoBehaviour
                     {
                         Debug.Log("Spawn spell scroll");
                         ItemLootPoolCreator.Pool.InstantiateFromPool(
-                            LootNamesType.UnknownSpell.ToString(),
+                            LootAndInteractionType.UnknownSpell.ToString(),
                             playerStats.transform.position +
                             playerStats.transform.forward * spawnDistance, Quaternion.identity);
                     }
@@ -226,7 +226,7 @@ public class CheatConsole : MonoBehaviour
                     {
                         Debug.Log("Spawn passive orb");
                         ItemLootPoolCreator.Pool.InstantiateFromPool(
-                            LootNamesType.PassiveOrb.ToString(),
+                            LootAndInteractionType.PassiveOrb.ToString(),
                             playerStats.transform.position +
                             playerStats.transform.forward * spawnDistance, Quaternion.identity);
                     }

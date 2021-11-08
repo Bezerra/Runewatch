@@ -31,6 +31,8 @@ public class AudioAssetsManagerEditor : OdinMenuEditorWindow
 
         createNewAudioAsset = new CreateAudioAsset();
 
+        tree.AddAllAssetsAtPath("Loot Audio", "Assets/Resources/Scriptable Objects/Audio", typeof(LootSoundsSO), true);
+
         tree.Add("Create New Audio Asset", createNewAudioAsset);
 
         tree.AddAllAssetsAtPath("Audio Asset", "Assets/Resources/Scriptable Objects/Audio", typeof(AbstractSoundSO), true);
