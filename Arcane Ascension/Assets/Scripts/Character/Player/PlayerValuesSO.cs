@@ -81,10 +81,12 @@ public class PlayerValuesSO : CharacterValuesSO
     public float FOVWhileRunning => fovWhileRunning;
 
     [BoxGroup("Camera/Shake")]
+    [Header("Not being used atm, can delete later.")]
     [Range(0f, 10f)] [SerializeField] private float amplitudeGain = 0.3f;
     public float AmplitudeGain => amplitudeGain;
 
     [BoxGroup("Camera/Shake")]
+    [Header("Not being used atm, can delete later.")]
     [Range(0f, 10f)] [SerializeField] private float amplitudeForce = 15f;
     public float AmplitudeForce => amplitudeForce;
 

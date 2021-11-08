@@ -2,6 +2,9 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Class responsible for handing all player's movement.
+/// </summary>
 public class PlayerMovement : MonoBehaviour
 {
     // Components
