@@ -1135,7 +1135,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6ec455a93315514790f0a0670aaf986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spellScroll: {fileID: 2172836827759931067, guid: e03589534e1e01e44b2c636c354b6ecc, type: 3}
 --- !u!114 &1474042434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1265,8 +1264,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1090331632516666570}
-  - component: {fileID: 1090331632516666571}
   - component: {fileID: 1090331632516666568}
+  - component: {fileID: 4474374900483154014}
+  - component: {fileID: 1090331632516666571}
   m_Layer: 8
   m_Name: Delayed Camera (moves towards final pos)
   m_TagString: Untagged
@@ -1292,6 +1292,37 @@ Transform:
   m_Father: {fileID: 8624258032535686394}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1090331632516666568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090331632516666569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d74b9fedcc3c0da44a4cdc28d2bbd361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetCameraTransform: {fileID: 8624258032814113115}
+  handsCamera: {fileID: 5784538399643588556}
+  hands: {fileID: 8624258031866711364}
+--- !u!114 &4474374900483154014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090331632516666569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ApplyAfter: 2
+  m_ChannelMask: 1
+  m_Gain: 1
+  m_Use2DDistance: 0
 --- !u!114 &1090331632516666571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1330,21 +1361,6 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1090331631860241839}
---- !u!114 &1090331632516666568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1090331632516666569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d74b9fedcc3c0da44a4cdc28d2bbd361, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetCameraTransform: {fileID: 8624258032814113115}
-  handsCamera: {fileID: 5784538399643588556}
-  hands: {fileID: 8624258031866711364}
 --- !u!1 &1096278194167081375
 GameObject:
   m_ObjectHideFlags: 0

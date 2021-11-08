@@ -11,8 +11,16 @@ public abstract class SpellOnHitBehaviourAbstract : MonoBehaviour, IVisualEffect
     /// </summary>
     public AudioSource AudioS { get; private set; }
 
+    // Only used to have spell information if needed
+    [SerializeField] private SpellSO spellInformation;
+
     /// <summary>
-    /// Spell interface property.
+    /// Property used to know spell information if needed.
+    /// </summary>
+    public SpellSO SpellInformation => spellInformation;
+
+    /// <summary>
+    /// Spell interface property to keep spell of which spell spawned this behaviour.
     /// </summary>
     public abstract ISpell Spell { get; set; }
 
