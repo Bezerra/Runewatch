@@ -12,9 +12,12 @@ public class PlayerUI : MonoBehaviour
     private PlayerStats playerStats;
     private IUseCurrency playerCurrency;
     private PlayerInputCustom input;
+    private PlayerMovement playerMovement;
 
     [SerializeField] private Image crosshair;
     [SerializeField] private List<Image> spellsUI;
+    [SerializeField] private Image dash;
+    [SerializeField] private TextMeshProUGUI dashCharge;
     [SerializeField] private Image health;
     [SerializeField] private Image armor;
     [SerializeField] private Image mana;
@@ -24,6 +27,7 @@ public class PlayerUI : MonoBehaviour
     private void Awake()
     {
         input = FindObjectOfType<PlayerInputCustom>();
+        playerMovement = GetComponentInParent<PlayerMovement>();
         playerSpells = GetComponentInParent<PlayerSpells>();
         playerStats = GetComponentInParent<PlayerStats>();
         playerCurrency = GetComponentInParent<IUseCurrency>();
@@ -78,6 +82,9 @@ public class PlayerUI : MonoBehaviour
         spellsUI[4].sprite = playerSpells.SecondarySpell.Icon;
         spellsUI[4].fillAmount =
                     playerSpells.SecondarySpell.CooldownCounter / playerSpells.SecondarySpell.Cooldown;
+
+        dash.fillAmount = 1 - playerMovement.CurrentTimeToGetCharge * 0.20f;
+        dashCharge.text = "x" + playerMovement.DashCharges.ToString();
 
         health.fillAmount =
             playerStats.Health / playerStats.CommonAttributes.MaxHealth;

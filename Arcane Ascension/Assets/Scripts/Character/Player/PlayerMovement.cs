@@ -25,6 +25,9 @@ public class PlayerMovement : MonoBehaviour
     private float dashingTimer;
     private bool canDash;
     private bool dashing;
+    public float CurrentTimeToGetCharge { get; private set; }
+    private float timeToGetCharge = 5f;
+    public int DashCharges { get; set; }
 
     // Jump
     private YieldInstruction wffu;
@@ -55,6 +58,8 @@ public class PlayerMovement : MonoBehaviour
         dashing = false;
         gravityIncrement = DEFAULTGRAVITYINCREMENT;
         dashCurrentValue = player.Values.DashDefaultValue;
+        DashCharges = 1;
+        CurrentTimeToGetCharge = 0;
     }
 
     private void OnEnable()
@@ -93,9 +98,20 @@ public class PlayerMovement : MonoBehaviour
 
         if (characterController.isGrounded)
         {
+            // Character radius
             if (characterController.radius != CONTROLLERRADIUSDEFAULT)
                 characterController.radius =
                     Mathf.Lerp(characterController.radius, CONTROLLERRADIUSDEFAULT, Time.deltaTime * 50f);
+
+            // Dash counter
+            if (DashCharges < 1)
+            {
+                CurrentTimeToGetCharge -= Time.deltaTime;
+                if(CurrentTimeToGetCharge <= 0)
+                {
+                    DashCharges++;
+                }
+            }
         }
         else
         {
@@ -146,7 +162,8 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void Dash()
     {
-        if (dashing == false && (direction.x != 0 || direction.z != 0) && canDash)
+        if (dashing == false && (direction.x != 0 || direction.z != 0) && canDash &&
+            DashCharges > 0)
         {
             dashing = true;
             dashingTimer = Time.time;
@@ -157,6 +174,8 @@ public class PlayerMovement : MonoBehaviour
                 player.Values.Speed * playerStats.CommonAttributes.MovementSpeedMultiplier;
             canDash = false;
             OnEventDash();
+            DashCharges -= 1;
+            CurrentTimeToGetCharge = timeToGetCharge;
 
             // Cancels jump and gravity
             if (jumpingCoroutine != null)
