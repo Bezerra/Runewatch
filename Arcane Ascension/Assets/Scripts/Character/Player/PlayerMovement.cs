@@ -322,9 +322,11 @@ public class PlayerMovement : MonoBehaviour
         fallingCoroutine = null;
     }
 
+    // Registered on PlayerSounds and PlayerFinalCameraDashEvent
     protected virtual void OnEventDash() => EventDash?.Invoke();
     public event Action EventDash;
 
+    // Registere on DelayedCamera
     protected virtual void OnEventRun(bool condition) => EventRun?.Invoke(condition);
     public event Action<bool> EventRun;
 }

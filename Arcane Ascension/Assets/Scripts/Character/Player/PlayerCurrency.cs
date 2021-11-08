@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -32,8 +33,11 @@ public class PlayerCurrency : MonoBehaviour, IUseCurrency, ISaveable
     /// </summary>
     /// <param name="currency">Type of currency.</param>
     /// <param name="amount">Amount to spend.</param>
-    public void SpendCurrency(CurrencyType currency, int amount) =>
+    public void SpendCurrency(CurrencyType currency, int amount)
+    {
+        if (CanSpend(currency, amount)) OnEventSpendMoney();
         player.AllValues.Currency.SpendCurrency(currency, amount);
+    }
 
     /// <summary>
     /// Checks if currency can be spent.
@@ -74,4 +78,8 @@ public class PlayerCurrency : MonoBehaviour, IUseCurrency, ISaveable
             player.AllValues.Currency.GainCurrency(CurrencyType.ArcanePower, saveData.PlayerSavedData.ArcanePower);
         }
     }
+
+    // Registered on playersounds
+    protected virtual void OnEventSpendMoney() => EventSpendMoney?.Invoke();
+    public event Action EventSpendMoney;
 }
