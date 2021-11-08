@@ -6,6 +6,7 @@ using UnityEngine;
 public class Potion : MonoBehaviour
 {
     [SerializeField] private PotionSO potion;
+    [SerializeField] private LootAndInteractionType lootType;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -25,7 +26,7 @@ public class Potion : MonoBehaviour
                     iHealable.Heal(potion.Percentage * iHealable.MaxMana / 100, StatsType.Mana);
                 }
             }
-
+            LootSoundPoolCreator.Pool.InstantiateFromPool(lootType.ToString(), transform.position, Quaternion.identity);
             gameObject.SetActive(false);
         }
     }

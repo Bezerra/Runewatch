@@ -15,6 +15,9 @@ public class LootSound : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
+    /// <summary>
+    /// This sound is played when an item is enabled from a pool.
+    /// </summary>
     public void OnEnable() =>
         lootSounds.PlaySound(lootName, audioSource);
 }
