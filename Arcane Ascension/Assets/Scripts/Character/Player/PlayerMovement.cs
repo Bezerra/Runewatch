@@ -8,23 +8,23 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     // Components
-    private PlayerInputCustom input;
-    private Player player;
-    private PlayerCastSpell playerCastSpell;
+    private PlayerInputCustom   input;
+    private Player              player;
+    private PlayerCastSpell     playerCastSpell;
     private CharacterController characterController;
-    private PlayerStats playerStats;
+    private PlayerStats         playerStats;
 
     // Movement
+    public float    Speed { get; private set; }
     private Vector3 direction;
-    public float Speed { get; private set; }
-    private bool castingContinuousSpell;
+    private bool    castingContinuousSpell;
 
-    // Dashing
-    private float dashCurrentValue;
+    // Dash
+    private float   dashCurrentValue;
     private Vector3 lastDirectionPressed;
-    private float dashingTimer;
-    private bool dashing;
-    public float CurrentTimeToGetCharge { get; private set; }
+    private float   dashingTimer;
+    private bool    dashing;
+    public float    CurrentTimeToGetCharge { get; private set; }
 
     // Jump
     private YieldInstruction wffu;
@@ -34,9 +34,9 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator fallingCoroutine;
 
     // Gravity
-    private float gravityIncrement;
-    private readonly float DEFAULTGRAVITYINCREMENT = 1;    
-    private readonly float GRAVITY = 100f;
+    private float           gravityIncrement;
+    private readonly float  DEFAULTGRAVITYINCREMENT = 1;    
+    private readonly float  GRAVITY = 100f;
 
     // Character controller collider, don't change these values
     private readonly float CONTROLLERRADIUSDEFAULT = 0.75f;
@@ -76,6 +76,9 @@ public class PlayerMovement : MonoBehaviour
         playerCastSpell.EventCancelAttack -= NormalSpeedAfterContinuousAttack;
     }
 
+    /// <summary>
+    /// If player presses jump, starts jumping coroutine.
+    /// </summary>
     private void JumpPress()
     {
         if (jumpingCoroutine == null && characterController.isGrounded)
@@ -87,11 +90,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        // Movement directions
         Vector3 sideMovement = input.Movement.x * Speed * transform.right;
         Vector3 forwardMovement = input.Movement.y * Speed * transform.forward;
         direction = sideMovement + forwardMovement;
         if (input.Movement == Vector2.zero) direction = Vector3.zero;
 
+        // Controls character radius to prevent getting stuck on edges after jumping
         if (characterController.isGrounded)
         {
             // Character radius
@@ -104,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
             characterController.radius = CONTROLLERRADIUSONAIR;
         }
 
-        // Dash counter
+        // Dash counter. Updates dash timer and charges
         if (playerStats.DashCharge < playerStats.PlayerAttributes.MaxDashCharge)
         {
             CurrentTimeToGetCharge -= Time.deltaTime;
@@ -116,6 +121,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Should rearrange this stuff.
+    /// </summary>
     private void FixedUpdate()
     {
         // Happens if player is falling (without jumping)
@@ -128,6 +136,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        // Happens when player is dashing
         if (dashing)
         {
             Dashing();
@@ -138,29 +147,33 @@ public class PlayerMovement : MonoBehaviour
 
         // Happens if player pressed jump and JumpingCoroutine is running
         // Will keep pushing player upwards while the time is passing
+        // Needs to happen here, on fixed update, or jump will be canceled.
         if (jumpingCoroutine != null)
         {
             direction.y = player.Values.JumpForce;
         }
 
-        // Gravity
+        // Gravity. Calculates gravity after jumping.
         direction.y -= GRAVITY * gravityIncrement * Time.fixedDeltaTime;
 
-        // Movement
+        // Movement. Calculates movement after everything else
         characterController.Move(direction * Time.fixedDeltaTime);
     }
 
     /// <summary>
     /// If player presses dash it will check if dash is possible.
-    /// Player can't be dashing, must have touched the floor once, and must be pressing a direction.
+    /// Player must have a dash, and must be pressing a direction.
+    /// If this method is executed, a variable is turned to true and dash will begin.
     /// </summary>
     private void Dash()
     {
+        // Player must have a dash, and must be pressing a direction.
         if (dashing == false && (direction.x != 0 || direction.z != 0) &&
             playerStats.DashCharge > 0)
         {
             dashing = true;
             dashingTimer = Time.time;
+
             // If player is running it divides this value so dash is always the same
             lastDirectionPressed = Speed == 
                 player.Values.Speed ? direction : 
@@ -210,7 +223,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// Updates player's velocity.
+    /// Updates player's velocity if run is pressed or released.
     /// </summary>
     private void Run(bool condition)
     {
@@ -228,6 +241,10 @@ public class PlayerMovement : MonoBehaviour
     public void UpdateSpeed() =>
         Speed = player.Values.Speed * playerStats.CommonAttributes.MovementSpeedMultiplier;
 
+    /// <summary>
+    /// Reduces speed if the player is attacking with a continuous spell.
+    /// </summary>
+    /// <param name="spellCastType"></param>
     private void ReduceSpeedOnContinuousAttack(SpellCastType spellCastType)
     {
         if (spellCastType == SpellCastType.ContinuousCast)
@@ -237,6 +254,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Turns speed back to normal after continuous attack is over.
+    /// </summary>
     private void NormalSpeedAfterContinuousAttack()
     {
         castingContinuousSpell = false;
@@ -276,7 +296,8 @@ public class PlayerMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// Increments gravity value while player is falling (WITHOUT JUMPING).
+    /// Increments gravity value while player is falling ---------(WITHOUT JUMPING)----------.
+    /// (Gravity while jumping is executed on fixed update).
     /// </summary>
     /// <returns>Null.</returns>
     private IEnumerator FallingCoroutine()
@@ -286,6 +307,7 @@ public class PlayerMovement : MonoBehaviour
         {
             yield return wffu;
 
+            // Increments gravity
             if (gravityIncrement >= 20) gravityIncrement = 20;
             else gravityIncrement += player.Values.GravityIncrement;
 
