@@ -6,6 +6,6 @@ using System.Collections.Generic;
 public interface ISpellOneShotBehaviour
 {
     IList<SpellBehaviourAbstractOneShotSO> SpellBehaviourOneShot { get; }
-    SpellOnHitBehaviourAbstractOneShotSO OnHitBehaviourOneShot { get; }
-    SpellMuzzleBehaviourAbstractOneShotSO MuzzleBehaviourOneShot { get; }
+    IList<SpellOnHitBehaviourAbstractOneShotSO> OnHitBehaviourOneShot { get; }
+    IList<SpellMuzzleBehaviourAbstractOneShotSO> MuzzleBehaviourOneShot { get; }
 }

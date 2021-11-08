@@ -19,7 +19,12 @@ public class SpellMuzzleBehaviourOneShot : SpellMuzzleBehaviourAbstract
     {
         TimeSpawned = Time.time;
         EffectPlay();
-        Spell?.MuzzleBehaviourOneShot.StartBehaviour(this);
+
+        if (Spell != null)
+        {
+            foreach (SpellMuzzleBehaviourAbstractOneShotSO muzzleBehaviour in Spell.MuzzleBehaviourOneShot)
+                muzzleBehaviour.StartBehaviour(this);
+        }
     }
 
     /// <summary>
@@ -27,6 +32,10 @@ public class SpellMuzzleBehaviourOneShot : SpellMuzzleBehaviourAbstract
     /// </summary>
     private void Update()
     {
-        Spell?.MuzzleBehaviourOneShot.ContinuousUpdateBehaviour(this);
+        if (Spell != null)
+        {
+            foreach (SpellMuzzleBehaviourAbstractOneShotSO muzzleBehaviour in Spell.MuzzleBehaviourOneShot)
+                muzzleBehaviour.ContinuousUpdateBehaviour(this);
+        }
     }
 }

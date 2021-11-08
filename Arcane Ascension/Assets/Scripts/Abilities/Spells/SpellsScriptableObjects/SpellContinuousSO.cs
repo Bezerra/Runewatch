@@ -18,17 +18,17 @@ public class SpellContinuousSO : SpellSO
 
     [BoxGroup("Behaviours Of Muzzle and Hit prefabs")]
     [Tooltip("What happens after the spell hit prefab is spawned (spawned after the spell hits something)")]
-    [SerializeField] protected SpellOnHitBehaviourAbstractContinuousSO onHitBehaviourContinuous;
+    [SerializeField] protected List<SpellOnHitBehaviourAbstractContinuousSO> onHitBehaviourContinuous;
 
     [BoxGroup("Behaviours Of Muzzle and Hit prefabs")]
     [Tooltip("What happens after the spell hit prefab is spawned (spawned after the spell hits something)")]
-    [SerializeField] protected SpellMuzzleBehaviourAbstractContinuousSO muzzleBehaviourContinuous;
+    [SerializeField] protected List<SpellMuzzleBehaviourAbstractContinuousSO> muzzleBehaviourContinuous;
 
     public override IList<SpellBehaviourAbstractContinuousSO> SpellBehaviourContinuous => spellBehaviourContinuous;
 
-    public override SpellOnHitBehaviourAbstractContinuousSO OnHitBehaviourContinuous => onHitBehaviourContinuous;
+    public override IList<SpellOnHitBehaviourAbstractContinuousSO> OnHitBehaviourContinuous => onHitBehaviourContinuous;
 
-    public override SpellMuzzleBehaviourAbstractContinuousSO MuzzleBehaviourContinuous => muzzleBehaviourContinuous;
+    public override IList<SpellMuzzleBehaviourAbstractContinuousSO> MuzzleBehaviourContinuous => muzzleBehaviourContinuous;
 
     public override AttackBehaviourAbstractSO AttackBehaviour => attackBehaviourContinuous;
 

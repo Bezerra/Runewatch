@@ -6,6 +6,6 @@ using System.Collections.Generic;
 public interface ISpellContinuousBehaviour
 {
     IList<SpellBehaviourAbstractContinuousSO> SpellBehaviourContinuous { get; }
-    SpellOnHitBehaviourAbstractContinuousSO OnHitBehaviourContinuous { get; }
-    SpellMuzzleBehaviourAbstractContinuousSO MuzzleBehaviourContinuous { get; }
+    IList<SpellOnHitBehaviourAbstractContinuousSO> OnHitBehaviourContinuous { get; }
+    IList<SpellMuzzleBehaviourAbstractContinuousSO> MuzzleBehaviourContinuous { get; }
 }

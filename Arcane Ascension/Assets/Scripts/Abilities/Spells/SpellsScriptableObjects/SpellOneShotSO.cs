@@ -18,17 +18,17 @@ public class SpellOneShotSO : SpellSO
 
     [BoxGroup("Behaviours Of Muzzle and Hit prefabs")]
     [Tooltip("What happens after the spell hit prefab is spawned (spawned after the spell hits something)")]
-    [SerializeField] protected SpellOnHitBehaviourAbstractOneShotSO onHitBehaviourOneShot;
+    [SerializeField] protected List<SpellOnHitBehaviourAbstractOneShotSO> onHitBehaviourOneShot;
 
     [BoxGroup("Behaviours Of Muzzle and Hit prefabs")]
     [Tooltip("What happens after the spell hit prefab is spawned (spawned after the spell hits something)")]
-    [SerializeField] protected SpellMuzzleBehaviourAbstractOneShotSO muzzleBehaviourOneShot;
+    [SerializeField] protected List<SpellMuzzleBehaviourAbstractOneShotSO> muzzleBehaviourOneShot;
 
     public override IList<SpellBehaviourAbstractOneShotSO> SpellBehaviourOneShot => spellBehaviourOneShot;
 
-    public override SpellOnHitBehaviourAbstractOneShotSO OnHitBehaviourOneShot => onHitBehaviourOneShot;
+    public override IList<SpellOnHitBehaviourAbstractOneShotSO> OnHitBehaviourOneShot => onHitBehaviourOneShot;
 
-    public override SpellMuzzleBehaviourAbstractOneShotSO MuzzleBehaviourOneShot => muzzleBehaviourOneShot;
+    public override IList<SpellMuzzleBehaviourAbstractOneShotSO> MuzzleBehaviourOneShot => muzzleBehaviourOneShot;
 
     public override AttackBehaviourAbstractSO AttackBehaviour => attackBehaviourOneShot;
 

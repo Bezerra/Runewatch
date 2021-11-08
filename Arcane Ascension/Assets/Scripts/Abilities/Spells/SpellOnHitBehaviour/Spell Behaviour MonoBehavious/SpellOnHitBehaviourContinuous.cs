@@ -27,7 +27,12 @@ public class SpellOnHitBehaviourContinuous : SpellOnHitBehaviourAbstract
     {
         TimeSpawned = Time.time;
         EffectPlay();
-        Spell?.OnHitBehaviourContinuous.StartBehaviour(this);
+
+        if (Spell != null)
+        {
+            foreach (SpellOnHitBehaviourAbstractContinuousSO onHitBehaviour in Spell.OnHitBehaviourContinuous)
+                onHitBehaviour.StartBehaviour(this);
+        }
     }
 
     /// <summary>
@@ -35,6 +40,10 @@ public class SpellOnHitBehaviourContinuous : SpellOnHitBehaviourAbstract
     /// </summary>
     private void Update()
     {
-        Spell?.OnHitBehaviourContinuous.ContinuousUpdateBehaviour(this);
+        if (Spell != null)
+        {
+            foreach (SpellOnHitBehaviourAbstractContinuousSO onHitBehaviour in Spell.OnHitBehaviourContinuous)
+                onHitBehaviour.ContinuousUpdateBehaviour(this);
+        }
     }
 }

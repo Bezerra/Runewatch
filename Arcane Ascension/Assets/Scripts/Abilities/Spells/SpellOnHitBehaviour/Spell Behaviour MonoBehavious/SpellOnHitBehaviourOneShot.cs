@@ -19,7 +19,12 @@ public class SpellOnHitBehaviourOneShot : SpellOnHitBehaviourAbstract
     {
         TimeSpawned = Time.time;
         EffectPlay();
-        Spell?.OnHitBehaviourOneShot.StartBehaviour(this);
+
+        if (Spell != null)
+        {
+            foreach (SpellOnHitBehaviourAbstractOneShotSO onHitBehaviour in Spell.OnHitBehaviourOneShot)
+                onHitBehaviour.StartBehaviour(this);
+        }
     }
 
     /// <summary>
@@ -27,7 +32,11 @@ public class SpellOnHitBehaviourOneShot : SpellOnHitBehaviourAbstract
     /// </summary>
     private void Update()
     {
-        Spell?.OnHitBehaviourOneShot.ContinuousUpdateBehaviour(this);
+        if (Spell != null)
+        {
+            foreach (SpellOnHitBehaviourAbstractOneShotSO onHitBehaviour in Spell.OnHitBehaviourOneShot)
+                onHitBehaviour.ContinuousUpdateBehaviour(this);
+        }
     }
 }
         

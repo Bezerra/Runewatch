@@ -17,6 +17,7 @@ public abstract class SpellBehaviourAbstractOneShotSO: SpellBehaviourAbstractSO
 
     /// <summary>
     /// Executes on update before spell is fired.
+    /// Used for one shot casts with release, while player is pressing fire.
     /// </summary>
     public abstract void ContinuousUpdateBeforeSpellBehaviour(SpellBehaviourOneShot parent);
 

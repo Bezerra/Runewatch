@@ -2,10 +2,10 @@ using UnityEngine;
 using ExtensionMethods;
 
 /// <summary>
-/// Scriptable object responsible for creating single target damage plus mana regen behaviour.
+/// Scriptable object responsible for creating single target damage plus mana steal behaviour.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Spell Damage Behaviour/Spell Damage Mana Regen", fileName = "Spell Damage Mana Regen")]
-public class DamageManaRegenSO : DamageBehaviourAbstractSO
+[CreateAssetMenu(menuName = "Spells/Spell Damage Behaviour/Spell Damage Mana Steal", fileName = "Spell Damage Mana Steal")]
+public class DamageManaStealSO : DamageBehaviourAbstractSO
 {
     /// <summary>
     /// Damage for single target spells. Works with a collider.

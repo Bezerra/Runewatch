@@ -115,11 +115,11 @@ public abstract class SpellSO : ScriptableObject, ISpell
     public float CooldownCounter { get; set; }
 
     public virtual IList<SpellBehaviourAbstractOneShotSO> SpellBehaviourOneShot { get; }
-    public virtual SpellOnHitBehaviourAbstractOneShotSO OnHitBehaviourOneShot { get; }
-    public virtual SpellMuzzleBehaviourAbstractOneShotSO MuzzleBehaviourOneShot { get; }
+    public virtual IList<SpellOnHitBehaviourAbstractOneShotSO> OnHitBehaviourOneShot { get; }
+    public virtual IList<SpellMuzzleBehaviourAbstractOneShotSO> MuzzleBehaviourOneShot { get; }
     public virtual IList<SpellBehaviourAbstractContinuousSO> SpellBehaviourContinuous { get; }
-    public virtual SpellOnHitBehaviourAbstractContinuousSO OnHitBehaviourContinuous { get; }
-    public virtual SpellMuzzleBehaviourAbstractContinuousSO MuzzleBehaviourContinuous { get; }
+    public virtual IList<SpellOnHitBehaviourAbstractContinuousSO> OnHitBehaviourContinuous { get; }
+    public virtual IList<SpellMuzzleBehaviourAbstractContinuousSO> MuzzleBehaviourContinuous { get; }
 
     public DamageBehaviourAbstractSO DamageBehaviour => damageBehaviour;
     public abstract AttackBehaviourAbstractSO AttackBehaviour { get; }

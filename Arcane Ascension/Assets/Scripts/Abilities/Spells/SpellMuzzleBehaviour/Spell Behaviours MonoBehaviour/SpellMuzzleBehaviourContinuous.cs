@@ -25,7 +25,12 @@ public class SpellMuzzleBehaviourContinuous : SpellMuzzleBehaviourAbstract
     private void OnEnable()
     {
         EffectPlay();
-        Spell?.MuzzleBehaviourContinuous.StartBehaviour(this);
+
+        if (Spell != null)
+        {
+            foreach (SpellMuzzleBehaviourAbstractContinuousSO muzzleBehaviour in Spell.MuzzleBehaviourContinuous)
+                muzzleBehaviour.StartBehaviour(this);
+        }
     }
 
     /// <summary>
@@ -33,6 +38,10 @@ public class SpellMuzzleBehaviourContinuous : SpellMuzzleBehaviourAbstract
     /// </summary>
     private void Update()
     {
-        Spell?.MuzzleBehaviourContinuous.ContinuousUpdateBehaviour(this);
+        if (Spell != null)
+        {
+            foreach (SpellMuzzleBehaviourAbstractContinuousSO muzzleBehaviour in Spell.MuzzleBehaviourContinuous)
+                muzzleBehaviour.ContinuousUpdateBehaviour(this);
+        }
     }
 }
