@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 5294600871184638544}
   - component: {fileID: 3610144545636596978}
   - component: {fileID: 7337793762669776294}
+  - component: {fileID: -6439730992836785876}
   m_Layer: 15
-  m_Name: Pickable - Passive Ability
+  m_Name: Pickable - Passive Orb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65,6 +66,7 @@ MonoBehaviour:
   notes: Gets three random passives, opens three passives menu, stops the game. Destroys
     the gameobject through code.
   eventOnInteraction:
+  - {fileID: 11400000, guid: 8f645137f5fbfc3468f9d2253d251c9b, type: 2}
   - {fileID: 11400000, guid: 8c749b8ee2e325d498f011af8b072b57, type: 2}
   - {fileID: 11400000, guid: 327b43562aec2114fa00f42e7a66202d, type: 2}
   - {fileID: 11400000, guid: 892b2d67598d9664ca9ad2404aa4bdfa, type: 2}
@@ -95,6 +97,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsToWait: 60
+--- !u!114 &-6439730992836785876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3092681746740860096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f12b6386e60e728408ddb3f1f5d4afeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootAndInteractionSoundType: 11
 --- !u!1 &3092681746826980112
 GameObject:
   m_ObjectHideFlags: 0

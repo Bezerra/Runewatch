@@ -13,14 +13,14 @@ public class LootSoundsSO : ScriptableObject
     // All loot sounds serialize field
     [SerializeField] private List<LootNameSound> lootSoundsList;
 
-    private IDictionary<LootAndInteractionType, AbstractSoundSO> data;
+    private IDictionary<LootAndInteractionSoundType, AbstractSoundSO> data;
 
     /// <summary>
     /// Plays a sound fro a dictionary.
     /// </summary>
     /// <param name="lootName">Sound to paly.</param>
     /// <param name="audioSource">Audio source to play the sound in.</param>
-    public void PlaySound(LootAndInteractionType lootName, AudioSource audioSource)
+    public void PlaySound(LootAndInteractionSoundType lootName, AudioSource audioSource)
     {
         if (data.ContainsKey(lootName))
             data?[lootName]?.PlaySound(audioSource);
@@ -28,7 +28,7 @@ public class LootSoundsSO : ScriptableObject
 
     private void OnEnable()
     {
-        data = new Dictionary<LootAndInteractionType, AbstractSoundSO>();
+        data = new Dictionary<LootAndInteractionSoundType, AbstractSoundSO>();
 
         if (lootSoundsList.Count > 0)
         {
@@ -42,10 +42,10 @@ public class LootSoundsSO : ScriptableObject
     [Serializable]
     private struct LootNameSound
     {
-        [SerializeField] private LootAndInteractionType lootName;
+        [SerializeField] private LootAndInteractionSoundType lootName;
         [SerializeField] private AbstractSoundSO sound;
 
-        public LootAndInteractionType LootName => lootName;
+        public LootAndInteractionSoundType LootName => lootName;
         public AbstractSoundSO LootSound => sound;
     }
 }

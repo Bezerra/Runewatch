@@ -6,7 +6,7 @@ using UnityEngine;
 public class Currency : MonoBehaviour
 {
     [SerializeField] private CurrencySO currencySO;
-    [SerializeField] private LootAndInteractionType lootType;
+    [SerializeField] private LootAndInteractionSoundType lootType;
 
     public Vector2 Amount { get => currencySO.Amount; set => currencySO.Amount = value; }
 

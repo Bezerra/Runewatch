@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 public class LootSound : MonoBehaviour
 {
-    [SerializeField] private LootAndInteractionType lootName;
+    [SerializeField] private LootAndInteractionSoundType lootName;
     [SerializeField] private LootSoundsSO lootSounds;
 
     private AudioSource audioSource;

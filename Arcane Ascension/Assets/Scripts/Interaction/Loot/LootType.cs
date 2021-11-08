@@ -1,10 +1,9 @@
 /// <summary>
-/// An enum used to know loot names.
+/// Enum with loot types.
 /// DO NOT MOVE ORDER. IF YOU ADD, ADD AFTER THE LAST ELEMENT.
 /// </summary>
-public enum LootAndInteractionType
+public enum LootType
 {
-    // DO NOT MOVE ORDER. IF YOU ADD, ADD AFTER THE LAST ELEMENT.
     ArcanePower,
     Gold,
     PassiveOrb,
@@ -12,6 +11,4 @@ public enum LootAndInteractionType
     UnknownSpell,
     PotionHealing,
     PotionMana,
-    Chest,
-    Shopkeeper,
 }

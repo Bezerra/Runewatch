@@ -21,6 +21,9 @@ public class Chest : MonoBehaviour
 
     public void ChestOpeningStartAnimationEvent()
     {
+        LootSoundPoolCreator.Pool.InstantiateFromPool(
+            LootAndInteractionSoundType.InteractChest.ToString(), transform.position, Quaternion.identity);
+
         interectableCanvas.enabled = false;
         canvasText.SetActive(false);
     }

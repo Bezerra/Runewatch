@@ -6,7 +6,7 @@ using UnityEngine;
 public class Potion : MonoBehaviour
 {
     [SerializeField] private PotionSO potion;
-    [SerializeField] private LootAndInteractionType lootType;
+    [SerializeField] private LootAndInteractionSoundType lootType;
 
     private void OnTriggerEnter(Collider other)
     {

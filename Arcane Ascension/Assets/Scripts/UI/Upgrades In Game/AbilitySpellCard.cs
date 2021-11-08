@@ -67,6 +67,9 @@ public class AbilitySpellCard : MonoBehaviour
         // If there are slots, it adds the spell.
         if (CheckAddSpellValidation())
         {
+            LootSoundPoolCreator.Pool.InstantiateFromPool(
+                LootAndInteractionSoundType.ObtainUnknownSpell.ToString(), transform.position, Quaternion.identity);
+
             playerSpells.AddSpell(SpellOnCard as SpellSO);
             abilitiesCanvas.DisableAll();
             playerInteraction.LastObjectInteracted?.gameObject.SetActive(false);
@@ -89,8 +92,15 @@ public class AbilitySpellCard : MonoBehaviour
     {
         if (playerSpells.CurrentSpells[slot] != null)
         {
-            // DEactivates the spell scroll
-            playerInteraction.LastObjectInteracted?.gameObject.SetActive(false);
+            if (playerInteraction.LastObjectInteracted != null)
+            {
+                LootSoundPoolCreator.Pool.InstantiateFromPool(
+                LootAndInteractionSoundType.ObtainUnknownSpell.ToString(),
+                playerInteraction.LastObjectInteracted.transform.position, Quaternion.identity);
+
+                // Deactivates the spell scroll
+                playerInteraction.LastObjectInteracted?.gameObject.SetActive(false);
+            }
 
             // Drops a spell and updates player's spell list
             playerSpells.DropSpell(playerSpells.CurrentSpells[slot] as SpellSO);

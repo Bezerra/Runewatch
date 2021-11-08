@@ -40,7 +40,7 @@ public struct ObjectPool<T> where T : BasePool
             }
             catch (System.ArgumentException)
             {
-                Debug.Log(pools[i].Name + " projectile already exists on another spell. Change projectile.");
+                Debug.Log(pools[i].Name + " name already exists on another gameobject. Change name.");
             }
         }
     }

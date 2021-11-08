@@ -9,26 +9,26 @@ public class LootSoundPoolCreator : MonoBehaviour
     /// <summary>
     /// Prefab of the damage hit prefab.
     /// </summary>
-    [SerializeField] private List<ItemLootPool> pool;
+    [SerializeField] private List<LootSoundPool> pool;
 
     // IList with pool for every base pool
-    private IList<ItemLootPool> listOfGameObjects;
+    private IList<LootSoundPool> listOfGameObjects;
 
-    public static ObjectPool<ItemLootPool> Pool { get; private set; }
+    public static ObjectPool<LootSoundPool> Pool { get; private set; }
 
     private void Awake()
     {
         // Creates a dictionary with gameobject name
-        Pool = new ObjectPool<ItemLootPool>(new Dictionary<string, Queue<GameObject>>());
+        Pool = new ObjectPool<LootSoundPool>(new Dictionary<string, Queue<GameObject>>());
 
         // Creates a list for prefabs or hits/muzzles
-        listOfGameObjects = new List<ItemLootPool>();
+        listOfGameObjects = new List<LootSoundPool>();
 
         // Foreach pool
         for (int i = 0; i < pool.Count; i++)
         {
-            ItemLootPool spawnedGameObject = 
-                new ItemLootPool(pool[i].LootName.ToString(), pool[i].Prefab, pool[i].Size);
+            LootSoundPool spawnedGameObject = 
+                new LootSoundPool(pool[i].LootName.ToString(), pool[i].Prefab, pool[i].Size);
             listOfGameObjects.Add(spawnedGameObject);
         }
 

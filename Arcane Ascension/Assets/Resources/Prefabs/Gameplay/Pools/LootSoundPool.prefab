@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6402583088037328301}
-  - component: {fileID: 1704258077194442053}
+  - component: {fileID: 2522446321590536513}
   m_Layer: 0
   m_Name: LootSoundPool
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1704258077194442053
+--- !u!114 &2522446321590536513
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,43 +40,55 @@ MonoBehaviour:
   m_GameObject: {fileID: 3030777546587796206}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9352f18a8978a094392ba83b7bbf0f24, type: 3}
+  m_Script: {fileID: 11500000, guid: 21e2d85e503d2a847b1e34a787ac2463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pool:
-  - name: Arcane Power
-    prefab: {fileID: 746014394078527373, guid: 970db1547be992a4ab2de3903b6e259a, type: 3}
+  - name: Obtain Arcane Power
+    prefab: {fileID: 7073652169992678361, guid: 65443c497c1eaf049abc35dbe0ace28c, type: 3}
     size: 10
     lootName: 0
-  - name: Gold
-    prefab: {fileID: 8722719063593831625, guid: 63983b83cea078545a4cb685bc0b57f9, type: 3}
-    size: 10
-    lootName: 1
-  - name: Passive Orb
-    prefab: {fileID: 3092681746740860096, guid: 64fd24d60411e2d4da23e063f75d566f, type: 3}
-    size: 3
-    lootName: 2
-  - name: Known Spell
-    prefab: {fileID: 2172836827759931067, guid: e03589534e1e01e44b2c636c354b6ecc, type: 3}
-    size: 3
-    lootName: 3
-  - name: Unknown Spell
-    prefab: {fileID: 460959769742836823, guid: 953f7e9858ac7a14f9d3f0745c7b5a4b, type: 3}
-    size: 3
-    lootName: 4
-  - name: Potion Healing
-    prefab: {fileID: 7332995261754598551, guid: 68cc4246d904e1f41b6caf4ba2a624fa, type: 3}
-    size: 10
-    lootName: 5
-  - name: Potion Mana
-    prefab: {fileID: 4516591354053293744, guid: 5ace6fb774aab9d4db22e4bea425f189, type: 3}
-    size: 10
-    lootName: 6
-  - name: Chest
+  - name: Interact  Chest
     prefab: {fileID: 7073652169992678361, guid: b4a697e38b5070147919a5f58d64f679, type: 3}
     size: 3
     lootName: 7
-  - name: Shopkeeper
+  - name: Obtain Gold
+    prefab: {fileID: 7073652169992678361, guid: 6c23a2d05c699b9448e6514efcc6405c, type: 3}
+    size: 10
+    lootName: 1
+  - name: Obtain Known Spell
+    prefab: {fileID: 7073652169992678361, guid: 4acacf1ac3d84ed4cb1e944a1d9ce3bc, type: 3}
+    size: 3
+    lootName: 3
+  - name: Obtain Unknown Spell
+    prefab: {fileID: 7073652169992678361, guid: 4da09dae5209ae5449d07498adf81689, type: 3}
+    size: 3
+    lootName: 4
+  - name: Obtain Passive Orb
+    prefab: {fileID: 7073652169992678361, guid: a8a9f4c65f15f1e40bf4b6b38266dacc, type: 3}
+    size: 3
+    lootName: 2
+  - name: Obtain Potion Healing
+    prefab: {fileID: 7073652169992678361, guid: 5094a219f9c540041ba93116158c83cf, type: 3}
+    size: 10
+    lootName: 5
+  - name: Obtain Potion Mana
+    prefab: {fileID: 7073652169992678361, guid: 2ec234843682b4f4b8feca74e449d108, type: 3}
+    size: 10
+    lootName: 6
+  - name: Interact Shopkeeper
     prefab: {fileID: 7073652169992678361, guid: fffda5664f3811848986d6c8a54c758b, type: 3}
-    size: 2
+    size: 3
     lootName: 8
+  - name: Interact Known Spell
+    prefab: {fileID: 7073652169992678361, guid: f7a2d813640ba6b4baba86f713ed7ed1, type: 3}
+    size: 3
+    lootName: 10
+  - name: Interact Unknown Spell
+    prefab: {fileID: 7073652169992678361, guid: ba691909aa01ca14fb371e7a06dda812, type: 3}
+    size: 3
+    lootName: 9
+  - name: Interact Passive Orb
+    prefab: {fileID: 7073652169992678361, guid: 9ddf9743564f7984c8ef5e891ba13bd4, type: 3}
+    size: 3
+    lootName: 11

@@ -52,6 +52,7 @@ MonoBehaviour:
   notes: Gets one known spell that the player dropped to the floor. Opens four full
     spells menu, stops the game. Gameobject is destroyed through code.
   eventOnInteraction:
+  - {fileID: 11400000, guid: 8f645137f5fbfc3468f9d2253d251c9b, type: 2}
   - {fileID: 11400000, guid: f7df4f7c44d319c468d292f9b9d2f7a4, type: 2}
   - {fileID: 11400000, guid: 259fdf688c59c53409331eca31a3ae7a, type: 2}
   - {fileID: 11400000, guid: 892b2d67598d9664ca9ad2404aa4bdfa, type: 2}
@@ -95,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToDeactivate: 60
+  lootAndInteractionSoundType: 10
 --- !u!1 &2172836828364928214
 GameObject:
   m_ObjectHideFlags: 0
