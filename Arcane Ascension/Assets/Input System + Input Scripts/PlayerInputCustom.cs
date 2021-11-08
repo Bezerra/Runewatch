@@ -40,7 +40,7 @@ public class PlayerInputCustom : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        uiModule.enabled = true;
+        uiModule.enabled = false;
 
         if (PlayerPrefs.GetString("Controls", "v1") == "v1")
             controls.SwitchCurrentActionMap("Gameplay");

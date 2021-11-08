@@ -16,8 +16,8 @@ public class PauseMenuUI : MonoBehaviour
 
     public void ResumeGame()
     {
-        pauseSystem.PauseGame();
         pauseMenuReaction.EnableDisableInterface();
+        pauseSystem.PauseGame();
     }
 
     public void MainMenu()
