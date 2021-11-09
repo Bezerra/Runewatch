@@ -41,7 +41,6 @@ public class AbilitySpellCard : MonoBehaviour
     /// </summary>
     public void UpdateInformation()
     {
-        Debug.Log("A");
         if (SpellOnCard != null && textInCard != null)
         {
             button.enabled = true;

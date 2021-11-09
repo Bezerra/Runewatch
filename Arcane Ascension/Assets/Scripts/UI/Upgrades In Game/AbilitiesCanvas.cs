@@ -45,6 +45,9 @@ public class AbilitiesCanvas : MonoBehaviour
         spellsFullCanvas.SetActive(true);
     }
 
+    /// <summary>
+    /// Enable and disable fixes a bug on build, where cards weren't updating on the first interaction.
+    /// </summary>
     private void Start()
     {
         EnableAll();
