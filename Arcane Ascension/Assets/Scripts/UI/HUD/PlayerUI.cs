@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +24,7 @@ public class PlayerUI : MonoBehaviour
 
     // Fields to update
     [SerializeField] private Image crosshair;
+    [SerializeField] private Image crosshairHit;
     [SerializeField] private List<Image> spellsUI;
     [SerializeField] private List<Image> spellsBackgroundUI;
     [SerializeField] private List<Image> spellsBorderUI;
@@ -38,6 +40,14 @@ public class PlayerUI : MonoBehaviour
     // WILL BE CONTROLED VIA OPTIONAS WHEN OPTIONS EXIST
     [SerializeField] private bool showFPS;
 
+    private IList<EnemyStats> enemyStats;
+
+    // Coroutines
+    private IEnumerator hitCrosshairCoroutine;
+    private float crosshairHitAlpha;
+    private YieldInstruction crosshairWaitForSeconds;
+    private YieldInstruction wffu;
+
     private void Awake()
     {
         player = GetComponentInParent<Player>();
@@ -47,12 +57,72 @@ public class PlayerUI : MonoBehaviour
         playerStats = GetComponentInParent<PlayerStats>();
         playerCurrency = GetComponentInParent<IUseCurrency>();
         fpsCounter = GetComponent<FPSCounter>();
+        enemyStats = FindObjectsOfType<EnemyStats>();
+        crosshairWaitForSeconds = new WaitForSeconds(1);
+        wffu = new WaitForFixedUpdate();
     }
 
     private void OnEnable()
     {
         input.CastSpell += CastSpell;
         input.StopCastSpell += StopCastSpell;
+
+        foreach(EnemyStats enemy in enemyStats)
+        {
+            enemy.EventTakeDamage += TriggerCrosshairHit;
+            enemy.EventDeath += UnsubscribeEnemy;
+        }
+    }
+
+    private void OnDisable()
+    {
+        input.CastSpell -= CastSpell;
+        input.StopCastSpell -= StopCastSpell;
+
+        foreach (EnemyStats enemy in enemyStats)
+        {
+            if (enemy != null)
+            {
+                enemy.EventTakeDamage -= TriggerCrosshairHit;
+                enemy.EventDeath -= UnsubscribeEnemy;
+            }
+        }
+    }
+
+    private void UnsubscribeEnemy(Stats deadEnemy)
+    {
+        for (int i = 0; i < enemyStats.Count; i++)
+        {
+            if (enemyStats[i] != null)
+            {
+                if (enemyStats[i] == deadEnemy)
+                {
+                    enemyStats[i].EventTakeDamage -= TriggerCrosshairHit;
+                    enemyStats[i].EventDeath -= UnsubscribeEnemy;
+                    break;
+                }
+            }
+        }
+    }
+
+    private void TriggerCrosshairHit(float emptyVar)
+    {
+        if (hitCrosshairCoroutine != null) StopCoroutine(hitCrosshairCoroutine);
+        hitCrosshairCoroutine = TriggerCrosshairHitCoroutine();
+        StartCoroutine(hitCrosshairCoroutine);
+    }
+
+    private IEnumerator TriggerCrosshairHitCoroutine()
+    {
+        crosshairHitAlpha = 1;
+        crosshairHit.color = new Color(1, 1, 1, crosshairHitAlpha);
+        yield return crosshairWaitForSeconds;
+        while (crosshairHitAlpha > 0)
+        {
+            crosshairHit.color = new Color(1, 1, 1, crosshairHitAlpha);
+            crosshairHitAlpha -= Time.fixedDeltaTime;
+            yield return wffu;
+        }
     }
 
     /// <summary>

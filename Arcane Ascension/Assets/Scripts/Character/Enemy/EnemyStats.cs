@@ -6,5 +6,4 @@ using UnityEngine;
 public class EnemyStats : Stats
 {
     public EnemyStatsSO EnemyAttributes => character.CommonValues.CharacterStats as EnemyStatsSO;
-
 }

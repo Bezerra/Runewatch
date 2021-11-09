@@ -165,17 +165,6 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
         float damageToReceive = Mathf.Floor(damage * (ElementsDamage.CalculateDamage(element, PlayerAttributes.Element)));
         OnEventTakeDamage(damageToReceive);
 
-        // Spawn damage text
-        if (character.CommonValues.CharacterValues.Type != CharacterType.Player)
-        {
-            GameObject damageHitText =
-                        DamageHitPoolCreator.Pool.InstantiateFromPool("DamageHit", transform.position, Quaternion.identity);
-            if (damageHitText.TryGetComponent<DamageHitText>(out DamageHitText outDamageHitText))
-            {
-                outDamageHitText.UpdateShownDamage(damageToReceive, false);
-            }
-        }
-
         if (Armor - damageToReceive > 0)
         {
             Armor -= damageToReceive;
@@ -224,17 +213,6 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
         // Claculates final damage
         float damageToReceive = Mathf.Floor(damage * (ElementsDamage.CalculateDamage(element, PlayerAttributes.Element)));
         OnEventTakeDamage(damageToReceive);
-
-        // Spawn damage text
-        if (character.CommonValues.CharacterValues.Type != CharacterType.Player)
-        {
-            GameObject damageHitText =
-                        DamageHitPoolCreator.Pool.InstantiateFromPool("DamageHit", transform.position, Quaternion.identity);
-            if (damageHitText.TryGetComponent<DamageHitText>(out DamageHitText outDamageHitText))
-            {
-                outDamageHitText.UpdateShownDamage(damageToReceive, criticalHit);
-            }
-        }
 
         if (Armor - damageToReceive > 0)
         {

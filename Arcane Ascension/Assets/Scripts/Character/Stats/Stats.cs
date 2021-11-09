@@ -83,14 +83,11 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
         OnEventTakeDamage(damageToReceive);
 
         // Spawn damage text
-        if (character.CommonValues.CharacterValues.Type != CharacterType.Player)
+        GameObject damageHitText =
+                    DamageHitPoolCreator.Pool.InstantiateFromPool("DamageHit", transform.position, Quaternion.identity);
+        if (damageHitText.TryGetComponent<DamageHitText>(out DamageHitText outDamageHitText))
         {
-            GameObject damageHitText =
-                        DamageHitPoolCreator.Pool.InstantiateFromPool("DamageHit", transform.position, Quaternion.identity);
-            if (damageHitText.TryGetComponent<DamageHitText>(out DamageHitText outDamageHitText))
-            {
-                outDamageHitText.UpdateShownDamage(damageToReceive, false);
-            }
+            outDamageHitText.UpdateShownDamage(damageToReceive, false);
         }
 
         if (Health - damageToReceive > 0)
@@ -100,13 +97,7 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
         else
         {
             if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
-
-            if (character.CommonValues.CharacterValues.Type == CharacterType.Player)
-            {
-                FindObjectOfType<CameraPostProcessOff>().PostProcessOn();
-                FindObjectOfType<PlayerCastSpell>().AttackKeyRelease();
-            }
-
+            OnEventDeath(this);
             Destroy(GetComponentInParent<SelectionBase>().gameObject);
         }
     }
@@ -130,14 +121,11 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
         OnEventTakeDamage(damageToReceive);
 
         // Spawn damage text
-        if (character.CommonValues.CharacterValues.Type != CharacterType.Player)
+        GameObject damageHitText =
+                DamageHitPoolCreator.Pool.InstantiateFromPool("DamageHit", transform.position, Quaternion.identity);
+        if (damageHitText.TryGetComponent<DamageHitText>(out DamageHitText outDamageHitText))
         {
-            GameObject damageHitText =
-                    DamageHitPoolCreator.Pool.InstantiateFromPool("DamageHit", transform.position, Quaternion.identity);
-            if (damageHitText.TryGetComponent<DamageHitText>(out DamageHitText outDamageHitText))
-            {
-                outDamageHitText.UpdateShownDamage(damageToReceive, criticalHit);
-            }
+            outDamageHitText.UpdateShownDamage(damageToReceive, criticalHit);
         }
 
         if (Health - damageToReceive > 0)
@@ -147,6 +135,7 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
         else
         {
             if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
+            OnEventDeath(this);
             Destroy(GetComponentInParent<SelectionBase>().gameObject);
         }
     }
@@ -189,4 +178,8 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     // Registered on CheatsConsole, EnemyScript.
     protected virtual void OnEventTakeDamage(float damageToReceive) => EventTakeDamage?.Invoke(damageToReceive);
     public Action<float> EventTakeDamage;
+
+    // Registered on playerUi
+    protected virtual void OnEventDeath(Stats stats) => EventDeath?.Invoke(stats);
+    public Action<Stats> EventDeath;
 }

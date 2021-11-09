@@ -64,7 +64,6 @@ public class AbilityPassiveCard : MonoBehaviour
 
                 if (playerInteraction.LastObjectInteracted.TryGetComponent(out Chest chest) == false)
                 {
-                    Debug.Log("NO CHEST");
                     // Deactivates the passive orb
                     playerInteraction.LastObjectInteracted.SetActive(false);
                 }
