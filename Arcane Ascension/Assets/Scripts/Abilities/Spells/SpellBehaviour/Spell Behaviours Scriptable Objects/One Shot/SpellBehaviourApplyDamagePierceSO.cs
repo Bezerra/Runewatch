@@ -13,7 +13,6 @@ sealed public class SpellBehaviourApplyDamagePierceSO : SpellBehaviourAbstractOn
     [Range(2, 20)] [SerializeField] private byte hitQuantity;
     [Tooltip("Divides or multiplies damage by this factor, depending on type of pierce")]
     [Range(1, 4)] [SerializeField] private byte damageModifier = 2;
-    [SerializeField] private int enemyLayerNumber;
 
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
@@ -40,7 +39,8 @@ sealed public class SpellBehaviourApplyDamagePierceSO : SpellBehaviourAbstractOn
         parent.Spell.DamageBehaviour.Damage(parent, other, CalculateModifier(parent.CurrentPierceHitQuantity, typeOfPierce));
 
         // If it hits an enemy
-        if (other.gameObject.layer == enemyLayerNumber)
+        if (other.gameObject.layer == Layers.EnemyLayerNum ||
+            other.gameObject.layer == Layers.EnemySensiblePointNum)
         {
             if (++parent.CurrentPierceHitQuantity >= hitQuantity)
                 parent.Rb.velocity = Vector3.zero;

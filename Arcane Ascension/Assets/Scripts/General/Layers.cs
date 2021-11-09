@@ -16,6 +16,7 @@ public class Layers : MonoBehaviour
     [SerializeField] private LayerMask floor;
     [SerializeField] private int floorNum;
     [SerializeField] private LayerMask enemySensiblePoint;
+    [SerializeField] private int enemySensiblePointNum;
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private int enemyLayerNum;
     [SerializeField] private LayerMask playerLayer;
@@ -33,6 +34,7 @@ public class Layers : MonoBehaviour
     public static LayerMask Walls => instance.walls;
     public static int WallsNum => instance.wallsNum;
     public static LayerMask EnemySensiblePoint => instance.enemySensiblePoint;
+    public static int EnemySensiblePointNum => instance.enemySensiblePointNum;
     public static LayerMask EnemyLayer => instance.enemyLayer;
     public static int EnemyLayerNum => instance.enemyLayerNum;
     public static LayerMask PlayerLayer => instance.playerLayer;
