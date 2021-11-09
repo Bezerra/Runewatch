@@ -15,6 +15,7 @@ public class PlayerUI : MonoBehaviour
     private IUseCurrency playerCurrency;
     private PlayerInputCustom input;
     private PlayerMovement playerMovement;
+    private FPSCounter fpsCounter;
 
     // Fields to update
     [SerializeField] private Image crosshair;
@@ -26,6 +27,10 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private Image mana;
     [SerializeField] private TextMeshProUGUI gold;
     [SerializeField] private TextMeshProUGUI arcanePower;
+    [SerializeField] private TextMeshProUGUI fpsCounterTMP;
+
+    // WILL BE CONTROLED VIA OPTIONAS WHEN OPTIONS EXIST
+    [SerializeField] private bool showFPS;
 
     private void Awake()
     {
@@ -35,6 +40,7 @@ public class PlayerUI : MonoBehaviour
         playerSpells = GetComponentInParent<PlayerSpells>();
         playerStats = GetComponentInParent<PlayerStats>();
         playerCurrency = GetComponentInParent<IUseCurrency>();
+        fpsCounter = GetComponent<FPSCounter>();
     }
 
     private void OnEnable()
@@ -109,5 +115,14 @@ public class PlayerUI : MonoBehaviour
         // Updates loot
         gold.text = "Gold : " + playerCurrency.Quantity.Item1;
         arcanePower.text = "Arcane P : " + playerCurrency.Quantity.Item2;
+
+        if (showFPS)
+        {
+            if (fpsCounter.FrameRate >= 59) fpsCounterTMP.color = Color.green;
+            else if (fpsCounter.FrameRate >= 29) fpsCounterTMP.color = new Color(0.75f, 1, 0.75f, 1);
+            else if (fpsCounter.FrameRate > 20) fpsCounterTMP.color = Color.yellow;
+            else fpsCounterTMP.color = Color.red;
+            fpsCounterTMP.text = fpsCounter.FrameRate.ToString() + " fps";
+        }
     }
 }
