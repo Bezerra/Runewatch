@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,6 +18,10 @@ public class Shopkeeper : MonoBehaviour
     // Spawned items
     private IList<GameObject> itemsSpawned;
 
+    private int numberOfItemsSold;
+    private bool shopkeeperSpawned;
+
+    // Components
     private Player player;
 
     private void Awake()
@@ -32,15 +36,25 @@ public class Shopkeeper : MonoBehaviour
         foreach (ShopkeeperInventorySlot slot in allInventorySlots)
         {
             slot.gameObject.SetActive(false);
-        }
+        } 
+    }
 
+    private IEnumerator Start()
+    {
+        yield return new WaitForSeconds(1);
+
+        SpawnShopkeeper();
+    }
+
+    public void SpawnShopkeeper()
+    {
         // Enables X number of slots depending on the allowed number of slots
         for (int i = 0; i < numberOfInventorySlots; i++)
         {
             allInventorySlots[i].gameObject.SetActive(true);
 
             // Gets random item
-            int randomItemIndex = UnityEngine.Random.Range(0, numberOfVarietyOfItemsToSell);
+            int randomItemIndex = Random.Range(0, numberOfVarietyOfItemsToSell);
 
             // Spawn item from pool
             itemsSpawned.Add(ShopkeeperLootPoolCreator.Pool.InstantiateFromPool(
@@ -52,31 +66,37 @@ public class Shopkeeper : MonoBehaviour
                 allInventorySlots[i].ItemModelParent.position,
                 allInventorySlots[i].ItemModelParent.rotation);
 
-            // Sets parent
-            //itemSpawned.transform.parent = allInventorySlots[i].ItemModelParent;
-
             // Updates canvas with item price
-            allInventorySlots[i].UpdateInformation(itemsSpawned[i].GetComponent<ShopkeeperEventOnInteraction>().Price.ToString());
+            allInventorySlots[i].UpdateInformation(
+                itemsSpawned[i].GetComponent<ShopkeeperEventOnInteraction>().Price.ToString());
         }
+        shopkeeperSpawned = true;
     }
 
     private void FixedUpdate()
     {
-        // If player is close
-        if (Vector3.Distance(transform.position, player.transform.position) < 25)
+        if (shopkeeperSpawned)
         {
-            for (int i = 0; i < numberOfInventorySlots; i++)
+            // If player is close
+            if (Vector3.Distance(transform.position, player.transform.position) < 25)
             {
-                // If item wasn't bought yet, updates item position to match inventory slots position
-                if (itemsSpawned[i].activeSelf)
-                    itemsSpawned[i].transform.position = allInventorySlots[i].ItemModelParent.position;
-                else
+                for (int i = 0; i < numberOfInventorySlots; i++)
                 {
-                    if(allInventorySlots[i] != null)
+                    // If item wasn't bought yet, updates item position to match inventory slots position
+                    if (itemsSpawned[i].activeSelf)
+                        itemsSpawned[i].transform.position = allInventorySlots[i].ItemModelParent.position;
+                    else
                     {
-                        Destroy(allInventorySlots[i].gameObject);
+                        if (allInventorySlots[i] != null)
+                        {
+                            numberOfItemsSold++;
+                            Destroy(allInventorySlots[i].gameObject);
+                        }
                     }
                 }
+
+                if (numberOfInventorySlots == numberOfItemsSold)
+                    Destroy(gameObject);
             }
         }
     }

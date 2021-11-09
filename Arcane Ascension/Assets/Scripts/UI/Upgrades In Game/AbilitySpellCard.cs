@@ -67,7 +67,12 @@ public class AbilitySpellCard : MonoBehaviour
 
             playerSpells.AddSpell(SpellOnCard as SpellSO);
             abilitiesCanvas.DisableAll();
-            playerInteraction.LastObjectInteracted?.gameObject.SetActive(false);
+
+            if (playerInteraction.LastObjectInteracted.TryGetComponent(out Chest chest) == false)
+            {
+                // Deactivates the spell scroll
+                playerInteraction.LastObjectInteracted.SetActive(false);
+            }
         }
         // Else if there are not slots, it will open a new canvas with 4 slots to select.
         else
@@ -93,8 +98,11 @@ public class AbilitySpellCard : MonoBehaviour
                 LootAndInteractionSoundType.ObtainUnknownSpell.ToString(),
                 playerInteraction.LastObjectInteracted.transform.position, Quaternion.identity);
 
-                // Deactivates the spell scroll
-                playerInteraction.LastObjectInteracted?.gameObject.SetActive(false);
+                if (playerInteraction.LastObjectInteracted.TryGetComponent(out Chest chest) == false)
+                {
+                    // Deactivates the spell scroll
+                    playerInteraction.LastObjectInteracted.SetActive(false);
+                }
             }
 
             // Drops a spell and updates player's spell list

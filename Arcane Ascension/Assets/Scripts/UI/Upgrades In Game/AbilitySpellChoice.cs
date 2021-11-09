@@ -31,8 +31,8 @@ public class AbilitySpellChoice : MonoBehaviour
                 if (randomAbilities.SpellResult[i] != null)
                 {
                     spellCards[i].SpellOnCard = randomAbilities.SpellResult[i];
-                    spellCards[i].UpdateInformation();
                 }
+                spellCards[i].UpdateInformation();
             }
 
             // Enables a back button if there are no spells to choose

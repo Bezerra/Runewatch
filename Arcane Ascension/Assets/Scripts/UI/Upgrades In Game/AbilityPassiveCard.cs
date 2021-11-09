@@ -62,8 +62,12 @@ public class AbilityPassiveCard : MonoBehaviour
                     LootAndInteractionSoundType.ObtainPassiveOrb.ToString(),
                     playerInteraction.LastObjectInteracted.transform.position, Quaternion.identity);
 
-                // Deactivates the passive orb
-                playerInteraction.LastObjectInteracted.SetActive(false);
+                if (playerInteraction.LastObjectInteracted.TryGetComponent(out Chest chest) == false)
+                {
+                    Debug.Log("NO CHEST");
+                    // Deactivates the passive orb
+                    playerInteraction.LastObjectInteracted.SetActive(false);
+                }
             }
 
             PassiveOnCard.Execute(playerStats);
