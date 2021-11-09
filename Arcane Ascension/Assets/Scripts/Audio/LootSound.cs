@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 /// <summary>
 /// Class that holds a sound to play.
@@ -19,5 +20,12 @@ public class LootSound : MonoBehaviour
     /// This sound is played when an item is enabled from a pool.
     /// </summary>
     public void OnEnable() =>
+        StartCoroutine(PlaySound());
+        
+
+    private IEnumerator PlaySound()
+    {
+        yield return null;
         lootSounds.PlaySound(lootName, audioSource);
+    }
 }
