@@ -134,10 +134,26 @@
                     "interactions": ""
                 },
                 {
-                    "name": "PreviousAndNextSpell",
+                    "name": "PreviousAndNextSpellMouseScroll",
                     "type": "PassThrough",
                     "id": "e3751412-a8cf-452f-80b0-3eb3d40b4f98",
                     "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "NextSpell",
+                    "type": "Button",
+                    "id": "e5f54a8c-aae2-4492-87c0-9fbe2e271edd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "PreviousSpell",
+                    "type": "Button",
+                    "id": "92bcf55d-39f7-49ed-be72-3ab930bcb58f",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 }
@@ -381,7 +397,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Computer",
-                    "action": "PreviousAndNextSpell",
+                    "action": "PreviousAndNextSpellMouseScroll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "24d60890-a98d-4c08-9486-68a57b94de3a",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Computer",
+                    "action": "PreviousSpell",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c4cc961f-ea65-4f3d-b9d2-a14eb81fd1ad",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Computer",
+                    "action": "NextSpell",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -515,6 +553,30 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "80d6ab9d-b736-4c97-a90d-9093299753e5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "PreviousAndNextSpellMouseScroll",
+                    "type": "PassThrough",
+                    "id": "c88a976e-b8bc-4c00-a14f-95b27e274dee",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "NextSpell",
+                    "type": "Button",
+                    "id": "76b49016-6708-44b2-916d-cac0c1e82fb7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "PreviousSpell",
+                    "type": "Button",
+                    "id": "77c52404-107d-4145-92be-ce29da8bda65",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -749,6 +811,39 @@
                     "processors": "",
                     "groups": "Computer",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "03d478e7-d156-40c6-8e70-a80211b4cf1d",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Computer",
+                    "action": "PreviousAndNextSpellMouseScroll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5ebb6f30-cb8d-4385-8c8c-a56ebceb2b9f",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Computer",
+                    "action": "NextSpell",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d0943801-0f99-411b-b5fb-570432a848c4",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Computer",
+                    "action": "PreviousSpell",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

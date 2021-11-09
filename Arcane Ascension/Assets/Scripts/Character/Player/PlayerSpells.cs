@@ -69,47 +69,66 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     {
         input.SelectSpell += SelectSpell;
         playerCastSpell.EventStartCooldown += StartSpellCooldown;
-        input.PreviousNextSpell += SelectSpellWithScroll;
+        input.PreviousNextSpell += SelectNextAndPreviousSpell;
     }
 
     private void OnDisable()
     {
         input.SelectSpell -= SelectSpell;
         playerCastSpell.EventStartCooldown -= StartSpellCooldown;
-        input.PreviousNextSpell -= SelectSpellWithScroll;
+        input.PreviousNextSpell -= SelectNextAndPreviousSpell;
     }
 
-    private void SelectSpellWithScroll(float axis)
+    /// <summary>
+    /// Selects spells with scroll
+    /// </summary>
+    /// <param name="axis"></param>
+    private void SelectNextAndPreviousSpell(float axis, bool withDelay)
+    {
+        if (withDelay)
+        {
+            if (Time.time - currentTimeScrollChanged > DELAYTOSCROLLCHANGE)
+            {
+                SelectNextAndPreviousSpellLogic(axis);
+            }
+        }
+        else
+        {
+            SelectNextAndPreviousSpellLogic(axis);
+        }
+    }
+
+    /// <summary>
+    /// Selects previous and next spell with a number.
+    /// </summary>
+    /// <param name="axis">Positive or negative number.</param>
+    private void SelectNextAndPreviousSpellLogic(float axis)
     {
         int finalIndex = currentSpellIndex;
 
-        if (Time.time - currentTimeScrollChanged > DELAYTOSCROLLCHANGE)
+        if (axis > 0)
         {
-            if (axis > 0)
+            if (finalIndex + 1 < CurrentSpells.Length)
             {
-                if (finalIndex + 1 < CurrentSpells.Length)
-                {
-                    finalIndex++;
-                }
-                else
-                {
-                    finalIndex = 0;
-                }
+                finalIndex++;
             }
-            if (axis < 0)
+            else
             {
-                if (finalIndex - 1 > 0)
-                {
-                    finalIndex--;
-                }
-                else
-                {
-                    finalIndex = CurrentSpells.Length - 1;
-                }
+                finalIndex = 0;
             }
-            currentTimeScrollChanged = Time.time;
         }
-        
+        if (axis < 0)
+        {
+            if (finalIndex - 1 > 0)
+            {
+                finalIndex--;
+            }
+            else
+            {
+                finalIndex = CurrentSpells.Length - 1;
+            }
+        }
+        currentTimeScrollChanged = Time.time;
         SelectSpell((byte)finalIndex);
     }
 

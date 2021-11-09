@@ -147,10 +147,26 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""PreviousAndNextSpell"",
+                    ""name"": ""PreviousAndNextSpellMouseScroll"",
                     ""type"": ""PassThrough"",
                     ""id"": ""e3751412-a8cf-452f-80b0-3eb3d40b4f98"",
                     ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""NextSpell"",
+                    ""type"": ""Button"",
+                    ""id"": ""e5f54a8c-aae2-4492-87c0-9fbe2e271edd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""PreviousSpell"",
+                    ""type"": ""Button"",
+                    ""id"": ""92bcf55d-39f7-49ed-be72-3ab930bcb58f"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -394,7 +410,29 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Computer"",
-                    ""action"": ""PreviousAndNextSpell"",
+                    ""action"": ""PreviousAndNextSpellMouseScroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""24d60890-a98d-4c08-9486-68a57b94de3a"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Computer"",
+                    ""action"": ""PreviousSpell"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c4cc961f-ea65-4f3d-b9d2-a14eb81fd1ad"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Computer"",
+                    ""action"": ""NextSpell"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -528,6 +566,30 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""80d6ab9d-b736-4c97-a90d-9093299753e5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""PreviousAndNextSpellMouseScroll"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""c88a976e-b8bc-4c00-a14f-95b27e274dee"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""NextSpell"",
+                    ""type"": ""Button"",
+                    ""id"": ""76b49016-6708-44b2-916d-cac0c1e82fb7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""PreviousSpell"",
+                    ""type"": ""Button"",
+                    ""id"": ""77c52404-107d-4145-92be-ce29da8bda65"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -762,6 +824,39 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Computer"",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""03d478e7-d156-40c6-8e70-a80211b4cf1d"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Computer"",
+                    ""action"": ""PreviousAndNextSpellMouseScroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5ebb6f30-cb8d-4385-8c8c-a56ebceb2b9f"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Computer"",
+                    ""action"": ""NextSpell"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d0943801-0f99-411b-b5fb-570432a848c4"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Computer"",
+                    ""action"": ""PreviousSpell"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1913,7 +2008,9 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
         m_Gameplay_CheatConsole = m_Gameplay.FindAction("CheatConsole", throwIfNotFound: true);
         m_Gameplay_Interact = m_Gameplay.FindAction("Interact", throwIfNotFound: true);
-        m_Gameplay_PreviousAndNextSpell = m_Gameplay.FindAction("PreviousAndNextSpell", throwIfNotFound: true);
+        m_Gameplay_PreviousAndNextSpellMouseScroll = m_Gameplay.FindAction("PreviousAndNextSpellMouseScroll", throwIfNotFound: true);
+        m_Gameplay_NextSpell = m_Gameplay.FindAction("NextSpell", throwIfNotFound: true);
+        m_Gameplay_PreviousSpell = m_Gameplay.FindAction("PreviousSpell", throwIfNotFound: true);
         // Gameplayv2
         m_Gameplayv2 = asset.FindActionMap("Gameplayv2", throwIfNotFound: true);
         m_Gameplayv2_Movement = m_Gameplayv2.FindAction("Movement", throwIfNotFound: true);
@@ -1932,6 +2029,9 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Gameplayv2_Pause = m_Gameplayv2.FindAction("Pause", throwIfNotFound: true);
         m_Gameplayv2_CheatConsole = m_Gameplayv2.FindAction("CheatConsole", throwIfNotFound: true);
         m_Gameplayv2_Interact = m_Gameplayv2.FindAction("Interact", throwIfNotFound: true);
+        m_Gameplayv2_PreviousAndNextSpellMouseScroll = m_Gameplayv2.FindAction("PreviousAndNextSpellMouseScroll", throwIfNotFound: true);
+        m_Gameplayv2_NextSpell = m_Gameplayv2.FindAction("NextSpell", throwIfNotFound: true);
+        m_Gameplayv2_PreviousSpell = m_Gameplayv2.FindAction("PreviousSpell", throwIfNotFound: true);
         // Interface
         m_Interface = asset.FindActionMap("Interface", throwIfNotFound: true);
         m_Interface_TrackedDeviceOrientation = m_Interface.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
@@ -2027,7 +2127,9 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Pause;
     private readonly InputAction m_Gameplay_CheatConsole;
     private readonly InputAction m_Gameplay_Interact;
-    private readonly InputAction m_Gameplay_PreviousAndNextSpell;
+    private readonly InputAction m_Gameplay_PreviousAndNextSpellMouseScroll;
+    private readonly InputAction m_Gameplay_NextSpell;
+    private readonly InputAction m_Gameplay_PreviousSpell;
     public struct GameplayActions
     {
         private @InputActions m_Wrapper;
@@ -2048,7 +2150,9 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
         public InputAction @CheatConsole => m_Wrapper.m_Gameplay_CheatConsole;
         public InputAction @Interact => m_Wrapper.m_Gameplay_Interact;
-        public InputAction @PreviousAndNextSpell => m_Wrapper.m_Gameplay_PreviousAndNextSpell;
+        public InputAction @PreviousAndNextSpellMouseScroll => m_Wrapper.m_Gameplay_PreviousAndNextSpellMouseScroll;
+        public InputAction @NextSpell => m_Wrapper.m_Gameplay_NextSpell;
+        public InputAction @PreviousSpell => m_Wrapper.m_Gameplay_PreviousSpell;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -2106,9 +2210,15 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Interact.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
-                @PreviousAndNextSpell.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPreviousAndNextSpell;
-                @PreviousAndNextSpell.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPreviousAndNextSpell;
-                @PreviousAndNextSpell.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPreviousAndNextSpell;
+                @PreviousAndNextSpellMouseScroll.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPreviousAndNextSpellMouseScroll;
+                @PreviousAndNextSpellMouseScroll.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPreviousAndNextSpellMouseScroll;
+                @PreviousAndNextSpellMouseScroll.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPreviousAndNextSpellMouseScroll;
+                @NextSpell.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnNextSpell;
+                @NextSpell.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnNextSpell;
+                @NextSpell.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnNextSpell;
+                @PreviousSpell.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPreviousSpell;
+                @PreviousSpell.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPreviousSpell;
+                @PreviousSpell.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPreviousSpell;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -2161,9 +2271,15 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
-                @PreviousAndNextSpell.started += instance.OnPreviousAndNextSpell;
-                @PreviousAndNextSpell.performed += instance.OnPreviousAndNextSpell;
-                @PreviousAndNextSpell.canceled += instance.OnPreviousAndNextSpell;
+                @PreviousAndNextSpellMouseScroll.started += instance.OnPreviousAndNextSpellMouseScroll;
+                @PreviousAndNextSpellMouseScroll.performed += instance.OnPreviousAndNextSpellMouseScroll;
+                @PreviousAndNextSpellMouseScroll.canceled += instance.OnPreviousAndNextSpellMouseScroll;
+                @NextSpell.started += instance.OnNextSpell;
+                @NextSpell.performed += instance.OnNextSpell;
+                @NextSpell.canceled += instance.OnNextSpell;
+                @PreviousSpell.started += instance.OnPreviousSpell;
+                @PreviousSpell.performed += instance.OnPreviousSpell;
+                @PreviousSpell.canceled += instance.OnPreviousSpell;
             }
         }
     }
@@ -2188,6 +2304,9 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplayv2_Pause;
     private readonly InputAction m_Gameplayv2_CheatConsole;
     private readonly InputAction m_Gameplayv2_Interact;
+    private readonly InputAction m_Gameplayv2_PreviousAndNextSpellMouseScroll;
+    private readonly InputAction m_Gameplayv2_NextSpell;
+    private readonly InputAction m_Gameplayv2_PreviousSpell;
     public struct Gameplayv2Actions
     {
         private @InputActions m_Wrapper;
@@ -2208,6 +2327,9 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @Pause => m_Wrapper.m_Gameplayv2_Pause;
         public InputAction @CheatConsole => m_Wrapper.m_Gameplayv2_CheatConsole;
         public InputAction @Interact => m_Wrapper.m_Gameplayv2_Interact;
+        public InputAction @PreviousAndNextSpellMouseScroll => m_Wrapper.m_Gameplayv2_PreviousAndNextSpellMouseScroll;
+        public InputAction @NextSpell => m_Wrapper.m_Gameplayv2_NextSpell;
+        public InputAction @PreviousSpell => m_Wrapper.m_Gameplayv2_PreviousSpell;
         public InputActionMap Get() { return m_Wrapper.m_Gameplayv2; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -2265,6 +2387,15 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Interact.started -= m_Wrapper.m_Gameplayv2ActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_Gameplayv2ActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_Gameplayv2ActionsCallbackInterface.OnInteract;
+                @PreviousAndNextSpellMouseScroll.started -= m_Wrapper.m_Gameplayv2ActionsCallbackInterface.OnPreviousAndNextSpellMouseScroll;
+                @PreviousAndNextSpellMouseScroll.performed -= m_Wrapper.m_Gameplayv2ActionsCallbackInterface.OnPreviousAndNextSpellMouseScroll;
+                @PreviousAndNextSpellMouseScroll.canceled -= m_Wrapper.m_Gameplayv2ActionsCallbackInterface.OnPreviousAndNextSpellMouseScroll;
+                @NextSpell.started -= m_Wrapper.m_Gameplayv2ActionsCallbackInterface.OnNextSpell;
+                @NextSpell.performed -= m_Wrapper.m_Gameplayv2ActionsCallbackInterface.OnNextSpell;
+                @NextSpell.canceled -= m_Wrapper.m_Gameplayv2ActionsCallbackInterface.OnNextSpell;
+                @PreviousSpell.started -= m_Wrapper.m_Gameplayv2ActionsCallbackInterface.OnPreviousSpell;
+                @PreviousSpell.performed -= m_Wrapper.m_Gameplayv2ActionsCallbackInterface.OnPreviousSpell;
+                @PreviousSpell.canceled -= m_Wrapper.m_Gameplayv2ActionsCallbackInterface.OnPreviousSpell;
             }
             m_Wrapper.m_Gameplayv2ActionsCallbackInterface = instance;
             if (instance != null)
@@ -2317,6 +2448,15 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @PreviousAndNextSpellMouseScroll.started += instance.OnPreviousAndNextSpellMouseScroll;
+                @PreviousAndNextSpellMouseScroll.performed += instance.OnPreviousAndNextSpellMouseScroll;
+                @PreviousAndNextSpellMouseScroll.canceled += instance.OnPreviousAndNextSpellMouseScroll;
+                @NextSpell.started += instance.OnNextSpell;
+                @NextSpell.performed += instance.OnNextSpell;
+                @NextSpell.canceled += instance.OnNextSpell;
+                @PreviousSpell.started += instance.OnPreviousSpell;
+                @PreviousSpell.performed += instance.OnPreviousSpell;
+                @PreviousSpell.canceled += instance.OnPreviousSpell;
             }
         }
     }
@@ -2624,7 +2764,9 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnPause(InputAction.CallbackContext context);
         void OnCheatConsole(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
-        void OnPreviousAndNextSpell(InputAction.CallbackContext context);
+        void OnPreviousAndNextSpellMouseScroll(InputAction.CallbackContext context);
+        void OnNextSpell(InputAction.CallbackContext context);
+        void OnPreviousSpell(InputAction.CallbackContext context);
     }
     public interface IGameplayv2Actions
     {
@@ -2644,6 +2786,9 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnPause(InputAction.CallbackContext context);
         void OnCheatConsole(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnPreviousAndNextSpellMouseScroll(InputAction.CallbackContext context);
+        void OnNextSpell(InputAction.CallbackContext context);
+        void OnPreviousSpell(InputAction.CallbackContext context);
     }
     public interface IInterfaceActions
     {

@@ -158,10 +158,17 @@ public class PlayerInputCustom : MonoBehaviour
     {
         if (context.started) OnInteract();
     }
-    public void HandlePreviousNextSpellSelect(InputAction.CallbackContext context)
+    public void HandlePreviousNextSpellMouseScrollSelect(InputAction.CallbackContext context)
     {
-        if (context.performed) OnPreviousNextSpell(context.ReadValue<Vector2>().y);
-
+        if (context.performed) OnPreviousNextSpell(context.ReadValue<Vector2>().y, true);
+    }
+    public void HandleNextSpellSelect(InputAction.CallbackContext context)
+    {
+        if (context.performed) OnPreviousNextSpell(1, false);
+    }
+    public void HandlePreviousSpellSelect(InputAction.CallbackContext context)
+    {
+        if (context.performed) OnPreviousNextSpell(-1, false);
     }
     ///////////////////////// Events /////////////////////////////////////////
     protected virtual void OnDash() => Dash?.Invoke();
@@ -188,6 +195,6 @@ public class PlayerInputCustom : MonoBehaviour
     public event Action CheatConsole;
     protected virtual void OnInteract() => Interact?.Invoke();
     public event Action Interact;
-    protected virtual void OnPreviousNextSpell(float axis) => PreviousNextSpell?.Invoke(axis);
-    public event Action<float> PreviousNextSpell;
+    protected virtual void OnPreviousNextSpell(float axis, bool withDelay) => PreviousNextSpell?.Invoke(axis, withDelay);
+    public event Action<float, bool> PreviousNextSpell;
 }
