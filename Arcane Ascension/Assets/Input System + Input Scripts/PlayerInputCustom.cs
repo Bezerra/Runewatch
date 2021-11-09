@@ -19,6 +19,8 @@ public class PlayerInputCustom : MonoBehaviour
         inputActionsAsset = new InputActions();
         controls = GetComponent<PlayerInput>();
         uiModule = GetComponentInChildren<InputSystemUIInputModule>();
+
+        UpdateControlScheme();
     }
 
     private void OnEnable()
@@ -35,6 +37,14 @@ public class PlayerInputCustom : MonoBehaviour
     public Vector2 Movement { get; private set; }
     public Vector2 Camera { get; private set; }
 
+    /// <summary>
+    /// Updates control scheme.
+    /// </summary>
+    public void UpdateControlScheme()
+    {
+        controls.SwitchCurrentControlScheme(PlayerPrefs.GetString("Controls", "Computer"));
+    }
+
     public void SwitchActionMapToGameplay()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -42,10 +52,7 @@ public class PlayerInputCustom : MonoBehaviour
 
         uiModule.enabled = false;
 
-        if (PlayerPrefs.GetString("Controls", "v1") == "v1")
-            controls.SwitchCurrentActionMap("Gameplay");
-        else
-            controls.SwitchCurrentActionMap("Gameplayv2");
+        controls.SwitchCurrentActionMap("Gameplay");
     }
 
     public void SwitchActionMapToUI()

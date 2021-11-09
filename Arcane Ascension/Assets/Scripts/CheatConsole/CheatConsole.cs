@@ -151,13 +151,15 @@ public class CheatConsole : MonoBehaviour
             {
                 case "controls v1":
                     Debug.Log("Controls switched to v1");
-                    PlayerPrefs.SetString("Controls", "v1");
+                    PlayerPrefs.SetString("Controls", "Computer");
+                    this.input.UpdateControlScheme();
                     DisableConsole();
                     break;
 
                 case "controls v2":
                     Debug.Log("Controls switched to v2");
-                    PlayerPrefs.SetString("Controls", "v2");
+                    PlayerPrefs.SetString("Controls", "Computerv2");
+                    this.input.UpdateControlScheme();
                     DisableConsole();
                     break;
 
