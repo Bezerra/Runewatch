@@ -19,10 +19,13 @@ public class PlayerUI : MonoBehaviour
 
     [SerializeField] private Color noManaSpellColor;
     [SerializeField] private Color spellColor;
+    [SerializeField] private Color noSpellColor;
 
     // Fields to update
     [SerializeField] private Image crosshair;
     [SerializeField] private List<Image> spellsUI;
+    [SerializeField] private List<Image> spellsBackgroundUI;
+    [SerializeField] private List<Image> spellsBorderUI;
     [SerializeField] private Image dash;
     [SerializeField] private TextMeshProUGUI dashCharge;
     [SerializeField] private Image health;
@@ -86,6 +89,9 @@ public class PlayerUI : MonoBehaviour
                 spellsUI[i].sprite = playerSpells.CurrentSpells[i].Icon;
                 spellsUI[i].fillAmount =
                     playerSpells.CurrentSpells[i].CooldownCounter / playerSpells.CurrentSpells[i].Cooldown;
+                spellsBackgroundUI[i].fillAmount =
+                    playerSpells.CurrentSpells[i].CooldownCounter / playerSpells.CurrentSpells[i].Cooldown;
+
                 if (playerStats.Mana - playerSpells.CurrentSpells[i].ManaCost < 0)
                 {
                     spellsUI[i].color = noManaSpellColor;
@@ -94,10 +100,20 @@ public class PlayerUI : MonoBehaviour
                 {
                     spellsUI[i].color = spellColor;
                 }
+
+                if (i == playerSpells.CurrentSpellIndex)
+                {
+                    spellsBorderUI[i].enabled = true;
+                }
+                else
+                {
+                    spellsBorderUI[i].enabled = false;
+                }
             }
             else
             {
                 spellsUI[i].fillAmount = 0;
+                spellsUI[i].color = noSpellColor;
             }
         }
         spellsUI[4].sprite = playerSpells.SecondarySpell.Icon;

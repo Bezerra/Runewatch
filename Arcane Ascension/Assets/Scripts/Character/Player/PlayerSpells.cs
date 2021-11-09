@@ -20,10 +20,10 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     public ISpell[] CurrentSpells { get; private set; }
 
     // Currently selected spell index
-    private byte currentSpellIndex;
+    public byte CurrentSpellIndex { get; private set; }
 
     // Currently active spell from available spells
-    public ISpell ActiveSpell => CurrentSpells[currentSpellIndex];
+    public ISpell ActiveSpell => CurrentSpells[CurrentSpellIndex];
     public ISpell SecondarySpell => allSpells[0];
 
     // Coroutines
@@ -104,7 +104,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     /// <param name="axis">Positive or negative number.</param>
     private void SelectNextAndPreviousSpellLogic(float axis)
     {
-        int finalIndex = currentSpellIndex;
+        int finalIndex = CurrentSpellIndex;
 
         if (axis > 0)
         {
@@ -119,7 +119,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
         }
         if (axis < 0)
         {
-            if (finalIndex - 1 > 0)
+            if (finalIndex - 1 >= 0)
             {
                 finalIndex--;
             }
@@ -179,10 +179,10 @@ public class PlayerSpells : MonoBehaviour, ISaveable
             // If the player selects an active spell different than the one currently selected
             if (CurrentSpells[index] != null)
             {
-                if (index != currentSpellIndex)
+                if (index != CurrentSpellIndex)
                 {
                     if (CurrentSpells[index] != null)
-                        currentSpellIndex = index;
+                        CurrentSpellIndex = index;
 
                     playerHandEffect.UpdatePlayerHandEffect(ActiveSpell);
                 }
@@ -197,7 +197,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     private void SelectSpell(byte index, bool initialSelection)
     {
         if (CurrentSpells[index] != null)
-            currentSpellIndex = index;
+            CurrentSpellIndex = index;
 
         playerHandEffect.UpdatePlayerHandEffect(ActiveSpell);
 
@@ -328,7 +328,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
 
         // Saves spells and current selected spell
         saveData.PlayerSavedData.CurrentSpells = currentSpells;
-        saveData.PlayerSavedData.CurrentSpellIndex = currentSpellIndex;
+        saveData.PlayerSavedData.CurrentSpellIndex = CurrentSpellIndex;
     }
 
     public IEnumerator LoadData(SaveData saveData)
@@ -357,7 +357,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
         }
 
         // Loads current spell selected
-        currentSpellIndex = saveData.PlayerSavedData.CurrentSpellIndex;
+        CurrentSpellIndex = saveData.PlayerSavedData.CurrentSpellIndex;
 
         StartSpellCooldown();
     }
