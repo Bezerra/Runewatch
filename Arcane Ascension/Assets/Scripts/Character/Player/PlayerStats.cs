@@ -7,9 +7,17 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
 {
     public PlayerStatsSO PlayerAttributes => character.CommonValues.CharacterStats as PlayerStatsSO;
 
+    // Coroutines
+    private IEnumerator loseManaCoroutine;
     private IEnumerator regenManaCoroutine;
     private YieldInstruction wft;
 
+    // Components
+    private PlayerCastSpell playerCastSpell;
+
+    /// <summary>
+    /// Property with currenty passives possessed by the player character.
+    /// </summary>
     public IList<IPassive> CurrentPassives;
 
     /// <summary>
@@ -36,6 +44,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
     {
         base.Awake();
         CurrentPassives = new List<IPassive>();
+        playerCastSpell = GetComponent<PlayerCastSpell>();
     }
 
     protected override void Start()
@@ -48,6 +57,20 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
         regenManaCoroutine = RegenManaCoroutine();
         wft = new WaitForSeconds(PlayerAttributes.ManaRegenTime);
         StartCoroutine(regenManaCoroutine);
+    }
+
+    private void OnEnable()
+    {
+        playerCastSpell.EventSpendMana += ReduceMana;
+        playerCastSpell.EventSpendManaContinuous += StartLoseManaCoroutine;
+        playerCastSpell.EventStopSpendManaContinuous += StopLoseManaCoroutine;
+    }
+
+    private void OnDisable()
+    {
+        playerCastSpell.EventSpendMana -= ReduceMana;
+        playerCastSpell.EventSpendManaContinuous -= StartLoseManaCoroutine;
+        playerCastSpell.EventStopSpendManaContinuous -= StopLoseManaCoroutine;
     }
 
     /// <summary>
@@ -69,6 +92,67 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
                 Mana = PlayerAttributes.MaxMana;
             }
         }
+    }
+
+    /// <summary>
+    /// Starts a coroutine to burn mana.
+    /// </summary>
+    /// <param name="amountToLose">Amount to lose.</param>
+    /// <param name="timeToWait">Time to wait before each loss.</param>
+    private void StartLoseManaCoroutine(float amountToLose, float timeToWait)
+    {
+        if (loseManaCoroutine != null) StopCoroutine(loseManaCoroutine);
+        loseManaCoroutine = LoseManaCoroutine(amountToLose, timeToWait);
+        StartCoroutine(loseManaCoroutine);
+    }
+
+    /// <summary>
+    /// Stops coroutine to burn mana.
+    /// </summary>
+    /// <param name="amountToLose">Amount to lose.</param>
+    /// <param name="timeToWait">Time to wait before each loss.</param>
+    private void StopLoseManaCoroutine()
+    {
+        if (loseManaCoroutine != null) StopCoroutine(loseManaCoroutine);
+        loseManaCoroutine = null;
+    }
+
+
+    /// <summary>
+    /// Loses Mana Amount every X seconds.
+    /// </summary>
+    /// <param name="amountToLose">Amount to lose.</param>
+    /// <param name="timeToWait">Time to wait before each loss.</param>
+    /// <returns>Wait for seconds.</returns>
+    private IEnumerator LoseManaCoroutine(float amountToLose, float timeToWait)
+    {
+        YieldInstruction wfs = new WaitForSeconds(timeToWait);
+
+        while (true)
+        {
+            yield return wfs;
+
+            if (Mana - amountToLose > 0)
+            {
+                ReduceMana(amountToLose);
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Reduces mana.
+    /// </summary>
+    /// <param name="amount">Amount to reduce.</param>
+    public void ReduceMana(float amount)
+    {
+        if (Mana - amount > 0) Mana -= amount;
+        else Mana = 0;
+
+        OnEventSpentMana(amount);
     }
 
     /// <summary>
@@ -178,18 +262,6 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
                 Destroy(GetComponentInParent<SelectionBase>().gameObject);
             }
         }
-    }
-
-    /// <summary>
-    /// Reduces mana.
-    /// </summary>
-    /// <param name="amount">Amount to reduce.</param>
-    public void ReduceMana(float amount)
-    {
-        if (Mana - amount > 0) Mana -= amount;
-        else Mana = 0;
-
-        OnEventSpentMana(amount);
     }
 
     /// <summary>
@@ -340,10 +412,6 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
         Mana = mana;
     }
 
-    // Regsitered on CheatsConsole.
-    protected virtual void OnEventSpentMana(float manaToSpend) => EventSpentMana?.Invoke(manaToSpend);
-    public Action<float> EventSpentMana;
-
     /// <summary>
     /// Saves player stats.
     /// </summary>
@@ -401,4 +469,8 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
             DashCharge = saveData.PlayerSavedData.DashCharge;
         }
     }
+
+    // Regsitered on CheatsConsole.
+    protected virtual void OnEventSpentMana(float manaToSpend) => EventSpentMana?.Invoke(manaToSpend);
+    public Action<float> EventSpentMana;
 }

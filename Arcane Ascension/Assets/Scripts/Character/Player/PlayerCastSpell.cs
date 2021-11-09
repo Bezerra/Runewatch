@@ -53,7 +53,9 @@ public class PlayerCastSpell : MonoBehaviour
         {
             playerSpells.SecondarySpell.AttackBehaviour.AttackKeyPress(
                     ref currentlyCastSpell, playerSpells.SecondarySpell, player, playerStats, ref spellBehaviour);
+
             OnEventAttack(playerSpells.SecondarySpell.CastType);
+            OnEventStartCooldown(playerSpells.SecondarySpell);
         }
     }
 
@@ -75,6 +77,19 @@ public class PlayerCastSpell : MonoBehaviour
 
                 currentlyCasting = true;
 
+                // Mana and cooldown on oneshot
+                if (playerSpells.ActiveSpell.CastType == SpellCastType.OneShotCast)
+                {
+                    OnEventStartCooldown(playerSpells.ActiveSpell);
+                    OnEventSpendMana(playerSpells.ActiveSpell.ManaCost);
+                }
+
+                // Mana and cooldown on continuous
+                if (playerSpells.ActiveSpell.CastType == SpellCastType.ContinuousCast)
+                {
+                    OnEventSpendManaContinuous(playerSpells.ActiveSpell.ManaCost, playerSpells.ActiveSpell.Cooldown);
+                }
+
                 // Attack Events
                 // Screen Shake Events
                 if (playerSpells.ActiveSpell.CastType != SpellCastType.OneShotCastWithRelease)
@@ -82,7 +97,7 @@ public class PlayerCastSpell : MonoBehaviour
                     // For One Shot and Continuous
                     OnEventAttack(playerSpells.ActiveSpell.CastType);
                     OnEventStartScreenShake(playerSpells.ActiveSpell.CastType);
-                }
+                } 
             }
             else
             {
@@ -122,8 +137,34 @@ public class PlayerCastSpell : MonoBehaviour
                 // For One Shot With Release
                 OnEventAttack(playerSpells.ActiveSpell.CastType);
             }
+
+            // Mana and cooldown on oneshot with release
+            if (playerSpells.ActiveSpell.CastType == SpellCastType.OneShotCastWithRelease)
+            {
+                OnEventStartCooldown(playerSpells.ActiveSpell);
+                OnEventSpendMana(playerSpells.ActiveSpell.ManaCost);
+            }
+
+            // Mana and cooldown on continuous
+            if (playerSpells.ActiveSpell.CastType == SpellCastType.ContinuousCast)
+            {
+                OnEventStopSpendManaContinuous();
+            }
         }
     }
+
+    protected virtual void OnEventStartCooldown(ISpell spell) => EventStartCooldown?.Invoke(spell);
+    public event Action<ISpell> EventStartCooldown;
+
+    protected virtual void OnEventSpendMana(float amount) => EventSpendMana?.Invoke(amount);
+    public event Action<float> EventSpendMana;
+
+    protected virtual void OnEventSpendManaContinuous(float amount, float timeInterval) => 
+        EventSpendManaContinuous?.Invoke(amount, timeInterval);
+    public event Action<float, float> EventSpendManaContinuous;
+
+    protected virtual void OnEventStopSpendManaContinuous() => EventStopSpendManaContinuous?.Invoke();
+    public event Action EventStopSpendManaContinuous;
 
     protected virtual void OnEventAttack(SpellCastType castType) => EventAttack?.Invoke(castType);
     public event Action<SpellCastType> EventAttack;

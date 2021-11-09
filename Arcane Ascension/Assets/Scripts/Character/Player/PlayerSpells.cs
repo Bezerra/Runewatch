@@ -14,6 +14,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     private PlayerHandEffect playerHandEffect;
     private PlayerStats playerStats;
     private IList<SpellSO> allSpells;
+    private PlayerCastSpell playerCastSpell;
 
     // Array with all available spells
     public ISpell[] CurrentSpells { get; private set; }
@@ -25,14 +26,19 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     public ISpell ActiveSpell => CurrentSpells[currentSpellIndex];
     public ISpell SecondarySpell => allSpells[0];
 
+    // Coroutines
+    private YieldInstruction wffu;
+
     private void Awake()
     {
         input = FindObjectOfType<PlayerInputCustom>();
         playerHandEffect = FindObjectOfType<PlayerHandEffect>();
         playerStats = GetComponent<PlayerStats>();
         allSpells = FindObjectOfType<AllSpells>().SpellList;
+        playerCastSpell = GetComponent<PlayerCastSpell>();
 
         CurrentSpells = new SpellSO[4];
+        wffu = new WaitForFixedUpdate();
     }
 
     private void Start()
@@ -58,17 +64,19 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     private void OnEnable()
     {
         input.SelectSpell += SelectSpell;
+        playerCastSpell.EventStartCooldown += StartSpellCooldown;
     }
 
     private void OnDisable()
     {
         input.SelectSpell -= SelectSpell;
+        playerCastSpell.EventStartCooldown -= StartSpellCooldown;
     }
 
     /// <summary>
     /// Starts cooldown count for all spell coroutine.
     /// </summary>
-    public void StartSpellCooldown()
+    private void StartSpellCooldown()
     {
         for (int i = 0; i < CurrentSpells.Length; i++)
         {
@@ -80,7 +88,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     /// <summary>
     /// Starts cooldown count for one spell coroutine.
     /// </summary>
-    public void StartSpellCooldown(ISpell spell) =>
+    private void StartSpellCooldown(ISpell spell) =>
         StartCoroutine(StartSpellCooldownCoroutine(spell));
 
     /// <summary>
@@ -89,8 +97,6 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     /// <returns>Wait for fixed update.</returns>
     private IEnumerator StartSpellCooldownCoroutine(ISpell spell)
     {
-        YieldInstruction wffu = new WaitForFixedUpdate();
-
         spell.CooldownCounter = 0;
 
         float currentTime = Time.time;
@@ -110,19 +116,14 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     private void SelectSpell(byte index)
     {
         // If the player selects an active spell different than the one currently selected
-        if (index != currentSpellIndex)
+        if (CurrentSpells[index] != null)
         {
-            if (CurrentSpells[index] != null)
+            if (index != currentSpellIndex)
             {
-                if (CooldownOver(CurrentSpells[index]))
-                {
-                    if (CurrentSpells[index] != null)
-                        currentSpellIndex = index;
+                if (CurrentSpells[index] != null)
+                    currentSpellIndex = index;
 
-                    playerHandEffect.UpdatePlayerHandEffect(ActiveSpell);
-
-                    StartSpellCooldown();
-                }
+                playerHandEffect.UpdatePlayerHandEffect(ActiveSpell);
             }
         }
     }
