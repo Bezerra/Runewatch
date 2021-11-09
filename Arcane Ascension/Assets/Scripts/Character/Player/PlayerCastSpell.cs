@@ -141,6 +141,9 @@ public class PlayerCastSpell : MonoBehaviour
         }
         else
         {
+            playerSpells.ActiveSpell.AttackBehaviour.AttackKeyRelease(
+                ref currentlyCastSpell, playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
+
             // For the rest of spells, invokes events.
             OnEventCancelAttack();
             OnEventCancelScreenShake();

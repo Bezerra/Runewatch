@@ -29,6 +29,10 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     // Coroutines
     private YieldInstruction wffu;
 
+    // Spell select scroll
+    private float currentTimeScrollChanged;
+    private readonly float DELAYTOSCROLLCHANGE = 0.5f;
+
     private void Awake()
     {
         input = FindObjectOfType<PlayerInputCustom>();
@@ -65,12 +69,48 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     {
         input.SelectSpell += SelectSpell;
         playerCastSpell.EventStartCooldown += StartSpellCooldown;
+        input.PreviousNextSpell += SelectSpellWithScroll;
     }
 
     private void OnDisable()
     {
         input.SelectSpell -= SelectSpell;
         playerCastSpell.EventStartCooldown -= StartSpellCooldown;
+        input.PreviousNextSpell -= SelectSpellWithScroll;
+    }
+
+    private void SelectSpellWithScroll(float axis)
+    {
+        int finalIndex = currentSpellIndex;
+
+        if (Time.time - currentTimeScrollChanged > DELAYTOSCROLLCHANGE)
+        {
+            if (axis > 0)
+            {
+                if (finalIndex + 1 < CurrentSpells.Length)
+                {
+                    finalIndex++;
+                }
+                else
+                {
+                    finalIndex = 0;
+                }
+            }
+            if (axis < 0)
+            {
+                if (finalIndex - 1 > 0)
+                {
+                    finalIndex--;
+                }
+                else
+                {
+                    finalIndex = CurrentSpells.Length - 1;
+                }
+            }
+            currentTimeScrollChanged = Time.time;
+        }
+        
+        SelectSpell((byte)finalIndex);
     }
 
     /// <summary>

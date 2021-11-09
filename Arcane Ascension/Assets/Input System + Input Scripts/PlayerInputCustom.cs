@@ -158,6 +158,11 @@ public class PlayerInputCustom : MonoBehaviour
     {
         if (context.started) OnInteract();
     }
+    public void HandlePreviousNextSpellSelect(InputAction.CallbackContext context)
+    {
+        if (context.performed) OnPreviousNextSpell(context.ReadValue<Vector2>().y);
+
+    }
     ///////////////////////// Events /////////////////////////////////////////
     protected virtual void OnDash() => Dash?.Invoke();
     public event Action Dash;
@@ -183,4 +188,6 @@ public class PlayerInputCustom : MonoBehaviour
     public event Action CheatConsole;
     protected virtual void OnInteract() => Interact?.Invoke();
     public event Action Interact;
+    protected virtual void OnPreviousNextSpell(float axis) => PreviousNextSpell?.Invoke(axis);
+    public event Action<float> PreviousNextSpell;
 }

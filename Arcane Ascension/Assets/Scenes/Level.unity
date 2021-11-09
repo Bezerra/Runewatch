@@ -4556,6 +4556,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7921107309181165518, guid: 1fae073515da0c94e983d72e53821bf3, type: 3}
   m_PrefabInstance: {fileID: 7921107310248738143}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1099830344 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 164669910081729491, guid: 9d1610138c45a904ea9c1066db9ab74a, type: 3}
+  m_PrefabInstance: {fileID: 7811235931566023003}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1249a33c4ee25354595ad957784bb8e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1111481260
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8582,6 +8593,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5979165604696722574, guid: 9d1610138c45a904ea9c1066db9ab74a, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979165604696722574, guid: 9d1610138c45a904ea9c1066db9ab74a, type: 3}
+      propertyPath: m_ActionEvents.Array.data[54].m_ActionId
+      value: e3751412-a8cf-452f-80b0-3eb3d40b4f98
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979165604696722574, guid: 9d1610138c45a904ea9c1066db9ab74a, type: 3}
+      propertyPath: m_ActionEvents.Array.data[54].m_ActionName
+      value: Gameplay/PreviousSpell[/Mouse/scroll]
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979165604696722574, guid: 9d1610138c45a904ea9c1066db9ab74a, type: 3}
+      propertyPath: m_ActionEvents.Array.data[54].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979165604696722574, guid: 9d1610138c45a904ea9c1066db9ab74a, type: 3}
+      propertyPath: m_ActionEvents.Array.data[54].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979165604696722574, guid: 9d1610138c45a904ea9c1066db9ab74a, type: 3}
+      propertyPath: m_ActionEvents.Array.data[54].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1099830344}
+    - target: {fileID: 5979165604696722574, guid: 9d1610138c45a904ea9c1066db9ab74a, type: 3}
+      propertyPath: m_ActionEvents.Array.data[54].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979165604696722574, guid: 9d1610138c45a904ea9c1066db9ab74a, type: 3}
+      propertyPath: m_ActionEvents.Array.data[54].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HandlePreviousNextSpellSelect
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979165604696722574, guid: 9d1610138c45a904ea9c1066db9ab74a, type: 3}
+      propertyPath: m_ActionEvents.Array.data[54].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerInputCustom, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979165604696722574, guid: 9d1610138c45a904ea9c1066db9ab74a, type: 3}
+      propertyPath: m_ActionEvents.Array.data[54].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6105136639975504242, guid: 9d1610138c45a904ea9c1066db9ab74a, type: 3}
       propertyPath: m_Name
       value: General
