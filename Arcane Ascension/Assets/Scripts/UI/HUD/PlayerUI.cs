@@ -17,6 +17,9 @@ public class PlayerUI : MonoBehaviour
     private PlayerMovement playerMovement;
     private FPSCounter fpsCounter;
 
+    [SerializeField] private Color noManaSpellColor;
+    [SerializeField] private Color spellColor;
+
     // Fields to update
     [SerializeField] private Image crosshair;
     [SerializeField] private List<Image> spellsUI;
@@ -83,6 +86,14 @@ public class PlayerUI : MonoBehaviour
                 spellsUI[i].sprite = playerSpells.CurrentSpells[i].Icon;
                 spellsUI[i].fillAmount =
                     playerSpells.CurrentSpells[i].CooldownCounter / playerSpells.CurrentSpells[i].Cooldown;
+                if (playerStats.Mana - playerSpells.CurrentSpells[i].ManaCost < 0)
+                {
+                    spellsUI[i].color = noManaSpellColor;
+                }
+                else
+                {
+                    spellsUI[i].color = spellColor;
+                }
             }
             else
             {
