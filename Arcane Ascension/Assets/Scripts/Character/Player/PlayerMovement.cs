@@ -15,9 +15,9 @@ public class PlayerMovement : MonoBehaviour
     private PlayerStats         playerStats;
 
     // Movement
-    public float    Speed { get; private set; }
-    private Vector3 direction;
     private bool    castingContinuousSpell;
+    private Vector3 directionPressed;
+    public float    Speed { get; private set; }
 
     // Dash
     private float   dashCurrentValue;
@@ -90,11 +90,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        // Movement directions
+        // Movement Directions
         Vector3 sideMovement = input.Movement.x * Speed * transform.right;
         Vector3 forwardMovement = input.Movement.y * Speed * transform.forward;
-        direction = sideMovement + forwardMovement;
-        if (input.Movement == Vector2.zero) direction = Vector3.zero;
+        directionPressed = sideMovement + forwardMovement;
+        if (input.Movement == Vector2.zero) directionPressed = Vector3.zero;
 
         // Controls character radius to prevent getting stuck on edges after jumping
         if (characterController.isGrounded)
@@ -140,35 +140,34 @@ public class PlayerMovement : MonoBehaviour
         if (dashing)
         {
             Dashing();
-
-            // Cancels everything below this code
             return;
         }
 
-        // Happens if player pressed jump and JumpingCoroutine is running
-        // Will keep pushing player upwards while the time is passing
+        // Happens if player pressed jump.
+        // Will keep pushing player upwards while the time is passing.
         // Needs to happen here, on fixed update, or jump will be canceled.
+        // After the jumping time has reached it's limit, a coroutine with gravity will start running.
         if (jumpingCoroutine != null)
         {
-            direction.y = player.Values.JumpForce;
+            directionPressed.y = player.Values.JumpForce;
         }
 
         // Gravity. Calculates gravity after jumping.
-        direction.y -= GRAVITY * gravityIncrement * Time.fixedDeltaTime;
+        directionPressed.y -= GRAVITY * gravityIncrement * Time.fixedDeltaTime;
 
         // Movement. Calculates movement after everything else
-        characterController.Move(direction * Time.fixedDeltaTime);
+        characterController.Move(directionPressed * Time.fixedDeltaTime);
     }
 
     /// <summary>
     /// If player presses dash it will check if dash is possible.
-    /// Player must have a dash, and must be pressing a direction.
+    /// Player must have a dash, and must be pressing a Direction.
     /// If this method is executed, a variable is turned to true and dash will begin.
     /// </summary>
     private void Dash()
     {
-        // Player must have a dash, and must be pressing a direction.
-        if (dashing == false && (direction.x != 0 || direction.z != 0) &&
+        // Player must have a dash, and must be pressing a Direction.
+        if (dashing == false && (directionPressed.x != 0 || directionPressed.z != 0) &&
             playerStats.DashCharge > 0)
         {
             dashing = true;
@@ -176,8 +175,8 @@ public class PlayerMovement : MonoBehaviour
 
             // If player is running it divides this value so dash is always the same
             lastDirectionPressed = Speed == 
-                player.Values.Speed ? direction : 
-                direction.normalized * 
+                player.Values.Speed ? directionPressed : 
+                directionPressed.normalized * 
                 player.Values.Speed * playerStats.CommonAttributes.MovementSpeedMultiplier;
 
             OnEventDash();
@@ -205,7 +204,7 @@ public class PlayerMovement : MonoBehaviour
         else
             dashCurrentValue = 1;
 
-        // Calculates dash direction
+        // Calculates dash Direction
         Vector3 sideMovement = lastDirectionPressed.x * Vector3.right;
         Vector3 forwardMovement = lastDirectionPressed.z * Vector3.forward;
         Vector3 finalDirection = sideMovement + forwardMovement;
@@ -229,8 +228,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (castingContinuousSpell == false)
         {
-            if (condition) Speed = player.Values.RunningSpeed * playerStats.CommonAttributes.MovementSpeedMultiplier;
-            else Speed = player.Values.Speed * playerStats.CommonAttributes.MovementSpeedMultiplier;
+            if (condition)
+            {
+                Speed = player.Values.RunningSpeed * playerStats.CommonAttributes.MovementSpeedMultiplier;
+            }
+            else
+            {
+                Speed = player.Values.Speed * playerStats.CommonAttributes.MovementSpeedMultiplier;
+            }
             OnEventRun(condition);
         }
     }
