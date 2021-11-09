@@ -289,7 +289,7 @@ public class PlayerMovement : MonoBehaviour
             yield return wffu;
 
             // Starts incrementing gravity until it reaches its peak
-            if (gravityIncrement >= 20) gravityIncrement = 20;
+            if (gravityIncrement >= 0.2f / Time.fixedDeltaTime) gravityIncrement = 0.2f / Time.fixedDeltaTime;
             else gravityIncrement += player.Values.GravityIncrement;
 
             // Breaks the coroutine if the character touches the floor
