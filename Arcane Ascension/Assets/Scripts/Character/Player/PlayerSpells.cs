@@ -115,15 +115,18 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     /// <param name="index">Index of the spell on array.</param>
     private void SelectSpell(byte index)
     {
-        // If the player selects an active spell different than the one currently selected
-        if (CurrentSpells[index] != null)
+        if (playerCastSpell.CurrentlyCasting == false)
         {
-            if (index != currentSpellIndex)
+            // If the player selects an active spell different than the one currently selected
+            if (CurrentSpells[index] != null)
             {
-                if (CurrentSpells[index] != null)
-                    currentSpellIndex = index;
+                if (index != currentSpellIndex)
+                {
+                    if (CurrentSpells[index] != null)
+                        currentSpellIndex = index;
 
-                playerHandEffect.UpdatePlayerHandEffect(ActiveSpell);
+                    playerHandEffect.UpdatePlayerHandEffect(ActiveSpell);
+                }
             }
         }
     }

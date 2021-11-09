@@ -15,8 +15,7 @@ public class PlayerCastSpell : MonoBehaviour
     // Current cast spell behaviour
     private SpellBehaviourAbstract spellBehaviour;
     private GameObject currentlyCastSpell;
-
-    private bool currentlyCasting;
+    public bool CurrentlyCasting => currentlyCastSpell == null ? false : true;
 
     private void Awake()
     {
@@ -24,7 +23,6 @@ public class PlayerCastSpell : MonoBehaviour
         playerStats = GetComponent<PlayerStats>();
         playerSpells = GetComponent<PlayerSpells>();
         player = GetComponent<Player>();
-        currentlyCasting = false;
     }
 
     private void OnEnable()
@@ -49,13 +47,15 @@ public class PlayerCastSpell : MonoBehaviour
         // If main spell is not in cooldown
         if (playerSpells.CooldownOver(playerSpells.ActiveSpell) &&
             playerSpells.CooldownOver(playerSpells.SecondarySpell) &&
-            currentlyCasting == false)
+            currentlyCastSpell == null)
         {
             playerSpells.SecondarySpell.AttackBehaviour.AttackKeyPress(
                     ref currentlyCastSpell, playerSpells.SecondarySpell, player, playerStats, ref spellBehaviour);
 
             OnEventAttack(playerSpells.SecondarySpell.CastType);
             OnEventStartCooldown(playerSpells.SecondarySpell);
+
+            currentlyCastSpell = null;
         }
     }
 
@@ -70,12 +70,12 @@ public class PlayerCastSpell : MonoBehaviour
             playerSpells.CooldownOver(playerSpells.SecondarySpell))
         {
             // If player has enough mana to cast the active spell
-            if (playerStats.Mana - playerSpells.ActiveSpell.ManaCost >= 0)
+            if (playerStats.Mana - playerSpells.ActiveSpell.ManaCost > 0)
             {
+                currentlyCastSpell = null;
+
                 playerSpells.ActiveSpell.AttackBehaviour.AttackKeyPress(
                     ref currentlyCastSpell, playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
-
-                currentlyCasting = true;
 
                 // Mana and cooldown on oneshot
                 if (playerSpells.ActiveSpell.CastType == SpellCastType.OneShotCast)
@@ -97,7 +97,7 @@ public class PlayerCastSpell : MonoBehaviour
                     // For One Shot and Continuous
                     OnEventAttack(playerSpells.ActiveSpell.CastType);
                     OnEventStartScreenShake(playerSpells.ActiveSpell.CastType);
-                } 
+                }
             }
             else
             {
@@ -112,45 +112,43 @@ public class PlayerCastSpell : MonoBehaviour
     /// </summary>
     public void AttackKeyRelease()
     {
-        currentlyCasting = false;
-
-        // If spell is not in cooldown
-        // So this will one be triggered when attackKeyPress is triggered aswell
-        if (playerSpells.CooldownOver(playerSpells.ActiveSpell) &&
-            playerSpells.CooldownOver(playerSpells.SecondarySpell))
+        // Mana and cooldown on oneshot with release
+        if (playerSpells.ActiveSpell.CastType == SpellCastType.OneShotCastWithRelease)
         {
-            playerSpells.ActiveSpell.AttackBehaviour.AttackKeyRelease(
-                ref currentlyCastSpell, playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
-            
-            currentlyCastSpell = null;
-            spellBehaviour = null;
-
-            // Events
-            if (playerSpells.ActiveSpell.CastType != SpellCastType.OneShotCastWithRelease)
+            // If player has a spell being prepared in hand and CDs are over
+            if (playerSpells.CooldownOver(playerSpells.ActiveSpell) &&
+                playerSpells.CooldownOver(playerSpells.SecondarySpell) &&
+                currentlyCastSpell != null)
             {
-                // For One Shot and Continuous
-                OnEventCancelAttack();
-                OnEventCancelScreenShake();
+                // If he has enough mana, casts spell, spends mana and updates cd.
+                if (playerStats.Mana - playerSpells.ActiveSpell.ManaCost > 0)
+                {
+                    playerSpells.ActiveSpell.AttackBehaviour.AttackKeyRelease(
+                        ref currentlyCastSpell, playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
+
+                    OnEventStartCooldown(playerSpells.ActiveSpell);
+                    OnEventSpendMana(playerSpells.ActiveSpell.ManaCost);
+                    OnEventAttack(playerSpells.ActiveSpell.CastType);
+                }
             }
             else
             {
-                // For One Shot With Release
-                OnEventAttack(playerSpells.ActiveSpell.CastType);
+                // If player has not mana, ignores this method
+                currentlyCastSpell = null;
+                return;
             }
 
-            // Mana and cooldown on oneshot with release
-            if (playerSpells.ActiveSpell.CastType == SpellCastType.OneShotCastWithRelease)
-            {
-                OnEventStartCooldown(playerSpells.ActiveSpell);
-                OnEventSpendMana(playerSpells.ActiveSpell.ManaCost);
-            }
-
-            // Mana and cooldown on continuous
-            if (playerSpells.ActiveSpell.CastType == SpellCastType.ContinuousCast)
-            {
-                OnEventStopSpendManaContinuous();
-            }
         }
+        else
+        {
+            // For the rest of spells, invokes events.
+            OnEventCancelAttack();
+            OnEventCancelScreenShake();
+            OnEventStopSpendManaContinuous();
+        }
+
+        spellBehaviour = null;
+        currentlyCastSpell = null;
     }
 
     protected virtual void OnEventStartCooldown(ISpell spell) => EventStartCooldown?.Invoke(spell);

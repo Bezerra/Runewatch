@@ -17,7 +17,7 @@ public class AttackBehaviourContinuousSO : AttackBehaviourAbstractContinuousSO
     public override void AttackKeyPress(ref GameObject currentlyCastSpell, ISpell spell, 
         Character character, Stats characterStats, ref SpellBehaviourAbstract spellBehaviour)
     {
-        GameObject spawnedSpell =
+        currentlyCastSpell =
             SpellPoolCreator.Pool.InstantiateFromPool(
                 spell.Name, character.Hand.position,
                 Quaternion.identity);
@@ -26,7 +26,7 @@ public class AttackBehaviourContinuousSO : AttackBehaviourAbstractContinuousSO
         // the player releases cast spell button 
 
         // Gets behaviour of the spawned spell. Starts the behaviour and passes whoCast object (stats) to the behaviour.
-        spellBehaviour = spawnedSpell.GetComponent<SpellBehaviourContinuous>();
+        spellBehaviour = currentlyCastSpell.GetComponent<SpellBehaviourContinuous>();
         spellBehaviour.WhoCast = characterStats;
         spellBehaviour.TriggerStartBehaviour();
     }
