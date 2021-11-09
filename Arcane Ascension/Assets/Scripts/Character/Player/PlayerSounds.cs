@@ -10,13 +10,13 @@ public class PlayerSounds : MonoBehaviour
     [SerializeField] private AbstractSoundSO dashSound;
     [SerializeField] private AbstractSoundSO spendMoneySound;
 
-    private PlayerAudioSources audioSources;
+    private AudioSources audioSources;
     private PlayerMovement playerMovement;
     private PlayerCurrency playerCurrency;
 
     private void Awake()
     {
-        audioSources = GetComponentInChildren<PlayerAudioSources>();
+        audioSources = GetComponentInChildren<AudioSources>();
         playerMovement = GetComponent<PlayerMovement>();
         playerCurrency = GetComponent<PlayerCurrency>();
     }

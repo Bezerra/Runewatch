@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for controlling player's audio sources.
 /// </summary>
-public class PlayerAudioSources : MonoBehaviour
+public class AudioSources : MonoBehaviour
 {
     private IList<AudioSource> audioSources;
 
