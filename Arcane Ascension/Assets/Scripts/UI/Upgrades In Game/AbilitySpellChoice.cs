@@ -23,25 +23,29 @@ public class AbilitySpellChoice : MonoBehaviour
     {
         backButton.SetActive(false);
 
-        // Updates spell cards with random spells obtained
-        for (int i = 0; i < spellCards.Length; i++)
+        if (randomAbilities.SpellResult != null)
         {
-            if (randomAbilities.SpellResult[i] != null)
+            // Updates spell cards with random spells obtained
+            for (int i = 0; i < spellCards.Length; i++)
             {
-                spellCards[i].SpellOnCard = randomAbilities.SpellResult[i];
+                if (randomAbilities.SpellResult[i] != null)
+                {
+                    spellCards[i].SpellOnCard = randomAbilities.SpellResult[i];
+                    spellCards[i].UpdateInformation();
+                }
             }
-        }
 
-        // Enables a back button if there are no spells to choose
-        bool deactivateCanvas = true;
-        for (int i = 0; i < randomAbilities.SpellResult.Length; i++)
-        {
-            if (randomAbilities.SpellResult[i] != null)
-                deactivateCanvas = false;
-        }
-        if (deactivateCanvas)
-        {
-            backButton.SetActive(true);
+            // Enables a back button if there are no spells to choose
+            bool deactivateCanvas = true;
+            for (int i = 0; i < randomAbilities.SpellResult.Length; i++)
+            {
+                if (randomAbilities.SpellResult[i] != null)
+                    deactivateCanvas = false;
+            }
+            if (deactivateCanvas)
+            {
+                backButton.SetActive(true);
+            }
         }
     }
 }

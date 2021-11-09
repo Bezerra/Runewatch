@@ -47,14 +47,19 @@ public class SpellManagerEditor : OdinMenuEditorWindow
 
     protected override void OnBeginDrawEditors()
     {
-        OdinMenuTreeSelection selected = this.MenuTree?.Selection;
+        OdinMenuTreeSelection selected = null;
+
+        if (MenuTree != null)
+        {
+            selected = MenuTree.Selection;
+        }
 
         SirenixEditorGUI.BeginHorizontalToolbar();
         {
             GUILayout.FlexibleSpace();
             if (SirenixEditorGUI.ToolbarButton("Delete current spell"))
             {
-                ScriptableObject selectedObject = selected.SelectedValue as ScriptableObject;
+                ScriptableObject selectedObject = selected?.SelectedValue as ScriptableObject;
                 string path = AssetDatabase.GetAssetPath(selectedObject);
                 AssetDatabase.DeleteAsset(path);
 

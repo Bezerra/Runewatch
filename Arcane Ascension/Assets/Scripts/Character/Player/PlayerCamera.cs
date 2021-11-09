@@ -57,7 +57,8 @@ public class PlayerCamera : MonoBehaviour
     {
         // Sets running this way so the change on FoV coroutine is not too abrupt
         // when the player changes directions (cause movement is change to 0 for a frame)
-        if (input.Movement.magnitude > 0)
+        if (input.Movement.magnitude > 0 &&
+            playerMovement.Running)
         {
             runningCurrentTime = Time.time;
             running = true;

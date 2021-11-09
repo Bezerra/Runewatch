@@ -45,24 +45,16 @@ public class PlayerValuesSO : CharacterValuesSO
     [Range(1, 10)] [SerializeField] private float timeToGetDashCharge = 5f;
     public float TimeToGetDashCharge => timeToGetDashCharge;
 
-    [BoxGroup("Arms")]
-    [Range(1, 15)] [SerializeField] private float handsMovementSpeed;
-    public float HandsMovementSpeed => handsMovementSpeed;
-
     [BoxGroup("Camera")]
     [Range(2, 10f)] [SerializeField] private float cameraForceOnDash = 4f;
     public float CameraForceOnDash => cameraForceOnDash;
-
-    [BoxGroup("Camera")]
-    [Range(10, 40)] [SerializeField] private float delayedCameraRotationSpeed;
-    public float DelayedCameraRotationSpeed => delayedCameraRotationSpeed;
 
     [BoxGroup("Camera")]
     [RangeMinMax(-200, 200)] [SerializeField] private Vector2 cameraRange;
     public Vector2 CameraRange => cameraRange;
 
     [BoxGroup("Camera")]
-    [Range(5, 25)] [SerializeField] private float cameraSpeed;
+    [Range(0.01f, 20f)] [SerializeField] private float cameraSpeed;
     public float CameraSpeed => cameraSpeed;
 
     [BoxGroup("Camera")]

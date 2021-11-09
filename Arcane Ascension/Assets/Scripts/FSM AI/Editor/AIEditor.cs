@@ -48,14 +48,19 @@ public class AIEditor : OdinMenuEditorWindow
 
     protected override void OnBeginDrawEditors()
     {
-        OdinMenuTreeSelection selectedAsset = this.MenuTree?.Selection;
+        OdinMenuTreeSelection selected = null;
+
+        if (MenuTree != null)
+        {
+            selected = MenuTree.Selection;
+        }
 
         SirenixEditorGUI.BeginHorizontalToolbar();
         {
             GUILayout.FlexibleSpace();
             if (SirenixEditorGUI.ToolbarButton("Delete current asset"))
             {
-                ScriptableObject asset = selectedAsset.SelectedValue as ScriptableObject;
+                ScriptableObject asset = selected?.SelectedValue as ScriptableObject;
                 string path = AssetDatabase.GetAssetPath(asset);
                 AssetDatabase.DeleteAsset(path);
                 AssetDatabase.SaveAssets();

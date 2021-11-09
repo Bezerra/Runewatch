@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private bool    castingContinuousSpell;
     private Vector3 directionPressed;
     public float    Speed { get; private set; }
+    public bool Running { get; private set; }
 
     // Dash
     private float   dashCurrentValue;
@@ -155,7 +156,7 @@ public class PlayerMovement : MonoBehaviour
         // Gravity. Calculates gravity after jumping.
         directionPressed.y -= GRAVITY * gravityIncrement * Time.fixedDeltaTime;
 
-        // Movement. Calculates movement after everything else
+        // Movement. Calculates movement after everything else.
         characterController.Move(directionPressed * Time.fixedDeltaTime);
     }
 
@@ -230,10 +231,12 @@ public class PlayerMovement : MonoBehaviour
         {
             if (condition)
             {
+                Running = true;
                 Speed = player.Values.RunningSpeed * playerStats.CommonAttributes.MovementSpeedMultiplier;
             }
             else
             {
+                Running = false;
                 Speed = player.Values.Speed * playerStats.CommonAttributes.MovementSpeedMultiplier;
             }
             OnEventRun(condition);

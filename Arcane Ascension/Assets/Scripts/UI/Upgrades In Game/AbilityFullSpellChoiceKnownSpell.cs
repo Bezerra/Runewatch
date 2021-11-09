@@ -24,20 +24,25 @@ public class AbilityFullSpellChoiceKnownSpell : MonoBehaviour
 
     private void OnEnable()
     {
-        // Updates current cards with player's spells
-        for (int i = 0; i < allCards.Length; i++)
+        if (droppedSpellResult.DroppedSpell != null &&
+            playerSpells.CurrentSpells != null)
         {
-            allCards[i].SpellOnCard = playerSpells.CurrentSpells[i];
-        }
+            // Updates current cards with player's spells
+            for (int i = 0; i < allCards.Length; i++)
+            {
+                allCards[i].SpellOnCard = playerSpells.CurrentSpells[i];
+                allCards[i].UpdateInformation();
+            }
 
-        // Sets obtained spell to last card
-        obtainedSpellCard.SpellOnCard = droppedSpellResult.DroppedSpell;
+            // Sets obtained spell to last card
+            obtainedSpellCard.SpellOnCard = droppedSpellResult.DroppedSpell;
 
-        // Updates info and sets obtained spell variable of all cards.
-        foreach (AbilitySpellCard card in allCards)
-        {
-            card.NewObtainedSpell = droppedSpellResult.DroppedSpell;
-            card.UpdateInformation();
+            // Updates info and sets obtained spell variable of all cards.
+            foreach (AbilitySpellCard card in allCards)
+            {
+                card.NewObtainedSpell = droppedSpellResult.DroppedSpell;
+                card.UpdateInformation();
+            }
         }
     }
 

@@ -13,7 +13,11 @@ public class AbilitiesCanvas : MonoBehaviour
     [SerializeField] private GameObject threePassiveCanvas;
     [SerializeField] private GameObject spellsFullCanvas;
 
-    private void Awake() => input = FindObjectOfType<PlayerInputCustom>();
+    private void Awake()
+    {
+        input = FindObjectOfType<PlayerInputCustom>();
+    }
+
     public void EnableThreeSpellCanvas() =>
         threeSpellCanvas.SetActive(true);
 
@@ -31,5 +35,19 @@ public class AbilitiesCanvas : MonoBehaviour
         spellsFullCanvas.SetActive(false);
         input.SwitchActionMapToGameplay();
         Time.timeScale = 1;
+    }
+
+    private void EnableAll()
+    {
+        threeSpellCanvas.SetActive(true);
+        oneSpellCanvas.SetActive(true);
+        threePassiveCanvas.SetActive(true);
+        spellsFullCanvas.SetActive(true);
+    }
+
+    private void Start()
+    {
+        EnableAll();
+        DisableAll();
     }
 }

@@ -11,44 +11,39 @@ public class AbilityPassiveChoice : MonoBehaviour
     [SerializeField] private GameObject backButton;
 
     // Panels with 3 spells
-    private AbilityPassiveCard[] passiveCards;
-
-    // Components
-    private PlayerInputCustom input;
-
-    private void Awake()
-    {
-        passiveCards = GetComponentsInChildren<AbilityPassiveCard>();
-        input = FindObjectOfType<PlayerInputCustom>();
-    }
+    [SerializeField] private AbilityPassiveCard[] passiveCards;
 
     private void OnEnable()
     {
         backButton.SetActive(false);
 
-        // Updates spell cards with random spells obtained
-        for (int i = 0; i < passiveCards.Length; i++)
+        if (randomAbilities.PassiveResult != null)
         {
-            if (randomAbilities.PassiveResult[i] != null)
+            // Updates spell cards with random spells obtained
+            for (int i = 0; i < passiveCards.Length; i++)
             {
-                passiveCards[i].PassiveOnCard = randomAbilities.PassiveResult[i];
+                if (randomAbilities.PassiveResult[i] != null)
+                {
+                    passiveCards[i].PassiveOnCard = randomAbilities.PassiveResult[i];
+                }
+                else
+                {
+                    passiveCards[i].PassiveOnCard = null;
+                }
+                passiveCards[i].UpdateInformation();
             }
-            else
-            {
-                passiveCards[i].PassiveOnCard = null;
-            }
-        }
 
-        // Enables a back button if there are no passives to choose
-        bool deactivateCanvas = true;
-        for (int i = 0; i < randomAbilities.PassiveResult.Length; i++)
-        {
-            if (randomAbilities.PassiveResult[i] != null)
-                deactivateCanvas = false;
-        }
-        if (deactivateCanvas)
-        {
-            backButton.SetActive(true);
+            // Enables a back button if there are no passives to choose
+            bool deactivateCanvas = true;
+            for (int i = 0; i < randomAbilities.PassiveResult.Length; i++)
+            {
+                if (randomAbilities.PassiveResult[i] != null)
+                    deactivateCanvas = false;
+            }
+            if (deactivateCanvas)
+            {
+                backButton.SetActive(true);
+            }
         }
     }
 }

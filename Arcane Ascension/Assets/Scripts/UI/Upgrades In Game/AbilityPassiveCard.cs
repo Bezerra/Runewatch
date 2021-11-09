@@ -30,11 +30,6 @@ public class AbilityPassiveCard : MonoBehaviour
         playerStats = FindObjectOfType<PlayerStats>();
     }
 
-    private void OnEnable()
-    {
-        UpdateInformation();
-    }
-
     /// <summary>
     /// Updates card info.
     /// </summary>
@@ -64,11 +59,11 @@ public class AbilityPassiveCard : MonoBehaviour
             if (playerInteraction.LastObjectInteracted != null)
             {
                 LootSoundPoolCreator.Pool.InstantiateFromPool(
-                LootAndInteractionSoundType.ObtainPassiveOrb.ToString(),
-                playerInteraction.LastObjectInteracted.transform.position, Quaternion.identity);
+                    LootAndInteractionSoundType.ObtainPassiveOrb.ToString(),
+                    playerInteraction.LastObjectInteracted.transform.position, Quaternion.identity);
 
                 // Deactivates the passive orb
-                playerInteraction.LastObjectInteracted?.gameObject.SetActive(false);
+                playerInteraction.LastObjectInteracted.SetActive(false);
             }
 
             PassiveOnCard.Execute(playerStats);

@@ -74,14 +74,19 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
 
     protected override void OnBeginDrawEditors()
     {
-        OdinMenuTreeSelection selected = this.MenuTree?.Selection;
+        OdinMenuTreeSelection selected = null;
+
+        if (MenuTree != null)
+        {
+            selected = MenuTree.Selection;
+        }
 
         SirenixEditorGUI.BeginHorizontalToolbar();
         {
             GUILayout.FlexibleSpace();
             if (SirenixEditorGUI.ToolbarButton("Delete current stats"))
             {
-                ScriptableObject selectedSO = selected.SelectedValue as ScriptableObject;
+                ScriptableObject selectedSO = selected?.SelectedValue as ScriptableObject;
                 string path = AssetDatabase.GetAssetPath(selectedSO);
                 AssetDatabase.DeleteAsset(path);
                 AssetDatabase.SaveAssets();

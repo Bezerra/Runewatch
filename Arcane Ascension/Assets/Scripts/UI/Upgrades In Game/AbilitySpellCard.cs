@@ -36,16 +36,12 @@ public class AbilitySpellCard : MonoBehaviour
         textInCard = GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    private void OnEnable()
-    {
-        UpdateInformation();
-    }
-
     /// <summary>
     /// Updates card info.
     /// </summary>
     public void UpdateInformation()
     {
+        Debug.Log("A");
         if (SpellOnCard != null && textInCard != null)
         {
             button.enabled = true;
