@@ -15,7 +15,7 @@ public abstract class StatsSO : ScriptableObject
     [PropertySpace(15)]
     [InlineButton("ChangeFileName", "Update File Name")]
     [SerializeField] private new string name;
-    [SerializeField] [TextArea(3, 3)] private string notes;
+    [SerializeField] [TextArea(3, 3)] private string description;
 
     [BoxGroup("General Stats")]
     [EnumToggleButtons] [SerializeField] private ElementType element;
