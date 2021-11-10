@@ -1,5 +1,8 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
+using ExtensionMethods;
 
 /// <summary>
 /// Class responsible for enemies.
@@ -72,8 +75,8 @@ public class Enemy : Character
         set
         {
             Vector3 offset = 
-                new Vector3(Random.Range(-Values.Distance.x, Values.Distance.x), 0, 
-                Random.Range(-Values.Distance.x, Values.Distance.x));
+                new Vector3(UnityEngine.Random.Range(-Values.Distance.x, Values.Distance.x), 0, 
+                UnityEngine.Random.Range(-Values.Distance.x, Values.Distance.x));
             playerLastKnownPosition = value + offset;
         }
     }
@@ -138,6 +141,10 @@ public class Enemy : Character
     /// </summary>
     public StateController<Enemy> StateMachine { get; private set; }
 
+    // Coroutines
+    private IEnumerator takeDamageCoroutine;
+    private YieldInstruction wfsAfterBeingHit;
+
     private void Awake()
     {
         Agent = GetComponent<NavMeshAgent>();
@@ -145,6 +152,7 @@ public class Enemy : Character
         EnemyStats = GetComponent<EnemyStats>();
         PlayerScript = FindObjectOfType<Player>();
         StateMachine = new StateController<Enemy>(this, 2);
+        wfsAfterBeingHit = new WaitForSeconds(0.25f);
     }
 
     private void Start()
@@ -179,7 +187,18 @@ public class Enemy : Character
     /// </summary>
     private void EventTakeDamage(float emptyVar)
     {
-
+        this.StartCoroutineWithReset(ref takeDamageCoroutine, TakeDamageCoroutine());
         TookDamage = true;
+    }
+
+    /// <summary>
+    /// Stops enemy and updates speed back to default after x seconds.
+    /// </summary>
+    /// <returns>Null.</returns>
+    private IEnumerator TakeDamageCoroutine()
+    {
+        Agent.speed = 0;
+        yield return wfsAfterBeingHit;
+        UpdateSpeed();
     }
 }

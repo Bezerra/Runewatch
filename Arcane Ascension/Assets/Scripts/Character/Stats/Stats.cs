@@ -98,7 +98,10 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
         {
             if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
             OnEventDeath(this);
+
+            // This will be applied with an animation event
             Destroy(GetComponentInParent<SelectionBase>().gameObject);
+            //////////////////////////////////////////////////////////
         }
     }
 
@@ -136,7 +139,10 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
         {
             if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
             OnEventDeath(this);
+
+            // This will be applied with an animation event
             Destroy(GetComponentInParent<SelectionBase>().gameObject);
+            //////////////////////////////////////////////////////////
         }
     }
 
