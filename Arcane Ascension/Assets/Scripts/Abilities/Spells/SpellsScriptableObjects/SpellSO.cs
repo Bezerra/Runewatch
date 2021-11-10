@@ -32,29 +32,36 @@ public abstract class SpellSO : ScriptableObject, ISpell
     [HideLabel, TextArea(4, 6), SerializeField] protected string description;
 
     /// ---------------
-    [BoxGroup("Spell General Attributes")]
+    [BoxGroup("Spell Attributes")]
+    [HorizontalGroup("Spell Attributes/Split", 36)]
+    [HideLabel, PreviewField(36)] [SerializeField] protected Sprite elementIcon;
+
+    [VerticalGroup("Spell Attributes/Split/Middle", 1), LabelWidth(60)]
     [Tooltip("Element of the spell.")]
     [SerializeField, EnumToggleButtons, HideLabel] protected ElementType element;
 
-    [BoxGroup("Spell General Attributes")]
+    [VerticalGroup("Spell Attributes/Split/Middle", 1), LabelWidth(60)]
     [Tooltip("Mana cost of OneShotCast spells when used or every hit of a ContinuousCast spell")]
     [Range(0.01f, 100f)] [SerializeField] protected float manaCost;
 
     /// ---------------
-
     [BoxGroup("Damage")]
+    [HorizontalGroup("Damage/Split", 72)]
+    [HideLabel, PreviewField(72)] [SerializeField] protected Sprite targetTypeIcon;
+
+    [VerticalGroup("Damage/Split/Middle", 1), LabelWidth(60)]
     [Tooltip("Interval between damage with Overtime damage spells or interval between damage with continuous spells.")]
     [Range(0.01f, 100)] [SerializeField] protected float timeInterval;
 
-    [BoxGroup("Damage")]
+    [VerticalGroup("Damage/Split/Middle", 1), LabelWidth(60)]
     [Tooltip("Time duration of overtime spell damage.")]
     [Range(0.1f, 100)] [SerializeField] protected float maxTime;
 
-    [BoxGroup("Damage")]
+    [VerticalGroup("Damage/Split/Middle", 1), LabelWidth(60)]
     [Tooltip("Radius of effect after an AreaDamage spell hits something")]
     [Range(2f, 10f)] [SerializeField] protected float areaOfEffect;
 
-    [BoxGroup("Damage")]
+    [VerticalGroup("Damage/Split/Middle", 1), LabelWidth(60)]
     [Tooltip("Random damage between these 2 values")]
     [SerializeField] [RangeMinMax(0, 100)] protected Vector2 damage;
 
@@ -107,6 +114,8 @@ public abstract class SpellSO : ScriptableObject, ISpell
 
     // Properties
     public Sprite Icon => icon;
+    public Sprite ElementIcon => elementIcon;
+    public Sprite TargetTypeIcon => targetTypeIcon;
     public string Name => name;
     public byte ID => spellID;
     public int Tier => spellTier;
@@ -117,6 +126,7 @@ public abstract class SpellSO : ScriptableObject, ISpell
     public float MaxTime { get => maxTime; set => maxTime = value; }
     public float AreaOfEffect { get => areaOfEffect; set => areaOfEffect = value; }
     public float Damage => Random.Range(damage.x, damage.y);
+    public Vector2 MinMaxDamage => damage;
     public SpellCastType CastType => spellCastType;
     public float Speed { get => speed; set => speed = value; }
     public float Cooldown => cooldown;

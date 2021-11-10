@@ -22,6 +22,7 @@ public class AbilitySpellCard : MonoBehaviour
     private PlayerSpells playerSpells;
     private PlayerInteraction playerInteraction;
     private AbilitiesCanvas abilitiesCanvas;
+    private AbilitySpellCardText thisCardInformation;
     private Button button;
 
     // Full spells canvas
@@ -31,6 +32,7 @@ public class AbilitySpellCard : MonoBehaviour
     {
         button = GetComponent<Button>();
         abilitiesCanvas = GetComponentInParent<AbilitiesCanvas>();
+        thisCardInformation = GetComponentInChildren<AbilitySpellCardText>();
         playerInteraction = FindObjectOfType<PlayerInteraction>();
         playerSpells = FindObjectOfType<PlayerSpells>();
         textInCard = GetComponentInChildren<TextMeshProUGUI>();
@@ -44,7 +46,7 @@ public class AbilitySpellCard : MonoBehaviour
         if (SpellOnCard != null && textInCard != null)
         {
             button.enabled = true;
-            textInCard.text = SpellOnCard.Name;
+            thisCardInformation.UpdateInfo(SpellOnCard);
         }
         else if(SpellOnCard == null && textInCard != null)
         {

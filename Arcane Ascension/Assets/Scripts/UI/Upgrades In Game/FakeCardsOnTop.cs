@@ -72,7 +72,7 @@ public class FakeCardsOnTop : MonoBehaviour
             return;
         }
 
-        alpha -= Time.unscaledDeltaTime;
+        alpha -= Time.unscaledDeltaTime * 2;
 
         for (int i = 0; i < images.Length; i++)
         {
