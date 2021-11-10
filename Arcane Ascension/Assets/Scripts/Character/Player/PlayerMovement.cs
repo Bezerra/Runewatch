@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 directionPressed;
     public float    Speed { get; private set; }
     public bool Running { get; private set; }
+    private Vector3 positionOnLastCalculation;
 
     // Dash
     private float   dashCurrentValue;
@@ -75,18 +76,6 @@ public class PlayerMovement : MonoBehaviour
         input.Run += Run;
         playerCastSpell.EventAttack -= ReduceSpeedOnContinuousAttack;
         playerCastSpell.EventCancelAttack -= NormalSpeedAfterContinuousAttack;
-    }
-
-    /// <summary>
-    /// If player presses jump, starts jumping coroutine.
-    /// </summary>
-    private void JumpPress()
-    {
-        if (jumpingCoroutine == null && characterController.isGrounded)
-        {
-            jumpingCoroutine = JumpingCoroutine();
-            StartCoroutine(jumpingCoroutine);
-        }
     }
 
     private void Update()
@@ -158,6 +147,32 @@ public class PlayerMovement : MonoBehaviour
 
         // Movement. Calculates movement after everything else.
         characterController.Move(directionPressed * Time.fixedDeltaTime);
+    }
+
+    /// <summary>
+    /// Chekcs if player is moving.
+    /// </summary>
+    /// <returns>Retruns true if player is moving.</returns>
+    public bool IsPlayerMoving()
+    {
+        if (Vector3.Distance(transform.position, positionOnLastCalculation) > 0.5f)
+        {
+            positionOnLastCalculation = transform.position;
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// If player presses jump, starts jumping coroutine.
+    /// </summary>
+    private void JumpPress()
+    {
+        if (jumpingCoroutine == null && characterController.isGrounded)
+        {
+            jumpingCoroutine = JumpingCoroutine();
+            StartCoroutine(jumpingCoroutine);
+        }
     }
 
     /// <summary>
@@ -268,7 +283,9 @@ public class PlayerMovement : MonoBehaviour
     private void NormalSpeedAfterContinuousAttack()
     {
         castingContinuousSpell = false;
-        Speed = player.Values.Speed * playerStats.CommonAttributes.MovementSpeedMultiplier;
+        if (Running) Speed = player.Values.RunningSpeed * playerStats.CommonAttributes.MovementSpeedMultiplier;
+        else Speed = player.Values.Speed * playerStats.CommonAttributes.MovementSpeedMultiplier;
+
     }
 
     /// <summary>

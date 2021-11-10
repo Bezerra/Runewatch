@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -8,4 +6,6 @@ using UnityEngine;
 public class PlayerAudioSources : CharacterAudioSources
 {
     [SerializeField] private AudioSource playerStepsAudioSource;
+
+    public AudioSource PlayerStepsAudioSource => playerStepsAudioSource;
 }
