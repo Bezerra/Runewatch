@@ -18,24 +18,20 @@ public class AbilitySpellCard : MonoBehaviour
     public ISpell NewObtainedSpell { get; set; }
 
     // Components
-    private TextMeshProUGUI textInCard;
     private PlayerSpells playerSpells;
     private PlayerInteraction playerInteraction;
     private AbilitiesCanvas abilitiesCanvas;
     private AbilitySpellCardText thisCardInformation;
-    private Button button;
 
     // Full spells canvas
     [SerializeField] private GameObject fullSpellsCanvas;
 
     private void Awake()
     {
-        button = GetComponent<Button>();
         abilitiesCanvas = GetComponentInParent<AbilitiesCanvas>();
         thisCardInformation = GetComponentInChildren<AbilitySpellCardText>();
         playerInteraction = FindObjectOfType<PlayerInteraction>();
         playerSpells = FindObjectOfType<PlayerSpells>();
-        textInCard = GetComponentInChildren<TextMeshProUGUI>();
     }
 
     /// <summary>
@@ -43,16 +39,20 @@ public class AbilitySpellCard : MonoBehaviour
     /// </summary>
     public void UpdateInformation()
     {
-        if (SpellOnCard != null && textInCard != null)
+        if (SpellOnCard != null)
         {
-            button.enabled = true;
+            thisCardInformation.ShowEmptyCard(false);
             thisCardInformation.UpdateInfo(SpellOnCard);
         }
-        else if(SpellOnCard == null && textInCard != null)
+        else
         {
-            button.enabled = false;
-            textInCard.text = "Spell limit";
+            thisCardInformation.ShowEmptyCard(true);
         }
+    }
+
+    private void OnDisable()
+    {
+        SpellOnCard = null;
     }
 
     /// <summary>
@@ -74,7 +74,7 @@ public class AbilitySpellCard : MonoBehaviour
             {
                 // Deactivates the spell scroll
                 playerInteraction.LastObjectInteracted.SetActive(false);
-            }
+            }     
         }
         // Else if there are not slots, it will open a new canvas with 4 slots to select.
         else
@@ -97,8 +97,8 @@ public class AbilitySpellCard : MonoBehaviour
             if (playerInteraction.LastObjectInteracted != null)
             {
                 LootSoundPoolCreator.Pool.InstantiateFromPool(
-                LootAndInteractionSoundType.ObtainUnknownSpell.ToString(),
-                playerInteraction.LastObjectInteracted.transform.position, Quaternion.identity);
+                    LootAndInteractionSoundType.ObtainUnknownSpell.ToString(),
+                    playerInteraction.LastObjectInteracted.transform.position, Quaternion.identity);
 
                 if (playerInteraction.LastObjectInteracted.TryGetComponent(out Chest chest) == false)
                 {
@@ -106,7 +106,7 @@ public class AbilitySpellCard : MonoBehaviour
                     playerInteraction.LastObjectInteracted.SetActive(false);
                 }
             }
-
+            
             // Drops a spell and updates player's spell list
             playerSpells.DropSpell(playerSpells.CurrentSpells[slot] as SpellSO);
             playerSpells.RemoveSpell(slot);
