@@ -12,6 +12,7 @@ public class AbilityPassiveChoice : MonoBehaviour
 
     // Panels with 3 spells
     [SerializeField] private AbilityPassiveCard[] passiveCards;
+    [SerializeField] private Canvas[] passiveCardsTextCanvas;
 
     private void OnEnable()
     {
