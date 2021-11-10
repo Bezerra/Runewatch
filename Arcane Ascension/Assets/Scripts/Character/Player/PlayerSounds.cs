@@ -16,17 +16,21 @@ public class PlayerSounds : MonoBehaviour
     private PlayerAudioSources audioSources;
     private PlayerMovement playerMovement;
     private PlayerCurrency playerCurrency;
+    private Player player;
 
     // Stepsounds
     private IDictionary<SurfaceType, AbstractSoundSO> stepSoundsDictionary;
     private float timeToStep;
-    private readonly float STEPSOUNDDELAY = 0.5f;
+    private readonly float STEPSOUNDDELAYWALKING = 0.6f;
+    private readonly float STEPSOUNDDELAYRUNNING = 0.35f;
+    private float stepSoundDelay;
 
     private void Awake()
     {
         audioSources = GetComponentInChildren<PlayerAudioSources>();
         playerMovement = GetComponent<PlayerMovement>();
         playerCurrency = GetComponent<PlayerCurrency>();
+        player = GetComponent<Player>();
         timeToStep = 0;
 
         stepSoundsDictionary = new Dictionary<SurfaceType, AbstractSoundSO>();
@@ -40,12 +44,14 @@ public class PlayerSounds : MonoBehaviour
     {
         playerMovement.EventDash += PlayDash;
         playerCurrency.EventSpendMoney += SpendMoney;
+        playerMovement.EventSpeedChange += UpdateStepSoundDelay;
     }
 
     private void OnDisable()
     {
         playerMovement.EventDash -= PlayDash;
         playerCurrency.EventSpendMoney -= SpendMoney;
+        playerMovement.EventSpeedChange -= UpdateStepSoundDelay;
     }
 
     private void PlayDash() =>
@@ -54,18 +60,46 @@ public class PlayerSounds : MonoBehaviour
     private void SpendMoney() =>
         spendMoneySound.PlaySound(audioSources.GetFreeAudioSource());
 
+    /// <summary>
+    /// Updates step sound delay based on player's speed.
+    /// </summary>
+    /// <param name="speed">Player's speed.</param>
+    private void UpdateStepSoundDelay(float speed)
+    {
+        if (speed > player.Values.Speed * player.CommonValues.CharacterStats.MovementSpeedMultiplier)
+        {
+            stepSoundDelay = STEPSOUNDDELAYRUNNING;
+        }
+        else
+        {
+            stepSoundDelay = STEPSOUNDDELAYWALKING;
+        }
+    }
+
     private void Update()
     {
-        if (Time.time - timeToStep > STEPSOUNDDELAY)
+        // If step delay is over
+        if (Time.time - timeToStep > stepSoundDelay)
         {
-            if (playerMovement.IsPlayerMoving())
+            // If player is not grounded or is stopped, ignores this method.
+            if (playerMovement.IsPlayerStopped(0.1f) ||
+                (playerMovement.IsGrounded() == false))
+                return;
+
+            if (playerMovement.IsPlayerMoving(0.1f))
             {
-                Ray rayToBottom = new Ray(transform.position + Vector3.up, (transform.position + Vector3.up).Direction(Vector3.down));
-                if (Physics.Raycast(rayToBottom, out RaycastHit hit, 3, Layers.WallsFloor))
+                Ray rayToBottom = new Ray(
+                    transform.position + transform.up, 
+                    (transform.position + transform.up).Direction(transform.position + -transform.up));
+                if (Physics.Raycast(rayToBottom, out RaycastHit hit, 2, Layers.WallsFloor))
                 {
                     if (hit.collider.TryGetComponent(out ISurface surface))
                     {
                         stepSoundsDictionary[surface.SurfaceType].PlaySound(audioSources.PlayerStepsAudioSource);
+                    }
+                    else
+                    {
+                        Debug.Log(hit.collider.gameObject.name + " doesn't have Surface script.");
                     }
                 }
                 timeToStep = Time.time;

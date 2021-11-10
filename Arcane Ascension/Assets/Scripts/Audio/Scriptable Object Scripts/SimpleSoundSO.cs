@@ -17,7 +17,10 @@ sealed public class SimpleSoundSO : AbstractSoundSO
     /// <param name="audioSource">Audio source to play the sound on.</param>
     public override void PlaySound(AudioSource audioSource)
     {
-        audioSource.pitch = pitch;
-        audioSource.PlayOneShot(audioClips[0], volume);
+        if (audioSource != null)
+        {
+            audioSource.pitch = pitch;
+            audioSource.PlayOneShot(audioClips[0], volume);
+        }
     }
 }

@@ -17,7 +17,8 @@ public class PlayerMovement : MonoBehaviour
     // Movement
     private bool    castingContinuousSpell;
     private Vector3 directionPressed;
-    public float    Speed { get; private set; }
+    private float speed;
+    public float    Speed { get => speed; private set { speed = value; OnEventSpeedChange(speed); } }
     public bool Running { get; private set; }
     private Vector3 positionOnLastCalculation;
 
@@ -87,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
         if (input.Movement == Vector2.zero) directionPressed = Vector3.zero;
 
         // Controls character radius to prevent getting stuck on edges after jumping
-        if (characterController.isGrounded)
+        if (IsGrounded())
         {
             // Character radius
             if (characterController.radius != CONTROLLERRADIUSDEFAULT)
@@ -117,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         // Happens if player is falling (without jumping)
-        if (jumpingCoroutine == null && characterController.isGrounded == false)
+        if (jumpingCoroutine == null && IsGrounded() == false)
         {
             if (fallingCoroutine == null)
             {
@@ -152,10 +153,11 @@ public class PlayerMovement : MonoBehaviour
     /// <summary>
     /// Chekcs if player is moving.
     /// </summary>
+    /// <param name="distanceOfPreviousPosition">Distance of previous position.</param>
     /// <returns>Retruns true if player is moving.</returns>
-    public bool IsPlayerMoving()
+    public bool IsPlayerMoving(float distanceOfPreviousPosition = 0.1f)
     {
-        if (Vector3.Distance(transform.position, positionOnLastCalculation) > 0.5f)
+        if (Vector3.Distance(transform.position, positionOnLastCalculation) > distanceOfPreviousPosition)
         {
             positionOnLastCalculation = transform.position;
             return true;
@@ -164,11 +166,22 @@ public class PlayerMovement : MonoBehaviour
     }
 
     /// <summary>
+    /// Checks if player is stopped.
+    /// </summary>
+    /// <param name="maximumVelocityToConsider">Maximum velocity the player has to be considered as stopped.</param>
+    /// <returns>Retruns true if player is stopped.</returns>
+    public bool IsPlayerStopped(float maximumVelocityToConsider = 0.1f)
+    {
+        if (characterController.velocity.magnitude < maximumVelocityToConsider) return true;
+        return false;
+    }
+
+    /// <summary>
     /// If player presses jump, starts jumping coroutine.
     /// </summary>
     private void JumpPress()
     {
-        if (jumpingCoroutine == null && characterController.isGrounded)
+        if (jumpingCoroutine == null && IsGrounded())
         {
             jumpingCoroutine = JumpingCoroutine();
             StartCoroutine(jumpingCoroutine);
@@ -310,7 +323,7 @@ public class PlayerMovement : MonoBehaviour
             else gravityIncrement += player.Values.GravityIncrement;
 
             // Breaks the coroutine if the character touches the floor
-            if (characterController.isGrounded)
+            if (IsGrounded())
             {
                 break;
             }
@@ -337,7 +350,7 @@ public class PlayerMovement : MonoBehaviour
             else gravityIncrement += player.Values.GravityIncrement;
 
             // Breaks the coroutine if the character touches the floor
-            if (characterController.isGrounded)
+            if (IsGrounded())
             {
                 break;
             }
@@ -347,11 +360,25 @@ public class PlayerMovement : MonoBehaviour
         fallingCoroutine = null;
     }
 
-    // Registered on PlayerSounds and PlayerFinalCameraDashEvent
+    /// <summary>
+    /// Checks if player is grounded.
+    /// </summary>
+    /// <returns>Returns true if player is grounded.</returns>
+    public bool IsGrounded()
+    {
+        if (characterController.isGrounded) return true;
+        return false;
+    }
+
+    // Subscribed on PlayerSounds and PlayerFinalCameraDashEvent
     protected virtual void OnEventDash() => EventDash?.Invoke();
     public event Action EventDash;
 
-    // Registere on DelayedCamera
+    // Subscribed on PlayerCamera
     protected virtual void OnEventRun(bool condition) => EventRun?.Invoke(condition);
     public event Action<bool> EventRun;
+
+    // Subscribed on PlayerSounds
+    protected virtual void OnEventSpeedChange(float speed) => EventSpeedChange?.Invoke(speed);
+    public event Action<float> EventSpeedChange;
 }
