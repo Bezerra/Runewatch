@@ -22,6 +22,7 @@ public class EnemyAnimations : MonoBehaviour
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
+        //Debug.Log(anim.gameObject.name);
         enemy = GetComponent<Enemy>();
         enemyStats = GetComponent<EnemyStats>();
         wffu = new WaitForFixedUpdate();
