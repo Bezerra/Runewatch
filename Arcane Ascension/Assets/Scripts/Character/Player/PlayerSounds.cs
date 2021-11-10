@@ -10,12 +10,14 @@ public class PlayerSounds : MonoBehaviour
     // Sounds
     [SerializeField] private AbstractSoundSO dashSound;
     [SerializeField] private AbstractSoundSO spendMoneySound;
+    [SerializeField] private AbstractSoundSO takeDamage;
     [SerializeField] private List<SoundAssetWithType> stepSounds;
 
     // Components
     private PlayerAudioSources audioSources;
     private PlayerMovement playerMovement;
     private PlayerCurrency playerCurrency;
+    private PlayerStats playerStats;
     private Player player;
 
     // Stepsounds
@@ -30,6 +32,7 @@ public class PlayerSounds : MonoBehaviour
         audioSources = GetComponentInChildren<PlayerAudioSources>();
         playerMovement = GetComponent<PlayerMovement>();
         playerCurrency = GetComponent<PlayerCurrency>();
+        playerStats = GetComponent<PlayerStats>();
         player = GetComponent<Player>();
         timeToStep = 0;
 
@@ -45,6 +48,7 @@ public class PlayerSounds : MonoBehaviour
         playerMovement.EventDash += PlayDash;
         playerCurrency.EventSpendMoney += SpendMoney;
         playerMovement.EventSpeedChange += UpdateStepSoundDelay;
+        playerStats.EventTakeDamage += PlayTakeDamage;
     }
 
     private void OnDisable()
@@ -52,6 +56,7 @@ public class PlayerSounds : MonoBehaviour
         playerMovement.EventDash -= PlayDash;
         playerCurrency.EventSpendMoney -= SpendMoney;
         playerMovement.EventSpeedChange -= UpdateStepSoundDelay;
+        playerStats.EventTakeDamage -= PlayTakeDamage;
     }
 
     private void PlayDash() =>
@@ -59,6 +64,9 @@ public class PlayerSounds : MonoBehaviour
 
     private void SpendMoney() =>
         spendMoneySound.PlaySound(audioSources.GetFreeAudioSource());
+
+    private void PlayTakeDamage(float emptyVar) =>
+        takeDamage.PlaySound(audioSources.GetFreeAudioSource());
 
     /// <summary>
     /// Updates step sound delay based on player's speed.
