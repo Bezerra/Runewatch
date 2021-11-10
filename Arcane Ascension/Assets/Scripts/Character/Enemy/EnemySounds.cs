@@ -8,12 +8,12 @@ public class EnemySounds : MonoBehaviour
     // Sounds
     [SerializeField] private AbstractSoundSO takeDamage;
 
-    private AudioSources audioSources;
+    private EnemyAudioSources audioSources;
     private EnemyStats enemyStats;
 
     private void Awake()
     {
-        audioSources = GetComponentInChildren<AudioSources>();
+        audioSources = GetComponentInChildren<EnemyAudioSources>();
         enemyStats = GetComponent<EnemyStats>();
     }
 

@@ -2,16 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Class responsible for controlling player's audio sources.
+/// Class responsible for controlling a character audio sources.
 /// </summary>
-public class AudioSources : MonoBehaviour
+public abstract class CharacterAudioSources : MonoBehaviour
 {
-    private IList<AudioSource> audioSources;
-
-    private void Awake()
-    {
-        audioSources = GetComponents<AudioSource>();
-    }
+    [SerializeField] private List<AudioSource> audioSources;
 
     /// <summary>
     /// Gets a audio source that isn't currently occupied.
