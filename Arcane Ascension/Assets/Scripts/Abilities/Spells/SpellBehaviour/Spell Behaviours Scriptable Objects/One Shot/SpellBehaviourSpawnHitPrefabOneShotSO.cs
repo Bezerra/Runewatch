@@ -70,6 +70,7 @@ public class SpellBehaviourSpawnHitPrefabOneShotSO : SpellBehaviourAbstractOneSh
         }
 
         // Creates spell hit
+        // If Hit prefab exists and layer is different than who cast
         // Update() will run from its monobehaviour script
         if (parent.Spell.OnHitBehaviourOneShot != null &&
             other.gameObject.layer != parent.LayerOfWhoCast)
@@ -81,10 +82,13 @@ public class SpellBehaviourSpawnHitPrefabOneShotSO : SpellBehaviourAbstractOneSh
 
             if (onHitBehaviourGameObject.TryGetComponent<SpellOnHitBehaviourOneShot>(out SpellOnHitBehaviourOneShot onHitBehaviour))
             {
+                // Sets hit spell that spawned it
                 if (onHitBehaviour.Spell != parent.Spell)
                     onHitBehaviour.Spell = parent.Spell;
 
-                if (parent.Spell.Sounds.Hit != null)
+                // If there's a sound and hit is not an enemy
+                if (parent.Spell.Sounds.Hit != null &&
+                    other.gameObject.layer != Layers.EnemyLayerNum)
                 {
                     onHitBehaviour.Spell.Sounds.Hit.PlaySound(onHitBehaviour.AudioS);
                 }

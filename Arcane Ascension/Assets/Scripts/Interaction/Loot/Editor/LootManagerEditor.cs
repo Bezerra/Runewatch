@@ -36,8 +36,8 @@ public class LootManagerEditor : OdinMenuEditorWindow
         tree.Add("Create New Potion", createNewPotion);
         tree.Add("Create New Currency", createNewCurrency);
 
-        tree.AddAllAssetsAtPath("Audio Asset", "Assets/Resources/Scriptable Objects/Loot", typeof(CurrencySO), true);
-        tree.AddAllAssetsAtPath("Audio Asset", "Assets/Resources/Scriptable Objects/Loot", typeof(PotionSO), true);
+        tree.AddAllAssetsAtPath("Loot", "Assets/Resources/Scriptable Objects/Loot", typeof(CurrencySO), true);
+        tree.AddAllAssetsAtPath("Loot", "Assets/Resources/Scriptable Objects/Loot", typeof(PotionSO), true);
 
         return tree;
     }
