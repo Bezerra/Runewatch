@@ -177,6 +177,9 @@ public class Enemy : Character
     /// <summary>
     /// Sets TookDamage to true.
     /// </summary>
-    /// <param name="temp"></param>
-    private void EventTakeDamage(float temp) => TookDamage = true;
+    private void EventTakeDamage(float emptyVar)
+    {
+
+        TookDamage = true;
+    }
 }
