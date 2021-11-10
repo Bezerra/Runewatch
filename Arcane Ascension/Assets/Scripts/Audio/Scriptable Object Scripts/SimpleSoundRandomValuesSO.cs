@@ -17,9 +17,12 @@ sealed public class SimpleSoundRandomValuesSO : AbstractSoundSO
     /// <param name="audioSource">Audio source to play the sound on.</param>
     public override void PlaySound(AudioSource audioSource)
     {
-        audioSource.pitch = Random.Range(pitch.x, pitch.y);
-        audioSource.PlayOneShot(
-            audioClips[0],
-            Random.Range(volume.x, volume.y));
+        if (audioSource != null)
+        {
+            audioSource.pitch = Random.Range(pitch.x, pitch.y);
+            audioSource.PlayOneShot(
+                audioClips[0],
+                Random.Range(volume.x, volume.y));
+        }
     }
 }

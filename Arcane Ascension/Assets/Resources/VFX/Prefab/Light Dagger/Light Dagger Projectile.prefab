@@ -208,10 +208,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 2
+  MaxDistance: 35
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -221,20 +221,20 @@ AudioSource:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: -3.435285
+      outSlope: -3.435285
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 0.07316766
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: -0.28451508
+      outSlope: -0.28451508
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.14766842
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -273,7 +273,7 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
+      time: 0.020122528
       value: 1
       inSlope: 0
       outSlope: 0
@@ -296,5 +296,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84badda930a10534293bc9a7eefb0bf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundMaxDistance: 25
-  fadeUntilThisValue: 0.3
+  soundMaxDistance: 35
+  fadeUntilThisValue: 0.25

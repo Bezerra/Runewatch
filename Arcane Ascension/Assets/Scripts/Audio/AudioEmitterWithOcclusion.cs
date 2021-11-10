@@ -8,10 +8,10 @@ using UnityEngine;
 public class AudioEmitterWithOcclusion : MonoBehaviour
 {
     [Header("Should be equal to max distance on audio source")]
-    [SerializeField] private float soundMaxDistance = 15f;
+    [SerializeField] private float soundMaxDistance = 35f;
 
     [Header("Fade volume")]
-    [Range(0,1f)][SerializeField] private float fadeUntilThisValue = 0.3f;
+    [Range(0,1f)][SerializeField] private float fadeUntilThisValue = 0.25f;
 
     private AudioSource audioSource;
     private AudioListener listener;
