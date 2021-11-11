@@ -185,12 +185,9 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
             {
                 if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
 
-                if (character.CommonValues.CharacterValues.Type == CharacterType.Player)
-                {
-                    FindObjectOfType<CameraPostProcessOff>().PostProcessOn();
-                    FindObjectOfType<PlayerCastSpell>().AttackKeyRelease();
-                }
+                FindObjectOfType<PlayerCastSpell>().AttackKeyRelease();
 
+                // This will do some other stuff later
                 Destroy(GetComponentInParent<SelectionBase>().gameObject);
             }
         }
@@ -234,9 +231,10 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
             {
                 if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
 
-                FindObjectOfType<CameraPostProcessOff>().PostProcessOn();
                 FindObjectOfType<PlayerCastSpell>().AttackKeyRelease();
 
+
+                // This will do some other stuff later
                 Destroy(GetComponentInParent<SelectionBase>().gameObject);
             }
         }

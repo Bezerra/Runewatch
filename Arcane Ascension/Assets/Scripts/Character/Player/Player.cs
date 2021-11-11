@@ -16,6 +16,11 @@ public class Player : Character, ISaveable
     /// </summary>
     public PlayerCharacterSO AllValues => allValues as PlayerCharacterSO;
 
+    private void OnDisable()
+    {
+        FindObjectOfType<PlayerInputCustom>().SwitchActionMapToUI();
+    }
+
     /// <summary>
     /// Saves player position and rotation.
     /// </summary>
