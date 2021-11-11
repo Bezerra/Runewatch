@@ -13,21 +13,22 @@ public class AbilityPassiveCard : MonoBehaviour
     public IPassive PassiveOnCard { get; set; }
 
     // Components
-    [SerializeField] private TextMeshProUGUI title;
-    [SerializeField] private TextMeshProUGUI description;
-    private Button button;
-
-    // Components
     private PlayerStats playerStats;
     private AbilitiesCanvas abilitiesCanvas;
     private PlayerInteraction playerInteraction;
+    private AbilityPassiveCardText thisCardInformation;
 
     private void Awake()
     {
-        button = GetComponent<Button>();
         playerInteraction = FindObjectOfType<PlayerInteraction>();
         abilitiesCanvas = GetComponentInParent<AbilitiesCanvas>();
         playerStats = FindObjectOfType<PlayerStats>();
+        thisCardInformation = GetComponentInChildren<AbilityPassiveCardText>();
+    }
+
+    private void OnDisable()
+    {
+        PassiveOnCard = null;
     }
 
     /// <summary>
@@ -37,15 +38,12 @@ public class AbilityPassiveCard : MonoBehaviour
     {
         if (PassiveOnCard != null)
         {
-            button.enabled = true;
-            title.text = PassiveOnCard.Name;
-            description.text = PassiveOnCard.Description;
+            thisCardInformation.ShowEmptyCard(false);
+            thisCardInformation.UpdateInfo(PassiveOnCard);
         }
         else
         {
-            button.enabled = false;
-            title.text = "Passives limit";
-            description.text = "";
+            thisCardInformation.ShowEmptyCard(true);
         }
     }
 
