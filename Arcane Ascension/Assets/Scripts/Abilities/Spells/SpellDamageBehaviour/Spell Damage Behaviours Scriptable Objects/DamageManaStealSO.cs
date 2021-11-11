@@ -39,7 +39,7 @@ public class DamageManaStealSO : DamageBehaviourAbstractSO
                     float sphereSize = parent.Spell.CastType == SpellCastType.ContinuousCast ?
                         0.15f : 0.3f;
 
-                    if (Physics.OverlapSphere(parent.PositionOnSpawnAndHit, sphereSize, Layers.EnemySensiblePoint).Length > 0)
+                    if (Physics.OverlapSphere(parent.PositionOnHit, sphereSize, Layers.EnemySensiblePoint).Length > 0)
                     {
                         criticalChance = 1;
                     }

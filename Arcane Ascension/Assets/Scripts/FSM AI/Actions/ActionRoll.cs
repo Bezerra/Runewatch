@@ -17,6 +17,7 @@ sealed public class ActionRoll: FSMAction
     /// <param name="ai">AI Character.</param>
     private void Roll(StateController<Enemy> ai)
     {
+        /*
         if (ai.Controller.WalkingBackwards)
             return;
 
@@ -57,6 +58,7 @@ sealed public class ActionRoll: FSMAction
                 ai.Controller.RollTime = Time.time;
             }
         }
+        */
     }
 
     /// <summary>

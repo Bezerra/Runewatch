@@ -1,3 +1,6 @@
+/// <summary>
+/// Interface implemented by damageable characters.
+/// </summary>
 public interface IDamageable
 {
     /// <summary>

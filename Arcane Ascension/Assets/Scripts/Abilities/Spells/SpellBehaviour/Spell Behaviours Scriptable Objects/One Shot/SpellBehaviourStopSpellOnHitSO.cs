@@ -10,6 +10,7 @@ public class SpellBehaviourStopSpellOnHitSO : SpellBehaviourAbstractOneShotSO
 {
     [SerializeField] private string description;
     [SerializeField] private List<int> layersToStopTheSpell;
+    //[SerializeField] private 
 
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
@@ -33,8 +34,10 @@ public class SpellBehaviourStopSpellOnHitSO : SpellBehaviourAbstractOneShotSO
 
     public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
-        if (layersToStopTheSpell.Contains(other.gameObject.layer) &&
-            other.gameObject.layer != parent.LayerOfWhoCast)
+        int layerNumber = other.gameObject.layer;
+
+        if (layersToStopTheSpell.Contains(layerNumber) &&
+            layerNumber != parent.LayerOfWhoCast)
         {
             parent.DisableSpellAfterCollision = true;
             parent.Rb.velocity = Vector3.zero;

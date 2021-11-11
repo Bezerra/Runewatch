@@ -90,13 +90,6 @@ public class Enemy : Character
     public float TimeOfLastAttack   { get; set; }
     public float AttackDelay        { get; set; }
 
-
-    // General properties for ai
-    /// <summary>
-    /// Character controller.
-    /// </summary>
-    public CharacterController CharController   { get; private set; }
-
     /// <summary>
     /// Stats script.
     /// </summary>
@@ -148,7 +141,6 @@ public class Enemy : Character
     private void Awake()
     {
         Agent = GetComponent<NavMeshAgent>();
-        CharController = GetComponent<CharacterController>();
         EnemyStats = GetComponent<EnemyStats>();
         PlayerScript = FindObjectOfType<Player>();
         StateMachine = new StateController<Enemy>(this, 2);

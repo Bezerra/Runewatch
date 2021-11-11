@@ -31,13 +31,16 @@ public class DamageSingleTargetSO : DamageBehaviourAbstractSO
             // If IDamageable hit is different than who casts the spell
             if (!character.Equals(parent.ThisIDamageable))
             {
+                // Critical chance logic
                 float criticalChance = parent.WhoCast.CommonAttributes.CriticalChance;
 
-                // Critical on sensible point
-                float sphereSize = parent.Spell.CastType == SpellCastType.ContinuousCast ?
-                    0.15f : 0.3f;
+                // Ray to check if damage is moving towards a critical spot
+                Ray criticalSpotRay = new Ray(
+                    parent.PositionOnHit,
+                    parent.PositionOnHit + parent.transform.forward);
 
-                if (Physics.OverlapSphere(parent.PositionOnSpawnAndHit, sphereSize, Layers.EnemySensiblePoint).Length > 0)
+                // Raycast from spell direction to forward, to check if it hit a critical point
+                if (Physics.Raycast(criticalSpotRay, 3, Layers.EnemySensiblePoint))
                 {
                     criticalChance = 1;
                 }

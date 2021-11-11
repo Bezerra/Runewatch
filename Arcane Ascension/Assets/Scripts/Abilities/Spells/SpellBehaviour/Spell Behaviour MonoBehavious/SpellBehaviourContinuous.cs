@@ -20,7 +20,7 @@ public class SpellBehaviourContinuous : SpellBehaviourAbstract
     private RaycastHit hitPoint;
     public RaycastHit HitPoint { 
         get { return hitPoint; } 
-        set { hitPoint = value; PositionOnSpawnAndHit = hitPoint.point; } }
+        set { hitPoint = value; PositionOnHit = hitPoint.point; } }
 
     /// <summary>
     /// Used to control hit spawn on wall.

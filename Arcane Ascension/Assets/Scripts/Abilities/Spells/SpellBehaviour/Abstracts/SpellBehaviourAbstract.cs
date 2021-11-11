@@ -43,12 +43,12 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
     /// <summary>
     /// Gets position on spawn or everytime it hits.
     /// </summary>
-    public Vector3 PositionOnSpawnAndHit { get; set; }
+    public Vector3 PositionOnHit { get; set; }
 
     /// <summary>
-    /// Updated when spawned with parent position.
+    /// Updated when spawned.
     /// </summary>
-    public Vector3 PositonOfParentWhenSpawned { get; private set; }
+    public Vector3 PositonWhenSpawned { get; set; }
 
     /// <summary>
     /// Used if the character who cast the spell is an enemy.
@@ -102,13 +102,13 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
 
     protected virtual void OnEnable()
     {
-        PositionOnSpawnAndHit = transform.position;
-        if (Hand != null) PositonOfParentWhenSpawned = Hand.transform.position;
+        PositionOnHit = transform.position;
+        if (Hand != null) PositonWhenSpawned = Hand.transform.position;
     }
 
     protected virtual void OnDisable()
     {
-        PositionOnSpawnAndHit = default;
+        PositionOnHit = default;
         LayerOfCharacterHit = LayerOfWhoCast;
     }
 

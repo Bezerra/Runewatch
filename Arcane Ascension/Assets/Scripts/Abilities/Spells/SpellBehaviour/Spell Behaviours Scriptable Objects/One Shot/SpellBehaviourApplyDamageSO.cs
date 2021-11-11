@@ -29,6 +29,16 @@ public class SpellBehaviourApplyDamageSO : SpellBehaviourAbstractOneShotSO
 
     public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
-        parent.Spell.DamageBehaviour.Damage(parent, other);
+        int layerNumber = other.gameObject.layer;
+        if (layerNumber == Layers.EnemyLayerNum ||
+            layerNumber == Layers.EnemySensiblePointNum ||
+            layerNumber == Layers.PlayerLayerNum)
+        {
+            parent.Spell.DamageBehaviour.Damage(parent, other);
+        }
+        else if (layerNumber == Layers.EnemyImmuneLayerNum)
+        {
+            parent.Spell.DamageBehaviour.Damage(parent, other, 0);
+        }
     }
 }

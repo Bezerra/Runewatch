@@ -67,8 +67,10 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
     {
         parent.ProjectileReflected = false;
 
+        parent.PositonWhenSpawned = parent.transform.position;
+
         // Direction of the current hit to initial spawn
-        Vector3 directionToInitialSpawn = parent.transform.Direction(parent.PositionOnSpawnAndHit);
+        Vector3 directionToInitialSpawn = parent.transform.Direction(parent.PositionOnHit);
 
         // Direction to do a raycast.
         // Uses directionToInitialSpawn so the hit will be a little behind the wall to prevent bugs

@@ -135,13 +135,13 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     /// <param name="other">Collider of collision.</param>
     private void OnTriggerEnter(Collider other)
     {
-        PositionOnSpawnAndHit = transform.position;
-
         if (other.gameObject.TryGetComponentInParent<SelectionBase>(out SelectionBase component))
         {
             // If the enemy or player hit is DIFFERENT than the last one
             if (lastHitGameObject != component.gameObject)
             {
+                PositionOnHit = transform.position;
+
                 // If the enemy or player layer hit is DIFFERENT than the layer of who is casting the spell
                 // (meaning enemies won't damage them selves)
                 if (LayerOfWhoCast != component.gameObject.layer)
@@ -168,6 +168,8 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
             // If it wasn't a player or enemy it will hit normally
             if (lastHitGameObject != other.gameObject)
             {
+                PositionOnHit = transform.position;
+
                 // If this spell is hitting something for the first time
                 TimeOfImpact = Time.time;
                 foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviourOneShot)
