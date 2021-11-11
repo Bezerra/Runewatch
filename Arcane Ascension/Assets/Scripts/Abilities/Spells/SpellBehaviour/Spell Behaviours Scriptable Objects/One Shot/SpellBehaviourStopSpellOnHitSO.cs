@@ -10,7 +10,6 @@ public class SpellBehaviourStopSpellOnHitSO : SpellBehaviourAbstractOneShotSO
 {
     [SerializeField] private string description;
     [SerializeField] private List<int> layersToStopTheSpell;
-    //[SerializeField] private 
 
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {

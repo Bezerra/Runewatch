@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 /// <summary>
 /// Scriptable object responsible for applying normal damage.
@@ -7,9 +9,16 @@ using UnityEngine;
     fileName = "Spell Behaviour Apply Damage")]
 public class SpellBehaviourApplyDamageSO : SpellBehaviourAbstractOneShotSO
 {
+    private IList<int> layersToDamage;
+
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
-        // Left blank on purpose
+        layersToDamage = new List<int>
+        {
+            Layers.EnemyLayerNum,
+            Layers.EnemySensiblePointNum,
+            Layers.PlayerLayerNum,
+        };
     }
 
     public override void ContinuousUpdateBeforeSpellBehaviour(SpellBehaviourOneShot parent)
@@ -30,9 +39,8 @@ public class SpellBehaviourApplyDamageSO : SpellBehaviourAbstractOneShotSO
     public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
         int layerNumber = other.gameObject.layer;
-        if (layerNumber == Layers.EnemyLayerNum ||
-            layerNumber == Layers.EnemySensiblePointNum ||
-            layerNumber == Layers.PlayerLayerNum)
+
+        if (layersToDamage.Contains(layerNumber))
         {
             parent.Spell.DamageBehaviour.Damage(parent, other);
         }
@@ -40,5 +48,6 @@ public class SpellBehaviourApplyDamageSO : SpellBehaviourAbstractOneShotSO
         {
             parent.Spell.DamageBehaviour.Damage(parent, other, 0);
         }
+
     }
 }
