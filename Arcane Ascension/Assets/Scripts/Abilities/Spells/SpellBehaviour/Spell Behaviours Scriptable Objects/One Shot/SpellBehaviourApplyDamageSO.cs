@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 /// <summary>
 /// Scriptable object responsible for applying normal damage.
@@ -48,6 +47,5 @@ public class SpellBehaviourApplyDamageSO : SpellBehaviourAbstractOneShotSO
         {
             parent.Spell.DamageBehaviour.Damage(parent, other, 0);
         }
-
     }
 }
