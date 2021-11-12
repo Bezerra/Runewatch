@@ -23,18 +23,23 @@ public class PassiveAbilitiesManagerEditor : OdinMenuEditorWindow
         base.OnGUI();
     }
 
-    private CreatePassiveAbility createNewPassiveAbility;
+    private CreateRunPassiveAbility createNewPassiveAbility;
+    private CreateSkillTreePassiveAbility createNewSkillTreePassiveAbility;
 
     protected override OdinMenuTree BuildMenuTree()
     {
         OdinMenuTree tree = new OdinMenuTree();
 
-        createNewPassiveAbility = new CreatePassiveAbility();
+        createNewPassiveAbility = new CreateRunPassiveAbility();
+        createNewSkillTreePassiveAbility = new CreateSkillTreePassiveAbility();
 
-        tree.Add("Create New Passive Ability/New Passive Ability", createNewPassiveAbility);
+        tree.Add("Create New Passive Ability/New Run Passive Ability", createNewPassiveAbility);
+        tree.Add("Create New Passive Ability/New Skill Tree Passive Ability", createNewSkillTreePassiveAbility);
 
         tree.AddAllAssetsAtPath("Passive Abilities",
-            "Assets/Resources/Scriptable Objects/Passives", typeof(PassiveSO));
+            "Assets/Resources/Scriptable Objects/Passives/Run Passives", typeof(RunPassiveSO));
+        tree.AddAllAssetsAtPath("Passive Abilities",
+            "Assets/Resources/Scriptable Objects/Passives/Skill Tree Passives", typeof(SkillTreePassiveSO));
 
         return tree;
     }
@@ -64,26 +69,49 @@ public class PassiveAbilitiesManagerEditor : OdinMenuEditorWindow
             DestroyImmediate(createNewPassiveAbility.Passive);
     }
 
-    public class CreatePassiveAbility
+    public class CreateRunPassiveAbility
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
-        public PassiveSO Passive { get; private set; }
+        public RunPassiveSO Passive { get; private set; }
 
-        public CreatePassiveAbility()
+        public CreateRunPassiveAbility()
         {
-            Passive = ScriptableObject.CreateInstance<PassiveSO>();
+            Passive = ScriptableObject.CreateInstance<RunPassiveSO>();
         }
 
         [Button("Create", ButtonSizes.Large)]
         private void CreateNewData()
         {
             AssetDatabase.CreateAsset(Passive,
-                "Assets/Resources/Scriptable Objects/Passives/New Passive Ability" +
+                "Assets/Resources/Scriptable Objects/Passives/Run Passives/New Passive Ability" +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
-            Passive = ScriptableObject.CreateInstance<PassiveSO>();
+            Passive = ScriptableObject.CreateInstance<RunPassiveSO>();
+        }
+    }
+
+    public class CreateSkillTreePassiveAbility
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public SkillTreePassiveSO Passive { get; private set; }
+
+        public CreateSkillTreePassiveAbility()
+        {
+            Passive = ScriptableObject.CreateInstance<SkillTreePassiveSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(Passive,
+                "Assets/Resources/Scriptable Objects/Passives/Skill Tree Passives/New Passive Ability" +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            Passive = ScriptableObject.CreateInstance<SkillTreePassiveSO>();
         }
     }
 }

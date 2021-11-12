@@ -19,7 +19,7 @@ public class AbilityPassiveCardText : MonoBehaviour
     /// Updates passive card info.
     /// </summary>
     /// <param name="passive"></param>
-    public void UpdateInfo(IPassive passive)
+    public void UpdateInfo(IRunPassive passive)
     {
         passiveTierText.text = passive.Tier.ToString();
         passiveImage.sprite = passive.Icon;

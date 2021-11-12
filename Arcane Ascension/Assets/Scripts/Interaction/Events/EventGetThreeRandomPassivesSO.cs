@@ -9,7 +9,7 @@ using UnityEngine;
 public class EventGetThreeRandomPassivesSO : EventAbstractSO
 {
     // Components to get possible passives
-    private IList<PassiveSO> allPassives;
+    private IList<RunPassiveSO> allPassives;
 
     // Scriptable object that saves passives result
     [SerializeField] private RandomAbilitiesToChooseSO abilitiesToChose;
@@ -21,9 +21,9 @@ public class EventGetThreeRandomPassivesSO : EventAbstractSO
     {
         PlayerStats playerStats = FindObjectOfType<PlayerStats>();
 
-        allPassives = new List<PassiveSO>();
-        List<PassiveSO> allPassivesDefault = FindObjectOfType<AllPassives>().PassiveList;
-        foreach (PassiveSO passive in allPassivesDefault)
+        allPassives = new List<RunPassiveSO>();
+        List<RunPassiveSO> allPassivesDefault = FindObjectOfType<AllRunPassives>().PassiveList;
+        foreach (RunPassiveSO passive in allPassivesDefault)
         {
             bool addSkill = false;
 
@@ -43,7 +43,7 @@ public class EventGetThreeRandomPassivesSO : EventAbstractSO
             }
 
             // All passives in player
-            foreach(IPassive passiveInPlayer in playerStats.CurrentPassives)
+            foreach(IRunPassive passiveInPlayer in playerStats.CurrentPassives)
             {
                 // If the types are the same
                 if (passive.PassiveType == passiveInPlayer.PassiveType)
@@ -77,9 +77,9 @@ public class EventGetThreeRandomPassivesSO : EventAbstractSO
     /// Gets three random passives without repetition from the list of all possible passives.
     /// </summary>
     /// <returns>Returns an array with random passives</returns>
-    private IPassive[] GetPassive()
+    private IRunPassive[] GetPassive()
     {
-        IPassive[] resultPassives = new IPassive[3];
+        IRunPassive[] resultPassives = new IRunPassive[3];
 
         for (int i = 0; i < 3; i++)
         {

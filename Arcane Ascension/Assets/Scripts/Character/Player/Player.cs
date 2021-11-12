@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEngine;
 
 /// <summary>
 /// Class for player character.
@@ -18,7 +17,8 @@ public class Player : Character, ISaveable
 
     private void OnDisable()
     {
-        FindObjectOfType<PlayerInputCustom>().SwitchActionMapToUI();
+        PlayerInputCustom player = FindObjectOfType<PlayerInputCustom>();
+        if (player != null) player.SwitchActionMapToUI();
     }
 
     /// <summary>

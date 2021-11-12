@@ -18,7 +18,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
     /// <summary>
     /// Property with currenty passives possessed by the player character.
     /// </summary>
-    public IList<IPassive> CurrentPassives;
+    public IList<IRunPassive> CurrentPassives;
 
     /// <summary>
     /// Current mana of the character.
@@ -43,7 +43,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
     protected override void Awake()
     {
         base.Awake();
-        CurrentPassives = new List<IPassive>();
+        CurrentPassives = new List<IRunPassive>();
         playerCastSpell = GetComponent<PlayerCastSpell>();
     }
 
@@ -424,7 +424,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
         if (this != null) // Do not remove <
         {
             // Passives
-            AllPassives allPassives = FindObjectOfType<AllPassives>();
+            AllRunPassives allPassives = FindObjectOfType<AllRunPassives>();
             for (int i = 0; i < saveData.PlayerSavedData.CurrentPassives.Length; i++)
             {
                 for (int j = 0; j < allPassives.PassiveList.Count; j++)
@@ -435,7 +435,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
                     }
                 }
             }
-            foreach (IPassive passive in CurrentPassives)
+            foreach (IRunPassive passive in CurrentPassives)
             {
                 passive.Execute(this);
             }

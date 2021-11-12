@@ -1,8 +1,7 @@
 /// <summary>
-/// Interface implemented by passive abilities.
+/// Interface implemented by all passives.
 /// </summary>
-public interface IPassive: IAbility
+public interface IPassive<T> : IAbility
 {
-    PassiveType PassiveType { get; }
-    void Execute(PlayerStats playerStats);
+    T PassiveType { get; }
 }

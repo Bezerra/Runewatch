@@ -10,7 +10,7 @@ public class AbilityPassiveCard : MonoBehaviour
     /// <summary>
     /// Property to know which passive this card contains.
     /// </summary>
-    public IPassive PassiveOnCard { get; set; }
+    public IRunPassive PassiveOnCard { get; set; }
 
     // Components
     private PlayerStats playerStats;
