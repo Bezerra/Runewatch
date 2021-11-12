@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Collections;
 
 /// <summary>
 /// Class responsible for casting a spell.
@@ -25,6 +26,29 @@ public class PlayerCastSpell : MonoBehaviour
         player = GetComponent<Player>();
     }
 
+    /// <summary>
+    /// Coroutine that runs every X seconds.
+    /// If the player has not enough mana to cast the active spell, 
+    /// it cancels shake, cancels attack and resets casting spells variables.
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator Start()
+    {
+        YieldInstruction wfs = new WaitForSeconds(0.2f);
+        while (true)
+        {
+            yield return wfs;
+
+            if (playerStats.Mana - playerSpells.ActiveSpell.ManaCost < 0)
+            {
+                OnEventCancelScreenShake();
+                OnEventCancelAttack();
+                currentlyCastSpell = null;
+                currentlyCastSpell = null;
+            }
+        }
+    }
+
     private void OnEnable()
     {
         input.CastSpell += AttackKeyPress;
@@ -37,6 +61,11 @@ public class PlayerCastSpell : MonoBehaviour
         input.CastSpell -= AttackKeyPress;
         input.StopCastSpell -= AttackKeyRelease;
         input.CastBasicSpell -= SecondaryAttackKeyPress;
+    }
+
+    private void Update()
+    {
+        
     }
 
     /// <summary>
@@ -137,7 +166,6 @@ public class PlayerCastSpell : MonoBehaviour
                 currentlyCastSpell = null;
                 return;
             }
-
         }
         else
         {

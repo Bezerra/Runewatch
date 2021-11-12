@@ -9,69 +9,60 @@ using ExtensionMethods;
 
 public class LevelGenerator : MonoBehaviour, ISaveable
 {
-    [Header("etc")]
-    [SerializeField] private bool instantiatePlayer;
-    [SerializeField] private bool generateNavMeshOnStart;
+    [Header("Generation Values")]
+    [SerializeField] private bool                                   randomSeed;
+    [Range(-200000000, 200000000)] [SerializeField] private int     seed = 0;
+    [Header("Generation Parameters")][SerializeField] private bool  allRandomGenerationParameters;
+    [Range(15, 150)] [SerializeField] private int                   horizontalMaximumLevelSize;
+    [Range(15, 150)] [SerializeField] private int                   forwardMaximumLevelSize;
+    [SerializeField] private bool                                   randomMinimumNumberOfRooms;
+    [Range(7, 12)] [SerializeField] private int                     minimumNumberOfRooms;
+    [SerializeField] private bool                                   randomMaximumNumberOfRooms;
+    [Range(9, 15)] [SerializeField] private int                    maximumNumberOfRooms;
 
-    [SerializeField] private bool randomSeed;
-    [Range(0, 10000)][SerializeField] private int seed;
-    [Header("Generation Parameters")][SerializeField] private bool allRandomGenerationParameters;
-    [SerializeField] private bool randomHorizontalMaximumLevelSize;
-    [Range(15, 150)] [SerializeField] private int horizontalMaximumLevelSize;
-    [SerializeField] private bool randomForwardMaximumLevelSize;
-    [Range(15, 150)] [SerializeField] private int forwardMaximumLevelSize;
-    [SerializeField] private bool randomMinimumNumberOfRooms;
-    [Range(2, 50)] [SerializeField] private int minimumNumberOfRooms;
-    [SerializeField] private bool randomMaximumNumberOfRooms;
-    [Range(2, 100)] [SerializeField] private int maximumNumberOfRooms;
-    [Tooltip("Builds level from starting room to front only.")][SerializeField] bool fromStartingRoomToFront;
 
-    [Header("Level Pieces")]
-    [SerializeField] private LevelPiece startingPiece;
-    [SerializeField] private LevelPiece bossRoom;
-    [SerializeField] private LevelPiece[] corridors;
-    [SerializeField] private LevelPiece[] rooms;
-    [SerializeField] private LayerMask roomColliderLayer;
+    [Header("Level Pieces")] // TEMP
+    [SerializeField] private LevelPiece     startingPiece;
+    [SerializeField] private LevelPiece     bossRoom;
+    [SerializeField] private LevelPiece[]   corridors;
+    [SerializeField] private LevelPiece[]   rooms;
+    [SerializeField] private LayerMask  roomColliderLayer;
 
+    // Rooms lists
     private IList<LevelPiece> allRooms;
     private IList<LevelPiece> allRoomsAndCorridors;
 
+    // Generation
+    // This number will be set automatically and determines the number of attempts in each loop
+    private int numberOfLoops;
     private IEnumerator generationCoroutine;
     private System.Random random;
-    private int numberOfLoops;
-    
-    [SerializeField] private GameObject player;
+
     [SerializeField] private ElementType element;
     public ElementType Element => element;
+
 
     /// <summary>
     /// Sets variables values.
     /// </summary>
     public void GetValues()
     {
-        if (randomSeed)
-            GenerateSeed();
-        else
-            random = new System.Random(seed);
+        if (randomSeed) GenerateSeed();
+        else random = new System.Random(seed);
 
         if (allRandomGenerationParameters)
         {
             horizontalMaximumLevelSize = random.Next(15, 151);
             forwardMaximumLevelSize = random.Next(15, 151);
-            minimumNumberOfRooms = random.Next(2, 21);
-            maximumNumberOfRooms = random.Next(2, 50);
-            fromStartingRoomToFront = random.Next(0, 2) == 1 ? fromStartingRoomToFront = true : fromStartingRoomToFront = false;
+            minimumNumberOfRooms = random.Next(7, 12);
+            maximumNumberOfRooms = random.Next(9, 15);
         }
         else
         {
-            if (randomHorizontalMaximumLevelSize)
-                horizontalMaximumLevelSize = random.Next(15, 151);
-            if (randomForwardMaximumLevelSize)
-                forwardMaximumLevelSize = random.Next(15, 151);
             if (randomMinimumNumberOfRooms)
-                minimumNumberOfRooms = random.Next(2, 21);
+                minimumNumberOfRooms = random.Next(7, 10);
             if (randomMaximumNumberOfRooms)
-                maximumNumberOfRooms = random.Next(2, 100);
+                maximumNumberOfRooms = random.Next(10, 15);
         }
     }
 
@@ -86,13 +77,6 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         // Adjust some values common to every generation (starting game generation or loading game generation)
         if (minimumNumberOfRooms > maximumNumberOfRooms) minimumNumberOfRooms = maximumNumberOfRooms;
         if (maximumNumberOfRooms < minimumNumberOfRooms) maximumNumberOfRooms = minimumNumberOfRooms;
-
-        // A number that grows or shrinks depending on the number of minimum or maximum rooms
-        // Don't touch
-        numberOfLoops = 7;
-        if (minimumNumberOfRooms > numberOfLoops) numberOfLoops = minimumNumberOfRooms;
-        if (maximumNumberOfRooms < numberOfLoops) numberOfLoops = maximumNumberOfRooms;
-        ///////////////////////////////////////////////////////////////////////////////
 
         // Generation
         if (loadedRandom == false)
@@ -117,9 +101,14 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// <returns>Null.</returns>
     private IEnumerator GenerateLevel(System.Random random, bool firstAttempt = true)
     { 
-        YieldInstruction wffu = new WaitForFixedUpdate();
+        YieldInstruction wffu = new WaitForEndOfFrame();
         bool bossRoomSpawned = false;
         IList<ContactPoint> openedContactPoints;
+
+        // This number is set for the quantity of rooms our game will have, 3 loops work perfectly.
+        // Don't touch
+        numberOfLoops = 5;
+
         while (bossRoomSpawned == false)
         {
             // Starts generating random seeds after first failed attempt
@@ -133,6 +122,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             levelParent.name = "Level Pieces Parent";
             levelParent.tag = "LevelParent";
 
+            #region Initial Rooms
+            // All points, rooms and rooms + corridors
             openedContactPoints = new List<ContactPoint>();
             allRooms = new List<LevelPiece>();
             allRoomsAndCorridors = new List<LevelPiece>();
@@ -142,12 +133,14 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             ContactPoint startingRoomContactPoint = startingRoomPiece.ContactPoints[random.Next(0, startingRoomPiece.ContactPoints.Length)];
             startingRoomPiece.transform.parent = levelParent.transform;
             allRoomsAndCorridors.Add(startingRoomPiece);
+            ////////////////////////////////////////////
 
             // Creates first corridor
             LevelPiece initialCorridor = Instantiate(corridors[random.Next(0, corridors.Length)]);
             ContactPoint initialCorridorContactPoint = initialCorridor.ContactPoints[random.Next(0, initialCorridor.ContactPoints.Length)];
             initialCorridor.transform.parent = levelParent.transform;
             allRoomsAndCorridors.Add(initialCorridor);
+            ////////////////////////////////////////////
 
             // Places first corridor and closes its contact points
             RotateAndSetPiece(initialCorridor, initialCorridorContactPoint, startingRoomContactPoint, random);
@@ -166,9 +159,10 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                     openedContactPoints.Add(newContactPoint);
                 }
             }
+            #endregion
 
             // Level creation loop
-            byte numberOfLoop = 0;
+            byte numberOfCurrentLoop = 0;
 
             // Creates a list of room weights 
             IList<int> roomWeights = new List<int>();
@@ -177,7 +171,9 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                 roomWeights.Add(rooms[i].RoomWeight);
             }
 
-            while (openedContactPoints.Count > 0 && numberOfLoop < numberOfLoops)
+            // Main generation loop.
+            // Spawns rooms and corridors and tries to connect them while there are opened contact points
+            while (openedContactPoints.Count > 0 && numberOfCurrentLoop < numberOfLoops)
             {
                 int openedContacts = openedContactPoints.Count;
                 for (int i = 0; i < openedContacts; i++)
@@ -192,15 +188,14 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                         pieceContactPoint = pieceToPlace.ContactPoints[random.Next(0, pieceToPlace.ContactPoints.Length)];
 
                         // Skips incompatible pieces
-                        if (openedContactPoints[i].IncompatiblePieces.Contains(pieceToPlace.ConcreteType))
+                        if (openedContactPoints[i].IncompatiblePieces.Contains(
+                            pieceToPlace.ConcreteType))
                         {
                             Destroy(pieceToPlace.gameObject);
                             continue;
                         }
 
                         RotateAndSetPiece(pieceToPlace, pieceContactPoint, openedContactPoints[i], random);
-
-                        pieceContactPoint.Close();
 
                         yield return wffu;
 
@@ -221,30 +216,24 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                             continue;
                         }
 
-                        RotateAndSetPiece(pieceToPlace, pieceContactPoint, openedContactPoints[i], random);
-
-                        pieceContactPoint.Close();
+                        RotateAndSetPiece(
+                            pieceToPlace, pieceContactPoint, openedContactPoints[i], random);
 
                         yield return wffu;
 
-                        ValidatePiece(pieceToPlace, pieceContactPoint, true, openedContactPoints, i, levelParent, random);
+                        ValidatePiece(
+                            pieceToPlace, pieceContactPoint, true, openedContactPoints, i, levelParent, random);
                     }
                 }
 
-                numberOfLoop++;
+                numberOfCurrentLoop++;
             }
 
+            #region Check if number of rooms is valid
+
+            // After main loop, if minimum or maximum number of rooms exceeds a limit, it starts another loop
             if (allRooms.Count < minimumNumberOfRooms || allRooms.Count > maximumNumberOfRooms)
             {
-                if (allRooms.Count < minimumNumberOfRooms)
-                {
-                    if (numberOfLoops < 15) numberOfLoops++;
-                }
-                else if (allRooms.Count > maximumNumberOfRooms)
-                {
-                    if (numberOfLoops > 2) numberOfLoops--;
-                }
-
                 print("Invalid number of rooms. Attempting another time.");
                 yield return new WaitForSeconds(0.25f);
                 GameObject[] levelParents = GameObject.FindGameObjectsWithTag("LevelParent");
@@ -256,6 +245,9 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                 continue;
             }
 
+            #endregion
+
+            #region Boss Room
             // Generate boss room
             // Organized a list with contact points by distance
             List<ContactPoint> contactPointsDistance = openedContactPoints.OrderByDescending(i => Vector3.Distance(i.transform.position,
@@ -294,7 +286,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                         yield return new WaitForSeconds(0.25f);
                         GameObject[] levelParents = GameObject.FindGameObjectsWithTag("LevelParent");
                         foreach (GameObject lvlParent in levelParents)
-                            Destroy(lvlParent.gameObject);
+                            Destroy(lvlParent);
                         bossRoomSpawned = false;
 
                         GenerateSeed();
@@ -303,6 +295,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                     }
                 }
             }
+            #endregion
 
             if (bossRoomSpawned)
             {
@@ -329,65 +322,28 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         {
             for (int i = openedContactPoints.Count - 1; i >= 0; i--)
             {
-                
-                // 
-                // // Rotates piece to match contact point rotation
-                // if (openedContactPoints[i].ParentRoom.Type == PieceType.Room)
-                //     RotatePiece(wallPiece, wallContactPoint, openedContactPoints[i], random);
-                // else if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor ||
-                //         openedContactPoints[i].ParentRoom.Type == PieceType.Stairs)
-                //         RotatePiece(wallPiece, wallContactPoint, openedContactPoints[i], random, true);
-                // 
-                // // Sets a piece in a contact point
-                // SetPiece(wallPiece, wallContactPoint, openedContactPoints[i]);
-                // 
-                // wallContactPoint.Close();
-
                 yield return wffu;
 
-                if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor)
+                if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor ||
+                    openedContactPoints[i].ParentRoom.Type == PieceType.Stairs)
                 {
-                    // If corridor piece is valid, it sets the piece normally
+                    // If corridor/stairs piece is valid, it sets the piece normally
                     if (IsPieceValid(openedContactPoints[i].ParentRoom, random, false))
                     {
-                        // LevelPiece wallPiece = Instantiate(wall);
-                        // ContactPoint wallContactPoint = wallPiece.ContactPoints[random.Next(0, wallPiece.ContactPoints.Length)];
-                        // 
-                        // RotateAndSetPiece(wallPiece, wallContactPoint, openedContactPoints[i].ParentRoom.ConnectedContactPoint, random);
-
                         openedContactPoints[i].Close();
                         openedContactPoints.Remove(openedContactPoints[i]);
-
-                        // wallPiece.transform.parent = levelParent.transform;
                     }
-                    else // Else it destroys the invalid corridor and sets the wall in its connected contact point.
+                    else // Else it destroys the invalid piece
                     {
-                        // RotateAndSetPiece(wallPiece, wallContactPoint, openedContactPoints[i].ParentRoom.ConnectedContactPoint, random);
-
                         Destroy(openedContactPoints[i].ParentRoom.gameObject);
                         openedContactPoints.Remove(openedContactPoints[i]);
                     }
-                }
-                // If it's a stairs piece, it destroys it and sets the wall on its connected contact point.
-                else if (openedContactPoints[i].ParentRoom.Type == PieceType.Stairs)
-                {
-                    // LevelPiece wallPiece = Instantiate(wall);
-                    // ContactPoint wallContactPoint = wallPiece.ContactPoints[random.Next(0, wallPiece.ContactPoints.Length)];
-                    // 
-                    // RotateAndSetPiece(wallPiece, wallContactPoint, openedContactPoints[i].ParentRoom.ConnectedContactPoint, random);
-
-                    Destroy(openedContactPoints[i].ParentRoom.gameObject);
-                    openedContactPoints.Remove(openedContactPoints[i]);
-
-                    // wallPiece.transform.parent = levelParent.transform;
                 }
                 else if (openedContactPoints[i].ParentRoom.Type == PieceType.Room)
                 {
                     openedContactPoints[i].Close();
                     openedContactPoints.Remove(openedContactPoints[i]);
                 }
-
-                //wallPiece.transform.parent = levelParent.transform;
             }
         }
 
@@ -400,22 +356,19 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     private void GenerateNavMesh()
     {
         // Create navmesh for every component with NavMeshSurface script
-        if (generateNavMeshOnStart)
+        print("Generating Navmesh...");
+        GameObject[] rootGameObjects = SceneManager.GetActiveScene().GetRootGameObjects();
+        foreach (GameObject rootGameObject in rootGameObjects)
         {
-            print("Generating Navmesh...");
-            GameObject[] rootGameObjects = SceneManager.GetActiveScene().GetRootGameObjects();
-            foreach (GameObject rootGameObject in rootGameObjects)
-            {
-                NavMeshSurface[] childrenNavMeshes =
-                    rootGameObject.GetComponentsInChildren<NavMeshSurface>();
+            NavMeshSurface[] childrenNavMeshes =
+                rootGameObject.GetComponentsInChildren<NavMeshSurface>();
 
-                foreach (NavMeshSurface navmesh in childrenNavMeshes)
-                {
-                    navmesh.BuildNavMesh();
-                }
+            foreach (NavMeshSurface navmesh in childrenNavMeshes)
+            {
+                navmesh.BuildNavMesh();
             }
-            print("Navmesh generated.");
         }
+        print("Navmesh generated.");
 
         // Destroys empty levelParents game objects
         GameObject[] levelParents = GameObject.FindGameObjectsWithTag("LevelParent");
@@ -427,7 +380,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             }
             catch (UnityException)
             {
-                Destroy(lvlParent.gameObject);
+                Destroy(lvlParent);
             }  
         }
 
@@ -441,10 +394,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                 }
             }
         }
-
-        if (instantiatePlayer && player != null)
-            Instantiate(player, Vector3.zero, Quaternion.identity);
-
+ 
         Debug.Log("Took " + Time.time + " seconds to generate, with seed " + seed + '.');
 
         OnEndedGeneration();
@@ -453,8 +403,11 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// <summary>
     /// Generates a new seed for Random.
     /// </summary>
-    private void GenerateSeed() =>
-        random = new System.Random();
+    private void GenerateSeed()
+    {
+        seed = UnityEngine.Random.Range(-200000000, 200000000);
+        random = new System.Random(seed);
+    }
 
     /// <summary>
     /// Destroys every level piece.
@@ -486,18 +439,21 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         if (random == null)
             random = new System.Random();
 
-        StopCoroutine(generationCoroutine);
+        if (generationCoroutine != null) StopCoroutine(generationCoroutine);
         print(message);
 
         yield return new WaitForSeconds(1);
 
+        // Destroys every piece previously generated
         GameObject[] levelParents = GameObject.FindGameObjectsWithTag("LevelParent");
         foreach (GameObject lvlParent in levelParents)
-            Destroy(lvlParent.gameObject);
+            Destroy(lvlParent);
+
         DestroyEveryPiece();
 
         yield return new WaitForSeconds(1);
-
+ 
+        // Generates another level
         generationCoroutine = GenerateLevel(random, false);
         StartCoroutine(generationCoroutine);
     }
@@ -512,19 +468,13 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     {
         foreach (BoxCollider boxCollider in levelPiece.BoxColliders)
         {
-            try
-            {
-                Collider[] roomCollider = Physics.OverlapBox(levelPiece.transform.position + boxCollider.center, boxCollider.size / 2,
+            Collider[] roomCollider = 
+                Physics.OverlapBox(levelPiece.transform.position + boxCollider.center, boxCollider.size / 2,
                 boxCollider.transform.root.rotation, roomColliderLayer);
 
-                if (roomCollider.Length > 1)
-                {
-                    return true;
-                }
-            }
-            catch
+            if (roomCollider.Length > 1)
             {
-                StartCoroutine(ResetGeneration("Something with colliders went wrong.Attempting to build another level.", random));
+                return true;
             }
         }
         return false;
@@ -544,36 +494,29 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         byte placementCount = 0;
         while (placementCount < 4)
         {
-            try
+            if (inversedContact)
             {
-                if (inversedContact)
+                if (levelPieceContact.transform.InverseDirectionAs(originContact.transform) == false)
                 {
-                    if (levelPieceContact.transform.InverseDirectionAs(originContact.transform) == false)
-                    {
-                        placementCount++;
-                        levelPiece.transform.Rotate(new Vector3(0, 90, 0));
-                    }
-                    else
-                    {
-                        placementCount = 4;
-                    }
+                    placementCount++;
+                    levelPiece.transform.Rotate(new Vector3(0, 90, 0));
                 }
                 else
                 {
-                    if (levelPieceContact.transform.SameDirectionAs(originContact.transform) == false)
-                    {
-                        placementCount++;
-                        levelPiece.transform.Rotate(new Vector3(0, 90, 0));
-                    }
-                    else
-                    {
-                        placementCount = 4;
-                    }
+                    placementCount = 4;
                 }
             }
-            catch
+            else
             {
-                StartCoroutine(ResetGeneration("Something with contact points went wrong. Attempting to build another level.", random));
+                if (levelPieceContact.transform.SameDirectionAs(originContact.transform) == false)
+                {
+                    placementCount++;
+                    levelPiece.transform.Rotate(new Vector3(0, 90, 0));
+                }
+                else
+                {
+                    placementCount = 4;
+                }
             }
         }
     }
@@ -597,24 +540,11 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                 return false;
             }
 
-            // Vertical limit (forward)
-            if (fromStartingRoomToFront)
+            if (levelPiece.transform.position.x > forwardMaximumLevelSize || 
+                levelPiece.transform.position.x < -forwardMaximumLevelSize)
             {
-                if (levelPiece.transform.position.x > forwardMaximumLevelSize ||
-                levelPiece.transform.position.x < -10)
-                {
-                    Destroy(levelPiece.gameObject);
-                    return false;
-                }
-            }
-            else
-            {
-                if (levelPiece.transform.position.x > forwardMaximumLevelSize || 
-                    levelPiece.transform.position.x < -forwardMaximumLevelSize)
-                {
-                    Destroy(levelPiece.gameObject);
-                    return false;
-                }
+                Destroy(levelPiece.gameObject);
+                return false;
             }
         }
         if (PieceIntersection(levelPiece, random))
@@ -661,6 +591,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// <summary>
     /// Checks if the last piece is valid.
     /// If it's not valid it will destroy it, else it will add its contact points to a list.
+    /// This method also deactivates pre activated walls that are on top of contact points.
     /// <param name="pieceToPlace">Piece to place.</param>
     /// <param name="pieceContactPoint">Piece contact point.</param>
     /// <param name="addToAllRooms">Bool that determines if this piece should be add to all rooms list.</param>
@@ -676,6 +607,9 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         // If it's not valid it will destroy it, else it will add its contact points to a list
         if (IsPieceValid(pieceToPlace, random))
         {
+            // Closes this piece contact point
+            pieceContactPoint.Close();
+
             // Gets the wall on top of this open contact point and deactivates it
             if (openedContactPoints[index].transform.childCount > 0)
                 openedContactPoints[index].transform.GetChild(0).gameObject.SetActive(false);
@@ -684,9 +618,13 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             if (pieceContactPoint.transform.childCount > 0)
                 pieceContactPoint.transform.GetChild(0).gameObject.SetActive(false);
 
+            // Closes point (gizmos to red)
             openedContactPoints[index].Close();
+            // Sets this piece connected contact point to the point that it just connected
             pieceToPlace.ConnectedContactPoint = openedContactPoints[index];
+            // Removes the contact point that the piece just connected to from opened contact points. 
             openedContactPoints.Remove(openedContactPoints[index]);
+            // Sets transform parent (to be organized)
             pieceToPlace.transform.parent = levelParent.transform;
 
             // A variable to have control of all rooms (contains all spawned rooms)
@@ -696,6 +634,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             // A variable to have control of all rooms and corridors (contains all spawned rooms and corridors)
             allRoomsAndCorridors.Add(pieceToPlace);
 
+            // Adds NEW contact points to open contact point list
             foreach (ContactPoint newContactPoint in pieceToPlace.ContactPoints)
             {
                 if (newContactPoint.transform.position != pieceContactPoint.transform.position)
@@ -722,7 +661,6 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         saveData.DungeonSavedData.ForwardMaximumLevelSize = forwardMaximumLevelSize;
         saveData.DungeonSavedData.MinimumNumberOfRooms = minimumNumberOfRooms;
         saveData.DungeonSavedData.MaximumNumberOfRooms = maximumNumberOfRooms;
-        saveData.DungeonSavedData.FromStartingRoomToFront = fromStartingRoomToFront;
         saveData.DungeonSavedData.Element = element;
     }
 
@@ -742,10 +680,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             forwardMaximumLevelSize = saveData.DungeonSavedData.ForwardMaximumLevelSize;
             minimumNumberOfRooms = saveData.DungeonSavedData.MinimumNumberOfRooms;
             maximumNumberOfRooms = saveData.DungeonSavedData.MaximumNumberOfRooms;
-            fromStartingRoomToFront = saveData.DungeonSavedData.FromStartingRoomToFront;
             element = saveData.DungeonSavedData.Element;
-
-            instantiatePlayer = false;
 
             StartGeneration(true);
         }

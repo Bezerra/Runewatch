@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using Cinemachine;
+using ExtensionMethods;
 
 /// <summary>
 /// Class responsible for generating a cinemachine source impulse.
@@ -10,7 +11,7 @@ public class PlayerGenerateCinemachineImpulse : GenerateCinemachineImpulse
 {
     private PlayerCastSpell castSpell;
     private IEnumerator screenShakeCoroutine;
-    private YieldInstruction wfs;
+    private YieldInstruction continuousCastWFS;
 
     // Both impulse sources for different shots
     [SerializeField] private CinemachineImpulseSource oneShotImpulseSource;
@@ -20,7 +21,7 @@ public class PlayerGenerateCinemachineImpulse : GenerateCinemachineImpulse
     {
         base.Awake();
         castSpell = GetComponent<PlayerCastSpell>();
-        wfs = new WaitForSeconds(0.2f);
+        continuousCastWFS = new WaitForSeconds(0.2f);
     }
 
     private void OnEnable()
@@ -47,9 +48,7 @@ public class PlayerGenerateCinemachineImpulse : GenerateCinemachineImpulse
         }
         else
         {
-            if (screenShakeCoroutine != null) StopCoroutine(screenShakeCoroutine);
-            if (screenShakeCoroutine == null) screenShakeCoroutine = ScreenShakeCoroutine();
-            StartCoroutine(screenShakeCoroutine);
+            this.StartCoroutineWithReset(ref screenShakeCoroutine, ScreenShakeCoroutine());
         }
     }
 
@@ -61,7 +60,7 @@ public class PlayerGenerateCinemachineImpulse : GenerateCinemachineImpulse
     {
         while (true)
         {
-            yield return wfs;
+            yield return continuousCastWFS;
             continuousImpulseSource.GenerateImpulse(mainCam.transform.forward);
         }
     }

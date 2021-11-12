@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 /// <summary>
 /// Class responsible for controling console and applying cheats.
 /// </summary>
-public class CheatConsole : MonoBehaviour
+public class CheatConsole : MonoBehaviour, IFindPlayer
 {
     // Components
     private PlayerInputCustom input;
@@ -59,7 +59,7 @@ public class CheatConsole : MonoBehaviour
         playerSpells = FindObjectOfType<PlayerSpells>();
         playerStats = FindObjectOfType<PlayerStats>();
         allSpells = FindObjectOfType<AllSpells>();
-        playerRoot = FindObjectOfType<Player>().GetComponentInParent<SelectionBase>();
+        playerRoot = FindObjectOfType<Player>()?.GetComponentInParent<SelectionBase>();
     }
 
     /////////////////////////////////// Cheats code /////////////////////////////////////
@@ -333,5 +333,15 @@ public class CheatConsole : MonoBehaviour
         if (Physics.Raycast(forward, spawnDistance))
             return false;
         return true;
+    }
+
+    public void FindPlayer()
+    {
+        FindRequiredComponents();
+    }
+
+    public void PlayerLost()
+    {
+        // Left blank on purpose
     }
 }

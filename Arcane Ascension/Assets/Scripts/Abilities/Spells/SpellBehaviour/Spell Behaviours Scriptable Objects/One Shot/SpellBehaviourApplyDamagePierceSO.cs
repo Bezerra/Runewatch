@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -14,9 +15,16 @@ sealed public class SpellBehaviourApplyDamagePierceSO : SpellBehaviourAbstractOn
     [Tooltip("Divides or multiplies damage by this factor, depending on type of pierce")]
     [Range(1, 4)] [SerializeField] private byte damageModifier = 2;
 
+    private IList<int> layersToDamage;
+
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
-        // Left blank on purpose
+        layersToDamage = new List<int>
+        {
+            Layers.EnemyLayerNum,
+            Layers.EnemySensiblePointNum,
+            Layers.PlayerLayerNum,
+        };
     }
 
     public override void ContinuousUpdateBeforeSpellBehaviour(SpellBehaviourOneShot parent)
@@ -36,14 +44,20 @@ sealed public class SpellBehaviourApplyDamagePierceSO : SpellBehaviourAbstractOn
 
     public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
-        parent.Spell.DamageBehaviour.Damage(parent, other, CalculateModifier(parent.CurrentPierceHitQuantity, typeOfPierce));
+        int layerNumber = other.gameObject.layer;
 
-        // If it hits an enemy
-        if (other.gameObject.layer == Layers.EnemyLayerNum ||
-            other.gameObject.layer == Layers.EnemySensiblePointNum)
+        if (layersToDamage.Contains(layerNumber))
         {
+            // Applies damage with a modifier
+            parent.Spell.DamageBehaviour.Damage(parent, other, CalculateModifier(parent.CurrentPierceHitQuantity));
+
+            // Adds a hit counter
             if (++parent.CurrentPierceHitQuantity >= hitQuantity)
                 parent.Rb.velocity = Vector3.zero;
+        }
+        else if (layerNumber == Layers.EnemyImmuneLayerNum)
+        {
+            parent.Spell.DamageBehaviour.Damage(parent, other, 0);
         }
     }
 
@@ -52,7 +66,7 @@ sealed public class SpellBehaviourApplyDamagePierceSO : SpellBehaviourAbstractOn
     /// </summary>
     /// <param name="currentHitQuantity">Quantity of hits.</param>
     /// <returns>Returns a value depending on the quantity received on the parameter.</returns>
-    private float CalculateModifier(byte currentHitQuantity, TypeOfPierce typeofPierce)
+    private float CalculateModifier(byte currentHitQuantity)
     {
         float value = 1;
         byte counter = 0;
