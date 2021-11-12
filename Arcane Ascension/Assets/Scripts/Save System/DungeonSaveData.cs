@@ -12,6 +12,5 @@ public struct DungeonSaveData
     public int ForwardMaximumLevelSize;
     public int MinimumNumberOfRooms;
     public int MaximumNumberOfRooms;
-    public bool FromStartingRoomToFront;
     public ElementType Element;
 }
