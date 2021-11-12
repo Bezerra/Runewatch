@@ -18,14 +18,13 @@ public class RunPassiveSO : AbstractPassiveSO<RunPassiveType>, IRunPassive
     public override RunPassiveType PassiveType => passiveType;
 
     /// <summary>
-    /// Updates player's stats with a passive stats.
+    /// Updates player's stats with all upgrades contained on this passive.
     /// </summary>
     public void Execute(PlayerStats playerStats)
     {
         foreach (UpgradeStats upgrade in upgrades)
         {
             upgrade.Upgrade(playerStats);
-            Debug.Log(playerStats.MaxHealth);
         }
     }
 
@@ -37,8 +36,6 @@ public class RunPassiveSO : AbstractPassiveSO<RunPassiveType>, IRunPassive
     {
         [Range(-1f, 1f)] [SerializeField] private float amountToAdd;
         [SerializeField] private StatsType statsType;
-
-        public StatsType PassiveType => statsType;
 
         public void Upgrade(PlayerStats playerStats) =>
             playerStats.UpdateStats(amountToAdd, statsType);

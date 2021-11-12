@@ -36,7 +36,7 @@ public class LootManagerEditor : OdinMenuEditorWindow
         tree.Add("Create New Potion", createNewPotion);
         tree.Add("Create New Currency", createNewCurrency);
 
-        tree.AddAllAssetsAtPath("Loot", "Assets/Resources/Scriptable Objects/Loot", typeof(CurrencySO), true);
+        tree.AddAllAssetsAtPath("Loot", "Assets/Resources/Scriptable Objects/Loot", typeof(CurrencyInformationSO), true);
         tree.AddAllAssetsAtPath("Loot", "Assets/Resources/Scriptable Objects/Loot", typeof(PotionSO), true);
 
         return tree;
@@ -89,18 +89,18 @@ public class LootManagerEditor : OdinMenuEditorWindow
 
     private class CreateNewCurrency
     {
-        public CurrencySO Loot { get; private set; }
+        public CurrencyInformationSO Loot { get; private set; }
 
         [Button("Create New Currency", ButtonSizes.Large)]
         private void CreateSimpleSound()
         {
-            Loot = ScriptableObject.CreateInstance<CurrencySO>();
+            Loot = ScriptableObject.CreateInstance<CurrencyInformationSO>();
             AssetDatabase.CreateAsset(
                 Loot, "Assets/Resources/Scriptable Objects/Loot/" +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
-            ScriptableObject.CreateInstance<CurrencySO>();
+            ScriptableObject.CreateInstance<CurrencyInformationSO>();
         }
     }
 }

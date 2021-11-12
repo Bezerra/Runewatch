@@ -36,9 +36,9 @@ public class PassiveAbilitiesManagerEditor : OdinMenuEditorWindow
         tree.Add("Create New Passive Ability/New Run Passive Ability", createNewPassiveAbility);
         tree.Add("Create New Passive Ability/New Skill Tree Passive Ability", createNewSkillTreePassiveAbility);
 
-        tree.AddAllAssetsAtPath("Passive Abilities",
+        tree.AddAllAssetsAtPath("Run Passive Abilities",
             "Assets/Resources/Scriptable Objects/Passives/Run Passives", typeof(RunPassiveSO));
-        tree.AddAllAssetsAtPath("Passive Abilities",
+        tree.AddAllAssetsAtPath("Skill Tree Passive Abilities",
             "Assets/Resources/Scriptable Objects/Passives/Skill Tree Passives", typeof(SkillTreePassiveSO));
 
         return tree;

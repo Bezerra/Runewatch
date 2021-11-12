@@ -3,16 +3,16 @@
 /// </summary>
 public enum RunPassiveType
 {
-    Health,
-    Mana,
-    MovementSpeed,
-    CriticalChance,
-    CriticalDamage,
-    IgnisDamage,
-    FulgurDamage,
-    AquaDamage,
-    TerraDamage,
-    NaturaDamage,
-    LuxDamage,
-    UmbraDamage,
+    Vitality,
+    Insight,
+    Agility,
+    Luck,
+    Precision,
+    IgnisProdigy,
+    FulgurProdigy,
+    AquaProdigy,
+    TerraProdigy,
+    NaturaProdigy,
+    LuxProdigy,
+    UmbraProdigy,
 }
