@@ -20,6 +20,6 @@ public class TEMPTOCHANGEINPUT : MonoBehaviour
 
     private void Awake()
     {
-        Passives = new List<byte> { 0, 1 };
+        Passives = new List<byte> { 0, 1, 4 };
     }
 }

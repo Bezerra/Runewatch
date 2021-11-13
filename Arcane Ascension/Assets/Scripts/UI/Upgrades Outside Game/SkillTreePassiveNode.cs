@@ -18,7 +18,6 @@ public class SkillTreePassiveNode : MonoBehaviour
     [SerializeField] private List<SkillTreePassiveNode> nextConnectionNodes;
 
     [Header("Colors")]
-    [SerializeField] private bool initialNode;
     [SerializeField] private Color unlockedColor;
     [SerializeField] private Color lockedColor;
     [HideInInspector] [SerializeField] private TextMeshProUGUI nodeName;
@@ -39,13 +38,21 @@ public class SkillTreePassiveNode : MonoBehaviour
     {
         nodeImage = GetComponent<Image>();
         TEMPPARENT = GetComponentInParent<TEMPTOCHANGEINPUT>();
+
+        currentTier = 0;
+        nodeImage.color = lockedColor;
+
+        // Creates connections to all nodes
+        foreach (SkillTreePassiveNode node in nextConnectionNodes)
+        {
+            CreateInstantConnectionLine(node.gameObject);
+        }
     }
 
     private void Start()
     {
-        currentTier = 0;
-        nodeImage.color = lockedColor;
-
+        // Checks if the player already has this node, from 0 to higher tiers.
+        // In that case, increments the tier of the node and updates UI.
         for (int i = 0; i < nodePassive.Length; i++)
         {
             if (TEMPPARENT.Passives.Contains(nodePassive[i].ID))
@@ -54,13 +61,11 @@ public class SkillTreePassiveNode : MonoBehaviour
                 UpdateUI();
             }
         }
-
-        foreach (SkillTreePassiveNode node in nextConnectionNodes)
-        {
-            CreateInstantConnectionLine(node.gameObject);
-        }
     }
 
+    /// <summary>
+    /// Updates node information on editor.
+    /// </summary>
     private void OnValidate()
     {
         if (nodeName != null && nodePassive.Length > 0)
@@ -84,6 +89,9 @@ public class SkillTreePassiveNode : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Increments current node tier. Unlocks a locked node.
+    /// </summary>
     public void TryUnlock()
     {
         // If this node doesn't require any previous connections
@@ -142,11 +150,14 @@ public class SkillTreePassiveNode : MonoBehaviour
             IsUnlocked = true;
             nodeImage.color = unlockedColor;
 
-            foreach (SkillTreePassiveNode node in previousConnectionNodes)
+            // If this node was unlocked, it will grow a line from the previosu node to this one
+            if (previousConnectionNodes.Count > 0)
             {
-                node.StartCoroutine(GrowConnectionLine(gameObject));
+                foreach (SkillTreePassiveNode node in previousConnectionNodes)
+                {
+                    node.StartCoroutine(node.GrowConnectionLine(gameObject));
+                }
             }
-            
         }
 
         // Uses current tier - 1, so it matches passives in this node array index
@@ -164,17 +175,24 @@ public class SkillTreePassiveNode : MonoBehaviour
 
     public IEnumerator GrowConnectionLine(GameObject targetGO)
     {
+        // Disables button
+        Button button = GetComponent<Button>();
+        button.enabled = false;
+
+        // If a line with this name already exists, it destroys it
+        Destroy(this.gameObject.transform.parent.Find(this.gameObject.name + " connection").gameObject);
+
+        // Creates a line
         GameObject connectionLineGO = Instantiate(connectionLinePrefab, transform.position, Quaternion.identity);
         connectionLineGO.transform.SetParent(this.gameObject.transform.parent);
         connectionLineGO.transform.SetAsFirstSibling();
         connectionLineGO.name = this.gameObject.name + " connection";
 
+        // Gets image and line and colors it
         Image connectionLineImage = connectionLineGO.GetComponent<Image>();
-        if (targetGO.GetComponent<SkillTreePassiveNode>().IsUnlocked)
-            connectionLineImage.color = unlockedColor;
-        else
-            connectionLineImage.color = lockedColor;
+        connectionLineImage.color = unlockedColor;
 
+        // Gets a rectangle, calculates distance and rotation from this node to the next node
         RectTransform connectionLine = connectionLineGO.GetComponent<RectTransform>();
         RectTransform target = targetGO.GetComponent<RectTransform>();
         connectionLine.localScale = Vector3.one;
@@ -184,6 +202,8 @@ public class SkillTreePassiveNode : MonoBehaviour
             target.anchoredPosition.x - connectionLine.anchoredPosition.x);
         connectionLine.localEulerAngles = new Vector3(0, 0, ((180 / Mathf.PI) * angle));
         connectionLine.sizeDelta = new Vector2(0, 5f);
+
+        // Increments that rectangle smoothly until the next node
         float currentLineWidth = 0;
         while (connectionLine.sizeDelta.x < distance)
         {
@@ -191,6 +211,9 @@ public class SkillTreePassiveNode : MonoBehaviour
             currentLineWidth += Time.deltaTime * 600f;
             connectionLine.sizeDelta = new Vector2(currentLineWidth, 5f);
         }
+
+        // Enables button back
+        button.enabled = true;
 
         /*
         if (nextConnectionNodes.Count > 0)
@@ -208,17 +231,17 @@ public class SkillTreePassiveNode : MonoBehaviour
 
     private void CreateInstantConnectionLine(GameObject targetGO)
     {
+        // Creates a line
         GameObject connectionLineGO = Instantiate(connectionLinePrefab, transform.position, Quaternion.identity);
         connectionLineGO.transform.SetParent(this.gameObject.transform.parent);
         connectionLineGO.transform.SetAsFirstSibling();
         connectionLineGO.name = this.gameObject.name + " connection";
 
+        // Gets image and line and colors it
         Image connectionLineImage = connectionLineGO.GetComponent<Image>();
-        if (targetGO.GetComponent<SkillTreePassiveNode>().IsUnlocked)
-            connectionLineImage.color = unlockedColor;
-        else
-            connectionLineImage.color = lockedColor;
+        connectionLineImage.color = lockedColor;
 
+        // Gets a rectangle, calculates distance and rotation from this node to the next node
         RectTransform connectionLine = connectionLineGO.GetComponent<RectTransform>();
         RectTransform target = targetGO.GetComponent<RectTransform>();
         connectionLine.localScale = Vector3.one;
@@ -228,20 +251,8 @@ public class SkillTreePassiveNode : MonoBehaviour
             target.anchoredPosition.x - connectionLine.anchoredPosition.x);
         connectionLine.localEulerAngles = new Vector3(0, 0, ((180 / Mathf.PI) * angle));
         connectionLine.sizeDelta = new Vector2(0, 5f);
+
+        // Connects this node to the next node
         connectionLine.sizeDelta = new Vector2(distance, 5f);
-
-
-        /*
-        if (nextConnectionNodes.Count > 0)
-        {
-            foreach (SkillTreePassiveNode node in nextConnectionNodes)
-            {
-                foreach (SkillTreePassiveNode nodeInNextNode in node.NextConnectionNodes)
-                {
-                    node.StartCoroutine(GrowConnectionLine(nodeInNextNode.gameObject));
-                }
-            }
-        }
-        */
     }
 }
