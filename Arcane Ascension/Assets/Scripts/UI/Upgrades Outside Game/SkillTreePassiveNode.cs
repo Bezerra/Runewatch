@@ -180,13 +180,13 @@ public class SkillTreePassiveNode : MonoBehaviour
         button.enabled = false;
 
         // If a line with this name already exists, it destroys it
-        Destroy(this.gameObject.transform.parent.Find(this.gameObject.name + " connection").gameObject);
+        Destroy(this.gameObject.transform.parent.Find(this.gameObject.name + " connect to " + targetGO.gameObject.name).gameObject);
 
         // Creates a line
         GameObject connectionLineGO = Instantiate(connectionLinePrefab, transform.position, Quaternion.identity);
         connectionLineGO.transform.SetParent(this.gameObject.transform.parent);
         connectionLineGO.transform.SetAsFirstSibling();
-        connectionLineGO.name = this.gameObject.name + " connection";
+        connectionLineGO.name = this.gameObject.name + " connect to " + targetGO.gameObject.name;
 
         // Gets image and line and colors it
         Image connectionLineImage = connectionLineGO.GetComponent<Image>();
@@ -208,7 +208,7 @@ public class SkillTreePassiveNode : MonoBehaviour
         while (connectionLine.sizeDelta.x < distance)
         {
             yield return null;
-            currentLineWidth += Time.deltaTime * 600f;
+            currentLineWidth += Time.deltaTime * 1000f;
             connectionLine.sizeDelta = new Vector2(currentLineWidth, 5f);
         }
 
@@ -235,7 +235,7 @@ public class SkillTreePassiveNode : MonoBehaviour
         GameObject connectionLineGO = Instantiate(connectionLinePrefab, transform.position, Quaternion.identity);
         connectionLineGO.transform.SetParent(this.gameObject.transform.parent);
         connectionLineGO.transform.SetAsFirstSibling();
-        connectionLineGO.name = this.gameObject.name + " connection";
+        connectionLineGO.name = this.gameObject.name + " connect to " + targetGO.gameObject.name;
 
         // Gets image and line and colors it
         Image connectionLineImage = connectionLineGO.GetComponent<Image>();
