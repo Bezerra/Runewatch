@@ -21,8 +21,16 @@ public class CurrencySO : ScriptableObject
     /// <param name="amount">Amount to gain.</param>
     public void GainCurrency(CurrencyType currency, int amount)
     {
-        if (currency == CurrencyType.Gold) Gold += amount;
-        else ArcanePower += amount;
+        if (currency == CurrencyType.Gold)
+        {
+            Gold += amount;
+            PlayerPrefs.SetInt(currency.ToString(), Gold);
+        }
+        else
+        {
+            ArcanePower += amount;
+            PlayerPrefs.SetInt(currency.ToString(), ArcanePower);
+        }
     }
 
     /// <summary>
@@ -36,11 +44,13 @@ public class CurrencySO : ScriptableObject
         {
             if (Gold - amount >= 0) Gold -= amount;
             else Gold = 0;
+            PlayerPrefs.SetInt(currency.ToString(), Gold);
         }
         else
         {
             if (ArcanePower - amount > 0) ArcanePower -= amount;
             else ArcanePower = 0;
+            PlayerPrefs.SetInt(currency.ToString(), ArcanePower);
         }
     }
 
