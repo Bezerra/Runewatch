@@ -20,6 +20,7 @@ public struct PlayerSaveData
     public byte CurrentSpellIndex;
 
     public byte[] CurrentPassives;
+    public byte[] CurrentSkillTreePassives;
 
     public int Gold;
     public int ArcanePower;

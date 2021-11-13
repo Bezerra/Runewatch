@@ -15,4 +15,11 @@ public class TEMPTOCHANGEINPUT : MonoBehaviour
     }
 
 
+
+    public IList<byte> Passives { get; set; }
+
+    private void Awake()
+    {
+        Passives = new List<byte> { 0, 1 };
+    }
 }
