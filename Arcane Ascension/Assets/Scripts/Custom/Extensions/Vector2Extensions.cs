@@ -15,5 +15,16 @@ namespace ExtensionMethods
         {
             return thisVector2.y;
         }
+
+        /// <summary>
+        /// Returns direction to some position.
+        /// </summary>
+        /// <param name="from">Initial position.</param>
+        /// <param name="to">Final position.</param>
+        /// <returns>Returns a normalized vector2 with direction.</returns>
+        public static Vector2 Direction(this Vector2 from, Vector2 to)
+        {
+            return (to - from).normalized;
+        }
     }
 }
