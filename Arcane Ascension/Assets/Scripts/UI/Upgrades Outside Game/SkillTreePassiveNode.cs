@@ -37,9 +37,7 @@ public class SkillTreePassiveNode : MonoBehaviour
     [Header("Node Child Components")]
     [HideInInspector] [SerializeField] private TextMeshProUGUI nodeName;
     [HideInInspector] [SerializeField] private TextMeshProUGUI nodeTier;
-
-    [Header("DASDAS")]
-    [SerializeField] private Image nodeImage;
+    [HideInInspector] [SerializeField] private Image nodeImage;
 
     // Properties
     public List<SkillTreePassiveNode> PreviousConnectionNodes => previousConnectionNodes;
