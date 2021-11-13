@@ -1,14 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using System.Text;
 
+/// <summary>
+/// Class responsible for controling nodes information and buying nodes.
+/// </summary>
 public class SkillTreePassiveCanvas : MonoBehaviour
 {
     [Header("Child components")]
-    [SerializeField] private List<TextMeshProUGUI> passiveBoosts;
     [SerializeField] private TextMeshProUGUI arcanePowerText;
     [SerializeField] private TextMeshProUGUI passiveName;
     [SerializeField] private TextMeshProUGUI passiveDescription;
@@ -41,28 +40,17 @@ public class SkillTreePassiveCanvas : MonoBehaviour
     /// <param name="passiveNode"></param>
     public void UpdateInformation(SkillTreePassiveNode passiveNode)
     {
-        if (passiveNode.NodePassive.Tier <= passiveNode.QuantityPassives)
+
+        if (passiveNode.NodePassive.Tier <= passiveNode.NodePassives.Length)
         {
             this.passiveNode = passiveNode;
             passiveName.text = passiveNode.NodePassive.Name.ToString();
             passiveDescription.text = passiveNode.NodePassive.Description.ToString();
             passiveCost.text = "Cost: " + passiveNode.NodePassive.Cost.ToString() + " arcane power";
-
-            for (int i = 0; i < passiveBoosts.Count; i++)
-            {
-                if (passiveNode.CurrentTier > i)
-                    passiveBoosts[i].color = unlockedColor;
-                else
-                    passiveBoosts[i].color = lockedColor;
-
-                if (passiveNode.NodePassives.Length > i)
-                    passiveBoosts[i].text = passiveNode.NodePassives[i].Description;
-                else
-                    passiveBoosts[i].text = " ";
-            }
         }
 
         // Update buy button
+        // If player has enough arcane power to buy selected node
         if (currencySO.CanSpend(CurrencyType.ArcanePower, passiveNode.NodePassive.Cost))
         {
             int requiredNodes = 0;
@@ -74,11 +62,10 @@ public class SkillTreePassiveCanvas : MonoBehaviour
                     requiredNodes++;
                 }
             }
-            // If all required nodes are already unlocked and the player has enough arcane power
+            // If all required nodes are already unlocked
             if (requiredNodes == passiveNode.PreviousConnectionNodes.Count &&
-                passiveNode.CurrentTier < passiveNode.QuantityPassives)
+                passiveNode.CurrentTier < passiveNode.NodePassives.Length)
             {
-
                 buyButton.enabled = true;
                 buyButtonImage.color = unlockedColor;
             }
@@ -117,11 +104,6 @@ public class SkillTreePassiveCanvas : MonoBehaviour
         passiveCost.text = " ";
         buyButton.enabled = false;
         buyButtonImage.color = lockedColor;
-
-        for (int i = 0; i < passiveBoosts.Count; i++)
-        {
-            passiveBoosts[i].text = " ";
-        }
 
         // Update AP
         arcanePowerText.text = 

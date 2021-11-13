@@ -20,10 +20,6 @@ public abstract class AbstractPassiveSO<T> : ScriptableObject, IPassive<T>
     [SerializeField] protected new string name = "New passive";
 
     [VerticalGroup("General/Split/Middle", 1), LabelWidth(60)]
-    [Tooltip("Single ID for every passive. No passives CAN have the same ID")]
-    [Range(0, 255)] [SerializeField] protected byte passiveID;
-
-    [VerticalGroup("General/Split/Middle", 1), LabelWidth(60)]
     [Tooltip("Passive tier")]
     [Range(1, 7)] [SerializeField] protected int passiveTier;
 
@@ -34,7 +30,7 @@ public abstract class AbstractPassiveSO<T> : ScriptableObject, IPassive<T>
     public string Name => name;
     public string Description => description;
     public int Tier => passiveTier;
-    public byte ID => passiveID;
+    public byte ID { get; set; }
     public Sprite Icon => icon;
 
 #if UNITY_EDITOR

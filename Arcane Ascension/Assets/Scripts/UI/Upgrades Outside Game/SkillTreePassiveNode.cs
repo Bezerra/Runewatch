@@ -11,25 +11,25 @@ public class SkillTreePassiveNode : MonoBehaviour
 {
     [Header("Passive tiers of this node")]
     [SerializeField] private SkillTreePassiveSO[] nodePassives;
-    private byte currentTier;
-    public byte CurrentTier => currentTier;
+    public SkillTreePassiveSO[] NodePassives => nodePassives;
+    public byte CurrentTier { get; private set; }
+
+    // Current passive obtained with current tier
     public SkillTreePassiveSO NodePassive
     {
         get
         {
-            if (currentTier < nodePassives.Length)
+            if (CurrentTier < nodePassives.Length)
             {
-                return nodePassives[currentTier];
+                return nodePassives[CurrentTier];
             }
             else
             {
-                return nodePassives[currentTier - 1];
+                return nodePassives[CurrentTier - 1];
             }
         }
     }
-    public SkillTreePassiveSO[] NodePassives => nodePassives;
-    public int QuantityPassives => nodePassives.Length;
-
+    
     [Header("Connections")]
     [SerializeField] private List<SkillTreePassiveNode> previousConnectionNodes;
     [SerializeField] private List<SkillTreePassiveNode> nextConnectionNodes;
@@ -37,7 +37,10 @@ public class SkillTreePassiveNode : MonoBehaviour
     [Header("Node Child Components")]
     [HideInInspector] [SerializeField] private TextMeshProUGUI nodeName;
     [HideInInspector] [SerializeField] private TextMeshProUGUI nodeTier;
-    
+
+    [Header("DASDAS")]
+    [SerializeField] private Image nodeImage;
+
     // Properties
     public List<SkillTreePassiveNode> PreviousConnectionNodes => previousConnectionNodes;
     public List<SkillTreePassiveNode> NextConnectionNodes => nextConnectionNodes;
@@ -45,16 +48,14 @@ public class SkillTreePassiveNode : MonoBehaviour
 
     // Components
     private TEMPTOCHANGEINPUT TEMPPARENT;
-    private Image nodeImage;
     private SkillTreePassiveCanvas parentNodeController;
 
     private void Awake()
     {
-        nodeImage = GetComponent<Image>();
         TEMPPARENT = GetComponentInParent<TEMPTOCHANGEINPUT>();
         parentNodeController = GetComponentInParent<SkillTreePassiveCanvas>();
 
-        currentTier = 0;
+        CurrentTier = 0;
         nodeImage.color = parentNodeController.LockedColor;
 
         // Creates connections to all nodes
@@ -72,7 +73,7 @@ public class SkillTreePassiveNode : MonoBehaviour
         {
             if (TEMPPARENT.Passives.Contains(nodePassives[i].ID))
             {
-                currentTier++;
+                CurrentTier++;
                 UpdateUI();
             }
         }
@@ -96,6 +97,7 @@ public class SkillTreePassiveNode : MonoBehaviour
             nodeName.text = passiveNameToPrint.ToString();
 
             nodeTier.text = "0 / " + nodePassives.Length;
+            nodeImage.sprite = nodePassives[0].Icon;
         }
 
         if (nodePassives.Length > 0)
@@ -104,10 +106,11 @@ public class SkillTreePassiveNode : MonoBehaviour
         }
     }
 
-    public void ObtainNodeInformation()
-    {
+    /// <summary>
+    /// Triggered with button click. Obtains a node information.
+    /// </summary>
+    public void ObtainNodeInformation() =>
         parentNodeController.UpdateInformation(this);
-    }
 
     /// <summary>
     /// Increments current node tier. Unlocks a locked node.
@@ -118,14 +121,14 @@ public class SkillTreePassiveNode : MonoBehaviour
         if (previousConnectionNodes.Count == 0)
         {
             // If it's not in maximum tier yet
-            if (currentTier < nodePassives.Length)
+            if (CurrentTier < nodePassives.Length)
             {
                 // If player has enough arcane power
-                if (parentNodeController.CurrencySO.CanSpend(CurrencyType.ArcanePower, nodePassives[currentTier].Cost))
+                if (parentNodeController.CurrencySO.CanSpend(CurrencyType.ArcanePower, nodePassives[CurrentTier].Cost))
                 {
                     // Increments tier, spends money, updates UI to next tier
-                    currentTier++;
-                    parentNodeController.CurrencySO.SpendCurrency(CurrencyType.ArcanePower, nodePassives[currentTier-1].Cost);
+                    CurrentTier++;
+                    parentNodeController.CurrencySO.SpendCurrency(CurrencyType.ArcanePower, nodePassives[CurrentTier-1].Cost);
                     UpdateUI();
                     parentNodeController.UpdateInformation(this);
                 }
@@ -144,17 +147,17 @@ public class SkillTreePassiveNode : MonoBehaviour
         }
         // If all required nodes are already unlocked and the player has enough arcane power
         if (requiredNodes == PreviousConnectionNodes.Count &&
-            parentNodeController.CurrencySO.CanSpend(CurrencyType.ArcanePower, nodePassives[currentTier].Cost))
+            parentNodeController.CurrencySO.CanSpend(CurrencyType.ArcanePower, nodePassives[CurrentTier].Cost))
         {
             // If it's not in maximum tier yet
-            if (currentTier < nodePassives.Length)
+            if (CurrentTier < nodePassives.Length)
             {
                 // If player has enough arcane power
-                if (parentNodeController.CurrencySO.CanSpend(CurrencyType.ArcanePower, nodePassives[currentTier].Cost))
+                if (parentNodeController.CurrencySO.CanSpend(CurrencyType.ArcanePower, nodePassives[CurrentTier].Cost))
                 {
                     // Increments tier, spends money, updates UI to next tier
-                    currentTier++;
-                    parentNodeController.CurrencySO.SpendCurrency(CurrencyType.ArcanePower, nodePassives[currentTier - 1].Cost);
+                    CurrentTier++;
+                    parentNodeController.CurrencySO.SpendCurrency(CurrencyType.ArcanePower, nodePassives[CurrentTier - 1].Cost);
                     UpdateUI();
                     parentNodeController.UpdateInformation(this);
                 }
@@ -183,20 +186,28 @@ public class SkillTreePassiveNode : MonoBehaviour
         }
 
         // Uses current tier - 1, so it matches passives in this node array index
-        nodeName.text = nodePassives[currentTier - 1].Name;
-        nodeTier.text = nodePassives[currentTier - 1].Tier.ToString() + " / " + nodePassives.Length;
+        nodeName.text = nodePassives[CurrentTier - 1].Name;
+        nodeTier.text = nodePassives[CurrentTier - 1].Tier.ToString() + " / " + nodePassives.Length;
+        nodeImage.sprite = nodePassives[CurrentTier - 1].Icon;
 
-        if (currentTier == nodePassives.Length)
+        if (CurrentTier == nodePassives.Length)
         {
             nodeImage.color = parentNodeController.LockedColor;
         }
     }
 
+    /// <summary>
+    /// Grows a connection line from current node to a target node.
+    /// </summary>
+    /// <param name="targetGO">Target node to grow line to.</param>
+    /// <returns>Null.</returns>
     public IEnumerator GrowConnectionLine(GameObject targetGO)
     {
         // Disables button
         Button button = GetComponent<Button>();
+        Button targetButton = targetGO.GetComponent<Button>();
         button.enabled = false;
+        targetButton.enabled = false;
 
         // If a line with this name already exists, it destroys it
         Destroy(this.gameObject.transform.parent.Find(this.gameObject.name + " connect to " + targetGO.gameObject.name).gameObject);
@@ -228,25 +239,13 @@ public class SkillTreePassiveNode : MonoBehaviour
         while (connectionLine.sizeDelta.x < distance)
         {
             yield return null;
-            currentLineWidth += Time.deltaTime * 1000f;
+            currentLineWidth += Time.deltaTime * 1100f;
             connectionLine.sizeDelta = new Vector2(currentLineWidth, 5f);
         }
 
         // Enables button back
         button.enabled = true;
-
-        /*
-        if (nextConnectionNodes.Count > 0)
-        {
-            foreach (SkillTreePassiveNode node in nextConnectionNodes)
-            {
-                foreach (SkillTreePassiveNode nodeInNextNode in node.NextConnectionNodes)
-                {
-                    node.StartCoroutine(GrowConnectionLine(nodeInNextNode.gameObject));
-                }
-            }
-        }
-        */
+        targetButton.enabled = true;
     }
 
     private void CreateInstantConnectionLine(GameObject targetGO)

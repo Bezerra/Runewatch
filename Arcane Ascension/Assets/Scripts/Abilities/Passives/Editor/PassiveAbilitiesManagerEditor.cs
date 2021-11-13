@@ -41,6 +41,8 @@ public class PassiveAbilitiesManagerEditor : OdinMenuEditorWindow
         tree.AddAllAssetsAtPath("Skill Tree Passive Abilities",
             "Assets/Resources/Scriptable Objects/Passives/Skill Tree Passives", typeof(SkillTreePassiveSO));
 
+        tree.SortMenuItemsByName();
+
         return tree;
     }
 
