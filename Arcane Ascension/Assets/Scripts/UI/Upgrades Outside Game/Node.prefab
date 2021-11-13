@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1307c03c4361ce43bbaaff5481f73c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodePassive: []
+  nodePassives: []
   previousConnectionNodes: []
   nextConnectionNodes:
   - {fileID: 0}
@@ -281,7 +281,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3921142304782230703}
         m_TargetAssemblyTypeName: SkillTreePassiveNode, Assembly-CSharp
-        m_MethodName: TryUnlock
+        m_MethodName: ObtainNodeInformation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
