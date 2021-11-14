@@ -45,8 +45,6 @@ public class DamageAoESO : DamageBehaviourAbstractSO
             }
         }
 
-        Debug.Log(collisions.Length);
-
         // Adds all IDamageable characters found to a list
         for (int i = 0; i < collisions.Length; i++)
         {
@@ -69,6 +67,7 @@ public class DamageAoESO : DamageBehaviourAbstractSO
                             if (charactersToDoDamage.Contains(character) == false)
                             {
                                 charactersToDoDamage.Add(character);
+                                
                             }
                         }
                     }

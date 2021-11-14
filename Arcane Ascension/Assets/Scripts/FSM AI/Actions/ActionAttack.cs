@@ -19,6 +19,7 @@ sealed public class ActionAttack : FSMAction
     /// <param name="ai">AI Character.</param>
     private void Attack(StateController<Enemy> ai)
     {
+        // Block of code to stop an enemy in the middle of an attack ---
         // If attack stopping time is not over yet
         if (ai.Controller.IsAttackingWithStoppingTime)
         {
@@ -47,7 +48,7 @@ sealed public class ActionAttack : FSMAction
             return;
         }
         
-
+        // Block of code if the enemy is not stopped in the middle of an attack ---
         // If it's not in attack delay
         if (Time.time - ai.Controller.TimeOfLastAttack > ai.Controller.AttackDelay)
         {

@@ -75,7 +75,7 @@ public class Shopkeeper : MonoBehaviour, IFindPlayer
 
     private void FixedUpdate()
     {
-        if (shopkeeperSpawned || player != null)
+        if (shopkeeperSpawned && player != null)
         {
             // If player is close
             if (Vector3.Distance(transform.position, player.transform.position) < 25)
@@ -108,6 +108,6 @@ public class Shopkeeper : MonoBehaviour, IFindPlayer
 
     public void PlayerLost()
     {
-        player = null;
+        // Left blank on purpose
     }
 }
