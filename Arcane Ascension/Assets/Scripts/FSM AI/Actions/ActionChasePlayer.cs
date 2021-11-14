@@ -21,7 +21,7 @@ sealed public class ActionChasePlayer : FSMAction
             {
                 if (ai.Controller.WalkingBackwards == false && ai.Controller.RunningBackwards == false)
                 {
-                    ai.Controller.Agent.SetDestination(ai.Controller.transform.position + ai.Controller.transform.forward);
+                    ai.Controller.Agent.SetDestination(ai.Controller.CurrentTarget.position);
                 }
             }
         }

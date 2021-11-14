@@ -75,7 +75,7 @@ public class Shopkeeper : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (shopkeeperSpawned)
+        if (shopkeeperSpawned || player != null)
         {
             // If player is close
             if (Vector3.Distance(transform.position, player.transform.position) < 25)

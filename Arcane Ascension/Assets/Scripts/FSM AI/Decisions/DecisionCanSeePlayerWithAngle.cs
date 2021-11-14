@@ -35,7 +35,7 @@ sealed public class DecisionCanSeePlayerWithAngle : FSMDecision
             {
                 if (ai.Controller.transform.CanSee(colliders[i].transform, layersToCheck))
                 {
-                    if (ai.Controller.transform.IsLookingTowards(colliders[i].transform, angle))
+                    if (ai.Controller.transform.IsLookingTowards(colliders[i].transform, false, angle))
                     {
                         if (colliders[i].TryGetComponentInParent<Player>(out Player player))
                         {

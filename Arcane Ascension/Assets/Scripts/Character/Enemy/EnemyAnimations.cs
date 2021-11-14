@@ -6,12 +6,11 @@ using System.Collections;
 /// </summary>
 public class EnemyAnimations : MonoBehaviour
 {
+    // Components
     private Animator anim;
-
     private Enemy enemy;
     private EnemyStats enemyStats;
-
-    [SerializeField] private Transform enemyModel;
+    private Transform enemyModel;
 
     // Coroutines
     private IEnumerator shakeCoroutine;
@@ -22,7 +21,7 @@ public class EnemyAnimations : MonoBehaviour
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
-        //Debug.Log(anim.gameObject.name);
+        enemyModel = anim.GetComponent<Transform>();
         enemy = GetComponent<Enemy>();
         enemyStats = GetComponent<EnemyStats>();
         wffu = new WaitForFixedUpdate();

@@ -16,11 +16,27 @@ namespace ExtensionMethods
         /// Direction is not needed, only the vector3 with position.</param>
         /// <returns>Returns true if this transform is looking towards that 
         /// position.</returns>
+        /// <param name="ignoreHeightDistance">False if height matters. True if
+        /// this check is considered to be on the same Y (ignoring Y distance).</param>
+        /// <param name="maximumAngle">Maximum angle to check.</param>
+        /// <returns>Returns true if a transform is looking towards another transform.</returns>
         public static bool IsLookingTowards(this Transform from,
-            Vector3 finalPosition, float maximumAngle = 10)
+            Vector3 finalPosition, bool ignoreHeightDistance = false, float maximumAngle = 10)
         {
-            Vector3 dir = from.position.Direction(finalPosition);
-            if (Vector3.Angle(dir, from.forward) < maximumAngle) return true;
+            if (ignoreHeightDistance == false)
+            {
+                Vector3 dir = from.position.Direction(finalPosition);
+                if (Vector3.Angle(dir, from.forward) < maximumAngle) return true;
+            }
+            else
+            {
+                Vector2 fromPosition = new Vector2(from.position.x, from.position.z);
+                Vector2 targetPosition = new Vector2(finalPosition.x, finalPosition.z);
+                Vector2 dir = fromPosition.Direction(targetPosition);
+                Debug.DrawRay(new Vector3(fromPosition.x, 1, fromPosition.y), from.forward);
+                if (Vector2.Angle(dir, from.forward) < maximumAngle) return true;
+            }
+            
             return false;
         }
 
@@ -29,15 +45,31 @@ namespace ExtensionMethods
         /// Has a maximum angle to look.
         /// </summary>
         /// <param name="from">This transform.</param>
-        /// <param name="finalPosition">Final position to check.
+        /// <param name="finalPosition">Final position to check. 
         /// Direction is not needed, only the vector3 with position.</param>
         /// <returns>Returns true if this transform is looking towards that 
         /// position.</returns>
+        /// <param name="ignoreHeightDistance">False if height matters. True if
+        /// this check is considered to be on the same Y (ignoring Y distance).</param>
+        /// <param name="maximumAngle">Maximum angle to check.</param>
+        /// <returns>Returns true if a transform is looking towards another transform.</returns>
         public static bool IsLookingTowards(this Transform from,
-            Transform finalPosition, float maximumAngle = 10)
+            Transform finalPosition, bool ignoreHeightDistance = false, float maximumAngle = 10)
         {
-            Vector3 dir = from.position.Direction(finalPosition.position);
-            if (Vector3.Angle(dir, from.forward) < maximumAngle) return true;
+            if (ignoreHeightDistance == false)
+            {
+                Vector3 dir = from.position.Direction(finalPosition.position);
+                if (Vector3.Angle(dir, from.forward) < maximumAngle) return true;
+            }
+            else
+            {
+                Vector2 fromPosition = new Vector2(from.position.x, from.position.z);
+                Vector2 targetPosition = 
+                    new Vector2(finalPosition.transform.position.x, finalPosition.transform.position.z);
+                Vector2 dir = fromPosition.Direction(targetPosition);
+                if (Vector2.Angle(dir, from.forward) < maximumAngle) return true;
+            }
+
             return false;
         }
 
