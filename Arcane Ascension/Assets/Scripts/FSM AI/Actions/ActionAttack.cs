@@ -24,8 +24,6 @@ sealed public class ActionAttack : FSMAction
         {
             if (ai.Controller.CurrentTarget != null)
             {
-                Debug.Log(ai.Controller.transform.IsLookingTowards(
-                    ai.Controller.CurrentTarget.position, true, ai.Controller.Values.FireAllowedAngle));
                 // If the enemy is looking towards the player (with tolerance)
                 if (ai.Controller.transform.IsLookingTowards(
                     ai.Controller.CurrentTarget.position, true, ai.Controller.Values.FireAllowedAngle))

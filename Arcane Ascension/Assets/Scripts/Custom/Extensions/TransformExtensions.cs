@@ -23,20 +23,17 @@ namespace ExtensionMethods
         public static bool IsLookingTowards(this Transform from,
             Vector3 finalPosition, bool ignoreHeightDistance = false, float maximumAngle = 10)
         {
+            Vector3 dir;
             if (ignoreHeightDistance == false)
             {
-                Vector3 dir = from.position.Direction(finalPosition);
-                if (Vector3.Angle(dir, from.forward) < maximumAngle) return true;
+                dir = from.position.Direction(finalPosition);
             }
             else
             {
-                Vector2 fromPosition = new Vector2(from.position.x, from.position.z);
-                Vector2 targetPosition = new Vector2(finalPosition.x, finalPosition.z);
-                Vector2 dir = fromPosition.Direction(targetPosition);
-                Debug.DrawRay(new Vector3(fromPosition.x, 1, fromPosition.y), from.forward);
-                if (Vector2.Angle(dir, from.forward) < maximumAngle) return true;
+                Vector3 targetPosition = new Vector3(finalPosition.x, from.position.y, finalPosition.z);
+                dir = from.position.Direction(targetPosition);
             }
-            
+            if (Vector3.Angle(dir, from.forward) < maximumAngle) return true;
             return false;
         }
 
@@ -56,20 +53,18 @@ namespace ExtensionMethods
         public static bool IsLookingTowards(this Transform from,
             Transform finalPosition, bool ignoreHeightDistance = false, float maximumAngle = 10)
         {
+            Vector3 dir;
             if (ignoreHeightDistance == false)
             {
-                Vector3 dir = from.position.Direction(finalPosition.position);
-                if (Vector3.Angle(dir, from.forward) < maximumAngle) return true;
+                dir = from.position.Direction(finalPosition.position);
             }
             else
             {
-                Vector2 fromPosition = new Vector2(from.position.x, from.position.z);
-                Vector2 targetPosition = 
-                    new Vector2(finalPosition.transform.position.x, finalPosition.transform.position.z);
-                Vector2 dir = fromPosition.Direction(targetPosition);
-                if (Vector2.Angle(dir, from.forward) < maximumAngle) return true;
+                Vector3 targetPosition = 
+                    new Vector3(finalPosition.position.x, from.position.y, finalPosition.position.z);
+                dir = from.position.Direction(targetPosition);
             }
-
+            if (Vector3.Angle(dir, from.forward) < maximumAngle) return true;
             return false;
         }
 
