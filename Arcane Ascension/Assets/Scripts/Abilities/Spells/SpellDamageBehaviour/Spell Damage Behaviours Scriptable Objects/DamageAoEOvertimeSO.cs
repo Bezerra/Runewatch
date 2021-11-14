@@ -31,7 +31,7 @@ public class DamageAoEOvertimeSO : DamageBehaviourAbstractSO
         IList<IDamageable> charactersToDoDamage = new List<IDamageable>();
 
         Collider[] collisions = Physics.OverlapSphere(
-                    parent.transform.position, parent.Spell.AreaOfEffect, Layers.EnemyWithWalls);
+                    parent.transform.position, parent.Spell.AreaOfEffect, Layers.PlayerEnemyWithWallsFloor);
 
         // If the enemy is directly hit
         if (other.gameObject.TryGetComponentInParent<IDamageable>(out IDamageable enemyDirectHit))

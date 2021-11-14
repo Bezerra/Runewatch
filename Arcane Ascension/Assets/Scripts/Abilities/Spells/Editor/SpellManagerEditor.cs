@@ -17,7 +17,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
     }
 
     private readonly string CREATENEWSPELL = "Create New Spell";
-    private readonly string SPELLSPATH = "Assets/Resources/Scriptable Objects/Spells";
+    private readonly string SPELLSPATH = "Assets/Resources/Scriptable Objects/Spells/Spells Scriptable Objects";
 
     // New spells
     private CreateNewSpellOneShotData createNewSpellOneShotData;
@@ -96,7 +96,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         [Button("Create", ButtonSizes.Large)]
         private void CreateNewData()
         {
-            AssetDatabase.CreateAsset(Spell, "Assets/Resources/Scriptable Objects/Spells/New Spell " +
+            AssetDatabase.CreateAsset(Spell, "Assets/Resources/Scriptable Objects/Spells/Spells Scriptable Objects/New Spell " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
@@ -118,7 +118,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         [Button("Create", ButtonSizes.Large)]
         private void CreateNewData()
         {
-            AssetDatabase.CreateAsset(Spell, $"Assets/Resources/Scriptable Objects/Spells/New Spell " +
+            AssetDatabase.CreateAsset(Spell, $"Assets/Resources/Scriptable Objects/Spells/Spells Scriptable Objects/New Spell " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 

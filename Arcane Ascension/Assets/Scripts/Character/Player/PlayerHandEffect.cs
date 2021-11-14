@@ -36,10 +36,13 @@ public class PlayerHandEffect : MonoBehaviour
             previousVFX.Stop();
         }
 
-        // Starts a new effect
-        spawnedSpell =
-            SpellHandEffectPoolCreator.Pool.InstantiateFromPool(
-                spell.Name, Vector3.zero, Quaternion.identity);
+        if (spell.Prefab.Item4 != null)
+        {
+            // Starts a new effect
+            spawnedSpell =
+                SpellHandEffectPoolCreator.Pool.InstantiateFromPool(
+                    spell.Name, Vector3.zero, Quaternion.identity);
+        }
     }
 
     private void Update()

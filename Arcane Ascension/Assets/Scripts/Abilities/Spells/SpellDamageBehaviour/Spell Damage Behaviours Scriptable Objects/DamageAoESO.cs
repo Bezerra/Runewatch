@@ -28,7 +28,7 @@ public class DamageAoESO : DamageBehaviourAbstractSO
     protected override void DamageLogic(SpellBehaviourAbstract parent, Collider other = null, float damageMultiplier = 1)
     {
         Collider[] collisions = Physics.OverlapSphere(
-                    parent.transform.position, parent.Spell.AreaOfEffect, Layers.EnemyWithWalls);
+                    parent.transform.position, parent.Spell.AreaOfEffect, Layers.PlayerEnemyWithWallsFloor);
 
         // Creates a new list with IDamageable characters
         IList<IDamageable> charactersToDoDamage = new List<IDamageable>();
@@ -44,6 +44,8 @@ public class DamageAoESO : DamageBehaviourAbstractSO
                 }
             }
         }
+
+        Debug.Log(collisions.Length);
 
         // Adds all IDamageable characters found to a list
         for (int i = 0; i < collisions.Length; i++)
