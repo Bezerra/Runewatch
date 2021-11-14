@@ -37,7 +37,7 @@ public class DamageSingleTargetSO : DamageBehaviourAbstractSO
                 // Ray to check if damage is moving towards a critical spot
                 Ray criticalSpotRay = new Ray(
                     parent.PositionOnHit,
-                    parent.PositionOnHit + parent.transform.forward);
+                    parent.transform.forward);
 
                 // Raycast from spell direction to forward, to check if it hit a critical point
                 if (Physics.Raycast(criticalSpotRay, 3, Layers.EnemySensiblePoint))
