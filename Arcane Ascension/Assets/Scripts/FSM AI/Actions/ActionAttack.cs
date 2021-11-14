@@ -45,7 +45,6 @@ sealed public class ActionAttack : FSMAction
                 // Agent can move again
                 ai.Controller.Agent.speed = ai.Controller.Values.Speed;
             }
-            Debug.Log("STOPPED");
             return;
         }
         
