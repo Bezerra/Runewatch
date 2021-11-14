@@ -13,6 +13,7 @@ public class SpellBehaviourSpawnHitOnAoEHoverSO : SpellBehaviourAbstractOneShotS
         parent.SpellStartedMoving = true;
 
         parent.transform.position = parent.AreaHoverAreaHit.point + parent.AreaHoverAreaHit.normal;
+        parent.PositionOnHit = parent.AreaHoverAreaHit.point + parent.AreaHoverAreaHit.normal;
 
         // Spawns hit in direction of collider hit normal
         GameObject onHitBehaviourGameObject = SpellHitPoolCreator.Pool.InstantiateFromPool(

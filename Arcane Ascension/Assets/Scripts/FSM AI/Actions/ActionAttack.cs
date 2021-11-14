@@ -98,6 +98,10 @@ sealed public class ActionAttack : FSMAction
         }
     }
 
+    /// <summary>
+    /// Resets variables.
+    /// </summary>
+    /// <param name="ai"></param>
     public override void OnEnter(StateController<Enemy> ai)
     {
         // Gets new random spell
@@ -115,6 +119,10 @@ sealed public class ActionAttack : FSMAction
         ai.Controller.TimeEnemyStoppedWhileAttacking = 0;
     }
 
+    /// <summary>
+    /// Resets variables and sets speed back to normal.
+    /// </summary>
+    /// <param name="ai"></param>
     public override void OnExit(StateController<Enemy> ai)
     {
         ai.Controller.IsAttackingWithStoppingTime = false;

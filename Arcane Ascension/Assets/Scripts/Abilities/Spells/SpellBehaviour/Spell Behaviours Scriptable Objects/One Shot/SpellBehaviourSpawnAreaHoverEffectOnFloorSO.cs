@@ -74,6 +74,8 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
         }
         else
         {
+            // If there is no wall, tries to cast a ray to bottom from maximum distance
+
             Ray noWallRayToFloor = 
                 new Ray(parent.Eyes.position + parent.Eyes.forward * parent.Spell.MaximumDistance, -Vector3.up);
 
@@ -86,8 +88,6 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
                 parent.AreaHoverVFX.transform.SetPositionAndRotation(
                     airToFloorHit.point + airToFloorHit.normal * distanceFromWall,
                     Quaternion.LookRotation(airToFloorHit.normal, airToFloorHit.collider.transform.up));
-
-                
             }
             else
             {

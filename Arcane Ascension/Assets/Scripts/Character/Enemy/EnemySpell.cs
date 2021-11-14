@@ -2,6 +2,9 @@ using System;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
+/// <summary>
+/// Serializable struct with enemy spells information.
+/// </summary>
 [Serializable]
 public struct EnemySpell
 {
