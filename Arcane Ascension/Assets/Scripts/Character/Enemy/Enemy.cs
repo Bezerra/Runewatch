@@ -98,6 +98,16 @@ public class Enemy : Character
         }
     }
 
+    /// <summary>
+    /// Property to know if the enemy is running an attack action with stopping time.
+    /// </summary>
+    public bool IsAttackingWithStoppingTime { get; set; }
+
+    /// <summary>
+    /// Property to know how much time has passed since the enemy started the current attack.
+    /// </summary>
+    public float TimeEnemyStoppedWhileAttacking { get; set; }
+
 
     // Roll properties
     public float RollTime           { get; set; }

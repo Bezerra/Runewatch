@@ -14,6 +14,12 @@ sealed public class ActionChasePlayer : FSMAction
 
     private void ChasePlayer(StateController<Enemy> ai)
     {
+        // If the enemy is inside a current attack that needs him to stop, ignores the rest of the method
+        if (ai.Controller.IsAttackingWithStoppingTime)
+        {
+            return;
+        }
+
         // If the agent has reached its final destination
         if (ai.Controller.CurrentTarget != null)
         {
