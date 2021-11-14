@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for spawning shopkeeper items.
 /// </summary>
-public class Shopkeeper : MonoBehaviour
+public class Shopkeeper : MonoBehaviour, IFindPlayer
 {
     private readonly int numberOfVarietyOfItemsToSell = 4;
 
@@ -99,5 +99,15 @@ public class Shopkeeper : MonoBehaviour
                     Destroy(gameObject);
             }
         }
+    }
+
+    public void FindPlayer()
+    {
+        player = FindObjectOfType<Player>();
+    }
+
+    public void PlayerLost()
+    {
+        player = null;
     }
 }

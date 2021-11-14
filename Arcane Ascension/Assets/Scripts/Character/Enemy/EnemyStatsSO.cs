@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
@@ -8,5 +9,9 @@ using Sirenix.OdinInspector;
 [CreateAssetMenu(menuName = "Character/Stats/Enemy Stats", fileName = "Enemy Stats")]
 public class EnemyStatsSO : StatsSO
 {
-    
+    [BoxGroup("Damage Stats")]
+    [Header("Character list of spells")]
+    [SerializeField] private List<EnemySpell> availableSpells;
+
+    public List<EnemySpell> AvailableSpells => availableSpells;
 }

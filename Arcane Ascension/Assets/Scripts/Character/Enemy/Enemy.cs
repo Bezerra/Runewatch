@@ -26,17 +26,17 @@ public class Enemy : Character
     public bool PickingPatrolPosition { get; set; }
 
     /// <summary>
-    /// Current distance for patrols.
+    /// Checks for a new direction if back movement is blocked.
     /// </summary>
     public Direction DirectionIfBackBlocked { get; set; }
 
     /// <summary>
-    /// Current distance for patrols.
+    /// Property to know if the enemy is walking backwards.
     /// </summary>
     public bool WalkingBackwards { get; set; }
 
     /// <summary>
-    /// Current distance for patrols.
+    /// Property to know if the enemy is running backwards.
     /// </summary>
     public bool RunningBackwards { get; set; }
 
@@ -51,7 +51,7 @@ public class Enemy : Character
     public float CurrentDistance { get; set; }
 
     /// <summary>
-    /// Current distance for patrols.
+    /// Current minimum distance to keep from target.
     /// </summary>
     public float DistanceToKeepFromTarget { get; set; }
 
@@ -80,6 +80,24 @@ public class Enemy : Character
             playerLastKnownPosition = value + offset;
         }
     }
+
+    private EnemySpell currentlySelectedSpell;
+    /// <summary>
+    /// Current spell the enemy has equiped.
+    /// </summary>
+    public EnemySpell CurrentlySelectedSpell
+    {
+        get => currentlySelectedSpell;
+        set
+        {
+            currentlySelectedSpell = value;
+            currentlySelectedSpell.Range = 
+                UnityEngine.Random.Range(
+                    currentlySelectedSpell.RandomRange.x, 
+                    currentlySelectedSpell.RandomRange.y);
+        }
+    }
+
 
     // Roll properties
     public float RollTime           { get; set; }
@@ -149,6 +167,7 @@ public class Enemy : Character
 
     private void Start()
     {
+        CurrentlySelectedSpell = EnemyStats.EnemyAttributes.AvailableSpells[0];
         Agent.speed = Values.Speed * AllValues.CharacterStats.MovementSpeedMultiplier;
         StateMachine.Start(StateMachine);
     }

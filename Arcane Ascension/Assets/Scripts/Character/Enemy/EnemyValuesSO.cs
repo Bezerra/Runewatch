@@ -14,11 +14,6 @@ public class EnemyValuesSO : CharacterValuesSO
     public Vector2 WaitingTime => waitingTime;
 
     [BoxGroup("Movement and Rotation")]
-    [Tooltip("Random distance allowed to move")]
-    [RangeMinMax(1f, 20f)] [SerializeField] private Vector2 distance;
-    public Vector2 Distance => distance;
-
-    [BoxGroup("Movement and Rotation")]
     [Tooltip("Speed of enemy rotation")]
     [Range(1, 7f)] [SerializeField] private float rotationSpeed = 3f;
     public float RotationSpeed => rotationSpeed;
@@ -28,10 +23,15 @@ public class EnemyValuesSO : CharacterValuesSO
     [Range(1, 7f)] [SerializeField] private float agentAngularSpeed = 500f;
     public float AgentAngularSpeed => agentAngularSpeed;
 
+    [BoxGroup("Movement On Patrol")]
+    [Tooltip("Random distance allowed to move")]
+    [RangeMinMax(1f, 20f)] [SerializeField] private Vector2 distance;
+    public Vector2 Distance => distance;
+
     [BoxGroup("Target and Chase")]
     [Tooltip("Random minim distance to keep from target")]
-    [RangeMinMax(1f, 23f)] [SerializeField] private Vector2 distanceToKeepFromTarget;
-    public Vector2 DistanceToKeepFromTarget => distanceToKeepFromTarget;
+    [RangeMinMax(1f, 23f)] [SerializeField] private Vector2 minimumDistanceToKeepFromTarget;
+    public Vector2 MinimumDistanceToKeepFromTarget => minimumDistanceToKeepFromTarget;
 
     [BoxGroup("Target and Chase")]
     [Tooltip("Maximum distance of vision")]

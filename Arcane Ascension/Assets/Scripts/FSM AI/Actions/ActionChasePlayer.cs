@@ -1,4 +1,5 @@
 using UnityEngine;
+using ExtensionMethods;
 
 /// <summary>
 /// Action to chase player.
@@ -17,11 +18,15 @@ sealed public class ActionChasePlayer : FSMAction
         if (ai.Controller.CurrentTarget != null)
         {
             if (Vector3.Distance(
-                ai.Controller.transform.position, ai.Controller.CurrentTarget.position) > ai.Controller.DistanceToKeepFromTarget)
+                ai.Controller.transform.position, ai.Controller.CurrentTarget.position) > ai.Controller.CurrentlySelectedSpell.Range)
             {
+                // This will only be executed if the enemy is not walking backwards
                 if (ai.Controller.WalkingBackwards == false && ai.Controller.RunningBackwards == false)
                 {
-                    ai.Controller.Agent.SetDestination(ai.Controller.CurrentTarget.position);
+                    ai.Controller.Agent.SetDestination(
+                        ai.Controller.CurrentTarget.position +
+                        ai.Controller.CurrentTarget.position.Direction(ai.Controller.transform.position) *
+                        ai.Controller.CurrentlySelectedSpell.Range);
                 }
             }
         }
@@ -29,9 +34,6 @@ sealed public class ActionChasePlayer : FSMAction
 
     public override void OnEnter(StateController<Enemy> ai)
     {
-        ai.Controller.DistanceToKeepFromTarget = Random.Range(
-            ai.Controller.Values.DistanceToKeepFromTarget.x, ai.Controller.Values.DistanceToKeepFromTarget.y);
-
         if (ai.Controller.PlayerScript != null)
         {
             if (ai.Controller.CurrentTarget == null)

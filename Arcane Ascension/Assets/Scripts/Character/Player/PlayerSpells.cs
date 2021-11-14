@@ -228,8 +228,8 @@ public class PlayerSpells : MonoBehaviour, ISaveable
             {
                 if (CurrentSpells[i] == null)
                 {
-                    if (playerStats.CommonAttributes.AvailableSpells.Contains(spellToAdd) == false)
-                        playerStats.CommonAttributes.AvailableSpells.Add(spellToAdd);
+                    if (playerStats.PlayerAttributes.AvailableSpells.Contains(spellToAdd) == false)
+                        playerStats.PlayerAttributes.AvailableSpells.Add(spellToAdd);
                     CurrentSpells[i] = spellToAdd;
                     StartSpellCooldown(CurrentSpells[i]);
                     break;
@@ -251,8 +251,8 @@ public class PlayerSpells : MonoBehaviour, ISaveable
             {
                 if (CurrentSpells[i] == null && i == slotNumber)
                 {
-                    if (playerStats.CommonAttributes.AvailableSpells.Contains(spellToAdd) == false)
-                        playerStats.CommonAttributes.AvailableSpells.Add(spellToAdd);
+                    if (playerStats.PlayerAttributes.AvailableSpells.Contains(spellToAdd) == false)
+                        playerStats.PlayerAttributes.AvailableSpells.Add(spellToAdd);
                     CurrentSpells[i] = spellToAdd;
                     StartSpellCooldown(CurrentSpells[i]);
                     break;

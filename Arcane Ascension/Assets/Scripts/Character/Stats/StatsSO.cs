@@ -47,9 +47,6 @@ public abstract class StatsSO : ScriptableObject
     [Range(0f, 1f)] [SerializeField] private float defaultCriticalChance;
     [BoxGroup("Damage Stats")]
     [Range(1f, 2f)] [SerializeField] private float defaultCriticalDamageModifier;
-    [BoxGroup("Damage Stats")] [Required("A spell is required")]
-    [Header("Character list of spells")]
-    [SerializeField] private List<SpellSO> availableSpells;
 
     public string Name => name;
     public float MaxHealth { get; set; }
@@ -59,7 +56,7 @@ public abstract class StatsSO : ScriptableObject
     public float MovementSpeedMultiplier { get; set; }
 
     public ElementType Element => element;
-    public List<SpellSO> AvailableSpells => availableSpells;
+    
 
     // Dictionary for elements damage multiplier
     private IDictionary<ElementType, float> damageElementMultiplier;

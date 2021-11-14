@@ -24,24 +24,37 @@ sealed public class ActionAttack : FSMAction
         {
             if (ai.Controller.CurrentTarget != null)
             {
+                // If the enemy needs to be at a certain range
+                if (ai.Controller.CurrentlySelectedSpell.NeedsToBeInRangeToAttack)
+                {
+                    // If that range's distance is not met, it will ignore the rest of the method
+                    if (Vector3.Distance(ai.Controller.transform.position, ai.Controller.CurrentTarget.transform.position) >
+                        ai.Controller.CurrentlySelectedSpell.Range)
+                    {
+                        return;
+                    }
+                }
+
                 // If the enemy is looking towards the player (with tolerance)
                 if (ai.Controller.transform.IsLookingTowards(
                     ai.Controller.CurrentTarget.position, true, ai.Controller.Values.FireAllowedAngle))
                 {
-                    int randomSpell = Random.Range(0, ai.Controller.AllValues.CharacterStats.AvailableSpells.Count);
-
-                    ISpell spell = ai.Controller.AllValues.CharacterStats.AvailableSpells[randomSpell];
-
-                    if (spell.CastType == SpellCastType.OneShotCast)
+                    if (ai.Controller.CurrentlySelectedSpell.Spell.CastType == SpellCastType.OneShotCast)
                     {
-                        ai.Controller.AllValues.CharacterStats.AvailableSpells[randomSpell].
-                            AttackBehaviour.AttackKeyPress(spell, ai, ai.Controller.EnemyStats);
+                        ai.Controller.CurrentlySelectedSpell.Spell.
+                            AttackBehaviour.AttackKeyPress(ai.Controller.CurrentlySelectedSpell.Spell, 
+                            ai, ai.Controller.EnemyStats);
                     }
 
                     ai.Controller.TimeOfLastAttack = Time.time;
 
                     ai.Controller.AttackDelay = Random.Range(
                         ai.Controller.Values.AttackDelay.x, ai.Controller.Values.AttackDelay.y);
+
+                    // Gets new random spell
+                    int randomSpell = Random.Range(0, ai.Controller.EnemyStats.EnemyAttributes.AvailableSpells.Count);
+                    ai.Controller.CurrentlySelectedSpell =
+                        ai.Controller.EnemyStats.EnemyAttributes.AvailableSpells[randomSpell];
                 }
             }
         }
@@ -49,14 +62,20 @@ sealed public class ActionAttack : FSMAction
 
     public override void OnEnter(StateController<Enemy> ai)
     {
+        // Gets new random spell
+        int randomSpell = Random.Range(0, ai.Controller.EnemyStats.EnemyAttributes.AvailableSpells.Count);
+        ai.Controller.CurrentlySelectedSpell =
+            ai.Controller.EnemyStats.EnemyAttributes.AvailableSpells[randomSpell];
+
         ai.Controller.TimeOfLastAttack = Time.time;
 
+        // Sets a new attack delay
         ai.Controller.AttackDelay = Random.Range(
             ai.Controller.Values.AttackDelay.x, ai.Controller.Values.AttackDelay.y);
     }
 
     public override void OnExit(StateController<Enemy> ai)
     {
-        // Left blank on purpose
+        ai.Controller.Agent.isStopped = false;
     }
 }

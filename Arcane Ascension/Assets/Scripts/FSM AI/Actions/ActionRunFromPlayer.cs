@@ -77,7 +77,7 @@ sealed public class ActionRunFromPlayer : FSMAction
         ai.Controller.RunningBackwards = false;
 
         ai.Controller.DistanceToKeepFromTarget = Random.Range(
-            ai.Controller.Values.DistanceToKeepFromTarget.x, ai.Controller.Values.DistanceToKeepFromTarget.y);
+            ai.Controller.Values.MinimumDistanceToKeepFromTarget.x, ai.Controller.Values.MinimumDistanceToKeepFromTarget.y);
 
         ai.Controller.DirectionIfBackBlocked = Random.Range(0, 2) == 0 ?
             Direction.Right : Direction.Left;

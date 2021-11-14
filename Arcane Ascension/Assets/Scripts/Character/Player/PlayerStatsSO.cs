@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
@@ -20,6 +21,9 @@ public class PlayerStatsSO : StatsSO
     [Range(0.1f, 10)] [SerializeField] private float defaultManaRegenSteal;
     [BoxGroup("General Stats")]
     [Range(1, 2)] [SerializeField] private int defaultDashCharge;
+    [BoxGroup("Damage Stats")]
+    [Header("Character list of spells")]
+    [SerializeField] private List<SpellSO> availableSpells;
 
     public float MaxMana { get; set; }
     public float ManaRegenAmount { get; set; }
@@ -27,7 +31,8 @@ public class PlayerStatsSO : StatsSO
     public float ManaRegenSteal { get; set; }
     public float MaxArmor { get; set; }
     public int MaxDashCharge { get; set; }
-    
+    public List<SpellSO> AvailableSpells => availableSpells;
+
     protected override void OnEnable()
     {
         base.OnEnable();
