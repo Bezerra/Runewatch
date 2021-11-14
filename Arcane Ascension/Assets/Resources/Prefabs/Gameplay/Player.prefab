@@ -678,7 +678,7 @@ GameObject:
   m_Component:
   - component: {fileID: 794075465}
   - component: {fileID: 794075466}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Audio Reverb Zone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -960,7 +960,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1421350562}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1538,6 +1538,7 @@ GameObject:
   - component: {fileID: 908752759}
   - component: {fileID: 908752760}
   - component: {fileID: 2870463309404999882}
+  - component: {fileID: 2112387252}
   m_Layer: 8
   m_Name: Player Main
   m_TagString: Untagged
@@ -1622,7 +1623,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a3fde5c2dceaec4a8e45df0bfcd5780, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderToPreventVelocity: {fileID: 0}
 --- !u!114 &1090331631598940412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1833,6 +1833,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a8780a7fcf67ef4aa8276e93c1ab189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2112387252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090331631598940400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ed166d17633c374a92a17dd63503ee3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyHealthBarLayer:
+    serializedVersion: 2
+    m_Bits: 262144
 --- !u!1 &1090331631860241838
 GameObject:
   m_ObjectHideFlags: 0
@@ -1845,7 +1860,7 @@ GameObject:
   - component: {fileID: 1090331631860241834}
   - component: {fileID: 1090331631860241832}
   - component: {fileID: 4712655895360397132}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1929,7 +1944,7 @@ GameObject:
   - component: {fileID: 3631884562662160071}
   - component: {fileID: 4474374900483154014}
   - component: {fileID: 1090331632516666571}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Player Camera Cinemachine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1944,7 +1959,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1090331632516666569}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.9, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6386265129626204584}
@@ -3491,7 +3506,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8499846679636582278}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Hand (spell transform spawn)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4061,7 +4076,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8624258032535686394}
   - component: {fileID: 8624258032535686393}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -4747,6 +4762,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1090331631598940401}
     m_Modifications:
+    - target: {fileID: 487937061582918762, guid: 116b4d224eefca246ab2d8e73c2ae378, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3154786166944563967, guid: 116b4d224eefca246ab2d8e73c2ae378, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5041640752128248887, guid: 116b4d224eefca246ab2d8e73c2ae378, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -4791,9 +4814,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6472276365306066770, guid: 116b4d224eefca246ab2d8e73c2ae378, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7788516480924341724, guid: 116b4d224eefca246ab2d8e73c2ae378, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7910395707805917799, guid: 116b4d224eefca246ab2d8e73c2ae378, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8490948026691786817, guid: 116b4d224eefca246ab2d8e73c2ae378, type: 3}
       propertyPath: m_Name
       value: Player Character Audio Sources
+      objectReference: {fileID: 0}
+    - target: {fileID: 8490948026691786817, guid: 116b4d224eefca246ab2d8e73c2ae378, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 116b4d224eefca246ab2d8e73c2ae378, type: 3}
