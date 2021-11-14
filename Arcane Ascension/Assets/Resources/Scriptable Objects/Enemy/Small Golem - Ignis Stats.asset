@@ -29,8 +29,13 @@ MonoBehaviour:
   defaultCriticalChance: 0.1
   defaultCriticalDamageModifier: 1
   availableSpells:
-  - spell: {fileID: 11400000, guid: ece89201399664e43a5c2cc72bd908d8, type: 2}
-    range: {x: 2, y: 2.5}
+  - spell: {fileID: 11400000, guid: b0d9d2fceb4a0534d93d2a1c31319172, type: 2}
+    range: {x: 2.5, y: 2.5}
     needsToBeInRangeToAttack: 1
     enemyStopsOnAttack: 1
-    stoppingTime: 2
+    stoppingTime: 0.25
+  - spell: {fileID: 11400000, guid: ece89201399664e43a5c2cc72bd908d8, type: 2}
+    range: {x: 10, y: 15}
+    needsToBeInRangeToAttack: 0
+    enemyStopsOnAttack: 0
+    stoppingTime: 0.1

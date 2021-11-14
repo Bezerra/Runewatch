@@ -31,7 +31,7 @@ public class DamageAoEOvertimeSO : DamageBehaviourAbstractSO
         IList<IDamageable> charactersToDoDamage = new List<IDamageable>();
 
         Collider[] collisions = Physics.OverlapSphere(
-                    parent.transform.position, parent.Spell.AreaOfEffect, Layers.PlayerEnemyWithWallsFloor);
+                    parent.transform.position, parent.Spell.AreaOfEffect, Layers.PlayerEnemy);
 
         // If the enemy is directly hit
         if (other.gameObject.TryGetComponentInParent<IDamageable>(out IDamageable enemyDirectHit))
@@ -50,16 +50,17 @@ public class DamageAoEOvertimeSO : DamageBehaviourAbstractSO
                         parent.PositionOnHit,
                         (collisions[i].transform.position - parent.transform.position).normalized);
 
-            if (parent.LayerOfCharacterHit != parent.LayerOfWhoCast)
+            if (Physics.Raycast(dir, out RaycastHit characterHit, parent.Spell.AreaOfEffect * 0.5f,
+                Layers.PlayerEnemyWithWallsFloor))
             {
-                if (Physics.Raycast(dir, out RaycastHit characterHit, parent.Spell.AreaOfEffect * 0.5f,
-                    Layers.PlayerEnemyWithWallsFloor))
+                // If the collider is an IDamageable (meaning there wasn't a wall in the ray path)
+                if (characterHit.collider.TryGetComponentInParent<IDamageable>(out IDamageable character))
                 {
-                    // If the collider is an IDamageable (meaning there wasn't a wall in the ray path)
-                    if (characterHit.collider.TryGetComponentInParent<IDamageable>(out IDamageable character))
+                    // If the target is different than who cast the spell
+                    if (!character.Equals(parent.ThisIDamageable))
                     {
-                        // If the target is different than who cast the spell
-                        if (!character.Equals(parent.ThisIDamageable))
+                        // If the layer is different (enemies can't hit enemies)
+                        if (characterHit.collider.gameObject.layer != parent.LayerOfWhoCast)
                         {
                             if (charactersToDoDamage.Contains(character) == false)
                             {

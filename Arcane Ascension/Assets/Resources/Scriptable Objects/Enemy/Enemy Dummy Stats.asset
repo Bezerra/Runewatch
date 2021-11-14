@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enemy Dummy Stats
   m_EditorClassIdentifier: 
   name: Enemy Dummy Stats
-  notes: 
+  description: 
   element: 3
   defaultHealth: 2000
   defaultMovementSpeedMultiplier: 1
@@ -29,5 +29,13 @@ MonoBehaviour:
   defaultCriticalChance: 0.1
   defaultCriticalDamageModifier: 1
   availableSpells:
-  - {fileID: 11400000, guid: ece89201399664e43a5c2cc72bd908d8, type: 2}
-  - {fileID: 11400000, guid: 5ddab0765f7d6c146bbd1e54f2bab83e, type: 2}
+  - spell: {fileID: 0}
+    range: {x: 0, y: 0}
+    needsToBeInRangeToAttack: 0
+    enemyStopsOnAttack: 0
+    stoppingTime: 0.1
+  - spell: {fileID: 0}
+    range: {x: 0, y: 0}
+    needsToBeInRangeToAttack: 0
+    enemyStopsOnAttack: 0
+    stoppingTime: 0.1

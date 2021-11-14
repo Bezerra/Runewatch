@@ -77,7 +77,6 @@ public class StateController<T> where T : Enemy
                 currentState = nextState;
                 currentState.OnEnter(ai);
                 StateTimeElapsed = 0;
-                Debug.Log(currentState);
             }
         }
     }

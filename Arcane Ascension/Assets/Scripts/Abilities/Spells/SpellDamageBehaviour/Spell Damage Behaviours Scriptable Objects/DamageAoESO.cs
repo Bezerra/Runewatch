@@ -28,7 +28,7 @@ public class DamageAoESO : DamageBehaviourAbstractSO
     protected override void DamageLogic(SpellBehaviourAbstract parent, Collider other = null, float damageMultiplier = 1)
     {
         Collider[] collisions = Physics.OverlapSphere(
-                    parent.transform.position, parent.Spell.AreaOfEffect, Layers.PlayerEnemyWithWallsFloor);
+                    parent.transform.position, parent.Spell.AreaOfEffect, Layers.PlayerEnemy);
 
         // Creates a new list with IDamageable characters
         IList<IDamageable> charactersToDoDamage = new List<IDamageable>();
@@ -56,18 +56,19 @@ public class DamageAoESO : DamageBehaviourAbstractSO
             if (Physics.Raycast(dir, out RaycastHit characterHit, parent.Spell.AreaOfEffect * 0.5f,
                 Layers.PlayerEnemyWithWallsFloor))
             {
-                if (parent.LayerOfCharacterHit != parent.LayerOfWhoCast)
+               
+                // If the collider is an IDamageable (meaning there wasn't a wall in the ray path)
+                if (characterHit.collider.TryGetComponentInParent<IDamageable>(out IDamageable character))
                 {
-                    // If the collider is an IDamageable (meaning there wasn't a wall in the ray path)
-                    if (characterHit.collider.TryGetComponentInParent<IDamageable>(out IDamageable character))
+                    // If the target is different than who cast the spell
+                    if (!character.Equals(parent.ThisIDamageable))
                     {
-                        // If the target is different than who cast the spell
-                        if (!character.Equals(parent.ThisIDamageable))
+                        // If the layer is different (enemies can't hit enemies)
+                        if (characterHit.collider.gameObject.layer != parent.LayerOfWhoCast)
                         {
                             if (charactersToDoDamage.Contains(character) == false)
                             {
                                 charactersToDoDamage.Add(character);
-                                
                             }
                         }
                     }

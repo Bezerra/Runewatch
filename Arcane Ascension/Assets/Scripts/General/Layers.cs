@@ -10,6 +10,7 @@ public class Layers : MonoBehaviour
     [SerializeField] private LayerMask allExceptPlayerAndEnemy;
     [SerializeField] private LayerMask enemyWithWalls;
     [SerializeField] private LayerMask enemyWithWallsFloor;
+    [SerializeField] private LayerMask playerEnemy;
     [SerializeField] private LayerMask playerEnemyWithWallsFloor;
     [SerializeField] private LayerMask wallsFloor;
     [SerializeField] private LayerMask walls;
@@ -31,6 +32,7 @@ public class Layers : MonoBehaviour
     public static LayerMask AllExceptPlayerAndEnemy => instance.allExceptPlayerAndEnemy;
     public static LayerMask EnemyWithWalls => instance.enemyWithWalls;
     public static LayerMask EnemyWithWallsFloor => instance.enemyWithWallsFloor;
+    public static LayerMask PlayerEnemy => instance.playerEnemy;
     public static LayerMask PlayerEnemyWithWallsFloor => instance.playerEnemyWithWallsFloor;
     public static LayerMask WallsFloor => instance.wallsFloor;
     public static LayerMask Floor => instance.floor;

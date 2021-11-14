@@ -9,11 +9,11 @@ using Sirenix.OdinInspector;
 public struct EnemySpell
 {
     [SerializeField] private SpellSO spell;
-    [RangeMinMax(1f, 20f)] [SerializeField] private Vector2 range;
+    [RangeMinMax(2.5f, 20f)] [SerializeField] private Vector2 range; // 2.5 MINIMUM BECAUSE OF THE ENEMY COLLISION AGAINST PLAYER
     [SerializeField] private bool needsToBeInRangeToAttack;
     [SerializeField] private bool enemyStopsOnAttack;
     [EnableIf("enemyStopsOnAttack")]
-    [Range(0.1f, 2f)] [SerializeField] private float stoppingTime;
+    [Range(0.1f, 4f)] [SerializeField] private float stoppingTime;
 
     /// <summary>
     /// Spell.
