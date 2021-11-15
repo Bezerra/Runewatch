@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using ExtensionMethods;
 
@@ -62,15 +63,30 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     public float LastTimeDamaged { get; set; }
 
     /// <summary>
+    /// Disables projectile immediatly.
+    /// </summary>
+    public bool DisableImmediatly { get; set; }
+
+    /// <summary>
     /// Used so all behaviours can work properly without being afected by reflection first.
     /// </summary>
     public bool ProjectileReflected { get; set; }
+
+    /// <summary>
+    /// Raycast hit of projectile reflection.
+    /// </summary>
+    public RaycastHit ProjectileReflectedHit { get; set; }
+
+    // Coroutines
+    private YieldInstruction wffu;
+    private IEnumerator resetColliderTriggerCoroutine;
 
     protected override void Awake()
     {
         base.Awake();
         Rb = GetComponent<Rigidbody>();
         ColliderTrigger = GetComponent<CapsuleCollider>();
+        wffu = new WaitForFixedUpdate();
     }
 
     protected override void OnEnable()
@@ -94,6 +110,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         lastHitGameObject = null;
         ProjectileReflected = false;
         AreaHoverDealtDamage = false;
+        DisableImmediatly = false;
 
         if (Rb != null) Rb.velocity = Vector3.zero;
     }
@@ -135,6 +152,8 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     /// <param name="other">Collider of collision.</param>
     private void OnTriggerEnter(Collider other)
     {
+        this.StartCoroutineWithReset(ref resetColliderTriggerCoroutine, ResetColliderTriggerCoroutine());
+
         if (other.gameObject.TryGetComponentInParent<SelectionBase>(out SelectionBase component))
         {
             // If the enemy or player hit is DIFFERENT than the last one
@@ -180,7 +199,19 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         }
     }
 
-
+    /// <summary>
+    /// Resets collider so a spell doesn't hit twice in a row when it hits different 
+    /// colliders at the same time.
+    /// </summary>
+    /// <returns>WFFU.</returns>
+    public IEnumerator ResetColliderTriggerCoroutine()
+    {
+        ColliderTrigger.enabled = false;
+        yield return wffu;
+        yield return wffu;
+        yield return wffu;
+        ColliderTrigger.enabled = true;
+    }
 
     public Vector3 TEMP { get; set; }
     public Ray TEMPRAY { get; set; }

@@ -5,7 +5,7 @@ using ExtensionMethods;
 /// <summary>
 /// Scriptable object responsible for bouncing on hit.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Bounce On Hit", 
+[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Bounce On Hit",
     fileName = "Spell Behaviour Bounce On Hit")]
 public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
 {
@@ -42,14 +42,32 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
     {
         if (layersToStopTheSpell.Contains(other.gameObject.layer))
         {
-            if (++parent.CurrentWallHitQuantity < hitQuantity)
+            Vector3 directionToInitialSpawn = parent.transform.Direction(parent.PositionOnHit);
+
+            // Direction to do a raycast.
+            // Uses directionToInitialSpawn so the hit will be a little behind the wall to prevent bugs
+            Ray direction = new Ray(
+                parent.transform.position + directionToInitialSpawn * 0.1f,
+                ((parent.transform.position + directionToInitialSpawn * 0.1f).
+                Direction(other.ClosestPoint(parent.transform.position))));
+
+            // Reflects the current movement vector of the spell
+            if (Physics.Raycast(direction, out RaycastHit spellHitPoint))
             {
-                RotateProjectile(other, parent);
-            }
-            else
-            {
-                parent.DisableSpellAfterCollision = true;
-                parent.Rb.velocity = Vector3.zero;
+                // On first hit
+                if (parent.CurrentWallHitQuantity == 0)
+                {
+                    CheckProjectileRotationLogic(parent, spellHitPoint);
+                }
+                // Else if it's not first hit
+                else
+                {
+                    // AND the last hit normal is DIFFERENT than this current hit's normal
+                    if (parent.ProjectileReflectedHit.normal != spellHitPoint.normal)
+                    {
+                        CheckProjectileRotationLogic(parent, spellHitPoint);
+                    }
+                }
             }
         }
         else
@@ -59,46 +77,52 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
     }
 
     /// <summary>
+    /// Updates last reflected projectile raycast hit. Checks current wall hit quantity.
+    /// </summary>
+    /// <param name="parent">Parent spell.</param>
+    /// <param name="spellHitPoint">RaycastHit to reflect projectile.</param>
+    private void CheckProjectileRotationLogic(SpellBehaviourOneShot parent, RaycastHit spellHitPoint)
+    {
+        parent.ProjectileReflectedHit = spellHitPoint;
+
+        if (++parent.CurrentWallHitQuantity < hitQuantity)
+        {
+            RotateProjectile(parent, spellHitPoint);
+        }
+        else
+        {
+            parent.Rb.velocity = Vector3.zero;
+            parent.DisableImmediatly = true;
+        }
+    }
+
+    /// <summary>
     /// Reflects projectile.
     /// </summary>
-    /// <param name="other"></param>
-    /// <param name="parent"></param>
-    private void RotateProjectile(Collider other, SpellBehaviourOneShot parent)
+    /// <param name="parent">Parent spell.</param>
+    /// <param name="spellHitPoint">RaycastHit to reflect projectile.</param>
+    private void RotateProjectile(SpellBehaviourOneShot parent, RaycastHit spellHitPoint)
     {
         parent.ProjectileReflected = false;
 
         parent.PositonWhenSpawned = parent.transform.position;
 
-        // Direction of the current hit to initial spawn
-        Vector3 directionToInitialSpawn = parent.transform.Direction(parent.PositionOnHit);
-
-        // Direction to do a raycast.
-        // Uses directionToInitialSpawn so the hit will be a little behind the wall to prevent bugs
-        Ray direction = new Ray(
-            parent.transform.position + directionToInitialSpawn * 0.1f, 
-            ((parent.transform.position + directionToInitialSpawn * 0.1f).
-            Direction(other.ClosestPoint(parent.transform.position))));
-
-        // Reflects the current movement vector of the spell
-        if (Physics.Raycast(direction, out RaycastHit spellHitPoint))
-        {
-            Vector3 reflection = Vector3.Reflect(parent.Rb.velocity, spellHitPoint.normal).normalized;
-
-            // This piece of code prevents undesired reflections.
-            // For ex: if the player shoots upwards on the corner of a wall, the detection
-            // will happen on the next frame and it will reflect the projectile towards INSIDE the wall
-            if (Vector3.Dot(parent.transform.forward, spellHitPoint.normal) > 0)
-                return;
-
-            // Sets new speed based on rotation
-            parent.Rb.velocity = reflection * parent.Spell.Speed;
+        Vector3 reflection = Vector3.Reflect(parent.Rb.velocity, spellHitPoint.normal).normalized;
             
-            // Rotates the projectile towards that new speed vector
-            parent.transform.rotation = 
-                Quaternion.LookRotation(parent.Rb.velocity.Direction(parent.Rb.velocity+reflection), Vector3.up);
+        // This piece of code prevents undesired reflections.
+        // For ex: if the player shoots upwards on the corner of a wall, the detection
+        // will happen on the next frame and it will reflect the projectile towards INSIDE the wall
+        if (Vector3.Dot(parent.transform.forward, spellHitPoint.normal) > 0)
+            return;
 
-            // So other behaviours can work properly without being afected by reflection first
-            parent.ProjectileReflected = true;
-        }
+        // Sets new speed based on rotation
+        parent.Rb.velocity = reflection * parent.Spell.Speed;
+            
+        // Rotates the projectile towards that new speed vector
+        parent.transform.rotation = 
+            Quaternion.LookRotation(parent.Rb.velocity.Direction(parent.Rb.velocity+reflection), Vector3.up);
+
+        // So other behaviours can work properly without being afected by reflection first
+        parent.ProjectileReflected = true;
     }
 }

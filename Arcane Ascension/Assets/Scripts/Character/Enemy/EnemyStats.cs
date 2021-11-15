@@ -23,7 +23,6 @@ public class EnemyStats : Stats
     {
         base.Start();
         
-
         for (int i = 0; i < EnemyAttributes.AllEnemySpells.Count; i++)
         {
             AvailableSpellsWeight.Add(EnemyAttributes.AllEnemySpells[i].SpellWeight);
