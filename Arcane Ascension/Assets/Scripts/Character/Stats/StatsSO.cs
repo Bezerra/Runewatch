@@ -21,6 +21,10 @@ public abstract class StatsSO : ScriptableObject
     [EnumToggleButtons] [SerializeField] private ElementType element;
 
     [BoxGroup("General Stats")]
+    [SerializeField] private CharacterType characterType;
+    public CharacterType Type => characterType;
+
+    [BoxGroup("General Stats")]
     [Range(1, 2000)] [SerializeField] private float defaultHealth;
     [BoxGroup("General Stats")]
     [Range(0f, 2f)] [SerializeField] private float defaultMovementSpeedMultiplier;

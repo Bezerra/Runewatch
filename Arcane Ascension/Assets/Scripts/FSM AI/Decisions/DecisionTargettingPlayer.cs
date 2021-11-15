@@ -9,6 +9,7 @@ public class DecisionTargettingPlayer : FSMDecision
     public override bool CheckDecision(StateController<Enemy> ai)
     {
         bool hasTarget = ai.Controller.CurrentTarget != null;
+
         return hasTarget;
     }
 

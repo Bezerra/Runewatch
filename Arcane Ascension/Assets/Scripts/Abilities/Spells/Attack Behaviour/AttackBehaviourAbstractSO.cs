@@ -33,7 +33,7 @@ public abstract class AttackBehaviourAbstractSO : ScriptableObject
         Stats characterStats, ref SpellBehaviourAbstract spellBehaviour);
 
     /// <summary>
-    /// Spawns a spell and triggers its behaviour.
+    /// Spawns a spell cast by AI and triggers its behaviour.
     /// Used by AI.
     /// </summary>
     /// <param name="spell">Cast spell.</param>
@@ -41,6 +41,12 @@ public abstract class AttackBehaviourAbstractSO : ScriptableObject
     /// <param name="characterStats">Character stats.</param>
     public abstract void AttackKeyPress(
         ISpell spell, StateController<Enemy> character, Stats characterStats);
+
+    /// <summary>
+    /// What happens after the AI releases the attack.
+    /// </summary>
+    /// <param name="character">Character who casts the spell.</param>
+    public abstract void AttackKeyRelease(StateController<Enemy> character);
 
     /// <summary>
     /// Disables spell gameobject.

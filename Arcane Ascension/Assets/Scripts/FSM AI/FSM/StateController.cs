@@ -15,6 +15,11 @@ public class StateController<T> where T : Enemy
     public T Controller { get; private set; }
 
     /// <summary>
+    /// Property to know if the enemy is currently allowed to change state.
+    /// </summary>
+    public bool AllowedToChangeState { get; set; }
+
+    /// <summary>
     /// Time elapsed while in current state.
     /// </summary>
     public float StateTimeElapsed { get; private set; }
@@ -35,6 +40,7 @@ public class StateController<T> where T : Enemy
         Controller = character;
         currentState = Controller.AllValues.InitialState;
         nullState = Controller.AllValues.NullState;
+        AllowedToChangeState = true;
     }
 
     /// <summary>
@@ -69,7 +75,8 @@ public class StateController<T> where T : Enemy
     /// <param name="ai">StateController of this state machine.</param>
     public void Transition(FSMState nextState, StateController<Enemy> ai)
     {
-        if (StateTimeElapsed > MINIMUMTIMETOSTAYINSTATE)
+        if (StateTimeElapsed > MINIMUMTIMETOSTAYINSTATE &&
+            AllowedToChangeState)
         {
             if (nextState != nullState)
             {

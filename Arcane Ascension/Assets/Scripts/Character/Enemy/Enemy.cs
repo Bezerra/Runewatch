@@ -166,6 +166,16 @@ public class Enemy : Character
     private IEnumerator takeDamageCoroutine;
     private YieldInstruction wfsAfterBeingHit;
 
+    /// <summary>
+    /// Property set on attack behaviours.
+    /// </summary>
+    public GameObject CurrentCastSpell { get; set; }
+
+    /// <summary>
+    /// Property set on attack behaviours.
+    /// </summary>
+    public SpellBehaviourAbstract CurrentSpellBehaviour { get; set; }
+
     private void Awake()
     {
         Agent = GetComponent<NavMeshAgent>();

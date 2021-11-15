@@ -16,10 +16,6 @@ public abstract class CharacterValuesSO : ScriptableObject
     [SerializeField] private new string name;
 
     [BoxGroup("General Values")]
-    [SerializeField] private CharacterType characterType;
-    public CharacterType Type => characterType;
-
-    [BoxGroup("General Values")]
     [Range(1, 10)] [SerializeField] protected float speed;
     public float Speed => speed;
 

@@ -41,7 +41,7 @@ public class AttackBehaviourContinuousSO : AttackBehaviourAbstractContinuousSO
     public override void AttackKeyPress(
         ISpell spell, StateController<Enemy> character, Stats characterStats)
     {
-        // Temp blank
+        // Left blank on purpose
     }
 
     /// <summary>
@@ -57,5 +57,14 @@ public class AttackBehaviourContinuousSO : AttackBehaviourAbstractContinuousSO
         Stats characterStats, ref SpellBehaviourAbstract spellBehaviour)
     {
         DisableSpell(spellBehaviour);
+    }
+
+    /// <summary>
+    /// What happens after the AI releases the attack.
+    /// </summary>
+    /// <param name="character"></param>
+    public override void AttackKeyRelease(StateController<Enemy> character)
+    {
+        // Left blank on purpose
     }
 }

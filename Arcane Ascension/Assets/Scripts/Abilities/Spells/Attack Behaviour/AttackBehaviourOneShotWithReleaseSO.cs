@@ -8,9 +8,9 @@ using UnityEngine;
 public class AttackBehaviourOneShotWithReleaseSO : AttackBehaviourAbstractOneShotSO
 {
     /// <summary>
-    /// Attack behaviour for one shot spells. Instantiates the spell from a pool.
+    /// Attack behaviour for one shot spells with release. Instantiates the spell from a pool.
     /// </summary>
-    /// <param name="playerCastSpell">Script from where the spell was cast from.</param> 
+    /// <param name="currentlyCastSpell">Current spawned spell gameobject.</param> 
     /// <param name="spell">Spell to cast.</param>
     /// <param name="character">Character that cast the spell.</param>
     /// <param name="characterStats">Character that cast the spell stats.</param>
@@ -42,7 +42,19 @@ public class AttackBehaviourOneShotWithReleaseSO : AttackBehaviourAbstractOneSho
     /// <param name="characterStats">Character stats.</param>
     public override void AttackKeyPress(ISpell spell, StateController<Enemy> character, Stats characterStats)
     {
-        // Left blank on purpose
+        // This spell is only instantiated in here, it will be used on method AttackKeyRelease
+        character.Controller.CurrentCastSpell =
+            SpellPoolCreator.Pool.InstantiateFromPool(
+                spell.Name, character.Controller.Hand.position,
+                Quaternion.identity);
+
+
+        // Gets behaviour of the spawned spell. Starts the behaviour and passes whoCast object (stats) to the behaviour.
+        character.Controller.CurrentSpellBehaviour = 
+            character.Controller.CurrentCastSpell.GetComponent<SpellBehaviourOneShot>();
+
+        // This has to happen here, so the scripts will have access to spellbehaviouroneshot variables
+        character.Controller.CurrentSpellBehaviour.WhoCast = characterStats;
     }
 
     /// <summary>
@@ -65,6 +77,22 @@ public class AttackBehaviourOneShotWithReleaseSO : AttackBehaviourAbstractOneSho
         {
             currentlyCastSpell.transform.SetPositionAndRotation(character.Hand.position, Quaternion.identity);
             spellBehaviour.TriggerStartBehaviour();
+        }
+    }
+
+    /// <summary>
+    /// What happens after the AI releases the attack.
+    /// </summary>
+    /// <param name="character"></param>
+    public override void AttackKeyRelease(StateController<Enemy> character)
+    {
+        // If a spell was spawned on attack press
+        // Sets position and rotation and triggers its start behaviour
+        if (character.Controller.CurrentCastSpell != null)
+        {
+            character.Controller.CurrentCastSpell.transform.SetPositionAndRotation(
+                character.Controller.Hand.position, Quaternion.identity);
+            character.Controller.CurrentSpellBehaviour.TriggerStartBehaviour();
         }
     }
 }

@@ -33,12 +33,20 @@ public class EnemyHealthBar : MonoBehaviour
         enemyStats.EventTakeDamage -= UpdateInformation;
     }
 
+    /// <summary>
+    /// Updates health bar values.
+    /// </summary>
+    /// <param name="damageToTake">Damage to reduce from bar.</param>
     private void UpdateInformation(float damageToTake)
     {
         healthBarImage.sizeDelta = 
             new Vector2((enemyStats.Health-damageToTake) / enemyStats.MaxHealth, healthBarImage.sizeDelta.y);
     }
 
+    /// <summary>
+    /// Enables or disables health bar.
+    /// </summary>
+    /// <param name="condition">True to enable, false to disable.</param>
     public void EnableEnemyHealthBar(bool condition)
     {
         if (condition)
@@ -57,9 +65,12 @@ public class EnemyHealthBar : MonoBehaviour
         UpdateRotation();
     }
 
+    /// <summary>
+    /// Updates rotation of the bar.
+    /// </summary>
     private void UpdateRotation()
     {
-        if (healthBarGameObject)
+        if (healthBarGameObject.activeSelf)
             healthBarGameObject.transform.LookAt(cam.transform);
     }
 }

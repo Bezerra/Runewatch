@@ -15,10 +15,50 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
 
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
-        
+        // Left blank on purpose
     }
     public override void ContinuousUpdateBeforeSpellBehaviour(SpellBehaviourOneShot parent)
     {
+        // Will be set to true in another movement behaviour start behaviour
+        if (parent.ColliderTrigger != null)
+            parent.ColliderTrigger.enabled = false;
+
+        // If it's an enemy
+        if (parent.WhoCast.CommonAttributes.Type == CharacterType.Monster)
+        {
+            // If time while casting reaches the time limit set on enemy spell list,
+            // shows one shot with release spell area.
+            // Code only happens once.
+            float timeEnemyIsStopped = Time.time - parent.AICharacter.TimeEnemyStoppedWhileAttacking;
+            if (timeEnemyIsStopped > parent.AICharacter.CurrentlySelectedSpell.StoppingTime * 
+                parent.AICharacter.CurrentlySelectedSpell.PercentageStoppingTimeTriggerAoESpell &&
+                parent.AreaHoverVFX == null)
+            {
+                Ray playerFloorPosition = new Ray(
+                parent.AICharacter.CurrentTarget.position, Vector3.down);
+
+                if (Physics.Raycast(playerFloorPosition, out RaycastHit floorHit, 5, Layers.WallsFloor))
+                {
+                    if (parent.AreaHoverVFX == null)
+                    {
+                        parent.AreaHoverVFX =
+                            SpellAreaHoverPoolCreator.Pool.InstantiateFromPool(
+                            parent.Spell.Name, DISTANTVECTOR,
+                            Quaternion.identity);
+                    }
+
+                    parent.AreaHoverAreaHit = floorHit;
+
+                    parent.AreaHoverVFX.transform.SetPositionAndRotation(
+                        floorHit.point + floorHit.normal * distanceFromWall,
+                        Quaternion.LookRotation(floorHit.normal, floorHit.collider.transform.up));
+                }
+            }
+            return;
+        }
+
+        // If it's not an enemy, it will execute this code for player
+
         if (parent.AreaHoverVFX == null)
         {
             parent.AreaHoverVFX =
@@ -26,10 +66,6 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
                 parent.Spell.Name, DISTANTVECTOR,
                 Quaternion.identity);
         }
-
-        // Will be set to true in another movement behaviour start behaviour
-        if (parent.ColliderTrigger != null)
-            parent.ColliderTrigger.enabled = false;
 
         Ray eyesForward = new Ray(parent.Eyes.position, parent.Eyes.forward);
         if (Physics.Raycast(eyesForward, out RaycastHit objectHit, parent.Spell.MaximumDistance, layersToCheck))

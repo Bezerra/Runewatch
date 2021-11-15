@@ -65,4 +65,13 @@ public class AttackBehaviourOneShotSO : AttackBehaviourAbstractOneShotSO
     {
         // Left blank on purpose
     }
+
+    /// <summary>
+    /// What happens after the AI releases the attack.
+    /// </summary>
+    /// <param name="character"></param>
+    public override void AttackKeyRelease(StateController<Enemy> character)
+    {
+        // Left blank on purpose
+    }
 }
