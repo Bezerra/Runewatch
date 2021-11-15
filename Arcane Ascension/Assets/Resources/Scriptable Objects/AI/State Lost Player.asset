@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fileName: State Lost Player
   notes: Searches for player in the last known position.
-  actions: []
+  actions:
+  - {fileID: 11400000, guid: f70a6a14b177c234aaddc6b45ecc26d4, type: 2}
   transitions:
   - notes: If the enemy can see the player, it will start chasing him.
     decision: {fileID: 11400000, guid: 9b53d9dde600d4b479ee679ff66a0fe2, type: 2}
