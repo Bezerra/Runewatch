@@ -19,29 +19,69 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectWallsAndFloorSO : SpellBeh
     }
     public override void ContinuousUpdateBeforeSpellBehaviour(SpellBehaviourOneShot parent)
     {
+        // Will be set to true in another movement behaviour start behaviour
+        if (parent.ColliderTrigger != null)
+            parent.ColliderTrigger.enabled = false;
+
+        // If it's an enemy
+        if (parent.WhoCast.CommonAttributes.Type == CharacterType.Monster)
+        {
+            // If time while casting reaches the time limit set on enemy spell list,
+            // shows one shot with release spell area.
+            // Code only happens once.
+            float timeEnemyIsStopped = Time.time - parent.AICharacter.TimeEnemyStoppedWhileAttacking;
+            if (timeEnemyIsStopped > parent.AICharacter.CurrentlySelectedSpell.StoppingTime *
+                parent.AICharacter.CurrentlySelectedSpell.PercentageStoppingTimeTriggerAoESpell &&
+                parent.AreaHoverVFX == null)
+            {
+                Ray playerFloorPosition = new Ray(
+                parent.AICharacter.CurrentTarget.position, Vector3.down);
+
+                if (Physics.Raycast(playerFloorPosition, out RaycastHit floorHit, 5, Layers.WallsFloor))
+                {
+                    if (parent.AreaHoverVFX == null)
+                    {
+                        parent.AreaHoverVFX =
+                            SpellAreaHoverPoolCreator.Pool.InstantiateFromPool(
+                            parent.Spell.Name, DISTANTVECTOR,
+                            Quaternion.identity);
+                    }
+
+                    parent.AreaHoverAreaHit = floorHit;
+
+                    parent.AreaHoverVFX.transform.SetPositionAndRotation(
+                        floorHit.point + floorHit.normal * distanceFromWall,
+                        Quaternion.LookRotation(floorHit.normal, floorHit.collider.transform.up));
+                }
+            }
+            return;
+        }
+
+        // If it's not an enemy, it will execute this code for player
+
         if (parent.AreaHoverVFX == null)
         {
-            // Spawns the vfx distant from the scene
             parent.AreaHoverVFX =
                 SpellAreaHoverPoolCreator.Pool.InstantiateFromPool(
                 parent.Spell.Name, DISTANTVECTOR,
                 Quaternion.identity);
         }
 
-        // Will be set to true in another movement behaviour start behaviour
-        parent.ColliderTrigger.enabled = false;
-
         Ray eyesForward = new Ray(parent.Eyes.position, parent.Eyes.forward);
-        if (Physics.Raycast(eyesForward, out RaycastHit objectHit, 100, layersToCheck))
+        if (Physics.Raycast(eyesForward, out RaycastHit objectHit, 50, layersToCheck))
         {
             // Now, it creates a ray from HAND to eyes previous target
             Ray handForward = new Ray(parent.Hand.position, parent.Hand.position.Direction(objectHit.point));
-            if (Physics.Raycast(handForward, out RaycastHit handObjectHit, 100, layersToCheck))
+            if (Physics.Raycast(handForward, out RaycastHit floorHit, 50, layersToCheck))
             {
+                // Sets area hover hit
+                parent.AreaHoverAreaHit = floorHit;
+
                 // Sets position to the raycast hit and rotation to that hit normal
                 parent.AreaHoverVFX.transform.SetPositionAndRotation(
-                    handObjectHit.point + handObjectHit.normal * distanceFromWall,
-                    Quaternion.LookRotation(handObjectHit.normal, handObjectHit.collider.transform.up));
+                    floorHit.point + floorHit.normal * distanceFromWall,
+                    Quaternion.LookRotation(floorHit.normal, floorHit.collider.transform.up));
+
                 return;
             }
             else
@@ -55,10 +95,28 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectWallsAndFloorSO : SpellBeh
         }
         else
         {
-            // Sets position far from the scene
-            parent.AreaHoverVFX.transform.SetPositionAndRotation(
-                DISTANTVECTOR,
-                Quaternion.identity);
+            // If there is no wall, tries to cast a ray to bottom from maximum distance
+
+            Ray noWallRayToFloor =
+                new Ray(parent.Eyes.position + parent.Eyes.forward * parent.Spell.MaximumDistance, -Vector3.up);
+
+            if (Physics.Raycast(noWallRayToFloor, out RaycastHit airToFloorHit, 50, layersToCheck))
+            {
+                // Sets area hover hit
+                parent.AreaHoverAreaHit = airToFloorHit;
+
+                // Sets position to the raycast hit and rotation to that hit normal
+                parent.AreaHoverVFX.transform.SetPositionAndRotation(
+                    airToFloorHit.point + airToFloorHit.normal * distanceFromWall,
+                    Quaternion.LookRotation(airToFloorHit.normal, airToFloorHit.collider.transform.up));
+            }
+            else
+            {
+                // Sets position far from the scene
+                parent.AreaHoverVFX.transform.SetPositionAndRotation(
+                    DISTANTVECTOR,
+                    Quaternion.identity);
+            }
         }
     }
 
@@ -70,7 +128,7 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectWallsAndFloorSO : SpellBeh
             // Happens at least once
             if (parent.AreaHoverVFX.activeSelf)
             {
-                parent.AreaHoverVFX.gameObject.SetActive(false);
+                parent.AreaHoverVFX.SetActive(false);
             }
             return;
         }

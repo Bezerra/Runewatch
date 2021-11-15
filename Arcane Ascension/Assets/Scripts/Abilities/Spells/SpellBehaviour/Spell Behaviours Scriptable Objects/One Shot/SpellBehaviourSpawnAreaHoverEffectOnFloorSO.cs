@@ -143,7 +143,7 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
             // Happens at least once
             if (parent.AreaHoverVFX.activeSelf)
             {
-                parent.AreaHoverVFX.gameObject.SetActive(false);
+                parent.AreaHoverVFX.SetActive(false);
             }
             return;
         }
