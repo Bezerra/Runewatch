@@ -9,9 +9,14 @@ using Sirenix.OdinInspector;
 public struct EnemySpell
 {
     [Space(20f)]
+    [SerializeField] private SpellSO spell;
+
+    [Tooltip("Probability of this spell being picked. All spells available from spell list should have a sum" +
+        "of 100.")]
+    [Range(0, 100)] [SerializeField] private int spellWeight;
+
     [Tooltip("Minim and maximum range. In the begging of a spell selection, the enemy will pick" +
         "a randm value between this X and Y.")]
-    [SerializeField] private SpellSO spell;
     [RangeMinMax(2.5f, 20f)] [SerializeField] private Vector2 range; // 2.5 MINIMUM BECAUSE OF THE ENEMY COLLISION AGAINST PLAYER
 
     [Tooltip("The enemy will only cast a spell when it reaches the range obtained on the " +
@@ -37,6 +42,11 @@ public struct EnemySpell
     /// Spell.
     /// </summary>
     public SpellSO Spell => spell;
+
+    /// <summary>
+    /// Probability of this spell being picked.
+    /// </summary>
+    public int SpellWeight => spellWeight;
 
     /// <summary>
     /// Two values with min and max possible ranges.

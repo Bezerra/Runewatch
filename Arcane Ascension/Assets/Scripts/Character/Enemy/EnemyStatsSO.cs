@@ -13,5 +13,5 @@ public class EnemyStatsSO : StatsSO
     [Header("Character list of spells")]
     [SerializeField] private List<EnemySpell> availableSpells;
 
-    public List<EnemySpell> AvailableSpells => availableSpells;
+    public List<EnemySpell> AllEnemySpells => availableSpells;
 }

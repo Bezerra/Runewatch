@@ -37,9 +37,9 @@ sealed public class ActionAttack : FSMAction
                 }
 
                 // Gets new random spell
-                int randomSpell = Random.Range(0, ai.Controller.EnemyStats.EnemyAttributes.AvailableSpells.Count);
+                int randomSpell = ai.Controller.Random.RandomWeight(ai.Controller.EnemyStats.AvailableSpellsWeight);
                 ai.Controller.CurrentlySelectedSpell =
-                    ai.Controller.EnemyStats.EnemyAttributes.AvailableSpells[randomSpell];
+                     ai.Controller.EnemyStats.EnemyAttributes.AllEnemySpells[randomSpell];
 
                 // Updates time of last attack delay, so it starts a new delay for attack
                 ai.Controller.TimeOfLastAttack = Time.time;
@@ -98,9 +98,10 @@ sealed public class ActionAttack : FSMAction
                         ai.Controller.Values.AttackDelay.x, ai.Controller.Values.AttackDelay.y);
 
                     // Gets new random spell
-                    int randomSpell = Random.Range(0, ai.Controller.EnemyStats.EnemyAttributes.AvailableSpells.Count);
+                    // Gets new random spell
+                    int randomSpell = ai.Controller.Random.RandomWeight(ai.Controller.EnemyStats.AvailableSpellsWeight);
                     ai.Controller.CurrentlySelectedSpell =
-                        ai.Controller.EnemyStats.EnemyAttributes.AvailableSpells[randomSpell];
+                         ai.Controller.EnemyStats.EnemyAttributes.AllEnemySpells[randomSpell];
                 }
             }
         }
@@ -113,9 +114,9 @@ sealed public class ActionAttack : FSMAction
     public override void OnEnter(StateController<Enemy> ai)
     {
         // Gets new random spell
-        int randomSpell = Random.Range(0, ai.Controller.EnemyStats.EnemyAttributes.AvailableSpells.Count);
+        int randomSpell = ai.Controller.Random.RandomWeight(ai.Controller.EnemyStats.AvailableSpellsWeight);
         ai.Controller.CurrentlySelectedSpell =
-            ai.Controller.EnemyStats.EnemyAttributes.AvailableSpells[randomSpell];
+             ai.Controller.EnemyStats.EnemyAttributes.AllEnemySpells[randomSpell];
 
         ai.Controller.TimeOfLastAttack = Time.time;
 

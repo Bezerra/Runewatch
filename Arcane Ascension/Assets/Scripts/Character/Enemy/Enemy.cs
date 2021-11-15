@@ -176,6 +176,7 @@ public class Enemy : Character
     /// </summary>
     public SpellBehaviourAbstract CurrentSpellBehaviour { get; set; }
 
+    public System.Random Random;
     private void Awake()
     {
         Agent = GetComponent<NavMeshAgent>();
@@ -183,11 +184,12 @@ public class Enemy : Character
         PlayerScript = FindObjectOfType<Player>();
         StateMachine = new StateController<Enemy>(this, 2);
         wfsAfterBeingHit = new WaitForSeconds(0.25f);
+        Random = new System.Random();
     }
 
     private void Start()
     {
-        CurrentlySelectedSpell = EnemyStats.EnemyAttributes.AvailableSpells[0];
+        CurrentlySelectedSpell = EnemyStats.EnemyAttributes.AllEnemySpells[0];
         Agent.speed = Values.Speed * AllValues.CharacterStats.MovementSpeedMultiplier;
         StateMachine.Start(StateMachine);
     }
