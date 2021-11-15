@@ -8,6 +8,7 @@ using Sirenix.OdinInspector;
 [Serializable]
 public struct EnemySpell
 {
+    [Space(20f)]
     [Tooltip("Minim and maximum range. In the begging of a spell selection, the enemy will pick" +
         "a randm value between this X and Y.")]
     [SerializeField] private SpellSO spell;

@@ -18,10 +18,25 @@ sealed public class ActionLookToPlayer : FSMAction
         {
             if (ai.Controller.RunningBackwards == false)
             {
-                if (ai.Controller.IsAttackingWithStoppingTime == false)
+                // If the enemy is in the middle of an attack that requires him to stop
+                if (ai.Controller.IsAttackingWithStoppingTime)
                 {
-                    ai.Controller.transform.LookAtYLerp(ai.Controller.CurrentTarget, ai.Controller.Values.RotationSpeed);
+                    // If the attack is of type one shot cast with release
+                    if (ai.Controller.CurrentlySelectedSpell.Spell.CastType == SpellCastType.OneShotCastWithRelease)
+                    {
+                        // If the time passed while attacking has already reached the time to
+                        // start showing the spell area, then it will ignore the rest of the method.
+                        if (Time.time - ai.Controller.TimeEnemyStoppedWhileAttacking >
+                            ai.Controller.CurrentlySelectedSpell.StoppingTime *
+                            ai.Controller.CurrentlySelectedSpell.PercentageStoppingTimeTriggerAoESpell)
+                        {
+                            return;
+                        }
+                    }
                 }
+
+                // Rotates to player
+                ai.Controller.transform.LookAtYLerp(ai.Controller.CurrentTarget, ai.Controller.Values.RotationSpeed);
             }
         }
     }
