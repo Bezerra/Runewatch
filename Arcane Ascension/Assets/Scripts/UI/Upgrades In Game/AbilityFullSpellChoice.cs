@@ -24,11 +24,6 @@ public class AbilityFullSpellChoice : MonoBehaviour
 
     private void OnEnable()
     {
-        for (int i = 0; i < allCards.Length; i++)
-        {
-            Debug.Log(allCards[i].gameObject.activeSelf);
-        }
-
         if (NewObtainedSpell != null)
         {
             for (int i = 0; i < allCards.Length; i++)

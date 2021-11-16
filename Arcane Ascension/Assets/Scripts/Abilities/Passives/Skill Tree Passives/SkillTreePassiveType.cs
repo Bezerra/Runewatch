@@ -28,4 +28,5 @@ public enum SkillTreePassiveType
     Destiny,
     Reaper,
     Healer,
+    DefaultSpell,
 }

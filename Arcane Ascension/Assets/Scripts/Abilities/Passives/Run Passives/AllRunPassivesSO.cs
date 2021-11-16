@@ -12,6 +12,7 @@ public class AllRunPassivesSO : ScriptableObject
     [SerializeField] private bool inspectorReadOnlyList = true;
 
     [DisableIf("inspectorReadOnlyList", true)]
+    [OnValueChanged("UpdateID")]
     [SerializeField] private List<RunPassiveSO> passives;
     public List<RunPassiveSO> PassivesList => passives;
 
@@ -29,5 +30,14 @@ public class AllRunPassivesSO : ScriptableObject
         {
             passives[i].ID = (byte)i;
         }
+    }
+
+    private void UpdateID()
+    {
+        for (int i = 0; i < passives.Count; i++)
+        {
+            passives[i].ID = (byte)i;
+        }
+        Debug.Log("DEU2");
     }
 }

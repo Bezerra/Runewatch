@@ -20,6 +20,16 @@ public class TEMPTOCHANGEINPUT : MonoBehaviour
 
     private void Awake()
     {
-       // Passives = new List<byte> { 0 };
+        //IList<byte> temp = new List<byte> { 0, 83, };
+        //string passivesTemp = JsonUtility.ToJson(temp);
+        //PlayerPrefs.SetString("SkillTreePassives", passivesTemp);
+        //
+        //string ok = PlayerPrefs.GetString("SkillTreePlassives");
+        //Debug.Log(ok);
+
+        //Passives = new List<byte> { (byte)PlayerPrefs.GetString("SkillTreePlassives")};
+        //Passives = new List<byte> { 0, 1, 10, 83, 84, 85, 86, 87 };
+
+        Passives = new List<byte> { 0 };
     }
 }

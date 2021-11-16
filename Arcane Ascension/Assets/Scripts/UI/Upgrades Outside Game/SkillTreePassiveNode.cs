@@ -5,10 +5,15 @@ using TMPro;
 using UnityEngine.UI;
 using System.Linq;
 using System.Text;
-using ExtensionMethods;
 
+/// <summary>
+/// Class responsible for contrling the behaviour and logic of a skill tree passive node.
+/// </summary>
 public class SkillTreePassiveNode : MonoBehaviour
 {
+    private readonly float LINEGROWTHSPEED = 3f;
+    private readonly float LINEHEIGHT = 5f;
+
     [Header("Passive tiers of this node")]
     [SerializeField] private SkillTreePassiveSO[] nodePassives;
     public SkillTreePassiveSO[] NodePassives => nodePassives;
@@ -57,9 +62,12 @@ public class SkillTreePassiveNode : MonoBehaviour
         nodeImage.color = parentNodeController.LockedColor;
 
         // Creates connections to all nodes
-        foreach (SkillTreePassiveNode node in nextConnectionNodes)
+        if (nextConnectionNodes.Count > 0)
         {
-            CreateInstantConnectionLine(node.gameObject);
+            foreach (SkillTreePassiveNode node in nextConnectionNodes)
+            {
+                CreateInstantConnectionLine(node.gameObject);
+            }
         }
     }
 
@@ -208,14 +216,14 @@ public class SkillTreePassiveNode : MonoBehaviour
         targetButton.enabled = false;
 
         // If a line with this name already exists, it destroys it
-        Destroy(this.gameObject.transform.parent.Find(this.gameObject.name + " connect to " + targetGO.gameObject.name).gameObject);
+        Destroy(this.gameObject.transform.parent.Find(this.gameObject.name + " connect to " + targetGO.name).gameObject);
 
         // Creates a line
         GameObject connectionLineGO = 
             Instantiate(parentNodeController.ConnectionLinePrefab, transform.position, Quaternion.identity);
         connectionLineGO.transform.SetParent(this.gameObject.transform.parent);
         connectionLineGO.transform.SetAsFirstSibling();
-        connectionLineGO.name = this.gameObject.name + " connect to " + targetGO.gameObject.name;
+        connectionLineGO.name = this.gameObject.name + " connect to " + targetGO.name;
 
         // Gets image and line and colors it
         Image connectionLineImage = connectionLineGO.GetComponent<Image>();
@@ -230,15 +238,16 @@ public class SkillTreePassiveNode : MonoBehaviour
             Mathf.Atan2(target.anchoredPosition.y - connectionLine.anchoredPosition.y, 
             target.anchoredPosition.x - connectionLine.anchoredPosition.x);
         connectionLine.localEulerAngles = new Vector3(0, 0, ((180 / Mathf.PI) * angle));
-        connectionLine.sizeDelta = new Vector2(0, 5f);
+        connectionLine.sizeDelta = new Vector2(0, LINEHEIGHT);
 
         // Increments that rectangle smoothly until the next node
         float currentLineWidth = 0;
         while (connectionLine.sizeDelta.x < distance)
         {
             yield return null;
-            currentLineWidth += Time.deltaTime * 1100f;
-            connectionLine.sizeDelta = new Vector2(currentLineWidth, 5f);
+            // All lines grow at the same speed
+            currentLineWidth += (((Time.deltaTime) * distance) * LINEGROWTHSPEED);
+            connectionLine.sizeDelta = new Vector2(currentLineWidth, LINEHEIGHT);
         }
 
         // Enables button back
@@ -246,6 +255,10 @@ public class SkillTreePassiveNode : MonoBehaviour
         targetButton.enabled = true;
     }
 
+    /// <summary>
+    /// Instantly creates a connect line to a gameobject.
+    /// </summary>
+    /// <param name="targetGO"></param>
     private void CreateInstantConnectionLine(GameObject targetGO)
     {
         // Creates a line
@@ -253,7 +266,7 @@ public class SkillTreePassiveNode : MonoBehaviour
             Instantiate(parentNodeController.ConnectionLinePrefab, transform.position, Quaternion.identity);
         connectionLineGO.transform.SetParent(this.gameObject.transform.parent);
         connectionLineGO.transform.SetAsFirstSibling();
-        connectionLineGO.name = this.gameObject.name + " connect to " + targetGO.gameObject.name;
+        connectionLineGO.name = this.gameObject.name + " connect to " + targetGO.name;
 
         // Gets image and line and colors it
         Image connectionLineImage = connectionLineGO.GetComponent<Image>();
@@ -268,9 +281,8 @@ public class SkillTreePassiveNode : MonoBehaviour
             Mathf.Atan2(target.anchoredPosition.y - connectionLine.anchoredPosition.y,
             target.anchoredPosition.x - connectionLine.anchoredPosition.x);
         connectionLine.localEulerAngles = new Vector3(0, 0, ((180 / Mathf.PI) * angle));
-        connectionLine.sizeDelta = new Vector2(0, 5f);
 
         // Connects this node to the next node
-        connectionLine.sizeDelta = new Vector2(distance, 5f);
+        connectionLine.sizeDelta = new Vector2(distance, LINEHEIGHT);
     }
 }

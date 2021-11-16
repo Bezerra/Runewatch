@@ -25,7 +25,7 @@ public struct EnemySpell
 
     [Space(25f)]
     [Tooltip("As soon as the enemy starts casting any spell, it will stop.")]
-    [InfoBox("If spell is one shot cast with release 'Enemy Stops On Attack' variable MUST BE TRUE.")]
+    [InfoBox("If spell is one shot cast with release, 'Enemy Stops On Attack' variable MUST BE TRUE.")]
     [SerializeField] private bool enemyStopsOnAttack;
 
     [EnableIf("enemyStopsOnAttack")]
