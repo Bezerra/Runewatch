@@ -17,14 +17,14 @@ public class SceneControl : MonoBehaviour, ISaveable
     [SerializeField] private Image loadingBar;
 
     private LevelGenerator levelGenerated;
-    private SaveData saveData;
+    private RunSaveData saveData;
 
-    public void SaveCurrentData(SaveData saveData)
+    public void SaveCurrentData(RunSaveData saveData)
     {
         // Left blank on purpose
     }
 
-    public IEnumerator LoadData(SaveData saveData)
+    public IEnumerator LoadData(RunSaveData saveData)
     {
         yield return null;
         FindObjectOfType<PlayerInputCustom>().DisableAll();

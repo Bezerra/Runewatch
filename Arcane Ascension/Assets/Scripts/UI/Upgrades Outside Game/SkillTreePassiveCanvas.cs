@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -29,6 +31,32 @@ public class SkillTreePassiveCanvas : MonoBehaviour
     // Variables for showing info and buying nodes logic
     private SkillTreePassiveNode passiveNode;
 
+    // List with passives
+    public List<byte> CurrentPassives { get; private set; }
+
+    private void Awake()
+    {
+        // Sets current passives
+        CurrentPassives = new List<byte>();
+
+        CharacterSaveData saveData = CharacterSaveDataController.LoadGame();
+        if (saveData != null)
+        {
+            foreach (byte passive in saveData.CurrentSkillTreePassives)
+            {
+                CurrentPassives.Add(passive);
+            }
+
+            CurrentPassives.Sort();
+            PlayerPrefs.SetInt(CurrencyType.ArcanePower.ToString(), saveData.ArcanePower);
+        }
+        else
+        {
+            CurrentPassives.Add(0); // Adds default spell
+            PlayerPrefs.SetInt(CurrencyType.ArcanePower.ToString(), 0);
+        }
+    }
+
     private void OnEnable()
     {
         ClearAllInformation();
@@ -40,7 +68,6 @@ public class SkillTreePassiveCanvas : MonoBehaviour
     /// <param name="passiveNode"></param>
     public void UpdateInformation(SkillTreePassiveNode passiveNode)
     {
-
         if (passiveNode.NodePassive.Tier <= passiveNode.NodePassives.Length)
         {
             this.passiveNode = passiveNode;
@@ -87,10 +114,19 @@ public class SkillTreePassiveCanvas : MonoBehaviour
     /// </summary>
     public void BuyPassive()
     {
+        // Must be before unlock (before tier raise)
+        CurrentPassives.Add(passiveNode.NodePassives[passiveNode.CurrentTier].ID);
+
         // Unlocks passive, spends money and updates arcane power.
         passiveNode.Unlock();
         arcanePowerText.text =
             "Arcane Power: " + PlayerPrefs.GetInt(CurrencyType.ArcanePower.ToString()).ToString();
+    }
+
+    public void LeaveButton()
+    {
+        CharacterSaveDataController.SaveGame(
+            CurrentPassives.ToArray(), PlayerPrefs.GetInt(CurrencyType.ArcanePower.ToString()));
     }
 
     /// <summary>

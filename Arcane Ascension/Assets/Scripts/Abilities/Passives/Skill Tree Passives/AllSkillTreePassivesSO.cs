@@ -9,6 +9,7 @@ using Sirenix.OdinInspector;
 [CreateAssetMenu(menuName = "Create Once/Passives/All Skill Tree Passives", fileName = "All Skill Tree Passives")]
 public class AllSkillTreePassivesSO : ScriptableObject
 {
+    [OnValueChanged("UpdateID")]
     [SerializeField] private bool inspectorReadOnlyList = true;
 
     [DisableIf("inspectorReadOnlyList", true)]
@@ -37,7 +38,7 @@ public class AllSkillTreePassivesSO : ScriptableObject
         for (int i = 0; i < passives.Count; i++)
         {
             passives[i].ID = (byte)i;
+            Debug.Log(passives[i].Name + " - ID: " + passives[i].ID);
         }
-        Debug.Log("DEU");
     }
 }

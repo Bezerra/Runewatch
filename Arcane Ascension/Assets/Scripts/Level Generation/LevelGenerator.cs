@@ -654,7 +654,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// Saves current values to saveData.
     /// </summary>
     /// <param name="saveData">Save data.</param>
-    public void SaveCurrentData(SaveData saveData)
+    public void SaveCurrentData(RunSaveData saveData)
     {
         saveData.DungeonSavedData.Seed = seed;
         saveData.DungeonSavedData.HorizontalMaximumLevelSize = horizontalMaximumLevelSize;
@@ -669,7 +669,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// </summary>
     /// <param name="saveData">Saved data.</param>
     /// <returns>Null.</returns>
-    public IEnumerator LoadData(SaveData saveData)
+    public IEnumerator LoadData(RunSaveData saveData)
     {
         yield return new WaitForSeconds(0.25f);
 

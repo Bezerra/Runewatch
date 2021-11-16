@@ -26,7 +26,7 @@ public class Player : Character, ISaveable
     /// </summary>
     /// <param name="saveData">Saved data class.</param>
     /// <returns>Null.</returns>
-    public void SaveCurrentData(SaveData saveData)
+    public void SaveCurrentData(RunSaveData saveData)
     {
         if (this != null) // Do not remove <
         {
@@ -40,7 +40,7 @@ public class Player : Character, ISaveable
     /// </summary>
     /// <param name="saveData">Saved data class.</param>
     /// <returns>Null.</returns>
-    public IEnumerator LoadData(SaveData saveData)
+    public IEnumerator LoadData(RunSaveData saveData)
     {
         yield return null;
     }

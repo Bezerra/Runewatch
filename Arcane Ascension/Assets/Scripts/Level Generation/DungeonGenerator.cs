@@ -26,7 +26,7 @@ public class DungeonGenerator: MonoBehaviour
     /// </summary>
     /// <param name="loadedGame">True if this game was loaded, else false.</param>
     /// <param name="saveData">Saved data.</param>
-    public static void GenerateDungeon(bool loadedGame = false, SaveData saveData = null)
+    public static void GenerateDungeon(bool loadedGame = false, RunSaveData saveData = null)
     {
         ElementType element;
 

@@ -2,35 +2,25 @@ using System.Text;
 using UnityEngine;
 
 /// <summary>
-/// Class responsible for saving data.
+/// Class parent of save data classes.
 /// </summary>
-public class SaveData
+public abstract class AbstractSaveData
 {
-    // Public fields for JSON
-    public PlayerSaveData PlayerSavedData;
-    public DungeonSaveData DungeonSavedData;
-
-    private readonly int ENCRYPTATIONKEY = 777;
-
-    public SaveData()
-    {
-        PlayerSavedData = new PlayerSaveData();
-        DungeonSavedData = new DungeonSaveData();
-    }
+    private readonly int ENCRYPTIONKEY = 777;
 
     /// <summary>
     /// Converts class to json.
     /// </summary>
     /// <returns>String.</returns>
     public string ToJson() =>
-        EncryptDecrypt(JsonUtility.ToJson(this), ENCRYPTATIONKEY);
+        EncryptDecrypt(JsonUtility.ToJson(this), ENCRYPTIONKEY);
 
     /// <summary>
     /// Converts json values to this class.
     /// </summary>
     /// <param name="json">Json.</param>
     public void LoadFromJson(string json) =>
-        JsonUtility.FromJsonOverwrite(EncryptDecrypt(json, ENCRYPTATIONKEY), this);
+        JsonUtility.FromJsonOverwrite(EncryptDecrypt(json, ENCRYPTIONKEY), this);
 
     /// <summary>
     /// Encrypts or decrypts a string
@@ -38,8 +28,10 @@ public class SaveData
     /// <param name="data">String to encrypt or decrypt.</param>
     /// <param name="key">Key of encryption.</param>
     /// <returns>Encrypted/Decrypted string.</returns>
-    private string EncryptDecrypt(string data, int key)
+    protected string EncryptDecrypt(string data, int key)
     {
+        // REMOVE COMMENTS TO ENCRYPT CODE
+        /*
         StringBuilder input = new StringBuilder(data);
         StringBuilder output = new StringBuilder(data.Length);
 
@@ -53,5 +45,7 @@ public class SaveData
         }
 
         return output.ToString();
+        */
+        return data;
     }
 }

@@ -50,12 +50,10 @@ public class SkillTreePassiveNode : MonoBehaviour
     public bool IsUnlocked { get; private set; }
 
     // Components
-    private TEMPTOCHANGEINPUT TEMPPARENT;
     private SkillTreePassiveCanvas parentNodeController;
 
     private void Awake()
     {
-        TEMPPARENT = GetComponentInParent<TEMPTOCHANGEINPUT>();
         parentNodeController = GetComponentInParent<SkillTreePassiveCanvas>();
 
         CurrentTier = 0;
@@ -77,7 +75,7 @@ public class SkillTreePassiveNode : MonoBehaviour
         // In that case, increments the tier of the node and updates UI.
         for (int i = 0; i < nodePassives.Length; i++)
         {
-            if (TEMPPARENT.Passives.Contains(nodePassives[i].ID))
+            if (parentNodeController.CurrentPassives.Contains(nodePassives[i].ID))
             {
                 CurrentTier++;
                 UpdateUI();

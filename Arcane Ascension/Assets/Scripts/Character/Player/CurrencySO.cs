@@ -24,12 +24,10 @@ public class CurrencySO : ScriptableObject
         if (currency == CurrencyType.Gold)
         {
             Gold += amount;
-            PlayerPrefs.SetInt(currency.ToString(), Gold);
         }
         else
         {
             ArcanePower += amount;
-            PlayerPrefs.SetInt(currency.ToString(), ArcanePower);
         }
     }
 
@@ -44,12 +42,14 @@ public class CurrencySO : ScriptableObject
         {
             if (Gold - amount >= 0) Gold -= amount;
             else Gold = 0;
-            PlayerPrefs.SetInt(currency.ToString(), Gold);
         }
         else
         {
             if (ArcanePower - amount > 0) ArcanePower -= amount;
             else ArcanePower = 0;
+
+            // Player prefs for arcane power is only used inside the skill
+            // tree menu outside the game so it's fine to use it.
             PlayerPrefs.SetInt(currency.ToString(), ArcanePower);
         }
     }

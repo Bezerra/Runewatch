@@ -314,7 +314,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
         }
     }
 
-    public void SaveCurrentData(SaveData saveData)
+    public void SaveCurrentData(RunSaveData saveData)
     {
         // Checks which spells the player current has
         byte[] currentSpells = new byte[4];
@@ -331,7 +331,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
         saveData.PlayerSavedData.CurrentSpellIndex = CurrentSpellIndex;
     }
 
-    public IEnumerator LoadData(SaveData saveData)
+    public IEnumerator LoadData(RunSaveData saveData)
     {
         yield return new WaitForFixedUpdate();
 

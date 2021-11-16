@@ -37,18 +37,24 @@ public struct FileManager
     /// <returns>True if succeed.</returns>
     public bool ReadFile(string fileName, out string result)
     {
-        string path = Path.Combine(Application.persistentDataPath, fileName);
+        if (File.Exists(Path.Combine(Application.persistentDataPath, fileName)))
+        {
+            string path = Path.Combine(Application.persistentDataPath, fileName);
 
-        try
-        {
-            result = File.ReadAllText(path);
-            return true;
+            try
+            {
+                result = File.ReadAllText(path);
+                return true;
+            }
+            catch (Exception excep)
+            {
+                Debug.LogError($"Failed to read from {path} with exception {excep}");
+                result = "";
+                return false;
+            }
         }
-        catch (Exception excep)
-        {
-            Debug.LogError($"Failed to read from {path} with exception {excep}");
-            result = "";
-            return false;
-        }
+        Debug.Log("No save file found.");
+        result = "";
+        return false;
     }
 }

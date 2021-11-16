@@ -6,18 +6,18 @@ using ExtensionMethods;
 /// <summary>
 /// Class responsible for saving and loading game.
 /// </summary>
-public class SaveDataController : MonoBehaviour
+public class RunSaveDataController : MonoBehaviour
 {
     // Basic singleton so save and load methods can be used anywhere.
-    private static SaveDataController instance;
+    private static RunSaveDataController instance;
 
-    private SaveData saveData;
+    private RunSaveData saveData;
     private FileManager fileManager;
 
     private void Awake()
     {
         instance = this;
-        saveData = new SaveData();
+        saveData = new RunSaveData();
         fileManager = new FileManager();
     }
 
@@ -32,7 +32,7 @@ public class SaveDataController : MonoBehaviour
             iSaveable.SaveCurrentData(instance.saveData);
 
         // Writes file with saved JSON
-        if (instance.fileManager.WriteToFile("Save1.saveFile", instance.saveData.ToJson()))
+        if (instance.fileManager.WriteToFile("SAVERUNPROGRESS.d4", instance.saveData.ToJson()))
             Debug.Log("Game Saved");
     }
 
@@ -54,7 +54,7 @@ public class SaveDataController : MonoBehaviour
             }
         }
 
-        if (instance.fileManager.ReadFile("Save1.saveFile", out string json))
+        if (instance.fileManager.ReadFile("SAVERUNPROGRESS.d4", out string json))
         {
             instance.saveData.LoadFromJson(json);
   

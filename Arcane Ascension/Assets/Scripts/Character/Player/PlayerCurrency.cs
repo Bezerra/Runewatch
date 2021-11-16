@@ -52,7 +52,7 @@ public class PlayerCurrency : MonoBehaviour, IUseCurrency, ISaveable
     /// Saves currency.
     /// </summary>
     /// <param name="saveData">SaveData to save to.</param>
-    public void SaveCurrentData(SaveData saveData)
+    public void SaveCurrentData(RunSaveData saveData)
     {
         // currency
         if (this != null) // Do not remove <
@@ -67,7 +67,7 @@ public class PlayerCurrency : MonoBehaviour, IUseCurrency, ISaveable
     /// </summary>
     /// <param name="saveData">SaveData to load from.</param>
     /// <returns>WFFU.</returns>
-    public IEnumerator LoadData(SaveData saveData)
+    public IEnumerator LoadData(RunSaveData saveData)
     {
         yield return new WaitForFixedUpdate();
 

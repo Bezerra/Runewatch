@@ -24,5 +24,4 @@ public struct PlayerSaveData
 
     public int Gold;
     public int ArcanePower;
-
 }

@@ -9,12 +9,12 @@ public interface ISaveable
     /// Method that defines which data is to be saved.
     /// </summary>
     /// <param name="saveData">SaveData class.</param>
-    void SaveCurrentData(SaveData saveData);
+    void SaveCurrentData(RunSaveData saveData);
 
     /// <summary>
     /// Coroutine that defines which data is to be loaded.
     /// </summary>
     /// <param name="saveData">SaveData class.</param>
     /// <returns>Null.</returns>
-    IEnumerator LoadData(SaveData saveData);
+    IEnumerator LoadData(RunSaveData saveData);
 }
