@@ -278,7 +278,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     public void DropSpell(SpellSO spellToDrop)
     {
         GameObject spellDropped =
-            ItemLootPoolCreator.Pool.InstantiateFromPool("Known Spell",
+            ItemLootPoolCreator.Pool.InstantiateFromPool(LootType.KnownSpell.ToString(),
             transform.position + transform.forward, Quaternion.identity);
 
         spellDropped.transform.RotateTo(transform.position);

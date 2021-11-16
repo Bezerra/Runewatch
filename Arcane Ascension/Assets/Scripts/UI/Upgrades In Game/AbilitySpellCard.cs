@@ -21,15 +21,14 @@ public class AbilitySpellCard : MonoBehaviour
     private PlayerSpells playerSpells;
     private PlayerInteraction playerInteraction;
     private AbilitiesCanvas abilitiesCanvas;
-    private AbilitySpellCardText thisCardInformation;
+    [SerializeField] private AbilitySpellCardText thisCardInformation;
 
     // Full spells canvas
-    [SerializeField] private GameObject fullSpellsCanvas;
+    [SerializeField] private AbilityFullSpellChoice fullSpellsCanvas;
 
     private void Awake()
     {
         abilitiesCanvas = GetComponentInParent<AbilitiesCanvas>();
-        thisCardInformation = GetComponentInChildren<AbilitySpellCardText>();
         playerInteraction = FindObjectOfType<PlayerInteraction>();
         playerSpells = FindObjectOfType<PlayerSpells>();
     }
@@ -81,8 +80,8 @@ public class AbilitySpellCard : MonoBehaviour
         {
             // Activates new canvas and sets the currently selected spell on that canvas
             // THIS MUST BE BEFORE SETTING ACTIVE BECAUSE CANVAS WILL HAVE LOGIC ON ITS ENABLE
-            fullSpellsCanvas.GetComponent<AbilityFullSpellChoice>().NewObtainedSpell = SpellOnCard; 
-            fullSpellsCanvas.SetActive(true);
+            fullSpellsCanvas.NewObtainedSpell = SpellOnCard;
+            fullSpellsCanvas.gameObject.SetActive(true);
         }
     }
 

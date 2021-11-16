@@ -38,7 +38,10 @@ public class AbilitySpellCardText : MonoBehaviour
 
     public void ShowEmptyCard(bool show)
     {
-        if (show) emptyCard.SetActive(true);
-        else emptyCard.SetActive(false);
+        if (emptyCard != null)
+        {
+            if (show) emptyCard.SetActive(true);
+            else emptyCard.SetActive(false);
+        }
     }
 }
