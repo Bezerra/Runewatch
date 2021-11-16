@@ -425,6 +425,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
         {
             // Passives
             AllRunPassives allPassives = FindObjectOfType<AllRunPassives>();
+            CurrentPassives = new List<IRunPassive>();
             for (int i = 0; i < saveData.PlayerSavedData.CurrentPassives.Length; i++)
             {
                 for (int j = 0; j < allPassives.PassiveList.Count; j++)
