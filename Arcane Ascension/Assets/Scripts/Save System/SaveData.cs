@@ -10,6 +10,8 @@ public class SaveData
     public PlayerSaveData PlayerSavedData;
     public DungeonSaveData DungeonSavedData;
 
+    private readonly int ENCRYPTATIONKEY = 777;
+
     public SaveData()
     {
         PlayerSavedData = new PlayerSaveData();
@@ -21,18 +23,21 @@ public class SaveData
     /// </summary>
     /// <returns>String.</returns>
     public string ToJson() =>
-        EncryptDecrypt(JsonUtility.ToJson(this), 5);
+        EncryptDecrypt(JsonUtility.ToJson(this), ENCRYPTATIONKEY);
 
     /// <summary>
-    /// Converts json to this class.
+    /// Converts json values to this class.
     /// </summary>
     /// <param name="json">Json.</param>
-    public void LoadFromJson(string json)
-    {
-        string loadedData = EncryptDecrypt(JsonUtility.FromJson<string>(json), 5);
-        JsonUtility.FromJsonOverwrite(loadedData, this);
-    }
+    public void LoadFromJson(string json) =>
+        JsonUtility.FromJsonOverwrite(EncryptDecrypt(json, ENCRYPTATIONKEY), this);
 
+    /// <summary>
+    /// Encrypts or decrypts a string
+    /// </summary>
+    /// <param name="data">String to encrypt or decrypt.</param>
+    /// <param name="key">Key of encryption.</param>
+    /// <returns>Encrypted/Decrypted string.</returns>
     private string EncryptDecrypt(string data, int key)
     {
         StringBuilder input = new StringBuilder(data);

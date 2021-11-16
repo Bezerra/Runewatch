@@ -56,7 +56,7 @@ public class SaveDataController : MonoBehaviour
 
         if (instance.fileManager.ReadFile("Save1.saveFile", out string json))
         {
-            //instance.saveData.LoadFromJson(json);
+            instance.saveData.LoadFromJson(json);
   
             foreach (ISaveable iSaveable in iSaveables)
                 instance.StartCoroutine(iSaveable.LoadData(instance.saveData));
