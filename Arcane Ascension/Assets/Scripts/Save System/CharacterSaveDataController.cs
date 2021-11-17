@@ -23,13 +23,13 @@ public class CharacterSaveDataController : MonoBehaviour
     /// </summary>
     /// <param name="currentSkillTreePassives">Current skill tree passives.</param>
     /// <param name="arcanePower">Current arcane power.</param>
-    public static void SaveGame(byte[] currentSkillTreePassives, int arcanePower)
+    public void SaveGame(byte[] currentSkillTreePassives, int arcanePower)
     {
-        instance.SaveData.CurrentSkillTreePassives = currentSkillTreePassives;
-        instance.SaveData.ArcanePower = arcanePower;
+        SaveData.CurrentSkillTreePassives = currentSkillTreePassives;
+        SaveData.ArcanePower = arcanePower;
 
         // Writes file with saved JSON
-        instance.Save();
+        Save();
     }
 
     /// <summary>
@@ -41,12 +41,83 @@ public class CharacterSaveDataController : MonoBehaviour
     {
         switch(passiveType)
         {
+            case SkillTreePassiveType.IgnisExpertise:
+                instance.SaveData.SkillTreeSaveData.IgnisExpertise = amountToAdd;
+                break;
+            case SkillTreePassiveType.FulgurExpertise:
+                instance.SaveData.SkillTreeSaveData.FulgurExpertise = amountToAdd;
+                break;
+            case SkillTreePassiveType.AquaExpertise:
+                instance.SaveData.SkillTreeSaveData.AquaExpertise = amountToAdd;
+                break;
+            case SkillTreePassiveType.TerraExpertise:
+                instance.SaveData.SkillTreeSaveData.TerraExpertise = amountToAdd;
+                break;
+            case SkillTreePassiveType.NaturaExpertise:
+                instance.SaveData.SkillTreeSaveData.NaturaExpertise = amountToAdd;
+                break;
+            case SkillTreePassiveType.LuxExpertise:
+                instance.SaveData.SkillTreeSaveData.LuxExpertise = amountToAdd;
+                break;
+            case SkillTreePassiveType.UmbraExpertise:
+                instance.SaveData.SkillTreeSaveData.UmbraExpertise = amountToAdd;
+                break;
+            case SkillTreePassiveType.Vitality:
+                instance.SaveData.SkillTreeSaveData.Vitality = amountToAdd;
+                break;
+            case SkillTreePassiveType.Insight:
+                instance.SaveData.SkillTreeSaveData.Insight = amountToAdd;
+                break;
+            case SkillTreePassiveType.Meditation:
+                instance.SaveData.SkillTreeSaveData.Meditation = amountToAdd;
+                break;
+            case SkillTreePassiveType.Agility:
+                instance.SaveData.SkillTreeSaveData.Agility = amountToAdd;
+                break;
+            case SkillTreePassiveType.Luck:
+                instance.SaveData.SkillTreeSaveData.Luck = amountToAdd;
+                break;
+            case SkillTreePassiveType.Precision:
+                instance.SaveData.SkillTreeSaveData.Precision = amountToAdd;
+                break;
+            case SkillTreePassiveType.Overpowering:
+                instance.SaveData.SkillTreeSaveData.Overpowering = amountToAdd;
+                break;
+            case SkillTreePassiveType.Resilience:
+                instance.SaveData.SkillTreeSaveData.Resilience = amountToAdd;
+                break;
+            case SkillTreePassiveType.FleetingForm:
+                instance.SaveData.SkillTreeSaveData.FleetingForm = amountToAdd;
+                break;
+            case SkillTreePassiveType.ManaFountain:
+                instance.SaveData.SkillTreeSaveData.ManaFountain = amountToAdd;
+                break;
+            case SkillTreePassiveType.ArcaneKnowledge:
+                instance.SaveData.SkillTreeSaveData.ArcaneKnowledge = amountToAdd;
+                break;
+            case SkillTreePassiveType.Wealth:
+                instance.SaveData.SkillTreeSaveData.Wealth = amountToAdd;
+                break;
+            case SkillTreePassiveType.Pickpocket:
+                instance.SaveData.SkillTreeSaveData.Pickpocket = amountToAdd;
+                break;
+            case SkillTreePassiveType.Dealer:
+                instance.SaveData.SkillTreeSaveData.Dealer = amountToAdd;
+                break;
+            case SkillTreePassiveType.MasteryOfTheArts:
+                instance.SaveData.SkillTreeSaveData.MasteryOfTheArts = amountToAdd;
+                break;
+            case SkillTreePassiveType.Destiny:
+                instance.SaveData.SkillTreeSaveData.Destiny = amountToAdd;
+                break;
+            case SkillTreePassiveType.Reaper:
+                instance.SaveData.SkillTreeSaveData.Reaper = amountToAdd;
+                break;
+            case SkillTreePassiveType.Healer:
+                instance.SaveData.SkillTreeSaveData.Healer = amountToAdd;
+                break;
             case SkillTreePassiveType.DefaultSpell:
                 instance.SaveData.SkillTreeSaveData.DefaultSpell = amountToAdd;
-                break;
-
-            case SkillTreePassiveType.Vitality:
-                instance.SaveData.SkillTreeSaveData.MaximumHealth = amountToAdd;
                 break;
         }
     }
@@ -66,13 +137,13 @@ public class CharacterSaveDataController : MonoBehaviour
     /// Loads a JSON with all saved data.
     /// Makes every class that implements ISaveable load their stats.
     /// </summary>
-    public static CharacterSaveData LoadGame()
+    public CharacterSaveData LoadGame()
     {
         if (instance.fileManager.ReadFile("SAVECHARACTERPROGRESS.d4", out string json))
         {
-            instance.SaveData.LoadFromJson(json);
+            SaveData.LoadFromJson(json);
             Debug.Log("Character Data Loaded");
-            return instance.SaveData;
+            return SaveData;
         }
         else
         {

@@ -1,33 +1,33 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Executes skill tree passives effects.
+/// Class responsible for saving each posessed passive effect to a file.
 /// </summary>
-public class STPDataController : MonoBehaviour
+public class SaveSkillTreePassivesInformation : MonoBehaviour
 {
     [SerializeField] private AllSkillTreePassivesSO skillTreePassives;
 
-    private CharacterSaveDataController characterSaveDataController;
-    public CharacterSaveData Data => characterSaveDataController.SaveData;
-
     private void Awake()
     {
-        characterSaveDataController = FindObjectOfType<CharacterSaveDataController>();
+        // Organizes passives by id
         skillTreePassives.UpdateID();
     }
 
     /// <summary>
-    /// Runs when the game starts / continue. Will only run once per game session.
+    /// Runs when the game starts. Will only run once per game session start.
+    /// Called with start game button.
     /// </summary>
-    public void Execute()
+    public void SavePassiveEffectsData()
     {
+        CharacterSaveDataController characterSaveDataController = 
+            FindObjectOfType<CharacterSaveDataController>();
+
         // Creates list with empty passives
         IList<byte> currentPassives = new List<byte>();
 
         // Adds saved passves to current passives
-        CharacterSaveData saveData = CharacterSaveDataController.LoadGame();
+        CharacterSaveData saveData = characterSaveDataController.LoadGame();
         if (saveData != null)
         {
             for (int i = 0; i < saveData.CurrentSkillTreePassives.Length; i++)
@@ -42,7 +42,7 @@ public class STPDataController : MonoBehaviour
             if (currentPassives.Contains(skillTreePassives.PassivesList[i].ID))
             {
                 characterSaveDataController.WriteInformation
-                    (skillTreePassives.PassivesList[i].PassiveType, 
+                    (skillTreePassives.PassivesList[i].PassiveType,
                     skillTreePassives.PassivesList[i].Amount);
             }
         }

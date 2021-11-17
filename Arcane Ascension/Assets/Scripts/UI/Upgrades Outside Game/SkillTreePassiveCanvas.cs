@@ -8,7 +8,7 @@ using UnityEngine.UI;
 /// </summary>
 public class SkillTreePassiveCanvas : MonoBehaviour
 {
-    [Header("Child components")]
+    [Header("Child components for UI")]
     [SerializeField] private TextMeshProUGUI arcanePowerText;
     [SerializeField] private TextMeshProUGUI passiveName;
     [SerializeField] private TextMeshProUGUI passiveDescription;
@@ -22,19 +22,24 @@ public class SkillTreePassiveCanvas : MonoBehaviour
     [SerializeField] private Color unlockedColor;
     [SerializeField] private Color lockedColor;
 
+    // Properties for node logic
     public Color UnlockedColor => unlockedColor;
     public Color LockedColor => lockedColor;
     public CurrencySO CurrencySO => currencySO;
     public GameObject ConnectionLinePrefab => connectionLinePrefab;
 
-    // Variables for showing info and buying nodes logic
+    // Variables for showing info and buying nodes
     private SkillTreePassiveNode passiveNode;
 
     // List with passives
     public List<byte> CurrentPassives { get; private set; }
 
+    // Save system
+    CharacterSaveDataController characterSaveDataController;
+
     private void Awake()
     {
+        characterSaveDataController = FindObjectOfType<CharacterSaveDataController>();
         CurrentPassives = new List<byte>();
     }
 
@@ -49,7 +54,11 @@ public class SkillTreePassiveCanvas : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        CharacterSaveData saveData = CharacterSaveDataController.LoadGame();
+        CharacterSaveDataController characterSaveDataController = 
+            FindObjectOfType<CharacterSaveDataController>();
+
+        CharacterSaveData saveData = characterSaveDataController.LoadGame();
+
         if (saveData != null)
         {
             foreach (byte passive in saveData.CurrentSkillTreePassives)
@@ -68,7 +77,9 @@ public class SkillTreePassiveCanvas : MonoBehaviour
         else
         {
             CurrentPassives.Add(0); // Adds default spell
-            PlayerPrefs.SetInt(CurrencyType.ArcanePower.ToString(), 0);
+            currencySO.GainCurrency(CurrencyType.ArcanePower, currencySO.DefaultArcanePower);
+            PlayerPrefs.SetInt(CurrencyType.ArcanePower.ToString(), currencySO.DefaultArcanePower);
+            characterSaveDataController.SaveGame(new byte[] { 0 }, currencySO.DefaultArcanePower);
         }
 
         ClearAllInformation();
@@ -143,7 +154,8 @@ public class SkillTreePassiveCanvas : MonoBehaviour
             passivesID[i] = CurrentPassives[i];
         }
 
-        CharacterSaveDataController.SaveGame(
+        // Saves current passives list and arcane power
+        characterSaveDataController.SaveGame(
             passivesID, PlayerPrefs.GetInt(CurrencyType.ArcanePower.ToString()));
     }
 

@@ -13,7 +13,7 @@ public class SkillTreePassiveSO : AbstractPassiveSO<SkillTreePassiveType>, ISkil
     [SerializeField] private SkillTreePassiveType passiveType;
 
     [BoxGroup("Passive General Attributes")]
-    [Range(5, 500)][SerializeField] private int cost;
+    [Range(0, 500)][SerializeField] private int cost;
 
     [BoxGroup("Passive General Attributes")]
     [Range(1, 255)] [SerializeField] private byte amountToAdd;

@@ -30,8 +30,7 @@ public abstract class AbstractSaveData
     /// <returns>Encrypted/Decrypted string.</returns>
     protected string EncryptDecrypt(string data, int key)
     {
-        // REMOVE COMMENTS TO ENCRYPT CODE
-        /*
+        // COMMENT TO ENCRYPT CODE
         StringBuilder input = new StringBuilder(data);
         StringBuilder output = new StringBuilder(data.Length);
 
@@ -45,7 +44,8 @@ public abstract class AbstractSaveData
         }
 
         return output.ToString();
-        */
-        return data;
+
+        // REMOVE COMMENT TO NOT ENCRYPT CODE
+        //return data;
     }
 }

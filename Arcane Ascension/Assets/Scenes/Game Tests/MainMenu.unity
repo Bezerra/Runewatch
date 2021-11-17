@@ -675,7 +675,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 87161473}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 801178803}
+        m_TargetAssemblyTypeName: SaveSkillTreePassivesInformation, Assembly-CSharp
+        m_MethodName: SavePassiveEffectsData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &87161473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2028,7 +2040,6 @@ GameObject:
   m_Component:
   - component: {fileID: 564170380}
   - component: {fileID: 564170381}
-  - component: {fileID: 564170382}
   m_Layer: 0
   m_Name: Skill Tree Data
   m_TagString: Untagged
@@ -2062,19 +2073,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef00892379f636b4cb4f3815658ebaca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &564170382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 564170379}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bd6f819515edf149a6ae5e32fd9ddd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillTreePassives: {fileID: 11400000, guid: 6421a001884ad1341abe88624b35ca85, type: 2}
 --- !u!1 &566339046
 GameObject:
   m_ObjectHideFlags: 0
@@ -2980,6 +2978,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 801178801}
+  - component: {fileID: 801178803}
   - component: {fileID: 801178802}
   - component: {fileID: 801178800}
   - component: {fileID: 801178799}
@@ -3087,6 +3086,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   switchToInput: 1
+--- !u!114 &801178803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 801178797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc81d9271ce00c04eb7f2e5d7e674c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillTreePassives: {fileID: 11400000, guid: 6421a001884ad1341abe88624b35ca85, type: 2}
 --- !u!1 &843584722
 GameObject:
   m_ObjectHideFlags: 0

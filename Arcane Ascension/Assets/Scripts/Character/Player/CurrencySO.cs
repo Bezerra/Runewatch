@@ -11,6 +11,9 @@ public class CurrencySO : ScriptableObject
     [Range(0, 10000)] [SerializeField] private int defaultGold;
     [Range(0, 10000)] [SerializeField] private int defaultArcanePower;
 
+    public int DefaultGold => defaultGold;
+    public int DefaultArcanePower => defaultArcanePower;
+
     public int Gold { get; private set; }
     public int ArcanePower { get; private set; }
 
