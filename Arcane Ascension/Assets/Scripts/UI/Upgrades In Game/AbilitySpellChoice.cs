@@ -10,21 +10,36 @@ public class AbilitySpellChoice : MonoBehaviour
     // Scriptable object with random abilities
     [SerializeField] private RandomAbilitiesToChooseSO randomAbilities;
 
-    [SerializeField] private GameObject backButton;
-
     // Panels with 3 spells
     private AbilitySpellCard[] spellCards;
 
+    // Ui
+    [SerializeField] private GameObject backButton;
     [SerializeField] private Button rerollButton;
     [SerializeField] private TextMeshProUGUI rerollText;
+
+    private CharacterSaveDataController stpData;
 
     private void Awake()
     {
         spellCards = GetComponentsInChildren<AbilitySpellCard>();
+        stpData = FindObjectOfType <CharacterSaveDataController>();
     }
 
     private void OnEnable()
     {
+        if (stpData.SaveData.Destiny > 0)
+        {
+            rerollText.text = "Rerolls: " + stpData.SaveData.Destiny.ToString() + " / 2";
+            rerollText.gameObject.SetActive(true);
+            rerollButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            rerollText.gameObject.SetActive(false);
+            rerollButton.gameObject.SetActive(false);
+        }
+        
         UpdateChildInformation();
     }
 
@@ -67,5 +82,22 @@ public class AbilitySpellChoice : MonoBehaviour
     public void Reroll()
     {
         UpdateChildInformation();
+
+        if (stpData.SaveData.Destiny > 0)
+        {
+            stpData.SaveData.Destiny -= 1;
+        }
+
+        if (stpData.SaveData.Destiny > 0)
+        {
+            rerollText.text = "Rerolls: " + stpData.SaveData.Destiny.ToString() + " / 2";
+            rerollText.gameObject.SetActive(true);
+            rerollButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            rerollText.gameObject.SetActive(false);
+            rerollButton.gameObject.SetActive(false);
+        }
     }
 }
