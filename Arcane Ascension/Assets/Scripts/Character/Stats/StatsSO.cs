@@ -27,6 +27,8 @@ public abstract class StatsSO : ScriptableObject
     [BoxGroup("General Stats")]
     [Range(1, 2000)] [SerializeField] private float defaultHealth;
     [BoxGroup("General Stats")]
+    [Range(0f, 1f)] [SerializeField] private float damageResistance;
+    [BoxGroup("General Stats")]
     [Range(0f, 2f)] [SerializeField] private float defaultMovementSpeedMultiplier;
     [BoxGroup("Damage Stats")]
     [DetailedInfoBox("Base Damage percentage of spell damage", "Base Damage percentage of spell damage")]
@@ -54,6 +56,7 @@ public abstract class StatsSO : ScriptableObject
 
     public string Name => name;
     public float MaxHealth { get; set; }
+    public float DamageResistance { get; set; }
     public float BaseDamageMultiplier { get; set; }
     public float CriticalChance { get; set; }
     public float CriticalDamageModifier { get; set; }
@@ -70,6 +73,7 @@ public abstract class StatsSO : ScriptableObject
     {
         // If the game wasn't loaded it loads default stats
         MaxHealth = defaultHealth;
+        DamageResistance = 1 - damageResistance;
         BaseDamageMultiplier = defaultBaseDamageMultiplier;
         CriticalChance = defaultCriticalChance;
         CriticalDamageModifier = defaultCriticalDamageModifier;

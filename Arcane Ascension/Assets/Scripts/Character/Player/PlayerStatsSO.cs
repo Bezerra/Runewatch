@@ -21,6 +21,8 @@ public class PlayerStatsSO : StatsSO
     [Range(0.1f, 10)] [SerializeField] private float defaultManaRegenSteal;
     [BoxGroup("General Stats")]
     [Range(1, 2)] [SerializeField] private int defaultDashCharge;
+    [BoxGroup("General Stats")]
+    [Range(1, 2f)] [SerializeField] private float healthPotionsPercentageMultiplier;
     [BoxGroup("Damage Stats")]
     [Header("Character list of spells")]
     [SerializeField] private List<SpellSO> availableSpells;
@@ -31,6 +33,7 @@ public class PlayerStatsSO : StatsSO
     public float ManaRegenSteal { get; set; }
     public float MaxArmor { get; set; }
     public int MaxDashCharge { get; set; }
+    public float HealthPotionsPercentageMultiplier { get; set; }
     public List<SpellSO> AvailableSpells => availableSpells;
 
     protected override void OnEnable()
@@ -42,5 +45,6 @@ public class PlayerStatsSO : StatsSO
         ManaRegenTime = defaultManaRegenTime;
         ManaRegenSteal = defaultManaRegenSteal;
         MaxDashCharge = defaultDashCharge;
+        HealthPotionsPercentageMultiplier = healthPotionsPercentageMultiplier;
     }
 }

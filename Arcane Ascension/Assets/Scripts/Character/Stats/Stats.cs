@@ -79,7 +79,10 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     /// <param name="element">Element of the damage.</param>
     public virtual void TakeDamage(float damage, ElementType element)
     {
-        float damageToReceive = Mathf.Floor(damage * (ElementsDamage.CalculateDamage(element, CommonAttributes.Element)));
+        float damageToReceive =
+            Mathf.Floor(
+                damage * (ElementsDamage.CalculateDamage(element, CommonAttributes.Element)) *
+                CommonAttributes.DamageResistance);
         OnEventTakeDamage(damageToReceive);
 
         // Spawn damage text
@@ -120,7 +123,10 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
         damage = criticalHit ? damage *= 2 * criticalDamageModifier: damage *= 1;
 
         // Claculates final damage
-        float damageToReceive = Mathf.Floor(damage * (ElementsDamage.CalculateDamage(element, CommonAttributes.Element)));
+        float damageToReceive =
+            Mathf.Floor(
+                damage * (ElementsDamage.CalculateDamage(element, CommonAttributes.Element)) *
+                CommonAttributes.DamageResistance);
         OnEventTakeDamage(damageToReceive);
 
         // Spawn damage text

@@ -20,4 +20,7 @@ public enum StatsType
     NaturaDamage,
     LuxDamage,
     UmbraDamage,
+    DamageResistance,
+    HealthPotionsPercentageExtra,
+    DashCharge,
 }

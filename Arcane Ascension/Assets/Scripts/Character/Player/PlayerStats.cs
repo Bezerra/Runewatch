@@ -53,10 +53,20 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
 
     protected override void Start()
     {
+        //Debug.Log(PlayerAttributes.MaxDashCharge);
+
         UpdateStats(stpData.SaveData.Vitality, StatsType.Health);
         UpdateStats(stpData.SaveData.Insight, StatsType.Mana);
         UpdateStats(stpData.SaveData.Agility, StatsType.MovementSpeedMultiplier);
         UpdateStats(stpData.SaveData.Meditation, StatsType.ManaRegenAmount);
+        UpdateStats(stpData.SaveData.Luck, StatsType.CriticalChance);
+        UpdateStats(stpData.SaveData.Precision, StatsType.CriticalDamageMultiplier);
+        UpdateStats(stpData.SaveData.Overpowering, StatsType.Damage);
+        UpdateStats(stpData.SaveData.Resilience, StatsType.DamageResistance);
+        UpdateStats(stpData.SaveData.Healer, StatsType.HealthPotionsPercentageExtra);
+        UpdateStats(stpData.SaveData.FleetingForm, StatsType.DashCharge);
+
+        //Debug.Log(PlayerAttributes.MaxDashCharge);
 
         base.Start();
         Mana = PlayerAttributes.MaxMana;
@@ -171,7 +181,10 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
     /// <param name="element">Element of the damage.</param>
     public override void TakeDamage(float damage, ElementType element)
     {
-        float damageToReceive = Mathf.Floor(damage * (ElementsDamage.CalculateDamage(element, PlayerAttributes.Element)));
+        float damageToReceive = 
+            Mathf.Floor(
+                damage * (ElementsDamage.CalculateDamage(element, PlayerAttributes.Element)) *
+                CommonAttributes.DamageResistance);
         OnEventTakeDamage(damageToReceive);
 
         if (Armor - damageToReceive > 0)
@@ -217,7 +230,10 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
         damage = criticalHit ? damage *= 2 * criticalDamageModifier : damage *= 1;
 
         // Claculates final damage
-        float damageToReceive = Mathf.Floor(damage * (ElementsDamage.CalculateDamage(element, PlayerAttributes.Element)));
+        float damageToReceive =
+            Mathf.Floor(
+                damage * (ElementsDamage.CalculateDamage(element, PlayerAttributes.Element)) *
+                CommonAttributes.DamageResistance);
         OnEventTakeDamage(damageToReceive);
 
         if (Armor - damageToReceive > 0)
@@ -259,9 +275,10 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
         switch (healType)
         {
             case StatsType.Health:
-                if (Health + amountOfHeal < PlayerAttributes.MaxHealth)
+                float healAmount = amountOfHeal * PlayerAttributes.HealthPotionsPercentageMultiplier;
+                if (Health + healAmount < PlayerAttributes.MaxHealth)
                 {
-                    Health += amountOfHeal;
+                    Health += healAmount;
                 }
                 else
                 {
@@ -353,6 +370,19 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
 
             case StatsType.CriticalDamageMultiplier:
                 PlayerAttributes.CriticalDamageModifier += amountToIncrement;
+                break;
+
+            case StatsType.DamageResistance:
+                PlayerAttributes.DamageResistance += -amountToIncrement;
+                break;
+
+            case StatsType.HealthPotionsPercentageExtra:
+                PlayerAttributes.HealthPotionsPercentageMultiplier += amountToIncrement;
+                break;
+
+            case StatsType.DashCharge:
+                float amount = amountToIncrement * 100f; // It's multiplied by 0.01 on the beggining
+                PlayerAttributes.MaxDashCharge += (int)(amount);
                 break;
 
             case StatsType.IgnisDamage:

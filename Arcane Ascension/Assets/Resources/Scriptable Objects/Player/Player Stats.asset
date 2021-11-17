@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Player Stats
   m_EditorClassIdentifier: 
   name: 
-  notes: 
+  description: 
   element: 0
+  characterType: 0
   defaultHealth: 100
+  damageResistance: 0
   defaultMovementSpeedMultiplier: 1
   defaultBaseDamageMultiplier: 1
   defaultNeutralMultiplier: 1
@@ -28,14 +30,16 @@ MonoBehaviour:
   defaultUmbraMultiplier: 1
   defaultCriticalChance: 0.1
   defaultCriticalDamageModifier: 1
-  availableSpells:
-  - {fileID: 11400000, guid: ece89201399664e43a5c2cc72bd908d8, type: 2}
-  - {fileID: 11400000, guid: 5ddab0765f7d6c146bbd1e54f2bab83e, type: 2}
-  - {fileID: 11400000, guid: 83e561bf20a8e67478edb6946594d227, type: 2}
-  - {fileID: 11400000, guid: a681e4b6433d3fc48a5515abdbcaa569, type: 2}
   defaultArmor: 0
   defaultMana: 100
   defaultManaRegenAmount: 1
   defaultManaRegenTime: 0.1
   defaultManaRegenSteal: 5
   defaultDashCharge: 1
+  healthPotionsPercentageMultiplier: 1
+  availableSpells:
+  - {fileID: 11400000, guid: ece89201399664e43a5c2cc72bd908d8, type: 2}
+  - {fileID: 11400000, guid: 5ddab0765f7d6c146bbd1e54f2bab83e, type: 2}
+  - {fileID: 11400000, guid: 83e561bf20a8e67478edb6946594d227, type: 2}
+  - {fileID: 11400000, guid: a681e4b6433d3fc48a5515abdbcaa569, type: 2}
+  - {fileID: 11400000, guid: b0d9d2fceb4a0534d93d2a1c31319172, type: 2}
