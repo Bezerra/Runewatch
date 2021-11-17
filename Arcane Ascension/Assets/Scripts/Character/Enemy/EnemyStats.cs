@@ -140,7 +140,11 @@ public class EnemyStats : Stats
                 if (lootCurrency != null)
                 {
                     if (lootCurrency.CurrencyType == CurrencyType.Gold)
+                    {
+                        Debug.Log(stpData.SaveData.Pickpocket);
+                        lootCurrency.AmountMultiplier = stpData.SaveData.Pickpocket;
                         lootCurrency.Amount = EnemyAttributes.GoldQuantity;
+                    }
                     else
                         lootCurrency.Amount = EnemyAttributes.ArcanePowerQuantity;
                 }

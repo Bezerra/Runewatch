@@ -26,10 +26,10 @@ public class EnemyStatsSO : StatsSO
     [Header("Character list of spells")]
     [SerializeField] private List<EnemySpell> availableSpells;
 
-    public Vector2 ArcanePowerQuantity =>
+    public Vector2 GoldQuantity =>
         goldQuantity;
 
-    public Vector2 GoldQuantity =>
+    public Vector2 ArcanePowerQuantity =>
         arcanePowerQuantity;
 
     public LootRates Rates => 

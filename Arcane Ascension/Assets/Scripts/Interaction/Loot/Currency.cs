@@ -21,14 +21,22 @@ public class Currency : MonoBehaviour, ICurrency
     /// </summary>
     public CurrencyType CurrencyType => currencySO.CurrencyType;
 
+    /// <summary>
+    /// Multiplier of the amount. This is set by mobs that drop gold if the
+    /// player has Pickpocket passive.
+    /// </summary>
+    public float AmountMultiplier { get; set; }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == Layers.PlayerLayerNum)
         {
             if (other.TryGetComponent<IUseCurrency>(out IUseCurrency currency))
             {
-                currency.GainCurrency(currencySO.CurrencyType, 
-                    (int)Random.Range(Amount.x, Amount.y));
+                float amountToGain = Random.Range(Amount.x, Amount.y);
+
+                currency.GainCurrency(currencySO.CurrencyType,
+                    (int)(amountToGain + (AmountMultiplier * amountToGain * 0.01f)));
             }
             LootSoundPoolCreator.Pool.InstantiateFromPool(
                 lootType.ToString(), transform.position, Quaternion.identity);

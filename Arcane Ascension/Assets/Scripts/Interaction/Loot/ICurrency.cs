@@ -14,4 +14,9 @@ public interface ICurrency
     /// Amount this currency contains.
     /// </summary>
     Vector2 Amount { get; set; }
+
+    /// <summary>
+    /// Multiplier of the amount.
+    /// </summary>
+    float AmountMultiplier { get; set; }
 }
