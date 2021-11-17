@@ -17,6 +17,7 @@ MonoBehaviour:
   element: 1
   characterType: 1
   defaultHealth: 100
+  damageResistance: 0
   defaultMovementSpeedMultiplier: 1
   defaultBaseDamageMultiplier: 1
   defaultNeutralMultiplier: 1
@@ -29,6 +30,20 @@ MonoBehaviour:
   defaultUmbraMultiplier: 1
   defaultCriticalChance: 0.1
   defaultCriticalDamageModifier: 1
+  lootRates:
+    lootPieces:
+    - lootType: 1
+      lootRate: 60
+    - lootType: 0
+      lootRate: 15
+    - lootType: 3
+      lootRate: 5
+    - lootType: 2
+      lootRate: 5
+    - lootType: 5
+      lootRate: 0
+    - lootType: 6
+      lootRate: 5
   availableSpells:
   - spell: {fileID: 11400000, guid: b0d9d2fceb4a0534d93d2a1c31319172, type: 2}
     spellWeight: 15

@@ -73,40 +73,11 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     }
 
     /// <summary>
-    /// Reduces armor + Health.
-    /// </summary>
+    /// Reduces Health.
+    /// </summary
     /// <param name="damage">Damage to take.</param>
     /// <param name="element">Element of the damage.</param>
-    public virtual void TakeDamage(float damage, ElementType element)
-    {
-        float damageToReceive =
-            Mathf.Floor(
-                damage * (ElementsDamage.CalculateDamage(element, CommonAttributes.Element)) *
-                CommonAttributes.DamageResistance);
-        OnEventTakeDamage(damageToReceive);
-
-        // Spawn damage text
-        GameObject damageHitText =
-                    DamageHitPoolCreator.Pool.InstantiateFromPool("DamageHit", transform.position, Quaternion.identity);
-        if (damageHitText.TryGetComponent<DamageHitText>(out DamageHitText outDamageHitText))
-        {
-            outDamageHitText.UpdateShownDamage(damageToReceive, false);
-        }
-
-        if (Health - damageToReceive > 0)
-        {
-            Health -= damageToReceive;
-        }
-        else
-        {
-            if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
-            OnEventDeath(this);
-
-            // This will be applied with an animation event
-            Destroy(GetComponentInParent<SelectionBase>().gameObject);
-            //////////////////////////////////////////////////////////
-        }
-    }
+    public abstract void TakeDamage(float damage, ElementType element);
 
     /// <summary>
     /// Reduces Health.
@@ -115,42 +86,8 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     /// <param name="criticalChance">Chance of critical hit.</param>
     /// <param name="criticalDamageModifier">Damage modifier on critical hits.</param>
     /// <param name="element">Element of the damage.</param>
-    public virtual void TakeDamage(float damage, float criticalChance, float criticalDamageModifier, ElementType element)
-    {
-        // Critical check
-        // If random.NextDouble is less than critical chance, it will do double damage
-        bool criticalHit = random.NextDouble() < criticalChance;
-        damage = criticalHit ? damage *= 2 * criticalDamageModifier: damage *= 1;
-
-        // Claculates final damage
-        float damageToReceive =
-            Mathf.Floor(
-                damage * (ElementsDamage.CalculateDamage(element, CommonAttributes.Element)) *
-                CommonAttributes.DamageResistance);
-        OnEventTakeDamage(damageToReceive);
-
-        // Spawn damage text
-        GameObject damageHitText =
-                DamageHitPoolCreator.Pool.InstantiateFromPool("DamageHit", transform.position, Quaternion.identity);
-        if (damageHitText.TryGetComponent<DamageHitText>(out DamageHitText outDamageHitText))
-        {
-            outDamageHitText.UpdateShownDamage(damageToReceive, criticalHit);
-        }
-
-        if (Health - damageToReceive > 0)
-        {
-            Health -= damageToReceive;
-        }
-        else
-        {
-            if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
-            OnEventDeath(this);
-
-            // This will be applied with an animation event
-            Destroy(GetComponentInParent<SelectionBase>().gameObject);
-            //////////////////////////////////////////////////////////
-        }
-    }
+    public abstract void TakeDamage(
+        float damage, float criticalChance, float criticalDamageModifier, ElementType element);
 
     /// <summary>
     /// Heal Health.
