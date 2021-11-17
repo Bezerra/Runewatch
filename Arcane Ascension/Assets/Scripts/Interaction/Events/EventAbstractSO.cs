@@ -11,5 +11,5 @@ public abstract class EventAbstractSO : ScriptableObject
     /// Executes an event.
     /// </summary>
     /// <param name="invoker">Invoker gameobject.</param>
-    public abstract void Execute(AbstractEventOnInteraction invoker);
+    public abstract void Execute(AbstractEventOnInteraction invoker = null);
 }

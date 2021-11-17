@@ -53,6 +53,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
 
     protected override void Start()
     {
+
         UpdateStats(stpData.SaveData.Vitality, StatsType.Health);
         UpdateStats(stpData.SaveData.Insight, StatsType.Mana);
         UpdateStats(stpData.SaveData.Agility, StatsType.MovementSpeedMultiplier);
@@ -63,6 +64,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
         UpdateStats(stpData.SaveData.Resilience, StatsType.DamageResistance);
         UpdateStats(stpData.SaveData.Healer, StatsType.HealthPotionsPercentageExtra);
         UpdateStats(stpData.SaveData.FleetingForm, StatsType.DashCharge);
+        UpdateStats(stpData.SaveData.ManaFountain, StatsType.ManaRegenSteal);
 
         base.Start();
         Mana = PlayerAttributes.MaxMana;
@@ -283,9 +285,11 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
                 break;
 
             case StatsType.Mana:
-                if (Mana + amountOfHeal < PlayerAttributes.MaxMana)
+                float manaHealAmount = amountOfHeal;
+
+                if (Mana + manaHealAmount < PlayerAttributes.MaxMana)
                 {
-                    Mana += amountOfHeal;
+                    Mana += manaHealAmount;
                 }
                 else
                 {
@@ -349,7 +353,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
                 break;
 
             case StatsType.ManaRegenSteal:
-                PlayerAttributes.ManaRegenSteal += amountToIncrement;
+                PlayerAttributes.ManaRegenSteal += (PlayerAttributes.ManaRegenSteal * amountToIncrement);
                 break;
 
             case StatsType.Armor:

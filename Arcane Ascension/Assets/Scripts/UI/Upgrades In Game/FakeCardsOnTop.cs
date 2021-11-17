@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using ExtensionMethods;
 
 /// <summary>
 /// Class responsible for unrevealing spell and passive cards by fading out cards on top.
@@ -10,21 +12,36 @@ public class FakeCardsOnTop : MonoBehaviour
     [SerializeField] private Button[] cardButtonsToActivate;
     [SerializeField] private Image[] images;
 
+    // Children cards
     private AbilitySpellCard[] spellCards;
     private AbilityPassiveCard[] passiveCards;
 
+    // Images and alpha
     private float alpha;
     private int allImagesDone;
+
+    // Coroutine
+    [Header("Reroll Variables")]
+    [SerializeField] private EventAbstractSO rerollEvent;
+    private IEnumerator rerollingCoroutine;
+    private AbilitySpellChoice parentSpellChoiceCanvas;
+
+    private void Awake()
+    {
+        parentSpellChoiceCanvas = GetComponentInParent<AbilitySpellChoice>();
+    }
 
     private void OnEnable()
     {
         alpha = 1;
         allImagesDone = 0;
 
+        // Children images on top alpha to 1
         for (int i = 0; i < images.Length; i++)
         {
             images[i].color = new Color(0, 0, 0, alpha * 2);
         }
+        // Deactivates spells buttons
         for (int j = 0; j < cardButtonsToActivate.Length; j++)
         {
             cardButtonsToActivate[j].enabled = false;
@@ -51,39 +68,80 @@ public class FakeCardsOnTop : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void Rerolled()
     {
-        if (allImagesDone == images.Length - 1)
+        // Deactivates spells buttons
+        for (int j = 0; j < cardButtonsToActivate.Length; j++)
         {
-            for (int i = 0; i < cardButtonsToActivate.Length; i++)
+            cardButtonsToActivate[j].enabled = false;
+        }
+
+        this.StartCoroutineWithReset(ref rerollingCoroutine, RerollCoroutine());
+    }
+
+    private IEnumerator RerollCoroutine()
+    {
+        alpha = 0;
+        allImagesDone = 0;
+        while (alpha < 1)
+        {
+            alpha += Time.unscaledDeltaTime * 2;
+            for (int i = 0; i < images.Length; i++)
             {
-                switch (abilityType)
+                images[i].color = new Color(1, 1, 1, alpha);
+
+                if (images[i].color.a <= 0)
                 {
-                    case AbilityType.Spell:
-                        if (spellCards[i].SpellOnCard != null)
-                            cardButtonsToActivate[i].enabled = true;
-                        break;
-                    case AbilityType.Passive:
-                        if (passiveCards[i].PassiveOnCard != null)
-                            cardButtonsToActivate[i].enabled = true;
-                        break;
+                    allImagesDone = i;
                 }
             }
-            return;
+            yield return null;
         }
 
-        alpha -= Time.unscaledDeltaTime * 2;
+        if (rerollEvent != null)
+            rerollEvent.Execute();
 
-        for (int i = 0; i < images.Length; i++)
+        if (parentSpellChoiceCanvas != null)
+            parentSpellChoiceCanvas.Reroll();
+
+        rerollingCoroutine = null;
+    }
+
+    private void Update()
+    {
+        if (rerollingCoroutine == null)
         {
-            images[i].color = new Color(1, 1, 1, alpha + i);
-
-            if (images[i].color.a <= 0)
+            if (allImagesDone == images.Length - 1)
             {
-                allImagesDone = i;
+                for (int i = 0; i < cardButtonsToActivate.Length; i++)
+                {
+                    switch (abilityType)
+                    {
+                        case AbilityType.Spell:
+                            if (spellCards[i].SpellOnCard != null)
+                                cardButtonsToActivate[i].enabled = true;
+                            break;
+                        case AbilityType.Passive:
+                            if (passiveCards[i].PassiveOnCard != null)
+                                cardButtonsToActivate[i].enabled = true;
+                            break;
+                    }
+                }
+                return;
+            }
+
+            alpha -= Time.unscaledDeltaTime * 2;
+
+            for (int i = 0; i < images.Length; i++)
+            {
+                images[i].color = new Color(1, 1, 1, alpha + i);
+
+                if (images[i].color.a <= 0)
+                {
+                    allImagesDone = i;
+                }
             }
         }
-
     }
 
     private enum AbilityType { Spell, Passive, }

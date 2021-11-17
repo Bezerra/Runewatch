@@ -18,7 +18,7 @@ public class PlayerStatsSO : StatsSO
     [BoxGroup("Mana Stats")]
     [Range(0.01f, 2)] [SerializeField] private float defaultManaRegenTime;
     [BoxGroup("Mana Stats")]
-    [Range(0.1f, 10)] [SerializeField] private float defaultManaRegenSteal;
+    [Range(0.1f, 20f)] [SerializeField] private float defaultManaRegenSteal;
     [BoxGroup("General Stats")]
     [Range(1, 2)] [SerializeField] private int defaultDashCharge;
     [BoxGroup("General Stats")]

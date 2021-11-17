@@ -45,6 +45,7 @@ public class DamageManaStealSO : DamageBehaviourAbstractSO
                     criticalChance = 1;
                 }
 
+                // Damages character
                 character.TakeDamage(
                     parent.WhoCast.CommonAttributes.BaseDamageMultiplier *
                     parent.WhoCast.CommonAttributes.DamageElementMultiplier[parent.Spell.Element] *
@@ -54,11 +55,13 @@ public class DamageManaStealSO : DamageBehaviourAbstractSO
                     parent.WhoCast.CommonAttributes.CriticalDamageModifier,
                     parent.Spell.Element);
 
+                // Heals mana
                 if (parent.ThisIMana != null)
                 {
-                    parent.WhoCast.Heal(
-                        (parent.WhoCast as PlayerStats).
-                        PlayerAttributes.ManaRegenSteal, StatsType.Mana);
+                    PlayerStats playerStats = (PlayerStats)parent.WhoCast;
+                    playerStats.Heal(
+                        playerStats.PlayerAttributes.ManaRegenSteal, 
+                        StatsType.Mana);
                 }
             }
         }

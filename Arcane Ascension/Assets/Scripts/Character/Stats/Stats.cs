@@ -153,7 +153,7 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     }
 
     /// <summary>
-    /// Heal Health, Mana or Armor.
+    /// Heal Health.
     /// </summary>
     /// <param name="amountOfHeal">Amount of heal.</param>
     /// <param name="healType">Type of heal (Health, Mana or Armor).</param>

@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 /// <summary>
 /// Class responsible for three random abilities canvas and logic.
@@ -13,6 +15,8 @@ public class AbilitySpellChoice : MonoBehaviour
     // Panels with 3 spells
     private AbilitySpellCard[] spellCards;
 
+    [SerializeField] private Button rerollButton;
+    [SerializeField] private TextMeshProUGUI rerollText;
 
     private void Awake()
     {
@@ -20,6 +24,14 @@ public class AbilitySpellChoice : MonoBehaviour
     }
 
     private void OnEnable()
+    {
+        UpdateChildInformation();
+    }
+
+    /// <summary>
+    /// Updates child cards information.
+    /// </summary>
+    private void UpdateChildInformation()
     {
         backButton.SetActive(false);
 
@@ -47,5 +59,13 @@ public class AbilitySpellChoice : MonoBehaviour
                 backButton.SetActive(true);
             }
         }
+    }
+
+    /// <summary>
+    /// Reroll logic. Called with a UI button.
+    /// </summary>
+    public void Reroll()
+    {
+        UpdateChildInformation();
     }
 }
