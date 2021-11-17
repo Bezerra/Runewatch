@@ -33,12 +33,12 @@ public class AllSkillTreePassivesSO : ScriptableObject
         }
     }
 
-    private void UpdateID()
+    public void UpdateID()
     {
         for (int i = 0; i < passives.Count; i++)
         {
             passives[i].ID = (byte)i;
-            Debug.Log(passives[i].Name + " - ID: " + passives[i].ID);
+            Debug.Log("Skill tree ordered.");
         }
     }
 }

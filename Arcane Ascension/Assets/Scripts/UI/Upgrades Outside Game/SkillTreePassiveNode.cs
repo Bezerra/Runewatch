@@ -50,14 +50,21 @@ public class SkillTreePassiveNode : MonoBehaviour
     public bool IsUnlocked { get; private set; }
 
     // Components
-    private SkillTreePassiveCanvas parentNodeController;
+    [SerializeField] private SkillTreePassiveCanvas parentNodeController;
 
-    private void Awake()
+    private void Start()
     {
-        parentNodeController = GetComponentInParent<SkillTreePassiveCanvas>();
+        UpdateTiersOnStart();
+    }
 
+    public void UpdateTiersOnStart()
+    {
         CurrentTier = 0;
-        nodeImage.color = parentNodeController.LockedColor;
+
+        if (CurrentTier < nodePassives.Length)
+            nodeImage.color = parentNodeController.UnlockedColor;
+        else
+            nodeImage.color = parentNodeController.LockedColor;
 
         // Creates connections to all nodes
         if (nextConnectionNodes.Count > 0)
@@ -67,10 +74,7 @@ public class SkillTreePassiveNode : MonoBehaviour
                 CreateInstantConnectionLine(node.gameObject);
             }
         }
-    }
 
-    private void Start()
-    {
         // Checks if the player already has this node, from 0 to higher tiers.
         // In that case, increments the tier of the node and updates UI.
         for (int i = 0; i < nodePassives.Length; i++)
@@ -213,15 +217,16 @@ public class SkillTreePassiveNode : MonoBehaviour
         button.enabled = false;
         targetButton.enabled = false;
 
-        // If a line with this name already exists, it destroys it
-        Destroy(this.gameObject.transform.parent.Find(this.gameObject.name + " connect to " + targetGO.name).gameObject);
-
         // Creates a line
         GameObject connectionLineGO = 
             Instantiate(parentNodeController.ConnectionLinePrefab, transform.position, Quaternion.identity);
         connectionLineGO.transform.SetParent(this.gameObject.transform.parent);
-        connectionLineGO.transform.SetAsFirstSibling();
+        connectionLineGO.transform.SetAsLastSibling();
         connectionLineGO.name = this.gameObject.name + " connect to " + targetGO.name;
+
+        // Sets passive nodes as last sibling so they get rendered on top
+        targetGO.transform.SetAsLastSibling();
+        transform.SetAsLastSibling();
 
         // Gets image and line and colors it
         Image connectionLineImage = connectionLineGO.GetComponent<Image>();
@@ -245,7 +250,7 @@ public class SkillTreePassiveNode : MonoBehaviour
             yield return null;
             // All lines grow at the same speed
             currentLineWidth += (((Time.deltaTime) * distance) * LINEGROWTHSPEED);
-            connectionLine.sizeDelta = new Vector2(currentLineWidth, LINEHEIGHT);
+            connectionLine.sizeDelta = new Vector2(currentLineWidth, LINEHEIGHT * 1.25f);
         }
 
         // Enables button back
@@ -269,6 +274,10 @@ public class SkillTreePassiveNode : MonoBehaviour
         // Gets image and line and colors it
         Image connectionLineImage = connectionLineGO.GetComponent<Image>();
         connectionLineImage.color = parentNodeController.LockedColor;
+
+        // Sets passive nodes as last sibling so they get rendered on top
+        targetGO.transform.SetAsLastSibling();
+        transform.SetAsLastSibling();
 
         // Gets a rectangle, calculates distance and rotation from this node to the next node
         RectTransform connectionLine = connectionLineGO.GetComponent<RectTransform>();

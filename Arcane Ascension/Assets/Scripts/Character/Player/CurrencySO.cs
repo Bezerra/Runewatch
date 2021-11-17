@@ -76,7 +76,7 @@ public class CurrencySO : ScriptableObject
 
     private void OnEnable()
     {
-        GainCurrency(CurrencyType.Gold, defaultGold);
-        GainCurrency(CurrencyType.ArcanePower, defaultArcanePower);
+        Gold = 0;
+        ArcanePower = 0;
     }
 }

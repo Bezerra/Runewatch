@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -36,9 +35,15 @@ public class SkillTreePassiveCanvas : MonoBehaviour
 
     private void Awake()
     {
-        // Sets current passives
         CurrentPassives = new List<byte>();
+    }
 
+    /// <summary>
+    /// This logic MUST be on start, because the ID's are getting ordered on awake on
+    /// SkillTreePassivesExecute, as a precaution.
+    /// </summary>
+    private void Start()
+    {
         CharacterSaveData saveData = CharacterSaveDataController.LoadGame();
         if (saveData != null)
         {
@@ -46,8 +51,8 @@ public class SkillTreePassiveCanvas : MonoBehaviour
             {
                 CurrentPassives.Add(passive);
             }
-
             CurrentPassives.Sort();
+            currencySO.GainCurrency(CurrencyType.ArcanePower, saveData.ArcanePower);
             PlayerPrefs.SetInt(CurrencyType.ArcanePower.ToString(), saveData.ArcanePower);
         }
         else
@@ -125,8 +130,14 @@ public class SkillTreePassiveCanvas : MonoBehaviour
 
     public void LeaveButton()
     {
+        byte[] passivesID = new byte[CurrentPassives.Count];
+        for (int i = 0; i < CurrentPassives.Count; i++)
+        {
+            passivesID[i] = CurrentPassives[i];
+        }
+
         CharacterSaveDataController.SaveGame(
-            CurrentPassives.ToArray(), PlayerPrefs.GetInt(CurrencyType.ArcanePower.ToString()));
+            passivesID, PlayerPrefs.GetInt(CurrencyType.ArcanePower.ToString()));
     }
 
     /// <summary>
