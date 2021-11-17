@@ -34,7 +34,7 @@ public class RunPassiveSO : AbstractPassiveSO<RunPassiveType>, IRunPassive
     [Serializable]
     private struct UpgradeStats
     {
-        [Range(-1f, 1f)] [SerializeField] private float amountToAdd;
+        [Range(0, 15)] [SerializeField] private int amountToAdd;
         [SerializeField] private StatsType statsType;
 
         public void Upgrade(PlayerStats playerStats) =>

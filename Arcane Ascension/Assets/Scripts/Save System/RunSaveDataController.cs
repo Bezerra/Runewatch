@@ -32,7 +32,7 @@ public class RunSaveDataController : MonoBehaviour
             iSaveable.SaveCurrentData(instance.saveData);
 
         // Writes file with saved JSON
-        if (instance.fileManager.WriteToFile("SAVERUNPROGRESS.d4", instance.saveData.ToJson()))
+        if (instance.fileManager.WriteToFile("saveRunProgress.d4s", instance.saveData.ToJson()))
             Debug.Log("Game Saved");
     }
 
@@ -54,7 +54,7 @@ public class RunSaveDataController : MonoBehaviour
             }
         }
 
-        if (instance.fileManager.ReadFile("SAVERUNPROGRESS.d4", out string json))
+        if (instance.fileManager.ReadFile("saveRunProgress.d4s", out string json))
         {
             instance.saveData.LoadFromJson(json);
   

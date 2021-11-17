@@ -59,29 +59,27 @@ public class SkillTreePassiveCanvas : MonoBehaviour
 
         CharacterSaveData saveData = characterSaveDataController.LoadGame();
 
-        if (saveData != null)
+        foreach (byte passive in saveData.CurrentSkillTreePassives)
         {
-            foreach (byte passive in saveData.CurrentSkillTreePassives)
-            {
-                CurrentPassives.Add(passive);
-            }
-            CurrentPassives.Sort();
-
-            // If file already exists, without any passive in it
-            if (CurrentPassives.Count == 0)
-                CurrentPassives.Add(0); // Adds default spell
-
-            currencySO.GainCurrency(CurrencyType.ArcanePower, saveData.ArcanePower);
-            PlayerPrefs.SetInt(CurrencyType.ArcanePower.ToString(), saveData.ArcanePower);
+            CurrentPassives.Add(passive);
         }
-        else
+        CurrentPassives.Sort();
+
+        // If file already exists, without any passive in it
+        // meaning the file is completely empty. It's a new character.
+        if (CurrentPassives.Count == 0)
         {
             CurrentPassives.Add(0); // Adds default spell
             currencySO.GainCurrency(CurrencyType.ArcanePower, currencySO.DefaultArcanePower);
             PlayerPrefs.SetInt(CurrencyType.ArcanePower.ToString(), currencySO.DefaultArcanePower);
             characterSaveDataController.SaveGame(new byte[] { 0 }, currencySO.DefaultArcanePower);
         }
-
+        else
+        {
+            currencySO.GainCurrency(CurrencyType.ArcanePower, saveData.ArcanePower);
+            PlayerPrefs.SetInt(CurrencyType.ArcanePower.ToString(), saveData.ArcanePower);
+        }
+        
         ClearAllInformation();
     }
 

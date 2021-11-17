@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
@@ -17,6 +15,9 @@ public class SkillTreePassiveSO : AbstractPassiveSO<SkillTreePassiveType>, ISkil
 
     [BoxGroup("Passive General Attributes")]
     [Range(1, 255)] [SerializeField] private byte amountToAdd;
+
+    [TextArea]
+    [SerializeField] private string briefExplanation;
 
     public override SkillTreePassiveType PassiveType => passiveType;
     public int Cost => cost;

@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class PlayerStats : Stats, IMana, IArmor, ISaveable
 {
+    // Components
+    private CharacterSaveDataController stpData;
+
     public PlayerStatsSO PlayerAttributes => character.CommonValues.CharacterStats as PlayerStatsSO;
 
     // Coroutines
@@ -45,10 +48,16 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
         base.Awake();
         CurrentPassives = new List<IRunPassive>();
         playerCastSpell = GetComponent<PlayerCastSpell>();
+        stpData = FindObjectOfType<CharacterSaveDataController>();
     }
 
     protected override void Start()
     {
+        UpdateStats(stpData.SaveData.Vitality, StatsType.Health);
+        UpdateStats(stpData.SaveData.Insight, StatsType.Mana);
+        UpdateStats(stpData.SaveData.Agility, StatsType.MovementSpeedMultiplier);
+        UpdateStats(stpData.SaveData.Meditation, StatsType.ManaRegenAmount);
+
         base.Start();
         Mana = PlayerAttributes.MaxMana;
         Armor = PlayerAttributes.MaxArmor;
@@ -294,6 +303,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
     /// <param name="statsType">Type of stats to upgrade.</param>
     public void UpdateStats(float amountToIncrement, StatsType statsType)
     {
+        amountToIncrement *= 0.01f;
         switch (statsType)
         {
             case StatsType.Health:
