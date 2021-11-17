@@ -43,6 +43,8 @@ public class AbilityFullSpellChoiceKnownSpell : MonoBehaviour
                 card.NewObtainedSpell = droppedSpellResult.DroppedSpell;
                 card.UpdateInformation();
             }
+
+            obtainedSpellCard.UpdateInformation();
         }
     }
 
