@@ -29,6 +29,7 @@ public class SpellBehaviourDisableProjectileIfCollisionSO : SpellBehaviourAbstra
             {
                 if (parent.EffectNotNull)
                 {
+                    parent.ColliderTrigger.enabled = false;
                     parent.EffectStop();
                 }
             }
