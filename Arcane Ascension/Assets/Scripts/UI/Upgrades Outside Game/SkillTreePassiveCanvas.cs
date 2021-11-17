@@ -38,6 +38,11 @@ public class SkillTreePassiveCanvas : MonoBehaviour
         CurrentPassives = new List<byte>();
     }
 
+    private void OnEnable()
+    {
+        ClearAllInformation();
+    }
+
     /// <summary>
     /// This logic MUST be on start, because the ID's are getting ordered on awake on
     /// SkillTreePassivesExecute, as a precaution.
@@ -52,6 +57,11 @@ public class SkillTreePassiveCanvas : MonoBehaviour
                 CurrentPassives.Add(passive);
             }
             CurrentPassives.Sort();
+
+            // If file already exists, without any passive in it
+            if (CurrentPassives.Count == 0)
+                CurrentPassives.Add(0); // Adds default spell
+
             currencySO.GainCurrency(CurrencyType.ArcanePower, saveData.ArcanePower);
             PlayerPrefs.SetInt(CurrencyType.ArcanePower.ToString(), saveData.ArcanePower);
         }
@@ -60,10 +70,7 @@ public class SkillTreePassiveCanvas : MonoBehaviour
             CurrentPassives.Add(0); // Adds default spell
             PlayerPrefs.SetInt(CurrencyType.ArcanePower.ToString(), 0);
         }
-    }
 
-    private void OnEnable()
-    {
         ClearAllInformation();
     }
 

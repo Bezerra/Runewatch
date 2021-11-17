@@ -15,6 +15,11 @@ public class Player : Character, ISaveable
     /// </summary>
     public PlayerCharacterSO AllValues => allValues as PlayerCharacterSO;
 
+    private void Start()
+    {
+        FindObjectOfType<STPDataController>().Execute();
+    }
+
     private void OnDisable()
     {
         PlayerInputCustom player = FindObjectOfType<PlayerInputCustom>();

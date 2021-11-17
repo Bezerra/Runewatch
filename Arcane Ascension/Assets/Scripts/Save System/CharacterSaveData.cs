@@ -3,7 +3,9 @@
 /// </summary>
 public class CharacterSaveData : AbstractSaveData
 {
-    // Public fields for JSON
+    // General public fields for JSON
     public byte[] CurrentSkillTreePassives;
     public int ArcanePower;
+
+    public SkillTreeSaveData SkillTreeSaveData;
 }

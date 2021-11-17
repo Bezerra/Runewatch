@@ -7,4 +7,9 @@ public interface ISkillTreePassive : IPassive<SkillTreePassiveType>
     /// Cost of the ability.
     /// </summary>
     int Cost { get; }
+
+    /// <summary>
+    /// Amount of the effect.
+    /// </summary>
+    byte Amount { get; }
 }
