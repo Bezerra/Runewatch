@@ -87,9 +87,7 @@ public class SpellBehaviourSpawnHitPrefabOneShotSO : SpellBehaviourAbstractOneSh
                     onHitBehaviour.Spell = parent.Spell;
 
                 // If there's a sound and hit is not an enemy
-                if (parent.Spell.Sounds.Hit != null &&
-                    (other.gameObject.layer == Layers.WallsNum ||
-                    other.gameObject.layer == Layers.FloorNum))
+                if (parent.Spell.Sounds.Hit != null)
                 {
                     onHitBehaviour.Spell.Sounds.Hit.PlaySound(onHitBehaviour.AudioS);
                 }
