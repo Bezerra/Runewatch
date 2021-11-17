@@ -30,10 +30,12 @@ MonoBehaviour:
   defaultUmbraMultiplier: 1
   defaultCriticalChance: 0.1
   defaultCriticalDamageModifier: 1
+  goldQuantity: {x: 50, y: 100}
+  arcanePowerQuantity: {x: 5, y: 10}
   lootRates:
     lootPieces:
     - lootType: 1
-      lootRate: 60
+      lootRate: 25
     - lootType: 0
       lootRate: 15
     - lootType: 3
@@ -41,7 +43,7 @@ MonoBehaviour:
     - lootType: 2
       lootRate: 5
     - lootType: 5
-      lootRate: 0
+      lootRate: 1
     - lootType: 6
       lootRate: 5
   availableSpells:

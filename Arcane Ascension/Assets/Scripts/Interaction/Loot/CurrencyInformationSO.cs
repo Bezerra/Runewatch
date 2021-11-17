@@ -19,7 +19,14 @@ public class CurrencyInformationSO : ScriptableObject
     [SerializeField] private CurrencyType currencyType;
     [RangeMinMax(1f, 100000f)] [SerializeField] private Vector2 defaultAmount;
     
+    /// <summary>
+    /// Gets currency type.
+    /// </summary>
     public CurrencyType CurrencyType => currencyType;
+
+    /// <summary>
+    /// Amount is set to default amount if it wasn't changed by something external.
+    /// </summary>
     public Vector2 Amount { get; set; }
 
     private void OnEnable()
