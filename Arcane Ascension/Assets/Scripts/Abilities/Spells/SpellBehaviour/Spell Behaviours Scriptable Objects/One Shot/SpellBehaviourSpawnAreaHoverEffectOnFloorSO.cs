@@ -21,8 +21,11 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
     {
         if (parent.WhoCast == null)
         {
-            parent.AreaHoverVFX.SetActive(false);
-            return;
+            if (parent.AreaHoverVFX != null)
+            {
+                parent.AreaHoverVFX.SetActive(false);
+                return;
+            }
         }
 
         // Will be set to true in another movement behaviour start behaviour

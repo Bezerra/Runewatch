@@ -11,12 +11,17 @@ public class EnemyStats : Stats
     // Creates a list of room weights 
     public IList<int> AvailableSpellsWeight { get; private set; }
 
+    // Save data
+    private CharacterSaveDataController stpData;
+
     protected override void Awake()
     {
         base.Awake();
 
         // Creates a list of spell weights 
         AvailableSpellsWeight = new List<int>();
+        stpData = FindObjectOfType<CharacterSaveDataController>();
+        EnemyAttributes.LootRatesInit(stpData);
     }
 
     protected override void Start()
