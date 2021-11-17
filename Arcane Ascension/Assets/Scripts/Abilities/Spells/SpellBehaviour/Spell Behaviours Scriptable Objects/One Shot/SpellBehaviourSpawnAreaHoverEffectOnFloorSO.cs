@@ -19,6 +19,12 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
     }
     public override void ContinuousUpdateBeforeSpellBehaviour(SpellBehaviourOneShot parent)
     {
+        if (parent.WhoCast == null)
+        {
+            parent.AreaHoverVFX.SetActive(false);
+            return;
+        }
+
         // Will be set to true in another movement behaviour start behaviour
         if (parent.ColliderTrigger != null)
             parent.ColliderTrigger.enabled = false;
