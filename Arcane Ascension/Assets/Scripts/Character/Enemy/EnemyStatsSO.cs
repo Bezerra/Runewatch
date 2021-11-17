@@ -22,11 +22,10 @@ public class EnemyStatsSO : StatsSO
     [SerializeField] private List<EnemySpell> availableSpells;
     public List<EnemySpell> AllEnemySpells => availableSpells;
 
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-    }
-
+    /// <summary>
+    /// Initiates lootrates struct.
+    /// </summary>
+    /// <param name="stpData">Save data.</param>
     public void LootRatesInit(CharacterSaveDataController stpData) =>
         lootRates.Init(stpData);
 
