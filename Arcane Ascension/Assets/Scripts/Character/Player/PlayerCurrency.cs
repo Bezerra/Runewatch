@@ -20,6 +20,13 @@ public class PlayerCurrency : MonoBehaviour, IUseCurrency, ISaveable
         player = GetComponent<Player>();
     }
 
+    private void Start()
+    {
+        // Initial gold with passives
+        GainCurrency(CurrencyType.Gold, 
+            FindObjectOfType<CharacterSaveDataController>().SaveData.Wealth);
+    }
+
     /// <summary>
     /// Gains currency.
     /// </summary>

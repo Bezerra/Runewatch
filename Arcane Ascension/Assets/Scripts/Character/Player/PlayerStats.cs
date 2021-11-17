@@ -53,8 +53,6 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
 
     protected override void Start()
     {
-        //Debug.Log(PlayerAttributes.MaxDashCharge);
-
         UpdateStats(stpData.SaveData.Vitality, StatsType.Health);
         UpdateStats(stpData.SaveData.Insight, StatsType.Mana);
         UpdateStats(stpData.SaveData.Agility, StatsType.MovementSpeedMultiplier);
@@ -65,8 +63,6 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
         UpdateStats(stpData.SaveData.Resilience, StatsType.DamageResistance);
         UpdateStats(stpData.SaveData.Healer, StatsType.HealthPotionsPercentageExtra);
         UpdateStats(stpData.SaveData.FleetingForm, StatsType.DashCharge);
-
-        //Debug.Log(PlayerAttributes.MaxDashCharge);
 
         base.Start();
         Mana = PlayerAttributes.MaxMana;

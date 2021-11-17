@@ -9,9 +9,6 @@ public class Shopkeeper : MonoBehaviour, IFindPlayer
 {
     private readonly int numberOfVarietyOfItemsToSell = 4;
 
-    [Header("This number will be automatic after implementing the rest of the stuff")]
-    [Range(1, 7)][SerializeField] private byte numberOfInventorySlots;
-
     // Slots must be active on awake
     private IList<ShopkeeperInventorySlot> allInventorySlots;
 
@@ -20,6 +17,7 @@ public class Shopkeeper : MonoBehaviour, IFindPlayer
 
     private int numberOfItemsSold;
     private bool shopkeeperSpawned;
+    private byte numberOfInventorySlots;
 
     // Components
     private Player player;
@@ -29,6 +27,9 @@ public class Shopkeeper : MonoBehaviour, IFindPlayer
         player = FindObjectOfType<Player>();
         allInventorySlots = GetComponentsInChildren<ShopkeeperInventorySlot>();
         itemsSpawned = new List<GameObject>();
+        numberOfInventorySlots = 4; // Initial slots
+
+        numberOfInventorySlots += FindObjectOfType<CharacterSaveDataController>().SaveData.Dealer;
 
         if (numberOfInventorySlots > allInventorySlots.Count) numberOfInventorySlots = (byte)allInventorySlots.Count;
 
