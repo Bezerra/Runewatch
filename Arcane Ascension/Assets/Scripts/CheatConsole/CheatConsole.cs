@@ -165,6 +165,7 @@ public class CheatConsole : MonoBehaviour, IFindPlayer
 
                 case "god 1":
                     Debug.Log("God mode activated");
+                    playerStats.Heal(10000, StatsType.Health);
                     playerStats.EventTakeDamage += Godmode;
                     DisableConsole();
                     break;
@@ -177,6 +178,7 @@ public class CheatConsole : MonoBehaviour, IFindPlayer
 
                 case "mana 1":
                     Debug.Log("Infinite mana activated");
+                    playerStats.Heal(10000, StatsType.Mana);
                     playerStats.EventSpentMana += InfiniteMana;
                     DisableConsole();
                     break;

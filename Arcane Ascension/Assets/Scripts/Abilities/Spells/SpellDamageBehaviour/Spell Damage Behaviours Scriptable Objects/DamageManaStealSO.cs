@@ -53,7 +53,8 @@ public class DamageManaStealSO : DamageBehaviourAbstractSO
                     damageMultiplier,
                     criticalChance,
                     parent.WhoCast.CommonAttributes.CriticalDamageModifier,
-                    parent.Spell.Element);
+                    parent.Spell.Element,
+                    parent.WhoCast.transform.position);
 
                 // Heals mana
                 if (parent.ThisIMana != null)

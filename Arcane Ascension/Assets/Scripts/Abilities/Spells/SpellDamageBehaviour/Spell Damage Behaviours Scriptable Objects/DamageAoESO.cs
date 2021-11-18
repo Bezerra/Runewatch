@@ -86,7 +86,8 @@ public class DamageAoESO : DamageBehaviourAbstractSO
                     parent.WhoCast.CommonAttributes.BaseDamageMultiplier *
                     parent.WhoCast.CommonAttributes.DamageElementMultiplier[parent.Spell.Element] *
                     parent.Spell.Damage,
-                    parent.Spell.Element);
+                    parent.Spell.Element,
+                    parent.WhoCast.transform.position);
             }
         }
     }
