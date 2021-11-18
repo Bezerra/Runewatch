@@ -35,6 +35,22 @@ Material:
         m_Texture: {fileID: 2800000, guid: 7593e8eb20e96aa4282642ef7f67b5cc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _L1Albedo:
+        m_Texture: {fileID: 2800000, guid: de1027c3c0ec79448aa261af6d4e1a70, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _L1Emissive:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _L1Normal:
+        m_Texture: {fileID: 2800000, guid: 8d52005f3b90ca044ad0cc34ead1c748, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _L1Packed:
+        m_Texture: {fileID: 2800000, guid: 2454f6fa98a861349b621d2aba5c85c0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Metallic:
         m_Texture: {fileID: 2800000, guid: 386961f96084efa4cb23a74fe054d550, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -60,6 +76,8 @@ Material:
     - _AlphaCutoff: 0.5
     - _EmissiveStrength: 0
     - _HeightStrength: 1
+    - _L1EmissiveStrength: 0
+    - _L1NormalScale: 1
     - _MaxHeightStrength: 0.153
     - _MaxTesselationAmount: 32
     - _Metallic: 0
@@ -71,5 +89,6 @@ Material:
     - _ToggleSwitch0: 0
     m_Colors:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _L1Tiling: {r: 1, g: 1, b: 0, a: 0}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
