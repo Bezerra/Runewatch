@@ -39,7 +39,8 @@ public class EnemyStats : Stats
     /// </summary>
     /// <param name="damage">Damage to take.</param>
     /// <param name="element">Element of the damage.</param>
-    public override void TakeDamage(float damage, ElementType element)
+    /// <param name="damagePosition">Position of the damage.</param>
+    public override void TakeDamage(float damage, ElementType element, Vector3 damagePosition)
     {
         float damageToReceive =
             Mathf.Floor(
@@ -95,7 +96,9 @@ public class EnemyStats : Stats
     /// <param name="criticalChance">Chance of critical hit.</param>
     /// <param name="criticalDamageModifier">Damage modifier on critical hits.</param>
     /// <param name="element">Element of the damage.</param>
-    public override void TakeDamage(float damage, float criticalChance, float criticalDamageModifier, ElementType element)
+    /// <param name="damagePosition">Position of the damage.</param> 
+    public override void TakeDamage(float damage, float criticalChance, float criticalDamageModifier, 
+        ElementType element, Vector3 damagePosition)
     {
         // Critical check
         // If random.NextDouble is less than critical chance, it will do double damage

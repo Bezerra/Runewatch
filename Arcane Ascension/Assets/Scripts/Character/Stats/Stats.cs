@@ -52,7 +52,7 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
         float currentTime = Time.time;
         while (currentTime < timeStarted + maxTime)
         {
-            TakeDamage(damage, element);
+            TakeDamage(damage, element, Vector3.zero);
             currentTime = Time.time;
             yield return wfs;
         }
@@ -77,7 +77,9 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     /// </summary
     /// <param name="damage">Damage to take.</param>
     /// <param name="element">Element of the damage.</param>
-    public abstract void TakeDamage(float damage, ElementType element);
+    /// <param name="damagePosition">Position of the damage.</param> 
+    public abstract void TakeDamage(float damage, 
+        ElementType element, Vector3 damagePosition);
 
     /// <summary>
     /// Reduces Health.
@@ -86,8 +88,10 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     /// <param name="criticalChance">Chance of critical hit.</param>
     /// <param name="criticalDamageModifier">Damage modifier on critical hits.</param>
     /// <param name="element">Element of the damage.</param>
+    /// <param name="damagePosition">Position of the damage.</param>
     public abstract void TakeDamage(
-        float damage, float criticalChance, float criticalDamageModifier, ElementType element);
+        float damage, float criticalChance, float criticalDamageModifier, 
+        ElementType element, Vector3 damagePosition);
 
     /// <summary>
     /// Heal Health.
@@ -127,6 +131,11 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     // Registered on CheatsConsole, EnemyScript.
     protected virtual void OnEventTakeDamage(float damageToReceive) => EventTakeDamage?.Invoke(damageToReceive);
     public Action<float> EventTakeDamage;
+
+    // Registered on playerDamageReceiverUI
+    protected virtual void OnEventTakeDamage(Vector3 damagePosition) => 
+        EventTakeDamagePosition?.Invoke(damagePosition);
+    public Action<Vector3> EventTakeDamagePosition;
 
     // Registered on playerUi
     protected virtual void OnEventDeath(Stats stats) => EventDeath?.Invoke(stats);

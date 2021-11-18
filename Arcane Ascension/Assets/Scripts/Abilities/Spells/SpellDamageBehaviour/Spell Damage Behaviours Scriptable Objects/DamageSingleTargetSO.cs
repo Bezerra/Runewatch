@@ -52,7 +52,8 @@ public class DamageSingleTargetSO : DamageBehaviourAbstractSO
                     damageMultiplier,
                     criticalChance,
                     parent.WhoCast.CommonAttributes.CriticalDamageModifier,
-                    parent.Spell.Element);
+                    parent.Spell.Element,
+                    parent.WhoCast.transform.position);
             }
         }
     }

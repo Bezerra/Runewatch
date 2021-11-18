@@ -6,8 +6,8 @@ using UnityEngine;
 /// Position of the damage is set on SpellBehaviourSpawnHitOnAoEHoverSO.
 /// Uses spell Speed as timer to deal damage.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Apply Damage AoE After Time",
-    fileName = "Spell Behaviour Apply Damage AoE After Time")]
+[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Apply AoE Damage After Time",
+    fileName = "Spell Behaviour Apply AoE Damage After Time")]
 public class SpellBehaviourApplyDamageAoEAfterTimeSO : SpellBehaviourAbstractOneShotSO
 {
     public override void StartBehaviour(SpellBehaviourOneShot parent)
