@@ -55,8 +55,32 @@ Material:
         m_Texture: {fileID: 2800000, guid: 21f2ac21c0d5c1746ab90d63fddf28f6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _L2Emissive:
+        m_Texture: {fileID: 2800000, guid: 21f2ac21c0d5c1746ab90d63fddf28f6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _L2Normal:
+        m_Texture: {fileID: 2800000, guid: 11660523bc472e9468fa035fcb10d24a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _L2Packed:
-        m_Texture: {fileID: 2800000, guid: 04b406558fce7394b8263d819eedcd44, type: 3}
+        m_Texture: {fileID: 2800000, guid: 008fa8a2cc121f745b0aff33cadd4638, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _L3Albedo:
+        m_Texture: {fileID: 2800000, guid: 1c440ec5236b3234b942e83301b8d21c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _L3Emissive:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _L3Normal:
+        m_Texture: {fileID: 2800000, guid: 4187d7fb9bd05334899c1922c1d463b8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _L3Packed:
+        m_Texture: {fileID: 2800000, guid: cdc653dc810de6a4caf6eae70c509e2b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Metallic:
@@ -83,15 +107,35 @@ Material:
     m_Floats:
     - _AlphaCutoff: 0.5
     - _EmissiveStrength: 0
+    - _Float0: 1
+    - _Float1: 1
     - _HeightStrength: 1
     - _L1EmissiveStrength: 0
-    - _L1L2BLend: 0.5
+    - _L1L2Amount: 0.296
+    - _L1L2BLend: 25
+    - _L1L2Constrast: 25
+    - _L1L2Level: 0.296
+    - _L1L2MaxBorder: 0.72
+    - _L1L2MinBorder: 0.5
+    - _L1L3Amount: 0.247
+    - _L1L3Constrast: 7.2
+    - _L1L3Level: 0.24
+    - _L1L3MaxBorder: 1
+    - _L1L3MinBorder: 1
     - _L1NormalScale: 10
     - _L1Tiling: 1
+    - _L2EmissiveStrength: 1
+    - _L2NoiseScale: 1
+    - _L2NormalScale: 1
     - _L2Tiling: 1
+    - _L3EmissiveStrength: 0
+    - _L3NoiseScale: 1.48
+    - _L3NormalScale: 1
+    - _L3Tiling: 1
     - _MaxHeightStrength: 0.153
     - _MaxTesselationAmount: 32
     - _Metallic: 0
+    - _NoiseScale: 1
     - _NormalScale: 10
     - _TessMax: 20
     - _TessMin: 5
