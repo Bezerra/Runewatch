@@ -32,8 +32,7 @@ sealed public class ActionAttack : FSMAction
             {
                 if (ai.Controller.CurrentlySelectedSpell.Spell.CastType == SpellCastType.OneShotCastWithRelease)
                 {
-                    ai.Controller.CurrentlySelectedSpell.Spell.
-                        AttackBehaviour.AttackKeyRelease(ai);
+                    ai.Controller.Animation.TriggerAttack(EnemyAttackTypeAnimations.OneShotSpellWithRelease);
                 }
 
                 // Gets new random spell

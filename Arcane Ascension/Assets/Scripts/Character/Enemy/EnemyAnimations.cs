@@ -47,17 +47,20 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
     /// Triggers enemy attack.
     /// </summary>
     /// <param name="enemyAttackType">Type of the attack.</param>
-    public void TriggerAttack(EnemyAttackType enemyAttackType)
+    public void TriggerAttack(EnemyAttackTypeAnimations enemyAttackType)
     {
         switch(enemyAttackType)
         {
-            case EnemyAttackType.Melee:
+            case EnemyAttackTypeAnimations.Melee:
                 anim.SetTrigger("AttackMelee");
                 break;
-            case EnemyAttackType.OneShotSpell:
+            case EnemyAttackTypeAnimations.OneShotSpell:
                 anim.SetTrigger("AttackSpell");
                 break;
-            case EnemyAttackType.OneShotSpellWithRelease:
+            case EnemyAttackTypeAnimations.OneShotSpellWithRelease:
+                anim.SetTrigger("AttackReleaseChannelingSpell");
+                break;
+            case EnemyAttackTypeAnimations.Channeling:
                 anim.SetTrigger("AttackChannelingSpell");
                 break;
         }
@@ -72,6 +75,17 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
             AttackBehaviour.AttackKeyPress(enemy.CurrentlySelectedSpell.Spell,
             enemy.StateMachine, enemy.EnemyStats);
     }
+
+    /// <summary>
+    /// Executes AttackKeyRelease of the current spell.
+    /// </summary>
+    public void OnKeyReleaseAnimationEvent()
+    {
+        enemy.CurrentlySelectedSpell.Spell.
+            AttackBehaviour.AttackKeyRelease(enemy.StateMachine);
+    }
+
+
 
     /// <summary>
     /// Starts shake coroutine.

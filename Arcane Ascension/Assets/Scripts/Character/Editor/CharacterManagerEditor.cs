@@ -41,12 +41,12 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
         createNewPlayerCharacterData = new CreateNewPlayerCharacterData();
         createNewEnemyCharacterData = new CreateNewEnemyCharacterData();
 
-        tree.Add("Create New Character/Player Character", createNewPlayerCharacterData);
-        tree.Add("Create New Character/Enemy Character", createNewEnemyCharacterData);
-        tree.Add("Create New Values/Player", createNewPlayerValuesData);
-        tree.Add("Create New Values/Enemy", createNewEnemyValuesData);
-        tree.Add("Create New Stats/Player", createNewPlayerStatsData);
-        tree.Add("Create New Stats/Enemy", createNewEnemyStatsData);
+        tree.Add("_Create New Character/Player Character", createNewPlayerCharacterData);
+        tree.Add("_Create New Character/Enemy Character", createNewEnemyCharacterData);
+        tree.Add("_Create New Values/Player", createNewPlayerValuesData);
+        tree.Add("_Create New Values/Enemy", createNewEnemyValuesData);
+        tree.Add("_Create New Stats/Player", createNewPlayerStatsData);
+        tree.Add("_Create New Stats/Enemy", createNewEnemyStatsData);
 
         tree.AddAllAssetsAtPath(
             "Stats/Player Stats", "Assets/Resources/Scriptable Objects/Player", 
@@ -68,6 +68,8 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
         tree.AddAllAssetsAtPath(
             "Characters/Enemy Characters", "Assets/Resources/Scriptable Objects/Enemy", 
             typeof(EnemyCharacterSO));
+
+        tree.SortMenuItemsByName();
 
         return tree;
     }

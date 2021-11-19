@@ -7,5 +7,5 @@ public interface IEnemyAnimator
     /// Triggers enemy attack.
     /// </summary>
     /// <param name="enemyAttackType">Type of the attack.</param>
-    void TriggerAttack(EnemyAttackType enemyAttackType);
+    void TriggerAttack(EnemyAttackTypeAnimations enemyAttackType);
 }

@@ -11,7 +11,7 @@ public struct EnemySpell
     [Space(20f)]
     [SerializeField] private SpellSO spell;
 
-    [SerializeField] private EnemyAttackType enemyAttackType;
+    [SerializeField] private bool isMeleeAttack;
 
     [Tooltip("Probability of this spell being picked. All spells available from spell list should have a sum" +
         "of 100.")]
@@ -48,7 +48,23 @@ public struct EnemySpell
     /// <summary>
     /// Property to know the type of attack.
     /// </summary>
-    public EnemyAttackType EnemyAttackType => enemyAttackType;
+    public EnemyAttackTypeAnimations EnemyAttackType
+    {
+        get
+        {
+            if (spell != null)
+            {
+                if (isMeleeAttack)
+                    return EnemyAttackTypeAnimations.Melee;
+                if (spell.CastType == SpellCastType.OneShotCast) 
+                    return EnemyAttackTypeAnimations.OneShotSpell;
+                else if (spell.CastType == SpellCastType.OneShotCastWithRelease)
+                    return EnemyAttackTypeAnimations.Channeling;
+            }
+            // Else
+            return EnemyAttackTypeAnimations.Melee;
+        }
+    }
 
     /// <summary>
     /// Probability of this spell being picked.
