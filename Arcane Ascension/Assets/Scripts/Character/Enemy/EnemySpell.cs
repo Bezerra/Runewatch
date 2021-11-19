@@ -11,6 +11,8 @@ public struct EnemySpell
     [Space(20f)]
     [SerializeField] private SpellSO spell;
 
+    [SerializeField] private EnemyAttackType enemyAttackType;
+
     [Tooltip("Probability of this spell being picked. All spells available from spell list should have a sum" +
         "of 100.")]
     [Range(0, 100)] [SerializeField] private int spellWeight;
@@ -42,6 +44,11 @@ public struct EnemySpell
     /// Spell.
     /// </summary>
     public SpellSO Spell => spell;
+
+    /// <summary>
+    /// Property to know the type of attack.
+    /// </summary>
+    public EnemyAttackType EnemyAttackType => enemyAttackType;
 
     /// <summary>
     /// Probability of this spell being picked.

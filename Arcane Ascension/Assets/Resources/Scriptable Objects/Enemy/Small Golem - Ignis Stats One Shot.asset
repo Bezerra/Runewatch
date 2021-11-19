@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd5d7e9be907322419303edb1ff3b77e, type: 3}
-  m_Name: Small Golem - Ignis Stats Melee
+  m_Name: Small Golem - Ignis Stats One Shot
   m_EditorClassIdentifier: 
   name: Small Golem - Ignis
   description: Small Golem lalalalalalalalalalalala
   element: 1
   characterType: 1
-  defaultHealth: 125
-  damageResistance: 0.1
-  defaultMovementSpeedMultiplier: 1.2
+  defaultHealth: 70
+  damageResistance: 0
+  defaultMovementSpeedMultiplier: 1
   defaultBaseDamageMultiplier: 1
   defaultNeutralMultiplier: 1
   defaultIgnisMultiplier: 1
@@ -28,7 +28,7 @@ MonoBehaviour:
   defaultNaturaMultiplier: 1
   defaultLuxMultiplier: 1
   defaultUmbraMultiplier: 1
-  defaultCriticalChance: 0.1
+  defaultCriticalChance: 0.2
   defaultCriticalDamageModifier: 1
   goldQuantity: {x: 50, y: 100}
   arcanePowerQuantity: {x: 5, y: 10}
@@ -47,11 +47,11 @@ MonoBehaviour:
     - lootType: 6
       lootRate: 5
   availableSpells:
-  - spell: {fileID: 11400000, guid: b0d9d2fceb4a0534d93d2a1c31319172, type: 2}
-    enemyAttackType: 0
+  - spell: {fileID: 11400000, guid: ece89201399664e43a5c2cc72bd908d8, type: 2}
+    enemyAttackType: 1
     spellWeight: 100
-    range: {x: 3, y: 3.5}
-    needsToBeInRangeToAttack: 1
-    enemyStopsOnAttack: 1
+    range: {x: 12, y: 15}
+    needsToBeInRangeToAttack: 0
+    enemyStopsOnAttack: 0
     stoppingTime: 0.25
     percentageStoppingTimeTriggerAoESpell: 0

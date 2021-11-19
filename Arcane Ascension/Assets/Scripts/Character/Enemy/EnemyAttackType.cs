@@ -4,5 +4,6 @@
 public enum EnemyAttackType 
 {
     Melee,
-    Spell,
+    OneShotSpell,
+    OneShotSpellWithRelease,
 }

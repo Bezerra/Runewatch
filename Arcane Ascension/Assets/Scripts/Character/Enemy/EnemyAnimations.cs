@@ -54,8 +54,11 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
             case EnemyAttackType.Melee:
                 anim.SetTrigger("AttackMelee");
                 break;
-            case EnemyAttackType.Spell:
+            case EnemyAttackType.OneShotSpell:
                 anim.SetTrigger("AttackSpell");
+                break;
+            case EnemyAttackType.OneShotSpellWithRelease:
+                anim.SetTrigger("AttackChannelingSpell");
                 break;
         }
     }

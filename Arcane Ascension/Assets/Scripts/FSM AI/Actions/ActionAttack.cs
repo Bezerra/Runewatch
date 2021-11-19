@@ -79,8 +79,9 @@ sealed public class ActionAttack : FSMAction
                 if (ai.Controller.transform.IsLookingTowards(
                     ai.Controller.CurrentTarget.position, true, ai.Controller.Values.FireAllowedAngle))
                 {
-                    ai.Controller.Animation.TriggerAttack(EnemyAttackType.Melee);
-                    // ATTACK IS RELEASE THROUGH AN ANIMATION EVENT WHILE INSIDE THIS ANIMATION
+                    ai.Controller.Animation.TriggerAttack(
+                        ai.Controller.CurrentlySelectedSpell.EnemyAttackType);
+                    // ATTACK IS EXECUTED THROUGH AN ANIMATION EVENT WHILE INSIDE THIS ANIMATION
 
                     // If the enemy has a spell that needs the enemy to stop while attacking
                     // It will update a new timer and ignore the rest of the method
