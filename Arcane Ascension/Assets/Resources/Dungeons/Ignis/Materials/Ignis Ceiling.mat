@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ignis Ground
-  m_Shader: {fileID: 4800000, guid: 83973789886e1024db0f93d61e6a81c1, type: 3}
+  m_Name: Ignis Ceiling
+  m_Shader: {fileID: 4800000, guid: 781d9ee303bcac842b9780e5790b6be5, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
@@ -23,11 +23,19 @@ Material:
         m_Texture: {fileID: 2800000, guid: d12fc0131866b934a9cbddb79b26ab28, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _AlbedoTex:
+        m_Texture: {fileID: 2800000, guid: d12fc0131866b934a9cbddb79b26ab28, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _AmbientOcclusion:
         m_Texture: {fileID: 2800000, guid: bf7de560db2574d4293425a43c7f7ef3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Emissive:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissiveTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -91,6 +99,14 @@ Material:
         m_Texture: {fileID: 2800000, guid: cb2f2ea5ec5af6d4585ac285c3af4f9f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NormalTex:
+        m_Texture: {fileID: 2800000, guid: cb2f2ea5ec5af6d4585ac285c3af4f9f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PackedTex:
+        m_Texture: {fileID: 2800000, guid: 04b406558fce7394b8263d819eedcd44, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _PackedTexture:
         m_Texture: {fileID: 2800000, guid: 04b406558fce7394b8263d819eedcd44, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -124,7 +140,7 @@ Material:
     - _L1L3MinBorder: 1
     - _L1NormalScale: 10
     - _L1Tiling: 1
-    - _L2EmissiveStrength: 0.5
+    - _L2EmissiveStrength: 1
     - _L2NoiseScale: 1
     - _L2NormalScale: 1
     - _L2Tiling: 1
@@ -136,11 +152,12 @@ Material:
     - _MaxTesselationAmount: 32
     - _Metallic: 0
     - _NoiseScale: 1
-    - _NormalScale: 10
+    - _NormalScale: 1
     - _TessMax: 20
     - _TessMin: 5
     - _TessPhongStrength: 1
     - _TessValue: 32
+    - _Tiling: 1
     - _ToggleSwitch0: 0
     m_Colors:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
