@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using ExtensionMethods;
 
 /// <summary>
 /// Class responsible for handling player spells UI.
@@ -17,30 +18,41 @@ public class PlayerUI : MonoBehaviour
     private PlayerInputCustom input;
     private PlayerMovement playerMovement;
     private FPSCounter fpsCounter;
+    private IList<EnemyStats> enemyStats;
 
+    [Header("Spell slots")]
     [SerializeField] private Color noManaSpellColor;
     [SerializeField] private Color spellColor;
     [SerializeField] private Color noSpellColor;
 
+    [Header("Health bar")]
+    [SerializeField] private Color lowHealth;
+    [SerializeField] private Color highHealth;
+
     // Fields to update
+    [Header("Crosshair UI")]
     [SerializeField] private Image crosshair;
     [SerializeField] private Image crosshairHit;
+    [Header("Spells UI")]
     [SerializeField] private List<Image> spellsUI;
     [SerializeField] private List<Image> spellsBackgroundUI;
     [SerializeField] private List<Image> spellsBorderUI;
+    [Header("Dash UI")]
     [SerializeField] private Image dash;
     [SerializeField] private TextMeshProUGUI dashCharge;
+    [Header("Stats UI")]
     [SerializeField] private Image health;
     [SerializeField] private Image armor;
     [SerializeField] private Image mana;
+    [Header("Currency UI")]
     [SerializeField] private TextMeshProUGUI gold;
     [SerializeField] private TextMeshProUGUI arcanePower;
+    [Header("Misc")]
     [SerializeField] private TextMeshProUGUI fpsCounterTMP;
-
-    // WILL BE CONTROLED VIA OPTIONAS WHEN OPTIONS EXIST
     [SerializeField] private bool showFPS;
+    // WILL BE CONTROLED VIA OPTIONS WHEN OPTIONS EXIST
 
-    private IList<EnemyStats> enemyStats;
+    
 
     // Coroutines
     private IEnumerator hitCrosshairCoroutine;
@@ -68,6 +80,27 @@ public class PlayerUI : MonoBehaviour
         input.StopCastSpell += StopCastSpell;
 
         foreach(EnemyStats enemy in enemyStats)
+        {
+            enemy.EventTakeDamage += TriggerCrosshairHit;
+            enemy.EventDeath += UnsubscribeEnemy;
+        }
+    }
+
+    public void SubscribeToEnemiesDamage()
+    {
+        if (enemyStats.Count > 0)
+        {
+            foreach (EnemyStats enemy in enemyStats)
+            {
+                if (enemy != null)
+                {
+                    enemy.EventTakeDamage -= TriggerCrosshairHit;
+                    enemy.EventDeath -= UnsubscribeEnemy;
+                }
+            }
+        }
+        enemyStats = FindObjectsOfType<EnemyStats>();
+        foreach (EnemyStats enemy in enemyStats)
         {
             enemy.EventTakeDamage += TriggerCrosshairHit;
             enemy.EventDeath += UnsubscribeEnemy;
@@ -105,13 +138,19 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
-    private void TriggerCrosshairHit(float emptyVar)
-    {
-        if (hitCrosshairCoroutine != null) StopCoroutine(hitCrosshairCoroutine);
-        hitCrosshairCoroutine = TriggerCrosshairHitCoroutine();
-        StartCoroutine(hitCrosshairCoroutine);
-    }
+    //private void OnTakeDamage()
 
+    /// <summary>
+    /// Starts crosshair hit coroutine.
+    /// </summary>
+    /// <param name="emptyVar"></param>
+    private void TriggerCrosshairHit(float emptyVar) =>
+        this.StartCoroutineWithReset(ref hitCrosshairCoroutine, TriggerCrosshairHitCoroutine());
+
+    /// <summary>
+    /// Shows crosshair hit UI and smoothly fades it away.
+    /// </summary>
+    /// <returns>WFFU.</returns>
     private IEnumerator TriggerCrosshairHitCoroutine()
     {
         crosshairHitAlpha = 1;
@@ -204,6 +243,8 @@ public class PlayerUI : MonoBehaviour
         // Updates HP/shield/mana bars
         health.fillAmount =
             playerStats.Health / playerStats.CommonAttributes.MaxHealth;
+        health.color = 
+            health.color.Remap(30, playerStats.MaxHealth * 0.5f, lowHealth, highHealth, playerStats.Health);
         armor.fillAmount =
             playerStats.Armor / playerStats.PlayerAttributes.MaxArmor;
         mana.fillAmount =

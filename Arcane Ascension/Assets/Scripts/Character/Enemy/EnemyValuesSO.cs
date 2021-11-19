@@ -48,18 +48,16 @@ public class EnemyValuesSO : CharacterValuesSO
     [RangeMinMax(1, 20f)] [SerializeField] private Vector2 attackDelay;
     public Vector2 AttackDelay => attackDelay;
 
-    [BoxGroup("Roll")]
-    [Tooltip("How much does the enemy move")]
-    [Range(1, 25f)] [SerializeField] private float rollMovementQuantity = 11f;
-    public float RollMovementQuantity => rollMovementQuantity;
+    [BoxGroup("Side Movement")]
+    [Tooltip("Waits X seconds until the enemy moves to the side again " +
+        "(X is defined by a random number between these values")]
+    [RangeMinMax(0, 15f)] [SerializeField] private Vector2 sideMovementDelay;
+    public Vector2 SideMovementDelay => sideMovementDelay;
 
-    [BoxGroup("Roll")]
-    [Tooltip("How long does the roll last")]
-    [Range(0.01f, 0.5f)] [SerializeField] private float rollMovementTime = 0.175f;
-    public float RollMovementTime => rollMovementTime;
+    [BoxGroup("Side Movement")]
+    [Tooltip("Moves to the side X seconds (X is defined by a random number between these values")]
+    [RangeMinMax(0, 15f)] [SerializeField] private Vector2 sideMovementMaxTime;
+    public Vector2 SideMovementMaxTime => sideMovementMaxTime;
 
-    [BoxGroup("Roll")]
-    [Tooltip("Roll every X seconds (X is defined by a random number between these values")]
-    [RangeMinMax(3, 15f)] [SerializeField] private Vector2 rollDelay;
-    public Vector2 RollDelay => rollDelay;
+    
 }

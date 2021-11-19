@@ -15,25 +15,23 @@ sealed public class ActionChasePlayer : FSMAction
     private void ChasePlayer(StateController<Enemy> ai)
     {
         // If the enemy is inside a current attack that needs him to stop, ignores the rest of the method
-        if (ai.Controller.IsAttackingWithStoppingTime)
+        if (ai.Controller.WalkingBackwards || ai.Controller.RunningBackwards ||
+            ai.Controller.IsAttackingWithStoppingTime)
         {
             return;
         }
 
+        // This will only be executed if the enemy is not walking backwards
         // If the agent has reached its final destination
         if (ai.Controller.CurrentTarget != null)
         {
             if (Vector3.Distance(
                 ai.Controller.transform.position, ai.Controller.CurrentTarget.position) > ai.Controller.CurrentlySelectedSpell.Range)
             {
-                // This will only be executed if the enemy is not walking backwards
-                if (ai.Controller.WalkingBackwards == false && ai.Controller.RunningBackwards == false)
-                {
-                    ai.Controller.Agent.SetDestination(
-                        ai.Controller.CurrentTarget.position +
-                        ai.Controller.CurrentTarget.position.Direction(ai.Controller.transform.position) *
-                        ai.Controller.CurrentlySelectedSpell.Range);
-                }
+                ai.Controller.Agent.SetDestination(
+                    ai.Controller.CurrentTarget.position +
+                    ai.Controller.CurrentTarget.position.Direction(ai.Controller.transform.position) *
+                    ai.Controller.CurrentlySelectedSpell.Range);
             }
         }
     }

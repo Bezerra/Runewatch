@@ -89,13 +89,13 @@ public class AIEditor : OdinMenuEditorWindow
         [Button("Create action - Roll", ButtonSizes.Large)]
         private void CreateRoll()
         {
-            AIAction = ScriptableObject.CreateInstance<ActionRoll>();
+            AIAction = ScriptableObject.CreateInstance<ActionSideMovement>();
             AssetDatabase.CreateAsset(
                 AIAction, "Assets/Resources/Scriptable Objects/AI/" + "Action Roll " +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
-            ScriptableObject.CreateInstance<ActionRoll>();
+            ScriptableObject.CreateInstance<ActionSideMovement>();
         }
 
         [Button("Create action - Chase Player", ButtonSizes.Large)]

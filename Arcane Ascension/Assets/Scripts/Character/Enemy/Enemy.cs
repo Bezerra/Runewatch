@@ -108,20 +108,50 @@ public class Enemy : Character
     /// </summary>
     public float TimeEnemyStoppedWhileAttacking { get; set; }
 
-
-    // Roll properties
-    public float RollTime           { get; set; }
-    public float RollDelay          { get; set; }
-    public Direction RollDirection  { get; set; }
-
-    // Attack properties
-    public float TimeOfLastAttack   { get; set; }
-    public float AttackDelay        { get; set; }
+    /// <summary>
+    /// Keeps track of the last time the enemy attacked.
+    /// </summary>
+    public float TimeOfLastAttack { get; set; }
 
     /// <summary>
-    /// Stats script.
+    /// The delay of each attack.
     /// </summary>
-    public EnemyStats EnemyStats                 { get; private set; }
+    public float AttackDelay { get; set; }
+
+    /// <summary>
+    /// True if the enemy isn't currently inside an attack.
+    /// </summary>
+    public bool CanRunAttackLoop { get; set; }
+
+    /// <summary>
+    /// True if the enemy isn't currently channeling a spell.
+    /// </summary>
+    public bool CanRunAttackStoppedLoop { get; set; }
+
+    /// <summary>
+    /// Property with side movement current time.
+    /// </summary>
+    public float SideMovingTime { get; set; }
+
+    /// <summary>
+    /// Property with side movement max time.
+    /// </summary>
+    public float SideMovementMaxTime { get; set; }
+
+    /// <summary>
+    /// Property with side movement delay.
+    /// </summary>
+    public float SideMovementDelay { get; set; }
+
+    /// <summary>
+    /// Property to know if side movement is currently on delay.
+    /// </summary>
+    public bool SideMovementOnDelay { get; set; }
+
+    /// <summary>
+    /// Property with current side movement direction.
+    /// </summary>
+    public Direction SideMovementDirection  { get; set; }
 
     /// <summary>
     /// Used to know if the enemy just took damage.
@@ -129,9 +159,9 @@ public class Enemy : Character
     public bool TookDamage                  { get; set; }
 
     /// <summary>
-    /// Navmesh agent.
+    /// Static Getter to know quantity of enemies fighting the player
     /// </summary>
-    public NavMeshAgent Agent               { get; private set; }
+    public static int QuantityFighting { get; private set; }
 
     private Transform currentTarget;
     /// <summary>
@@ -148,9 +178,14 @@ public class Enemy : Character
     }
 
     /// <summary>
-    /// Static Getter to know quantity of enemies fighting the player
+    /// Stats script.
     /// </summary>
-    public static int QuantityFighting { get; private set; }
+    public EnemyStats EnemyStats { get; private set; }
+
+    /// <summary>
+    /// Navmesh agent.
+    /// </summary>
+    public NavMeshAgent Agent { get; private set; }
 
     /// <summary>
     /// Player script.
@@ -162,10 +197,6 @@ public class Enemy : Character
     /// </summary>
     public StateController<Enemy> StateMachine { get; private set; }
 
-    // Coroutines
-    private IEnumerator takeDamageCoroutine;
-    private YieldInstruction wfsAfterBeingHit;
-
     /// <summary>
     /// Property set on attack behaviours.
     /// </summary>
@@ -176,13 +207,14 @@ public class Enemy : Character
     /// </summary>
     public SpellBehaviourAbstract CurrentSpellBehaviour { get; set; }
 
-    public bool CanRunAttackLoop { get; set; }
-    public bool CanRunAttackStoppedLoop { get; set; }
-
     /// <summary>
     /// Enemy animations.
     /// </summary>
     public IEnemyAnimator Animation { get; private set; }
+
+    // Coroutines
+    private IEnumerator takeDamageCoroutine;
+    private YieldInstruction wfsAfterBeingHit;
 
     public System.Random Random;
     private void Awake()
