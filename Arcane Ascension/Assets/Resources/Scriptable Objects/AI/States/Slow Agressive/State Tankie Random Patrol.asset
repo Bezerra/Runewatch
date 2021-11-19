@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 414867ae40476434b9e9db17afe857e9, type: 3}
-  m_Name: State Random Patrol
+  m_Name: State Tankie Random Patrol
   m_EditorClassIdentifier: 
   fileName: 
   notes: 'Enemy moves randomly to a new location with X distance every Y seconds. '
@@ -20,11 +20,11 @@ MonoBehaviour:
   - notes: Checks if the enemy can see the player. If this is true, the enemy will
       start chasing the player.
     decision: {fileID: 11400000, guid: 9b53d9dde600d4b479ee679ff66a0fe2, type: 2}
-    ifTrue: {fileID: 11400000, guid: 9f6df4cfa91960241a1d6ae6bdc0ac0c, type: 2}
-    ifFalse: {fileID: 11400000, guid: 08f51d3545ba1914cb620bd622627574, type: 2}
-  - notes: If the enemy takes damage, it will switch to chase state.
+    ifTrue: {fileID: 11400000, guid: c26052f09169d044886a1882e6c2495b, type: 2}
+    ifFalse: {fileID: 11400000, guid: c26a62c80ac57ac42bd75f831e08ac5b, type: 2}
+  - notes: If the enemy takes damage, it will switch to lost player  state.
     decision: {fileID: 11400000, guid: bfd67f181f6eb3f4b860085eab56d4a2, type: 2}
-    ifTrue: {fileID: 11400000, guid: 9a1665c4788615e45ae6782191d82513, type: 2}
-    ifFalse: {fileID: 11400000, guid: 08f51d3545ba1914cb620bd622627574, type: 2}
+    ifTrue: {fileID: 11400000, guid: ef495b99f392806488b58349accd0299, type: 2}
+    ifFalse: {fileID: 11400000, guid: c26a62c80ac57ac42bd75f831e08ac5b, type: 2}
   onEnterStateActions: []
   onExitStateActions: []

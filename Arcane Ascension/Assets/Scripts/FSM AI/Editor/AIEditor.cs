@@ -39,9 +39,9 @@ public class AIEditor : OdinMenuEditorWindow
         tree.Add("Create New Decision", createNewDecision);
         tree.Add("Create New State", createNewState);
 
-        tree.AddAllAssetsAtPath("Actions", "Assets/Resources/Scriptable Objects/AI", typeof(FSMAction));
-        tree.AddAllAssetsAtPath("Decisions", "Assets/Resources/Scriptable Objects/AI", typeof(FSMDecision));
-        tree.AddAllAssetsAtPath("States", "Assets/Resources/Scriptable Objects/AI", typeof(FSMState));
+        tree.AddAllAssetsAtPath("Actions", "Assets/Resources/Scriptable Objects/AI", typeof(FSMAction), true);
+        tree.AddAllAssetsAtPath("Decisions", "Assets/Resources/Scriptable Objects/AI", typeof(FSMDecision), true);
+        tree.AddAllAssetsAtPath("States", "Assets/Resources/Scriptable Objects/AI", typeof(FSMState), true);
 
         return tree;
     }
