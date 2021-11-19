@@ -162,6 +162,9 @@ public class PlayerUI : MonoBehaviour
     {
         do
         {
+            if (playerStats == null)
+                break;
+
             health.fillAmount =
                 Mathf.Lerp(
                     health.fillAmount,
