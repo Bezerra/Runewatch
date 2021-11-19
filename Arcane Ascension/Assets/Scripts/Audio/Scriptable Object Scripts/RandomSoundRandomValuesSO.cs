@@ -25,4 +25,17 @@ sealed public class RandomSoundRandomValuesSO : AbstractSoundSO
                 Random.Range(volume.x, volume.y));
         }
     }
+
+    /// <summary>
+    /// Sets an audioclip on an audio source.
+    /// </summary>
+    /// <param name="audioSource">Target audiosource.</param>
+    public override void SetOnAudioSource(AudioSource audioSource)
+    {
+        audioSource.pitch = Random.Range(pitch.x, pitch.y);
+        audioSource.volume = Random.Range(volume.x, volume.y);
+
+        audioSource.clip = audioClips[Random.Range(0, audioClips.Count)];
+        audioSource.Play();
+    }
 }

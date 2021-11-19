@@ -23,4 +23,17 @@ sealed public class SimpleSoundSO : AbstractSoundSO
             audioSource.PlayOneShot(audioClips[0], volume);
         }
     }
+
+    /// <summary>
+    /// Sets an audioclip on an audio source.
+    /// </summary>
+    /// <param name="audioSource">Target audiosource.</param>
+    public override void SetOnAudioSource(AudioSource audioSource)
+    {
+        audioSource.pitch = pitch;
+        audioSource.volume = volume;
+
+        audioSource.clip = audioClips[0];
+        audioSource.Play();
+    }
 }

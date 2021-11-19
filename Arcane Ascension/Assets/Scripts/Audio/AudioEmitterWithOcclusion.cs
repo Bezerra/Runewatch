@@ -11,7 +11,7 @@ public class AudioEmitterWithOcclusion : MonoBehaviour
     [SerializeField] private float soundMaxDistance = 35f;
 
     [Header("Fade volume")]
-    [Range(0,1f)][SerializeField] private float fadeUntilThisValue = 0.25f;
+    [Range(0,1f)][SerializeField] private float fadeUntilThisValue = 0.3f;
 
     private AudioSource audioSource;
     private AudioListener listener;

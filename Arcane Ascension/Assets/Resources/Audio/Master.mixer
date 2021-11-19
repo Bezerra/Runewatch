@@ -51,7 +51,7 @@ AudioMixerGroupController:
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
-  m_BypassEffects: 0
+  m_BypassEffects: 1
 --- !u!243 &-5551713805325232817
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -66,6 +66,7 @@ AudioMixerGroupController:
   - {fileID: -8267398531873671919}
   - {fileID: -5241155978483353517}
   - {fileID: 7281924156262457332}
+  - {fileID: 6438824875945950170}
   m_Volume: c1e38b3ba944484429a183506acae409
   m_Pitch: 13bad8295e424064b9a55cba7d596896
   m_Send: 00000000000000000000000000000000
@@ -119,6 +120,7 @@ AudioMixerController:
     - 15aa144f09a2ec74e899563f008d57c9
     - 19ac1c60bd3cac249a771c79d0b05f75
     - f30335ba4eab9f247ad050cefda6e4ea
+    - 6d493f931f9ec354ab4bd8c273e058e0
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -177,11 +179,25 @@ AudioMixerSnapshotController:
     8adb821ac5c4f584dbb7f5f702d38f43: 1.74
     d9e54f4adc679474a876f1d6ef604f69: 0
     9767ddbb0b3ebba4c9dfe197da30fd1c: -4724
-    44a5c80cacd28794d86ace8c1585f3c5: -5
+    44a5c80cacd28794d86ace8c1585f3c5: -2.623118
     5f02ce3ca09546545a14b6180b3c1535: -467
     f18de58c21726cb44ab0018777c9fdf2: 18.4
     ba3bd8efc8b0be142941678eccae323a: 0.51
   m_TransitionOverrides: {}
+--- !u!244 &563172105298258237
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: da02cf639d74cc045825ed9dac00ffcf
+  m_EffectName: Attenuation
+  m_MixLevel: 4a93f1839ab7c8b40aa9e105b1328977
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!243 &1452720451732320776
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -229,6 +245,25 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!243 &6438824875945950170
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SFX - Ambience Objects
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 6d493f931f9ec354ab4bd8c273e058e0
+  m_Children: []
+  m_Volume: 0bbb9d583ee97984c80354b2d2146130
+  m_Pitch: 465c975c61c2c57408a69f4d0d4a984c
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: 563172105298258237}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!244 &6578165438458220022
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
