@@ -176,6 +176,9 @@ public class Enemy : Character
     /// </summary>
     public SpellBehaviourAbstract CurrentSpellBehaviour { get; set; }
 
+    public bool CanRunAttackLoop { get; set; }
+    public bool CanRunAttackStoppedLoop { get; set; }
+
     /// <summary>
     /// Enemy animations.
     /// </summary>

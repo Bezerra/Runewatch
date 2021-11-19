@@ -16,9 +16,9 @@ MonoBehaviour:
   description: Small Golem lalalalalalalalalalalala
   element: 1
   characterType: 1
-  defaultHealth: 70
+  defaultHealth: 100
   damageResistance: 0
-  defaultMovementSpeedMultiplier: 1
+  defaultMovementSpeedMultiplier: 0.8
   defaultBaseDamageMultiplier: 1
   defaultNeutralMultiplier: 1
   defaultIgnisMultiplier: 1
@@ -48,9 +48,9 @@ MonoBehaviour:
       lootRate: 5
   availableSpells:
   - spell: {fileID: 11400000, guid: a681e4b6433d3fc48a5515abdbcaa569, type: 2}
-    enemyAttackType: 3
+    isMeleeAttack: 0
     spellWeight: 100
-    range: {x: 10, y: 12}
+    range: {x: 8, y: 15}
     needsToBeInRangeToAttack: 1
     enemyStopsOnAttack: 1
     stoppingTime: 1

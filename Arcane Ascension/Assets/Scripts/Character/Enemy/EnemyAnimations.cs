@@ -74,6 +74,24 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
         enemy.CurrentlySelectedSpell.Spell.
             AttackBehaviour.AttackKeyPress(enemy.CurrentlySelectedSpell.Spell,
             enemy.StateMachine, enemy.EnemyStats);
+
+        // If it's not a one shot cast with release, it executes AttackKeyRelease behaviour
+        if (enemy.CurrentlySelectedSpell.Spell.CastType != SpellCastType.OneShotCastWithRelease)
+        {
+            OnKeyReleaseAnimationEvent();
+        }
+
+        // If the enemy has a spell that needs the enemy to stop while attacking
+        // It will update a new timer and ignore the rest of the method
+        if (enemy.CurrentlySelectedSpell.EnemyStopsOnAttack)
+        {
+            enemy.IsAttackingWithStoppingTime = true;
+            enemy.TimeEnemyStoppedWhileAttacking = Time.time;
+            return;
+        }
+
+        // Else it will reset variables
+        AfterKeyReleaseAnimationEvent();
     }
 
     /// <summary>
@@ -83,6 +101,36 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
     {
         enemy.CurrentlySelectedSpell.Spell.
             AttackBehaviour.AttackKeyRelease(enemy.StateMachine);
+    }
+
+    /// <summary>
+    /// Right after releasing attack key is released.
+    /// Resets variables.
+    /// </summary>
+    public void AfterKeyReleaseAnimationEvent()
+    {
+        // Gets new random spell
+        int randomSpell = enemy.Random.RandomWeight(enemy.EnemyStats.AvailableSpellsWeight);
+        enemy.CurrentlySelectedSpell =
+             enemy.EnemyStats.EnemyAttributes.AllEnemySpells[randomSpell];
+
+        // Updates time of last attack delay, so it starts a new delay for attack
+        enemy.TimeOfLastAttack = Time.time;
+
+        // Gets a new attack delay
+        enemy.AttackDelay = Random.Range(
+                enemy.Values.AttackDelay.x, enemy.Values.AttackDelay.y);
+
+        // Agent can move again
+        enemy.Agent.speed = enemy.Values.Speed;
+
+        enemy.IsAttackingWithStoppingTime = false;
+
+        enemy.StateMachine.AllowedToChangeState = true;
+
+        enemy.CanRunAttackStoppedLoop = true;
+
+        enemy.CanRunAttackLoop = true;
     }
 
 
