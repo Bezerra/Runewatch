@@ -58,7 +58,18 @@ public class EventGetThreeRandomSpellsSO : EventAbstractSO
         IList<SpellSO> allSpellsDefault = FindObjectOfType<AllSpells>().SpellList;
         IList<SpellSO> allSpellsAvailable = new List<SpellSO>();
         IList<float> availableSpellsWeight = new List<float>();
-
+        // All save data expertises. Neutral is added as 2 cause it doesn't have expertise
+        IDictionary<ElementType, byte> expertises = new Dictionary<ElementType, byte>()
+        {
+            { ElementType.Dark, stpData.SaveData.UmbraExpertise }, 
+            { ElementType.Earth, stpData.SaveData.TerraExpertise },
+            { ElementType.Electric, stpData.SaveData.FulgurExpertise }, 
+            { ElementType.Fire, stpData.SaveData.IgnisExpertise },
+            { ElementType.Light, stpData.SaveData.LuxExpertise }, 
+            { ElementType.Nature, stpData.SaveData.NaturaExpertise },
+            { ElementType.Water, stpData.SaveData.AquaExpertise }, 
+            { ElementType.Neutral, 2 }
+        };
 
         // Gets which index of master of the arts the player is currently at
         int masterOfTheArtsIndex = 0;
@@ -82,7 +93,14 @@ public class EventGetThreeRandomSpellsSO : EventAbstractSO
 
         // Creates a new list with all available spells
         foreach (SpellSO spell in allSpellsDefault)
-            allSpellsAvailable.Add(spell);
+        {
+            // Checks dictionary and compares to tier -1, because save data values go from 0 to 2
+            // meaning spell tier 1 == saveData 0, tier 2 == saveData 1, tier 3 == saveData 2
+            if (expertises[spell.Element] >= spell.Tier - 1)
+            {
+                allSpellsAvailable.Add(spell);
+            }
+        }
 
         // Removes the spells that player already has from the list of all spells
         foreach (SpellSO spell in playerSpells.CurrentSpells)
