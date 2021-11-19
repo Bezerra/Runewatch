@@ -66,7 +66,7 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
     /// <summary>
     /// Executes AttackKeyPress of the current spell.
     /// </summary>
-    public void ReleaseAttackAnimationEvent()
+    public void OnKeyPressAnimationEvent()
     {
         enemy.CurrentlySelectedSpell.Spell.
             AttackBehaviour.AttackKeyPress(enemy.CurrentlySelectedSpell.Spell,
