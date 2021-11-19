@@ -9,18 +9,24 @@ using ExtensionMethods;
 /// </summary>
 public class PlayerGenerateCinemachineImpulse : GenerateCinemachineImpulse
 {
+    // Components
     private PlayerCastSpell castSpell;
+    private PlayerStats playerStats;
+
+    // Coroutines
     private IEnumerator screenShakeCoroutine;
     private YieldInstruction continuousCastWFS;
 
     // Both impulse sources for different shots
     [SerializeField] private CinemachineImpulseSource oneShotImpulseSource;
     [SerializeField] private CinemachineImpulseSource continuousImpulseSource;
+    [SerializeField] private CinemachineImpulseSource ontDamageReceiveImpulseSource;
 
     protected override void Awake()
     {
         base.Awake();
         castSpell = GetComponent<PlayerCastSpell>();
+        playerStats = GetComponent<PlayerStats>();
         continuousCastWFS = new WaitForSeconds(0.2f);
     }
 
@@ -28,12 +34,20 @@ public class PlayerGenerateCinemachineImpulse : GenerateCinemachineImpulse
     {
         castSpell.EventStartScreenShake += GenerateCastImpulse;
         castSpell.EventCancelScreenShake += CancelScreenShake;
+        playerStats.EventTakeDamagePosition += GenerateTakeDamageImpulse;
     }
 
     private void OnDisable()
     {
         castSpell.EventStartScreenShake -= GenerateCastImpulse;
-        castSpell.EventCancelScreenShake += CancelScreenShake;
+        castSpell.EventCancelScreenShake -= CancelScreenShake;
+        playerStats.EventTakeDamagePosition -= GenerateTakeDamageImpulse;
+    }
+
+    private void GenerateTakeDamageImpulse(Vector3 damageDirection)
+    {
+        if (damageDirection != Vector3.zero)
+            ontDamageReceiveImpulseSource.GenerateImpulse(mainCam.transform.forward);
     }
 
     /// <summary>
