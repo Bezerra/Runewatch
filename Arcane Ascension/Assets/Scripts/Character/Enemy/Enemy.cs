@@ -176,9 +176,15 @@ public class Enemy : Character
     /// </summary>
     public SpellBehaviourAbstract CurrentSpellBehaviour { get; set; }
 
+    /// <summary>
+    /// Enemy animations.
+    /// </summary>
+    public IEnemyAnimator Animation { get; private set; }
+
     public System.Random Random;
     private void Awake()
     {
+        Animation = GetComponentInChildren<IEnemyAnimator>();
         Agent = GetComponent<NavMeshAgent>();
         EnemyStats = GetComponent<EnemyStats>();
         PlayerScript = FindObjectOfType<Player>();

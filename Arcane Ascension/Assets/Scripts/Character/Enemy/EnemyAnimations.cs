@@ -1,10 +1,11 @@
 using UnityEngine;
 using System.Collections;
+using ExtensionMethods;
 
 /// <summary>
 /// Class responsible for handling a monster animations.
 /// </summary>
-public class EnemyAnimations : MonoBehaviour
+public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
 {
     // Components
     private Animator anim;
@@ -20,10 +21,10 @@ public class EnemyAnimations : MonoBehaviour
 
     private void Awake()
     {
-        anim = GetComponentInChildren<Animator>();
-        enemyModel = anim.GetComponent<Transform>();
-        enemy = GetComponent<Enemy>();
-        enemyStats = GetComponent<EnemyStats>();
+        anim = GetComponent<Animator>();
+        enemyModel = GetComponent<Transform>();
+        enemy = GetComponentInParent<Enemy>();
+        enemyStats = GetComponentInParent<EnemyStats>();
         wffu = new WaitForFixedUpdate();
     }
 
@@ -42,13 +43,44 @@ public class EnemyAnimations : MonoBehaviour
         anim.SetFloat("Movement", enemy.Agent.velocity.magnitude);
     }
 
-    private void StartShakeCoroutine(float emptyVar)
+    /// <summary>
+    /// Triggers enemy attack.
+    /// </summary>
+    /// <param name="enemyAttackType">Type of the attack.</param>
+    public void TriggerAttack(EnemyAttackType enemyAttackType)
     {
-        if (shakeCoroutine != null) StopCoroutine(shakeCoroutine);
-        shakeCoroutine = ShakeCoroutine();
-        StartCoroutine(shakeCoroutine);
+        switch(enemyAttackType)
+        {
+            case EnemyAttackType.Melee:
+                anim.SetTrigger("AttackMelee");
+                break;
+            case EnemyAttackType.Spell:
+                anim.SetTrigger("AttackSpell");
+                break;
+        }
     }
 
+    /// <summary>
+    /// Executes AttackKeyPress of the current spell.
+    /// </summary>
+    public void ReleaseAttackAnimationEvent()
+    {
+        enemy.CurrentlySelectedSpell.Spell.
+            AttackBehaviour.AttackKeyPress(enemy.CurrentlySelectedSpell.Spell,
+            enemy.StateMachine, enemy.EnemyStats);
+    }
+
+    /// <summary>
+    /// Starts shake coroutine.
+    /// </summary>
+    /// <param name="emptyVar"></param>
+    private void StartShakeCoroutine(float emptyVar) =>
+        this.StartCoroutineWithReset(ref shakeCoroutine, ShakeCoroutine());
+
+    /// <summary>
+    /// Shakes enemy for x seconds.
+    /// </summary>
+    /// <returns>WFFU.</returns>
     private IEnumerator ShakeCoroutine()
     {
         Vector3 defaultPosition = enemyModel.transform.localPosition;
