@@ -166,13 +166,13 @@ public class CheatConsole : MonoBehaviour, IFindPlayer
                 case "god 1":
                     Debug.Log("God mode activated");
                     playerStats.Heal(10000, StatsType.Health);
-                    playerStats.EventTakeDamage += Godmode;
+                    playerStats.EventTakeDamageNumber += Godmode;
                     DisableConsole();
                     break;
 
                 case "god 0":
                     Debug.Log("God mode deactivated");
-                    playerStats.EventTakeDamage -= Godmode;
+                    playerStats.EventTakeDamageNumber -= Godmode;
                     DisableConsole();
                     break;
 

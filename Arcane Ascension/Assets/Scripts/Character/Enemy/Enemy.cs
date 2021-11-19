@@ -259,7 +259,7 @@ public class Enemy : Character
     /// <summary>
     /// Sets TookDamage to true.
     /// </summary>
-    private void EventTakeDamage(float emptyVar)
+    private void EventTakeDamage()
     {
         this.StartCoroutineWithReset(ref takeDamageCoroutine, TakeDamageCoroutine());
         TookDamage = true;

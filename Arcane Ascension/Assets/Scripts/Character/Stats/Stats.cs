@@ -129,13 +129,16 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
 
     // Events
     // Registered on CheatsConsole, EnemyScript.
-    protected virtual void OnEventTakeDamage(float damageToReceive) => EventTakeDamage?.Invoke(damageToReceive);
-    public Action<float> EventTakeDamage;
+    protected virtual void OnEventTakeDamage(float damageToReceive) => EventTakeDamageNumber?.Invoke(damageToReceive);
+    public Action<float> EventTakeDamageNumber;
 
     // Registered on playerDamageReceiverUI
     protected virtual void OnEventTakeDamage(Vector3 damagePosition) => 
         EventTakeDamagePosition?.Invoke(damagePosition);
     public Action<Vector3> EventTakeDamagePosition;
+
+    protected virtual void OnEventTakeDamage() => EventTakeDamage?.Invoke();
+    public Action EventTakeDamage;
 
     // Registered on playerUi
     protected virtual void OnEventDeath(Stats stats) => EventDeath?.Invoke(stats);

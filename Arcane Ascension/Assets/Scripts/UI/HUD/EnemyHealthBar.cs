@@ -36,11 +36,10 @@ public class EnemyHealthBar : MonoBehaviour
     /// <summary>
     /// Updates health bar values.
     /// </summary>
-    /// <param name="damageToTake">Damage to reduce from bar.</param>
-    private void UpdateInformation(float damageToTake)
+    private void UpdateInformation()
     {
         healthBarImage.sizeDelta = 
-            new Vector2((enemyStats.Health-damageToTake) / enemyStats.MaxHealth, healthBarImage.sizeDelta.y);
+            new Vector2(enemyStats.Health / enemyStats.MaxHealth, healthBarImage.sizeDelta.y);
     }
 
     /// <summary>

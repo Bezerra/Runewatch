@@ -27,7 +27,7 @@ public class EnemySounds : MonoBehaviour
         enemyStats.EventTakeDamage -= PlayTakeDamage;
     }
 
-    private void PlayTakeDamage(float emptyVar) =>
+    private void PlayTakeDamage() =>
         takeDamage.PlaySound(audioSources.GetFreeAudioSource());
 
 }

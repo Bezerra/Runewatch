@@ -65,7 +65,7 @@ public class PlayerSounds : MonoBehaviour
     private void SpendMoney() =>
         spendMoneySound.PlaySound(audioSources.GetFreeAudioSource());
 
-    private void PlayTakeDamage(float emptyVar) =>
+    private void PlayTakeDamage() =>
         takeDamage.PlaySound(audioSources.GetFreeAudioSource());
 
     /// <summary>

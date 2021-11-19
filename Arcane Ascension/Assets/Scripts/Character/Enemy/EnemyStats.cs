@@ -59,6 +59,7 @@ public class EnemyStats : Stats
         if (Health - damageToReceive > 0)
         {
             Health -= damageToReceive;
+            OnEventTakeDamage();
         }
         else
         {
@@ -123,6 +124,7 @@ public class EnemyStats : Stats
         if (Health - damageToReceive > 0)
         {
             Health -= damageToReceive;
+            OnEventTakeDamage();
         }
         else
         {

@@ -138,8 +138,7 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
     /// <summary>
     /// Starts shake coroutine.
     /// </summary>
-    /// <param name="emptyVar"></param>
-    private void StartShakeCoroutine(float emptyVar) =>
+    private void StartShakeCoroutine() =>
         this.StartCoroutineWithReset(ref shakeCoroutine, ShakeCoroutine());
 
     /// <summary>

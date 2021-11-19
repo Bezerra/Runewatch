@@ -201,6 +201,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
             if (Health - restOfTheDamage > 0)
             {
                 Health -= restOfTheDamage;
+                OnEventTakeDamage();
             }
             else
             {
@@ -253,6 +254,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
             if (Health - restOfTheDamage > 0)
             {
                 Health -= restOfTheDamage;
+                OnEventTakeDamage();
             }
             else
             {

@@ -56,6 +56,7 @@ public class PlayerUI : MonoBehaviour
 
     // Coroutines
     private IEnumerator hitCrosshairCoroutine;
+    private IEnumerator updateHealthCoroutine;
     private float crosshairHitAlpha;
     private YieldInstruction crosshairWaitForSeconds;
     private YieldInstruction wffu;
@@ -78,12 +79,34 @@ public class PlayerUI : MonoBehaviour
     {
         input.CastSpell += CastSpell;
         input.StopCastSpell += StopCastSpell;
+        playerStats.EventTakeDamage += OnTakeDamage;
 
         foreach(EnemyStats enemy in enemyStats)
         {
             enemy.EventTakeDamage += TriggerCrosshairHit;
             enemy.EventDeath += UnsubscribeEnemy;
         }
+    }
+
+    private void OnDisable()
+    {
+        input.CastSpell -= CastSpell;
+        input.StopCastSpell -= StopCastSpell;
+        playerStats.EventTakeDamage -= OnTakeDamage;
+
+        foreach (EnemyStats enemy in enemyStats)
+        {
+            if (enemy != null)
+            {
+                enemy.EventTakeDamage -= TriggerCrosshairHit;
+                enemy.EventDeath -= UnsubscribeEnemy;
+            }
+        }
+    }
+
+    private void Start()
+    {
+        OnTakeDamage();
     }
 
     public void SubscribeToEnemiesDamage()
@@ -107,21 +130,6 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
-    private void OnDisable()
-    {
-        input.CastSpell -= CastSpell;
-        input.StopCastSpell -= StopCastSpell;
-
-        foreach (EnemyStats enemy in enemyStats)
-        {
-            if (enemy != null)
-            {
-                enemy.EventTakeDamage -= TriggerCrosshairHit;
-                enemy.EventDeath -= UnsubscribeEnemy;
-            }
-        }
-    }
-
     private void UnsubscribeEnemy(Stats deadEnemy)
     {
         for (int i = 0; i < enemyStats.Count; i++)
@@ -138,13 +146,42 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
-    //private void OnTakeDamage()
+    
+
+    /// <summary>
+    /// Starts a coroutine to update health.
+    /// </summary>
+    private void OnTakeDamage() =>
+         this.StartCoroutineWithReset(ref updateHealthCoroutine, UpdateHealthCoroutine());
+
+    /// <summary>
+    /// Coroutine that updates health bar UI fill amount and color smoothly.
+    /// </summary>
+    /// <returns>WFFU.</returns>
+    private IEnumerator UpdateHealthCoroutine()
+    {
+        do
+        {
+            health.fillAmount =
+                Mathf.Lerp(
+                    health.fillAmount,
+                    playerStats.Health / playerStats.CommonAttributes.MaxHealth, 
+                    Time.fixedDeltaTime * 5f);
+
+            health.color =
+                health.color.Remap(
+                    0.3f, 0.5f, lowHealth,
+                    highHealth, health.fillAmount);
+
+            yield return wffu;
+        }
+        while (playerStats.Health.Similiar(health.fillAmount) == false);
+    }
 
     /// <summary>
     /// Starts crosshair hit coroutine.
     /// </summary>
-    /// <param name="emptyVar"></param>
-    private void TriggerCrosshairHit(float emptyVar) =>
+    private void TriggerCrosshairHit() =>
         this.StartCoroutineWithReset(ref hitCrosshairCoroutine, TriggerCrosshairHitCoroutine());
 
     /// <summary>
@@ -241,10 +278,7 @@ public class PlayerUI : MonoBehaviour
         dashCharge.text = "x" + playerStats.DashCharge.ToString();
 
         // Updates HP/shield/mana bars
-        health.fillAmount =
-            playerStats.Health / playerStats.CommonAttributes.MaxHealth;
-        health.color = 
-            health.color.Remap(30, playerStats.MaxHealth * 0.5f, lowHealth, highHealth, playerStats.Health);
+        
         armor.fillAmount =
             playerStats.Armor / playerStats.PlayerAttributes.MaxArmor;
         mana.fillAmount =
