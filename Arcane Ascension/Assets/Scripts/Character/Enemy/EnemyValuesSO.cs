@@ -30,8 +30,8 @@ public class EnemyValuesSO : CharacterValuesSO
 
     [BoxGroup("Target and Chase")]
     [Tooltip("Random minim distance to keep from target")]
-    [RangeMinMax(1f, 23f)] [SerializeField] private Vector2 minimumDistanceToKeepFromTarget;
-    public Vector2 MinimumDistanceToKeepFromTarget => minimumDistanceToKeepFromTarget;
+    [RangeMinMax(1f, 23f)] [SerializeField] private Vector2 distanceWhileRunningBackwards;
+    public Vector2 DistanceWhileRunningBackwards => distanceWhileRunningBackwards;
 
     [BoxGroup("Target and Chase")]
     [Tooltip("Maximum distance of vision")]

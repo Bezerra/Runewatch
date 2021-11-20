@@ -1,5 +1,4 @@
 using UnityEngine;
-using ExtensionMethods;
 
 /// <summary>
 /// Decision that checks if the enemy has been in this state for x seconds.
@@ -8,6 +7,8 @@ using ExtensionMethods;
     fileName = "Decision Max Time In State When Stopped")]
 sealed public class DecisionMaxTimeInStateWhenStopped : FSMDecision
 {
+    [Range(0, 5f)][SerializeField] private float maxTimeToRemainInState;
+
     public override bool CheckDecision(StateController<Enemy> ai)
     {
         return RemainInState(ai);
@@ -20,7 +21,7 @@ sealed public class DecisionMaxTimeInStateWhenStopped : FSMDecision
     /// <returns>True if it detects a player without a wall in front.</returns>
     private bool RemainInState(StateController<Enemy> ai)
     {
-        if (ai.Controller.Agent.remainingDistance < 2f)
+        if (ai.Controller.Agent.remainingDistance < maxTimeToRemainInState)
             ai.Controller.TimePointReached += Time.deltaTime;
         else
             ai.Controller.TimePointReached = 0;
