@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
     private readonly float  GRAVITY = 100f;
 
     // Character controller collider, don't change these values
-    private readonly float CONTROLLERRADIUSDEFAULT = 0.75f;
+    private readonly float CONTROLLERRADIUSDEFAULT = 0.85f;
     private readonly float CONTROLLERRADIUSONAIR = 0.5f;
 
     private void Awake()

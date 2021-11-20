@@ -192,10 +192,10 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
             // If it wasn't a player or enemy it will hit normally
             if (lastHitGameObject != other.gameObject)
             {
-                PositionOnHit = transform.position;
-
                 // If this spell is hitting something for the first time
                 TimeOfImpact = Time.time;
+
+                PositionOnHit = transform.position;
 
                 Vector3 directionToInitialSpawn = transform.Direction(PositionOnHit);
 
@@ -206,7 +206,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
                     ((transform.position + directionToInitialSpawn * 0.1f).
                     Direction(other.ClosestPoint(transform.position))));
 
-                // Reflects the current movement vector of the spell
+                // Casrts a raycast to that closest point on the collider
                 if (Physics.Raycast(direction, out RaycastHit spellHitPoint))
                 {
                     // This code prevents the spell colliding with multiple colliders that have the same
@@ -216,13 +216,17 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
                     if (Vector3.Dot(transform.forward, spellHitPoint.normal) > 0)
                         return;
 
+                    // If it passes the code on top, triggers hit
                     foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviourOneShot)
                         behaviour.HitTriggerBehaviour(other, this);
+
+                    lastHitGameObject = other.transform.parent.gameObject;
                 }
-                lastHitGameObject = other.gameObject;
             }
         }
     }
+
+    //private IEnumerator 
 
     public Vector3 TEMP { get; set; }
     public Ray TEMPRAY { get; set; }
