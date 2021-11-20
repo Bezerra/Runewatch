@@ -16,11 +16,22 @@ sealed public class SpellBehaviourApplyDamageMeleeAttackSO : SpellBehaviourAbstr
     {
         parent.transform.position = parent.Hand.position;
 
-        // Moves the final position a little to the back so it won't be 100% in the position of the player.
-        // This corrects a bug where the collision wasn't detecting if this point was exactly in the same
-        // position as the player.
-        parent.PositionOnHit = parent.Hand.position + 
-            parent.transform.position.Direction(parent.WhoCast.transform.position) * 0.5f;
+        // If it's an enemy
+        if (parent.AICharacter)
+        {
+            // Moves the final position a little to the back so it won't be 100% in the position of the player.
+            // This corrects a bug where the collision wasn't detecting if this point was exactly in the same
+            // position as the player.
+            parent.PositionOnHit = parent.Hand.position +
+                parent.transform.position.Direction(parent.WhoCast.transform.position) * 0.75f;
+        }
+        else
+        // If it's the player
+        {
+            // Moves collider a little to the front to help with player's accuracy
+            parent.PositionOnHit = parent.Hand.position +
+                parent.WhoCast.transform.position.Direction(parent.Hand.position) * 1.5f;
+        }
 
         parent.SpellStartedMoving = true;
         parent.TimeSpawned = Time.time;
