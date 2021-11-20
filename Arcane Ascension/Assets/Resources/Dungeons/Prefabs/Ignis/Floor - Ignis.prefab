@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 4307574863556771977}
   - component: {fileID: 894051461937958700}
   - component: {fileID: 3138085731649190886}
-  - component: {fileID: 7631580079928057419}
+  - component: {fileID: 1957851956}
+  - component: {fileID: 1957851955}
   m_Layer: 7
   m_Name: Floor - Ignis
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3498245951481731635}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -83,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7631580079928057419
+--- !u!65 &1957851956
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,8 +92,21 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3498245951481731635}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 4, y: 0.0000008265283, z: 4}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1957851955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3498245951481731635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8543f2c1d599184c89df84d91c66a46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  surfaceType: 0
