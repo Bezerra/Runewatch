@@ -48,14 +48,14 @@ public class DamageAoESO : DamageBehaviourAbstractSO
         // Adds all IDamageable characters found to a list
         for (int i = 0; i < collisions.Length; i++)
         {
+            // Creates a ray from spell to hit
             Ray dir = new Ray(
                 parent.PositionOnHit,
                 parent.PositionOnHit.Direction(collisions[i].ClosestPoint(parent.PositionOnHit)));
 
-
             // Checks if colliders are hit
             if (Physics.Raycast(dir, out RaycastHit characterHit, parent.Spell.AreaOfEffect * 0.5f,
-                Layers.PlayerEnemyWithWalls))
+                Layers.PlayerEnemyWithWallsFloor))
             {
                 // If the collider is an IDamageable (meaning it wasn't a wall)
                 if (characterHit.collider.TryGetComponentInParent<IDamageable>(out IDamageable character))
