@@ -54,7 +54,6 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
             // Reflects the current movement vector of the spell
             if (Physics.Raycast(direction, out RaycastHit spellHitPoint))
             {
-                Debug.Log(spellHitPoint.collider.name);
                 // On first hit
                 if (parent.CurrentWallHitQuantity == 0)
                 {
