@@ -51,7 +51,7 @@ public class DamageAoEOvertimeSO : DamageBehaviourAbstractSO
                         (collisions[i].transform.position - parent.transform.position).normalized);
 
             if (Physics.Raycast(dir, out RaycastHit characterHit, parent.Spell.AreaOfEffect * 0.5f,
-                Layers.PlayerEnemyWithWallsFloor))
+                Layers.PlayerEnemyWithWalls))
             {
                 // If the collider is an IDamageable (meaning there wasn't a wall in the ray path)
                 if (characterHit.collider.TryGetComponentInParent<IDamageable>(out IDamageable character))

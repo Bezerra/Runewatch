@@ -28,7 +28,7 @@ public class DamageAoESO : DamageBehaviourAbstractSO
     protected override void DamageLogic(SpellBehaviourAbstract parent, Collider other = null, float damageMultiplier = 1)
     {
         Collider[] collisions = Physics.OverlapSphere(
-                    parent.transform.position, parent.Spell.AreaOfEffect, Layers.PlayerEnemy);
+                    parent.PositionOnHit, parent.Spell.AreaOfEffect, Layers.PlayerEnemy);
 
         // Creates a new list with IDamageable characters
         IList<IDamageable> charactersToDoDamage = new List<IDamageable>();
@@ -48,16 +48,16 @@ public class DamageAoESO : DamageBehaviourAbstractSO
         // Adds all IDamageable characters found to a list
         for (int i = 0; i < collisions.Length; i++)
         {
-            // Creates a ray from spell to hit
             Ray dir = new Ray(
-                        parent.PositionOnHit,
-                        (collisions[i].transform.position - parent.transform.position).normalized);
+                parent.PositionOnHit,
+                parent.PositionOnHit.Direction(collisions[i].ClosestPoint(parent.PositionOnHit)));
 
+
+            // Checks if colliders are hit
             if (Physics.Raycast(dir, out RaycastHit characterHit, parent.Spell.AreaOfEffect * 0.5f,
-                Layers.PlayerEnemyWithWallsFloor))
+                Layers.PlayerEnemyWithWalls))
             {
-               
-                // If the collider is an IDamageable (meaning there wasn't a wall in the ray path)
+                // If the collider is an IDamageable (meaning it wasn't a wall)
                 if (characterHit.collider.TryGetComponentInParent<IDamageable>(out IDamageable character))
                 {
                     // If the target is different than who cast the spell

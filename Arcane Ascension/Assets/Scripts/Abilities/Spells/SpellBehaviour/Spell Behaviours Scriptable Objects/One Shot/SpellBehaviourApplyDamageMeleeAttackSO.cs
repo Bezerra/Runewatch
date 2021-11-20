@@ -14,9 +14,16 @@ sealed public class SpellBehaviourApplyDamageMeleeAttackSO : SpellBehaviourAbstr
     /// <param name="parent">Parent spell.</param>
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
-        parent.SpellStartedMoving = true;
         parent.transform.position = parent.Hand.position;
-        parent.PositionOnHit = parent.Hand.position;
+
+        // Moves the final position a little to the back so it won't be 100% in the position of the player.
+        // This corrects a bug where the collision wasn't detecting if this point was exactly in the same
+        // position as the player.
+        parent.PositionOnHit = parent.Hand.position + 
+            parent.transform.position.Direction(parent.WhoCast.transform.position) * 0.5f;
+
+        parent.SpellStartedMoving = true;
+        parent.TimeSpawned = Time.time;
         parent.Spell.DamageBehaviour.Damage(parent);
     }
 
