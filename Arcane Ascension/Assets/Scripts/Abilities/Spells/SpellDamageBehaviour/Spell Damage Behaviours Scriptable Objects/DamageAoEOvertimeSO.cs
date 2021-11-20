@@ -47,11 +47,12 @@ public class DamageAoEOvertimeSO : DamageBehaviourAbstractSO
         {
             // Creates a ray from spell to hit
             Ray dir = new Ray(
-                        parent.PositionOnHit,
-                        (collisions[i].transform.position - parent.transform.position).normalized);
+                parent.PositionOnHit,
+                parent.PositionOnHit.Direction(collisions[i].ClosestPoint(parent.PositionOnHit)));
 
+            // Checks if colliders are hit
             if (Physics.Raycast(dir, out RaycastHit characterHit, parent.Spell.AreaOfEffect * 0.5f,
-                Layers.PlayerEnemyWithWalls))
+                Layers.PlayerEnemyWithWallsFloor))
             {
                 // If the collider is an IDamageable (meaning there wasn't a wall in the ray path)
                 if (characterHit.collider.TryGetComponentInParent<IDamageable>(out IDamageable character))

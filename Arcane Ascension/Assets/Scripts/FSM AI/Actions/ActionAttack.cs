@@ -77,7 +77,7 @@ sealed public class ActionAttack : FSMAction
                 {
                     // If that range's distance is not met, it will ignore the rest of the method
                     if (Vector3.Distance(ai.Controller.transform.position, ai.Controller.CurrentTarget.transform.position) >
-                        ai.Controller.CurrentlySelectedSpell.Range)
+                        ai.Controller.CurrentlySelectedSpell.Range + 0.02f)
                     {
                         return;
                     }
