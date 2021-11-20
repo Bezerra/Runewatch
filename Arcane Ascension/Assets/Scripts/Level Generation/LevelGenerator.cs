@@ -327,17 +327,14 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                 if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor ||
                     openedContactPoints[i].ParentRoom.Type == PieceType.Stairs)
                 {
-                    // If corridor/stairs piece is valid, it sets the piece normally
-                    if (IsPieceValid(openedContactPoints[i].ParentRoom, random, false))
-                    {
-                        openedContactPoints[i].Close();
-                        openedContactPoints.Remove(openedContactPoints[i]);
-                    }
-                    else // Else it destroys the invalid piece
-                    {
-                        Destroy(openedContactPoints[i].ParentRoom.gameObject);
-                        openedContactPoints.Remove(openedContactPoints[i]);
-                    }
+                    // Gets the connectected contact point of this piece and
+                    // activates its wall
+                    openedContactPoints[i].ParentRoom.ConnectedContactPoint.
+                        transform.GetChild(0).gameObject.SetActive(true);
+
+                    // Destroys that corridor/stairs and removes its contact point from the list
+                    Destroy(openedContactPoints[i].ParentRoom.gameObject);
+                    openedContactPoints.Remove(openedContactPoints[i]);
                 }
                 else if (openedContactPoints[i].ParentRoom.Type == PieceType.Room)
                 {
@@ -384,6 +381,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             }  
         }
 
+        // Deactivates RoomCollision collider
+        /*
         foreach(LevelPiece piece in allRoomsAndCorridors)
         {
             if (piece != null)
@@ -394,7 +393,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                 }
             }
         }
- 
+        */
+
         Debug.Log("Took " + Time.time + " seconds to generate, with seed " + seed + '.');
 
         OnEndedGeneration();
