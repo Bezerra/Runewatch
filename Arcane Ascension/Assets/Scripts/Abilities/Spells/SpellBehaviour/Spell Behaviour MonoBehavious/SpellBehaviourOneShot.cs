@@ -20,7 +20,10 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     /// Time of spell impact.
     /// </summary>
     public float TimeOfImpact { get; private set; }
-    
+
+    private float currentFixedUpdateCounter;
+    private float lastFixedUpdateCounter;
+
     /// <summary>
     /// Property for rigidbody.
     /// </summary>
@@ -150,6 +153,8 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     {
         foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviourOneShot)
             behaviour.ContinuousFixedUpdateBehaviour(this);
+
+        currentFixedUpdateCounter += Time.fixedDeltaTime;
     }
 
     /// <summary>
@@ -221,12 +226,14 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
                         behaviour.HitTriggerBehaviour(other, this);
 
                     lastHitGameObject = other.transform.parent.gameObject;
+
+                    lastFixedUpdateCounter = currentFixedUpdateCounter;
                 }
             }
         }
     }
 
-    //private IEnumerator 
+
 
     public Vector3 TEMP { get; set; }
     public Ray TEMPRAY { get; set; }
