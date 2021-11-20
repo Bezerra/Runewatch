@@ -11,12 +11,24 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
 
     public override ISpell Spell => spell;
 
-    // Variables to control spawn and impact
+    /// <summary>
+    /// Time of spell spawn.
+    /// </summary>
     public float TimeSpawned { get; set; }
+
+    /// <summary>
+    /// Time of spell impact.
+    /// </summary>
     public float TimeOfImpact { get; private set; }
     
-    // Components
+    /// <summary>
+    /// Property for rigidbody.
+    /// </summary>
     public Rigidbody Rb { get; private set; }
+
+    /// <summary>
+    /// Property por spell collider.
+    /// </summary>
     public CapsuleCollider ColliderTrigger { get; private set; }
 
     // Whenever the spells colide with anything it sets this variable to that gameobject hit
@@ -77,16 +89,11 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     /// </summary>
     public RaycastHit ProjectileReflectedHit { get; set; }
 
-    // Coroutines
-    private YieldInstruction wffu;
-    private IEnumerator resetColliderTriggerCoroutine;
-
     protected override void Awake()
     {
         base.Awake();
         Rb = GetComponent<Rigidbody>();
         ColliderTrigger = GetComponent<CapsuleCollider>();
-        wffu = new WaitForFixedUpdate();
     }
 
     protected override void OnEnable()
@@ -152,8 +159,6 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     /// <param name="other">Collider of collision.</param>
     private void OnTriggerEnter(Collider other)
     {
-        this.StartCoroutineWithReset(ref resetColliderTriggerCoroutine, ResetColliderTriggerCoroutine());
-
         if (other.gameObject.TryGetComponentInParent<SelectionBase>(out SelectionBase component))
         {
             // If the enemy or player hit is DIFFERENT than the last one
@@ -191,26 +196,32 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
 
                 // If this spell is hitting something for the first time
                 TimeOfImpact = Time.time;
-                foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviourOneShot)
-                    behaviour.HitTriggerBehaviour(other, this);
 
+                Vector3 directionToInitialSpawn = transform.Direction(PositionOnHit);
+
+                // Direction to do a raycast.
+                // Uses directionToInitialSpawn so the hit will be a little behind the wall to prevent bugs
+                Ray direction = new Ray(
+                    transform.position + directionToInitialSpawn * 0.1f,
+                    ((transform.position + directionToInitialSpawn * 0.1f).
+                    Direction(other.ClosestPoint(transform.position))));
+
+                // Reflects the current movement vector of the spell
+                if (Physics.Raycast(direction, out RaycastHit spellHitPoint))
+                {
+                    // This code prevents the spell colliding with multiple colliders that have the same
+                    // normal. For example if a wall is divided in 4 colliders, and the player aims
+                    // towards the center point of those 4 colliders, the spell will only trigger hit
+                    // once and ignore the other 3 colliders
+                    if (Vector3.Dot(transform.forward, spellHitPoint.normal) > 0)
+                        return;
+
+                    foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviourOneShot)
+                        behaviour.HitTriggerBehaviour(other, this);
+                }
                 lastHitGameObject = other.gameObject;
             }
         }
-    }
-
-    /// <summary>
-    /// Resets collider so a spell doesn't hit twice in a row when it hits different 
-    /// colliders at the same time.
-    /// </summary>
-    /// <returns>WFFU.</returns>
-    public IEnumerator ResetColliderTriggerCoroutine()
-    {
-        ColliderTrigger.enabled = false;
-        yield return wffu;
-        yield return wffu;
-        yield return wffu;
-        ColliderTrigger.enabled = true;
     }
 
     public Vector3 TEMP { get; set; }

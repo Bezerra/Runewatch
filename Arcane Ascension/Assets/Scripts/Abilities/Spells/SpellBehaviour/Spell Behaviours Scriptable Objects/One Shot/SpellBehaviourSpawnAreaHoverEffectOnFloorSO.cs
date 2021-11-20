@@ -149,12 +149,15 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
         // If the spell is already in motion, it will disable this game object
         if (parent.SpellStartedMoving == true)
         {
-            // Happens at least once
-            if (parent.AreaHoverVFX.activeSelf)
+            if (parent.AreaHoverVFX != null)
             {
-                parent.AreaHoverVFX.SetActive(false);
+                // Happens at least once
+                if (parent.AreaHoverVFX.activeSelf)
+                {
+                    parent.AreaHoverVFX.SetActive(false);
+                }
+                return;
             }
-            return;
         }
     }
 
