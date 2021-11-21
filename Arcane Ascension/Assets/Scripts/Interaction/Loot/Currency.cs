@@ -27,6 +27,14 @@ public class Currency : MonoBehaviour, ICurrency
     /// </summary>
     public float AmountMultiplier { get; set; }
 
+    /// <summary>
+    /// Resets this amount.
+    /// </summary>
+    private void OnDisable()
+    {
+        Amount = currencySO.Amount;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == Layers.PlayerLayerNum)
@@ -41,7 +49,7 @@ public class Currency : MonoBehaviour, ICurrency
             LootSoundPoolCreator.Pool.InstantiateFromPool(
                 lootType.ToString(), transform.position, Quaternion.identity);
 
-            gameObject.SetActive(false);
+            transform.parent.gameObject.SetActive(false);
         }
     }
 }

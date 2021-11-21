@@ -17,6 +17,8 @@ public class CurrencyInformationSO : ScriptableObject
     [SerializeField] protected new string name = "New Spell";
 
     [SerializeField] private CurrencyType currencyType;
+
+    [Header("This amount is used if the enemy doesn't set the amount")]
     [RangeMinMax(1f, 100000f)] [SerializeField] private Vector2 defaultAmount;
     
     /// <summary>

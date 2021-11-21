@@ -27,7 +27,7 @@ public class Potion : MonoBehaviour
                 }
             }
             LootSoundPoolCreator.Pool.InstantiateFromPool(lootType.ToString(), transform.position, Quaternion.identity);
-            gameObject.SetActive(false);
+            transform.parent.gameObject.SetActive(false);
         }
     }
 }

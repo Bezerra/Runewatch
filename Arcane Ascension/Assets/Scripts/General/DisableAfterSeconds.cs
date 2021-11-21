@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using ExtensionMethods;
 
 /// <summary>
 /// Disables this game object after x seconds.
@@ -9,6 +10,8 @@ public class DisableAfterSeconds : MonoBehaviour
     [SerializeField] private float secondsToWait;
     private YieldInstruction wfs;
 
+    private IEnumerator disableAfterSecs;
+
     private void Awake()
     {
         wfs = new WaitForSeconds(secondsToWait);
@@ -16,7 +19,7 @@ public class DisableAfterSeconds : MonoBehaviour
 
     private void OnEnable()
     {
-        StartCoroutine(DisableAfterSecs());
+        this.StartCoroutineWithReset(ref disableAfterSecs, DisableAfterSecs());
     }
 
     private IEnumerator DisableAfterSecs()

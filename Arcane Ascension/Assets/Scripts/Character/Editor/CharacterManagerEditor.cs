@@ -50,24 +50,24 @@ public class CharacterManagerEditor : OdinMenuEditorWindow
 
         tree.AddAllAssetsAtPath(
             "Stats/Player Stats", "Assets/Resources/Scriptable Objects/Player", 
-            typeof(StatsSO));
+            typeof(StatsSO), true);
         tree.AddAllAssetsAtPath(
             "Stats/Enemy Stats", "Assets/Resources/Scriptable Objects/Enemy", 
-            typeof(StatsSO));
+            typeof(StatsSO), true);
 
         tree.AddAllAssetsAtPath(
             "Values/Player Values", "Assets/Resources/Scriptable Objects/Player", 
-            typeof(PlayerValuesSO));
+            typeof(PlayerValuesSO), true);
         tree.AddAllAssetsAtPath(
             "Values/Enemy Values", "Assets/Resources/Scriptable Objects/Enemy", 
-            typeof(EnemyValuesSO));
+            typeof(EnemyValuesSO), true);
         
         tree.AddAllAssetsAtPath(
             "Characters/Player Characters", "Assets/Resources/Scriptable Objects/Player", 
-            typeof(PlayerCharacterSO));
+            typeof(PlayerCharacterSO), true);
         tree.AddAllAssetsAtPath(
             "Characters/Enemy Characters", "Assets/Resources/Scriptable Objects/Enemy", 
-            typeof(EnemyCharacterSO));
+            typeof(EnemyCharacterSO), true);
 
         tree.SortMenuItemsByName();
 

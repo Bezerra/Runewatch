@@ -67,7 +67,7 @@ public class EnemyStats : Stats
             OnEventDeath(this);
 
             // Gets random drops and spawns them
-            EnemyAttributes.Rates.GetDrop(transform.position + new Vector3(0, -transform.localPosition.y, 0));
+            EnemyAttributes.Rates.GetDrop(transform.position + new Vector3(0, -transform.localPosition.y * 0.5f, 0));
             IEnumerator<(LootType, Vector3)> itemEnumerator = EnemyAttributes.Rates.DroppedLoot.GetEnumerator();
             while (itemEnumerator.MoveNext())
             {
@@ -132,7 +132,7 @@ public class EnemyStats : Stats
             OnEventDeath(this);
 
             // Gets random drops and spawns them
-            EnemyAttributes.Rates.GetDrop(transform.position + new Vector3(0, -transform.localPosition.y, 0));
+            EnemyAttributes.Rates.GetDrop(transform.position + new Vector3(0, -transform.localPosition.y * 0.5f, 0));
             IEnumerator<(LootType, Vector3)> itemEnumerator = EnemyAttributes.Rates.DroppedLoot.GetEnumerator();
             while (itemEnumerator.MoveNext())
             {
