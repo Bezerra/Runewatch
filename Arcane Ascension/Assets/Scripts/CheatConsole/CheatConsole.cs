@@ -193,9 +193,27 @@ public class CheatConsole : MonoBehaviour, IFindPlayer
                     if (CanSpawn())
                     {
                         Debug.Log("Spawn enemy");
-                        Instantiate(
-                            dummyEnemy, playerStats.transform.position + 
-                            playerStats.transform.forward * spawnDistance, Quaternion.identity);
+
+                        Player pl = playerRoot.GetComponentInChildren<Player>();
+
+                        Ray ray = new Ray(pl.Eyes.transform.position, pl.Eyes.transform.forward);
+                        if (Physics.Raycast(ray, spawnDistance, Layers.Walls))
+                        {
+                            // Do nothing
+                        }
+                        else
+                        {
+                            Ray ray2 = new Ray(
+                                pl.Eyes.transform.position + pl.Eyes.transform.forward * spawnDistance,
+                                Vector3.down);
+                            if (Physics.Raycast(ray2, out RaycastHit floorHit, 10, Layers.WallsFloor))
+                            {
+                                Instantiate(dummyEnemy, floorHit.point,
+                                    Quaternion.LookRotation(playerRoot.transform.position, Vector3.up));
+                            }
+                        }
+
+                        
                     }
                     DisableConsole();
                     break;
