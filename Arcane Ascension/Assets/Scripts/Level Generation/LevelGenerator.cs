@@ -109,8 +109,12 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         bool bossRoomSpawned = false;
         IList<ContactPoint> openedContactPoints;
 
-        // This number is set for the quantity of rooms our game will have, 3 loops work perfectly.
-        // Don't touch
+        // This number is the quantity of loops for each opened poinst loop. The higher the
+        // number, the more attempts the algorithm will take to try and find a piece
+        // for each opened contact point.
+        // This number is directly connect with the limit of rooms that can be spawned,
+        // so if the number of rooms exceeds a limit, it will adjust numberOfLoops variable.
+        // For the number of rooms in our game, a number between 4 - 7 should be fine.
         numberOfLoops = 5;
 
         while (bossRoomSpawned == false)
@@ -243,6 +247,9 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             // After main loop, if minimum or maximum number of rooms exceeds a limit, it starts another loop
             if (allRooms.Count < minimumNumberOfRooms || allRooms.Count > maximumNumberOfRooms)
             {
+                if (allRooms.Count < minimumNumberOfRooms) numberOfLoops++;
+                else if (allRooms.Count > minimumNumberOfRooms) numberOfLoops--;
+
                 print("Invalid number of rooms. Attempting another time.");
                 yield return new WaitForSeconds(0.25f);
                 GameObject[] levelParents = GameObject.FindGameObjectsWithTag("LevelParent");
@@ -406,7 +413,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         }
         */
 
-        Debug.Log("Took " + timeOfGeneration + " seconds to generate, with seed " + seed + '.');
+        Debug.Log("Took " + timeOfGeneration + " seconds to generate, with seed " + seed +  
+            " and number of loops of " + numberOfLoops);
 
         OnEndedGeneration();
     }
@@ -496,11 +504,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// <param name="levelPiece">Piece to rotate.</param>
     /// <param name="levelPieceContact">Contact point of the piece.</param>
     /// <param name="originContact">Contact point to match.</param>
-    /// <param name="inversedContact">Parameter that checks if the origin 
-    /// contact is inversed (true = corridor) or not (false = room).</param>
     private void RotatePiece(LevelPiece levelPiece, ContactPoint levelPieceContact, 
-        ContactPoint originContact, 
-        bool inversedContact = false)
+        ContactPoint originContact)
     {
         levelPieceContact.ParentRoom.transform.rotation =
             Quaternion.LookRotation(originContact.transform.forward, originContact.transform.up);
@@ -510,38 +515,6 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             levelPieceContact.ParentRoom.transform.rotation *=
             (levelPieceContact.transform.localRotation);
         }
-
-        /*
-        byte placementCount = 0;
-
-        while (placementCount < 4)
-        {
-            if (inversedContact)
-            {
-                if (levelPieceContact.transform.InverseDirectionAs(originContact.transform) == false)
-                {
-                    placementCount++;
-                    levelPiece.transform.Rotate(new Vector3(0, 90, 0));
-                }
-                else
-                {
-                    placementCount = 4;
-                }
-            }
-            else
-            {
-                if (levelPieceContact.transform.SameDirectionAs(originContact.transform) == false)
-                {
-                    placementCount++;
-                    levelPiece.transform.Rotate(new Vector3(0, 90, 0));
-                }
-                else
-                {
-                    placementCount = 4;
-                }
-            }
-        }
-        */
     }
 
     /// <summary>
@@ -607,7 +580,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         ContactPoint contactPoint, ContactPoint openedContactPoint)
     {
         // Rotates piece to match contact point rotation
-        RotatePiece(pieceToPlace, contactPoint, openedContactPoint, false);
+        RotatePiece(pieceToPlace, contactPoint, openedContactPoint);
 
         // Sets a piece in a contact point
         SetPiece(pieceToPlace, contactPoint, openedContactPoint);
