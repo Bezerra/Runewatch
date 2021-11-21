@@ -146,7 +146,6 @@ public class EnemyStats : Stats
                 {
                     if (lootCurrency.CurrencyType == CurrencyType.Gold)
                     {
-                        Debug.Log(stpData.SaveData.Pickpocket);
                         lootCurrency.AmountMultiplier = stpData.SaveData.Pickpocket;
                         lootCurrency.Amount = EnemyAttributes.GoldQuantity;
                     }
