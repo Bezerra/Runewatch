@@ -48,7 +48,7 @@ public class PlayerInteraction : MonoBehaviour
         while (true)
         {
             forwardRay = new Ray(eyes.position, eyes.forward);
-            if (Physics.Raycast(forwardRay, out objectHit, rayLength, Layers.Interectable))
+            if (Physics.Raycast(forwardRay, out objectHit, rayLength, Layers.InterectableLayer))
             {
                 objectTargeted = true;
             }
