@@ -1,6 +1,5 @@
 using UnityEngine;
 using ExtensionMethods;
-using UnityEngine.AI;
 
 /// <summary>
 /// Class responsible for controlling what happens when the player is inside a level piece room.
