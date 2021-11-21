@@ -214,13 +214,15 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
                     // towards the center point of those 4 colliders, the spell will only trigger hit
                     // once and ignore the other 3 colliders
                     if (Vector3.Dot(transform.forward, spellHitPoint.normal) > 0)
+                    {
                         return;
+                    }
 
                     // If it passes the code on top, triggers hit
                     foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviourOneShot)
                         behaviour.HitTriggerBehaviour(other, this);
 
-                    lastHitGameObject = other.transform.parent.gameObject;
+                    lastHitGameObject = other.transform.gameObject;
                 }
             }
         }
