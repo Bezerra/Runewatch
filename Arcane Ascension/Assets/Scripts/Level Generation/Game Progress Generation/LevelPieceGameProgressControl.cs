@@ -8,12 +8,16 @@ using UnityEngine;
 public class LevelPieceGameProgressControl : MonoBehaviour
 {
     [SerializeField] private BoxCollider[] exitBlockers;
-    [SerializeField] private Transform[] enemySpawnTransforms;
+    [SerializeField] private EnemySpawnPoint[] enemySpawnPoints;
+    [SerializeField] private AvailableListOfEnemiesToSpawnSO listOfEnemies;
 
     private int currentQuantityOfEnemies;
     private int quantityOfEnemiesSpawned;
     private bool haveEnemiesSpawned;
 
+    /// <summary>
+    /// Blocks all exits.
+    /// </summary>
     public void BlockExits()
     {
         if (exitBlockers.Length > 0)
@@ -29,7 +33,18 @@ public class LevelPieceGameProgressControl : MonoBehaviour
     {
         if (haveEnemiesSpawned == false)
         {
-  
+            if (enemySpawnPoints.Length > 0)
+            {
+                foreach (EnemySpawnPoint enemySpawnPoint in enemySpawnPoints)
+                {
+                    Instantiate(
+                        listOfEnemies.SpawnEnemy(
+                            enemySpawnPoint.PointInformation[DifficultyType.Normal]),
+                        enemySpawnPoint.transform.position,
+                        enemySpawnPoint.transform.rotation);
+                }
+            }
+
             haveEnemiesSpawned = true;
         }
     }

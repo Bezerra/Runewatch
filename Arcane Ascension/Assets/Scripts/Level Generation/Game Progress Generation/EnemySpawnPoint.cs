@@ -9,9 +9,25 @@ public class EnemySpawnPoint : MonoBehaviour
 {
     [SerializeField] private Mesh meshForGizmos;
 
+    // Serialized list with enemy spawn for all difficulties
     [TableList]
     [SerializeField]
     private List<EnemySpawnPointInformation> pointInformation;
+
+    /// <summary>
+    /// Getter for a dictionary with this point information.
+    /// </summary>
+    public Dictionary<DifficultyType, EnemySpawnType> PointInformation { get; private set; }
+
+    private void Awake()
+    {
+        PointInformation = new Dictionary<DifficultyType, EnemySpawnType>();
+        for (int i = 0; i < pointInformation.Count; i++)
+        {
+            PointInformation.Add(
+                pointInformation[i].Difficulty, pointInformation[i].EnemySpawnType);
+        }
+    }
 
     private void OnDrawGizmos()
     {
