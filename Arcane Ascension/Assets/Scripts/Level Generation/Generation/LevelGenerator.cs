@@ -362,29 +362,14 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             }
         }
 
-        GenerateNavMesh();
+        FinalAdjustements();
     }
 
     /// <summary>
     /// Generates a nav mesh for all pieces.
     /// </summary>
-    private void GenerateNavMesh()
+    private void FinalAdjustements()
     {
-        // Create navmesh for every component with NavMeshSurface script
-        print("Generating Navmesh...");
-        GameObject[] rootGameObjects = SceneManager.GetActiveScene().GetRootGameObjects();
-        foreach (GameObject rootGameObject in rootGameObjects)
-        {
-            NavMeshSurface[] childrenNavMeshes =
-                rootGameObject.GetComponentsInChildren<NavMeshSurface>();
-
-            foreach (NavMeshSurface navmesh in childrenNavMeshes)
-            {
-                navmesh.BuildNavMesh();
-            }
-        }
-        print("Navmesh generated.");
-
         // Destroys empty levelParents game objects
         GameObject[] levelParents = GameObject.FindGameObjectsWithTag("LevelParent");
         foreach (GameObject lvlParent in levelParents)
