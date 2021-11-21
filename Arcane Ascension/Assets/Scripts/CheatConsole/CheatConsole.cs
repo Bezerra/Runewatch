@@ -220,14 +220,16 @@ public class CheatConsole : MonoBehaviour, IFindPlayer
 
                 case "invisible 1":
                     Debug.Log("Player invisible true");
-                    ChangeLayersAllChilds(playerRoot.transform, Layers.PlayerLayerNum, Layers.IgnoreLayerNum, true);
+                    ChangeLayersAllChilds(playerRoot.transform, Layers.PlayerLayerNum, Layers.InvisiblePlayerLayerNum, true);
+                    foreach (Enemy en in FindObjectsOfType<Enemy>())
+                        en.CurrentTarget = null;
                     DisableConsole();
                     break;
 
                 case "invisible 0":
                     Debug.Log("Player invisible false");
                     playerStats.gameObject.layer = Layers.PlayerLayerNum;
-                    ChangeLayersAllChilds(playerRoot.transform, Layers.PlayerLayerNum, Layers.IgnoreLayerNum, false);
+                    ChangeLayersAllChilds(playerRoot.transform, Layers.PlayerLayerNum, Layers.InvisiblePlayerLayerNum, false);
                     DisableConsole();
                     break;
 

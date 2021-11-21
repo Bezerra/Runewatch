@@ -37,7 +37,8 @@ public class Currency : MonoBehaviour, ICurrency
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == Layers.PlayerLayerNum)
+        if (other.gameObject.layer == Layers.PlayerLayerNum ||
+            other.gameObject.layer == Layers.InvisiblePlayerLayerNum)
         {
             if (other.TryGetComponent<IUseCurrency>(out IUseCurrency currency))
             {

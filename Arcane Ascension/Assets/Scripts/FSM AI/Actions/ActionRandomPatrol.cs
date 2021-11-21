@@ -72,6 +72,7 @@ sealed public class ActionRandomPatrol : FSMAction
 
     public override void OnEnter(StateController<Enemy> ai)
     {
+        ai.Controller.Agent.angularSpeed = 500f;
         ai.Controller.Agent.isStopped = false;
         UpdateVariablesValues(ai);
         SetNewDestination(ai);

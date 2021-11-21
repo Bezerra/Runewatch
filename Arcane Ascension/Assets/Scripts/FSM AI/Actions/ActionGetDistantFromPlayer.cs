@@ -40,7 +40,8 @@ sealed public class ActionGetDistantFromPlayer : FSMAction
 
                 // If back is blocked
                 Ray rayToback = 
-                    new Ray(ai.Controller.transform.position + ai.Controller.transform.forward, -ai.Controller.transform.forward);
+                    new Ray(ai.Controller.transform.position + ai.Controller.transform.forward,
+                    -ai.Controller.transform.forward);
                 if (Physics.Raycast(rayToback, 3, Layers.WallsFloor))
                 {
                     // Creates a ray to a random side
@@ -68,9 +69,11 @@ sealed public class ActionGetDistantFromPlayer : FSMAction
                         // If there's nothing blocking the random side, moves the enemy towards that side
                         // else it will move to the opposite side
                         if (ai.Controller.DirectionIfBackBlocked == Direction.Right)
-                            ai.Controller.Agent.SetDestination(ai.Controller.transform.position + ai.Controller.transform.right);
+                            ai.Controller.Agent.SetDestination(
+                                ai.Controller.transform.position + ai.Controller.transform.right);
                         else
-                            ai.Controller.Agent.SetDestination(ai.Controller.transform.position - ai.Controller.transform.right);
+                            ai.Controller.Agent.SetDestination(
+                                ai.Controller.transform.position - ai.Controller.transform.right);
                     }
                 }
                 else
