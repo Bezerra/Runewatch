@@ -41,6 +41,9 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     [SerializeField] private ElementType element;
     public ElementType Element => element;
 
+    private float timeOfGeneration;
+
+    private void Update() => timeOfGeneration += Time.deltaTime;
 
     /// <summary>
     /// Sets variables values.
@@ -100,7 +103,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// <param name="firstAttempt">Parameter that defines if this is the firsts attempt creating the level.</param>
     /// <returns>Null.</returns>
     private IEnumerator GenerateLevel(System.Random random, bool firstAttempt = true)
-    { 
+    {
+        timeOfGeneration = 0;
         YieldInstruction wffu = new WaitForEndOfFrame();
         bool bossRoomSpawned = false;
         IList<ContactPoint> openedContactPoints;
@@ -130,20 +134,22 @@ public class LevelGenerator : MonoBehaviour, ISaveable
 
             // Creates and places first corridor
             LevelPiece startingRoomPiece = Instantiate(startingPiece, Vector3.zero, Quaternion.identity);
-            ContactPoint startingRoomContactPoint = startingRoomPiece.ContactPoints[random.Next(0, startingRoomPiece.ContactPoints.Length)];
+            ContactPoint startingRoomContactPoint = 
+                startingRoomPiece.ContactPoints[random.Next(0, startingRoomPiece.ContactPoints.Length)];
             startingRoomPiece.transform.parent = levelParent.transform;
             allRoomsAndCorridors.Add(startingRoomPiece);
             ////////////////////////////////////////////
 
             // Creates first corridor
             LevelPiece initialCorridor = Instantiate(corridors[random.Next(0, corridors.Length)]);
-            ContactPoint initialCorridorContactPoint = initialCorridor.ContactPoints[random.Next(0, initialCorridor.ContactPoints.Length)];
+            ContactPoint initialCorridorContactPoint = 
+                initialCorridor.ContactPoints[random.Next(0, initialCorridor.ContactPoints.Length)];
             initialCorridor.transform.parent = levelParent.transform;
             allRoomsAndCorridors.Add(initialCorridor);
             ////////////////////////////////////////////
 
             // Places first corridor and closes its contact points
-            RotateAndSetPiece(initialCorridor, initialCorridorContactPoint, startingRoomContactPoint, random);
+            RotateAndSetPiece(initialCorridor, initialCorridorContactPoint, startingRoomContactPoint);
             initialCorridorContactPoint.Close();
             startingRoomContactPoint.Close();
             // Gets the wall on top of this open contact point and deactivates it
@@ -182,8 +188,10 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                     LevelPiece pieceToPlace = null;
                     ContactPoint pieceContactPoint = null;
 
+                    // If this point is in a room
                     if (openedContactPoints[i].ParentRoom.Type == PieceType.Room)
                     {
+                        // Creates a corridor/stairs
                         pieceToPlace = Instantiate(corridors[random.Next(0, corridors.Length)]);
                         pieceContactPoint = pieceToPlace.ContactPoints[random.Next(0, pieceToPlace.ContactPoints.Length)];
 
@@ -195,13 +203,14 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                             continue;
                         }
 
-                        RotateAndSetPiece(pieceToPlace, pieceContactPoint, openedContactPoints[i], random);
+                        RotateAndSetPiece(pieceToPlace, pieceContactPoint, openedContactPoints[i]);
 
                         yield return wffu;
 
                         ValidatePiece(pieceToPlace, pieceContactPoint, false, openedContactPoints, i, levelParent, random);
                     }
 
+                    // If it's a corridor/stairs
                     if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor ||
                         openedContactPoints[i].ParentRoom.Type == PieceType.Stairs)
                     {
@@ -217,7 +226,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                         }
 
                         RotateAndSetPiece(
-                            pieceToPlace, pieceContactPoint, openedContactPoints[i], random);
+                            pieceToPlace, pieceContactPoint, openedContactPoints[i]);
 
                         yield return wffu;
 
@@ -250,10 +259,12 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             #region Boss Room
             // Generate boss room
             // Organized a list with contact points by distance
-            List<ContactPoint> contactPointsDistance = openedContactPoints.OrderByDescending(i => Vector3.Distance(i.transform.position,
+            List<ContactPoint> contactPointsDistance = 
+                openedContactPoints.OrderByDescending(i => Vector3.Distance(i.transform.position,
                                                         startingRoomPiece.transform.position)).ToList();
             LevelPiece bossRoomPiece = Instantiate(bossRoom);
-            ContactPoint bossRoomContactPoint = bossRoomPiece.ContactPoints[random.Next(0, bossRoomPiece.ContactPoints.Length)];
+            ContactPoint bossRoomContactPoint = 
+                bossRoomPiece.ContactPoints[random.Next(0, bossRoomPiece.ContactPoints.Length)];
             bossRoomPiece.transform.parent = levelParent.transform;
 
             for (int i = 0; i < contactPointsDistance.Count; i++)
@@ -261,7 +272,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                 if (contactPointsDistance[i].ParentRoom.Type == PieceType.Corridor ||
                     contactPointsDistance[i].ParentRoom.Type == PieceType.Stairs)
                 {
-                    RotateAndSetPiece(bossRoomPiece, bossRoomContactPoint, contactPointsDistance[i], random);
+                    RotateAndSetPiece(bossRoomPiece, bossRoomContactPoint, contactPointsDistance[i]);
 
                     yield return new WaitForSeconds(0.25f);
 
@@ -395,7 +406,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         }
         */
 
-        Debug.Log("Took " + Time.time + " seconds to generate, with seed " + seed + '.');
+        Debug.Log("Took " + timeOfGeneration + " seconds to generate, with seed " + seed + '.');
 
         OnEndedGeneration();
     }
@@ -462,15 +473,14 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// Checks if a piece intersects with any other piece.
     /// </summary>
     /// <param name="levelPiece">Piece to check.</param>
-    /// <param name="random">Instance of random.</param> 
     /// <returns>Returns true if a piece intersects with any other piece.</returns>
-    private bool PieceIntersection(LevelPiece levelPiece, System.Random random)
+    private bool PieceIntersection(LevelPiece levelPiece)
     {
         foreach (BoxCollider boxCollider in levelPiece.BoxColliders)
         {
             Collider[] roomCollider = 
                 Physics.OverlapBox(levelPiece.transform.position + boxCollider.center, boxCollider.size / 2,
-                boxCollider.transform.root.rotation, roomColliderLayer);
+                levelPiece.transform.rotation, roomColliderLayer);
 
             if (roomCollider.Length > 1)
             {
@@ -486,12 +496,24 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// <param name="levelPiece">Piece to rotate.</param>
     /// <param name="levelPieceContact">Contact point of the piece.</param>
     /// <param name="originContact">Contact point to match.</param>
-    /// /// <param name="random">Instance of random.</param>
-    /// <param name="inversedContact">Parameter that checks if the origin contact is inversed (true = corridor) or not (false = room).</param>
-    private void RotatePiece(LevelPiece levelPiece, ContactPoint levelPieceContact, ContactPoint originContact, System.Random random, 
+    /// <param name="inversedContact">Parameter that checks if the origin 
+    /// contact is inversed (true = corridor) or not (false = room).</param>
+    private void RotatePiece(LevelPiece levelPiece, ContactPoint levelPieceContact, 
+        ContactPoint originContact, 
         bool inversedContact = false)
     {
+        levelPieceContact.ParentRoom.transform.rotation =
+            Quaternion.LookRotation(originContact.transform.forward, originContact.transform.up);
+
+        while(levelPieceContact.transform.SameDirectionAs(originContact.transform) == false)
+        {
+            levelPieceContact.ParentRoom.transform.rotation *=
+            (levelPieceContact.transform.localRotation);
+        }
+
+        /*
         byte placementCount = 0;
+
         while (placementCount < 4)
         {
             if (inversedContact)
@@ -519,6 +541,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                 }
             }
         }
+        */
     }
 
     /// <summary>
@@ -526,7 +549,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// </summary>
     /// <param name="levelPiece">Piece to check.</param>
     /// <param name="random">Instance of random.</param>
-    /// <param name="creatingLevelBase">True if it's not creating walls or boss room (meaning it's still creating the base structure).</param>
+    /// <param name="creatingLevelBase">True if it's not creating 
+    /// walls or boss room (meaning it's still creating the base structure).</param>
     /// <returns>Returns true if the piece is valid, else it returns false.</returns>
     private bool IsPieceValid(LevelPiece levelPiece, System.Random random, bool creatingLevelBase = true)
     {
@@ -547,7 +571,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                 return false;
             }
         }
-        if (PieceIntersection(levelPiece, random))
+        if (PieceIntersection(levelPiece))
         {
             Destroy(levelPiece.gameObject);
             return false;
@@ -579,10 +603,11 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// <param name="contactPoint">Piece contact point.</param>
     /// <param name="openedContactPoint">Opened contact point to place the piece.</param>
     /// <param name="random">Instance of Random.</param>
-    private void RotateAndSetPiece(LevelPiece pieceToPlace, ContactPoint contactPoint, ContactPoint openedContactPoint, System.Random random)
+    private void RotateAndSetPiece(LevelPiece pieceToPlace, 
+        ContactPoint contactPoint, ContactPoint openedContactPoint)
     {
         // Rotates piece to match contact point rotation
-        RotatePiece(pieceToPlace, contactPoint, openedContactPoint, random);
+        RotatePiece(pieceToPlace, contactPoint, openedContactPoint, false);
 
         // Sets a piece in a contact point
         SetPiece(pieceToPlace, contactPoint, openedContactPoint);
