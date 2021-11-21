@@ -218,6 +218,24 @@ public class CheatConsole : MonoBehaviour, IFindPlayer
                     DisableConsole();
                     break;
 
+                case "fly 1":
+                    Debug.Log("Player fly true");
+                    playerRoot.GetComponentInChildren<CharacterController>(true).enabled = false;
+                    FindObjectOfType<PlayerFly>().CheatApplied = true;
+                    ChangeLayersAllChilds(playerRoot.transform, Layers.PlayerLayerNum, Layers.InvisiblePlayerLayerNum, true);
+                    foreach (Enemy en in FindObjectsOfType<Enemy>())
+                        en.CurrentTarget = null;
+                    DisableConsole();
+                    break;
+
+                case "fly 0":
+                    Debug.Log("Player invisible false");
+                    FindObjectOfType<PlayerFly>().CheatApplied = false;
+                    playerRoot.GetComponentInChildren<CharacterController>(true).enabled = true;
+                    ChangeLayersAllChilds(playerRoot.transform, Layers.PlayerLayerNum, Layers.InvisiblePlayerLayerNum, false);
+                    DisableConsole();
+                    break;
+
                 case "invisible 1":
                     Debug.Log("Player invisible true");
                     ChangeLayersAllChilds(playerRoot.transform, Layers.PlayerLayerNum, Layers.InvisiblePlayerLayerNum, true);
@@ -228,7 +246,6 @@ public class CheatConsole : MonoBehaviour, IFindPlayer
 
                 case "invisible 0":
                     Debug.Log("Player invisible false");
-                    playerStats.gameObject.layer = Layers.PlayerLayerNum;
                     ChangeLayersAllChilds(playerRoot.transform, Layers.PlayerLayerNum, Layers.InvisiblePlayerLayerNum, false);
                     DisableConsole();
                     break;
