@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using ExtensionMethods;
 
@@ -12,7 +10,8 @@ public class PlayerTriggerRoomEnemySpawn : MonoBehaviour
     {
         if (other.gameObject.layer == Layers.RoomProgressLayerNum)
         {
-            if (other.TryGetComponentInParent(out LevelPieceGameProgressControl progressControl))
+            if (other.TryGetComponentInParent(
+                out LevelPieceGameProgressControl progressControl))
             {
                 progressControl.SpawnEnemies();
             }

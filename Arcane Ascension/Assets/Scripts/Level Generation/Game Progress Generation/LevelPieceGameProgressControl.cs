@@ -10,7 +10,7 @@ public class LevelPieceGameProgressControl : MonoBehaviour
     [SerializeField] private BoxCollider[] exitBlockers;
     [SerializeField] private Transform[] enemySpawnTransforms;
 
-    public int currentQuantityOfEnemies;
+    private int currentQuantityOfEnemies;
     private int quantityOfEnemiesSpawned;
     private bool haveEnemiesSpawned;
 
@@ -40,12 +40,11 @@ public class LevelPieceGameProgressControl : MonoBehaviour
         {
             if (quantityOfEnemiesSpawned == 0)
             {
-
                 if (exitBlockers.Length > 0)
                 {
                     foreach (BoxCollider exitBlock in exitBlockers)
                     {
-                        exitBlock.enabled = false;
+                        exitBlock.enabled = true;
                     }
                 }
             }
