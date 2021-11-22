@@ -109,6 +109,10 @@ public abstract class SpellSO : ScriptableObject, ISpell
     [Tooltip("What kind of damage will it be")]
     [SerializeField] protected DamageBehaviourAbstractSO damageBehaviour;
 
+    [BoxGroup("Behaviours")]
+    [Tooltip("What kind of status will this spell cause")]
+    [SerializeField] protected StatusBehaviourAbstractSO statusBehaviour;
+
     [BoxGroup("Sounds")]
     [SerializeField] protected SpellSound sounds;
 
@@ -139,8 +143,8 @@ public abstract class SpellSO : ScriptableObject, ISpell
     public virtual IList<SpellBehaviourAbstractContinuousSO> SpellBehaviourContinuous { get; }
     public virtual IList<SpellOnHitBehaviourAbstractContinuousSO> OnHitBehaviourContinuous { get; }
     public virtual IList<SpellMuzzleBehaviourAbstractContinuousSO> MuzzleBehaviourContinuous { get; }
-
     public DamageBehaviourAbstractSO DamageBehaviour => damageBehaviour;
+    public StatusBehaviourAbstractSO StatusBehaviour => statusBehaviour;
     public abstract AttackBehaviourAbstractSO AttackBehaviour { get; }
 
     /// <summary>

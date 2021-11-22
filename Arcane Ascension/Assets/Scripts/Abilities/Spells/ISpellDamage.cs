@@ -14,4 +14,5 @@ public interface ISpellDamage
     Sprite ElementIcon { get; }
     Sprite TargetTypeIcon { get; }
     DamageBehaviourAbstractSO DamageBehaviour { get; }
+    StatusBehaviourAbstractSO StatusBehaviour { get; }
 }
