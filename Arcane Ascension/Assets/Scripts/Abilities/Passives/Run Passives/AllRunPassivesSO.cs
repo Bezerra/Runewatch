@@ -32,12 +32,14 @@ public class AllRunPassivesSO : ScriptableObject
         }
     }
 
+    /// <summary>
+    /// Called on passives value changed.
+    /// </summary>
     private void UpdateID()
     {
         for (int i = 0; i < passives.Count; i++)
         {
             passives[i].ID = (byte)i;
         }
-        Debug.Log("DEU2");
     }
 }

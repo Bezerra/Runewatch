@@ -44,7 +44,6 @@ public class SpellBehaviourSpawnStatusSO : SpellBehaviourAbstractOneShotSO
                 statusBehaviour.Spell = parent.Spell;
                 statusBehaviour.WhoCast = parent.WhoCast;
                 statusBehaviour.CharacterHit = parent.CharacterHit;
-                Debug.Log(parent.CharacterHit);
                 statusBehaviour.TriggerStartBehaviour();
             }
         }

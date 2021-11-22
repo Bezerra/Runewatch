@@ -21,10 +21,6 @@ public abstract class SpellSO : ScriptableObject, ISpell
     [SerializeField] protected new string name = "New Spell";
 
     [VerticalGroup("General/Split/Middle", 1), LabelWidth(60)]
-    [Tooltip("Single ID for every spell. No spells should have the same ID")]
-    [Range(0, 255)] [SerializeField] protected byte spellID;
-
-    [VerticalGroup("General/Split/Middle", 1), LabelWidth(60)]
     [Tooltip("Spell tier")]
     [Range(1, 3)] [SerializeField] private int spellTier;
 
@@ -121,7 +117,7 @@ public abstract class SpellSO : ScriptableObject, ISpell
     public Sprite ElementIcon => elementIcon;
     public Sprite TargetTypeIcon => targetTypeIcon;
     public string Name => name;
-    public byte ID => spellID;
+    public byte ID { get; set; }
     public int Tier => spellTier;
     public string Description => description;
     public ElementType Element => element;
