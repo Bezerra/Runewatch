@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -14,8 +13,10 @@ public class AmbienceObjectSound : MonoBehaviour
     private void Awake() =>
         audioSource = GetComponent<AudioSource>();
 
-    private void Start()
+    private IEnumerator Start()
     {
+        yield return new WaitForSeconds(Random.Range(0, 2f));
+
         audioSource.loop = true;
         soundToPlay.SetOnAudioSource(audioSource);
     }
