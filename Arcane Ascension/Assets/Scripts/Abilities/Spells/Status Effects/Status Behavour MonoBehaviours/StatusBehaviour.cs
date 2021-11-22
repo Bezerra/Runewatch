@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for running status logic.
 /// </summary>
-public abstract class StatusBehaviour : MonoBehaviour
+public class StatusBehaviour : MonoBehaviour
 {
     /// <summary>
     /// Parent spell of this 
@@ -39,6 +39,11 @@ public abstract class StatusBehaviour : MonoBehaviour
     {
         if (Spell.StatusBehaviour != null)
             Spell.StatusBehaviour.ContinuousUpdateBehaviour(this);
+    }
+
+    private void FixedUpdate()
+    {
+        transform.position = CharacterHit.transform.position;
     }
 
     /// <summary>

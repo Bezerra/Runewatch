@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Class responsible for creating damage hit pools.
+/// Class responsible for creating status behaviour pools.
 /// </summary>
-public class DamageHitPoolCreator : MonoBehaviour
+public class StatusBehaviourPoolCreator : MonoBehaviour
 {
     /// <summary>
     /// Prefab of the damage hit prefab.

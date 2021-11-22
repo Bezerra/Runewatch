@@ -39,6 +39,11 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
     /// Layer of the last character hit.
     /// </summary>
     public LayerMask LayerOfCharacterHit { get; set; }
+
+    /// <summary>
+    /// Character hit.
+    /// </summary>
+    public Stats CharacterHit { get; set; }
     
     /// <summary>
     /// Gets position on spawn or everytime it hits.

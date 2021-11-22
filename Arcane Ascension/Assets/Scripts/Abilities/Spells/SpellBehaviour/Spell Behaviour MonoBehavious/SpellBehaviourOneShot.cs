@@ -175,6 +175,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
                         behaviour.HitTriggerBehaviour(other, this);
 
                     // Updates last character hit variables
+                    CharacterHit = component.GetComponentInChildren<Stats>();
                     LayerOfCharacterHit = component.gameObject.layer;
                     lastHitGameObject = component.gameObject;
                 }
