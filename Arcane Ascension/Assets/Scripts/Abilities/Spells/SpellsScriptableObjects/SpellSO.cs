@@ -145,6 +145,7 @@ public abstract class SpellSO : ScriptableObject, ISpell
 
     /// <summary>
     /// Item1 is spell Prefab. Item2 is spell hit prefab. Item 3 is spell muzzle prefab.
+    /// Item4 is spell hand effect, Item5 is area hover prefab.
     /// </summary>
     public (GameObject, GameObject, GameObject, GameObject, GameObject) Prefab => 
         (spellPrefab, spellHitPrefab, spellMuzzlePrefab, spellHandEffectPrefab, areaHoverPrefab);
