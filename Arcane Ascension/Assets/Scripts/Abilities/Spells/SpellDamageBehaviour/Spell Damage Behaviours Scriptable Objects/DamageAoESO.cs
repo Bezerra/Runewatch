@@ -31,7 +31,8 @@ public class DamageAoESO : DamageBehaviourAbstractSO
                     parent.PositionOnHit, parent.Spell.AreaOfEffect, Layers.PlayerEnemy);
 
         // Creates a new list with IDamageable characters
-        IList<IDamageable> charactersToDoDamage = new List<IDamageable>();
+        // Must be Stats instead of IDamageable to apply status behaviour
+        IList<Stats> charactersToDoDamage = new List<Stats>();
 
         // If the enemy is directly hit
         if (other != null)
@@ -40,7 +41,7 @@ public class DamageAoESO : DamageBehaviourAbstractSO
             {
                 if (!enemyDirectHit.Equals(parent.ThisIDamageable))
                 {
-                    charactersToDoDamage.Add(enemyDirectHit);
+                    charactersToDoDamage.Add(enemyDirectHit as Stats);
                 }
             }
         }
@@ -66,9 +67,9 @@ public class DamageAoESO : DamageBehaviourAbstractSO
                         // If the layer is different (enemies can't hit enemies)
                         if (characterHit.collider.gameObject.layer != parent.LayerOfWhoCast)
                         {
-                            if (charactersToDoDamage.Contains(character) == false)
+                            if (charactersToDoDamage.Contains(character as Stats) == false)
                             {
-                                charactersToDoDamage.Add(character);
+                                charactersToDoDamage.Add(character as Stats);
                             }
                         }
                     }
@@ -82,6 +83,8 @@ public class DamageAoESO : DamageBehaviourAbstractSO
         {
             for (int i = 0; i < charactersToDoDamage.Count; i++)
             {
+                ApplyStatusEffect(parent, charactersToDoDamage[i]);
+
                 charactersToDoDamage[i].TakeDamage(
                     parent.WhoCast.CommonAttributes.BaseDamageMultiplier *
                     parent.WhoCast.CommonAttributes.DamageElementMultiplier[parent.Spell.Element] *

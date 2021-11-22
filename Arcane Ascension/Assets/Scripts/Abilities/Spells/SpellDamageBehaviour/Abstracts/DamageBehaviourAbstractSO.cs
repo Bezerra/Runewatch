@@ -22,4 +22,47 @@ public abstract class DamageBehaviourAbstractSO : ScriptableObject, IDamageBehav
     /// <param name="other">Collider to get IDamageables to damage.</param>
     /// <param name="damageMultiplier">Damage multiplier. It's 1 by default.</param>
     protected abstract void DamageLogic(SpellBehaviourAbstract parent, Collider other = null, float damageMultiplier = 1);
+
+    /// <summary>
+    /// If this spell is a single target spell and contains a status effect, it applies that status effect.
+    /// </summary>
+    /// <param name="parent">Parent spell.</param>
+    protected void ApplyStatusEffect(SpellBehaviourAbstract parent)
+    {
+        if (parent.Spell.StatusBehaviour != null)
+        {
+            GameObject statusGO =
+                StatusBehaviourPoolCreator.Pool.InstantiateFromPool("Status Behaviour");
+
+            if (statusGO.TryGetComponent(out StatusBehaviour statusBehaviour))
+            {
+                statusBehaviour.Spell = parent.Spell;
+                statusBehaviour.WhoCast = parent.WhoCast;
+                statusBehaviour.CharacterHit = parent.CharacterHit;
+                statusBehaviour.TriggerStartBehaviour();
+            }
+        }
+    }
+
+    /// <summary>
+    /// If this spell is an AoE spell and contains a status effect, it applies that status effect.
+    /// </summary>
+    /// <param name="parent">Parent spell.</param>
+    /// <param name="characterHit">Character hit by the spell.</param>
+    protected void ApplyStatusEffect(SpellBehaviourAbstract parent, Stats characterHit)
+    {
+        if (parent.Spell.StatusBehaviour != null)
+        {
+            GameObject statusGO =
+                StatusBehaviourPoolCreator.Pool.InstantiateFromPool("Status Behaviour");
+
+            if (statusGO.TryGetComponent(out StatusBehaviour statusBehaviour))
+            {
+                statusBehaviour.Spell = parent.Spell;
+                statusBehaviour.WhoCast = parent.WhoCast;
+                statusBehaviour.CharacterHit = characterHit;
+                statusBehaviour.TriggerStartBehaviour();
+            }
+        }
+    }
 }

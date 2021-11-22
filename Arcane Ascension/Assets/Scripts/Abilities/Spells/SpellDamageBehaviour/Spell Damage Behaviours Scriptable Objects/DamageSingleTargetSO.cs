@@ -45,6 +45,8 @@ public class DamageSingleTargetSO : DamageBehaviourAbstractSO
                     criticalChance = 1;
                 }
 
+                ApplyStatusEffect(parent);
+
                 character.TakeDamage(
                     parent.WhoCast.CommonAttributes.BaseDamageMultiplier *
                     parent.WhoCast.CommonAttributes.DamageElementMultiplier[parent.Spell.Element] *

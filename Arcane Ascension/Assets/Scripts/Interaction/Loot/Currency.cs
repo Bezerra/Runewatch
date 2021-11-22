@@ -37,16 +37,13 @@ public class Currency : MonoBehaviour, ICurrency
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == Layers.PlayerLayerNum ||
-            other.gameObject.layer == Layers.InvisiblePlayerLayerNum)
+        if (other.TryGetComponent<IUseCurrency>(out IUseCurrency currency))
         {
-            if (other.TryGetComponent<IUseCurrency>(out IUseCurrency currency))
-            {
-                float amountToGain = Random.Range(Amount.x, Amount.y);
+            float amountToGain = Random.Range(Amount.x, Amount.y);
 
-                currency.GainCurrency(currencySO.CurrencyType,
-                    (int)(amountToGain + (AmountMultiplier * amountToGain * 0.01f)));
-            }
+            currency.GainCurrency(currencySO.CurrencyType,
+                (int)(amountToGain + (AmountMultiplier * amountToGain * 0.01f)));
+
             LootSoundPoolCreator.Pool.InstantiateFromPool(
                 lootType.ToString(), transform.position, Quaternion.identity);
 

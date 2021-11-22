@@ -10,7 +10,8 @@ public class Potion : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == Layers.PlayerLayerNum)
+        if (other.gameObject.layer == Layers.PlayerLayerNum ||
+            other.gameObject.layer == Layers.InvisiblePlayerLayerNum)
         {
             if (potion.PotionType == PotionType.Health)
             {
