@@ -10,4 +10,6 @@ public class AllSpells : MonoBehaviour
 
     public List<SpellSO> SpellList =>
         allSpells.SpellList;
+
+    public SpellSO DefaultSpell => allSpells.DefaultSpell;
 }

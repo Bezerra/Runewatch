@@ -106,9 +106,6 @@ public class EventGetThreeRandomSpellsSO : EventAbstractSO
         foreach (SpellSO spell in playerSpells.CurrentSpells)
             allSpellsAvailable.Remove(spell);
 
-        // Removes default spell
-        allSpellsAvailable.RemoveAt(0); 
-
         // Creates array with 3 random spells
         abilitiesToChose.SpellResult = GetSpell(allSpellsAvailable, availableSpellsWeight);
     }

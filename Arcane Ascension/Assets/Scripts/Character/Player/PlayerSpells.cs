@@ -14,6 +14,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     private PlayerHandEffect playerHandEffect;
     private PlayerStats playerStats;
     private IList<SpellSO> allSpells;
+    private SpellSO defaultSpell;
     private PlayerCastSpell playerCastSpell;
 
     // Array with all available spells
@@ -24,7 +25,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
 
     // Currently active spell from available spells
     public ISpell ActiveSpell => CurrentSpells[CurrentSpellIndex];
-    public ISpell SecondarySpell => allSpells[0];
+    public ISpell SecondarySpell => defaultSpell;
 
     // Coroutines
     private YieldInstruction wffu;
@@ -39,6 +40,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
         playerHandEffect = FindObjectOfType<PlayerHandEffect>();
         playerStats = GetComponent<PlayerStats>();
         allSpells = FindObjectOfType<AllSpells>().SpellList;
+        defaultSpell = FindObjectOfType<AllSpells>().DefaultSpell;
         playerCastSpell = GetComponent<PlayerCastSpell>();
 
         CurrentSpells = new SpellSO[4];
@@ -49,7 +51,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     {
         //allSpells.Count or 2 or 4
         // TEMPORARY TESTS // Adds 4 spells to current spells
-        for (int i = 1; i < 4; i++)
+        for (int i = 0; i < 3; i++)
         {
             if (i <= CurrentSpells.Length)
             {
