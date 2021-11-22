@@ -41,8 +41,10 @@ public class SpellBehaviourSpawnStatusSO : SpellBehaviourAbstractOneShotSO
 
             if (statusGO.TryGetComponent(out StatusBehaviour statusBehaviour))
             {
+                statusBehaviour.Spell = parent.Spell;
                 statusBehaviour.WhoCast = parent.WhoCast;
                 statusBehaviour.CharacterHit = parent.CharacterHit;
+                Debug.Log(parent.CharacterHit);
                 statusBehaviour.TriggerStartBehaviour();
             }
         }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -25,30 +26,54 @@ public class StatusBehaviour : MonoBehaviour
     /// </summary>
     public Stats WhoCast { get; set; }
 
+    private YieldInstruction wffu;
+
+    private void Awake()
+    {
+        wffu = new WaitForFixedUpdate();
+    }
+
+    private void OnDisable()
+    {
+        TimeSpawned = 0;
+        CharacterHit = null;
+        WhoCast = null;
+        Spell = null;
+    }
+
     /// <summary>
     /// Method called after instantiating the spell.
     /// Must be called manually through this method instead of OnEnable or Start in order to prevent bugs.
     /// </summary>
     public void TriggerStartBehaviour()
     {
-        if (Spell.StatusBehaviour != null)
+        TimeSpawned = Time.time;
+        StartCoroutine(TriggerStartBehaviourCoroutine());
+    }
+
+    private IEnumerator TriggerStartBehaviourCoroutine()
+    {
+        yield return wffu;
+        yield return wffu;
+        if (Spell?.StatusBehaviour != null)
             Spell.StatusBehaviour.StartBehaviour(this);
     }
 
     private void Update()
     {
-        if (Spell.StatusBehaviour != null)
+        if (Spell?.StatusBehaviour != null)
             Spell.StatusBehaviour.ContinuousUpdateBehaviour(this);
     }
 
     private void FixedUpdate()
     {
-        transform.position = CharacterHit.transform.position;
+        if (CharacterHit != null)
+            transform.position = CharacterHit.transform.position;
     }
 
     /// <summary>
     /// Disables status gameobject.
     /// </summary>
-    public void DisableHitSpell() =>
+    public void DisableStatusGameObject() =>
         gameObject.SetActive(false);
 }

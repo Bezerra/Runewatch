@@ -171,11 +171,12 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
                 {
                     // If this spell is hitting something for the first time
                     TimeOfImpact = Time.time;
+                    // Updates last character hit variables
+                    CharacterHit = component.GetComponentInChildren<Stats>();
+
                     foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviourOneShot)
                         behaviour.HitTriggerBehaviour(other, this);
 
-                    // Updates last character hit variables
-                    CharacterHit = component.GetComponentInChildren<Stats>();
                     LayerOfCharacterHit = component.gameObject.layer;
                     lastHitGameObject = component.gameObject;
                 }
