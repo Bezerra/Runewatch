@@ -45,16 +45,19 @@ public class PlayerHandEffect : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (spawnedSpell != null)
         {
-            spawnedSpell.transform.SetPositionAndRotation(currentEffectPosition.position, currentEffectPosition.rotation);
+            spawnedSpell.transform.position = currentEffectPosition.position;
+            //spawnedSpell.transform.SetPositionAndRotation(
+            //    currentEffectPosition.position, currentEffectPosition.rotation);
         }
 
         // If there's a previows spell still active, it will disable it when it stops emitting particles
         if (vfxPreviousSpawnedSpell.Count > 0)
         {
+            Debug.Log("Run");
             for (int i = 0; i < vfxPreviousSpawnedSpell.Count; i++)
             {
                 if (vfxPreviousSpawnedSpell[i].aliveParticleCount == 0)

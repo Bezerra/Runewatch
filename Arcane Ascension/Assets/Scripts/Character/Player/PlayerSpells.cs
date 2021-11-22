@@ -108,7 +108,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     {
         int finalIndex = CurrentSpellIndex;
 
-        if (axis > 0)
+        if (axis < 0)
         {
             if (finalIndex + 1 < CurrentSpells.Length)
             {
@@ -119,7 +119,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
                 finalIndex = 0;
             }
         }
-        if (axis < 0)
+        if (axis > 0)
         {
             if (finalIndex - 1 >= 0)
             {
