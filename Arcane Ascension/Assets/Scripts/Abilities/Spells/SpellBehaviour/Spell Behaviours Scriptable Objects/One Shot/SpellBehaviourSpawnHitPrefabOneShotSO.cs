@@ -80,16 +80,35 @@ public class SpellBehaviourSpawnHitPrefabOneShotSO : SpellBehaviourAbstractOneSh
                 parent.Spell.Name, positionToSpawnHit,
                 spellLookRotation);
 
-            if (onHitBehaviourGameObject.TryGetComponent<SpellOnHitBehaviourOneShot>(out SpellOnHitBehaviourOneShot onHitBehaviour))
+            if (onHitBehaviourGameObject.TryGetComponent<SpellOnHitBehaviourOneShot>(
+                out SpellOnHitBehaviourOneShot onHitBehaviour))
             {
                 // Sets hit spell that spawned it
                 if (onHitBehaviour.Spell != parent.Spell)
                     onHitBehaviour.Spell = parent.Spell;
 
-                // If there's a sound and hit is not an enemy
-                if (parent.Spell.Sounds.Hit != null)
+                if (other.TryGetComponent(out ISurface surface))
                 {
-                    onHitBehaviour.Spell.Sounds.Hit.PlaySound(onHitBehaviour.AudioS);
+                    if (parent.Spell.SurfaceSounds.ContainsKey(surface.SurfaceType))
+                    {
+                        parent.Spell.SurfaceSounds[surface.SurfaceType].PlaySound(onHitBehaviour.AudioS);
+                    }
+                    else
+                    {
+                        // If there's a sound and hit is not an enemy
+                        if (parent.Spell.Sounds.Hit != null)
+                        {
+                            onHitBehaviour.Spell.Sounds.Hit.PlaySound(onHitBehaviour.AudioS);
+                        }
+                    }
+                }
+                else
+                {
+                    // If there's a sound and hit is not an enemy
+                    if (parent.Spell.Sounds.Hit != null)
+                    {
+                        onHitBehaviour.Spell.Sounds.Hit.PlaySound(onHitBehaviour.AudioS);
+                    }
                 }
             }
         }

@@ -98,6 +98,7 @@ public abstract class SpellSO : ScriptableObject, ISpell
     [Tooltip("Effect that will be shown in player's hand")]
     [SerializeField] protected GameObject spellHandEffectPrefab;
     [BoxGroup("Prefabs")]
+    [EnableIf("@spellCastType == SpellCastType.OneShotCastWithRelease")]
     [Tooltip("Effect that will be shown for spells that have an area target vfx")]
     [SerializeField] protected GameObject areaHoverPrefab;
 
@@ -111,6 +112,10 @@ public abstract class SpellSO : ScriptableObject, ISpell
 
     [BoxGroup("Sounds")]
     [SerializeField] protected SpellSound sounds;
+
+    [BoxGroup("Sounds")]
+    [TableList] [Header("Sounds for spells that hit surfaces ONLY")]
+    [SerializeField] protected List<SoundAssetWithType> surfaceSounds;
 
     // Properties
     public Sprite Icon => icon;
@@ -150,7 +155,27 @@ public abstract class SpellSO : ScriptableObject, ISpell
     public (GameObject, GameObject, GameObject, GameObject, GameObject) Prefab => 
         (spellPrefab, spellHitPrefab, spellMuzzlePrefab, spellHandEffectPrefab, areaHoverPrefab);
 
+    /// <summary>
+    /// Sounds of spell events.
+    /// </summary>
     public SpellSound Sounds => sounds;
+
+    /// <summary>
+    /// Dictionary with possible surfaces and sounds.
+    /// </summary>
+    public IDictionary<SurfaceType, AbstractSoundSO> SurfaceSounds { get; private set; }
+
+    private void OnEnable()
+    {
+        SurfaceSounds = new Dictionary<SurfaceType, AbstractSoundSO>();
+        if(surfaceSounds.Count > 0)
+        {
+            foreach(SoundAssetWithType sound in surfaceSounds)
+            {
+                SurfaceSounds.Add(sound.SurfaceType, sound.SurfaceSound);
+            }
+        }
+    }
 
 #if UNITY_EDITOR
     protected void ChangeFileName()
