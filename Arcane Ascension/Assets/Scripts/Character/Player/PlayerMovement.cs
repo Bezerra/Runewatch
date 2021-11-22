@@ -122,6 +122,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (fallingCoroutine == null)
             {
+                Debug.Log("FAL");
                 fallingCoroutine = FallingCoroutine();
                 StartCoroutine(fallingCoroutine);
             }
@@ -340,13 +341,15 @@ public class PlayerMovement : MonoBehaviour
     /// <returns>Null.</returns>
     private IEnumerator FallingCoroutine()
     {
+        gravityIncrement = 0.01f;
+
         // Starts incrementing gravity every fixed update
         while (true)
         {
             yield return wffu;
 
             // Increments gravity
-            if (gravityIncrement >= 20) gravityIncrement = 20;
+            if (gravityIncrement >= 0.2f / Time.fixedDeltaTime) gravityIncrement = 0.2f / Time.fixedDeltaTime;
             else gravityIncrement += player.Values.GravityIncrement;
 
             // Breaks the coroutine if the character touches the floor
