@@ -13,6 +13,9 @@ public class PlayerHandEffect : MonoBehaviour
     private IList<GameObject> previousSpawnedSpell;
     private IList<VisualEffect> vfxPreviousSpawnedSpell;
 
+    // Pool transform
+    private Transform poolTransformParent;
+
     private void Awake()
     {
         previousSpawnedSpell = new List<GameObject>();
@@ -38,26 +41,34 @@ public class PlayerHandEffect : MonoBehaviour
 
         if (spell.Prefab.Item4 != null)
         {
+            // If there's a spell on player's hand already, moves it to pool parent
+            if (spawnedSpell != null)
+                spawnedSpell.transform.parent = poolTransformParent;
+
             // Starts a new effect
             spawnedSpell =
                 SpellHandEffectPoolCreator.Pool.InstantiateFromPool(
                     spell.Name, Vector3.zero, Quaternion.identity);
+
+            // Sets pool transform parent
+            if (poolTransformParent == null)
+                poolTransformParent = spawnedSpell.transform.parent;
+
+            // Sets spell parent as this game object.
+            spawnedSpell.transform.parent = 
+                currentEffectPosition.transform;
+
+            // Resets position and rotation
+            spawnedSpell.transform.localPosition = Vector3.zero;
+            spawnedSpell.transform.localRotation = Quaternion.Euler(Vector3.zero);
         }
     }
 
     private void FixedUpdate()
     {
-        if (spawnedSpell != null)
-        {
-            spawnedSpell.transform.position = currentEffectPosition.position;
-            //spawnedSpell.transform.SetPositionAndRotation(
-            //    currentEffectPosition.position, currentEffectPosition.rotation);
-        }
-
         // If there's a previows spell still active, it will disable it when it stops emitting particles
         if (vfxPreviousSpawnedSpell.Count > 0)
         {
-            Debug.Log("Run");
             for (int i = 0; i < vfxPreviousSpawnedSpell.Count; i++)
             {
                 if (vfxPreviousSpawnedSpell[i].aliveParticleCount == 0)
