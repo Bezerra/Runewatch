@@ -165,7 +165,7 @@ public abstract class SpellSO : ScriptableObject, ISpell
     /// </summary>
     public IDictionary<SurfaceType, AbstractSoundSO> SurfaceSounds { get; private set; }
 
-    private void OnEnable()
+    public void Initialize()
     {
         SurfaceSounds = new Dictionary<SurfaceType, AbstractSoundSO>();
         if(surfaceSounds.Count > 0)

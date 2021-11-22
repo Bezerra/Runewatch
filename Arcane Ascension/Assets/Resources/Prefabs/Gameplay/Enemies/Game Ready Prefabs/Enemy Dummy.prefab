@@ -301,7 +301,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5934720716488811008}
-  - component: {fileID: 5934720716488811009}
+  - component: {fileID: 2588902458695379245}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -323,8 +323,8 @@ Transform:
   m_Father: {fileID: 5934720716860972757}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &5934720716488811009
-SphereCollider:
+--- !u!136 &2588902458695379245
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -333,9 +333,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 1.01
+  m_Height: 3.05
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.53, z: 0}
 --- !u!1 &5934720716837277519
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,6 +480,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4429420424311891391, guid: c7f94df95160a7c4bb19bae7b2aa313f, type: 3}
+      propertyPath: enemyHitAudioSource
+      value: 
+      objectReference: {fileID: 661394868563089280}
     - target: {fileID: 5041640752128248887, guid: c7f94df95160a7c4bb19bae7b2aa313f, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -545,6 +550,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f94df95160a7c4bb19bae7b2aa313f, type: 3}
+--- !u!82 &661394868563089280 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6589296411332900117, guid: c7f94df95160a7c4bb19bae7b2aa313f, type: 3}
+  m_PrefabInstance: {fileID: 5934720716593750677}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1705699331472109218 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5041640752128248887, guid: c7f94df95160a7c4bb19bae7b2aa313f, type: 3}

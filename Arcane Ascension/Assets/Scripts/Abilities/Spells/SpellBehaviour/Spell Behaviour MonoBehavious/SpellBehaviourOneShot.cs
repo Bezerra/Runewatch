@@ -93,6 +93,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         base.Awake();
         Rb = GetComponent<Rigidbody>();
         ColliderTrigger = GetComponent<CapsuleCollider>();
+        spell.Initialize();
     }
 
     protected override void OnEnable()

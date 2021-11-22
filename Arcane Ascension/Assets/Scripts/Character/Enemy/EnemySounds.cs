@@ -28,6 +28,6 @@ public class EnemySounds : MonoBehaviour
     }
 
     private void PlayTakeDamage() =>
-        takeDamage.PlaySound(audioSources.GetFreeAudioSource());
+        takeDamage.PlaySound(audioSources.EnemyHitAudioSource);
 
 }

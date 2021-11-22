@@ -117,7 +117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6414211121640803561}
-  - component: {fileID: 4620004946569245011}
+  - component: {fileID: 7035418471558079975}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -139,8 +139,8 @@ Transform:
   m_Father: {fileID: 3149725679455352817}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &4620004946569245011
-SphereCollider:
+--- !u!136 &7035418471558079975
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -149,9 +149,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 1.01
+  m_Height: 4.26
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.44, z: 0}
 --- !u!1 &1163948885129643706
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,6 +1136,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Model Small Golem - Ignis
       objectReference: {fileID: 0}
+    - target: {fileID: 6798237576363235734, guid: d988d58375dee2f4391b2d89ee7eb55c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d988d58375dee2f4391b2d89ee7eb55c, type: 3}
 --- !u!4 &2260008761787853113 stripped
@@ -1273,10 +1278,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 538539310}
     m_Modifications:
-    - target: {fileID: 3154786166944563967, guid: c7f94df95160a7c4bb19bae7b2aa313f, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5041640752128248887, guid: c7f94df95160a7c4bb19bae7b2aa313f, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -1321,25 +1322,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6472276365306066770, guid: c7f94df95160a7c4bb19bae7b2aa313f, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7788516480924341724, guid: c7f94df95160a7c4bb19bae7b2aa313f, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7910395707805917799, guid: c7f94df95160a7c4bb19bae7b2aa313f, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8490948026691786817, guid: c7f94df95160a7c4bb19bae7b2aa313f, type: 3}
       propertyPath: m_Name
       value: Enemy Character Audio Sources
-      objectReference: {fileID: 0}
-    - target: {fileID: 8490948026691786817, guid: c7f94df95160a7c4bb19bae7b2aa313f, type: 3}
-      propertyPath: m_Layer
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f94df95160a7c4bb19bae7b2aa313f, type: 3}

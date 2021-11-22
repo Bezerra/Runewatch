@@ -80,6 +80,8 @@ public class SpellBehaviourSpawnHitPrefabOneShotSO : SpellBehaviourAbstractOneSh
                 parent.Spell.Name, positionToSpawnHit,
                 spellLookRotation);
 
+            // If the collider hit has a surface, it will player a sound set to that surface,
+            // else it will play a default sound if it has one, else it doesn't play any sound
             if (onHitBehaviourGameObject.TryGetComponent<SpellOnHitBehaviourOneShot>(
                 out SpellOnHitBehaviourOneShot onHitBehaviour))
             {
