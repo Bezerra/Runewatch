@@ -31,11 +31,13 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
     private void OnEnable()
     {
         enemyStats.EventTakeDamage += StartShakeCoroutine;
+        enemyStats.EventDeath += TriggerDeath;
     }
 
     private void OnDisable()
     {
         enemyStats.EventTakeDamage -= StartShakeCoroutine;
+        enemyStats.EventDeath -= TriggerDeath;
     }
 
     private void Update()
@@ -45,6 +47,19 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
         anim.SetFloat("VelocityZ", movementDirection.z);
         anim.SetFloat("VelocityX", movementDirection.x);
     }
+
+    /// <summary>
+    /// Triggers death animation.
+    /// </summary>
+    /// <param name="emptyVariable">Empty variable.</param>
+    private void TriggerDeath(Stats emptyVariable) =>
+        anim.SetTrigger("Death");
+
+    /// <summary>
+    /// Destroys enemy root.
+    /// </summary>
+    public void DestroyEnemyAnimationEvent() =>
+        Destroy(GetComponentInParent<SelectionBase>().gameObject);
 
     /// <summary>
     /// Triggers enemy attack.

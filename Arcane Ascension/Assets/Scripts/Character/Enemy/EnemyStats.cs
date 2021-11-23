@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.AI;
 
 /// <summary>
 /// Class responsible for handling enemy stats.
@@ -13,6 +14,8 @@ public class EnemyStats : Stats
 
     // Save data
     private CharacterSaveDataController stpData;
+
+    [SerializeField] private GameObject[] collidersParents;
 
     protected override void Awake()
     {
@@ -64,6 +67,8 @@ public class EnemyStats : Stats
         else
         {
             if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
+            Health = 0;
+            OnEventTakeDamage();
             OnEventDeath(this);
 
             // Gets random drops and spawns them
@@ -84,9 +89,11 @@ public class EnemyStats : Stats
                 }
             }
 
-            // This will be applied with an animation event
-            Destroy(GetComponentInParent<SelectionBase>().gameObject);
-            //////////////////////////////////////////////////////////
+            // Death animation will be triggered in EnemyAnimations
+            GetComponent<Enemy>().enabled = false;
+            GetComponent<NavMeshAgent>().isStopped = true;
+            GetComponent<NavMeshAgent>().radius = 0;
+            DestroyColliders();
         }
     }
 
@@ -129,6 +136,8 @@ public class EnemyStats : Stats
         else
         {
             if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
+            Health = 0;
+            OnEventTakeDamage();
             OnEventDeath(this);
 
             // Gets random drops and spawns them
@@ -154,9 +163,20 @@ public class EnemyStats : Stats
                 }
             }
 
-            // This will be applied with an animation event
-            Destroy(GetComponentInParent<SelectionBase>().gameObject);
-            //////////////////////////////////////////////////////////
+            // Death animation will be triggered in EnemyAnimations
+            GetComponent<Enemy>().enabled = false;
+            GetComponent<NavMeshAgent>().isStopped = true;
+            GetComponent<NavMeshAgent>().radius = 0;
+            DestroyColliders();
         }
     }
+
+    /// <summary>
+    /// Destroys enemy colliders.
+    /// </summary>
+    private void DestroyColliders()
+    {
+        foreach (GameObject colliders in collidersParents)
+            Destroy(colliders.gameObject);
+    }   
 }

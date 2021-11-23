@@ -20,6 +20,7 @@ sealed public class SpellBehaviourHomingSO : SpellBehaviourAbstractOneShotSO
         // If it found enemies
         if (enemyColliders.Length > 0)
         {
+            Debug.Log("LEN");
             float distance = Mathf.Infinity;
             for (int i = 0; i < enemyColliders.Length; i++)
             {
@@ -27,6 +28,7 @@ sealed public class SpellBehaviourHomingSO : SpellBehaviourAbstractOneShotSO
                 if (parent.transform.CanSee(enemyColliders[i].transform, 
                     Layers.EnemySensiblePointWallsFloor))
                 {
+                    Debug.Log("SEE");
                     // If the distance to this enemy is less than the current distance calculated
                     // for all enemies
                     if (Vector3.Distance(
@@ -36,6 +38,7 @@ sealed public class SpellBehaviourHomingSO : SpellBehaviourAbstractOneShotSO
                         distance = Vector3.Distance(
                             parent.transform.position, enemyColliders[i].transform.position);
 
+                        Debug.Log("HOME");
                         parent.HomingTarget = enemyColliders[i].transform;
                     }
                 }
