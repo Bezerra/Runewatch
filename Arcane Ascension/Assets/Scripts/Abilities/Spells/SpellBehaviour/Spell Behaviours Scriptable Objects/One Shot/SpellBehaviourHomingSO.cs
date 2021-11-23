@@ -2,17 +2,36 @@ using UnityEngine;
 using ExtensionMethods;
 
 /// <summary>
-/// Scriptable object responsible for moving the spell forward on start.
+/// Scriptable object responsible for moving the spell towards a target.
 /// </summary>
 [CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Homing", 
     fileName = "Spell Behaviour Homing")]
 sealed public class SpellBehaviourHomingSO : SpellBehaviourAbstractOneShotSO
 {
-    [Range(1, 10f)] [SerializeField] private float downForce = 5f;
-
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
-        // Left blank on purpose
+        Collider[] enemyColliders = 
+            Physics.OverlapSphere(parent.transform.position, 
+            parent.Spell.MaximumDistance, Layers.EnemyLayer);
+
+        if (enemyColliders.Length > 0)
+        {
+            for (int i = 0; i < enemyColliders.Length; i++)
+            {
+                if (enemyColliders[i].TryGetComponent(out Enemy enemy))
+                {
+                    if (parent.WhoCast.transform.IsLookingTowards(
+                        enemyColliders[i].transform.position))
+                    {
+                        if (parent.transform.CanSee(enemyColliders[i].transform, Layers.EnemyWithWallsFloor))
+                        {
+                            parent.HomingTarget = enemy.Eyes;
+                            Debug.Log("got eyes");
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public override void ContinuousUpdateBeforeSpellBehaviour(SpellBehaviourOneShot parent)
@@ -27,10 +46,9 @@ sealed public class SpellBehaviourHomingSO : SpellBehaviourAbstractOneShotSO
 
     public override void ContinuousFixedUpdateBehaviour(SpellBehaviourOneShot parent)
     {
-        if (parent.DisableSpellAfterCollision == false)
+        if (parent.HomingTarget != null)
         {
-            parent.Rb.velocity += new Vector3(0, -downForce, 0) * Time.fixedDeltaTime;
-            parent.transform.rotation = Quaternion.LookRotation(parent.Rb.velocity);
+            parent.transform.rotation = Quaternion.LookRotation(parent.HomingTarget.position);
         }
     }
 
