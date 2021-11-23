@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Scriptable object responsible for applying piercing damage, meaning it won't disable after hiting the first enemy.
+/// Scriptable object responsible for applying piercing damage,
+/// meaning it won't disable after hiting the first enemy.
 /// </summary>
 [CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Apply Damage Pierce", 
     fileName = "Spell Behaviour Apply Damage Pierce")]
