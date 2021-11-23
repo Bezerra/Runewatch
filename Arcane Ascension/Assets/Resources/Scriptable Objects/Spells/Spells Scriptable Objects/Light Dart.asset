@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa9d642721915f846be63fa9e31b1ec0, type: 3}
-  m_Name: Light Disc
+  m_Name: Light Dart
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: b753c88a6aeb2674fa1d4f0a4c0a285a, type: 3}
-  name: Light Disc
+  name: Light Dart
   spellTier: 1
   description: fun weapon
   elementIcon: {fileID: 21300000, guid: 2da2d15ce082e12448ac493c55a33f0f, type: 3}
@@ -26,12 +26,12 @@ MonoBehaviour:
   damage: {x: 9.12, y: 17.91}
   delayToDoDamage: 0
   spellCastType: 0
-  speed: 5
+  speed: 13
   cooldown: 0.15
   maximumDistance: 40
-  spellPrefab: {fileID: 4544114618391733411, guid: c889229ea0b6a87479c4fd89ce76d91d, type: 3}
-  spellHitPrefab: {fileID: 1692217177674820475, guid: 60c29b3f383a48f4d9edc81f72c747c7, type: 3}
-  spellMuzzlePrefab: {fileID: 7228047335470632946, guid: 021bbe5bcf6de3848b2d388dbd1cad3e, type: 3}
+  spellPrefab: {fileID: 4544114618391733411, guid: 27ab816d72133c443b7ccff74d210729, type: 3}
+  spellHitPrefab: {fileID: 1692217177674820475, guid: 96a88aaa5d9c4a94b89ab90a36912b2c, type: 3}
+  spellMuzzlePrefab: {fileID: 7228047335470632946, guid: 7df5883c472415f46a23ae7185647d92, type: 3}
   spellHandEffectPrefab: {fileID: 5965007050869265157, guid: b5ac2d203b8b5f34daff24f297c095d0, type: 3}
   areaHoverPrefab: {fileID: 0}
   damageBehaviour: {fileID: 11400000, guid: f61f29a589d8b6b49ab8eb8d558e9ac2, type: 2}
@@ -50,9 +50,11 @@ MonoBehaviour:
   - sound: {fileID: 11400000, guid: 435901cd58ff58a45beee2535a0d7054, type: 2}
     surfaceType: 2
   spellBehaviourOneShot:
-  - {fileID: 11400000, guid: 7d59c711f20f28a47883065ae929a4f8, type: 2}
+  - {fileID: 11400000, guid: 5fcb7698fcb1cba4ab3a964929d44cc1, type: 2}
+  - {fileID: 11400000, guid: 2f926b684efd9d748a7caa6e5f96e60d, type: 2}
+  - {fileID: 11400000, guid: 8e18ad8ddab37fc4c8d6ecffa5b3a5b8, type: 2}
   - {fileID: 11400000, guid: 967dabe4675969a4b80cb9ab4fb1783c, type: 2}
-  - {fileID: 11400000, guid: 057b527d54b0b4145b042da3cae4a81f, type: 2}
+  - {fileID: 11400000, guid: 23db48289d398964689dd751774801ae, type: 2}
   - {fileID: 11400000, guid: 20cb4169d3aa11d468e125db71cf86b6, type: 2}
   attackBehaviourOneShot: {fileID: 11400000, guid: 951b735271f52a24b8c27da0e99a077c, type: 2}
   onHitBehaviourOneShot:
