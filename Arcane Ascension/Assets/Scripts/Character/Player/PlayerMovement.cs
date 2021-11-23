@@ -122,7 +122,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (fallingCoroutine == null)
             {
-                Debug.Log("FAL");
                 fallingCoroutine = FallingCoroutine();
                 StartCoroutine(fallingCoroutine);
             }

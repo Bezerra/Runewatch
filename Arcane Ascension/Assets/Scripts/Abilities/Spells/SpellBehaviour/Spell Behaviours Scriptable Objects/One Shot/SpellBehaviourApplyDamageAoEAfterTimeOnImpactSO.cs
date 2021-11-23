@@ -1,19 +1,16 @@
 using UnityEngine;
 
 /// <summary>
-/// Scriptable object responsible for applying aoe damage.
-/// This SO is used on AoE Hover spells with one shot release.
-/// Position of the damage is set on SpellBehaviourSpawnHitOnAoEHoverSO.
+/// Scriptable object responsible for applying aoe damage on hit.
 /// Uses spell Speed as timer to deal damage.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Apply AoE Damage After Time",
-    fileName = "Spell Behaviour Apply AoE Damage After Time")]
-public class SpellBehaviourApplyDamageAoEAfterTimeSO : SpellBehaviourAbstractOneShotSO
+[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Apply Damage AoE After Time On Impact",
+    fileName = "Spell Behaviour Apply Damage AoE After Time On Impact")]
+public class SpellBehaviourApplyDamageAoEAfterTimeOnImpactSO : SpellBehaviourAbstractOneShotSO
 {
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
         // Left blank on purpose
-        parent.TimeSpawned = Time.time;
     }
 
     public override void ContinuousUpdateBeforeSpellBehaviour(SpellBehaviourOneShot parent)
@@ -23,14 +20,13 @@ public class SpellBehaviourApplyDamageAoEAfterTimeSO : SpellBehaviourAbstractOne
 
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
     {
-        // Position of the damage is set on SpellBehaviourSpawnHitOnAoEHoverSO.
-        if (Time.time - parent.TimeSpawned > parent.Spell.Speed)
+        if (Time.time - parent.TimeOfImpact > parent.Spell.DelayToDoDamage)
         {
-            if (parent.AreaHoverDealtDamage == false)
+            if (parent.DisableImmediatly == false)
             {
                 parent.Spell.DamageBehaviour.Damage(parent);
-                parent.AreaHoverDealtDamage = true;
-            }
+                parent.DisableImmediatly = true;
+            }   
         }
     }
 
@@ -41,6 +37,6 @@ public class SpellBehaviourApplyDamageAoEAfterTimeSO : SpellBehaviourAbstractOne
 
     public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
-        //
+        // Left blank on purpose
     }
 }

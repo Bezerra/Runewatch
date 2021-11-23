@@ -7,7 +7,7 @@ using System.Collections;
 /// </summary>
 public class SpellHitGenerateCinemachineImpulse : GenerateCinemachineImpulse
 {
-    [SerializeField] private string notes = "Uses spell SPEED as a timer to generate.";
+    [SerializeField] private string notes = "Uses spell DelayToDoDamage as a timer to generate.";
 
     private SpellOnHitBehaviourAbstract spellBehaviour;
     private IEnumerator generateImpulseCoroutine;
@@ -17,7 +17,7 @@ public class SpellHitGenerateCinemachineImpulse : GenerateCinemachineImpulse
     {
         base.Awake();
         spellBehaviour = GetComponent<SpellOnHitBehaviourAbstract>();
-        wfs = new WaitForSeconds(spellBehaviour.SpellInformation.Speed);
+        wfs = new WaitForSeconds(spellBehaviour.SpellInformation.DelayToDoDamage);
     }
 
     private void OnEnable()

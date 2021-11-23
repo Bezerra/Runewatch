@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
   name: Area Remain Active Example
-  spellID: 4
   spellTier: 1
   description: example of spell with remain active area
+  elementIcon: {fileID: 0}
   element: 1
   manaCost: 0.01
+  targetTypeIcon: {fileID: 0}
   timeInterval: 1.9
   maxTime: 5.8
   areaOfEffect: 8.61
@@ -33,17 +34,18 @@ MonoBehaviour:
   spellHandEffectPrefab: {fileID: 5965007050869265157, guid: 280d2b34b0ce0e549a6782d20b15f614, type: 3}
   areaHoverPrefab: {fileID: 1369274409782311434, guid: 176e62a48f04bfe4e93aae5bed3bd903, type: 3}
   damageBehaviour: {fileID: 11400000, guid: 416113b2a45cb57448020076a9603528, type: 2}
+  statusBehaviour: {fileID: 0}
   sounds:
     projectile: {fileID: 0}
     muzzle: {fileID: 0}
     hit: {fileID: 0}
+  surfaceSounds: []
   spellBehaviourOneShot:
   - {fileID: 11400000, guid: 20cb4169d3aa11d468e125db71cf86b6, type: 2}
   - {fileID: 11400000, guid: 3cceff732c8b18f4d820a7a51600bc36, type: 2}
   - {fileID: 11400000, guid: b1991810118e2824087b4ef076d38e09, type: 2}
   - {fileID: 11400000, guid: 3b5eddfcd23baf94bbbd6440e9bfe209, type: 2}
   - {fileID: 11400000, guid: 391e6fdc62eda2c4ba7dae6900236270, type: 2}
-  - {fileID: 11400000, guid: f8c7cdcdb8b96c042b4c248f0aa3fe7a, type: 2}
   - {fileID: 11400000, guid: 2f926b684efd9d748a7caa6e5f96e60d, type: 2}
   attackBehaviourOneShot: {fileID: 11400000, guid: 951b735271f52a24b8c27da0e99a077c, type: 2}
   onHitBehaviourOneShot:

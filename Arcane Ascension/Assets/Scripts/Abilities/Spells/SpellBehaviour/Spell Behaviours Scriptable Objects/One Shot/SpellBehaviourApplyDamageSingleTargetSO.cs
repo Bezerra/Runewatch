@@ -4,9 +4,9 @@ using UnityEngine;
 /// <summary>
 /// Scriptable object responsible for applying normal damage.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Apply Damage",
-    fileName = "Spell Behaviour Apply Damage")]
-public class SpellBehaviourApplyDamageSO : SpellBehaviourAbstractOneShotSO
+[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Apply Damage Single Target",
+    fileName = "Spell Behaviour Apply Damage Single Target")]
+public class SpellBehaviourApplyDamageSingleTargetSO : SpellBehaviourAbstractOneShotSO
 {
     private IList<int> layersToDamage;
 

@@ -10,6 +10,7 @@ public interface ISpellDamage
     float MaxTime { get; }
     float AreaOfEffect { get; }
     float Damage { get; }
+    float DelayToDoDamage { get; }
     Vector2 MinMaxDamage { get; }
     Sprite ElementIcon { get; }
     Sprite TargetTypeIcon { get; }

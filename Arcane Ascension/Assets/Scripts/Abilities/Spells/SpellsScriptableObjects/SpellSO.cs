@@ -42,24 +42,29 @@ public abstract class SpellSO : ScriptableObject, ISpell
 
     /// ---------------
     [BoxGroup("Damage")]
-    [HorizontalGroup("Damage/Split", 72)]
-    [HideLabel, PreviewField(72)] [SerializeField] protected Sprite targetTypeIcon;
+    [HorizontalGroup("Damage/Split", 100)]
+    [HideLabel, PreviewField(100)] [SerializeField] protected Sprite targetTypeIcon;
 
-    [VerticalGroup("Damage/Split/Middle", 1), LabelWidth(60)]
+    [VerticalGroup("Damage/Split/Middle", 1), LabelWidth(120)]
     [Tooltip("Interval between damage with Overtime damage spells or interval between damage with continuous spells.")]
     [Range(0.01f, 100)] [SerializeField] protected float timeInterval;
 
-    [VerticalGroup("Damage/Split/Middle", 1), LabelWidth(60)]
+    [VerticalGroup("Damage/Split/Middle", 1), LabelWidth(120)]
     [Tooltip("Time duration of overtime spell damage.")]
     [Range(0.1f, 100)] [SerializeField] protected float maxTime;
 
-    [VerticalGroup("Damage/Split/Middle", 1), LabelWidth(60)]
+    [VerticalGroup("Damage/Split/Middle", 1), LabelWidth(120)]
     [Tooltip("Radius of effect after an AreaDamage spell hits something")]
     [Range(2f, 10f)] [SerializeField] protected float areaOfEffect;
 
-    [VerticalGroup("Damage/Split/Middle", 1), LabelWidth(60)]
+    [VerticalGroup("Damage/Split/Middle", 1), LabelWidth(120)]
     [Tooltip("Random damage between these 2 values")]
     [SerializeField] [RangeMinMax(0, 100)] protected Vector2 damage;
+
+    [VerticalGroup("Damage/Split/Middle", 1), LabelWidth(120)]
+    [Tooltip("Delay to apply damage. This is usually used for area spells, that require some" +
+        "time to explode.")]
+    [SerializeField] [Range(0, 100f)] protected float delayToDoDamage;
 
     /// ---------------
 
@@ -73,7 +78,7 @@ public abstract class SpellSO : ScriptableObject, ISpell
     [SerializeField] private SpellCastType spellCastType;
 
     [BoxGroup("Spell Type")]
-    [Tooltip("Speed of the spell. On AoE one shot release spells it's used as timer to deal the damage.")]
+    [Tooltip("Speed of the spell.")]
     [Range(0.01f, 100)] [SerializeField] protected float speed;
 
     // Continuous spells have cooldown too (ex. player equiped a spell, it has 1 seconds cooldown until it's possible to use it)
@@ -131,6 +136,7 @@ public abstract class SpellSO : ScriptableObject, ISpell
     public float MaxTime { get => maxTime; set => maxTime = value; }
     public float AreaOfEffect { get => areaOfEffect; set => areaOfEffect = value; }
     public float Damage => Random.Range(damage.x, damage.y);
+    public float DelayToDoDamage => delayToDoDamage;
     public Vector2 MinMaxDamage => damage;
     public SpellCastType CastType => spellCastType;
     public float Speed { get => speed; set => speed = value; }

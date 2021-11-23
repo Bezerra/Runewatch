@@ -4,9 +4,9 @@ using ExtensionMethods;
 /// <summary>
 /// Scriptable object responsible for spawning hit prefab.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Spawn Hit Prefab", 
-    fileName = "Spell Behaviour Spawn Hit Prefab")]
-public class SpellBehaviourSpawnHitPrefabOneShotSO : SpellBehaviourAbstractOneShotSO
+[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Spawn Hit Prefab Simple Impact With Sound", 
+    fileName = "Spell Behaviour Spawn Hit Prefab Simple Impact With Sound")]
+public class SpellBehaviourSpawnHitPrefabSimeImpactWithSoundSO : SpellBehaviourAbstractOneShotSO
 {
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {

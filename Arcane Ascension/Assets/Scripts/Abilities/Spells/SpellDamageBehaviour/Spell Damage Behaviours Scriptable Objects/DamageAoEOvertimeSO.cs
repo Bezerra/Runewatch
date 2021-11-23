@@ -5,7 +5,8 @@ using System.Collections.Generic;
 /// <summary>
 /// Scriptable object responsible for creating a spell's damage behaviour.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Spell Damage Behaviour/Spell Damage Behaviour Forward", fileName = "Spell Damage AoEOvertime")]
+[CreateAssetMenu(menuName = "Spells/Spell Damage Behaviour/Spell Damage AoE Overtime", 
+    fileName = "Spell Damage AoE Overtime")]
 public class DamageAoEOvertimeSO : DamageBehaviourAbstractSO
 {
     /// <summary>
