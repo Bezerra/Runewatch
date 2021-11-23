@@ -15,6 +15,9 @@ public class EnemyHealthBar : MonoBehaviour
     [SerializeField] private Color lowHealth;
     [SerializeField] private Color highHealth;
 
+    [Header("Element")]
+    [SerializeField] private Image elementIcon;
+
     // Components
     private Camera cam;
     private EnemyStats enemyStats;
@@ -32,6 +35,9 @@ public class EnemyHealthBar : MonoBehaviour
 
     private void Start()
     {
+        if (enemyStats?.EnemyAttributes.Icon != null)
+            elementIcon.sprite = enemyStats.EnemyAttributes.Icon;
+
         healthBarGameObject.SetActive(false);
     }
 
