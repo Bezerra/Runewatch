@@ -9,21 +9,20 @@ sealed public class ActionSideMovement: FSMAction
 {
     public override void Execute(StateController<Enemy> ai)
     {
-        Roll(ai);
+        SideMovement(ai);
     }
 
     /// <summary>
     /// Every X seconds, AI character rolls randomly to the right or to the left.
     /// </summary>
     /// <param name="ai">AI Character.</param>
-    private void Roll(StateController<Enemy> ai)
+    private void SideMovement(StateController<Enemy> ai)
     {
         if (ai.Controller.RunningBackwards || 
             ai.Controller.IsAttackingWithStoppingTime)
         {
             return;
         }
-
 
         // If delay has passed, it will reset the variables
         // and set a new position

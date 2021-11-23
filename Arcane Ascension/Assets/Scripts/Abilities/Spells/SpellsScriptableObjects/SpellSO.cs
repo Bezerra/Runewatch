@@ -77,9 +77,10 @@ public abstract class SpellSO : ScriptableObject, ISpell
     [Tooltip("Type of this spell.")]
     [SerializeField] private SpellCastType spellCastType;
 
+    // >>>>>>>>>>> 40 IS THE MAXIMUM FOR THE CURRENT FIXEDDELTATIME <<<<<<<<<<<<<<<<<<<
     [BoxGroup("Spell Type")]
     [Tooltip("Speed of the spell.")]
-    [Range(0.01f, 100)] [SerializeField] protected float speed;
+    [Range(0.01f, 40f)] [SerializeField] protected float speed;
 
     // Continuous spells have cooldown too (ex. player equiped a spell, it has 1 seconds cooldown until it's possible to use it)
     [BoxGroup("Spell Type")]

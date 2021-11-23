@@ -13,7 +13,7 @@ sealed public class SpellBehaviourApplyDamagePierceSO : SpellBehaviourAbstractOn
     [SerializeField] private TypeOfPierce typeOfPierce;
     [Range(2, 20)] [SerializeField] private byte hitQuantity;
     [Tooltip("Divides or multiplies damage by this factor, depending on type of pierce")]
-    [Range(1, 4)] [SerializeField] private byte damageModifier = 2;
+    [Range(1, 4)] [SerializeField] private float damageModifier = 2;
 
     private IList<int> layersToDamage;
 
@@ -53,7 +53,10 @@ sealed public class SpellBehaviourApplyDamagePierceSO : SpellBehaviourAbstractOn
 
             // Adds a hit counter
             if (++parent.CurrentPierceHitQuantity >= hitQuantity)
+            {
                 parent.Rb.velocity = Vector3.zero;
+                parent.DisableImmediatly = true;
+            }
         }
         else if (layerNumber == Layers.EnemyImmuneLayerNum)
         {
