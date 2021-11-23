@@ -88,6 +88,11 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     /// </summary>
     public RaycastHit ProjectileReflectedHit { get; set; }
 
+    /// <summary>
+    /// Used to keep homing target.
+    /// </summary>
+    public Transform HomingTarget { get; set; }
+
     protected override void Awake()
     {
         base.Awake();
@@ -118,6 +123,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         ProjectileReflected = false;
         AreaHoverDealtDamage = false;
         DisableImmediatly = false;
+        HomingTarget = null;
 
         if (Rb != null) Rb.velocity = Vector3.zero;
     }
