@@ -134,11 +134,6 @@ public class Enemy : Character
     public float SideMovingTime { get; set; }
 
     /// <summary>
-    /// Property with side movement max time.
-    /// </summary>
-    public float SideMovementMaxTime { get; set; }
-
-    /// <summary>
     /// Property with side movement delay.
     /// </summary>
     public float SideMovementDelay { get; set; }

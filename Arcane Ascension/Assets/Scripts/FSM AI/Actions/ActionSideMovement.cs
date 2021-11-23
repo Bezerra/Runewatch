@@ -8,7 +8,7 @@ sealed public class ActionSideMovement: FSMAction
 {
     public override void Execute(StateController<Enemy> ai)
     {
-        //Roll(ai);
+        Roll(ai);
     }
 
     /// <summary>
@@ -23,31 +23,28 @@ sealed public class ActionSideMovement: FSMAction
             return;
         }
 
-        // Moves to the side for X seconds
-        if (Time.time - ai.Controller.SideMovingTime < ai.Controller.SideMovementMaxTime)
-        {
-            Vector3 movement = ai.Controller.SideMovementDirection == Direction.Right ?
-                ai.Controller.transform.right : -ai.Controller.transform.right;
-
-            ai.Controller.Agent.SetDestination(
-                ai.Controller.Agent.destination + movement);
-
-            return;
-        }
 
         // If delay has passed, it will reset the variables
-        if (Time.time - ai.Controller.SideMovingTime >
-            ai.Controller.SideMovementMaxTime + ai.Controller.SideMovementDelay)
+        // and set a new position
+        if (Time.time - ai.Controller.SideMovingTime > ai.Controller.SideMovementDelay)
         {
+            // Sets new delay
+            ai.Controller.SideMovementDelay = Random.Range(
+                ai.Controller.Values.SideMovementDelay.x, ai.Controller.Values.SideMovementDelay.y);
+
+            ai.Controller.SideMovingTime = Time.time;
+
+            // Gets new direction
             ai.Controller.SideMovementDirection =
                 Random.Range(0, 2) > 0 ? ai.Controller.SideMovementDirection = Direction.Right :
                 ai.Controller.SideMovementDirection = Direction.Left;
 
-            ai.Controller.SideMovementMaxTime = 
-                Random.Range(ai.Controller.Values.SideMovementMaxTime.x, 
-                ai.Controller.Values.SideMovementMaxTime.y);
+            Vector3 movement = ai.Controller.SideMovementDirection == Direction.Right ?
+                ai.Controller.transform.right : -ai.Controller.transform.right;
 
-            ai.Controller.SideMovingTime = Time.time;
+            // Moves agent to that direction
+            ai.Controller.Agent.SetDestination(
+                ai.Controller.Agent.destination + movement * Random.Range(2, 6));
         }
     }
 
@@ -63,8 +60,6 @@ sealed public class ActionSideMovement: FSMAction
             ai.Controller.SideMovementDirection = Direction.Left;
         ai.Controller.SideMovementDelay = Random.Range(
             ai.Controller.Values.SideMovementDelay.x, ai.Controller.Values.SideMovementDelay.y);
-        ai.Controller.SideMovementMaxTime = Random.Range(
-            ai.Controller.Values.SideMovementMaxTime.x, ai.Controller.Values.SideMovementMaxTime.y);
     }
 
     public override void OnExit(StateController<Enemy> ai)

@@ -53,11 +53,5 @@ public class EnemyValuesSO : CharacterValuesSO
         "(X is defined by a random number between these values")]
     [RangeMinMax(0, 15f)] [SerializeField] private Vector2 sideMovementDelay;
     public Vector2 SideMovementDelay => sideMovementDelay;
-
-    [BoxGroup("Side Movement")]
-    [Tooltip("Moves to the side X seconds (X is defined by a random number between these values")]
-    [RangeMinMax(0, 15f)] [SerializeField] private Vector2 sideMovementMaxTime;
-    public Vector2 SideMovementMaxTime => sideMovementMaxTime;
-
-    
+   
 }
