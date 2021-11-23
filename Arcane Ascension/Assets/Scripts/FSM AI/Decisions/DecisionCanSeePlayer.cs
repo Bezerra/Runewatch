@@ -41,6 +41,7 @@ sealed public class DecisionCanSeePlayer : FSMDecision
                     else
                     {
                         ai.Controller.CurrentTarget = colliders[i].transform;
+                        ai.Controller.PlayerBody = colliders[i].transform;
                     }
                     return true;
                 }

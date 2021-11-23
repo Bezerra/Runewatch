@@ -18,6 +18,10 @@ public abstract class StatsSO : ScriptableObject
     [SerializeField] [TextArea(3, 3)] private string description;
 
     [BoxGroup("General Stats")]
+    [HorizontalGroup("General Stats/Split", 35)]
+    [HideLabel, PreviewField(35)] [SerializeField] protected Sprite icon;
+
+    [VerticalGroup("General Stats/Split/Middle", 1), LabelWidth(60)]
     [EnumToggleButtons] [SerializeField] private ElementType element;
 
     [BoxGroup("General Stats")]
@@ -54,6 +58,7 @@ public abstract class StatsSO : ScriptableObject
     [BoxGroup("Damage Stats")]
     [Range(1f, 2f)] [SerializeField] private float defaultCriticalDamageModifier;
 
+    public Sprite Icon => icon;
     public string Name => name;
     public float MaxHealth { get; set; }
     public float DamageResistance { get; set; }
