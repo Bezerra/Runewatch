@@ -1,4 +1,5 @@
 using UnityEngine;
+using ExtensionMethods;
 
 /// <summary>
 /// Action to side move.
@@ -40,11 +41,16 @@ sealed public class ActionSideMovement: FSMAction
                 ai.Controller.SideMovementDirection = Direction.Left;
 
             Vector3 movement = ai.Controller.SideMovementDirection == Direction.Right ?
-                ai.Controller.transform.right : -ai.Controller.transform.right;
+                ai.Controller.transform.right * Random.Range(2, 6) :
+                -ai.Controller.transform.right * Random.Range(2, 6);
 
-            // Moves agent to that direction
-            ai.Controller.Agent.SetDestination(
-                ai.Controller.Agent.destination + movement * Random.Range(2, 6));
+            // Will only move agent if there is not a wall blocking the final direction
+            if ((ai.Controller.Agent.destination + movement).
+                CanSee(ai.Controller.PlayerBody, Layers.PlayerWithWallsFloor))
+            {
+                ai.Controller.Agent.SetDestination(
+                    ai.Controller.Agent.destination + movement);
+            }
         }
     }
 

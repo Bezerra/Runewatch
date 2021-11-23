@@ -153,6 +153,11 @@ public class Enemy : Character
     /// </summary>
     public static int QuantityFighting { get; private set; }
 
+    /// <summary>
+    /// Property with player body transform.
+    /// </summary>
+    public Transform PlayerBody { get; set; }
+
     private Transform currentTarget;
     /// <summary>
     /// Current target of the ai.
