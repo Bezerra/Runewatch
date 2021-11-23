@@ -12,7 +12,7 @@ public class PlayerControlEnemyHealthBar : MonoBehaviour
 
     private IEnumerator Start()
     {
-        YieldInstruction wfs = new WaitForSeconds(0.2f);
+        YieldInstruction wfs = new WaitForSeconds(0.1f);
 
         Collider[] enemyColliders;
 

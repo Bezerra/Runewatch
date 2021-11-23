@@ -110,6 +110,8 @@ public class EnemyHealthBar : MonoBehaviour
     private void UpdateRotation()
     {
         if (healthBarGameObject.activeSelf)
+        {
             healthBarGameObject.transform.LookAt(cam.transform);
+        }
     }
 }
