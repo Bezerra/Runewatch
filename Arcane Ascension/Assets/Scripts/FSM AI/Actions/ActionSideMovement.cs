@@ -8,7 +8,7 @@ sealed public class ActionSideMovement: FSMAction
 {
     public override void Execute(StateController<Enemy> ai)
     {
-        Roll(ai);
+        //Roll(ai);
     }
 
     /// <summary>
@@ -17,45 +17,37 @@ sealed public class ActionSideMovement: FSMAction
     /// <param name="ai">AI Character.</param>
     private void Roll(StateController<Enemy> ai)
     {
-        if (ai.Controller.WalkingBackwards || ai.Controller.RunningBackwards || 
+        if (ai.Controller.RunningBackwards || 
             ai.Controller.IsAttackingWithStoppingTime)
         {
             return;
         }
 
         // Moves to the side for X seconds
-        if (Time.time - ai.Controller.SideMovingTime < ai.Controller.SideMovementMaxTime &&
-            ai.Controller.SideMovementOnDelay == false)
+        if (Time.time - ai.Controller.SideMovingTime < ai.Controller.SideMovementMaxTime)
         {
             Vector3 movement = ai.Controller.SideMovementDirection == Direction.Right ?
                 ai.Controller.transform.right : -ai.Controller.transform.right;
 
             ai.Controller.Agent.SetDestination(
                 ai.Controller.Agent.destination + movement);
+
+            return;
         }
 
-        // If max time moving has reacheds its limit, it will wait some seconds and get
-        // a new direction and maxtime
-        if (Time.time - ai.Controller.SideMovingTime > ai.Controller.SideMovementMaxTime &&
-            Time.time - ai.Controller.SideMovingTime <= 
+        // If delay has passed, it will reset the variables
+        if (Time.time - ai.Controller.SideMovingTime >
             ai.Controller.SideMovementMaxTime + ai.Controller.SideMovementDelay)
         {
-            ai.Controller.SideMovementOnDelay = true;
-            
-            if (Time.time - ai.Controller.SideMovingTime >= 
-                ai.Controller.SideMovementMaxTime + ai.Controller.SideMovementDelay * 0.95)
-            {
-                ai.Controller.SideMovementDirection =
-                    Random.Range(0, 2) > 0 ? ai.Controller.SideMovementDirection = Direction.Right :
-                    ai.Controller.SideMovementDirection = Direction.Left;
+            ai.Controller.SideMovementDirection =
+                Random.Range(0, 2) > 0 ? ai.Controller.SideMovementDirection = Direction.Right :
+                ai.Controller.SideMovementDirection = Direction.Left;
 
-                ai.Controller.SideMovementMaxTime = 
-                    Random.Range(ai.Controller.Values.SideMovementMaxTime.x, 
-                    ai.Controller.Values.SideMovementMaxTime.y);
+            ai.Controller.SideMovementMaxTime = 
+                Random.Range(ai.Controller.Values.SideMovementMaxTime.x, 
+                ai.Controller.Values.SideMovementMaxTime.y);
 
-                ai.Controller.SideMovementOnDelay = false;
-                ai.Controller.SideMovingTime = Time.time;
-            }
+            ai.Controller.SideMovingTime = Time.time;
         }
     }
 

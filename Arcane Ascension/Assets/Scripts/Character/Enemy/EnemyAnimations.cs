@@ -3,7 +3,7 @@ using System.Collections;
 using ExtensionMethods;
 
 /// <summary>
-/// Class responsible for handling a monster animations.
+/// Class responsible for handling a monster animations and animation events.
 /// </summary>
 public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
 {
@@ -40,9 +40,7 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
 
     private void Update()
     {
-        Vector3 movementZ = enemy.Agent.velocity.z * enemy.transform.forward;
-        Vector3 movementX = enemy.Agent.velocity.x * enemy.transform.right;
-        Vector3 movementDirection = movementZ + movementX;
+        Vector3 movementDirection = enemy.transform.InverseTransformDirection(enemy.Agent.velocity);
 
         anim.SetFloat("VelocityZ", movementDirection.z);
         anim.SetFloat("VelocityX", movementDirection.x);
@@ -127,7 +125,10 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
                 enemy.Values.AttackDelay.x, enemy.Values.AttackDelay.y);
 
         // Agent can move again
-        enemy.Agent.speed = enemy.Values.Speed;
+        enemy.Agent.speed = enemy.Values.Speed *
+            enemy.AllValues.CharacterStats.MovementSpeedMultiplier;
+
+        enemy.Agent.isStopped = false;
 
         enemy.IsAttackingWithStoppingTime = false;
 

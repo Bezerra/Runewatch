@@ -31,7 +31,8 @@ sealed public class ActionRunFromPlayer : FSMAction
                     }
 
                     ai.Controller.RunningBackwards = true;
-                    ai.Controller.Agent.speed = ai.Controller.Values.Speed * 1.25f;
+                    ai.Controller.Agent.speed = ai.Controller.Values.Speed *
+                        ai.Controller.AllValues.CharacterStats.MovementSpeedMultiplier * 1.25f;
                     float rotationSign = ai.Controller.DirectionIfBackBlocked == Direction.Right ?
                         1 : -1;
 
@@ -66,7 +67,8 @@ sealed public class ActionRunFromPlayer : FSMAction
                 else
                 {
                     ai.Controller.RunningBackwards = false;
-                    ai.Controller.Agent.speed = ai.Controller.Values.Speed;
+                    ai.Controller.Agent.speed = ai.Controller.Values.Speed *
+                        ai.Controller.AllValues.CharacterStats.MovementSpeedMultiplier; ;
                 }
             }
         }
@@ -94,6 +96,7 @@ sealed public class ActionRunFromPlayer : FSMAction
     public override void OnExit(StateController<Enemy> ai)
     {
         ai.Controller.RunningBackwards = false;
-        ai.Controller.Agent.speed = ai.Controller.Values.Speed;
+        ai.Controller.Agent.speed = ai.Controller.Values.Speed *
+            ai.Controller.AllValues.CharacterStats.MovementSpeedMultiplier; ;
     }
 }

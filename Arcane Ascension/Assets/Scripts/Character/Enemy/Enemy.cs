@@ -144,11 +144,6 @@ public class Enemy : Character
     public float SideMovementDelay { get; set; }
 
     /// <summary>
-    /// Property to know if side movement is currently on delay.
-    /// </summary>
-    public bool SideMovementOnDelay { get; set; }
-
-    /// <summary>
     /// Property with current side movement direction.
     /// </summary>
     public Direction SideMovementDirection  { get; set; }

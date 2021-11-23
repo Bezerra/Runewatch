@@ -26,7 +26,7 @@ sealed public class ActionAttack : FSMAction
             ai.Controller.CanRunAttackStoppedLoop)
         {
             // Agent can't move
-            ai.Controller.Agent.speed = 0;
+            ai.Controller.Agent.isStopped = true;
             ai.AllowedToChangeState = false;
 
             if (Time.time - ai.Controller.TimeEnemyStoppedWhileAttacking > ai.Controller.CurrentlySelectedSpell.StoppingTime)
@@ -52,8 +52,7 @@ sealed public class ActionAttack : FSMAction
                     ai.Controller.AttackDelay = Random.Range(
                             ai.Controller.Values.AttackDelay.x, ai.Controller.Values.AttackDelay.y);
 
-                    // Agent can move again
-                    ai.Controller.Agent.speed = ai.Controller.Values.Speed;
+                    ai.Controller.Agent.isStopped = false;
 
                     ai.Controller.IsAttackingWithStoppingTime = false;
 
@@ -133,7 +132,7 @@ sealed public class ActionAttack : FSMAction
     {
         ai.Controller.IsAttackingWithStoppingTime = false;
         ai.Controller.TimeEnemyStoppedWhileAttacking = 0;
-        ai.Controller.Agent.speed = ai.Controller.Values.Speed;
+        ai.Controller.Agent.isStopped = false;
         ai.AllowedToChangeState = true;
         ai.Controller.CanRunAttackStoppedLoop = true;
         ai.Controller.CanRunAttackLoop = true;
