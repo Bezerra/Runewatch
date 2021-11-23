@@ -40,7 +40,12 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
 
     private void Update()
     {
-        anim.SetFloat("Movement", enemy.Agent.velocity.magnitude);
+        Vector3 movementZ = enemy.Agent.velocity.z * enemy.transform.forward;
+        Vector3 movementX = enemy.Agent.velocity.x * enemy.transform.right;
+        Vector3 movementDirection = movementZ + movementX;
+
+        anim.SetFloat("VelocityZ", movementDirection.z);
+        anim.SetFloat("VelocityX", movementDirection.x);
     }
 
     /// <summary>
