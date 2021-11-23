@@ -45,11 +45,20 @@ sealed public class ActionSideMovement: FSMAction
                 -ai.Controller.transform.right * Random.Range(2, 6);
 
             // Will only move agent if there is not a wall blocking the final direction
-            if ((ai.Controller.Agent.destination + movement).
-                CanSee(ai.Controller.PlayerBody, Layers.PlayerWithWallsFloor))
+            if (ai.Controller.PlayerBody != null)
+            {
+                if ((ai.Controller.Agent.destination + movement).
+                    CanSee(ai.Controller.PlayerBody, Layers.PlayerWithWallsFloor))
+                {
+                    ai.Controller.Agent.SetDestination(
+                        ai.Controller.Agent.destination + movement);
+                }
+            }
+            // Else if it didn't find player's body yet, it just moves.
+            else
             {
                 ai.Controller.Agent.SetDestination(
-                    ai.Controller.Agent.destination + movement);
+                        ai.Controller.Agent.destination + movement);
             }
         }
     }

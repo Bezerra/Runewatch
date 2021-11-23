@@ -146,7 +146,7 @@ public class Enemy : Character
     /// <summary>
     /// Used to know if the enemy just took damage.
     /// </summary>
-    public bool TookDamage                  { get; set; }
+    public bool TookDamage { get; set; }
 
     /// <summary>
     /// Static Getter to know quantity of enemies fighting the player
