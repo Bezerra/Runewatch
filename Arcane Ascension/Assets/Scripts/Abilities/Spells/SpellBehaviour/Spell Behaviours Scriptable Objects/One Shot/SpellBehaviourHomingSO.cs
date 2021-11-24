@@ -10,7 +10,6 @@ sealed public class SpellBehaviourHomingSO : SpellBehaviourAbstractOneShotSO
 {
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
-        Debug.Log("FOI");
         // Creates a box collider to check every enemy in front of the player
         Collider[] enemyColliders = 
             Physics.OverlapBox(parent.transform.position, 
@@ -18,13 +17,9 @@ sealed public class SpellBehaviourHomingSO : SpellBehaviourAbstractOneShotSO
             Quaternion.LookRotation(parent.transform.forward), 
             Layers.EnemySensiblePoint);
 
-        Collider[] overlap = Physics.OverlapSphere(parent.WhoCast.transform.position, 30, Layers.EnemySensiblePoint);
-        Debug.Log(overlap.Length);
-
         // If it found enemies
         if (enemyColliders.Length > 0)
         {
-            Debug.Log("LEN");
             float distance = Mathf.Infinity;
             for (int i = 0; i < enemyColliders.Length; i++)
             {
@@ -32,7 +27,6 @@ sealed public class SpellBehaviourHomingSO : SpellBehaviourAbstractOneShotSO
                 if (parent.transform.CanSee(enemyColliders[i].transform, 
                     Layers.EnemySensiblePointWallsFloor))
                 {
-                    Debug.Log("SEE");
                     // If the distance to this enemy is less than the current distance calculated
                     // for all enemies
                     if (Vector3.Distance(
@@ -42,7 +36,6 @@ sealed public class SpellBehaviourHomingSO : SpellBehaviourAbstractOneShotSO
                         distance = Vector3.Distance(
                             parent.transform.position, enemyColliders[i].transform.position);
 
-                        Debug.Log("HOME");
                         parent.HomingTarget = enemyColliders[i].transform;
                     }
                 }

@@ -15,8 +15,6 @@ public class EnemyStats : Stats
     // Save data
     private CharacterSaveDataController stpData;
 
-    [SerializeField] private GameObject[] collidersParents;
-
     protected override void Awake()
     {
         base.Awake();
@@ -179,10 +177,8 @@ public class EnemyStats : Stats
             agent.radius = 0;
         }
 
-        if (collidersParents.Length > 0)
-        {
-            foreach (GameObject colliders in collidersParents)
-                Destroy(colliders);
-        }
+        SelectionBase enemyRoot = GetComponentInParent<SelectionBase>();
+        foreach (Collider colliders in enemyRoot.GetComponentsInChildren<Collider>())
+            colliders.enabled = false;
     }   
 }
