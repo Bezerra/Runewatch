@@ -12,10 +12,7 @@ public abstract class StatusBehaviourAbstractSO : ScriptableObject
     /// <summary>
     /// Executes when prefab is enabled.
     /// </summary>
-    public virtual void StartBehaviour(StatusBehaviour parent)
-    {
-        parent.StatusDuration = durationSeconds;
-    }
+    public abstract void StartBehaviour(StatusBehaviour parent);
 
     /// <summary>
     /// Executes on update.

@@ -6,14 +6,9 @@ using UnityEngine;
 public class StatusBehaviour : MonoBehaviour
 {
     /// <summary>
-    /// Property with status duration.
-    /// </summary>
-    public float StatusDuration { get; set; }
-
-    /// <summary>
     /// Parent spell of this 
     /// </summary>
-    public ISpell Spell { get; set; }
+    public ISpell Spell { get; private set; }
 
     /// <summary>
     /// Time of spawn.
@@ -24,7 +19,7 @@ public class StatusBehaviour : MonoBehaviour
     /// Property to know if this status effect is currently taking effect or not yet.
     /// Set only on status behaviours start behaviours.
     /// </summary>
-    public bool CurrentlyActive { get; set; }
+    public bool EffectActive { get; set; }
 
     private Stats characterHit;
 
@@ -34,7 +29,7 @@ public class StatusBehaviour : MonoBehaviour
     public Stats CharacterHit
     {
         get => characterHit;
-        set
+        private set
         {
             characterHit = value;
             if (characterHit != null)
@@ -45,7 +40,7 @@ public class StatusBehaviour : MonoBehaviour
     /// <summary>
     /// Which character cast the spell of this status.
     /// </summary>
-    public Stats WhoCast { get; set; }
+    public Stats WhoCast { get; private set; }
 
     private void OnDisable()
     {
@@ -55,7 +50,7 @@ public class StatusBehaviour : MonoBehaviour
             CharacterHit = null;
         }
 
-        CurrentlyActive = false;
+        EffectActive = false;
         TimeSpawned = 0;
         WhoCast = null;
         Spell = null;
@@ -67,22 +62,31 @@ public class StatusBehaviour : MonoBehaviour
     /// </summary>
     public void TriggerStartBehaviour()
     {
-        TimeSpawned = Time.time;
+        if(Spell != null && WhoCast != null && characterHit != null)
+        {
+            TimeSpawned = Time.time;
 
-        if (Spell?.StatusBehaviour != null)
-            Spell.StatusBehaviour.StartBehaviour(this);
+            if (Spell.StatusBehaviour != null)
+                Spell.StatusBehaviour.StartBehaviour(this);
+            else
+                DisableStatusGameObject();
+        }
+        else
+        {
+            DisableStatusGameObject();
+        }
     }
 
     private void Update()
     {
-        if (Spell?.StatusBehaviour != null)
-            Spell.StatusBehaviour.ContinuousUpdateBehaviour(this);
+        // To reach update, spell has to be different than null, so it doesn't need check in here
+        Spell.StatusBehaviour.ContinuousUpdateBehaviour(this);
     }
 
     private void FixedUpdate()
     {
-        if (CharacterHit != null)
-            transform.position = CharacterHit.transform.position;
+        // To reach fixed update, spell has to be different than null, so it doesn't need check in here
+        transform.position = characterHit.transform.position;
     }
 
     /// <summary>
@@ -98,5 +102,21 @@ public class StatusBehaviour : MonoBehaviour
         }
 
         gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// Initializes crucial variables.
+    /// </summary>
+    /// <param name="spell">Spell cast.</param>
+    /// <param name="whoCast">Who cast the spell</param>
+    /// <param name="characterHit">Who was hit by the spell.</param>
+    public void Initialize(ISpell spell, Stats whoCast, Stats characterHit)
+    {
+        if (Spell == null && WhoCast == null && CharacterHit == null)
+        {
+            Spell = spell;
+            WhoCast = whoCast;
+            CharacterHit = characterHit;
+        }
     }
 }

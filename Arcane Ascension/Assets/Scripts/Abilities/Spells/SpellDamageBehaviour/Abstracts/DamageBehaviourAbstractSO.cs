@@ -36,9 +36,7 @@ public abstract class DamageBehaviourAbstractSO : ScriptableObject, IDamageBehav
 
             if (statusGO.TryGetComponent(out StatusBehaviour statusBehaviour))
             {
-                statusBehaviour.Spell = parent.Spell;
-                statusBehaviour.WhoCast = parent.WhoCast;
-                statusBehaviour.CharacterHit = parent.CharacterHit;
+                statusBehaviour.Initialize(parent.Spell, parent.WhoCast, parent.CharacterHit);
                 statusBehaviour.TriggerStartBehaviour();
             }
         }
@@ -58,9 +56,7 @@ public abstract class DamageBehaviourAbstractSO : ScriptableObject, IDamageBehav
 
             if (statusGO.TryGetComponent(out StatusBehaviour statusBehaviour))
             {
-                statusBehaviour.Spell = parent.Spell;
-                statusBehaviour.WhoCast = parent.WhoCast;
-                statusBehaviour.CharacterHit = characterHit;
+                statusBehaviour.Initialize(parent.Spell, parent.WhoCast, characterHit);
                 statusBehaviour.TriggerStartBehaviour();
             }
         }
