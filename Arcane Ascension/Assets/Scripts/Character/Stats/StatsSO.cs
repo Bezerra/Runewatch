@@ -65,7 +65,17 @@ public abstract class StatsSO : ScriptableObject
     public float BaseDamageMultiplier { get; set; }
     public float CriticalChance { get; set; }
     public float CriticalDamageModifier { get; set; }
+
+    /// <summary>
+    /// Variable used to control speed multiplier over base speed. This property is used,
+    /// for example, for passives speed boost.
+    /// </summary>
     public float MovementSpeedMultiplier { get; set; }
+
+    /// <summary>
+    /// Property that modifies bas speed depending on a status effect.
+    /// </summary>
+    public float MovementStatusEffectMultiplier { get; set; }
 
     public ElementType Element => element;
     
@@ -83,6 +93,7 @@ public abstract class StatsSO : ScriptableObject
         CriticalChance = defaultCriticalChance;
         CriticalDamageModifier = defaultCriticalDamageModifier;
         MovementSpeedMultiplier = defaultMovementSpeedMultiplier;
+        MovementStatusEffectMultiplier = 1;
 
         damageElementMultiplier = new Dictionary<ElementType, float>
         {

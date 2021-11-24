@@ -74,7 +74,9 @@ public class PlayerSounds : MonoBehaviour
     /// <param name="speed">Player's speed.</param>
     private void UpdateStepSoundDelay(float speed)
     {
-        if (speed > player.Values.Speed * player.CommonValues.CharacterStats.MovementSpeedMultiplier)
+        if (speed > player.Values.Speed * 
+            playerStats.CommonAttributes.MovementSpeedMultiplier *
+            playerStats.CommonAttributes.MovementStatusEffectMultiplier)
         {
             stepSoundDelay = STEPSOUNDDELAYRUNNING;
         }

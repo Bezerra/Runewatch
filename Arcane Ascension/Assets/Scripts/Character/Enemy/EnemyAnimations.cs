@@ -141,7 +141,8 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
 
         // Agent can move again
         enemy.Agent.speed = enemy.Values.Speed *
-            enemy.AllValues.CharacterStats.MovementSpeedMultiplier;
+            enemyStats.CommonAttributes.MovementSpeedMultiplier *
+            enemyStats.CommonAttributes.MovementStatusEffectMultiplier;
 
         enemy.Agent.isStopped = false;
 

@@ -23,7 +23,12 @@ public class PlayerFly : MonoBehaviour
         player = GetComponent<Player>();
         playerStats = GetComponent<PlayerStats>();
         input = FindObjectOfType<PlayerInputCustom>();
-        Speed = player.Values.Speed;
+    }
+
+    private void Start()
+    {
+        Speed = player.Values.Speed * playerStats.CommonAttributes.MovementSpeedMultiplier *
+            playerStats.CommonAttributes.MovementStatusEffectMultiplier;
     }
 
     private void OnEnable()
@@ -46,12 +51,16 @@ public class PlayerFly : MonoBehaviour
             if (condition)
             {
                 Running = true;
-                Speed = player.Values.RunningSpeed * playerStats.CommonAttributes.MovementSpeedMultiplier;
+                Speed = player.Values.RunningSpeed * 
+                    playerStats.CommonAttributes.MovementSpeedMultiplier *
+                    playerStats.CommonAttributes.MovementStatusEffectMultiplier;
             }
             else
             {
                 Running = false;
-                Speed = player.Values.Speed * playerStats.CommonAttributes.MovementSpeedMultiplier;
+                Speed = player.Values.Speed * 
+                    playerStats.CommonAttributes.MovementSpeedMultiplier *
+                    playerStats.CommonAttributes.MovementStatusEffectMultiplier;
             }
         }
     }

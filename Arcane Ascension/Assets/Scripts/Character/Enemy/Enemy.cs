@@ -226,7 +226,8 @@ public class Enemy : Character
     private void Start()
     {
         CurrentlySelectedSpell = EnemyStats.EnemyAttributes.AllEnemySpells[0];
-        Agent.speed = Values.Speed * AllValues.CharacterStats.MovementSpeedMultiplier;
+        Agent.speed = Values.Speed * EnemyStats.CommonAttributes.MovementSpeedMultiplier *
+            EnemyStats.CommonAttributes.MovementStatusEffectMultiplier;
         StateMachine.Start(StateMachine);
     }
 
@@ -234,7 +235,8 @@ public class Enemy : Character
     /// Updates agent speed.
     /// </summary>
     public void UpdateSpeed() =>
-        Agent.speed = Values.Speed * AllValues.CharacterStats.MovementSpeedMultiplier;
+        Agent.speed = Values.Speed * EnemyStats.CommonAttributes.MovementSpeedMultiplier *
+            EnemyStats.CommonAttributes.MovementStatusEffectMultiplier;
 
     private void OnEnable()
     {

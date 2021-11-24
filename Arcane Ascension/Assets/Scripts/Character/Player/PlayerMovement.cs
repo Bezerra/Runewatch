@@ -54,7 +54,6 @@ public class PlayerMovement : MonoBehaviour
         playerStats = GetComponent<PlayerStats>();
         wffu = new WaitForFixedUpdate();
         jumpTime = new WaitForSeconds(player.Values.JumpTime);
-        Speed = player.Values.Speed;
         dashing = false;
         gravityIncrement = DEFAULTGRAVITYINCREMENT;
         dashCurrentValue = player.Values.DashDefaultValue;
@@ -68,6 +67,12 @@ public class PlayerMovement : MonoBehaviour
         input.Run += Run;
         playerCastSpell.EventAttack += ReduceSpeedOnContinuousAttack;
         playerCastSpell.EventCancelAttack += NormalSpeedAfterContinuousAttack;
+    }
+
+    private void Start()
+    {
+        Speed = player.Values.Speed * playerStats.CommonAttributes.MovementSpeedMultiplier *
+            playerStats.CommonAttributes.MovementStatusEffectMultiplier;
     }
 
     private void OnDisable()
@@ -206,7 +211,9 @@ public class PlayerMovement : MonoBehaviour
             lastDirectionPressed = Speed == 
                 player.Values.Speed ? directionPressed : 
                 directionPressed.normalized * 
-                player.Values.Speed * playerStats.CommonAttributes.MovementSpeedMultiplier;
+                player.Values.Speed * 
+                playerStats.CommonAttributes.MovementSpeedMultiplier *
+                playerStats.CommonAttributes.MovementStatusEffectMultiplier;
 
             OnEventDash();
 
@@ -260,12 +267,16 @@ public class PlayerMovement : MonoBehaviour
             if (condition)
             {
                 Running = true;
-                Speed = player.Values.RunningSpeed * playerStats.CommonAttributes.MovementSpeedMultiplier;
+                Speed = player.Values.RunningSpeed * 
+                    playerStats.CommonAttributes.MovementSpeedMultiplier *
+                    playerStats.CommonAttributes.MovementStatusEffectMultiplier;
             }
             else
             {
                 Running = false;
-                Speed = player.Values.Speed * playerStats.CommonAttributes.MovementSpeedMultiplier;
+                Speed = player.Values.Speed * 
+                    playerStats.CommonAttributes.MovementSpeedMultiplier *
+                    playerStats.CommonAttributes.MovementStatusEffectMultiplier;
             }
             OnEventRun(condition);
         }
@@ -275,7 +286,9 @@ public class PlayerMovement : MonoBehaviour
     /// Updates speed variable.
     /// </summary>
     public void UpdateSpeed() =>
-        Speed = player.Values.Speed * playerStats.CommonAttributes.MovementSpeedMultiplier;
+        Speed = player.Values.Speed * 
+            playerStats.CommonAttributes.MovementSpeedMultiplier *
+            playerStats.CommonAttributes.MovementStatusEffectMultiplier;
 
     /// <summary>
     /// Reduces speed if the player is attacking with a continuous spell.
@@ -286,7 +299,10 @@ public class PlayerMovement : MonoBehaviour
         if (spellCastType == SpellCastType.ContinuousCast)
         {
             castingContinuousSpell = true;
-            Speed = playerStats.CommonAttributes.MovementSpeedMultiplier * player.Values.Speed * 0.5f;
+            Speed = player.Values.Speed * 
+                playerStats.CommonAttributes.MovementSpeedMultiplier *
+                playerStats.CommonAttributes.MovementStatusEffectMultiplier *
+                0.5f;
         }
     }
 
@@ -296,9 +312,18 @@ public class PlayerMovement : MonoBehaviour
     private void NormalSpeedAfterContinuousAttack()
     {
         castingContinuousSpell = false;
-        if (Running) Speed = player.Values.RunningSpeed * playerStats.CommonAttributes.MovementSpeedMultiplier;
-        else Speed = player.Values.Speed * playerStats.CommonAttributes.MovementSpeedMultiplier;
-
+        if (Running)
+        {
+            Speed = player.Values.RunningSpeed *
+                playerStats.CommonAttributes.MovementSpeedMultiplier *
+                playerStats.CommonAttributes.MovementStatusEffectMultiplier;
+        }
+        else
+        {
+            Speed = player.Values.Speed * 
+                playerStats.CommonAttributes.MovementSpeedMultiplier *
+                playerStats.CommonAttributes.MovementStatusEffectMultiplier;
+        }
     }
 
     /// <summary>

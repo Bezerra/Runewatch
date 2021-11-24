@@ -16,10 +16,20 @@ public class StatusBehaviour : MonoBehaviour
     /// </summary>
     public float TimeSpawned { get; set; }
 
+    private Stats characterHit;
+
     /// <summary>
     /// Which character is being affected by this spell.
     /// </summary>
-    public Stats CharacterHit { get; set; }
+    public Stats CharacterHit
+    {
+        get => characterHit;
+        set
+        {
+            characterHit = value;
+            characterHit.EventDeath += DisableStatusGameObject;
+        }
+    }
 
     /// <summary>
     /// Which character cast the spell of this status.
@@ -35,8 +45,13 @@ public class StatusBehaviour : MonoBehaviour
 
     private void OnDisable()
     {
+        if(characterHit != null)
+        {
+            characterHit.EventDeath -= DisableStatusGameObject;
+            CharacterHit = null;
+        }
+
         TimeSpawned = 0;
-        CharacterHit = null;
         WhoCast = null;
         Spell = null;
     }
@@ -74,6 +89,10 @@ public class StatusBehaviour : MonoBehaviour
     /// <summary>
     /// Disables status gameobject.
     /// </summary>
-    public void DisableStatusGameObject() =>
+    /// <param name="emptyVariable">Variable to match death event.</param>
+    public void DisableStatusGameObject(Stats emptyVariable = null)
+    {
+        characterHit.EventDeath -= DisableStatusGameObject;
         gameObject.SetActive(false);
+    }
 }
