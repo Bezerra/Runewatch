@@ -65,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
         input.Jump += JumpPress;
         input.Dash += Dash;
         input.Run += Run;
+        playerStats.EventSpeedUpdate += UpdateSpeed;
         playerCastSpell.EventAttack += ReduceSpeedOnContinuousAttack;
         playerCastSpell.EventCancelAttack += NormalSpeedAfterContinuousAttack;
     }
@@ -79,7 +80,8 @@ public class PlayerMovement : MonoBehaviour
     {
         input.Jump -= JumpPress;
         input.Dash -= Dash;
-        input.Run += Run;
+        input.Run -= Run;
+        playerStats.EventSpeedUpdate -= UpdateSpeed;
         playerCastSpell.EventAttack -= ReduceSpeedOnContinuousAttack;
         playerCastSpell.EventCancelAttack -= NormalSpeedAfterContinuousAttack;
     }
@@ -285,10 +287,14 @@ public class PlayerMovement : MonoBehaviour
     /// <summary>
     /// Updates speed variable.
     /// </summary>
-    public void UpdateSpeed() =>
-        Speed = player.Values.Speed * 
-            playerStats.CommonAttributes.MovementSpeedMultiplier *
-            playerStats.CommonAttributes.MovementStatusEffectMultiplier;
+    private void UpdateSpeed(float speed)
+    {
+        // Updates speed
+        Speed = speed;
+
+        // Checks if character is running and updates speed depending on it
+        Run(Running);
+    }
 
     /// <summary>
     /// Reduces speed if the player is attacking with a continuous spell.

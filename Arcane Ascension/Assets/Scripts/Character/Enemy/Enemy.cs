@@ -234,18 +234,19 @@ public class Enemy : Character
     /// <summary>
     /// Updates agent speed.
     /// </summary>
-    public void UpdateSpeed() =>
-        Agent.speed = Values.Speed * EnemyStats.CommonAttributes.MovementSpeedMultiplier *
-            EnemyStats.CommonAttributes.MovementStatusEffectMultiplier;
+    public void UpdateSpeed(float speed) =>
+        Agent.speed = speed;
 
     private void OnEnable()
     {
         EnemyStats.EventTakeDamage += EventTakeDamage;
+        EnemyStats.EventSpeedUpdate += UpdateSpeed;
     }
 
     private void OnDisable()
     {
         EnemyStats.EventTakeDamage -= EventTakeDamage;
+        EnemyStats.EventSpeedUpdate -= UpdateSpeed;
     }
 
     private void Update()
@@ -270,6 +271,7 @@ public class Enemy : Character
     {
         Agent.speed = 0;
         yield return wfsAfterBeingHit;
-        UpdateSpeed();
+        UpdateSpeed(Values.Speed * EnemyStats.CommonAttributes.MovementSpeedMultiplier *
+            EnemyStats.CommonAttributes.MovementStatusEffectMultiplier);
     }
 }

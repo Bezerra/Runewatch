@@ -118,6 +118,14 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
         }
     }
 
+    /// <summary>
+    /// Updates speed variable.
+    /// </summary>
+    public virtual void UpdateSpeed() =>
+        OnSpeedUpdate(character.CommonValues.CharacterValues.Speed *
+        CommonAttributes.MovementSpeedMultiplier *
+        CommonAttributes.MovementStatusEffectMultiplier);
+
     public override string ToString()
     {
         StringBuilder str = new StringBuilder();
@@ -143,4 +151,8 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     // Registered on playerUi
     protected virtual void OnEventDeath(Stats stats) => EventDeath?.Invoke(stats);
     public Action<Stats> EventDeath;
+
+    // Registered on classes that use Speed
+    protected virtual void OnSpeedUpdate(float speed) => EventSpeedUpdate?.Invoke(speed);
+    public Action<float> EventSpeedUpdate;
 }

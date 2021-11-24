@@ -339,7 +339,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
 
             case StatsType.MovementSpeedMultiplier:
                 PlayerAttributes.MovementSpeedMultiplier += amountToIncrement;
-                FindObjectOfType<PlayerMovement>().UpdateSpeed();
+                UpdateSpeed();
                 break;
 
             case StatsType.ManaRegenAmount:
