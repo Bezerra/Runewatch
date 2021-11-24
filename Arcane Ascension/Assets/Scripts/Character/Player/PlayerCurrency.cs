@@ -20,8 +20,13 @@ public class PlayerCurrency : MonoBehaviour, IUseCurrency, ISaveable
         player = GetComponent<Player>();
     }
 
-    private void Start()
+    private IEnumerator Start()
     {
+        // Lets everything load on player first
+        YieldInstruction wffu = new WaitForFixedUpdate();
+        yield return wffu;
+        yield return wffu;
+
         // Initial gold with passives
         GainCurrency(CurrencyType.Gold, 
             FindObjectOfType<CharacterSaveDataController>().SaveData.Wealth);
@@ -32,8 +37,12 @@ public class PlayerCurrency : MonoBehaviour, IUseCurrency, ISaveable
     /// </summary>
     /// <param name="currency">Type of currency.</param>
     /// <param name="amount">Amount to gain.</param>
-    public void GainCurrency(CurrencyType currency, int amount) =>
+    public void GainCurrency(CurrencyType currency, int amount)
+    {
         player.AllValues.Currency.GainCurrency(currency, amount);
+        OnEventCurrencyUpdate(
+            player.AllValues.Currency.Gold, player.AllValues.Currency.ArcanePower);
+    }
 
     /// <summary>
     /// Spends currency.
@@ -42,7 +51,12 @@ public class PlayerCurrency : MonoBehaviour, IUseCurrency, ISaveable
     /// <param name="amount">Amount to spend.</param>
     public void SpendCurrency(CurrencyType currency, int amount)
     {
-        if (CanSpend(currency, amount)) OnEventSpendMoney();
+        if (CanSpend(currency, amount))
+        {
+            OnEventSpendMoney();
+            OnEventCurrencyUpdate(
+                player.AllValues.Currency.Gold, player.AllValues.Currency.ArcanePower);
+        }
         player.AllValues.Currency.SpendCurrency(currency, amount);
     }
 
@@ -89,4 +103,9 @@ public class PlayerCurrency : MonoBehaviour, IUseCurrency, ISaveable
     // Registered on playersounds
     protected virtual void OnEventSpendMoney() => EventSpendMoney?.Invoke();
     public event Action EventSpendMoney;
+
+    // Registered on PlayerUI
+    protected virtual void OnEventCurrencyUpdate(float gold, float ap) => 
+        EventCurrencyUpdate?.Invoke(gold, ap);
+    public event Action<float, float> EventCurrencyUpdate;
 }

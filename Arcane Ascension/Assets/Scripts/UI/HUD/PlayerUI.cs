@@ -96,6 +96,7 @@ public class PlayerUI : MonoBehaviour
         input.StopCastSpell += StopCastSpell;
         playerStats.EventTakeDamage += OnTakeDamage;
         playerStats.EventManaUpdate += OnManaUpdate;
+        playerCurrency.EventCurrencyUpdate += OnCurrencyUpdate;
 
         playerStats.StatusEffectList.ValueChanged += UpdateStatusEffectsEvent;
 
@@ -112,6 +113,7 @@ public class PlayerUI : MonoBehaviour
         input.StopCastSpell -= StopCastSpell;
         playerStats.EventTakeDamage -= OnTakeDamage;
         playerStats.EventManaUpdate -= OnManaUpdate;
+        playerCurrency.EventCurrencyUpdate -= OnCurrencyUpdate;
 
         playerStats.StatusEffectList.ValueChanged -= UpdateStatusEffectsEvent;
 
@@ -228,6 +230,12 @@ public class PlayerUI : MonoBehaviour
         while (playerStats.Mana.Similiar(mana.fillAmount) == false);
     }
 
+    private void OnCurrencyUpdate(float currencyGold, float currencyAP)
+    {
+        gold.text = "Gold : " + currencyGold;
+        arcanePower.text = "Arcane P : " + currencyAP;
+    }
+
     /// <summary>
     /// Starts crosshair hit coroutine.
     /// </summary>
@@ -279,7 +287,6 @@ public class PlayerUI : MonoBehaviour
         UpdateSpells();
         UpdateDashCharges();
         UpdateStats();
-        UpdateCurrency();
         UpdateFPS();
         UpdateStatusEffects();
     }
@@ -342,13 +349,6 @@ public class PlayerUI : MonoBehaviour
     {
         armor.fillAmount =
             playerStats.Armor / playerStats.PlayerAttributes.MaxArmor;
-    }
-
-    private void UpdateCurrency()
-    {
-        // Updates loot
-        gold.text = "Gold : " + playerCurrency.Quantity.Item1;
-        arcanePower.text = "Arcane P : " + playerCurrency.Quantity.Item2;
     }
 
     private void UpdateFPS()

@@ -172,7 +172,6 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
         if (Mana - amount > 0) Mana -= amount;
         else Mana = 0;
 
-        OnEventSpentMana(amount);
         OnEventManaUpdate();
     }
 
@@ -506,11 +505,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
         }
     }
 
-    // Regsitered on CheatsConsole.
-    protected virtual void OnEventSpentMana(float manaToSpend) => EventSpentMana?.Invoke(manaToSpend);
-    public Action<float> EventSpentMana;
-
-    // Registered on player UI.
+    // Registered on player UI and CheatsConsole
     protected virtual void OnEventManaUpdate() => EventManaUpdate?.Invoke();
     public Action EventManaUpdate;
 }

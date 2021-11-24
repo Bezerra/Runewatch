@@ -1,3 +1,5 @@
+using System;
+
 /// <summary>
 /// Interface implemented by classes with currency.
 /// </summary>
@@ -29,4 +31,6 @@ public interface IUseCurrency
     /// Quantity of gold and arcane power.
     /// </summary>
     (int, int) Quantity { get; }
+
+    event Action<float, float> EventCurrencyUpdate;
 }

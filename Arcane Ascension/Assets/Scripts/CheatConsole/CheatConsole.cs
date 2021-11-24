@@ -59,7 +59,7 @@ public class CheatConsole : MonoBehaviour, IFindPlayer
         playerSpells = FindObjectOfType<PlayerSpells>();
         playerStats = FindObjectOfType<PlayerStats>();
         allSpells = FindObjectOfType<AllSpells>();
-        playerRoot = FindObjectOfType<Player>()?.GetComponentInParent<SelectionBase>();
+        playerRoot = FindObjectOfType<Player>().GetComponentInParent<SelectionBase>();
     }
 
     /////////////////////////////////// Cheats code /////////////////////////////////////
@@ -179,13 +179,13 @@ public class CheatConsole : MonoBehaviour, IFindPlayer
                 case "mana 1":
                     Debug.Log("Infinite mana activated");
                     playerStats.Heal(10000, StatsType.Mana);
-                    playerStats.EventSpentMana += InfiniteMana;
+                    playerStats.EventManaUpdate += InfiniteMana;
                     DisableConsole();
                     break;
 
                 case "mana 0":
                     Debug.Log("Infinite mana deactivated");
-                    playerStats.EventSpentMana -= InfiniteMana;
+                    playerStats.EventManaUpdate -= InfiniteMana;
                     DisableConsole();
                     break;
 
@@ -317,7 +317,7 @@ public class CheatConsole : MonoBehaviour, IFindPlayer
         playerStats.Heal(playerStats.CommonAttributes.MaxHealth, StatsType.Health);
     }
 
-    private void InfiniteMana(float temp) => StartCoroutine(InfiniteManaCoroutine());
+    private void InfiniteMana() => StartCoroutine(InfiniteManaCoroutine());
     private IEnumerator InfiniteManaCoroutine()
     {
         yield return wffu;
