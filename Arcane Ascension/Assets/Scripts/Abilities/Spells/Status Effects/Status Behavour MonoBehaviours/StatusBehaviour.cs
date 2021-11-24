@@ -20,6 +20,12 @@ public class StatusBehaviour : MonoBehaviour
     /// </summary>
     public float TimeSpawned { get; set; }
 
+    /// <summary>
+    /// Property to know if this status effect is currently taking effect or not yet.
+    /// Set only on status behaviours start behaviours.
+    /// </summary>
+    public bool CurrentlyActive { get; set; }
+
     private Stats characterHit;
 
     /// <summary>
@@ -49,6 +55,7 @@ public class StatusBehaviour : MonoBehaviour
             CharacterHit = null;
         }
 
+        CurrentlyActive = false;
         TimeSpawned = 0;
         WhoCast = null;
         Spell = null;

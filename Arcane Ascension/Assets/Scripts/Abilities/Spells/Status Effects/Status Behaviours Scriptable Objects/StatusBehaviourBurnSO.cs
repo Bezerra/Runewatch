@@ -15,11 +15,15 @@ public class StatusBehaviourBurnSO : StatusBehaviourAbstractSO
 
     public override void StartBehaviour(StatusBehaviour parent)
     {
+        base.StartBehaviour(parent);
+
         if (parent.CharacterHit != null)
         {
             parent.CharacterHit.TakeDamageOvertime(
                 damageToDo, ElementType.Fire, damageInterval, damageMaxTime);
         }
+
+        parent.CurrentlyActive = true;
     }
 
     public override void ContinuousUpdateBehaviour(StatusBehaviour parent)
