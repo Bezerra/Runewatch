@@ -4,9 +4,9 @@ using UnityEngine;
 /// <summary>
 /// Scriptable object responsible for seting projectile speed to zero after collision.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Stop Spell On Hit", 
-    fileName = "Spell Behaviour Stop Spell On Hit")]
-public class SpellBehaviourStopSpellOnHitSO : SpellBehaviourAbstractOneShotSO
+[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Stop Spell On Projectile Hit", 
+    fileName = "Spell Behaviour Stop Spell On Projectile Hit")]
+public class SpellBehaviourStopSpellOnProjectileHitSO : SpellBehaviourAbstractOneShotSO
 {
     [SerializeField] private string description;
     [SerializeField] private List<int> layersToStopTheSpell;

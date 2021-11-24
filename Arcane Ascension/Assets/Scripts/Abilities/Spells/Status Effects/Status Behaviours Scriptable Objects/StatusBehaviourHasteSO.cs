@@ -16,7 +16,7 @@ public class StatusBehaviourHasteSO : StatusBehaviourAbstractSO
     {
         if (parent.WhoCast != null)
         {
-            parent.WhoCast.CommonAttributes.MovementStatusEffectMultiplier = 2f;
+            parent.WhoCast.CommonAttributes.MovementStatusEffectMultiplier = speedMultiplier;
         }
     }
 
@@ -24,6 +24,7 @@ public class StatusBehaviourHasteSO : StatusBehaviourAbstractSO
     {
         if (Time.time - parent.TimeSpawned > durationSeconds)
         {
+            Debug.Log("YA");
             parent.WhoCast.CommonAttributes.MovementStatusEffectMultiplier = 1f;
             parent.DisableStatusGameObject();
         }

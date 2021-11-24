@@ -27,7 +27,8 @@ public class StatusBehaviour : MonoBehaviour
         set
         {
             characterHit = value;
-            characterHit.EventDeath += DisableStatusGameObject;
+            if (characterHit != null)
+                characterHit.EventDeath += DisableStatusGameObject;
         }
     }
 
@@ -58,18 +59,12 @@ public class StatusBehaviour : MonoBehaviour
 
     /// <summary>
     /// Method called after instantiating the spell.
-    /// Must be called manually through this method instead of OnEnable or Start in order to prevent bugs.
+    /// Must be called manually through this method instead of OnEnable/Start in order to prevent bugs.
     /// </summary>
     public void TriggerStartBehaviour()
     {
         TimeSpawned = Time.time;
-        StartCoroutine(TriggerStartBehaviourCoroutine());
-    }
 
-    private IEnumerator TriggerStartBehaviourCoroutine()
-    {
-        yield return wffu;
-        yield return wffu;
         if (Spell?.StatusBehaviour != null)
             Spell.StatusBehaviour.StartBehaviour(this);
     }
@@ -92,7 +87,12 @@ public class StatusBehaviour : MonoBehaviour
     /// <param name="emptyVariable">Variable to match death event.</param>
     public void DisableStatusGameObject(Stats emptyVariable = null)
     {
-        characterHit.EventDeath -= DisableStatusGameObject;
+        if (characterHit != null)
+        {
+            characterHit.EventDeath -= DisableStatusGameObject;
+            CharacterHit = null;
+        }
+
         gameObject.SetActive(false);
     }
 }
