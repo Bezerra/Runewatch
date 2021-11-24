@@ -16,11 +16,13 @@ public class DummyHitAnimator : MonoBehaviour
     private void OnEnable()
     {
         enemyStats.EventTakeDamage += HitAnimation;
+        enemyStats.EventDeath += DeathAnimation;
     }
 
     private void OnDisable()
     {
         enemyStats.EventTakeDamage -= HitAnimation;
+        enemyStats.EventDeath -= DeathAnimation;
     }
 
     private void HitAnimation()
@@ -28,6 +30,12 @@ public class DummyHitAnimator : MonoBehaviour
         anim.SetTrigger("Hit");
         StartCoroutine(ResetTrigger());
     }
+
+    private void DeathAnimation(Stats stats)
+        => anim.SetTrigger("Death");
+
+    public void DestroyOnAnimationEvent() =>
+        Destroy(GetComponentInParent<SelectionBase>().gameObject);
 
     private IEnumerator ResetTrigger()
     {

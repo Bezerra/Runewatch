@@ -90,10 +90,7 @@ public class EnemyStats : Stats
             }
 
             // Death animation will be triggered in EnemyAnimations
-            GetComponent<Enemy>().enabled = false;
-            GetComponent<NavMeshAgent>().isStopped = true;
-            GetComponent<NavMeshAgent>().radius = 0;
-            DestroyColliders();
+            EnemyDeath();
         }
     }
 
@@ -164,19 +161,28 @@ public class EnemyStats : Stats
             }
 
             // Death animation will be triggered in EnemyAnimations
-            GetComponent<Enemy>().enabled = false;
-            GetComponent<NavMeshAgent>().isStopped = true;
-            GetComponent<NavMeshAgent>().radius = 0;
-            DestroyColliders();
+            EnemyDeath();
         }
     }
 
     /// <summary>
     /// Destroys enemy colliders.
     /// </summary>
-    private void DestroyColliders()
+    private void EnemyDeath()
     {
-        foreach (GameObject colliders in collidersParents)
-            Destroy(colliders.gameObject);
+        NavMeshAgent agent = GetComponent<NavMeshAgent>();
+        GetComponent<Enemy>().enabled = false;
+
+        if (agent != null)
+        {
+            agent.isStopped = true;
+            agent.radius = 0;
+        }
+
+        if (collidersParents.Length > 0)
+        {
+            foreach (GameObject colliders in collidersParents)
+                Destroy(colliders);
+        }
     }   
 }

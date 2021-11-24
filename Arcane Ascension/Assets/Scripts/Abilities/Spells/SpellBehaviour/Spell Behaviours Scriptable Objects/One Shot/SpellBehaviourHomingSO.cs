@@ -10,13 +10,17 @@ sealed public class SpellBehaviourHomingSO : SpellBehaviourAbstractOneShotSO
 {
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
+        Debug.Log("FOI");
         // Creates a box collider to check every enemy in front of the player
         Collider[] enemyColliders = 
-            Physics.OverlapBox(parent.WhoCast.transform.position, 
+            Physics.OverlapBox(parent.transform.position, 
             new Vector3(1.5f, 1.5f, parent.Spell.MaximumDistance), 
-            Quaternion.Euler(parent.WhoCast.transform.eulerAngles), 
+            Quaternion.LookRotation(parent.transform.forward), 
             Layers.EnemySensiblePoint);
-        
+
+        Collider[] overlap = Physics.OverlapSphere(parent.WhoCast.transform.position, 30, Layers.EnemySensiblePoint);
+        Debug.Log(overlap.Length);
+
         // If it found enemies
         if (enemyColliders.Length > 0)
         {
