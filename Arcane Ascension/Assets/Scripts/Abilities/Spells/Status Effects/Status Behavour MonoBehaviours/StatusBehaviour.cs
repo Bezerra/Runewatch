@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -6,6 +5,11 @@ using UnityEngine;
 /// </summary>
 public class StatusBehaviour : MonoBehaviour
 {
+    /// <summary>
+    /// Property with status duration.
+    /// </summary>
+    public float StatusDuration { get; set; }
+
     /// <summary>
     /// Parent spell of this 
     /// </summary>
@@ -36,13 +40,6 @@ public class StatusBehaviour : MonoBehaviour
     /// Which character cast the spell of this status.
     /// </summary>
     public Stats WhoCast { get; set; }
-
-    private YieldInstruction wffu;
-
-    private void Awake()
-    {
-        wffu = new WaitForFixedUpdate();
-    }
 
     private void OnDisable()
     {

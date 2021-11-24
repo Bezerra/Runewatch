@@ -23,6 +23,13 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     /// </summary>
     public float MaxHealth => CommonAttributes.MaxHealth;
 
+    /// <summary>
+    /// Property to know the time of the current buff / debuff.
+    /// </summary>
+    public float SpeedStatusEffectTime { get; set; }
+
+    
+
     protected IEnumerator damageOvertimeCoroutine;
 
     protected virtual void Awake()

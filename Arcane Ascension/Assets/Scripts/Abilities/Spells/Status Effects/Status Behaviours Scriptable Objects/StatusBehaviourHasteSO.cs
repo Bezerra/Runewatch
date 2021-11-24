@@ -10,23 +10,39 @@ using Sirenix.OdinInspector;
 public class StatusBehaviourHasteSO : StatusBehaviourAbstractSO
 {
     [Range(1f, 4f)][SerializeField] private float speedMultiplier;
-    [Range(0, 400f)] [SerializeField] private float durationSeconds;
 
     public override void StartBehaviour(StatusBehaviour parent)
     {
+        base.StartBehaviour(parent);
+
         if (parent.WhoCast != null)
         {
-            parent.WhoCast.CommonAttributes.MovementStatusEffectMultiplier = speedMultiplier;
-            parent.WhoCast.UpdateSpeed();
+            if (parent.WhoCast.SpeedStatusEffectTime == 0)
+            {
+                parent.WhoCast.CommonAttributes.MovementStatusEffectMultiplier = speedMultiplier;
+                parent.WhoCast.UpdateSpeed();
+                parent.WhoCast.SpeedStatusEffectTime = Time.time;
+            }
+            else
+            {
+                parent.WhoCast.SpeedStatusEffectTime = Time.time;
+                parent.DisableStatusGameObject();
+            }
+        }
+        else
+        {
+            parent.WhoCast.SpeedStatusEffectTime = Time.time;
+            parent.DisableStatusGameObject();
         }
     }
 
     public override void ContinuousUpdateBehaviour(StatusBehaviour parent)
     {
-        if (Time.time - parent.TimeSpawned > durationSeconds)
+        if (Time.time - parent.WhoCast.SpeedStatusEffectTime > durationSeconds)
         {
             parent.WhoCast.CommonAttributes.MovementStatusEffectMultiplier = 1f;
             parent.WhoCast.UpdateSpeed();
+            parent.WhoCast.SpeedStatusEffectTime = 0;
             parent.DisableStatusGameObject();
         }
     }

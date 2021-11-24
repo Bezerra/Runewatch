@@ -7,10 +7,15 @@ using Sirenix.OdinInspector;
 [InlineEditor]
 public abstract class StatusBehaviourAbstractSO : ScriptableObject
 {
+    [Range(0, 400f)] [SerializeField] protected float durationSeconds;
+
     /// <summary>
     /// Executes when prefab is enabled.
     /// </summary>
-    public abstract void StartBehaviour(StatusBehaviour parent);
+    public virtual void StartBehaviour(StatusBehaviour parent)
+    {
+        parent.StatusDuration = durationSeconds;
+    }
 
     /// <summary>
     /// Executes on update.
