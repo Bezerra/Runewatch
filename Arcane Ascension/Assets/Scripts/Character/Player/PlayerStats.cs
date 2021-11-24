@@ -2,7 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ExtensionMethods;
 
+/// <summary>
+/// Class responsible for player stats.
+/// </summary>
 public class PlayerStats : Stats, IMana, IArmor, ISaveable
 {
     // Components
@@ -102,6 +106,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
             if (Mana + PlayerAttributes.ManaRegenAmount < PlayerAttributes.MaxMana)
             {
                 Mana += PlayerAttributes.ManaRegenAmount;
+                OnEventManaUpdate();
             }
             else
             {
@@ -117,9 +122,8 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
     /// <param name="timeToWait">Time to wait before each loss.</param>
     private void StartLoseManaCoroutine(float amountToLose, float timeToWait)
     {
-        if (loseManaCoroutine != null) StopCoroutine(loseManaCoroutine);
-        loseManaCoroutine = LoseManaCoroutine(amountToLose, timeToWait);
-        StartCoroutine(loseManaCoroutine);
+        this.StartCoroutineWithReset(
+            ref loseManaCoroutine, LoseManaCoroutine(amountToLose, timeToWait));
     }
 
     /// <summary>
@@ -169,6 +173,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
         else Mana = 0;
 
         OnEventSpentMana(amount);
+        OnEventManaUpdate();
     }
 
     /// <summary>
@@ -504,4 +509,8 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
     // Regsitered on CheatsConsole.
     protected virtual void OnEventSpentMana(float manaToSpend) => EventSpentMana?.Invoke(manaToSpend);
     public Action<float> EventSpentMana;
+
+    // Registered on player UI.
+    protected virtual void OnEventManaUpdate() => EventManaUpdate?.Invoke();
+    public Action EventManaUpdate;
 }
