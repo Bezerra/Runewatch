@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
@@ -23,12 +24,7 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     /// </summary>
     public float MaxHealth => CommonAttributes.MaxHealth;
 
-    /// <summary>
-    /// Property to know the time of the current buff / debuff.
-    /// </summary>
-    public float SpeedStatusEffectTime { get; set; }
-
-    
+    public IDictionary<StatusEffectType, StatusEffectInformation> StatusEffectList { get; private set; }
 
     protected IEnumerator damageOvertimeCoroutine;
 
@@ -36,6 +32,7 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     {
         random = new System.Random();
         character = GetComponent<Character>();
+        StatusEffectList = new Dictionary<StatusEffectType, StatusEffectInformation>();
     }
 
     protected virtual void Start()

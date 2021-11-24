@@ -19,16 +19,20 @@ public class StatusBehaviourHasteSO : StatusBehaviourAbstractSO
         {
             if (parent.WhoCast != null)
             {
-                if (parent.WhoCast.SpeedStatusEffectTime == 0)
+                if (parent.WhoCast.StatusEffectList.ContainsKey(StatusEffectType.Haste) == false)
                 {
                     parent.WhoCast.CommonAttributes.MovementStatusEffectMultiplier = speedMultiplier;
                     parent.WhoCast.UpdateSpeed();
-                    parent.WhoCast.SpeedStatusEffectTime = Time.time;
+
+                    parent.WhoCast.StatusEffectList.Add(
+                        StatusEffectType.Haste, 
+                        new StatusEffectInformation(Time.time, durationSeconds));
+
                     parent.CurrentlyActive = true;
                 }
                 else
                 {
-                    parent.WhoCast.SpeedStatusEffectTime = Time.time;
+                    parent.WhoCast.StatusEffectList[StatusEffectType.Haste].TimeApplied = Time.time;
                     parent.DisableStatusGameObject();
                 }
             }
@@ -40,7 +44,12 @@ public class StatusBehaviourHasteSO : StatusBehaviourAbstractSO
         else
         {
             if (parent.WhoCast != null)
-                parent.WhoCast.SpeedStatusEffectTime = Time.time;
+            {
+                if (parent.WhoCast.StatusEffectList.ContainsKey(StatusEffectType.Haste))
+                {
+                    parent.WhoCast.StatusEffectList[StatusEffectType.Haste].TimeApplied = Time.time;
+                }
+            }
         }
     }
 
@@ -48,11 +57,12 @@ public class StatusBehaviourHasteSO : StatusBehaviourAbstractSO
     {
         if (parent.CurrentlyActive)
         {
-            if (Time.time - parent.WhoCast.SpeedStatusEffectTime > durationSeconds)
+            if (Time.time - parent.WhoCast.StatusEffectList[StatusEffectType.Haste].TimeApplied >
+                durationSeconds)
             {
                 parent.WhoCast.CommonAttributes.MovementStatusEffectMultiplier = 1f;
                 parent.WhoCast.UpdateSpeed();
-                parent.WhoCast.SpeedStatusEffectTime = 0;
+                parent.WhoCast.StatusEffectList.Remove(StatusEffectType.Haste);
                 parent.DisableStatusGameObject();
             }
         }

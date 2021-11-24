@@ -19,6 +19,7 @@ public class StatusBehaviourBurnSO : StatusBehaviourAbstractSO
 
         if (parent.CharacterHit != null)
         {
+
             parent.CharacterHit.TakeDamageOvertime(
                 damageToDo, ElementType.Fire, damageInterval, damageMaxTime);
         }
