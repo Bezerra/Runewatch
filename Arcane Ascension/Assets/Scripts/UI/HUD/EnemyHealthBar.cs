@@ -50,6 +50,7 @@ public class EnemyHealthBar : MonoBehaviour
 
     private void OnEnable()
     {
+        // Needs to be a coroutine because onEnable is running before enemy awake
         StartCoroutine(OnEnableCoroutine());
     }
 
