@@ -1,3 +1,8 @@
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+
 using UnityEngine;
 using Sirenix.OdinInspector;
 
@@ -7,10 +12,22 @@ using Sirenix.OdinInspector;
 [InlineEditor]
 public abstract class StatusBehaviourAbstractSO : ScriptableObject
 {
-    // Status information
+    [BoxGroup("General")]
+    [HorizontalGroup("General/Split", 72)]
+    [HideLabel, PreviewField(72)] [SerializeField] protected Sprite icon;
+
+    [VerticalGroup("General/Split/Middle", 1), LabelWidth(60)]
+    [InlineButton("ChangeFileName", "Update File Name")]
+    [SerializeField] protected new string name = "New Spell";
+
+    [VerticalGroup("General/Split/Right", 2)]
+    [HideLabel, TextArea(4, 6), SerializeField] protected string description;
+
+    [EnumToggleButtons]
     [SerializeField] protected StatusEffectType statusEffectType;
-    [SerializeField] protected Sprite icon;
+
     [SerializeField] protected GameObject prefabVFX;
+
     [Range(0, 400f)] [SerializeField] protected float durationSeconds;
 
     /// <summary>
@@ -22,4 +39,13 @@ public abstract class StatusBehaviourAbstractSO : ScriptableObject
     /// Executes on update.
     /// </summary>
     public abstract void ContinuousUpdateBehaviour(StatusBehaviour parent);
+
+#if UNITY_EDITOR
+    protected void ChangeFileName()
+    {
+        string assetPath = AssetDatabase.GetAssetPath(this.GetInstanceID());
+        AssetDatabase.RenameAsset(assetPath, name);
+        AssetDatabase.SaveAssets();
+    }
+#endif
 }

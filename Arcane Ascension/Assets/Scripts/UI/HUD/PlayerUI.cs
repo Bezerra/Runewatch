@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,10 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private Color noManaSpellColor;
     [SerializeField] private Color spellColor;
     [SerializeField] private Color noSpellColor;
+
+    [Header("Status Effects Slots")]
+    [SerializeField] private Image[] statusEffectsSlots;
+    private Dictionary<StatusEffectType, StatusEffectImage> statusEffectsSlotsInUse;
 
     [Header("Health bar")]
     [SerializeField] private Color lowHealth;
@@ -73,15 +78,26 @@ public class PlayerUI : MonoBehaviour
         enemyStats = FindObjectsOfType<EnemyStats>();
         crosshairWaitForSeconds = new WaitForSeconds(1);
         wffu = new WaitForFixedUpdate();
+        statusEffectsSlotsInUse = new Dictionary<StatusEffectType, StatusEffectImage>();
     }
 
     private void OnEnable()
     {
+        // Needs to be a coroutine because onEnable is running before player awake
+        StartCoroutine(OnEnableCoroutine());
+    }
+
+    private IEnumerator OnEnableCoroutine()
+    {
+        yield return new WaitForFixedUpdate();
+
         input.CastSpell += CastSpell;
         input.StopCastSpell += StopCastSpell;
         playerStats.EventTakeDamage += OnTakeDamage;
 
-        foreach(EnemyStats enemy in enemyStats)
+        playerStats.StatusEffectList.ValueChanged += UpdateStatusEffectsEvent;
+
+        foreach (EnemyStats enemy in enemyStats)
         {
             enemy.EventTakeDamage += TriggerCrosshairHit;
             enemy.EventDeath += UnsubscribeEnemy;
@@ -93,6 +109,7 @@ public class PlayerUI : MonoBehaviour
         input.CastSpell -= CastSpell;
         input.StopCastSpell -= StopCastSpell;
         playerStats.EventTakeDamage -= OnTakeDamage;
+        playerStats.StatusEffectList.ValueChanged -= UpdateStatusEffectsEvent;
 
         foreach (EnemyStats enemy in enemyStats)
         {
@@ -145,8 +162,6 @@ public class PlayerUI : MonoBehaviour
             }
         }
     }
-
-    
 
     /// <summary>
     /// Starts a coroutine to update health.
@@ -298,6 +313,70 @@ public class PlayerUI : MonoBehaviour
             else if (fpsCounter.FrameRate > 20) fpsCounterTMP.color = Color.yellow;
             else fpsCounterTMP.color = Color.red;
             fpsCounterTMP.text = fpsCounter.FrameRate.ToString() + " fps";
+        }
+
+        UpdateStatusEffects();
+    }
+
+
+    private void UpdateStatusEffects()
+    {
+        if (statusEffectsSlotsInUse.Count > 0)
+        {
+            for (int i = 0; i < statusEffectsSlotsInUse.Count; i++)
+            {
+                statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Value.Type].Image.fillAmount = 1 -
+                    (Time.time -
+                    playerStats.StatusEffectList.Items[statusEffectsSlotsInUse.ElementAt(i).Value.Type].TimeApplied) /
+                    statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Key].Duration;
+
+                if (statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Value.Type].Image.fillAmount <= 0)
+                {
+                    statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Value.Type].Image.gameObject.SetActive(false);
+                    statusEffectsSlotsInUse.Remove(statusEffectsSlotsInUse.ElementAt(i).Value.Type);
+                }
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// Updates status effects bar.
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name=""></param>
+    private void UpdateStatusEffectsEvent(StatusEffectType type, IStatusEffectInformation information)
+    {
+        for (int i = 0; i < statusEffectsSlots.Length; i++)
+        {
+            if (statusEffectsSlots[i].gameObject.activeSelf == false)
+            {
+                statusEffectsSlots[i].gameObject.SetActive(true);
+
+                statusEffectsSlots[i].sprite = playerStats.
+                    StatusEffectList.Items[type].Icon;
+
+                statusEffectsSlotsInUse.Add(type, 
+                    new StatusEffectImage(statusEffectsSlots[i], type, information.Duration));
+
+                break;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Struct for an image of a status effect.
+    /// </summary>
+    private struct StatusEffectImage
+    {
+        public Image Image { get; }
+        public StatusEffectType Type { get; }
+        public float Duration { get; }
+        public StatusEffectImage(Image image, StatusEffectType type, float duration)
+        {
+            Image = image;
+            Type = type;
+            Duration = duration;
         }
     }
 }

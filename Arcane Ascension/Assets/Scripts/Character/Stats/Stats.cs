@@ -24,7 +24,7 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     /// </summary>
     public float MaxHealth => CommonAttributes.MaxHealth;
 
-    public IDictionary<StatusEffectType, IStatusEffectInformation> StatusEffectList 
+    public ExtendedDictionary<StatusEffectType, IStatusEffectInformation> StatusEffectList 
         { get; private set; }
 
     protected IEnumerator damageOvertimeCoroutine;
@@ -33,7 +33,7 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     {
         random = new System.Random();
         character = GetComponent<Character>();
-        StatusEffectList = new Dictionary<StatusEffectType, IStatusEffectInformation>();
+        StatusEffectList = new ExtendedDictionary<StatusEffectType, IStatusEffectInformation>();
     }
 
     protected virtual void Start()
@@ -160,4 +160,9 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     // Registered on classes that use Speed
     protected virtual void OnSpeedUpdate(float speed) => EventSpeedUpdate?.Invoke(speed);
     public Action<float> EventSpeedUpdate;
+
+    // Registered on HUD classes
+    protected virtual void OnStatusEffectListUpdated(StatusEffectType type,
+        IStatusEffectInformation information) => EventStatusEffectListUpdated?.Invoke(type, information);
+    public Action<StatusEffectType, IStatusEffectInformation> EventStatusEffectListUpdated;
 }
