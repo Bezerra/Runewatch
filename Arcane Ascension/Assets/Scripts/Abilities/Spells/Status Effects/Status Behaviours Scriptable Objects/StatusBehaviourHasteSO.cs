@@ -14,7 +14,7 @@ public class StatusBehaviourHasteSO : StatusBehaviourAbstractSO
     public override void StartBehaviour(StatusBehaviour parent)
     {
         // If the character is NOT suffering from the effect yet
-        if (parent.WhoCast.StatusEffectList.ContainsKey(StatusEffectType.Haste) == false)
+        if (parent.WhoCast.StatusEffectList.ContainsKey(statusEffectType) == false)
         {
             // If the parent of this effect is not taking place yet
             if (parent.EffectActive == false)
@@ -23,15 +23,16 @@ public class StatusBehaviourHasteSO : StatusBehaviourAbstractSO
                 parent.WhoCast.UpdateSpeed();
 
                 parent.WhoCast.StatusEffectList.Add(
-                    StatusEffectType.Haste,
-                    new StatusEffectInformation(Time.time, durationSeconds));
+                    statusEffectType,
+                    new StatusEffectInformation(Time.time, durationSeconds, icon));
 
+                parent.PrefabVFX = prefabVFX;
                 parent.EffectActive = true;
             }
             // If it's already taking effect
             else
             {
-                parent.WhoCast.StatusEffectList[StatusEffectType.Haste].TimeApplied = Time.time;
+                parent.WhoCast.StatusEffectList[statusEffectType].TimeApplied = Time.time;
 
                 parent.DisableStatusGameObject();
             }
@@ -39,7 +40,7 @@ public class StatusBehaviourHasteSO : StatusBehaviourAbstractSO
         // Else if the character is already suffering from the effect
         else
         {
-            parent.WhoCast.StatusEffectList[StatusEffectType.Haste].TimeApplied = Time.time;
+            parent.WhoCast.StatusEffectList[statusEffectType].TimeApplied = Time.time;
 
             // Will only disable the spell if it's not the one that's causing the current effect
             if (parent.EffectActive == false)
@@ -52,12 +53,12 @@ public class StatusBehaviourHasteSO : StatusBehaviourAbstractSO
         // This will happen to the active effect
         // In order for this to happen, the effect is active, so the stats Dictionary will
         // have this key for sure
-        if (Time.time - parent.WhoCast.StatusEffectList[StatusEffectType.Haste].TimeApplied
+        if (Time.time - parent.WhoCast.StatusEffectList[statusEffectType].TimeApplied
             > durationSeconds)
         {
             parent.WhoCast.CommonAttributes.MovementStatusEffectMultiplier = 1f;
             parent.WhoCast.UpdateSpeed();
-            parent.WhoCast.StatusEffectList.Remove(StatusEffectType.Haste);
+            parent.WhoCast.StatusEffectList.Remove(statusEffectType);
             parent.DisableStatusGameObject();
         }
     }

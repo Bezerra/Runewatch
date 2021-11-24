@@ -19,6 +19,8 @@ public class SpellManagerEditor : OdinMenuEditorWindow
     private readonly string CREATENEWSPELL = "Create New Spell";
     private readonly string SPELLSPATH = "Assets/Resources/Scriptable Objects/Spells/Spells Scriptable Objects";
 
+    private readonly string STATUSPATH = "Assets/Resources/Scriptable Objects/Spells/Status Behaviours";
+
     // New spells
     private CreateNewSpellOneShotData createNewSpellOneShotData;
     private CreateNewSpellContinuousData createNewSpellContinuousData;
@@ -40,6 +42,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         // Create new spells
         tree.Add($"{CREATENEWSPELL}/Create New One Shot Spell", createNewSpellOneShotData);
         tree.Add($"{CREATENEWSPELL}/Create New Continuous Spell", createNewSpellContinuousData);
+        tree.AddAllAssetsAtPath("Status Data", $"{STATUSPATH}", typeof(StatusBehaviourAbstractSO));
         tree.AddAllAssetsAtPath("Spell Data", $"{SPELLSPATH}", typeof(SpellSO));
 
         return tree;

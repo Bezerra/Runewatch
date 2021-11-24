@@ -21,6 +21,11 @@ public class StatusBehaviour : MonoBehaviour
     /// </summary>
     public bool EffectActive { get; set; }
 
+    /// <summary>
+    /// VFX of the effect.
+    /// </summary>
+    public GameObject PrefabVFX { get; set; }
+
     private Stats characterHit;
 
     /// <summary>
@@ -47,6 +52,7 @@ public class StatusBehaviour : MonoBehaviour
         if(characterHit != null)
             characterHit.EventDeath -= DisableStatusGameObject;
 
+        PrefabVFX = null;
         EffectActive = false;
         TimeSpawned = 0;
 

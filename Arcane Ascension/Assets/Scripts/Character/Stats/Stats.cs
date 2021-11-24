@@ -24,7 +24,8 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     /// </summary>
     public float MaxHealth => CommonAttributes.MaxHealth;
 
-    public IDictionary<StatusEffectType, StatusEffectInformation> StatusEffectList { get; private set; }
+    public IDictionary<StatusEffectType, IStatusEffectInformation> StatusEffectList 
+        { get; private set; }
 
     protected IEnumerator damageOvertimeCoroutine;
 
@@ -32,7 +33,7 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     {
         random = new System.Random();
         character = GetComponent<Character>();
-        StatusEffectList = new Dictionary<StatusEffectType, StatusEffectInformation>();
+        StatusEffectList = new Dictionary<StatusEffectType, IStatusEffectInformation>();
     }
 
     protected virtual void Start()

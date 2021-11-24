@@ -7,6 +7,10 @@ using Sirenix.OdinInspector;
 [InlineEditor]
 public abstract class StatusBehaviourAbstractSO : ScriptableObject
 {
+    // Status information
+    [SerializeField] protected StatusEffectType statusEffectType;
+    [SerializeField] protected Sprite icon;
+    [SerializeField] protected GameObject prefabVFX;
     [Range(0, 400f)] [SerializeField] protected float durationSeconds;
 
     /// <summary>
