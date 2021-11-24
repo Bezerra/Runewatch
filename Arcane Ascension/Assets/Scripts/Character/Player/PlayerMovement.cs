@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
     private readonly float  GRAVITY = 100f;
 
     // Character controller collider, don't change these values
-    private readonly float CONTROLLERRADIUSDEFAULT = 0.85f;
+    private readonly float CONTROLLERRADIUSDEFAULT = 0.92f;
     private readonly float CONTROLLERRADIUSONAIR = 0.5f;
 
     private void Awake()
@@ -131,6 +131,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 fallingCoroutine = FallingCoroutine();
                 StartCoroutine(fallingCoroutine);
+                // Increments gravity smoothly
             }
         }
 
@@ -144,13 +145,14 @@ public class PlayerMovement : MonoBehaviour
         // Happens if player pressed jump.
         // Will keep pushing player upwards while the time is passing.
         // Needs to happen here, on fixed update, or jump will be canceled.
-        // After the jumping time has reached it's limit, a coroutine with gravity will start running.
+        // After the jumping time has reached it's limit, a coroutine used to increment
+        // gravity will start running.
         if (jumpingCoroutine != null)
         {
             directionPressed.y = player.Values.JumpForce;
         }
 
-        // Gravity. Calculates gravity after jumping.
+        // Applies gravity
         directionPressed.y -= GRAVITY * gravityIncrement * Time.fixedDeltaTime;
 
         // Movement. Calculates movement after everything else.
@@ -349,6 +351,8 @@ public class PlayerMovement : MonoBehaviour
         {
             yield return wffu;
 
+            // 0.2f is the magic number that always works for our desired falling speed
+
             // Starts incrementing gravity until it reaches its peak
             if (gravityIncrement >= 0.2f / Time.fixedDeltaTime) gravityIncrement = 0.2f / Time.fixedDeltaTime;
             else gravityIncrement += player.Values.GravityIncrement;
@@ -371,12 +375,26 @@ public class PlayerMovement : MonoBehaviour
     /// <returns>Null.</returns>
     private IEnumerator FallingCoroutine()
     {
-        gravityIncrement = 0.01f;
+        Ray rayToFloor = new Ray(transform.position, Vector3.down);
 
+        if (Physics.Raycast(rayToFloor, 0.3f, Layers.WallsFloor))
+        {
+            // Gravity on a ramp for example
+            gravityIncrement = 0.2f / Time.fixedDeltaTime;
+        }
+        else
+        {
+            // Gravity if there is not floor beneath,
+            // it will increment smoothly from a low value
+            gravityIncrement = 0.0025f;
+        }
+        
         // Starts incrementing gravity every fixed update
         while (true)
         {
             yield return wffu;
+
+            // 0.2f is the magic number that always works for our desired falling speed
 
             // Increments gravity
             if (gravityIncrement >= 0.2f / Time.fixedDeltaTime) gravityIncrement = 0.2f / Time.fixedDeltaTime;
