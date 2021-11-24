@@ -47,6 +47,10 @@ public class EnemyStats : Stats
             Mathf.Floor(
                 damage * (ElementsDamage.CalculateDamage(element, CommonAttributes.Element)) *
                 (CommonAttributes.DamageResistance + CommonAttributes.DamageResistanceStatusEffectMultiplier));
+
+        // Prevents healing from negative damage
+        if (damageToReceive < 0) damageToReceive = 0;
+
         OnEventTakeDamage(damageToReceive);
 
         // Spawn damage text
@@ -113,6 +117,10 @@ public class EnemyStats : Stats
             Mathf.Floor(
                 damage * (ElementsDamage.CalculateDamage(element, CommonAttributes.Element)) *
                 (CommonAttributes.DamageResistance + CommonAttributes.DamageResistanceStatusEffectMultiplier));
+
+        // Prevents healing from negative damage
+        if (damageToReceive < 0) damageToReceive = 0;
+
         OnEventTakeDamage(damageToReceive);
 
         // Spawn damage text

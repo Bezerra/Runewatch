@@ -183,6 +183,10 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
             Mathf.Floor(
                 damage * (ElementsDamage.CalculateDamage(element, PlayerAttributes.Element)) *
                 (CommonAttributes.DamageResistance + CommonAttributes.DamageResistanceStatusEffectMultiplier));
+
+        // Prevents healing from negative damage
+        if (damageToReceive < 0) damageToReceive = 0;
+
         OnEventTakeDamage(damageToReceive);
         OnEventTakeDamage(damagePosition);
 
@@ -236,6 +240,10 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
             Mathf.Floor(
                 damage * (ElementsDamage.CalculateDamage(element, PlayerAttributes.Element)) *
                 (CommonAttributes.DamageResistance + CommonAttributes.DamageResistanceStatusEffectMultiplier));
+
+        // Prevents healing from negative damage
+        if (damageToReceive < 0) damageToReceive = 0;
+
         OnEventTakeDamage(damageToReceive);
         OnEventTakeDamage(damagePosition);
 
