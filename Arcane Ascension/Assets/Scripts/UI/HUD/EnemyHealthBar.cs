@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +20,10 @@ public class EnemyHealthBar : MonoBehaviour
     [Header("Element")]
     [SerializeField] private Image elementIcon;
 
+    [Header("Status Effects Slots")]
+    [SerializeField] private Image[] statusEffectsSlots;
+    private Dictionary<StatusEffectType, StatusEffectImage> statusEffectsSlotsInUse;
+
     // Components
     private Camera cam;
     private EnemyStats enemyStats;
@@ -31,6 +37,7 @@ public class EnemyHealthBar : MonoBehaviour
         cam = Camera.main;
         enemyStats = GetComponentInParent<EnemyStats>();
         wffu = new WaitForFixedUpdate();
+        statusEffectsSlotsInUse = new Dictionary<StatusEffectType, StatusEffectImage>();
     }
 
     private void Start()
@@ -43,12 +50,20 @@ public class EnemyHealthBar : MonoBehaviour
 
     private void OnEnable()
     {
+        StartCoroutine(OnEnableCoroutine());
+    }
+
+    private IEnumerator OnEnableCoroutine()
+    {
+        yield return wffu;
         enemyStats.EventTakeDamage += OnTakeDamage;
+        enemyStats.StatusEffectList.ValueChanged += UpdateStatusEffectsEvent;
     }
 
     private void OnDisable()
     {
         enemyStats.EventTakeDamage -= OnTakeDamage;
+        enemyStats.StatusEffectList.ValueChanged -= UpdateStatusEffectsEvent;
     }
 
     /// <summary>
@@ -101,6 +116,11 @@ public class EnemyHealthBar : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        UpdateStatusEffects();
+    }
+
     private void FixedUpdate() =>
         UpdateRotation();
 
@@ -112,6 +132,50 @@ public class EnemyHealthBar : MonoBehaviour
         if (healthBarGameObject.activeSelf)
         {
             healthBarGameObject.transform.LookAt(cam.transform);
+        }
+    }
+
+    private void UpdateStatusEffects()
+    {
+        if (statusEffectsSlotsInUse.Count > 0)
+        {
+            for (int i = 0; i < statusEffectsSlotsInUse.Count; i++)
+            {
+                statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Value.Type].Image.fillAmount = 1 -
+                    (Time.time -
+                    enemyStats.StatusEffectList.Items[statusEffectsSlotsInUse.ElementAt(i).Value.Type].TimeApplied) /
+                    statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Key].Duration;
+
+                if (statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Value.Type].Image.fillAmount <= 0)
+                {
+                    statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Value.Type].Image.gameObject.SetActive(false);
+                    statusEffectsSlotsInUse.Remove(statusEffectsSlotsInUse.ElementAt(i).Value.Type);
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Updates status effects bar.
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name=""></param>
+    private void UpdateStatusEffectsEvent(StatusEffectType type, IStatusEffectInformation information)
+    {
+        for (int i = 0; i < statusEffectsSlots.Length; i++)
+        {
+            if (statusEffectsSlots[i].gameObject.activeSelf == false)
+            {
+                statusEffectsSlots[i].gameObject.SetActive(true);
+
+                statusEffectsSlots[i].sprite = enemyStats.
+                    StatusEffectList.Items[type].Icon;
+
+                statusEffectsSlotsInUse.Add(type,
+                    new StatusEffectImage(statusEffectsSlots[i], type, information.Duration));
+
+                break;
+            }
         }
     }
 }

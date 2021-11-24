@@ -363,7 +363,6 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
-
     private void UpdateStatusEffects()
     {
         if (statusEffectsSlotsInUse.Count > 0)
@@ -383,7 +382,6 @@ public class PlayerUI : MonoBehaviour
             }
         }
     }
-
 
     /// <summary>
     /// Updates status effects bar.
@@ -406,22 +404,6 @@ public class PlayerUI : MonoBehaviour
 
                 break;
             }
-        }
-    }
-
-    /// <summary>
-    /// Struct for an image of a status effect.
-    /// </summary>
-    private struct StatusEffectImage
-    {
-        public Image Image { get; }
-        public StatusEffectType Type { get; }
-        public float Duration { get; }
-        public StatusEffectImage(Image image, StatusEffectType type, float duration)
-        {
-            Image = image;
-            Type = type;
-            Duration = duration;
         }
     }
 }
