@@ -62,6 +62,7 @@ public class PlayerUI : MonoBehaviour
     // Coroutines
     private IEnumerator hitCrosshairCoroutine;
     private IEnumerator updateHealthCoroutine;
+    private IEnumerator updateManaCoroutine;
     private float crosshairHitAlpha;
     private YieldInstruction crosshairWaitForSeconds;
     private YieldInstruction wffu;
@@ -89,11 +90,12 @@ public class PlayerUI : MonoBehaviour
 
     private IEnumerator OnEnableCoroutine()
     {
-        yield return new WaitForFixedUpdate();
+        yield return wffu;
 
         input.CastSpell += CastSpell;
         input.StopCastSpell += StopCastSpell;
         playerStats.EventTakeDamage += OnTakeDamage;
+        playerStats.EventManaUpdate += OnManaUpdate;
 
         playerStats.StatusEffectList.ValueChanged += UpdateStatusEffectsEvent;
 
@@ -109,6 +111,8 @@ public class PlayerUI : MonoBehaviour
         input.CastSpell -= CastSpell;
         input.StopCastSpell -= StopCastSpell;
         playerStats.EventTakeDamage -= OnTakeDamage;
+        playerStats.EventManaUpdate -= OnManaUpdate;
+
         playerStats.StatusEffectList.ValueChanged -= UpdateStatusEffectsEvent;
 
         foreach (EnemyStats enemy in enemyStats)
@@ -197,6 +201,34 @@ public class PlayerUI : MonoBehaviour
     }
 
     /// <summary>
+    /// Starts a coroutine to update health.
+    /// </summary>
+    private void OnManaUpdate() =>
+         this.StartCoroutineWithReset(ref updateManaCoroutine, UpdateManaCoroutine());
+
+    /// <summary>
+    /// Coroutine that updates mana bar UI fill amount.
+    /// </summary>
+    /// <returns>WFFU.</returns>
+    private IEnumerator UpdateManaCoroutine()
+    {
+        do
+        {
+            if (playerStats == null)
+                break;
+
+            mana.fillAmount =
+                Mathf.Lerp(
+                    mana.fillAmount,
+                    playerStats.Mana / playerStats.PlayerAttributes.MaxMana,
+                    Time.fixedDeltaTime * 5f);
+
+            yield return wffu;
+        }
+        while (playerStats.Mana.Similiar(mana.fillAmount) == false);
+    }
+
+    /// <summary>
     /// Starts crosshair hit coroutine.
     /// </summary>
     private void TriggerCrosshairHit() =>
@@ -239,13 +271,21 @@ public class PlayerUI : MonoBehaviour
             crosshair.enabled = true;
     }
 
-
     /// <summary>
     /// Updates the cooldown UI for all current spells and mana.
     /// </summary>
     private void Update()
     {
-        // Updates spells
+        UpdateSpells();
+        UpdateDashCharges();
+        UpdateStats();
+        UpdateCurrency();
+        UpdateFPS();
+        UpdateStatusEffects();
+    }
+
+    private void UpdateSpells()
+    {
         for (int i = 0; i < playerSpells.CurrentSpells.Length; i++)
         {
             if (playerSpells.CurrentSpells[i] != null)
@@ -283,29 +323,36 @@ public class PlayerUI : MonoBehaviour
         spellsUI[4].sprite = playerSpells.SecondarySpell.Icon;
         spellsUI[4].fillAmount =
                     playerSpells.SecondarySpell.CooldownCounter / playerSpells.SecondarySpell.Cooldown;
+    }
 
-        // Updates dash
+    private void UpdateDashCharges()
+    {
         if (playerStats.DashCharge != playerStats.PlayerAttributes.MaxDashCharge)
         {
             dash.fillAmount = 1 - playerMovement.CurrentTimeToGetCharge / player.Values.TimeToGetDashCharge;
-        } 
+        }
         else
         {
             dash.fillAmount = 1;
         }
         dashCharge.text = "x" + playerStats.DashCharge.ToString();
+    }
 
-        // Updates HP/shield/mana bars
-        
+    private void UpdateStats()
+    {
         armor.fillAmount =
             playerStats.Armor / playerStats.PlayerAttributes.MaxArmor;
-        mana.fillAmount =
-            playerStats.Mana / playerStats.PlayerAttributes.MaxMana;
+    }
 
+    private void UpdateCurrency()
+    {
         // Updates loot
         gold.text = "Gold : " + playerCurrency.Quantity.Item1;
         arcanePower.text = "Arcane P : " + playerCurrency.Quantity.Item2;
+    }
 
+    private void UpdateFPS()
+    {
         if (showFPS)
         {
             if (fpsCounter.FrameRate >= 59) fpsCounterTMP.color = Color.green;
@@ -314,8 +361,6 @@ public class PlayerUI : MonoBehaviour
             else fpsCounterTMP.color = Color.red;
             fpsCounterTMP.text = fpsCounter.FrameRate.ToString() + " fps";
         }
-
-        UpdateStatusEffects();
     }
 
 
