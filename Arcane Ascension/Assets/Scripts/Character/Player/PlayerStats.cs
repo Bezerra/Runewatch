@@ -182,7 +182,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
         float damageToReceive = 
             Mathf.Floor(
                 damage * (ElementsDamage.CalculateDamage(element, PlayerAttributes.Element)) *
-                CommonAttributes.DamageResistance);
+                (CommonAttributes.DamageResistance + CommonAttributes.DamageResistanceStatusEffectMultiplier));
         OnEventTakeDamage(damageToReceive);
         OnEventTakeDamage(damagePosition);
 
@@ -235,7 +235,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
         float damageToReceive =
             Mathf.Floor(
                 damage * (ElementsDamage.CalculateDamage(element, PlayerAttributes.Element)) *
-                CommonAttributes.DamageResistance);
+                (CommonAttributes.DamageResistance + CommonAttributes.DamageResistanceStatusEffectMultiplier));
         OnEventTakeDamage(damageToReceive);
         OnEventTakeDamage(damagePosition);
 

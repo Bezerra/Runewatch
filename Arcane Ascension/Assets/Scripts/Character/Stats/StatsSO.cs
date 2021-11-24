@@ -61,7 +61,17 @@ public abstract class StatsSO : ScriptableObject
     public Sprite Icon => icon;
     public string Name => name;
     public float MaxHealth { get; set; }
+
+    /// <summary>
+    /// Damage resistance.
+    /// </summary>
     public float DamageResistance { get; set; }
+
+    /// <summary>
+    /// Damage resistance obtained from status effects.
+    /// </summary>
+    public float DamageResistanceStatusEffectMultiplier { get; set; }
+
     public float BaseDamageMultiplier { get; set; }
     public float CriticalChance { get; set; }
     public float CriticalDamageModifier { get; set; }
@@ -93,7 +103,9 @@ public abstract class StatsSO : ScriptableObject
         CriticalChance = defaultCriticalChance;
         CriticalDamageModifier = defaultCriticalDamageModifier;
         MovementSpeedMultiplier = defaultMovementSpeedMultiplier;
+
         MovementStatusEffectMultiplier = 1;
+        DamageResistanceStatusEffectMultiplier = 0;
 
         damageElementMultiplier = new Dictionary<ElementType, float>
         {

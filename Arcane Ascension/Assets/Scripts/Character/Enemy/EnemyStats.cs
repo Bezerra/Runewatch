@@ -46,7 +46,7 @@ public class EnemyStats : Stats
         float damageToReceive =
             Mathf.Floor(
                 damage * (ElementsDamage.CalculateDamage(element, CommonAttributes.Element)) *
-                CommonAttributes.DamageResistance);
+                (CommonAttributes.DamageResistance + CommonAttributes.DamageResistanceStatusEffectMultiplier));
         OnEventTakeDamage(damageToReceive);
 
         // Spawn damage text
@@ -112,7 +112,7 @@ public class EnemyStats : Stats
         float damageToReceive =
             Mathf.Floor(
                 damage * (ElementsDamage.CalculateDamage(element, CommonAttributes.Element)) *
-                CommonAttributes.DamageResistance);
+                (CommonAttributes.DamageResistance + CommonAttributes.DamageResistanceStatusEffectMultiplier));
         OnEventTakeDamage(damageToReceive);
 
         // Spawn damage text

@@ -45,15 +45,12 @@ public class StatusBehaviour : MonoBehaviour
     private void OnDisable()
     {
         if(characterHit != null)
-        {
             characterHit.EventDeath -= DisableStatusGameObject;
-            CharacterHit = null;
-        }
 
         EffectActive = false;
         TimeSpawned = 0;
-        WhoCast = null;
-        Spell = null;
+
+        Initialize(null, null, null);
     }
 
     /// <summary>
@@ -65,11 +62,7 @@ public class StatusBehaviour : MonoBehaviour
         if(Spell != null && WhoCast != null && characterHit != null)
         {
             TimeSpawned = Time.time;
-
-            if (Spell.StatusBehaviour != null)
-                Spell.StatusBehaviour.StartBehaviour(this);
-            else
-                DisableStatusGameObject();
+            Spell.StatusBehaviour.StartBehaviour(this);
         }
         else
         {
@@ -92,31 +85,20 @@ public class StatusBehaviour : MonoBehaviour
     /// <summary>
     /// Disables status gameobject.
     /// </summary>
-    /// <param name="emptyVariable">Variable to match death event.</param>
-    public void DisableStatusGameObject(Stats emptyVariable = null)
-    {
-        if (characterHit != null)
-        {
-            characterHit.EventDeath -= DisableStatusGameObject;
-            CharacterHit = null;
-        }
-
+    /// <param name="emptyVariable">Variable to match on death event.</param>
+    public void DisableStatusGameObject(Stats emptyVariable = null) =>
         gameObject.SetActive(false);
-    }
 
     /// <summary>
-    /// Initializes crucial variables.
+    /// Sets crucial variables.
     /// </summary>
     /// <param name="spell">Spell cast.</param>
     /// <param name="whoCast">Who cast the spell</param>
     /// <param name="characterHit">Who was hit by the spell.</param>
     public void Initialize(ISpell spell, Stats whoCast, Stats characterHit)
     {
-        if (Spell == null && WhoCast == null && CharacterHit == null)
-        {
-            Spell = spell;
-            WhoCast = whoCast;
-            CharacterHit = characterHit;
-        }
+        Spell = spell;
+        WhoCast = whoCast;
+        CharacterHit = characterHit;
     }
 }

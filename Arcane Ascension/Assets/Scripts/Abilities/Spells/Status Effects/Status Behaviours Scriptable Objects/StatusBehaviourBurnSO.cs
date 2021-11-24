@@ -15,12 +15,12 @@ public class StatusBehaviourBurnSO : StatusBehaviourAbstractSO
     public override void StartBehaviour(StatusBehaviour parent)
     {
         // If the character is NOT suffering from the effect yet
-        if (parent.WhoCast.StatusEffectList.ContainsKey(StatusEffectType.Burn) == false)
+        if (parent.CharacterHit.StatusEffectList.ContainsKey(StatusEffectType.Burn) == false)
         {
             // If the parent of this effect is not taking place yet
             if (parent.EffectActive == false)
             {
-                parent.WhoCast.StatusEffectList.Add(StatusEffectType.Burn,
+                parent.CharacterHit.StatusEffectList.Add(StatusEffectType.Burn,
                     new StatusEffectInformation(Time.time, durationSeconds));
 
                 parent.CharacterHit.TakeDamageOvertime(
@@ -31,7 +31,7 @@ public class StatusBehaviourBurnSO : StatusBehaviourAbstractSO
             // If it's already taking effect
             else
             {
-                parent.WhoCast.StatusEffectList[StatusEffectType.Burn].TimeApplied = Time.time;
+                parent.CharacterHit.StatusEffectList[StatusEffectType.Burn].TimeApplied = Time.time;
 
                 parent.CharacterHit.TakeDamageOvertime(
                     damageToDo, ElementType.Fire, damageInterval, durationSeconds);
@@ -42,7 +42,7 @@ public class StatusBehaviourBurnSO : StatusBehaviourAbstractSO
         // Else if the character is already suffering from the effect
         else
         {
-            parent.WhoCast.StatusEffectList[StatusEffectType.Burn].TimeApplied = Time.time;
+            parent.CharacterHit.StatusEffectList[StatusEffectType.Burn].TimeApplied = Time.time;
 
             parent.CharacterHit.TakeDamageOvertime(
                 damageToDo, ElementType.Fire, damageInterval, durationSeconds);
@@ -58,10 +58,10 @@ public class StatusBehaviourBurnSO : StatusBehaviourAbstractSO
         // This will happen to the active effect
         // In order for this to happen, the effect is active, so the stats Dictionary will
         // have this key for sure
-        if (Time.time - parent.WhoCast.StatusEffectList[StatusEffectType.Burn].TimeApplied
+        if (Time.time - parent.CharacterHit.StatusEffectList[StatusEffectType.Burn].TimeApplied
             > durationSeconds)
         {
-            parent.WhoCast.StatusEffectList.Remove(StatusEffectType.Burn);
+            parent.CharacterHit.StatusEffectList.Remove(StatusEffectType.Burn);
             parent.DisableStatusGameObject();
         }
     }
