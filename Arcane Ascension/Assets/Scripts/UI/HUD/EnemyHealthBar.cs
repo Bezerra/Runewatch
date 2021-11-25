@@ -57,13 +57,13 @@ public class EnemyHealthBar : MonoBehaviour
     private IEnumerator OnEnableCoroutine()
     {
         yield return wffu;
-        enemyStats.EventTakeDamage += OnTakeDamage;
+        enemyStats.EventHealthUpdate += OnTakeDamage;
         enemyStats.StatusEffectList.ValueChanged += UpdateStatusEffectsEvent;
     }
 
     private void OnDisable()
     {
-        enemyStats.EventTakeDamage -= OnTakeDamage;
+        enemyStats.EventHealthUpdate -= OnTakeDamage;
         enemyStats.StatusEffectList.ValueChanged -= UpdateStatusEffectsEvent;
     }
 

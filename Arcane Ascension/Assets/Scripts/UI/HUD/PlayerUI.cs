@@ -63,6 +63,7 @@ public class PlayerUI : MonoBehaviour
     private IEnumerator hitCrosshairCoroutine;
     private IEnumerator updateHealthCoroutine;
     private IEnumerator updateManaCoroutine;
+    private IEnumerator updateLeafShieldCoroutine;
     private float crosshairHitAlpha;
     private YieldInstruction crosshairWaitForSeconds;
     private YieldInstruction wffu;
@@ -94,8 +95,10 @@ public class PlayerUI : MonoBehaviour
 
         input.CastSpell += CastSpell;
         input.StopCastSpell += StopCastSpell;
-        playerStats.EventTakeDamage += OnTakeDamage;
+        playerStats.EventHealthUpdate += OnTakeDamage;
         playerStats.EventManaUpdate += OnManaUpdate;
+        playerStats.EventArmorUpdate += OnArmorUpdate;
+
         playerCurrency.EventCurrencyUpdate += OnCurrencyUpdate;
 
         playerStats.StatusEffectList.ValueChanged += UpdateStatusEffectsEvent;
@@ -111,8 +114,9 @@ public class PlayerUI : MonoBehaviour
     {
         input.CastSpell -= CastSpell;
         input.StopCastSpell -= StopCastSpell;
-        playerStats.EventTakeDamage -= OnTakeDamage;
+        playerStats.EventHealthUpdate -= OnTakeDamage;
         playerStats.EventManaUpdate -= OnManaUpdate;
+        playerStats.EventArmorUpdate -= OnArmorUpdate;
         playerCurrency.EventCurrencyUpdate -= OnCurrencyUpdate;
 
         playerStats.StatusEffectList.ValueChanged -= UpdateStatusEffectsEvent;
@@ -205,6 +209,35 @@ public class PlayerUI : MonoBehaviour
     /// <summary>
     /// Starts a coroutine to update health.
     /// </summary>
+    private void OnArmorUpdate() =>
+         this.StartCoroutineWithReset(ref updateLeafShieldCoroutine, UpdateLeafShieldCoroutine());
+
+    /// <summary>
+    /// Coroutine that updates leaf shield bar UI fill amount.
+    /// </summary>
+    /// <returns>WFFU.</returns>
+    private IEnumerator UpdateLeafShieldCoroutine()
+    {
+        do
+        {
+            if (playerStats == null)
+                break;
+
+            armor.fillAmount =
+                Mathf.Lerp(
+                    armor.fillAmount,
+                    playerStats.Armor / playerStats.PlayerAttributes.MaxArmor,
+                    Time.fixedDeltaTime * 2f);
+
+            yield return wffu;
+        }
+        while (playerStats.Armor.Similiar(armor.fillAmount) == false);
+        if (armor.fillAmount < 0.01) armor.fillAmount = 0;
+    }
+
+    /// <summary>
+    /// Starts a coroutine to update health.
+    /// </summary>
     private void OnManaUpdate() =>
          this.StartCoroutineWithReset(ref updateManaCoroutine, UpdateManaCoroutine());
 
@@ -286,7 +319,6 @@ public class PlayerUI : MonoBehaviour
     {
         UpdateSpells();
         UpdateDashCharges();
-        UpdateStats();
         UpdateFPS();
         UpdateStatusEffects();
     }
@@ -343,12 +375,6 @@ public class PlayerUI : MonoBehaviour
             dash.fillAmount = 1;
         }
         dashCharge.text = "x" + playerStats.DashCharge.ToString();
-    }
-
-    private void UpdateStats()
-    {
-        armor.fillAmount =
-            playerStats.Armor / playerStats.PlayerAttributes.MaxArmor;
     }
 
     private void UpdateFPS()

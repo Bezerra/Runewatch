@@ -72,10 +72,9 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
         UpdateStats(stpData.SaveData.ManaFountain, StatsType.ManaRegenSteal);
 
         base.Start();
-        Mana = PlayerAttributes.MaxMana;
-        Armor = 0;
 
         // Starts regen Mana coroutine
+        Heal(PlayerAttributes.MaxMana, StatsType.Mana);
         regenManaCoroutine = RegenManaCoroutine();
         wft = new WaitForSeconds(PlayerAttributes.ManaRegenTime);
         StartCoroutine(regenManaCoroutine);
@@ -106,7 +105,10 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
     /// <returns>Wait for seconds.</returns>
     private IEnumerator LoseLeafShieldCoroutine()
     {
-        float leafShieldToLose = 0.25f;
+        yield return wfs;
+        Heal(0.01f, StatsType.Armor);
+
+        float leafShieldToLose = 1f;
         while (true)
         {
             yield return wfs;
@@ -243,6 +245,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
             {
                 Health -= restOfTheDamage;
                 OnEventTakeDamage();
+                OnEventHealthUpdate();
             }
             else
             {
@@ -300,6 +303,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
             {
                 Health -= restOfTheDamage;
                 OnEventTakeDamage();
+                OnEventHealthUpdate();
             }
             else
             {
@@ -382,10 +386,12 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
         {
             case StatsType.Health:
                 PlayerAttributes.MaxHealth += PlayerAttributes.MaxHealth * amountToIncrement;
+                OnEventHealthUpdate();
                 break;
 
             case StatsType.Mana:
                 PlayerAttributes.MaxMana += PlayerAttributes.MaxMana * amountToIncrement;
+                OnEventManaUpdate();
                 break;
 
             case StatsType.MovementSpeedMultiplier:
@@ -415,6 +421,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
 
             case StatsType.Armor:
                 PlayerAttributes.MaxArmor += amountToIncrement;
+                OnEventArmorUpdate();
                 break;
 
             case StatsType.Damage:

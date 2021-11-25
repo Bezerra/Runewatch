@@ -65,12 +65,14 @@ public class EnemyStats : Stats
         {
             Health -= damageToReceive;
             OnEventTakeDamage();
+            OnEventHealthUpdate();
         }
         else
         {
             if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
             Health = 0;
             OnEventTakeDamage();
+            OnEventHealthUpdate();
             OnEventDeath(this);
 
             // Gets random drops and spawns them
@@ -135,12 +137,14 @@ public class EnemyStats : Stats
         {
             Health -= damageToReceive;
             OnEventTakeDamage();
+            OnEventHealthUpdate();
         }
         else
         {
             if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
             Health = 0;
             OnEventTakeDamage();
+            OnEventHealthUpdate();
             OnEventDeath(this);
 
             // Gets random drops and spawns them
