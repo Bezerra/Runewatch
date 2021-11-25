@@ -32,7 +32,7 @@ sealed public class SpellBehaviourApplyDamageMeleeAttackSO : SpellBehaviourAbstr
             // Moves collider a little to the front to help with player's accuracy
             parent.PositionOnHit = parent.Eyes.position +
                 parent.Eyes.transform.position.Direction(
-                    parent.Eyes.position + parent.Eyes.transform.forward) * 1.25f;
+                    parent.Eyes.position + parent.Eyes.transform.forward) * 1.5f;
 
             if (parent.Spell.OnHitBehaviourOneShot != null)
             {
@@ -40,10 +40,10 @@ sealed public class SpellBehaviourApplyDamageMeleeAttackSO : SpellBehaviourAbstr
                 Physics.OverlapSphere(
                     parent.PositionOnHit, parent.Spell.AreaOfEffect, Layers.EnemyLayer);
 
-                List<SelectionBase> enemies = new List<SelectionBase>();
+                List<Enemy> enemies = new List<Enemy>();
                 for (int i = 0; i < allEnemyCollidersHit.Length; i++)
                 {
-                    if (allEnemyCollidersHit[i].TryGetComponentInParent(out SelectionBase enemy))
+                    if (allEnemyCollidersHit[i].TryGetComponentInParent(out Enemy enemy))
                     {
                         if (enemies.Contains(enemy) == false)
                         {
@@ -55,12 +55,12 @@ sealed public class SpellBehaviourApplyDamageMeleeAttackSO : SpellBehaviourAbstr
 
                 if (enemies.Count > 0)
                 {
-                    Debug.Log("FOI");
                     for (int i = 0; i < enemies.Count; i++)
                     {
-                        Vector3 positionToSpawnHit = 
-                            new Vector3(enemies[i].gameObject.transform.position.x, 
-                            parent.Hand.position.y, enemies[i].gameObject.transform.position.z);
+                        Vector3 positionToSpawnHit = new Vector3(
+                            enemies[i].gameObject.transform.position.x,
+                            parent.Hand.position.y, 
+                            enemies[i].gameObject.transform.position.z);
 
                         Vector3 positionMargin = positionToSpawnHit +
                             positionToSpawnHit.Direction(parent.Eyes.transform.position);
@@ -68,7 +68,7 @@ sealed public class SpellBehaviourApplyDamageMeleeAttackSO : SpellBehaviourAbstr
                         // Spawns hit in direction of collider hit normal
                         SpellHitPoolCreator.Pool.InstantiateFromPool(
                             parent.Spell.Name, positionMargin,
-                            Quaternion.LookRotation(parent.Eyes.position.Direction(positionToSpawnHit)));
+                            Quaternion.LookRotation(positionMargin.Direction(parent.Eyes.transform.position)));
                     }
                 } 
             }
