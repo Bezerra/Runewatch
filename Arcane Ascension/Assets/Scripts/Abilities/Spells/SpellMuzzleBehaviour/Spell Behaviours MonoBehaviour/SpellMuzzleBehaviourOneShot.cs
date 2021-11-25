@@ -12,6 +12,10 @@ public class SpellMuzzleBehaviourOneShot : SpellMuzzleBehaviourAbstract
 
     public Transform Eyes { get; set; }
 
+    public Transform Hand { get; set; }
+
+    public Stats WhoCast { get; set; }
+
     /// <summary>
     /// Runs start behaviour when enabled with with pool.
     /// </summary>
