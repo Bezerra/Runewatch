@@ -4,17 +4,15 @@ using UnityEngine;
 
 public class BezerraDreamSpellSpawner : MonoBehaviour
 {
+    [Header("One Shot With Release spells will spawn in 0, 0, 0")]
     [SerializeField] private SpellSO spell;
     [SerializeField] private float timeToSpawn;
     [Range(0f,1f)][SerializeField] private float timeScale;
 
-    private Character character;
     private PlayerStats characterStats;
-    private SpellBehaviourAbstract spellBehaviour;
 
     private void Awake()
     {
-        character = GetComponent<Player>();
         characterStats = GetComponent<PlayerStats>();
     }
 
@@ -30,7 +28,7 @@ public class BezerraDreamSpellSpawner : MonoBehaviour
                 Quaternion.LookRotation(transform.forward, transform.up));
 
             // Gets behaviour of the spawned spell. Starts the behaviour and passes whoCast object (stats) to the behaviour.
-            spellBehaviour = spawnedSpell.GetComponent<SpellBehaviourOneShot>();
+            SpellBehaviourAbstract spellBehaviour = spawnedSpell.GetComponent<SpellBehaviourOneShot>();
             spellBehaviour.WhoCast = characterStats;
             spellBehaviour.TriggerStartBehaviour();
         }
