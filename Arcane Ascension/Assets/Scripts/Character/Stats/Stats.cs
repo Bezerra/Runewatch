@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
@@ -141,11 +140,11 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     }
 
     // Events
-    // Registered on CheatsConsole, EnemyScript.
+    // Subscribed on CheatsConsole, EnemyScript.
     protected virtual void OnEventTakeDamage(float damageToReceive) => EventTakeDamageNumber?.Invoke(damageToReceive);
     public Action<float> EventTakeDamageNumber;
 
-    // Registered on playerDamageReceiverUI
+    // Subscribed on playerDamageReceiverUI
     protected virtual void OnEventTakeDamage(Vector3 damagePosition) => 
         EventTakeDamagePosition?.Invoke(damagePosition);
     public Action<Vector3> EventTakeDamagePosition;
@@ -153,15 +152,19 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     protected virtual void OnEventTakeDamage() => EventTakeDamage?.Invoke();
     public Action EventTakeDamage;
 
-    // Registered on playerUi
+    // Subscribed on player ui
+    protected virtual void OnEventHealthUpdate() => EventHealthUpdate?.Invoke();
+    public Action EventHealthUpdate;
+
+    // Subscribed on playerUi
     protected virtual void OnEventDeath(Stats stats) => EventDeath?.Invoke(stats);
     public Action<Stats> EventDeath;
 
-    // Registered on classes that use Speed
+    // Subscribed on classes that use Speed
     protected virtual void OnSpeedUpdate(float speed) => EventSpeedUpdate?.Invoke(speed);
     public Action<float> EventSpeedUpdate;
 
-    // Registered on HUD classes
+    // Subscribed on HUD classes
     protected virtual void OnStatusEffectListUpdated(StatusEffectType type,
         IStatusEffectInformation information) => EventStatusEffectListUpdated?.Invoke(type, information);
     public Action<StatusEffectType, IStatusEffectInformation> EventStatusEffectListUpdated;

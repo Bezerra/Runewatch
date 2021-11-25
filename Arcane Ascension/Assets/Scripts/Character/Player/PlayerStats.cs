@@ -17,7 +17,9 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
     // Coroutines
     private IEnumerator loseManaCoroutine;
     private IEnumerator regenManaCoroutine;
+    private IEnumerator loseLeafShieldCoroutine;
     private YieldInstruction wft;
+    private YieldInstruction wfs;
 
     // Components
     private PlayerCastSpell playerCastSpell;
@@ -71,12 +73,17 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
 
         base.Start();
         Mana = PlayerAttributes.MaxMana;
-        Armor = PlayerAttributes.MaxArmor;
+        Armor = 0;
 
         // Starts regen Mana coroutine
         regenManaCoroutine = RegenManaCoroutine();
         wft = new WaitForSeconds(PlayerAttributes.ManaRegenTime);
         StartCoroutine(regenManaCoroutine);
+
+        // Starts lose leaf shield coroutine
+        loseLeafShieldCoroutine = LoseLeafShieldCoroutine();
+        wfs = new WaitForSeconds(1);
+        StartCoroutine(loseLeafShieldCoroutine);
     }
 
     private void OnEnable()
@@ -91,6 +98,32 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
         playerCastSpell.EventSpendMana -= ReduceMana;
         playerCastSpell.EventSpendManaContinuous -= StartLoseManaCoroutine;
         playerCastSpell.EventStopSpendManaContinuous -= StopLoseManaCoroutine;
+    }
+
+    /// <summary>
+    /// Decrements leaf shield every fixedupdate.
+    /// </summary>
+    /// <returns>Wait for seconds.</returns>
+    private IEnumerator LoseLeafShieldCoroutine()
+    {
+        float leafShieldToLose = 0.25f;
+        while (true)
+        {
+            yield return wfs;
+
+            if (Armor > 0)
+            {
+                if (Armor - leafShieldToLose > 0)
+                {
+                    Armor -= leafShieldToLose; 
+                }
+                else
+                {
+                    Armor = 0;
+                }
+                OnEventManaUpdate();
+            }
+        }
     }
 
     /// <summary>
@@ -295,10 +328,12 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
                 if (Health + healAmount < PlayerAttributes.MaxHealth)
                 {
                     Health += healAmount;
+                    OnEventHealthUpdate();
                 }
                 else
                 {
                     Health = PlayerAttributes.MaxHealth;
+                    OnEventHealthUpdate();
                 }
                 break;
 
@@ -308,10 +343,12 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
                 if (Mana + manaHealAmount < PlayerAttributes.MaxMana)
                 {
                     Mana += manaHealAmount;
+                    OnEventManaUpdate();
                 }
                 else
                 {
                     Mana = PlayerAttributes.MaxMana;
+                    OnEventManaUpdate();
                 }
                 break;
 
@@ -319,10 +356,12 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
                 if (Armor + amountOfHeal < PlayerAttributes.MaxArmor)
                 {
                     Armor += amountOfHeal;
+                    OnEventArmorUpdate();
                 }
                 else
                 {
                     Armor = PlayerAttributes.MaxArmor;
+                    OnEventArmorUpdate();
                 }
                 break;
 
@@ -505,7 +544,11 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
         }
     }
 
-    // Registered on player UI and CheatsConsole
+    // Subscribed on player UI and CheatsConsole
     protected virtual void OnEventManaUpdate() => EventManaUpdate?.Invoke();
     public Action EventManaUpdate;
+
+    // Subscribed on player UI
+    protected virtual void OnEventArmorUpdate() => EventArmorUpdate?.Invoke();
+    public Action EventArmorUpdate;
 }
