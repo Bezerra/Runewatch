@@ -31,6 +31,56 @@ sealed public class SpellBehaviourApplyDamageMeleeAttackSO : SpellBehaviourAbstr
             // Moves collider a little to the front to help with player's accuracy
             parent.PositionOnHit = parent.Hand.position +
                 parent.WhoCast.transform.position.Direction(parent.Hand.position) * 1.5f;
+
+            /*
+            Colliders[] colliderHit = Physics.OverlapSphere
+
+            // Creates spell hit
+            // If Hit prefab exists and layer is different than who cast
+            // Update() will run from its monobehaviour script
+            if (parent.Spell.OnHitBehaviourOneShot != null &&
+                other.gameObject.layer != parent.LayerOfWhoCast)
+            {
+                // Spawns hit in direction of collider hit normal
+                GameObject onHitBehaviourGameObject = SpellHitPoolCreator.Pool.InstantiateFromPool(
+                    parent.Spell.Name, positionToSpawnHit,
+                    spellLookRotation);
+
+                // If the collider hit has a surface, it will player a sound set to that surface,
+                // else it will play a default sound if it has one, else it doesn't play any sound
+                if (onHitBehaviourGameObject.TryGetComponent<SpellOnHitBehaviourOneShot>(
+                    out SpellOnHitBehaviourOneShot onHitBehaviour))
+                {
+                    // Sets hit spell that spawned it
+                    if (onHitBehaviour.Spell != parent.Spell)
+                        onHitBehaviour.Spell = parent.Spell;
+
+                    if (other.TryGetComponent(out ISurface surface))
+                    {
+                        if (parent.Spell.SurfaceSounds.ContainsKey(surface.SurfaceType))
+                        {
+                            parent.Spell.SurfaceSounds[surface.SurfaceType].PlaySound(onHitBehaviour.AudioS);
+                        }
+                        else
+                        {
+                            // If there's a sound and hit is not an enemy
+                            if (parent.Spell.Sounds.Hit != null)
+                            {
+                                onHitBehaviour.Spell.Sounds.Hit.PlaySound(onHitBehaviour.AudioS);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // If there's a sound and hit is not an enemy
+                        if (parent.Spell.Sounds.Hit != null)
+                        {
+                            onHitBehaviour.Spell.Sounds.Hit.PlaySound(onHitBehaviour.AudioS);
+                        }
+                    }
+                }
+            }
+            */
         }
 
         parent.SpellStartedMoving = true;
