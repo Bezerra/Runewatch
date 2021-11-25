@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEngine.VFX;
 
 /// <summary>
@@ -9,7 +10,6 @@ public class SpellMuzzleBehaviourContinuous : SpellMuzzleBehaviourAbstract
     /// This variable is set on spell behaviour after the spell is cast.
     /// </summary>
     public override ISpell Spell { get; set; }
-    public override float TimeSpawned { get; set; }
     public SpellBehaviourContinuous SpellMonoBehaviour { get; set; }
     public VisualEffect MuzzleEffect { get; private set; }
 
@@ -31,6 +31,12 @@ public class SpellMuzzleBehaviourContinuous : SpellMuzzleBehaviourAbstract
             foreach (SpellMuzzleBehaviourAbstractContinuousSO muzzleBehaviour in Spell.MuzzleBehaviourContinuous)
                 muzzleBehaviour.StartBehaviour(this);
         }
+    }
+
+    private void OnDisable()
+    {
+        Spell = null;
+        TimeSpawned = Time.time;
     }
 
     /// <summary>

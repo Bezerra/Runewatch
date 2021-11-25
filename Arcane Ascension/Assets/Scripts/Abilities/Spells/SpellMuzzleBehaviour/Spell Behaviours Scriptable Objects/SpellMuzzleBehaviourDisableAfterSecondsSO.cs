@@ -48,4 +48,9 @@ public class SpellMuzzleBehaviourDisableAfterSecondsSO : SpellMuzzleBehaviourAbs
             parent.DisableMuzzleSpell();
         }
     }
+
+    public override void ContinuousFixedUpdateBehaviour(SpellMuzzleBehaviourOneShot parent)
+    {
+        // Left blank on purpose
+    }
 }

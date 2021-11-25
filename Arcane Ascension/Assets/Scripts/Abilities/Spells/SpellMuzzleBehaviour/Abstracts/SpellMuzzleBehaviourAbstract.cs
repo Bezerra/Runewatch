@@ -20,7 +20,7 @@ public abstract class SpellMuzzleBehaviourAbstract : MonoBehaviour, IVisualEffec
     /// </summary>
     public abstract ISpell Spell { get; set; }
 
-    public abstract float TimeSpawned { get; set; }
+    public float TimeSpawned { get; set; }
 
     protected virtual void Awake()
     {

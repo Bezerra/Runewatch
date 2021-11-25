@@ -12,4 +12,9 @@ public abstract class SpellMuzzleBehaviourAbstractOneShotSO : SpellMuzzleBehavio
     /// Executes on update.
     /// </summary>
     public abstract void ContinuousUpdateBehaviour(SpellMuzzleBehaviourOneShot parent);
+
+    /// <summary>
+    /// Executes on fixed update.
+    /// </summary>
+    public abstract void ContinuousFixedUpdateBehaviour(SpellMuzzleBehaviourOneShot parent);
 }

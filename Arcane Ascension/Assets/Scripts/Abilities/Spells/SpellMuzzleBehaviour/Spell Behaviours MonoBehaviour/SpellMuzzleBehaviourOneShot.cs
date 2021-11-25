@@ -10,7 +10,7 @@ public class SpellMuzzleBehaviourOneShot : SpellMuzzleBehaviourAbstract
     /// </summary>
     public override ISpell Spell { get; set; }
 
-    public override float TimeSpawned { get; set; }
+    public Transform Eyes { get; set; }
 
     /// <summary>
     /// Runs start behaviour when enabled with with pool.
@@ -27,6 +27,12 @@ public class SpellMuzzleBehaviourOneShot : SpellMuzzleBehaviourAbstract
         }
     }
 
+    private void OnDisable()
+    {
+        Spell = null;
+        TimeSpawned = Time.time;
+    }
+
     /// <summary>
     /// Keeps running on update.
     /// </summary>
@@ -36,6 +42,18 @@ public class SpellMuzzleBehaviourOneShot : SpellMuzzleBehaviourAbstract
         {
             foreach (SpellMuzzleBehaviourAbstractOneShotSO muzzleBehaviour in Spell.MuzzleBehaviourOneShot)
                 muzzleBehaviour.ContinuousUpdateBehaviour(this);
+        }
+    }
+
+    /// <summary>
+    /// Keeps running on update.
+    /// </summary>
+    private void FixedUpdate()
+    {
+        if (Spell != null)
+        {
+            foreach (SpellMuzzleBehaviourAbstractOneShotSO muzzleBehaviour in Spell.MuzzleBehaviourOneShot)
+                muzzleBehaviour.ContinuousFixedUpdateBehaviour(this);
         }
     }
 }

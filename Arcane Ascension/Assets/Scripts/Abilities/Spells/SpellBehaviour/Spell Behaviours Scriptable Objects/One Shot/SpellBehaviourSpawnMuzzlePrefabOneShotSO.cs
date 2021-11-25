@@ -1,4 +1,5 @@
 using UnityEngine;
+using ExtensionMethods;
 
 /// <summary>
 /// Scriptable object responsible for creating a spell's behaviour.
@@ -13,13 +14,14 @@ sealed public class SpellBehaviourSpawnMuzzlePrefabOneShotSO : SpellBehaviourAbs
         // Update() will run from its monobehaviour script
         GameObject spellMuzzleBehaviourGameObject = SpellMuzzlePoolCreator.Pool.InstantiateFromPool(
             parent.Spell.Name, parent.Hand.position,
-            Quaternion.LookRotation(parent.Hand.forward, parent.Hand.up));
+            Quaternion.LookRotation(parent.Eyes.forward, parent.Eyes.up));
 
         // Gets muzzle behaviour from it
-        if (spellMuzzleBehaviourGameObject.TryGetComponent<SpellMuzzleBehaviourOneShot>(out SpellMuzzleBehaviourOneShot muzzleBehaviour))
+        if (spellMuzzleBehaviourGameObject.TryGetComponent<SpellMuzzleBehaviourOneShot>(
+            out SpellMuzzleBehaviourOneShot muzzleBehaviour))
         {
-            if (muzzleBehaviour.Spell != parent.Spell)
-                muzzleBehaviour.Spell = parent.Spell;
+            muzzleBehaviour.Spell = parent.Spell;
+            muzzleBehaviour.Eyes = parent.Eyes;
 
             if (parent.Spell.Sounds.Muzzle != null)
             {

@@ -14,15 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: ed64f3a17f2ede646be21ed6edc9161a, type: 3}
   name: Mana Steal
-  spellID: 0
   spellTier: 1
   description: 
+  elementIcon: {fileID: 0}
   element: 0
   manaCost: 0.01
+  targetTypeIcon: {fileID: 0}
   timeInterval: 0.01
   maxTime: 0.1
   areaOfEffect: 2
   damage: {x: 5, y: 8}
+  delayToDoDamage: 0
   spellCastType: 0
   speed: 10
   cooldown: 0.3
@@ -33,10 +35,12 @@ MonoBehaviour:
   spellHandEffectPrefab: {fileID: 0}
   areaHoverPrefab: {fileID: 0}
   damageBehaviour: {fileID: 11400000, guid: 4036fe55c2ac2ff4a8cd963fd556385b, type: 2}
+  statusBehaviour: {fileID: 0}
   sounds:
     projectile: {fileID: 11400000, guid: ce93cdd6c11ab2b4d8d775c56646cdd7, type: 2}
     muzzle: {fileID: 11400000, guid: bcc0f6fc8de77b94ab23d930add8ba29, type: 2}
     hit: {fileID: 0}
+  surfaceSounds: []
   spellBehaviourOneShot:
   - {fileID: 11400000, guid: 20cb4169d3aa11d468e125db71cf86b6, type: 2}
   - {fileID: 11400000, guid: 23db48289d398964689dd751774801ae, type: 2}
@@ -50,3 +54,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b67a21e782d7c3141894566198d37048, type: 2}
   muzzleBehaviourOneShot:
   - {fileID: 11400000, guid: da438eaf63e47e74a8e7e0d60862b84e, type: 2}
+  - {fileID: 11400000, guid: e54eb235ea9381946a4a076f5351e0f3, type: 2}
