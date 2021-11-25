@@ -14,8 +14,8 @@ public class BezerraDreamSpellSpawner : MonoBehaviour
 
     private void Awake()
     {
-        character = FindObjectOfType<Player>();
-        characterStats = character.GetComponent<PlayerStats>();
+        character = GetComponent<Player>();
+        characterStats = GetComponent<PlayerStats>();
     }
 
     private IEnumerator Start()
@@ -32,9 +32,7 @@ public class BezerraDreamSpellSpawner : MonoBehaviour
             // Gets behaviour of the spawned spell. Starts the behaviour and passes whoCast object (stats) to the behaviour.
             spellBehaviour = spawnedSpell.GetComponent<SpellBehaviourOneShot>();
             spellBehaviour.WhoCast = characterStats;
-
-            // Moves the spell forward
-            spawnedSpell.GetComponent<Rigidbody>().velocity = transform.forward * spell.Speed;
+            spellBehaviour.TriggerStartBehaviour();
         }
     }
 
