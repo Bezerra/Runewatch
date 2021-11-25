@@ -24,7 +24,7 @@ MonoBehaviour:
   targetTypeIcon: {fileID: 21300000, guid: 646785eca119e9749825928c12b058e1, type: 3}
   timeInterval: 0.01
   maxTime: 0.1
-  areaOfEffect: 3
+  areaOfEffect: 1.15
   damage: {x: 20, y: 25}
   delayToDoDamage: 0
   spellCastType: 0
@@ -42,7 +42,15 @@ MonoBehaviour:
     projectile: {fileID: 0}
     muzzle: {fileID: 11400000, guid: ec3679d8ef524e04e942c5f5ea292361, type: 2}
     hit: {fileID: 0}
-  surfaceSounds: []
+  surfaceSounds:
+  - sound: {fileID: 11400000, guid: 39b6eaad5000c914bb9821991388ebd5, type: 2}
+    surfaceType: 0
+  - sound: {fileID: 11400000, guid: 9ad4c86b5a188f44e92941e4c6a8f81c, type: 2}
+    surfaceType: 3
+  - sound: {fileID: 11400000, guid: 50b56fc98c83bbe4ba475b530bcbdd0f, type: 2}
+    surfaceType: 1
+  - sound: {fileID: 11400000, guid: 435901cd58ff58a45beee2535a0d7054, type: 2}
+    surfaceType: 2
   spellBehaviourOneShot:
   - {fileID: 11400000, guid: 295c7b5ef39c408488e744a106ce7dba, type: 2}
   - {fileID: 11400000, guid: 391e6fdc62eda2c4ba7dae6900236270, type: 2}

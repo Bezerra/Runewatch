@@ -55,7 +55,7 @@ public abstract class SpellSO : ScriptableObject, ISpell
 
     [VerticalGroup("Damage/Split/Middle", 1), LabelWidth(120)]
     [Tooltip("Radius of effect after an AreaDamage spell hits something")]
-    [Range(2f, 10f)] [SerializeField] protected float areaOfEffect;
+    [Range(1f, 10f)] [SerializeField] protected float areaOfEffect;
 
     [VerticalGroup("Damage/Split/Middle", 1), LabelWidth(120)]
     [Tooltip("Random damage between these 2 values")]

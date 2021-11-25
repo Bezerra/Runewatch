@@ -55,7 +55,7 @@ public class DamageAoESO : DamageBehaviourAbstractSO
                 parent.PositionOnHit.Direction(collisions[i].ClosestPoint(parent.PositionOnHit)));
 
             // Checks if colliders are hit
-            if (Physics.Raycast(dir, out RaycastHit characterHit, parent.Spell.AreaOfEffect * 0.5f,
+            if (Physics.Raycast(dir, out RaycastHit characterHit, parent.Spell.AreaOfEffect,
                 Layers.PlayerEnemyWithWallsFloor))
             {
                 // If the collider is an IDamageable (meaning it wasn't a wall)

@@ -69,9 +69,9 @@ public class SpellBehaviourSpawnHitPrefabSimeImpactWithSoundSO : SpellBehaviourA
                 return;
         }
 
-        // Creates spell hit
-        // If Hit prefab exists and layer is different than who cast
-        // Update() will run from its monobehaviour script
+        // Creates spell hit,
+        // If Hit prefab exists and layer is different than who cast,
+        // Update() will run from its monobehaviour script,
         if (parent.Spell.OnHitBehaviourOneShot != null &&
             other.gameObject.layer != parent.LayerOfWhoCast)
         {
@@ -97,16 +97,17 @@ public class SpellBehaviourSpawnHitPrefabSimeImpactWithSoundSO : SpellBehaviourA
                     }
                     else
                     {
-                        // If there's a sound and hit is not an enemy
+                        // If this spell has a sound on hit and the spell had no sound for that surface
                         if (parent.Spell.Sounds.Hit != null)
                         {
                             onHitBehaviour.Spell.Sounds.Hit.PlaySound(onHitBehaviour.AudioS);
+                            Debug.LogWarning("Spell has no sound for " + surface.SurfaceType);
                         }
                     }
                 }
                 else
                 {
-                    // If there's a sound and hit is not an enemy
+                    // If this spell has a sound on hit and the impact was not on a surface type
                     if (parent.Spell.Sounds.Hit != null)
                     {
                         onHitBehaviour.Spell.Sounds.Hit.PlaySound(onHitBehaviour.AudioS);

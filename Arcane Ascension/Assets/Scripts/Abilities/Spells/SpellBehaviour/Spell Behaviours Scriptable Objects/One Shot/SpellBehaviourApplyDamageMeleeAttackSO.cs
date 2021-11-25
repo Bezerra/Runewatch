@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using ExtensionMethods;
 
@@ -29,58 +30,48 @@ sealed public class SpellBehaviourApplyDamageMeleeAttackSO : SpellBehaviourAbstr
         // If it's the player
         {
             // Moves collider a little to the front to help with player's accuracy
-            parent.PositionOnHit = parent.Hand.position +
-                parent.WhoCast.transform.position.Direction(parent.Hand.position) * 1.5f;
+            parent.PositionOnHit = parent.Eyes.position +
+                parent.Eyes.transform.position.Direction(
+                    parent.Eyes.position + parent.Eyes.transform.forward) * 1.25f;
 
-            /*
-            Colliders[] colliderHit = Physics.OverlapSphere
-
-            // Creates spell hit
-            // If Hit prefab exists and layer is different than who cast
-            // Update() will run from its monobehaviour script
-            if (parent.Spell.OnHitBehaviourOneShot != null &&
-                other.gameObject.layer != parent.LayerOfWhoCast)
+            if (parent.Spell.OnHitBehaviourOneShot != null)
             {
-                // Spawns hit in direction of collider hit normal
-                GameObject onHitBehaviourGameObject = SpellHitPoolCreator.Pool.InstantiateFromPool(
-                    parent.Spell.Name, positionToSpawnHit,
-                    spellLookRotation);
+                Collider[] allEnemyCollidersHit =
+                Physics.OverlapSphere(
+                    parent.PositionOnHit, parent.Spell.AreaOfEffect, Layers.EnemyLayer);
 
-                // If the collider hit has a surface, it will player a sound set to that surface,
-                // else it will play a default sound if it has one, else it doesn't play any sound
-                if (onHitBehaviourGameObject.TryGetComponent<SpellOnHitBehaviourOneShot>(
-                    out SpellOnHitBehaviourOneShot onHitBehaviour))
+                List<SelectionBase> enemies = new List<SelectionBase>();
+                for (int i = 0; i < allEnemyCollidersHit.Length; i++)
                 {
-                    // Sets hit spell that spawned it
-                    if (onHitBehaviour.Spell != parent.Spell)
-                        onHitBehaviour.Spell = parent.Spell;
-
-                    if (other.TryGetComponent(out ISurface surface))
+                    if (allEnemyCollidersHit[i].TryGetComponentInParent(out SelectionBase enemy))
                     {
-                        if (parent.Spell.SurfaceSounds.ContainsKey(surface.SurfaceType))
+                        if (enemies.Contains(enemy) == false)
                         {
-                            parent.Spell.SurfaceSounds[surface.SurfaceType].PlaySound(onHitBehaviour.AudioS);
-                        }
-                        else
-                        {
-                            // If there's a sound and hit is not an enemy
-                            if (parent.Spell.Sounds.Hit != null)
-                            {
-                                onHitBehaviour.Spell.Sounds.Hit.PlaySound(onHitBehaviour.AudioS);
-                            }
+                            enemies.Add(enemy);
                         }
                     }
-                    else
-                    {
-                        // If there's a sound and hit is not an enemy
-                        if (parent.Spell.Sounds.Hit != null)
-                        {
-                            onHitBehaviour.Spell.Sounds.Hit.PlaySound(onHitBehaviour.AudioS);
-                        }
-                    }
+                        
                 }
+
+                if (enemies.Count > 0)
+                {
+                    Debug.Log("FOI");
+                    for (int i = 0; i < enemies.Count; i++)
+                    {
+                        Vector3 positionToSpawnHit = 
+                            new Vector3(enemies[i].gameObject.transform.position.x, 
+                            parent.Hand.position.y, enemies[i].gameObject.transform.position.z);
+
+                        Vector3 positionMargin = positionToSpawnHit +
+                            positionToSpawnHit.Direction(parent.Eyes.transform.position);
+
+                        // Spawns hit in direction of collider hit normal
+                        SpellHitPoolCreator.Pool.InstantiateFromPool(
+                            parent.Spell.Name, positionMargin,
+                            Quaternion.LookRotation(parent.Eyes.position.Direction(positionToSpawnHit)));
+                    }
+                } 
             }
-            */
         }
 
         parent.SpellStartedMoving = true;
