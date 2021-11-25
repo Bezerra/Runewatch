@@ -10,6 +10,8 @@ public class SpellMuzzleBehaviourOneShot : SpellMuzzleBehaviourAbstract
     /// </summary>
     public override ISpell Spell { get; set; }
 
+    public Vector3 MuzzlePlayerSpawnOffset { get; set; }
+
     public Transform Eyes { get; set; }
 
     public Transform Hand { get; set; }

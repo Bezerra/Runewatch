@@ -108,6 +108,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         SpellStartedMoving = false;
         TimeOfImpact = Time.time + Mathf.Infinity; // algum bug? meter Time.time
         LastTimeDamaged = Time.time + Mathf.Infinity;
+        PositionOnHit = transform.position; 
     }
 
     protected override void OnDisable()
@@ -198,15 +199,15 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         else
         {
             // If it wasn't a player or enemy it will hit normally
+
+            // If enough time has passed, last hit game object will be null
+            if (Time.time - TimeOfImpact > 0.1f)
+                lastHitGameObject = null;
+
             if (lastHitGameObject != other.gameObject)
             {
-                // If this spell is hitting something for the first time
-                TimeOfImpact = Time.time;
-
-                PositionOnHit = transform.position;
-
                 Vector3 directionToInitialSpawn = transform.Direction(PositionOnHit);
-
+ 
                 // Direction to do a raycast.
                 // Uses directionToInitialSpawn so the hit will be a little behind the wall to prevent bugs
                 Ray direction = new Ray(
@@ -221,14 +222,20 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
                     // normal. For example if a wall is divided in 4 colliders, and the player aims
                     // towards the center point of those 4 colliders, the spell will only trigger hit
                     // once and ignore the other 3 colliders
+
                     if (Vector3.Dot(transform.forward, spellHitPoint.normal) > 0)
                     {
                         return;
                     }
 
+                    PositionOnHit = transform.position;
+                    TimeOfImpact = Time.time;
+
                     // If it passes the code on top, triggers hit
                     foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviourOneShot)
+                    {
                         behaviour.HitTriggerBehaviour(other, this);
+                    }
 
                     lastHitGameObject = other.transform.gameObject;
                 }

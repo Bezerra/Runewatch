@@ -54,20 +54,7 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
             // Reflects the current movement vector of the spell
             if (Physics.Raycast(direction, out RaycastHit spellHitPoint))
             {
-                // On first hit
-                if (parent.CurrentWallHitQuantity == 0)
-                {
-                    CheckProjectileRotationLogic(parent, spellHitPoint);
-                }
-                // Else if it's not first hit
-                else
-                {
-                    // AND the last hit normal is DIFFERENT than this current hit's normal
-                    if (parent.ProjectileReflectedHit.normal != spellHitPoint.normal)
-                    {
-                        CheckProjectileRotationLogic(parent, spellHitPoint);
-                    }
-                }
+                CheckProjectileRotationLogic(parent, spellHitPoint);
             }
         }
         else
@@ -108,12 +95,15 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
         parent.PositonWhenSpawned = parent.transform.position;
 
         Vector3 reflection = Vector3.Reflect(parent.Rb.velocity, spellHitPoint.normal).normalized;
-            
+
         // This piece of code prevents undesired reflections.
         // For ex: if the player shoots upwards on the corner of a wall, the detection
         // will happen on the next frame and it will reflect the projectile towards INSIDE the wall
+
         if (Vector3.Dot(parent.transform.forward, spellHitPoint.normal) > 0)
+        {
             return;
+        }
 
         // Sets new speed based on rotation
         parent.Rb.velocity = reflection * parent.Spell.Speed;
