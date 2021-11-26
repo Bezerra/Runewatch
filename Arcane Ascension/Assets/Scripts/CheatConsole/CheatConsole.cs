@@ -149,20 +149,6 @@ public class CheatConsole : MonoBehaviour, IFindPlayer
         {
             switch (input.ToLower().Trim())
             {
-                case "controls v1":
-                    Debug.Log("Controls switched to v1");
-                    PlayerPrefs.SetString("Controls", "Computer");
-                    this.input.UpdateControlScheme();
-                    DisableConsole();
-                    break;
-
-                case "controls v2":
-                    Debug.Log("Controls switched to v2");
-                    PlayerPrefs.SetString("Controls", "Computerv2");
-                    this.input.UpdateControlScheme();
-                    DisableConsole();
-                    break;
-
                 case "god 1":
                     Debug.Log("God mode activated");
                     playerStats.Heal(10000, StatsType.Health);

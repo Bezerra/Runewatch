@@ -12,15 +12,11 @@ public class PlayerInputCustom : MonoBehaviour
 {
     private PlayerInput controls;
     private InputActions inputActionsAsset;
-    private InputSystemUIInputModule uiModule;
 
     private void Awake()
     {
         inputActionsAsset = new InputActions();
         controls = GetComponent<PlayerInput>();
-        uiModule = GetComponentInChildren<InputSystemUIInputModule>();
-
-        UpdateControlScheme();
     }
 
     private void OnEnable()
@@ -37,20 +33,12 @@ public class PlayerInputCustom : MonoBehaviour
     public Vector2 Movement { get; private set; }
     public Vector2 Camera { get; private set; }
 
-    /// <summary>
-    /// Updates control scheme.
-    /// </summary>
-    public void UpdateControlScheme()
-    {
-        controls.SwitchCurrentControlScheme(PlayerPrefs.GetString("Controls", "Computer"));
-    }
-
     public void SwitchActionMapToGameplay()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        uiModule.enabled = false;
+        controls.uiInputModule.enabled = false;
 
         controls.SwitchCurrentActionMap("Gameplay");
     }
@@ -63,7 +51,7 @@ public class PlayerInputCustom : MonoBehaviour
         Movement = Vector3.zero;
         Camera = Vector3.zero;
 
-        uiModule.enabled = true;
+        controls.uiInputModule.enabled = true;
         controls.SwitchCurrentActionMap("Interface");
     }
 
@@ -75,7 +63,7 @@ public class PlayerInputCustom : MonoBehaviour
         Movement = Vector3.zero;
         Camera = Vector3.zero;
 
-        uiModule.enabled = true;
+        controls.uiInputModule.enabled = true;
         controls.SwitchCurrentActionMap("AbilityChoice");
     }
 
@@ -85,7 +73,7 @@ public class PlayerInputCustom : MonoBehaviour
         Movement = Vector3.zero;
         Camera = Vector3.zero;
 
-        uiModule.enabled = true;
+        controls.uiInputModule.enabled = true;
         controls.SwitchCurrentActionMap("CheatsConsole");
     }
 
@@ -95,7 +83,7 @@ public class PlayerInputCustom : MonoBehaviour
         Cursor.visible = false;
 
         controls.SwitchCurrentActionMap("Nothing");
-        uiModule.enabled = false;
+        controls.uiInputModule.enabled = false;
     }
 
     public string GetCurrentActionMap() => controls.currentActionMap.name;

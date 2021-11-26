@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Opens and closes pause interface when the game is paused.
+/// Contains methods for pause menu.
 /// </summary>
-public class PauseMenuReactionUI : MonoBehaviour
+public class PauseMenuCanvasUI : MonoBehaviour
 {
     [SerializeField] private GameObject backgroundCanvas;
     [SerializeField] private GameObject menuIntro;
@@ -16,9 +16,11 @@ public class PauseMenuReactionUI : MonoBehaviour
     private PlayerInputCustom playerInputCustom;
     private Canvas canvas;
     private GraphicRaycaster raycaster;
+    private PauseSystem pauseSystem;
 
     private void Awake()
     {
+        pauseSystem = FindObjectOfType<PauseSystem>();
         playerInputCustom = FindObjectOfType<PlayerInputCustom>();
         raycaster = GetComponent<GraphicRaycaster>();
         canvas = GetComponent<Canvas>();
@@ -50,6 +52,7 @@ public class PauseMenuReactionUI : MonoBehaviour
             raycaster.enabled = true;
             canvas.enabled = true;
             backgroundCanvas.SetActive(true);
+            MenuIntroEnable();
         }
     }
 
@@ -57,4 +60,12 @@ public class PauseMenuReactionUI : MonoBehaviour
     public void MenuIntroDisable() => menuIntro.SetActive(false);
     public void MenuOptionsEnable() => menuOptions.SetActive(true);
     public void MenuOptionsDisable() => menuOptions.SetActive(false);
+
+    public void ButtonIntroMenuResumeGame()
+    {
+        EnableDisableInterface();
+        pauseSystem.PauseGame();
+    }
+    public void ButtonIntroMenuMainMenu() => 
+        FindObjectOfType<SceneControl>().LoadScene(SceneEnum.MainMenu);
 }
