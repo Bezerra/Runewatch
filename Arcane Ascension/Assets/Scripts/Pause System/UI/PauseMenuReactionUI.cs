@@ -8,7 +8,9 @@ using UnityEngine.UI;
 /// </summary>
 public class PauseMenuReactionUI : MonoBehaviour
 {
-    [SerializeField] private GameObject pauseCanvas;
+    [SerializeField] private GameObject backgroundCanvas;
+    [SerializeField] private GameObject menuIntro;
+    [SerializeField] private GameObject menuOptions;
 
     // Components
     private PlayerInputCustom playerInputCustom;
@@ -37,17 +39,22 @@ public class PauseMenuReactionUI : MonoBehaviour
     /// </summary>
     public void EnableDisableInterface()
     {
-        if (pauseCanvas.activeSelf)
+        if (backgroundCanvas.activeSelf)
         {
             raycaster.enabled = false;
             canvas.enabled = false;
-            pauseCanvas.SetActive(false);
+            backgroundCanvas.SetActive(false);
         }
         else
         {
             raycaster.enabled = true;
             canvas.enabled = true;
-            pauseCanvas.SetActive(true);
+            backgroundCanvas.SetActive(true);
         }
     }
+
+    public void MenuIntroEnable() => menuIntro.SetActive(true);
+    public void MenuIntroDisable() => menuIntro.SetActive(false);
+    public void MenuOptionsEnable() => menuOptions.SetActive(true);
+    public void MenuOptionsDisable() => menuOptions.SetActive(false);
 }
