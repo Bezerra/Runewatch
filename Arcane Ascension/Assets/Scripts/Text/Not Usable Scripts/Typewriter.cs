@@ -39,34 +39,31 @@ public class Typewriter : MonoBehaviour
     /// Skils text or changes text to next line of dialog.
     /// </summary>
     /// <param name="dir">Left or right click.</param>
-    private void SkipText(Direction dir)
+    private void SkipText()
     {
-        if (dir == Direction.Left)
+        // If text is still showing up
+        if (canSkipTypewriter != null)
         {
-            // If text is still showing up
-            if (canSkipTypewriter != null)
+            // Skips text until the end (if it's still printing)
+            if (canSkipTypewriter.IsCurrentTypewriterActive())
             {
-                // Skips text until the end (if it's still printing)
-                if (canSkipTypewriter.IsCurrentTypewriterActive())
-                {
-                    canSkipTypewriter.WriteAll();
-                    canSkipTypewriter = null;
+                canSkipTypewriter.WriteAll();
+                canSkipTypewriter = null;
 
-                    StopCoroutine(skipToNextDialogAfterSeconds);
-                    skipToNextDialogAfterSeconds = SkipToNextDialogAfterSeconds();
-                    StartCoroutine(skipToNextDialogAfterSeconds);
-                }
-                else
-                {
-                    canSkipTypewriter = null;
-                }
+                StopCoroutine(skipToNextDialogAfterSeconds);
+                skipToNextDialogAfterSeconds = SkipToNextDialogAfterSeconds();
+                StartCoroutine(skipToNextDialogAfterSeconds);
             }
-            // If text already reached the end, starts printing next message
             else
             {
-                StopCoroutine(skipToNextDialogAfterSeconds);
-                DisableTextOrPrintNextLine();
+                canSkipTypewriter = null;
             }
+        }
+        // If text already reached the end, starts printing next message
+        else
+        {
+            StopCoroutine(skipToNextDialogAfterSeconds);
+            DisableTextOrPrintNextLine();
         }
     }
 

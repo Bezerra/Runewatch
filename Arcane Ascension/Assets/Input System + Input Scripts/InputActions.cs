@@ -559,15 +559,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Pause"",
-                    ""type"": ""Button"",
-                    ""id"": ""db60bb29-93d4-4f4b-8047-1a3c3d337483"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -997,17 +988,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""XR"",
                     ""action"": ""TrackedDeviceOrientation"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ab48d243-e729-41b3-9d15-d6a2659b1d48"",
-                    ""path"": ""<Keyboard>/p"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Computer"",
-                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1649,7 +1629,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_Interface_Cancel = m_Interface.FindAction("Cancel", throwIfNotFound: true);
         m_Interface_Submit = m_Interface.FindAction("Submit", throwIfNotFound: true);
         m_Interface_Navigate = m_Interface.FindAction("Navigate", throwIfNotFound: true);
-        m_Interface_Pause = m_Interface.FindAction("Pause", throwIfNotFound: true);
         // AbilityChoice
         m_AbilityChoice = asset.FindActionMap("AbilityChoice", throwIfNotFound: true);
         m_AbilityChoice_TrackedDeviceOrientation = m_AbilityChoice.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
@@ -1913,7 +1892,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Interface_Cancel;
     private readonly InputAction m_Interface_Submit;
     private readonly InputAction m_Interface_Navigate;
-    private readonly InputAction m_Interface_Pause;
     public struct InterfaceActions
     {
         private @InputActions m_Wrapper;
@@ -1928,7 +1906,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @Cancel => m_Wrapper.m_Interface_Cancel;
         public InputAction @Submit => m_Wrapper.m_Interface_Submit;
         public InputAction @Navigate => m_Wrapper.m_Interface_Navigate;
-        public InputAction @Pause => m_Wrapper.m_Interface_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Interface; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1968,9 +1945,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Navigate.started -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnNavigate;
                 @Navigate.performed -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnNavigate;
                 @Navigate.canceled -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnNavigate;
-                @Pause.started -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnPause;
-                @Pause.performed -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnPause;
-                @Pause.canceled -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_InterfaceActionsCallbackInterface = instance;
             if (instance != null)
@@ -2005,9 +1979,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Navigate.started += instance.OnNavigate;
                 @Navigate.performed += instance.OnNavigate;
                 @Navigate.canceled += instance.OnNavigate;
-                @Pause.started += instance.OnPause;
-                @Pause.performed += instance.OnPause;
-                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -2218,7 +2189,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnCancel(InputAction.CallbackContext context);
         void OnSubmit(InputAction.CallbackContext context);
         void OnNavigate(InputAction.CallbackContext context);
-        void OnPause(InputAction.CallbackContext context);
     }
     public interface IAbilityChoiceActions
     {

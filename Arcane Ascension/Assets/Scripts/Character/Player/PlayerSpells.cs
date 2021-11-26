@@ -186,7 +186,8 @@ public class PlayerSpells : MonoBehaviour, ISaveable
                     if (CurrentSpells[index] != null)
                         CurrentSpellIndex = index;
 
-                    playerHandEffect.UpdatePlayerHandEffect(ActiveSpell);
+                    if (playerHandEffect != null)
+                        playerHandEffect.UpdatePlayerHandEffect(ActiveSpell);
                 }
             }
         }
@@ -201,7 +202,8 @@ public class PlayerSpells : MonoBehaviour, ISaveable
         if (CurrentSpells[index] != null)
             CurrentSpellIndex = index;
 
-        playerHandEffect.UpdatePlayerHandEffect(ActiveSpell);
+        if (playerHandEffect != null)
+            playerHandEffect.UpdatePlayerHandEffect(ActiveSpell);
 
         StartSpellCooldown();
     }
