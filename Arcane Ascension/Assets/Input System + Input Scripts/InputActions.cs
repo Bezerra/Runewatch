@@ -217,7 +217,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Computer;Computerv2"",
+                    ""groups"": ""Computer"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -228,7 +228,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Computer;Computerv2"",
+                    ""groups"": ""Computer"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -239,7 +239,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Computer;Computerv2"",
+                    ""groups"": ""Computer"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -250,7 +250,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Computer;Computerv2"",
+                    ""groups"": ""Computer"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -261,7 +261,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Computer;Computerv2"",
+                    ""groups"": ""Computer"",
                     ""action"": ""Camera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -272,7 +272,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Computer;Computerv2"",
+                    ""groups"": ""Computer"",
                     ""action"": ""CastSpell"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -283,7 +283,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Computer;Computerv2"",
+                    ""groups"": ""Computer"",
                     ""action"": ""SelectSpell1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -294,7 +294,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/2"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Computer;Computerv2"",
+                    ""groups"": ""Computer"",
                     ""action"": ""SelectSpell2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -305,7 +305,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/3"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Computer;Computerv2"",
+                    ""groups"": ""Computer"",
                     ""action"": ""SelectSpell3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -316,7 +316,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/4"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Computer;Computerv2"",
+                    ""groups"": ""Computer"",
                     ""action"": ""SelectSpell4"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -327,7 +327,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Computer;Computerv2"",
+                    ""groups"": ""Computer"",
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -345,22 +345,11 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1a7f3ef0-288d-4cc1-b5aa-059336ac541a"",
-                    ""path"": ""<Keyboard>/leftAlt"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Computerv2"",
-                    ""action"": ""Run"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""576f0d4f-a6c9-46d6-896b-72e07addcb6e"",
                     ""path"": ""<Keyboard>/f5"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Computer;Computerv2"",
+                    ""groups"": ""Computer"",
                     ""action"": ""QuickSave"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -371,7 +360,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/f8"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Computer;Computerv2"",
+                    ""groups"": ""Computer"",
                     ""action"": ""QuickLoad"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -382,7 +371,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/p"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Computer;Computerv2"",
+                    ""groups"": ""Computer"",
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -393,7 +382,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/backslash"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Computer;Computerv2"",
+                    ""groups"": ""Computer"",
                     ""action"": ""CheatConsole"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -404,7 +393,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/backquote"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Computer;Computerv2"",
+                    ""groups"": ""Computer"",
                     ""action"": ""CheatConsole"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -422,22 +411,11 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""9a6f02ae-c473-461d-afc4-96a09a17928d"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Computerv2"",
-                    ""action"": ""Dash"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""3f23a4fe-532a-44c3-8194-a249b01b665d"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Computer;Computerv2"",
+                    ""groups"": ""Computer"",
                     ""action"": ""CastBasicSpell"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -448,7 +426,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Computer;Computerv2"",
+                    ""groups"": ""Computer"",
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -459,7 +437,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Mouse>/scroll"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Computer;Computerv2"",
+                    ""groups"": ""Computer"",
                     ""action"": ""PreviousAndNextSpellMouseScroll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -470,7 +448,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Computer;Computerv2"",
+                    ""groups"": ""Computer"",
                     ""action"": ""PreviousSpell"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -481,7 +459,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Computer;Computerv2"",
+                    ""groups"": ""Computer"",
                     ""action"": ""NextSpell"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1635,22 +1613,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""isOR"": false
                 }
             ]
-        },
-        {
-            ""name"": ""Computerv2"",
-            ""bindingGroup"": ""Computerv2"",
-            ""devices"": [
-                {
-                    ""devicePath"": ""<Keyboard>"",
-                    ""isOptional"": false,
-                    ""isOR"": false
-                },
-                {
-                    ""devicePath"": ""<Mouse>"",
-                    ""isOptional"": false,
-                    ""isOR"": false
-                }
-            ]
         }
     ]
 }");
@@ -2220,15 +2182,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         {
             if (m_ComputerSchemeIndex == -1) m_ComputerSchemeIndex = asset.FindControlSchemeIndex("Computer");
             return asset.controlSchemes[m_ComputerSchemeIndex];
-        }
-    }
-    private int m_Computerv2SchemeIndex = -1;
-    public InputControlScheme Computerv2Scheme
-    {
-        get
-        {
-            if (m_Computerv2SchemeIndex == -1) m_Computerv2SchemeIndex = asset.FindControlSchemeIndex("Computerv2");
-            return asset.controlSchemes[m_Computerv2SchemeIndex];
         }
     }
     public interface IGameplayActions

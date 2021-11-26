@@ -1,25 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
 /// Opens and closes pause interface when the game is paused.
 /// </summary>
-public class PauseMenuReactionUI : MonoBehaviour
+public class PauseMenuBaseCanvasUI : MonoBehaviour
 {
-    [SerializeField] private GameObject pauseCanvas;
+    [SerializeField] private GameObject pauseBaseBackground;
+    [SerializeField] private GameObject introMenu;
+    [SerializeField] private GameObject optionsMenu;
 
     // Components
     private PlayerInputCustom playerInputCustom;
     private Canvas canvas;
     private GraphicRaycaster raycaster;
+    private PauseSystem pauseSystem;
 
     private void Awake()
     {
         playerInputCustom = FindObjectOfType<PlayerInputCustom>();
         raycaster = GetComponent<GraphicRaycaster>();
         canvas = GetComponent<Canvas>();
+        pauseSystem = FindObjectOfType<PauseSystem>();
     }
 
     private void OnEnable()
@@ -37,17 +39,34 @@ public class PauseMenuReactionUI : MonoBehaviour
     /// </summary>
     public void EnableDisableInterface()
     {
-        if (pauseCanvas.activeSelf)
+        if (pauseBaseBackground.activeSelf)
         {
             raycaster.enabled = false;
             canvas.enabled = false;
-            pauseCanvas.SetActive(false);
+            pauseBaseBackground.SetActive(false);
         }
         else
         {
             raycaster.enabled = true;
             canvas.enabled = true;
-            pauseCanvas.SetActive(true);
+            pauseBaseBackground.SetActive(true);
         }
+    }
+
+    public void MenuControlIntro(bool condition) =>
+        introMenu.SetActive(condition);
+
+    public void MenuControlOptions(bool condition) =>
+        optionsMenu.SetActive(condition);
+
+    public void ButtonIntroResumeGame()
+    {
+        EnableDisableInterface();
+        pauseSystem.PauseGame();
+    }
+
+    public void ButtonIntroMainMenu()
+    {
+        FindObjectOfType<SceneControl>().LoadScene(SceneEnum.MainMenu);
     }
 }

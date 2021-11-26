@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// Class responsible for creating typewritter effect.
+/// </summary>
 public class Typewriter : MonoBehaviour
 {
     private static Typewriter instance;
