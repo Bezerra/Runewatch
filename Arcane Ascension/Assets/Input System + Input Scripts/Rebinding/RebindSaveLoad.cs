@@ -9,7 +9,6 @@ public class RebindSaveLoad : MonoBehaviour
 {
     [SerializeField] private InputActionAsset inputActions;
 
-    /*
     private void OnEnable()
     {
         string rebinds = PlayerPrefs.GetString("rebinds", null);
@@ -22,5 +21,4 @@ public class RebindSaveLoad : MonoBehaviour
         string rebinds = inputActions.SaveBindingOverridesAsJson();
         PlayerPrefs.SetString("rebinds", rebinds);
     }
-    */
 }

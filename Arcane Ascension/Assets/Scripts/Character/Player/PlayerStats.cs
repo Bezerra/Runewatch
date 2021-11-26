@@ -105,7 +105,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
     /// <returns>Wait for seconds.</returns>
     private IEnumerator LoseLeafShieldCoroutine()
     {
-        yield return wfs;
+        yield return new WaitForFixedUpdate();
         Heal(0.01f, StatsType.Armor);
 
         float leafShieldToLose = 1f;
