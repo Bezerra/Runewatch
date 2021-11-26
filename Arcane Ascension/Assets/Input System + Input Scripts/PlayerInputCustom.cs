@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
+using System.Collections;
 
 /// <summary>
 /// Class responsible for all player input.
@@ -13,12 +14,13 @@ public class PlayerInputCustom : MonoBehaviour
     private PlayerInput controls;
     private InputActions inputActionsAsset;
 
+    [Header("Unity default UI input actions")]
+    [SerializeField] private InputActionAsset uiInputActions;
+
     private void Awake()
     {
         inputActionsAsset = new InputActions();
         controls = GetComponent<PlayerInput>();
-
-        UpdateControlScheme();
     }
 
     private void OnEnable()
@@ -35,14 +37,6 @@ public class PlayerInputCustom : MonoBehaviour
     public Vector2 Movement { get; private set; }
     public Vector2 Camera { get; private set; }
 
-    /// <summary>
-    /// Updates control scheme.
-    /// </summary>
-    public void UpdateControlScheme()
-    {
-        controls.SwitchCurrentControlScheme(PlayerPrefs.GetString("Controls", "Computer"));
-    }
-
     public void SwitchActionMapToGameplay()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -50,9 +44,8 @@ public class PlayerInputCustom : MonoBehaviour
 
         controls.uiInputModule.enabled = false;
 
-
+        UnsubscribeCheatConsole();
         SubscribeGameplay();
-        //controls.SwitchCurrentActionMap("Gameplay");
     }
 
     public void SwitchActionMapToUI()
@@ -64,24 +57,10 @@ public class PlayerInputCustom : MonoBehaviour
         Camera = Vector3.zero;
 
         controls.uiInputModule.enabled = true;
+        controls.uiInputModule.actionsAsset = uiInputActions;
 
-        
-        controls.SwitchCurrentActionMap("Interface");
-    }
-
-    public void SwitchActionMapToAbilitiesUI()
-    {
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
-
-        Movement = Vector3.zero;
-        Camera = Vector3.zero;
-
-        controls.uiInputModule.enabled = true;
-
+        UnsubscribeCheatConsole();
         UnsubscribeGameplay();
-        SubscribeAbility();
-        //controls.SwitchCurrentActionMap("AbilityChoice");
     }
 
     public void SwitchActionMapToCheatConsole()
@@ -93,7 +72,13 @@ public class PlayerInputCustom : MonoBehaviour
         controls.uiInputModule.enabled = true;
 
         UnsubscribeGameplay();
-        controls.SwitchCurrentActionMap("CheatsConsole");
+        StartCoroutine(SubscribeCheatConsoleCoroutine());
+    }
+
+    private IEnumerator SubscribeCheatConsoleCoroutine()
+    {
+        yield return new WaitForFixedUpdate();
+        SubscribeCheatConsole();
     }
 
     public void DisableAll()
@@ -102,13 +87,10 @@ public class PlayerInputCustom : MonoBehaviour
         Cursor.visible = false;
 
         UnsubscribeGameplay();
+        UnsubscribeCheatConsole();
 
-        controls.SwitchCurrentActionMap("Nothing");
         controls.uiInputModule.enabled = false;
     }
-
-    public string GetCurrentActionMap() => controls.currentActionMap.name;
-
 
     //////////////////////// Methods /////////////////////////////////////////
     public void HandleMovement(InputAction.CallbackContext context) {
@@ -159,7 +141,6 @@ public class PlayerInputCustom : MonoBehaviour
     }
     public void HandleLeftClickUI(InputAction.CallbackContext context) {
         if (context.started) OnClick();
-        Debug.Log(Mouse.current.position.ReadValue());
     }
     public void HandlePauseGame(InputAction.CallbackContext context)
     {
@@ -179,11 +160,11 @@ public class PlayerInputCustom : MonoBehaviour
     }
     public void HandleNextSpellSelect(InputAction.CallbackContext context)
     {
-        if (context.performed) OnPreviousNextSpell(-1, false);
+        if (context.started) OnPreviousNextSpell(-1, false);
     }
     public void HandlePreviousSpellSelect(InputAction.CallbackContext context)
     {
-        if (context.performed) OnPreviousNextSpell(1, false);
+        if (context.started) OnPreviousNextSpell(1, false);
     }
     ///////////////////////// Events /////////////////////////////////////////
     protected virtual void OnDash() => Dash?.Invoke();
@@ -215,176 +196,101 @@ public class PlayerInputCustom : MonoBehaviour
 
     private void SubscribeGameplay()
     {
-        inputActionsAsset.Gameplay.Movement.started += HandleMovement;
         inputActionsAsset.Gameplay.Movement.performed += HandleMovement;
-        inputActionsAsset.Gameplay.Movement.canceled += HandleMovement;
 
         inputActionsAsset.Gameplay.Jump.started += HandleJump;
-        inputActionsAsset.Gameplay.Jump.performed += HandleJump;
-        inputActionsAsset.Gameplay.Jump.canceled += HandleJump;
 
-        inputActionsAsset.Gameplay.Camera.started += HandleCamera;
         inputActionsAsset.Gameplay.Camera.performed += HandleCamera;
-        inputActionsAsset.Gameplay.Camera.canceled += HandleCamera;
 
         inputActionsAsset.Gameplay.CastSpell.started += HandleCastSpell;
-        inputActionsAsset.Gameplay.CastSpell.performed += HandleCastSpell;
         inputActionsAsset.Gameplay.CastSpell.canceled += HandleCastSpell;
 
         inputActionsAsset.Gameplay.CastBasicSpell.started += HandleCastBasicSpell;
-        inputActionsAsset.Gameplay.CastBasicSpell.performed += HandleCastBasicSpell;
         inputActionsAsset.Gameplay.CastBasicSpell.canceled += HandleCastBasicSpell;
 
         inputActionsAsset.Gameplay.SelectSpell1.started += HandleSelectFirstSpell;
-        inputActionsAsset.Gameplay.SelectSpell1.performed += HandleSelectFirstSpell;
-        inputActionsAsset.Gameplay.SelectSpell1.canceled += HandleSelectFirstSpell;
 
         inputActionsAsset.Gameplay.SelectSpell2.started += HandleSelectSecondSpell;
-        inputActionsAsset.Gameplay.SelectSpell2.performed += HandleSelectSecondSpell;
-        inputActionsAsset.Gameplay.SelectSpell2.canceled += HandleSelectSecondSpell;
 
         inputActionsAsset.Gameplay.SelectSpell3.started += HandleSelectThirdSpell;
-        inputActionsAsset.Gameplay.SelectSpell3.performed += HandleSelectThirdSpell;
-        inputActionsAsset.Gameplay.SelectSpell3.canceled += HandleSelectThirdSpell;
 
         inputActionsAsset.Gameplay.SelectSpell4.started += HandleSelectForthSpell;
-        inputActionsAsset.Gameplay.SelectSpell4.performed += HandleSelectForthSpell;
-        inputActionsAsset.Gameplay.SelectSpell4.canceled += HandleSelectForthSpell;
 
         inputActionsAsset.Gameplay.Run.started += HandleRun;
-        inputActionsAsset.Gameplay.Run.performed += HandleRun;
         inputActionsAsset.Gameplay.Run.canceled += HandleRun;
 
         inputActionsAsset.Gameplay.Dash.started += HandleDash;
-        inputActionsAsset.Gameplay.Dash.performed += HandleDash;
-        inputActionsAsset.Gameplay.Dash.canceled += HandleDash;
 
         inputActionsAsset.Gameplay.QuickSave.started += HandleQuickSave;
-        inputActionsAsset.Gameplay.QuickSave.performed += HandleQuickSave;
-        inputActionsAsset.Gameplay.QuickSave.canceled += HandleQuickSave;
 
         inputActionsAsset.Gameplay.QuickLoad.started += HandleQuickLoad;
-        inputActionsAsset.Gameplay.QuickLoad.performed += HandleQuickLoad;
-        inputActionsAsset.Gameplay.QuickLoad.canceled += HandleQuickLoad;
 
         inputActionsAsset.Gameplay.Pause.started += HandlePauseGame;
-        inputActionsAsset.Gameplay.Pause.performed += HandlePauseGame;
-        inputActionsAsset.Gameplay.Pause.canceled += HandlePauseGame;
 
         inputActionsAsset.Gameplay.CheatConsole.started += HandleCheatConsole;
-        inputActionsAsset.Gameplay.CheatConsole.performed += HandleCheatConsole;
-        inputActionsAsset.Gameplay.CheatConsole.canceled += HandleCheatConsole;
 
         inputActionsAsset.Gameplay.Interact.started += HandleInteract;
-        inputActionsAsset.Gameplay.Interact.performed += HandleInteract;
-        inputActionsAsset.Gameplay.Interact.canceled += HandleInteract;
 
-        inputActionsAsset.Gameplay.PreviousAndNextSpellMouseScroll.started +=
-            HandlePreviousNextSpellMouseScrollSelect;
         inputActionsAsset.Gameplay.PreviousAndNextSpellMouseScroll.performed +=
-            HandlePreviousNextSpellMouseScrollSelect;
-        inputActionsAsset.Gameplay.PreviousAndNextSpellMouseScroll.canceled +=
             HandlePreviousNextSpellMouseScrollSelect;
 
         inputActionsAsset.Gameplay.NextSpell.started += HandleNextSpellSelect;
-        inputActionsAsset.Gameplay.NextSpell.performed += HandleNextSpellSelect;
-        inputActionsAsset.Gameplay.NextSpell.canceled += HandleNextSpellSelect;
 
         inputActionsAsset.Gameplay.PreviousSpell.started += HandlePreviousSpellSelect;
-        inputActionsAsset.Gameplay.PreviousSpell.performed += HandlePreviousSpellSelect;
-        inputActionsAsset.Gameplay.PreviousSpell.canceled += HandlePreviousSpellSelect;
     }
 
     private void UnsubscribeGameplay()
     {
-        inputActionsAsset.Gameplay.Movement.started -= HandleMovement;
         inputActionsAsset.Gameplay.Movement.performed -= HandleMovement;
-        inputActionsAsset.Gameplay.Movement.canceled -= HandleMovement;
 
         inputActionsAsset.Gameplay.Jump.started -= HandleJump;
-        inputActionsAsset.Gameplay.Jump.performed -= HandleJump;
-        inputActionsAsset.Gameplay.Jump.canceled -= HandleJump;
 
-        inputActionsAsset.Gameplay.Camera.started -= HandleCamera;
         inputActionsAsset.Gameplay.Camera.performed -= HandleCamera;
-        inputActionsAsset.Gameplay.Camera.canceled -= HandleCamera;
 
         inputActionsAsset.Gameplay.CastSpell.started -= HandleCastSpell;
-        inputActionsAsset.Gameplay.CastSpell.performed -= HandleCastSpell;
         inputActionsAsset.Gameplay.CastSpell.canceled -= HandleCastSpell;
 
         inputActionsAsset.Gameplay.CastBasicSpell.started -= HandleCastBasicSpell;
-        inputActionsAsset.Gameplay.CastBasicSpell.performed -= HandleCastBasicSpell;
         inputActionsAsset.Gameplay.CastBasicSpell.canceled -= HandleCastBasicSpell;
 
         inputActionsAsset.Gameplay.SelectSpell1.started -= HandleSelectFirstSpell;
-        inputActionsAsset.Gameplay.SelectSpell1.performed -= HandleSelectFirstSpell;
-        inputActionsAsset.Gameplay.SelectSpell1.canceled -= HandleSelectFirstSpell;
 
         inputActionsAsset.Gameplay.SelectSpell2.started -= HandleSelectSecondSpell;
-        inputActionsAsset.Gameplay.SelectSpell2.performed -= HandleSelectSecondSpell;
-        inputActionsAsset.Gameplay.SelectSpell2.canceled -= HandleSelectSecondSpell;
 
         inputActionsAsset.Gameplay.SelectSpell3.started -= HandleSelectThirdSpell;
-        inputActionsAsset.Gameplay.SelectSpell3.performed -= HandleSelectThirdSpell;
-        inputActionsAsset.Gameplay.SelectSpell3.canceled -= HandleSelectThirdSpell;
 
         inputActionsAsset.Gameplay.SelectSpell4.started -= HandleSelectForthSpell;
-        inputActionsAsset.Gameplay.SelectSpell4.performed -= HandleSelectForthSpell;
-        inputActionsAsset.Gameplay.SelectSpell4.canceled -= HandleSelectForthSpell;
 
         inputActionsAsset.Gameplay.Run.started -= HandleRun;
-        inputActionsAsset.Gameplay.Run.performed -= HandleRun;
         inputActionsAsset.Gameplay.Run.canceled -= HandleRun;
 
         inputActionsAsset.Gameplay.Dash.started -= HandleDash;
-        inputActionsAsset.Gameplay.Dash.performed -= HandleDash;
-        inputActionsAsset.Gameplay.Dash.canceled -= HandleDash;
 
         inputActionsAsset.Gameplay.QuickSave.started -= HandleQuickSave;
-        inputActionsAsset.Gameplay.QuickSave.performed -= HandleQuickSave;
-        inputActionsAsset.Gameplay.QuickSave.canceled -= HandleQuickSave;
 
         inputActionsAsset.Gameplay.QuickLoad.started -= HandleQuickLoad;
-        inputActionsAsset.Gameplay.QuickLoad.performed -= HandleQuickLoad;
-        inputActionsAsset.Gameplay.QuickLoad.canceled -= HandleQuickLoad;
 
         inputActionsAsset.Gameplay.Pause.started -= HandlePauseGame;
-        inputActionsAsset.Gameplay.Pause.performed -= HandlePauseGame;
-        inputActionsAsset.Gameplay.Pause.canceled -= HandlePauseGame;
 
         inputActionsAsset.Gameplay.CheatConsole.started -= HandleCheatConsole;
-        inputActionsAsset.Gameplay.CheatConsole.performed -= HandleCheatConsole;
-        inputActionsAsset.Gameplay.CheatConsole.canceled -= HandleCheatConsole;
 
         inputActionsAsset.Gameplay.Interact.started -= HandleInteract;
-        inputActionsAsset.Gameplay.Interact.performed -= HandleInteract;
-        inputActionsAsset.Gameplay.Interact.canceled -= HandleInteract;
 
-        inputActionsAsset.Gameplay.PreviousAndNextSpellMouseScroll.started -=
-            HandlePreviousNextSpellMouseScrollSelect;
         inputActionsAsset.Gameplay.PreviousAndNextSpellMouseScroll.performed -=
-            HandlePreviousNextSpellMouseScrollSelect;
-        inputActionsAsset.Gameplay.PreviousAndNextSpellMouseScroll.canceled -=
             HandlePreviousNextSpellMouseScrollSelect;
 
         inputActionsAsset.Gameplay.NextSpell.started -= HandleNextSpellSelect;
-        inputActionsAsset.Gameplay.NextSpell.performed -= HandleNextSpellSelect;
-        inputActionsAsset.Gameplay.NextSpell.canceled -= HandleNextSpellSelect;
 
         inputActionsAsset.Gameplay.PreviousSpell.started -= HandlePreviousSpellSelect;
-        inputActionsAsset.Gameplay.PreviousSpell.performed -= HandlePreviousSpellSelect;
-        inputActionsAsset.Gameplay.PreviousSpell.canceled -= HandlePreviousSpellSelect;
     }
 
-    private void SubscribeAbility()
+    private void SubscribeCheatConsole()
     {
-        inputActionsAsset.AbilityChoice.Click.started += HandleLeftClickUI;
-        inputActionsAsset.AbilityChoice.Click.performed += HandleLeftClickUI;
-        inputActionsAsset.AbilityChoice.Click.canceled += HandleLeftClickUI;
+        inputActionsAsset.CheatsConsole.CheatConsole.started += HandleCheatConsole;
+    }
 
-        inputActionsAsset.AbilityChoice.Submit.started += HandleLeftClickUI;
-        inputActionsAsset.AbilityChoice.Submit.performed += HandleLeftClickUI;
-        inputActionsAsset.AbilityChoice.Submit.canceled += HandleLeftClickUI;
+    private void UnsubscribeCheatConsole()
+    {
+        inputActionsAsset.CheatsConsole.CheatConsole.started -= HandleCheatConsole;
     }
 }
