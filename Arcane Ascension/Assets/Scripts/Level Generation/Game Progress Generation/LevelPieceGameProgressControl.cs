@@ -50,7 +50,7 @@ public class LevelPieceGameProgressControl : MonoBehaviour
                         enemySpawnPoint.transform.rotation);
 
                     quantityOfEnemiesSpawned++;
-                    if (enemySpawnedGO.TryGetComponentInChildren(out Stats enemyStats))
+                    if (enemySpawnedGO.TryGetComponentInChildrenFirstGen(out Stats enemyStats))
                     {
                         enemyStats.EventDeath += EnemyDeath;
                     }
