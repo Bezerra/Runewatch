@@ -14,19 +14,15 @@ public class RebindingKey : MonoBehaviour
 
     private InputActionRebindingExtensions.RebindingOperation rebindingOperation;
 
-    private void Start()
-    {
-        UpdateKey();
-    }
-
     public void UpdateKey()
     {
-        string keyOverride = PlayerPrefs.GetString($"ACTION_{inputAction.action}", "null");
+        string keyOverride = PlayerPrefs.GetString($"ACTION_{inputAction.action.bindings[0].action}", "null");
         if (keyOverride != "null")
         {
-            inputAction.action.ApplyBindingOverride(PlayerPrefs.GetString($"ACTION_{inputAction.action}"));
+            inputAction.action.ApplyBindingOverride(
+                PlayerPrefs.GetString($"ACTION_{inputAction.action.bindings[0].action}"));
         }
-        
+
         bindingDisplayText.text =
             InputControlPath.ToHumanReadableString(inputAction.action.bindings[0].effectivePath,
             InputControlPath.HumanReadableStringOptions.OmitDevice);
@@ -39,13 +35,12 @@ public class RebindingKey : MonoBehaviour
         waitingForInputGameobject.SetActive(true);
 
         rebindingOperation = inputAction.action.PerformInteractiveRebinding().
-            WithControlsExcluding("Mouse").
+            WithControlsExcluding("<Pointer>/position").
             WithCancelingThrough("<Keyboard>/escape").
             OnMatchWaitForAnother(0.1f).
             OnCancel(operation => RebindCanceled()).
             OnComplete(operation => RebindComplete()).
             Start();
-
     }
 
     /// <summary>
@@ -57,15 +52,18 @@ public class RebindingKey : MonoBehaviour
         InputBinding currentBinding = inputAction.action.bindings[0];
         foreach (InputBinding binding in inputAction.action.actionMap.bindings)
         {
-            if (binding.action == currentBinding.action)
+            if (binding.action != null)
             {
-                continue;
-            }
-            if (binding.effectivePath == currentBinding.effectivePath)
-            {
-                RebindCanceled();
-                keyAlreadySetGameobject.SetActive(true);
-                return;
+                if (binding.action == currentBinding.action)
+                {
+                    continue;
+                }
+                if (binding.effectivePath == currentBinding.effectivePath)
+                {
+                    RebindCanceled();
+                    keyAlreadySetGameobject.SetActive(true);
+                    return;
+                }
             }
         }
 
@@ -74,12 +72,14 @@ public class RebindingKey : MonoBehaviour
             InputControlPath.ToHumanReadableString(inputAction.action.bindings[0].effectivePath,
             InputControlPath.HumanReadableStringOptions.OmitDevice);
 
-        rebindingOperation?.Dispose();
+        // Saves key to player prefs
+        PlayerPrefs.SetString($"ACTION_{inputAction.action.bindings[0].action}",
+            inputAction.action.bindings[0].effectivePath);
+
+        Clean();
 
         waitingForInputGameobject.SetActive(false); 
         startRebindGameobject.SetActive(true);
-
-        PlayerPrefs.SetString($"ACTION_{inputAction.action}", inputAction.action.bindings[0].effectivePath);
     }
 
     /// <summary>
@@ -87,9 +87,15 @@ public class RebindingKey : MonoBehaviour
     /// </summary>
     private void RebindCanceled()
     {
-        rebindingOperation?.Dispose();
+        Clean();
 
         waitingForInputGameobject.SetActive(false);
         startRebindGameobject.SetActive(true);
+    }
+
+    private void Clean()
+    {
+        rebindingOperation?.Dispose();
+        rebindingOperation = null;
     }
 }

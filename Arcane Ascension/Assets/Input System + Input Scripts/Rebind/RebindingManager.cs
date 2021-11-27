@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class RebindingManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private RebindingKey[] rebindKeys;
+
+    private void Awake()
     {
-        
+        rebindKeys = GetComponentsInChildren<RebindingKey>(true);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        foreach (RebindingKey rebinding in rebindKeys)
+            rebinding.UpdateKey();
     }
 }
