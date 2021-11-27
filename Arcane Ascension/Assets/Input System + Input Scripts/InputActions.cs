@@ -43,7 +43,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""CastSpell"",
+                    ""name"": ""Fire"",
                     ""type"": ""Button"",
                     ""id"": ""c260fb6a-d302-410c-b6ce-0de4fdafb3cd"",
                     ""expectedControlType"": ""Button"",
@@ -51,7 +51,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""CastBasicSpell"",
+                    ""name"": ""Secondary Fire"",
                     ""type"": ""Button"",
                     ""id"": ""088ad916-c193-4bce-b8e2-52e5e13fa1d7"",
                     ""expectedControlType"": ""Button"",
@@ -59,7 +59,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""SelectSpell1"",
+                    ""name"": ""Spell 1"",
                     ""type"": ""Button"",
                     ""id"": ""4a2539f9-315d-4a8b-889a-a0a1b6b3ae2e"",
                     ""expectedControlType"": ""Button"",
@@ -67,7 +67,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""SelectSpell2"",
+                    ""name"": ""Spell 2"",
                     ""type"": ""Button"",
                     ""id"": ""c15dbde8-43b3-407b-bdd8-cf74ad7b3b76"",
                     ""expectedControlType"": ""Button"",
@@ -75,7 +75,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""SelectSpell3"",
+                    ""name"": ""Spell 3"",
                     ""type"": ""Button"",
                     ""id"": ""face129a-550c-4d75-bc24-3f11829a0d83"",
                     ""expectedControlType"": ""Button"",
@@ -83,7 +83,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""SelectSpell4"",
+                    ""name"": ""Spell 4"",
                     ""type"": ""Button"",
                     ""id"": ""e8310be2-ecba-4eff-9087-8877bdfe3408"",
                     ""expectedControlType"": ""Button"",
@@ -131,7 +131,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""CheatConsole"",
+                    ""name"": ""Cheat Console"",
                     ""type"": ""Button"",
                     ""id"": ""a9a81bc7-7db8-40a3-bf95-74d3c0778866"",
                     ""expectedControlType"": ""Button"",
@@ -155,7 +155,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""NextSpell"",
+                    ""name"": ""Next Spell"",
                     ""type"": ""Button"",
                     ""id"": ""e5f54a8c-aae2-4492-87c0-9fbe2e271edd"",
                     ""expectedControlType"": ""Button"",
@@ -163,7 +163,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""PreviousSpell"",
+                    ""name"": ""Previous Spell"",
                     ""type"": ""Button"",
                     ""id"": ""92bcf55d-39f7-49ed-be72-3ab930bcb58f"",
                     ""expectedControlType"": ""Button"",
@@ -245,7 +245,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Computer"",
-                    ""action"": ""CastSpell"",
+                    ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -256,7 +256,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Computer"",
-                    ""action"": ""SelectSpell1"",
+                    ""action"": ""Spell 1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -267,7 +267,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Computer"",
-                    ""action"": ""SelectSpell2"",
+                    ""action"": ""Spell 2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -278,7 +278,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Computer"",
-                    ""action"": ""SelectSpell3"",
+                    ""action"": ""Spell 3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -289,7 +289,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Computer"",
-                    ""action"": ""SelectSpell4"",
+                    ""action"": ""Spell 4"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -355,7 +355,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Computer"",
-                    ""action"": ""CheatConsole"",
+                    ""action"": ""Cheat Console"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -366,7 +366,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Computer"",
-                    ""action"": ""CheatConsole"",
+                    ""action"": ""Cheat Console"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -388,7 +388,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Computer"",
-                    ""action"": ""CastBasicSpell"",
+                    ""action"": ""Secondary Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -421,7 +421,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Computer"",
-                    ""action"": ""PreviousSpell"",
+                    ""action"": ""Previous Spell"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -432,7 +432,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Computer"",
-                    ""action"": ""NextSpell"",
+                    ""action"": ""Next Spell"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1582,22 +1582,22 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Gameplay_Movement = m_Gameplay.FindAction("Movement", throwIfNotFound: true);
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_Camera = m_Gameplay.FindAction("Camera", throwIfNotFound: true);
-        m_Gameplay_CastSpell = m_Gameplay.FindAction("CastSpell", throwIfNotFound: true);
-        m_Gameplay_CastBasicSpell = m_Gameplay.FindAction("CastBasicSpell", throwIfNotFound: true);
-        m_Gameplay_SelectSpell1 = m_Gameplay.FindAction("SelectSpell1", throwIfNotFound: true);
-        m_Gameplay_SelectSpell2 = m_Gameplay.FindAction("SelectSpell2", throwIfNotFound: true);
-        m_Gameplay_SelectSpell3 = m_Gameplay.FindAction("SelectSpell3", throwIfNotFound: true);
-        m_Gameplay_SelectSpell4 = m_Gameplay.FindAction("SelectSpell4", throwIfNotFound: true);
+        m_Gameplay_Fire = m_Gameplay.FindAction("Fire", throwIfNotFound: true);
+        m_Gameplay_SecondaryFire = m_Gameplay.FindAction("Secondary Fire", throwIfNotFound: true);
+        m_Gameplay_Spell1 = m_Gameplay.FindAction("Spell 1", throwIfNotFound: true);
+        m_Gameplay_Spell2 = m_Gameplay.FindAction("Spell 2", throwIfNotFound: true);
+        m_Gameplay_Spell3 = m_Gameplay.FindAction("Spell 3", throwIfNotFound: true);
+        m_Gameplay_Spell4 = m_Gameplay.FindAction("Spell 4", throwIfNotFound: true);
         m_Gameplay_Run = m_Gameplay.FindAction("Run", throwIfNotFound: true);
         m_Gameplay_Dash = m_Gameplay.FindAction("Dash", throwIfNotFound: true);
         m_Gameplay_QuickSave = m_Gameplay.FindAction("QuickSave", throwIfNotFound: true);
         m_Gameplay_QuickLoad = m_Gameplay.FindAction("QuickLoad", throwIfNotFound: true);
         m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
-        m_Gameplay_CheatConsole = m_Gameplay.FindAction("CheatConsole", throwIfNotFound: true);
+        m_Gameplay_CheatConsole = m_Gameplay.FindAction("Cheat Console", throwIfNotFound: true);
         m_Gameplay_Interact = m_Gameplay.FindAction("Interact", throwIfNotFound: true);
         m_Gameplay_PreviousAndNextSpellMouseScroll = m_Gameplay.FindAction("PreviousAndNextSpellMouseScroll", throwIfNotFound: true);
-        m_Gameplay_NextSpell = m_Gameplay.FindAction("NextSpell", throwIfNotFound: true);
-        m_Gameplay_PreviousSpell = m_Gameplay.FindAction("PreviousSpell", throwIfNotFound: true);
+        m_Gameplay_NextSpell = m_Gameplay.FindAction("Next Spell", throwIfNotFound: true);
+        m_Gameplay_PreviousSpell = m_Gameplay.FindAction("Previous Spell", throwIfNotFound: true);
         // Interface
         m_Interface = asset.FindActionMap("Interface", throwIfNotFound: true);
         m_Interface_TrackedDeviceOrientation = m_Interface.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
@@ -1680,12 +1680,12 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Movement;
     private readonly InputAction m_Gameplay_Jump;
     private readonly InputAction m_Gameplay_Camera;
-    private readonly InputAction m_Gameplay_CastSpell;
-    private readonly InputAction m_Gameplay_CastBasicSpell;
-    private readonly InputAction m_Gameplay_SelectSpell1;
-    private readonly InputAction m_Gameplay_SelectSpell2;
-    private readonly InputAction m_Gameplay_SelectSpell3;
-    private readonly InputAction m_Gameplay_SelectSpell4;
+    private readonly InputAction m_Gameplay_Fire;
+    private readonly InputAction m_Gameplay_SecondaryFire;
+    private readonly InputAction m_Gameplay_Spell1;
+    private readonly InputAction m_Gameplay_Spell2;
+    private readonly InputAction m_Gameplay_Spell3;
+    private readonly InputAction m_Gameplay_Spell4;
     private readonly InputAction m_Gameplay_Run;
     private readonly InputAction m_Gameplay_Dash;
     private readonly InputAction m_Gameplay_QuickSave;
@@ -1703,12 +1703,12 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @Movement => m_Wrapper.m_Gameplay_Movement;
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @Camera => m_Wrapper.m_Gameplay_Camera;
-        public InputAction @CastSpell => m_Wrapper.m_Gameplay_CastSpell;
-        public InputAction @CastBasicSpell => m_Wrapper.m_Gameplay_CastBasicSpell;
-        public InputAction @SelectSpell1 => m_Wrapper.m_Gameplay_SelectSpell1;
-        public InputAction @SelectSpell2 => m_Wrapper.m_Gameplay_SelectSpell2;
-        public InputAction @SelectSpell3 => m_Wrapper.m_Gameplay_SelectSpell3;
-        public InputAction @SelectSpell4 => m_Wrapper.m_Gameplay_SelectSpell4;
+        public InputAction @Fire => m_Wrapper.m_Gameplay_Fire;
+        public InputAction @SecondaryFire => m_Wrapper.m_Gameplay_SecondaryFire;
+        public InputAction @Spell1 => m_Wrapper.m_Gameplay_Spell1;
+        public InputAction @Spell2 => m_Wrapper.m_Gameplay_Spell2;
+        public InputAction @Spell3 => m_Wrapper.m_Gameplay_Spell3;
+        public InputAction @Spell4 => m_Wrapper.m_Gameplay_Spell4;
         public InputAction @Run => m_Wrapper.m_Gameplay_Run;
         public InputAction @Dash => m_Wrapper.m_Gameplay_Dash;
         public InputAction @QuickSave => m_Wrapper.m_Gameplay_QuickSave;
@@ -1737,24 +1737,24 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Camera.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCamera;
                 @Camera.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCamera;
                 @Camera.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCamera;
-                @CastSpell.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCastSpell;
-                @CastSpell.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCastSpell;
-                @CastSpell.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCastSpell;
-                @CastBasicSpell.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCastBasicSpell;
-                @CastBasicSpell.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCastBasicSpell;
-                @CastBasicSpell.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCastBasicSpell;
-                @SelectSpell1.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectSpell1;
-                @SelectSpell1.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectSpell1;
-                @SelectSpell1.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectSpell1;
-                @SelectSpell2.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectSpell2;
-                @SelectSpell2.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectSpell2;
-                @SelectSpell2.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectSpell2;
-                @SelectSpell3.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectSpell3;
-                @SelectSpell3.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectSpell3;
-                @SelectSpell3.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectSpell3;
-                @SelectSpell4.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectSpell4;
-                @SelectSpell4.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectSpell4;
-                @SelectSpell4.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectSpell4;
+                @Fire.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFire;
+                @Fire.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFire;
+                @Fire.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFire;
+                @SecondaryFire.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSecondaryFire;
+                @SecondaryFire.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSecondaryFire;
+                @SecondaryFire.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSecondaryFire;
+                @Spell1.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpell1;
+                @Spell1.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpell1;
+                @Spell1.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpell1;
+                @Spell2.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpell2;
+                @Spell2.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpell2;
+                @Spell2.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpell2;
+                @Spell3.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpell3;
+                @Spell3.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpell3;
+                @Spell3.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpell3;
+                @Spell4.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpell4;
+                @Spell4.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpell4;
+                @Spell4.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpell4;
                 @Run.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRun;
                 @Run.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRun;
                 @Run.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRun;
@@ -1798,24 +1798,24 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Camera.started += instance.OnCamera;
                 @Camera.performed += instance.OnCamera;
                 @Camera.canceled += instance.OnCamera;
-                @CastSpell.started += instance.OnCastSpell;
-                @CastSpell.performed += instance.OnCastSpell;
-                @CastSpell.canceled += instance.OnCastSpell;
-                @CastBasicSpell.started += instance.OnCastBasicSpell;
-                @CastBasicSpell.performed += instance.OnCastBasicSpell;
-                @CastBasicSpell.canceled += instance.OnCastBasicSpell;
-                @SelectSpell1.started += instance.OnSelectSpell1;
-                @SelectSpell1.performed += instance.OnSelectSpell1;
-                @SelectSpell1.canceled += instance.OnSelectSpell1;
-                @SelectSpell2.started += instance.OnSelectSpell2;
-                @SelectSpell2.performed += instance.OnSelectSpell2;
-                @SelectSpell2.canceled += instance.OnSelectSpell2;
-                @SelectSpell3.started += instance.OnSelectSpell3;
-                @SelectSpell3.performed += instance.OnSelectSpell3;
-                @SelectSpell3.canceled += instance.OnSelectSpell3;
-                @SelectSpell4.started += instance.OnSelectSpell4;
-                @SelectSpell4.performed += instance.OnSelectSpell4;
-                @SelectSpell4.canceled += instance.OnSelectSpell4;
+                @Fire.started += instance.OnFire;
+                @Fire.performed += instance.OnFire;
+                @Fire.canceled += instance.OnFire;
+                @SecondaryFire.started += instance.OnSecondaryFire;
+                @SecondaryFire.performed += instance.OnSecondaryFire;
+                @SecondaryFire.canceled += instance.OnSecondaryFire;
+                @Spell1.started += instance.OnSpell1;
+                @Spell1.performed += instance.OnSpell1;
+                @Spell1.canceled += instance.OnSpell1;
+                @Spell2.started += instance.OnSpell2;
+                @Spell2.performed += instance.OnSpell2;
+                @Spell2.canceled += instance.OnSpell2;
+                @Spell3.started += instance.OnSpell3;
+                @Spell3.performed += instance.OnSpell3;
+                @Spell3.canceled += instance.OnSpell3;
+                @Spell4.started += instance.OnSpell4;
+                @Spell4.performed += instance.OnSpell4;
+                @Spell4.canceled += instance.OnSpell4;
                 @Run.started += instance.OnRun;
                 @Run.performed += instance.OnRun;
                 @Run.canceled += instance.OnRun;
@@ -2140,12 +2140,12 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnCamera(InputAction.CallbackContext context);
-        void OnCastSpell(InputAction.CallbackContext context);
-        void OnCastBasicSpell(InputAction.CallbackContext context);
-        void OnSelectSpell1(InputAction.CallbackContext context);
-        void OnSelectSpell2(InputAction.CallbackContext context);
-        void OnSelectSpell3(InputAction.CallbackContext context);
-        void OnSelectSpell4(InputAction.CallbackContext context);
+        void OnFire(InputAction.CallbackContext context);
+        void OnSecondaryFire(InputAction.CallbackContext context);
+        void OnSpell1(InputAction.CallbackContext context);
+        void OnSpell2(InputAction.CallbackContext context);
+        void OnSpell3(InputAction.CallbackContext context);
+        void OnSpell4(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnQuickSave(InputAction.CallbackContext context);

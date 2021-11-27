@@ -159,11 +159,11 @@ public class PlayerInputCustom : MonoBehaviour
     }
     public void HandleNextSpellSelect(InputAction.CallbackContext context)
     {
-        if (context.performed) OnPreviousNextSpell(1, false);
+        if (context.performed) OnPreviousNextSpell(-1, false);
     }
     public void HandlePreviousSpellSelect(InputAction.CallbackContext context)
     {
-        if (context.performed) OnPreviousNextSpell(-1, false);
+        if (context.performed) OnPreviousNextSpell(1, false);
     }
     ///////////////////////// Events /////////////////////////////////////////
     protected virtual void OnDash() => Dash?.Invoke();

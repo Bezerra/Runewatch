@@ -5,7 +5,6 @@ using UnityEngine;
 public class RebindingManager : MonoBehaviour
 {
     private RebindingKey[] rebindKeys;
-    private GameObject[] keyAlreadySetGameobjects;
 
     private void Awake()
     {
@@ -15,6 +14,15 @@ public class RebindingManager : MonoBehaviour
     private void Start()
     {
         foreach (RebindingKey rebinding in rebindKeys)
-            rebinding.UpdateKey();
+            rebinding.Initialize(this);
+    }
+
+    /// <summary>
+    /// Deactivates all key already set buttons.
+    /// </summary>
+    public void DeactivateKeysAlreadySet()
+    {
+        foreach (RebindingKey rebinding in rebindKeys)
+            rebinding.DeactivateKeyAlreadySet();
     }
 }

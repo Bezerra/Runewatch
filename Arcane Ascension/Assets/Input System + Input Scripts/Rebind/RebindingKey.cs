@@ -11,17 +11,41 @@ public class RebindingKey : MonoBehaviour
 {
     [SerializeField] private InputActionReference inputAction;
     [SerializeField] private TMP_Text bindingDisplayText;
+    [SerializeField] private TMP_Text actionText;
     [SerializeField] private GameObject startRebindGameobject;
     [SerializeField] private GameObject waitingForInputGameobject;
     [SerializeField] private GameObject keyAlreadySetGameobject;
 
     private InputActionRebindingExtensions.RebindingOperation rebindingOperation;
 
+    public RebindingManager RebindingManager { get; private set; }
+
+    private void OnValidate() =>
+        UpdateTextWithActionInformation();
+
+    /// <summary>
+    /// Updates text with action name.
+    /// </summary>
+    private void UpdateTextWithActionInformation()
+    {
+        if (inputAction != null)
+        {
+            actionText.text = inputAction.action.bindings[0].action.ToString();
+            bindingDisplayText.text =
+            InputControlPath.ToHumanReadableString(inputAction.action.bindings[0].effectivePath,
+            InputControlPath.HumanReadableStringOptions.OmitDevice);
+        }
+    }
+
     /// <summary>
     /// Updates key asset and its button text.
     /// </summary>
-    public void UpdateKey()
+    public void Initialize(RebindingManager rebindingManager)
     {
+        
+
+        RebindingManager = rebindingManager;
+
         string keyOverride = PlayerPrefs.GetString($"ACTION_{inputAction.action.bindings[0].action}", "null");
         if (keyOverride != "null")
         {
@@ -29,16 +53,20 @@ public class RebindingKey : MonoBehaviour
                 PlayerPrefs.GetString($"ACTION_{inputAction.action.bindings[0].action}"));
         }
 
-        bindingDisplayText.text =
-            InputControlPath.ToHumanReadableString(inputAction.action.bindings[0].effectivePath,
-            InputControlPath.HumanReadableStringOptions.OmitDevice);
+        UpdateTextWithActionInformation();
     }
 
+    /// <summary>
+    /// Starts a rebind operation.
+    /// </summary>
     public void StartRebind()
     {
         keyAlreadySetGameobject.SetActive(false);
         startRebindGameobject.SetActive(false);
         waitingForInputGameobject.SetActive(true);
+        RebindingManager.DeactivateKeysAlreadySet();
+
+        PlayerPrefs.SetString("CurrentKeyPath", inputAction.action.bindings[0].effectivePath);
 
         rebindingOperation = inputAction.action.PerformInteractiveRebinding().
             WithControlsExcluding("<Pointer>/position").
@@ -68,15 +96,15 @@ public class RebindingKey : MonoBehaviour
                 {
                     RebindCanceled();
                     keyAlreadySetGameobject.SetActive(true);
+                    inputAction.action.ApplyBindingOverride(
+                        PlayerPrefs.GetString($"CurrentKeyPath"));
                     return;
                 }
             }
         }
 
-        // If it doesn't exist, updates button text
-        bindingDisplayText.text = 
-            InputControlPath.ToHumanReadableString(inputAction.action.bindings[0].effectivePath,
-            InputControlPath.HumanReadableStringOptions.OmitDevice);
+        // If the path of this action doesn't exist, updates button text
+        UpdateTextWithActionInformation();
 
         // Saves key to player prefs
         PlayerPrefs.SetString($"ACTION_{inputAction.action.bindings[0].action}",
@@ -111,6 +139,10 @@ public class RebindingKey : MonoBehaviour
     /// <summary>
     /// Deactivates keyalreadyset gameobject.
     /// </summary>
-    public void DeactivateKeyAlreadySet() =>
-        keyAlreadySetGameobject.SetActive(false);
+    public void DeactivateKeyAlreadySet()
+    {
+        if (keyAlreadySetGameobject.activeSelf) 
+            keyAlreadySetGameobject.SetActive(false);
+    }
+        
 }
