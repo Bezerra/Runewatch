@@ -34,6 +34,7 @@ public class EnvironmentLightControlSO : ScriptableObject
     [Serializable]
     private struct ElementsLightColor
     {
+        [ColorUsage(true, true)]
         [SerializeField] private Color color;
         [SerializeField] private ElementType element;
 
