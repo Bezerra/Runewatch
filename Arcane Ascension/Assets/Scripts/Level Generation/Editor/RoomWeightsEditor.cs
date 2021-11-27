@@ -34,7 +34,8 @@ public class RoomWeightsEditor : OdinMenuEditorWindow
         tree.Add("Create New Room Weight/New Room Weight", createNewRoomWeight);
 
         tree.AddAllAssetsAtPath("Room Weights",
-            "Assets/Resources/Scriptable Objects/Create Once _ General/Room Weights", typeof(RoomWeightsSO));
+            "Assets/Resources/Scriptable Objects/Create Once _ General/Room Weights", 
+            typeof(RoomWeightsSO));
 
         return tree;
     }

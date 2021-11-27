@@ -13,12 +13,12 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     [SerializeField] private bool                                   randomSeed;
     [Range(-200000000, 200000000)] [SerializeField] private int     seed = 0;
     [Header("Generation Parameters")][SerializeField] private bool  allRandomGenerationParameters;
-    [Range(15, 150)] [SerializeField] private int                   horizontalMaximumLevelSize;
-    [Range(15, 150)] [SerializeField] private int                   forwardMaximumLevelSize;
+    [Range(15, 200)] [SerializeField] private int                   horizontalMaximumLevelSize;
+    [Range(15, 200)] [SerializeField] private int                   forwardMaximumLevelSize;
     [SerializeField] private bool                                   randomMinimumNumberOfRooms;
     [Range(7, 12)] [SerializeField] private int                     minimumNumberOfRooms;
     [SerializeField] private bool                                   randomMaximumNumberOfRooms;
-    [Range(9, 15)] [SerializeField] private int                    maximumNumberOfRooms;
+    [Range(9, 15)] [SerializeField] private int                     maximumNumberOfRooms;
 
 
     [Header("Level Pieces")] // TEMP
@@ -203,6 +203,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                         if (openedContactPoints[i].IncompatiblePieces.Contains(
                             pieceToPlace.ConcreteType))
                         {
+                            Debug.Log("ds");
                             Destroy(pieceToPlace.gameObject);
                             continue;
                         }

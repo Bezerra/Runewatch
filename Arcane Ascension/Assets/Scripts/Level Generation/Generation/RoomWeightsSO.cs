@@ -1,3 +1,7 @@
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
@@ -9,6 +13,9 @@ using Sirenix.OdinInspector;
 [InlineEditor]
 public class RoomWeightsSO : ScriptableObject
 {
+    [InlineButton("ChangeFileName", "Update File Name")]
+    [SerializeField] protected new string name = "New Spell";
+
     [SerializeField] private List<Weight> piecesWithWeight;
     public List<Weight> PiecesWithWeight => piecesWithWeight;
 
@@ -22,6 +29,13 @@ public class RoomWeightsSO : ScriptableObject
             value += weight.RoomWeight;
 
         Debug.Log(value);
+    }
+
+    protected void ChangeFileName()
+    {
+        string assetPath = AssetDatabase.GetAssetPath(this.GetInstanceID());
+        AssetDatabase.RenameAsset(assetPath, name);
+        AssetDatabase.SaveAssets();
     }
 #endif
 }
