@@ -450,31 +450,31 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
                 break;
 
             case StatsType.IgnisDamage:
-                PlayerAttributes.DamageElementMultiplier[ElementType.Fire] += amountToIncrement;
+                PlayerAttributes.DamageElementMultiplier[ElementType.Ignis] += amountToIncrement;
                 break;
 
             case StatsType.FulgurDamage:
-                PlayerAttributes.DamageElementMultiplier[ElementType.Electric] += amountToIncrement;
+                PlayerAttributes.DamageElementMultiplier[ElementType.Fulgur] += amountToIncrement;
                 break;
 
             case StatsType.AquaDamage:
-                PlayerAttributes.DamageElementMultiplier[ElementType.Water] += amountToIncrement;
+                PlayerAttributes.DamageElementMultiplier[ElementType.Aqua] += amountToIncrement;
                 break;
 
             case StatsType.TerraDamage:
-                PlayerAttributes.DamageElementMultiplier[ElementType.Earth] += amountToIncrement;
+                PlayerAttributes.DamageElementMultiplier[ElementType.Terra] += amountToIncrement;
                 break;
 
             case StatsType.NaturaDamage:
-                PlayerAttributes.DamageElementMultiplier[ElementType.Nature] += amountToIncrement;
+                PlayerAttributes.DamageElementMultiplier[ElementType.Natura] += amountToIncrement;
                 break;
 
             case StatsType.LuxDamage:
-                PlayerAttributes.DamageElementMultiplier[ElementType.Light] += amountToIncrement;
+                PlayerAttributes.DamageElementMultiplier[ElementType.Lux] += amountToIncrement;
                 break;
 
             case StatsType.UmbraDamage:
-                PlayerAttributes.DamageElementMultiplier[ElementType.Dark] += amountToIncrement;
+                PlayerAttributes.DamageElementMultiplier[ElementType.Umbra] += amountToIncrement;
                 break;
         }
     }

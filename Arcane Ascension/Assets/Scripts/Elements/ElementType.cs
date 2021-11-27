@@ -1,11 +1,11 @@
 public enum ElementType
 {
     Neutral ,
-    Fire    ,
-    Water   ,
-    Earth   ,
-    Electric,
-    Nature  ,
-    Light   ,
-    Dark    ,
+    Ignis   ,
+    Aqua    ,
+    Terra   ,
+    Fulgur  ,
+    Natura  ,
+    Lux     ,
+    Umbra   ,
 }

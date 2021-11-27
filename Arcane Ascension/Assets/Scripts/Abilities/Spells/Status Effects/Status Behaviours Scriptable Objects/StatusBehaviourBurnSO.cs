@@ -24,7 +24,7 @@ public class StatusBehaviourBurnSO : StatusBehaviourAbstractSO
                     new StatusEffectInformation(Time.time, durationSeconds, icon));
 
                 parent.CharacterHit.TakeDamageOvertime(
-                    damageToDo, ElementType.Fire, damageInterval, durationSeconds);
+                    damageToDo, ElementType.Ignis, damageInterval, durationSeconds);
 
                 parent.PrefabVFX = prefabVFX;
                 parent.EffectActive = true;
@@ -35,7 +35,7 @@ public class StatusBehaviourBurnSO : StatusBehaviourAbstractSO
                 parent.CharacterHit.StatusEffectList.Items[statusEffectType].TimeApplied = Time.time;
 
                 parent.CharacterHit.TakeDamageOvertime(
-                    damageToDo, ElementType.Fire, damageInterval, durationSeconds);
+                    damageToDo, ElementType.Ignis, damageInterval, durationSeconds);
 
                 parent.DisableStatusGameObject();
             }
@@ -46,7 +46,7 @@ public class StatusBehaviourBurnSO : StatusBehaviourAbstractSO
             parent.CharacterHit.StatusEffectList.Items[statusEffectType].TimeApplied = Time.time;
 
             parent.CharacterHit.TakeDamageOvertime(
-                damageToDo, ElementType.Fire, damageInterval, durationSeconds);
+                damageToDo, ElementType.Ignis, damageInterval, durationSeconds);
 
             // Will only disable the spell if it's not the one that's causing the current effect
             if (parent.EffectActive == false)

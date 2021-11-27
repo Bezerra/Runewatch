@@ -61,13 +61,13 @@ public class EventGetThreeRandomSpellsSO : EventAbstractSO
         // All save data expertises. Neutral is added as 2 cause it doesn't have expertise
         IDictionary<ElementType, byte> expertises = new Dictionary<ElementType, byte>()
         {
-            { ElementType.Dark, stpData.SaveData.UmbraExpertise }, 
-            { ElementType.Earth, stpData.SaveData.TerraExpertise },
-            { ElementType.Electric, stpData.SaveData.FulgurExpertise }, 
-            { ElementType.Fire, stpData.SaveData.IgnisExpertise },
-            { ElementType.Light, stpData.SaveData.LuxExpertise }, 
-            { ElementType.Nature, stpData.SaveData.NaturaExpertise },
-            { ElementType.Water, stpData.SaveData.AquaExpertise }, 
+            { ElementType.Umbra, stpData.SaveData.UmbraExpertise }, 
+            { ElementType.Terra, stpData.SaveData.TerraExpertise },
+            { ElementType.Fulgur, stpData.SaveData.FulgurExpertise }, 
+            { ElementType.Ignis, stpData.SaveData.IgnisExpertise },
+            { ElementType.Lux, stpData.SaveData.LuxExpertise }, 
+            { ElementType.Natura, stpData.SaveData.NaturaExpertise },
+            { ElementType.Aqua, stpData.SaveData.AquaExpertise }, 
             { ElementType.Neutral, 2 }
         };
 

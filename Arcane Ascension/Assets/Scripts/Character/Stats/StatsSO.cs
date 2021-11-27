@@ -109,10 +109,10 @@ public abstract class StatsSO : ScriptableObject
 
         damageElementMultiplier = new Dictionary<ElementType, float>
         {
-            { ElementType.Fire, defaultIgnisMultiplier }, { ElementType.Electric, defaultFulgurMultiplier },
-            { ElementType.Water, defaultAquaMultiplier }, { ElementType.Earth, defaultTerraMultiplier },
-            { ElementType.Nature, defaultNaturaMultiplier }, { ElementType.Light, defaultLuxMultiplier },
-            { ElementType.Dark, defaultUmbraMultiplier }, {ElementType.Neutral, defaultNeutralMultiplier },
+            { ElementType.Ignis, defaultIgnisMultiplier }, { ElementType.Fulgur, defaultFulgurMultiplier },
+            { ElementType.Aqua, defaultAquaMultiplier }, { ElementType.Terra, defaultTerraMultiplier },
+            { ElementType.Natura, defaultNaturaMultiplier }, { ElementType.Lux, defaultLuxMultiplier },
+            { ElementType.Umbra, defaultUmbraMultiplier }, {ElementType.Neutral, defaultNeutralMultiplier },
         };
     }
 
