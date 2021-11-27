@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 
+/// <summary>
+/// Class responsible for rebinding a key.
+/// </summary>
 public class RebindingKey : MonoBehaviour
 {
     [SerializeField] private InputActionReference inputAction;
@@ -14,6 +17,9 @@ public class RebindingKey : MonoBehaviour
 
     private InputActionRebindingExtensions.RebindingOperation rebindingOperation;
 
+    /// <summary>
+    /// Updates key asset and its button text.
+    /// </summary>
     public void UpdateKey()
     {
         string keyOverride = PlayerPrefs.GetString($"ACTION_{inputAction.action.bindings[0].action}", "null");
@@ -93,9 +99,18 @@ public class RebindingKey : MonoBehaviour
         startRebindGameobject.SetActive(true);
     }
 
+    /// <summary>
+    /// Disposes rebinding operation.
+    /// </summary>
     private void Clean()
     {
         rebindingOperation?.Dispose();
         rebindingOperation = null;
     }
+
+    /// <summary>
+    /// Deactivates keyalreadyset gameobject.
+    /// </summary>
+    public void DeactivateKeyAlreadySet() =>
+        keyAlreadySetGameobject.SetActive(false);
 }

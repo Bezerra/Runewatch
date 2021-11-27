@@ -5,6 +5,7 @@ using UnityEngine;
 public class RebindingManager : MonoBehaviour
 {
     private RebindingKey[] rebindKeys;
+    private GameObject[] keyAlreadySetGameobjects;
 
     private void Awake()
     {
