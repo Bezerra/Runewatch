@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
+#pragma warning disable 0414 // variable assigned but not used.
+
 /// <summary>
 /// Scriptable object with all spells scriptable objects.
 /// </summary>

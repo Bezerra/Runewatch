@@ -1,5 +1,7 @@
 using UnityEngine;
 
+#pragma warning disable 0414 // variable assigned but not used.
+
 /// <summary>
 /// Scriptable object responsible for playing a sound from a list.
 /// </summary>

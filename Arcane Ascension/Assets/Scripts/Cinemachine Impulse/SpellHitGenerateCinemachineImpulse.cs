@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
+#pragma warning disable 0414 // variable assigned but not used.
+
 /// <summary>
 /// Class responsible for generating a spell hit cinemachine source impulse.
 /// Used by every spell hit that generates impulses.

@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+#pragma warning disable 0414 // variable assigned but not used.
+
 /// <summary>
 /// Scriptable object base class for all sounds.
 /// </summary>
