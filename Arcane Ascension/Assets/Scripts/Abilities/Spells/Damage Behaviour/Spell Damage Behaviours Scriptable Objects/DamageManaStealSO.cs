@@ -34,15 +34,23 @@ public class DamageManaStealSO : DamageBehaviourAbstractSO
                 // Critical chance logic
                 float criticalChance = parent.WhoCast.CommonAttributes.CriticalChance;
 
-                // Ray to check if damage is moving towards a critical spot
-                Ray criticalSpotRay = new Ray(
-                    parent.PositionOnHit,
-                    parent.transform.forward);
-
-                // Raycast from spell direction to forward, to check if it hit a critical point
-                if (Physics.Raycast(criticalSpotRay, 3, Layers.EnemySensiblePoint))
+                // This will only happen if the spell didn't hit an immune collider
+                if (damageMultiplier > 0)
                 {
-                    criticalChance = 1;
+                    // Ray to check if damage is moving towards a critical spot
+                    Ray criticalSpotRay = new Ray(
+                        parent.PositionOnHit,
+                        parent.transform.forward);
+
+                    // Raycast from spell direction to forward, to check if it hit a critical point
+                    if (Physics.Raycast(criticalSpotRay, 3, Layers.EnemySensiblePoint))
+                    {
+                        criticalChance = 1;
+                    }
+                }
+                else
+                {
+                    criticalChance = 0;
                 }
 
                 // Damages character
