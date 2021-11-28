@@ -13,12 +13,12 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     [SerializeField] private bool                                   randomSeed;
     [Range(-200000000, 200000000)] [SerializeField] private int     seed = 0;
     [Header("Generation Parameters")][SerializeField] private bool  allRandomGenerationParameters;
-    [Range(15, 200)] [SerializeField] private int                   horizontalMaximumLevelSize;
-    [Range(15, 200)] [SerializeField] private int                   forwardMaximumLevelSize;
+    [Range(75, 500)] [SerializeField] private int                   horizontalMaximumLevelSize;
+    [Range(75, 500)] [SerializeField] private int                   forwardMaximumLevelSize;
     [SerializeField] private bool                                   randomMinimumNumberOfRooms;
-    [Range(7, 12)] [SerializeField] private int                     minimumNumberOfRooms;
+    [Range(7, 9)] [SerializeField] private int                     minimumNumberOfRooms;
     [SerializeField] private bool                                   randomMaximumNumberOfRooms;
-    [Range(9, 15)] [SerializeField] private int                     maximumNumberOfRooms;
+    [Range(12, 15)] [SerializeField] private int                     maximumNumberOfRooms;
 
 
     [Header("Level Pieces")] // TEMP
@@ -55,17 +55,17 @@ public class LevelGenerator : MonoBehaviour, ISaveable
 
         if (allRandomGenerationParameters)
         {
-            horizontalMaximumLevelSize = random.Next(15, 151);
-            forwardMaximumLevelSize = random.Next(15, 151);
-            minimumNumberOfRooms = random.Next(7, 12);
-            maximumNumberOfRooms = random.Next(9, 15);
+            horizontalMaximumLevelSize = random.Next(75, 500);
+            forwardMaximumLevelSize = random.Next(75, 500);
+            minimumNumberOfRooms = random.Next(7, 10);
+            maximumNumberOfRooms = random.Next(12, 16);
         }
         else
         {
             if (randomMinimumNumberOfRooms)
                 minimumNumberOfRooms = random.Next(7, 10);
             if (randomMaximumNumberOfRooms)
-                maximumNumberOfRooms = random.Next(10, 15);
+                maximumNumberOfRooms = random.Next(12, 16);
         }
     }
 
@@ -186,6 +186,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             while (openedContactPoints.Count > 0 && numberOfCurrentLoop < numberOfLoops)
             {
                 int openedContacts = openedContactPoints.Count;
+
+                // For all opened contact points on this loop only < will ignore the ones added inside for now
                 for (int i = 0; i < openedContacts; i++)
                 {
                     // Creates a common levelPiece and desired contactPoint to connect
@@ -197,13 +199,13 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                     {
                         // Creates a corridor/stairs
                         pieceToPlace = Instantiate(corridors[random.Next(0, corridors.Length)]);
-                        pieceContactPoint = pieceToPlace.ContactPoints[random.Next(0, pieceToPlace.ContactPoints.Length)];
+                        pieceContactPoint = pieceToPlace.ContactPoints[
+                            random.Next(0, pieceToPlace.ContactPoints.Length)];
 
                         // Skips incompatible pieces
                         if (openedContactPoints[i].IncompatiblePieces.Contains(
                             pieceToPlace.ConcreteType))
                         {
-                            Debug.Log("ds");
                             Destroy(pieceToPlace.gameObject);
                             continue;
                         }
@@ -215,6 +217,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                         ValidatePiece(pieceToPlace, pieceContactPoint, false, openedContactPoints, i, levelParent, random);
                     }
 
+                    // This should be and else if, but if it's changed to else if, it's bugged idkwhy
                     // If it's a corridor/stairs
                     if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor ||
                         openedContactPoints[i].ParentRoom.Type == PieceType.Stairs)
@@ -252,10 +255,11 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                 else if (allRooms.Count > minimumNumberOfRooms) numberOfLoops--;
 
                 print("Invalid number of rooms. Attempting another time.");
+
                 yield return new WaitForSeconds(0.25f);
                 GameObject[] levelParents = GameObject.FindGameObjectsWithTag("LevelParent");
                 foreach (GameObject lvlParent in levelParents)
-                    Destroy(lvlParent.gameObject);
+                    Destroy(lvlParent);
 
                 GenerateSeed();
 
@@ -265,42 +269,138 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             #endregion
 
             #region Boss Room
-            // Generate boss room
             // Organized a list with contact points by distance
-            List<ContactPoint> contactPointsDistance = 
-                openedContactPoints.OrderByDescending(i => Vector3.Distance(i.transform.position,
+            openedContactPoints = 
+                openedContactPoints.OrderByDescending(
+                    i => Vector3.Distance(i.transform.position,
                                                         startingRoomPiece.transform.position)).ToList();
+            // Generate boss room
             LevelPiece bossRoomPiece = Instantiate(bossRoom);
             ContactPoint bossRoomContactPoint = 
                 bossRoomPiece.ContactPoints[random.Next(0, bossRoomPiece.ContactPoints.Length)];
             bossRoomPiece.transform.parent = levelParent.transform;
+            bossRoomSpawned = false;
 
-            for (int i = 0; i < contactPointsDistance.Count; i++)
+            // For all remaining points by distance (first point is the farthest one)
+            for (int i = 0; i < openedContactPoints.Count; i++)
             {
-                if (contactPointsDistance[i].ParentRoom.Type == PieceType.Corridor ||
-                    contactPointsDistance[i].ParentRoom.Type == PieceType.Stairs)
+                // If it's a corridor
+                if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor ||
+                    openedContactPoints[i].ParentRoom.Type == PieceType.Stairs)
                 {
-                    RotateAndSetPiece(bossRoomPiece, bossRoomContactPoint, contactPointsDistance[i]);
-
+                    // Sets and rotates piece
+                    RotateAndSetPiece(bossRoomPiece, bossRoomContactPoint, openedContactPoints[i]);
                     yield return new WaitForSeconds(0.25f);
 
+                    // If everything is valid, ends generation
                     if (IsPieceValid(bossRoomPiece, random, false))
                     {
                         print("Valid level generation.");
-                        contactPointsDistance[i].Close();
-                        bossRoomContactPoint.Close();
-                        openedContactPoints.Remove(contactPointsDistance[i]);
-                        bossRoomSpawned = true;
-                        allRoomsAndCorridors.Add(bossRoomPiece);
 
                         // Gets the wall on top of current piece to place contact point and deactivates it
-                        if (contactPointsDistance[i].transform.childCount > 0)
-                            contactPointsDistance[i].transform.GetChild(0).gameObject.SetActive(false);
+                        if (openedContactPoints[i].transform.childCount > 0)
+                            openedContactPoints[i].transform.GetChild(0).gameObject.SetActive(false);
+
+                        // Closes and remove the involved points
+                        openedContactPoints[i].Close();
+                        bossRoomContactPoint.Close();
+                        openedContactPoints.Remove(openedContactPoints[i]);
+
+                        bossRoomSpawned = true;
+                        allRoomsAndCorridors.Add(bossRoomPiece);
 
                         break;
                     }
                     else
                     {
+                        // Continues to next point
+                        continue;
+                    }
+                }
+
+                // If it's a room
+                // It will try to place every possible corridor and connect the boss
+                // room to that point, if it can't, it will go to the next point
+                else if (openedContactPoints[i].ParentRoom.Type == PieceType.Room)
+                {
+                    bool finalCorridorCreated = false;
+
+                    // For all possible corridors
+                    LevelPiece[] randomCorridors = corridors.OrderBy(i => Guid.NewGuid()).ToArray();
+
+                    // For all rooms
+                    for (int j = 0; j < randomCorridors.Length; j++)
+                    {
+                        // Creates a corridor/stairs
+                        LevelPiece pieceToPlace = Instantiate(corridors[j]);
+                        ContactPoint pieceContactPoint =
+                            pieceToPlace.ContactPoints[random.Next(0, pieceToPlace.ContactPoints.Length)];
+
+                        // Skips incompatible pieces
+                        if (openedContactPoints[i].IncompatiblePieces.Contains(
+                            pieceToPlace.ConcreteType))
+                        {
+                            Destroy(pieceToPlace.gameObject);
+                            continue;
+                        }
+
+                        // Tries to set the room
+                        RotateAndSetPiece(pieceToPlace, pieceContactPoint, openedContactPoints[i]);
+
+                        yield return wffu;
+
+                        // If it's valid
+                        if (IsPieceValid(pieceToPlace, random, false))
+                        {
+                            ValidatePiece(
+                                pieceToPlace, pieceContactPoint, false, openedContactPoints, i, levelParent, random);
+
+                            finalCorridorCreated = true;
+
+                            break;
+                        }
+                        else
+                        {
+                            Destroy(pieceToPlace.gameObject);
+                            continue;
+                        }
+                    }
+
+                    // Sets and rotates piece
+                    if (finalCorridorCreated)
+                    {
+                        // From now on, it will be used the last index on opened contact points
+                        // because this was the point added on the previous corridor
+                        RotateAndSetPiece(bossRoomPiece, bossRoomContactPoint, 
+                            openedContactPoints[openedContactPoints.Count - 1]);
+
+                        yield return new WaitForSeconds(0.25f);
+
+                        // If everything is valid, ends generation
+                        if (IsPieceValid(bossRoomPiece, random, false))
+                        {
+                            print("Valid level generation.");
+
+                            // Gets the wall on top of current piece to place contact point and deactivates it
+                            if (openedContactPoints[openedContactPoints.Count - 1].
+                                transform.childCount > 0)
+                            {
+                                openedContactPoints[openedContactPoints.Count - 1].
+                                    transform.GetChild(0).gameObject.SetActive(false);
+                            }                            
+
+                            // Closes and remove the involved points
+                            openedContactPoints[openedContactPoints.Count - 1].Close();
+                            bossRoomContactPoint.Close();
+                            openedContactPoints.Remove(openedContactPoints[openedContactPoints.Count - 1]);
+
+                            bossRoomSpawned = true;
+                            allRoomsAndCorridors.Add(bossRoomPiece);
+
+                            break;
+                        }
+
+                        // Fails boss generation
                         print("Invalid level generation. Attempting another time.");
                         yield return new WaitForSeconds(0.25f);
                         GameObject[] levelParents = GameObject.FindGameObjectsWithTag("LevelParent");
@@ -312,15 +412,23 @@ public class LevelGenerator : MonoBehaviour, ISaveable
 
                         break;
                     }
+                    else
+                    {
+                        // Continues to the next point
+                        continue;
+                    }
                 }
             }
             #endregion
 
+            // After looping through all points, if it was able to generate boss room
             if (bossRoomSpawned)
             {
                 generationCoroutine = GenerateWallsOnExits(levelParent, openedContactPoints, wffu);
                 StartCoroutine(generationCoroutine);
             }
+            // Else it will go back to the beggining of the whole loop, destroy everything and 
+            // generate a new dungeon with different values
         }
     }
 
@@ -485,7 +593,9 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     }
 
     /// <summary>
-    /// Rotates a piece until it matches a contact point.
+    /// Rotates a piece until it matches a contact point. The logic applied is that rooms
+    /// point outside, while corridors point inside. This way, the room/corridor will keep
+    /// rotating until they match the desired direction, depending on the other piece type.
     /// </summary>
     /// <param name="levelPiece">Piece to rotate.</param>
     /// <param name="levelPieceContact">Contact point of the piece.</param>
@@ -496,7 +606,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         levelPieceContact.ParentRoom.transform.rotation =
             Quaternion.LookRotation(originContact.transform.forward, originContact.transform.up);
 
-        while(levelPieceContact.transform.SameDirectionAs(originContact.transform) == false)
+        while (levelPieceContact.transform.SameDirectionAs(originContact.transform) == false)
         {
             levelPieceContact.ParentRoom.transform.rotation *=
             (levelPieceContact.transform.localRotation);
@@ -516,15 +626,15 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         if (creatingLevelBase)
         {
             // Horizontal limit
-            if (levelPiece.transform.position.z > horizontalMaximumLevelSize ||
-                levelPiece.transform.position.z < -horizontalMaximumLevelSize)
+            if (levelPiece.transform.position.z > forwardMaximumLevelSize ||
+                levelPiece.transform.position.z < -forwardMaximumLevelSize)
             {
                 Destroy(levelPiece.gameObject);
                 return false;
             }
 
-            if (levelPiece.transform.position.x > forwardMaximumLevelSize || 
-                levelPiece.transform.position.x < -forwardMaximumLevelSize)
+            if (levelPiece.transform.position.x > horizontalMaximumLevelSize || 
+                levelPiece.transform.position.x < -horizontalMaximumLevelSize)
             {
                 Destroy(levelPiece.gameObject);
                 return false;
