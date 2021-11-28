@@ -178,8 +178,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             IList<int> roomWeights = new List<int>();
             for (int i = 0; i < rooms.Length; i++)
             {
-                //roomWeights.Add(rooms[i].RoomWeight);
-                roomWeights.Add(10);
+                roomWeights.Add(rooms[i].RoomWeight);
             }
 
             // Main generation loop.
@@ -187,6 +186,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             while (openedContactPoints.Count > 0 && numberOfCurrentLoop < numberOfLoops)
             {
                 int openedContacts = openedContactPoints.Count;
+
+                // For all opened contact points on this loop only < will ignore the ones added inside for now
                 for (int i = 0; i < openedContacts; i++)
                 {
                     // Creates a common levelPiece and desired contactPoint to connect
@@ -198,7 +199,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                     {
                         // Creates a corridor/stairs
                         pieceToPlace = Instantiate(corridors[random.Next(0, corridors.Length)]);
-                        pieceContactPoint = pieceToPlace.ContactPoints[random.Next(0, pieceToPlace.ContactPoints.Length)];
+                        pieceContactPoint = pieceToPlace.ContactPoints[
+                            random.Next(0, pieceToPlace.ContactPoints.Length)];
 
                         // Skips incompatible pieces
                         if (openedContactPoints[i].IncompatiblePieces.Contains(
@@ -215,6 +217,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                         ValidatePiece(pieceToPlace, pieceContactPoint, false, openedContactPoints, i, levelParent, random);
                     }
 
+                    // This should be and else if, but if it's changed to else if, it's bugged idkwhy
                     // If it's a corridor/stairs
                     if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor ||
                         openedContactPoints[i].ParentRoom.Type == PieceType.Stairs)
@@ -237,7 +240,6 @@ public class LevelGenerator : MonoBehaviour, ISaveable
 
                         ValidatePiece(
                             pieceToPlace, pieceContactPoint, true, openedContactPoints, i, levelParent, random);
-
                     }
                 }
 
@@ -280,7 +282,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             bossRoomSpawned = false;
 
             // For all remaining points by distance (first point is the farthest one)
-            for (int i = 1; i < openedContactPoints.Count; i++)
+            for (int i = 0; i < openedContactPoints.Count; i++)
             {
                 // If it's a corridor
                 if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor ||
@@ -425,20 +427,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                 generationCoroutine = GenerateWallsOnExits(levelParent, openedContactPoints, wffu);
                 StartCoroutine(generationCoroutine);
             }
-            else
-            {
-                // Fails boss generation
-                print("Invalid level generation. Attempting another time.");
-                yield return new WaitForSeconds(0.25f);
-                GameObject[] levelParents = GameObject.FindGameObjectsWithTag("LevelParent");
-                foreach (GameObject lvlParent in levelParents)
-                    Destroy(lvlParent);
-                bossRoomSpawned = false;
-
-                GenerateSeed();
-
-                break;
-            }
+            // Else it will go back to the beggining of the whole loop, destroy everything and 
+            // generate a new dungeon with different values
         }
     }
 
