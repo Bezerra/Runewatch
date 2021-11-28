@@ -13,12 +13,12 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     [SerializeField] private bool                                   randomSeed;
     [Range(-200000000, 200000000)] [SerializeField] private int     seed = 0;
     [Header("Generation Parameters")][SerializeField] private bool  allRandomGenerationParameters;
-    [Range(350, 500)] [SerializeField] private int                   horizontalMaximumLevelSize;
-    [Range(350, 500)] [SerializeField] private int                   forwardMaximumLevelSize;
+    [Range(75, 500)] [SerializeField] private int                   horizontalMaximumLevelSize;
+    [Range(75, 500)] [SerializeField] private int                   forwardMaximumLevelSize;
     [SerializeField] private bool                                   randomMinimumNumberOfRooms;
-    [Range(4, 7)] [SerializeField] private int                     minimumNumberOfRooms;
+    [Range(7, 9)] [SerializeField] private int                     minimumNumberOfRooms;
     [SerializeField] private bool                                   randomMaximumNumberOfRooms;
-    [Range(9, 15)] [SerializeField] private int                     maximumNumberOfRooms;
+    [Range(12, 15)] [SerializeField] private int                     maximumNumberOfRooms;
 
 
     [Header("Level Pieces")] // TEMP
@@ -55,17 +55,17 @@ public class LevelGenerator : MonoBehaviour, ISaveable
 
         if (allRandomGenerationParameters)
         {
-            horizontalMaximumLevelSize = random.Next(15, 151);
-            forwardMaximumLevelSize = random.Next(15, 151);
-            minimumNumberOfRooms = random.Next(4, 8);
-            maximumNumberOfRooms = random.Next(9, 16);
+            horizontalMaximumLevelSize = random.Next(75, 500);
+            forwardMaximumLevelSize = random.Next(75, 500);
+            minimumNumberOfRooms = random.Next(7, 10);
+            maximumNumberOfRooms = random.Next(12, 16);
         }
         else
         {
             if (randomMinimumNumberOfRooms)
-                minimumNumberOfRooms = random.Next(4, 8);
+                minimumNumberOfRooms = random.Next(7, 10);
             if (randomMaximumNumberOfRooms)
-                maximumNumberOfRooms = random.Next(9, 16);
+                maximumNumberOfRooms = random.Next(12, 16);
         }
     }
 
@@ -626,15 +626,15 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         if (creatingLevelBase)
         {
             // Horizontal limit
-            if (levelPiece.transform.position.z > horizontalMaximumLevelSize ||
-                levelPiece.transform.position.z < -horizontalMaximumLevelSize)
+            if (levelPiece.transform.position.z > forwardMaximumLevelSize ||
+                levelPiece.transform.position.z < -forwardMaximumLevelSize)
             {
                 Destroy(levelPiece.gameObject);
                 return false;
             }
 
-            if (levelPiece.transform.position.x > forwardMaximumLevelSize || 
-                levelPiece.transform.position.x < -forwardMaximumLevelSize)
+            if (levelPiece.transform.position.x > horizontalMaximumLevelSize || 
+                levelPiece.transform.position.x < -horizontalMaximumLevelSize)
             {
                 Destroy(levelPiece.gameObject);
                 return false;
