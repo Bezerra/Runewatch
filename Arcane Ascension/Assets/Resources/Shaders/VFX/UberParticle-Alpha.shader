@@ -384,24 +384,24 @@ Shader "D4/Particles/UberParticle-Alpha"
 				float2 uv_MainTexture = IN.ase_texcoord3.xy * _MainTexture_ST.xy + _MainTexture_ST.zw;
 				float2 panner2_g96 = ( 1.0 * _Time.y * _MainTextureSpeed + uv_MainTexture);
 				float2 uv_DistortTexture = IN.ase_texcoord3.xy * _DistortTexture_ST.xy + _DistortTexture_ST.zw;
-				float2 panner2_g99 = ( 1.0 * _Time.y * _DistortSpeed + uv_DistortTexture);
-				float2 temp_cast_0 = (( (tex2D( _DistortTexture, ( panner2_g99 + float2( 0,0 ) ) )).r * _DistortStrength )).xx;
-				float4 temp_output_9_0_g98 = ( IN.ase_color * _Color * tex2D( _MainTexture, ( panner2_g96 + temp_cast_0 ) ) );
+				float2 panner2_g92 = ( 1.0 * _Time.y * _DistortSpeed + uv_DistortTexture);
+				float2 temp_cast_0 = (( (tex2D( _DistortTexture, ( panner2_g92 + float2( 0,0 ) ) )).r * _DistortStrength )).xx;
+				float4 temp_output_9_0_g97 = ( IN.ase_color * _Color * tex2D( _MainTexture, ( panner2_g96 + temp_cast_0 ) ) );
 				
 				float2 uv_DissolveTexture = IN.ase_texcoord3.xy * _DissolveTexture_ST.xy + _DissolveTexture_ST.zw;
-				float2 panner2_g97 = ( 1.0 * _Time.y * _DissolveSpeed + uv_DissolveTexture);
+				float2 panner2_g95 = ( 1.0 * _Time.y * _DissolveSpeed + uv_DissolveTexture);
 				float4 texCoord56_g1 = IN.ase_texcoord3;
 				texCoord56_g1.xy = IN.ase_texcoord3.xy * float2( 1,1 ) + float2( 0,0 );
-				float Dissolve31_g1 = step( ( 1.0 - (tex2D( _DissolveTexture, ( panner2_g97 + float2( 0,0 ) ) )).r ) , ( 1.0 - (( _UseCustomDissolveTex0z )?( texCoord56_g1.z ):( _DissolveAmount )) ) );
+				float Dissolve31_g1 = step( ( 1.0 - (tex2D( _DissolveTexture, ( panner2_g95 + float2( 0,0 ) ) )).r ) , ( 1.0 - (( _UseCustomDissolveTex0z )?( texCoord56_g1.z ):( _DissolveAmount )) ) );
 				float2 uv_MaskTexture = IN.ase_texcoord3.xy * _MaskTexture_ST.xy + _MaskTexture_ST.zw;
-				float2 panner2_g100 = ( 1.0 * _Time.y * _MaskSpeed + uv_MaskTexture);
-				float4 temp_output_57_0_g1 = tex2D( _MaskTexture, ( panner2_g100 + float2( 0,0 ) ) );
+				float2 panner2_g93 = ( 1.0 * _Time.y * _MaskSpeed + uv_MaskTexture);
+				float4 temp_output_57_0_g1 = tex2D( _MaskTexture, ( panner2_g93 + float2( 0,0 ) ) );
 				float Mask29_g1 = (( _UseMaskAlpha )?( temp_output_57_0_g1.a ):( (temp_output_57_0_g1).r ));
 				
 				float3 BakedAlbedo = 0;
 				float3 BakedEmission = 0;
-				float3 Color = (temp_output_9_0_g98).rgb;
-				float Alpha = ( temp_output_9_0_g98.a * Dissolve31_g1 * Mask29_g1 );
+				float3 Color = (temp_output_9_0_g97).rgb;
+				float Alpha = ( temp_output_9_0_g97.a * Dissolve31_g1 * Mask29_g1 );
 				float AlphaClipThreshold = 0.5;
 				float AlphaClipThresholdShadow = 0.5;
 
@@ -660,20 +660,20 @@ Shader "D4/Particles/UberParticle-Alpha"
 				float2 uv_MainTexture = IN.ase_texcoord2.xy * _MainTexture_ST.xy + _MainTexture_ST.zw;
 				float2 panner2_g96 = ( 1.0 * _Time.y * _MainTextureSpeed + uv_MainTexture);
 				float2 uv_DistortTexture = IN.ase_texcoord2.xy * _DistortTexture_ST.xy + _DistortTexture_ST.zw;
-				float2 panner2_g99 = ( 1.0 * _Time.y * _DistortSpeed + uv_DistortTexture);
-				float2 temp_cast_0 = (( (tex2D( _DistortTexture, ( panner2_g99 + float2( 0,0 ) ) )).r * _DistortStrength )).xx;
-				float4 temp_output_9_0_g98 = ( IN.ase_color * _Color * tex2D( _MainTexture, ( panner2_g96 + temp_cast_0 ) ) );
+				float2 panner2_g92 = ( 1.0 * _Time.y * _DistortSpeed + uv_DistortTexture);
+				float2 temp_cast_0 = (( (tex2D( _DistortTexture, ( panner2_g92 + float2( 0,0 ) ) )).r * _DistortStrength )).xx;
+				float4 temp_output_9_0_g97 = ( IN.ase_color * _Color * tex2D( _MainTexture, ( panner2_g96 + temp_cast_0 ) ) );
 				float2 uv_DissolveTexture = IN.ase_texcoord2.xy * _DissolveTexture_ST.xy + _DissolveTexture_ST.zw;
-				float2 panner2_g97 = ( 1.0 * _Time.y * _DissolveSpeed + uv_DissolveTexture);
+				float2 panner2_g95 = ( 1.0 * _Time.y * _DissolveSpeed + uv_DissolveTexture);
 				float4 texCoord56_g1 = IN.ase_texcoord2;
 				texCoord56_g1.xy = IN.ase_texcoord2.xy * float2( 1,1 ) + float2( 0,0 );
-				float Dissolve31_g1 = step( ( 1.0 - (tex2D( _DissolveTexture, ( panner2_g97 + float2( 0,0 ) ) )).r ) , ( 1.0 - (( _UseCustomDissolveTex0z )?( texCoord56_g1.z ):( _DissolveAmount )) ) );
+				float Dissolve31_g1 = step( ( 1.0 - (tex2D( _DissolveTexture, ( panner2_g95 + float2( 0,0 ) ) )).r ) , ( 1.0 - (( _UseCustomDissolveTex0z )?( texCoord56_g1.z ):( _DissolveAmount )) ) );
 				float2 uv_MaskTexture = IN.ase_texcoord2.xy * _MaskTexture_ST.xy + _MaskTexture_ST.zw;
-				float2 panner2_g100 = ( 1.0 * _Time.y * _MaskSpeed + uv_MaskTexture);
-				float4 temp_output_57_0_g1 = tex2D( _MaskTexture, ( panner2_g100 + float2( 0,0 ) ) );
+				float2 panner2_g93 = ( 1.0 * _Time.y * _MaskSpeed + uv_MaskTexture);
+				float4 temp_output_57_0_g1 = tex2D( _MaskTexture, ( panner2_g93 + float2( 0,0 ) ) );
 				float Mask29_g1 = (( _UseMaskAlpha )?( temp_output_57_0_g1.a ):( (temp_output_57_0_g1).r ));
 				
-				float Alpha = ( temp_output_9_0_g98.a * Dissolve31_g1 * Mask29_g1 );
+				float Alpha = ( temp_output_9_0_g97.a * Dissolve31_g1 * Mask29_g1 );
 				float AlphaClipThreshold = 0.5;
 				float AlphaClipThresholdShadow = 0.5;
 
@@ -918,20 +918,20 @@ Shader "D4/Particles/UberParticle-Alpha"
 				float2 uv_MainTexture = IN.ase_texcoord2.xy * _MainTexture_ST.xy + _MainTexture_ST.zw;
 				float2 panner2_g96 = ( 1.0 * _Time.y * _MainTextureSpeed + uv_MainTexture);
 				float2 uv_DistortTexture = IN.ase_texcoord2.xy * _DistortTexture_ST.xy + _DistortTexture_ST.zw;
-				float2 panner2_g99 = ( 1.0 * _Time.y * _DistortSpeed + uv_DistortTexture);
-				float2 temp_cast_0 = (( (tex2D( _DistortTexture, ( panner2_g99 + float2( 0,0 ) ) )).r * _DistortStrength )).xx;
-				float4 temp_output_9_0_g98 = ( IN.ase_color * _Color * tex2D( _MainTexture, ( panner2_g96 + temp_cast_0 ) ) );
+				float2 panner2_g92 = ( 1.0 * _Time.y * _DistortSpeed + uv_DistortTexture);
+				float2 temp_cast_0 = (( (tex2D( _DistortTexture, ( panner2_g92 + float2( 0,0 ) ) )).r * _DistortStrength )).xx;
+				float4 temp_output_9_0_g97 = ( IN.ase_color * _Color * tex2D( _MainTexture, ( panner2_g96 + temp_cast_0 ) ) );
 				float2 uv_DissolveTexture = IN.ase_texcoord2.xy * _DissolveTexture_ST.xy + _DissolveTexture_ST.zw;
-				float2 panner2_g97 = ( 1.0 * _Time.y * _DissolveSpeed + uv_DissolveTexture);
+				float2 panner2_g95 = ( 1.0 * _Time.y * _DissolveSpeed + uv_DissolveTexture);
 				float4 texCoord56_g1 = IN.ase_texcoord2;
 				texCoord56_g1.xy = IN.ase_texcoord2.xy * float2( 1,1 ) + float2( 0,0 );
-				float Dissolve31_g1 = step( ( 1.0 - (tex2D( _DissolveTexture, ( panner2_g97 + float2( 0,0 ) ) )).r ) , ( 1.0 - (( _UseCustomDissolveTex0z )?( texCoord56_g1.z ):( _DissolveAmount )) ) );
+				float Dissolve31_g1 = step( ( 1.0 - (tex2D( _DissolveTexture, ( panner2_g95 + float2( 0,0 ) ) )).r ) , ( 1.0 - (( _UseCustomDissolveTex0z )?( texCoord56_g1.z ):( _DissolveAmount )) ) );
 				float2 uv_MaskTexture = IN.ase_texcoord2.xy * _MaskTexture_ST.xy + _MaskTexture_ST.zw;
-				float2 panner2_g100 = ( 1.0 * _Time.y * _MaskSpeed + uv_MaskTexture);
-				float4 temp_output_57_0_g1 = tex2D( _MaskTexture, ( panner2_g100 + float2( 0,0 ) ) );
+				float2 panner2_g93 = ( 1.0 * _Time.y * _MaskSpeed + uv_MaskTexture);
+				float4 temp_output_57_0_g1 = tex2D( _MaskTexture, ( panner2_g93 + float2( 0,0 ) ) );
 				float Mask29_g1 = (( _UseMaskAlpha )?( temp_output_57_0_g1.a ):( (temp_output_57_0_g1).r ));
 				
-				float Alpha = ( temp_output_9_0_g98.a * Dissolve31_g1 * Mask29_g1 );
+				float Alpha = ( temp_output_9_0_g97.a * Dissolve31_g1 * Mask29_g1 );
 				float AlphaClipThreshold = 0.5;
 
 				#ifdef _ALPHATEST_ON
@@ -964,4 +964,4 @@ Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;4;0,0;Float;False;False;-1;
 WireConnection;1;2;111;0
 WireConnection;1;3;111;24
 ASEEND*/
-//CHKSM=134A488D8A025722B08F9474E35E2C6E53435150
+//CHKSM=D504C11B46BC68506325AB0C79BB318A7CB16206
