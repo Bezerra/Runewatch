@@ -11,6 +11,10 @@ using System;
 public class EnemyStatsSO : StatsSO
 {
     [BoxGroup("General Stats")]
+    [Tooltip("Minimum and maximum random delay of attack")]
+    [RangeMinMax(1, 20f)] [SerializeField] private Vector2 attackingDelay;
+
+    [BoxGroup("General Stats")]
     [RangeMinMax(0, 1000)] [SerializeField] private Vector2 goldQuantity;
     
     [BoxGroup("General Stats")]
@@ -25,6 +29,18 @@ public class EnemyStatsSO : StatsSO
     [BoxGroup("Damage Stats")]
     [Header("Character list of spells")]
     [SerializeField] private List<EnemySpell> availableSpells;
+
+    /// <summary>
+    /// 1 is default value, the lesser this number, the fewer attacks
+    /// the enemy will perform.
+    /// </summary>
+    public float AttackingSpeedReductionMultiplier { get; set; }
+
+    /// <summary>
+    /// Attacking delay with a multiplier applied.
+    /// </summary>
+    public Vector2 AttackingDelay => 
+        attackingDelay * AttackingSpeedReductionMultiplier;
 
     public Vector2 GoldQuantity =>
         goldQuantity;
@@ -42,8 +58,11 @@ public class EnemyStatsSO : StatsSO
     /// Initiates lootrates struct.
     /// </summary>
     /// <param name="stpData">Save data.</param>
-    public void LootRatesInit(CharacterSaveDataController stpData) =>
+    public void Initialize(CharacterSaveDataController stpData)
+    {
         lootRates.Init(stpData);
+        AttackingSpeedReductionMultiplier = 1f;
+    }
 
     /// <summary>
     /// Struct with loot pieces and a list with all loot the enemy dropped.

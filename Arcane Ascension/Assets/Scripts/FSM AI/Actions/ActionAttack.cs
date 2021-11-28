@@ -50,7 +50,8 @@ sealed public class ActionAttack : FSMAction
 
                     // Gets a new attack delay
                     ai.Controller.AttackDelay = Random.Range(
-                            ai.Controller.Values.AttackDelay.x, ai.Controller.Values.AttackDelay.y);
+                            ai.Controller.EnemyStats.EnemyAttributes.AttackingDelay.x,
+                            ai.Controller.EnemyStats.EnemyAttributes.AttackingDelay.y);
 
                     ai.Controller.Agent.isStopped = false;
 
@@ -113,7 +114,8 @@ sealed public class ActionAttack : FSMAction
 
         // Sets a new attack delay
         ai.Controller.AttackDelay = Random.Range(
-            ai.Controller.Values.AttackDelay.x, ai.Controller.Values.AttackDelay.y);
+            ai.Controller.EnemyStats.EnemyAttributes.AttackingDelay.x,
+            ai.Controller.EnemyStats.EnemyAttributes.AttackingDelay.y);
 
         ai.Controller.IsAttackingWithStoppingTime = false;
 

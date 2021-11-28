@@ -9,5 +9,4 @@ public enum StatusEffectType
     Slow,
     Vulnerable,
     Fortified,
-    LeafShield,
 }
