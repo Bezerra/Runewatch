@@ -42,7 +42,8 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
 
     private void Update()
     {
-        Vector3 movementDirection = enemy.transform.InverseTransformDirection(enemy.Agent.velocity);
+        Vector3 movementDirection = 
+            enemy.transform.InverseTransformDirection(enemy.Agent.velocity);
 
         anim.SetFloat("VelocityZ", movementDirection.z);
         anim.SetFloat("VelocityX", movementDirection.x);

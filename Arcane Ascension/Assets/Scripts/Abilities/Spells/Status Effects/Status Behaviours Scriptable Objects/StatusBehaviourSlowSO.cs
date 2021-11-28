@@ -10,7 +10,7 @@ using Sirenix.OdinInspector;
 public class StatusBehaviourSlowSO : StatusBehaviourAbstractSO
 {
     [Header("Movement speed is multiplied by this value")]
-    [Range(0f, 1f)] [SerializeField] private float speedMultiplier = 1f;
+    [Range(0.1f, 1f)] [SerializeField] private float speedMultiplier = 1f;
 
     [Header("-1 is enemy default attacking speed. Lower values mean less attack speed")]
     [Range(-4f, -1f)] [SerializeField] private float attackingSpeedMultiplier = -1f;
