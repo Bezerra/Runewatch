@@ -59,7 +59,9 @@ public class CheatConsole : MonoBehaviour, IFindPlayer
         playerSpells = FindObjectOfType<PlayerSpells>();
         playerStats = FindObjectOfType<PlayerStats>();
         allSpells = FindObjectOfType<AllSpells>();
-        playerRoot = FindObjectOfType<Player>().GetComponentInParent<SelectionBase>();
+        Player pl = FindObjectOfType<Player>();
+        if (pl != null)
+            playerRoot = pl.GetComponentInParent<SelectionBase>();
     }
 
     /////////////////////////////////// Cheats code /////////////////////////////////////
