@@ -75,6 +75,9 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
                 SpellAreaHoverPoolCreator.Pool.InstantiateFromPool(
                 parent.Spell.Name, DISTANTVECTOR,
                 Quaternion.identity);
+
+            if (parent.AreaHoverVFX.TryGetComponent(out AreaTargetSizeUpdate targetSize))
+                targetSize.UpdateAreaTargetSize(parent.Spell.AreaOfEffect);
         }
 
         Ray eyesForward = new Ray(parent.Eyes.position, parent.Eyes.forward);
@@ -88,7 +91,7 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
                 Ray handHitToFloor = new Ray(
                     handObjectHit.point + handObjectHit.normal * 0.01f, -Vector3.up);
 
-                if (Physics.Raycast(handHitToFloor, out RaycastHit floorHit, 50, layersToCheck))
+                if (Physics.Raycast(handHitToFloor, out RaycastHit floorHit, 50, Layers.WallsFloor))
                 {
                     // Sets area hover hit
                     parent.AreaHoverAreaHit = floorHit;
