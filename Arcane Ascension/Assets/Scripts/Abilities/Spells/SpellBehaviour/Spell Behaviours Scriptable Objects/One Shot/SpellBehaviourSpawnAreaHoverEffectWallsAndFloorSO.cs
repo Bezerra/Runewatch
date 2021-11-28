@@ -52,6 +52,9 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectWallsAndFloorSO : SpellBeh
                             SpellAreaHoverPoolCreator.Pool.InstantiateFromPool(
                             parent.Spell.Name, DISTANTVECTOR,
                             Quaternion.identity);
+
+                        if (parent.AreaHoverVFX.TryGetComponent(out AreaTargetSizeUpdate targetSize))
+                            targetSize.UpdateAreaTargetSize(parent.Spell.AreaOfEffect);
                     }
 
                     parent.AreaHoverAreaHit = floorHit;
