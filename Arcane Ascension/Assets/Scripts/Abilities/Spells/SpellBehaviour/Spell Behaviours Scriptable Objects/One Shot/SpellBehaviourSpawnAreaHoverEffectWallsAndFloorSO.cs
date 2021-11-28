@@ -58,7 +58,8 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectWallsAndFloorSO : SpellBeh
 
                     parent.AreaHoverVFX.transform.SetPositionAndRotation(
                         floorHit.point + floorHit.normal * distanceFromWall,
-                        Quaternion.LookRotation(floorHit.normal, floorHit.collider.transform.up));
+                        Quaternion.LookRotation(floorHit.normal, floorHit.collider.transform.up) *
+                        Quaternion.Euler(90, 0, 0));
                 }
             }
             return;
@@ -87,7 +88,8 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectWallsAndFloorSO : SpellBeh
                 // Sets position to the raycast hit and rotation to that hit normal
                 parent.AreaHoverVFX.transform.SetPositionAndRotation(
                     floorHit.point + floorHit.normal * distanceFromWall,
-                    Quaternion.LookRotation(floorHit.normal, floorHit.collider.transform.up));
+                    Quaternion.LookRotation(floorHit.normal, floorHit.collider.transform.up) *
+                        Quaternion.Euler(90, 0, 0));
 
                 return;
             }

@@ -60,7 +60,8 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
 
                     parent.AreaHoverVFX.transform.SetPositionAndRotation(
                         floorHit.point + floorHit.normal * distanceFromWall,
-                        Quaternion.LookRotation(floorHit.normal, floorHit.collider.transform.up));
+                        Quaternion.LookRotation(floorHit.normal, floorHit.collider.transform.up) *
+                        Quaternion.Euler(90, 0, 0));
                 }
             }
             return;
@@ -85,7 +86,7 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
             {
                 // Now, it creates a ray from that last hit point to the floor
                 Ray handHitToFloor = new Ray(
-                    handObjectHit.point + handObjectHit.normal, -Vector3.up);
+                    handObjectHit.point + handObjectHit.normal * 0.01f, -Vector3.up);
 
                 if (Physics.Raycast(handHitToFloor, out RaycastHit floorHit, 50, layersToCheck))
                 {
@@ -95,7 +96,8 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
                     // Sets position to the raycast hit and rotation to that hit normal
                     parent.AreaHoverVFX.transform.SetPositionAndRotation(
                         floorHit.point + floorHit.normal * distanceFromWall,
-                        Quaternion.LookRotation(floorHit.normal, floorHit.collider.transform.up));
+                        Quaternion.LookRotation(floorHit.normal, floorHit.collider.transform.up) *
+                        Quaternion.Euler(90, 0, 0));
 
                     return;
                 }
@@ -132,7 +134,8 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
                 // Sets position to the raycast hit and rotation to that hit normal
                 parent.AreaHoverVFX.transform.SetPositionAndRotation(
                     airToFloorHit.point + airToFloorHit.normal * distanceFromWall,
-                    Quaternion.LookRotation(airToFloorHit.normal, airToFloorHit.collider.transform.up));
+                    Quaternion.LookRotation(airToFloorHit.normal, airToFloorHit.collider.transform.up) *
+                        Quaternion.Euler(90, 0, 0));
             }
             else
             {
