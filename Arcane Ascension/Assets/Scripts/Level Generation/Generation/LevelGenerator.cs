@@ -116,6 +116,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         // so if the number of rooms exceeds a limit, it will adjust numberOfLoops variable.
         // For the number of rooms in our game, a number between 4 - 7 should be fine.
         numberOfLoops = 5;
+        //5
 
         while (bossRoomSpawned == false)
         {
@@ -180,7 +181,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             {
                 roomWeights.Add(rooms[i].RoomWeight);
             }
-
+            
             // Main generation loop.
             // Spawns rooms and corridors and tries to connect them while there are opened contact points
             while (openedContactPoints.Count > 0 && numberOfCurrentLoop < numberOfLoops)
@@ -242,7 +243,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                             pieceToPlace, pieceContactPoint, true, openedContactPoints, i, levelParent, random);
                     }
                 }
-
+                
                 numberOfCurrentLoop++;
             }
 
@@ -402,6 +403,9 @@ public class LevelGenerator : MonoBehaviour, ISaveable
 
                         // Fails boss generation
                         print("Invalid level generation. Attempting another time.");
+
+                        if (bossRoomPiece != null) Destroy(bossRoomPiece);
+
                         yield return new WaitForSeconds(0.25f);
                         GameObject[] levelParents = GameObject.FindGameObjectsWithTag("LevelParent");
                         foreach (GameObject lvlParent in levelParents)
@@ -426,6 +430,10 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             {
                 generationCoroutine = GenerateWallsOnExits(levelParent, openedContactPoints, wffu);
                 StartCoroutine(generationCoroutine);
+            }
+            else
+            {
+                if (bossRoomPiece != null) Destroy(bossRoomPiece);
             }
             // Else it will go back to the beggining of the whole loop, destroy everything and 
             // generate a new dungeon with different values
@@ -583,30 +591,22 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             Collider[] roomCollider = 
                 Physics.OverlapBox(
                     levelPiece.transform.position + 
-                        boxCollider.gameObject.transform.localPosition + boxCollider.center, 
+                        levelPiece.transform.GetChild(0).localPosition +
+                        boxCollider.gameObject.transform.parent.localPosition +
+                        boxCollider.gameObject.transform.localPosition + 
+                        boxCollider.center, 
                     boxCollider.size / 2,
-                    levelPiece.transform.rotation * 
+                    levelPiece.transform.rotation *
+                        boxCollider.gameObject.transform.parent.localRotation *
                         boxCollider.gameObject.transform.localRotation, 
                     roomColliderLayer);
 
-            cube = levelPiece.transform.position +
-                        boxCollider.gameObject.transform.localPosition + boxCollider.center;
-            Size = boxCollider.size;
-
             if (roomCollider.Length > 1)
             {
-                Debug.Log(boxCollider.GetComponentInParent<LevelPiece>().gameObject.name);
                 return true;
             }
         }
         return false;
-    }
-
-    Vector3 cube;
-    Vector3 Size;
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawCube(cube, Size);
     }
 
     /// <summary>
