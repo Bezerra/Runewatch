@@ -22,7 +22,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
 
 
     [Header("Level Pieces")]
-    [SerializeField] private LevelPiece     startingPiece;
+    [SerializeField] private LevelPiece[]     startingPieces;
     [SerializeField] private LevelPiece     bossRoom;
     [SerializeField] private LevelPiece[]   corridors;
     [SerializeField] private LevelPiece[]   rooms;
@@ -138,7 +138,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             allRoomsAndCorridors = new List<LevelPiece>();
 
             // Creates and places first corridor
-            LevelPiece startingRoomPiece = Instantiate(startingPiece, Vector3.zero, Quaternion.identity);
+            LevelPiece startingRoomPiece = Instantiate(startingPieces[random.Next(0, startingPieces.Length)]
+                , Vector3.zero, Quaternion.identity);
             ContactPoint startingRoomContactPoint = 
                 startingRoomPiece.ContactPoints[random.Next(0, startingRoomPiece.ContactPoints.Length)];
             startingRoomPiece.transform.parent = levelParent.transform;
