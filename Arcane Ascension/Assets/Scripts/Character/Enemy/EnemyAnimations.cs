@@ -42,7 +42,8 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
 
     private void Update()
     {
-        Vector3 movementDirection = enemy.transform.InverseTransformDirection(enemy.Agent.velocity);
+        Vector3 movementDirection = 
+            enemy.transform.InverseTransformDirection(enemy.Agent.velocity);
 
         anim.SetFloat("VelocityZ", movementDirection.z);
         anim.SetFloat("VelocityX", movementDirection.x);
@@ -137,7 +138,8 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
 
         // Gets a new attack delay
         enemy.AttackDelay = Random.Range(
-                enemy.Values.AttackDelay.x, enemy.Values.AttackDelay.y);
+                enemy.EnemyStats.EnemyAttributes.AttackingDelay.x, 
+                enemy.EnemyStats.EnemyAttributes.AttackingDelay.y);
 
         // Agent can move again
         enemy.Agent.speed = enemy.Values.Speed *

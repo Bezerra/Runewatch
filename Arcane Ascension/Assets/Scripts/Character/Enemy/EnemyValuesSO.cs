@@ -43,15 +43,9 @@ public class EnemyValuesSO : CharacterValuesSO
     [Range(5, 25f)] [SerializeField] private float fireAllowedAngle = 20f;
     public float FireAllowedAngle => fireAllowedAngle;
 
-    [BoxGroup("Attack")]
-    [Tooltip("Minimum and maximum random delay of attack")]
-    [RangeMinMax(1, 20f)] [SerializeField] private Vector2 attackDelay;
-    public Vector2 AttackDelay => attackDelay;
-
     [BoxGroup("Side Movement")]
     [Tooltip("Waits X seconds until the enemy moves to the side again " +
         "(X is defined by a random number between these values")]
     [RangeMinMax(0, 15f)] [SerializeField] private Vector2 sideMovementDelay;
     public Vector2 SideMovementDelay => sideMovementDelay;
-   
 }

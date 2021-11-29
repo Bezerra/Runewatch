@@ -22,7 +22,7 @@ public class EnemyStats : Stats
         // Creates a list of spell weights 
         AvailableSpellsWeight = new List<int>();
         stpData = FindObjectOfType<CharacterSaveDataController>();
-        EnemyAttributes.LootRatesInit(stpData);
+        EnemyAttributes.Initialize(stpData);
     }
 
     protected override void Start()
