@@ -21,7 +21,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     [Range(12, 15)] [SerializeField] private int                     maximumNumberOfRooms;
 
 
-    [Header("Level Pieces")] // TEMP
+    [Header("Level Pieces")]
     [SerializeField] private LevelPiece     startingPiece;
     [SerializeField] private LevelPiece     bossRoom;
     [SerializeField] private LevelPiece[]   corridors;
@@ -581,36 +581,29 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         foreach (BoxCollider boxCollider in levelPiece.BoxColliders)
         {
             Collider[] roomCollider = 
-                Physics.OverlapBox(levelPiece.transform.position + boxCollider.center, boxCollider.size / 2,
+                Physics.OverlapBox(levelPiece.transform.position + boxCollider.gameObject.transform.localPosition +
+                boxCollider.center, boxCollider.size / 2,
                 levelPiece.transform.rotation, roomColliderLayer);
+
+            POS = levelPiece.transform.position + boxCollider.transform.localPosition +
+                boxCollider.center;
+            SIZE = boxCollider.size;
 
             if (roomCollider.Length > 1)
             {
+                Debug.Log("INTER");
                 return true;
             }
         }
         return false;
     }
 
-    /// <summary>
-    /// Rotates a piece until it matches a contact point. The logic applied is that rooms
-    /// point outside, while corridors point inside. This way, the room/corridor will keep
-    /// rotating until they match the desired direction, depending on the other piece type.
-    /// </summary>
-    /// <param name="levelPiece">Piece to rotate.</param>
-    /// <param name="levelPieceContact">Contact point of the piece.</param>
-    /// <param name="originContact">Contact point to match.</param>
-    private void RotatePiece(LevelPiece levelPiece, ContactPoint levelPieceContact, 
-        ContactPoint originContact)
-    {
-        levelPieceContact.ParentRoom.transform.rotation =
-            Quaternion.LookRotation(originContact.transform.forward, originContact.transform.up);
+    Vector3 POS;
+    Vector3 SIZE;
 
-        while (levelPieceContact.transform.SameDirectionAs(originContact.transform) == false)
-        {
-            levelPieceContact.ParentRoom.transform.rotation *=
-            (levelPieceContact.transform.localRotation);
-        }
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawCube(POS, SIZE);
     }
 
     /// <summary>
@@ -633,6 +626,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                 return false;
             }
 
+            // Forward limit
             if (levelPiece.transform.position.x > horizontalMaximumLevelSize || 
                 levelPiece.transform.position.x < -horizontalMaximumLevelSize)
             {
@@ -640,6 +634,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                 return false;
             }
         }
+
         if (PieceIntersection(levelPiece))
         {
             Destroy(levelPiece.gameObject);
@@ -647,6 +642,27 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         }
 
         return true;
+    }
+
+    /// <summary>
+    /// Rotates a piece until it matches a contact point. The logic applied is that rooms
+    /// point outside, while corridors point inside. This way, the room/corridor will keep
+    /// rotating until they match the desired direction, depending on the other piece type.
+    /// </summary>
+    /// <param name="levelPiece">Piece to rotate.</param>
+    /// <param name="levelPieceContact">Contact point of the piece.</param>
+    /// <param name="originContact">Contact point to match.</param>
+    private void RotatePiece(LevelPiece levelPiece, ContactPoint levelPieceContact,
+        ContactPoint originContact)
+    {
+        levelPieceContact.ParentRoom.transform.rotation =
+            Quaternion.LookRotation(originContact.transform.forward, originContact.transform.up);
+
+        while (levelPieceContact.transform.SameDirectionAs(originContact.transform) == false)
+        {
+            levelPieceContact.ParentRoom.transform.rotation *=
+            (levelPieceContact.transform.localRotation);
+        }
     }
 
     /// <summary>
