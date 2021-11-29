@@ -23,7 +23,7 @@ public class SpellOnHitBehaviourContinuousDisableSO : SpellOnHitBehaviourAbstrac
     {
         if (Time.time - parent.TimeSpawned > disableAfterSeconds)
         {
-            if (parent.EffectNotNull)
+            if (parent.HasEffect)
             {
                 parent.EffectStop();
 
@@ -34,7 +34,7 @@ public class SpellOnHitBehaviourContinuousDisableSO : SpellOnHitBehaviourAbstrac
             }
         }
 
-        if (parent.EffectNotNull)
+        if (parent.HasEffect)
         {
             parent.DisableHitSpell();
         }

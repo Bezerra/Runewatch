@@ -88,5 +88,5 @@ public abstract class SpellMuzzleBehaviourAbstract : MonoBehaviour, IVisualEffec
         }
     }
 
-    public bool EffectNotNull => hitEffectVFX != null || hitEffectParticleSystem != null;
+    public bool HasEffect => hitEffectVFX != null || hitEffectParticleSystem != null;
 }

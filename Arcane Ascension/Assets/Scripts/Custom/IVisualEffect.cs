@@ -21,5 +21,5 @@ public interface IVisualEffect
     /// <summary>
     /// Checks if any of the effects exists.
     /// </summary>
-    bool EffectNotNull { get; }
+    bool HasEffect { get; }
 }

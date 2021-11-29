@@ -22,8 +22,11 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectWallsAndFloorSO : SpellBeh
     {
         if (parent.WhoCast == null)
         {
-            parent.AreaHoverVFX.SetActive(false);
-            return;
+            if (parent.AreaHoverVFX != null)
+            {
+                parent.AreaHoverVFX.SetActive(false);
+                return;
+            }
         }
 
         // Will be set to true in another movement behaviour start behaviour
@@ -137,6 +140,15 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectWallsAndFloorSO : SpellBeh
 
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
     {
+        if (parent.WhoCast == null)
+        {
+            if (parent.AreaHoverVFX != null)
+            {
+                parent.AreaHoverVFX.SetActive(false);
+                return;
+            }
+        }
+
         // If the spell is already in motion, it will disable this game object
         if (parent.SpellStartedMoving == true)
         {

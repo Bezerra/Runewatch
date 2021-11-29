@@ -99,5 +99,5 @@ public abstract class SpellOnHitBehaviourAbstract : MonoBehaviour, IVisualEffect
         }
     }
 
-    public bool EffectNotNull => hitEffectVFX != null || hitEffectParticleSystem != null;
+    public bool HasEffect => hitEffectVFX != null || hitEffectParticleSystem != null;
 }

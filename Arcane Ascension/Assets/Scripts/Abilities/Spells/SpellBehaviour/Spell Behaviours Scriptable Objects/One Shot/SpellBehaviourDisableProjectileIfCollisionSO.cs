@@ -27,7 +27,7 @@ public class SpellBehaviourDisableProjectileIfCollisionSO : SpellBehaviourAbstra
         {
             if (parent.Rb.velocity == Vector3.zero)
             {
-                if (parent.EffectNotNull)
+                if (parent.HasEffect)
                 {
                     parent.ColliderTrigger.enabled = false;
                     parent.EffectStop();
@@ -36,7 +36,7 @@ public class SpellBehaviourDisableProjectileIfCollisionSO : SpellBehaviourAbstra
 
             if (Time.time - parent.TimeOfImpact > disableAfterSecondsAfterCollision)
             {
-                if (parent.EffectNotNull)
+                if (parent.HasEffect)
                 {
                     if (parent.EffectGetAliveParticles == 0)
                     {

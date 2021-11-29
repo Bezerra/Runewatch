@@ -26,7 +26,7 @@ sealed public class SpellOnHitBehaviourOneShotDisableSO : SpellOnHitBehaviourAbs
     {
         if (Time.time - parent.TimeSpawned > disableAfterSeconds)
         {
-            if (parent.EffectNotNull)
+            if (parent.HasEffect)
             {
                 parent.EffectStop();
 

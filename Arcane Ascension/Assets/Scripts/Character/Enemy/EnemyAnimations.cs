@@ -157,7 +157,11 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
         enemy.CanRunAttackLoop = true;
     }
 
+    public bool BlockAllowedToChangeStateAnimationEvent() =>
+        enemy.StateMachine.AllowedToChangeState = false;
 
+    public bool UnblockAllowedToChangeStateAnimationEvent() =>
+        enemy.StateMachine.AllowedToChangeState = true;
 
     /// <summary>
     /// Starts shake coroutine.

@@ -27,7 +27,7 @@ public class SpellMuzzleBehaviourDisableAfterSecondsSO : SpellMuzzleBehaviourAbs
     {
         if (Time.time - parent.TimeSpawned > disableAfterSeconds)
         {
-            if (parent.EffectNotNull)
+            if (parent.HasEffect)
             {
                 parent.EffectStop();
 

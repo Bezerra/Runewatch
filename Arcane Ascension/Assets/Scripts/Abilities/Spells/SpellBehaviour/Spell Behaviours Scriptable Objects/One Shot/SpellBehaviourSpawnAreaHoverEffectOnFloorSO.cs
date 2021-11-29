@@ -155,6 +155,15 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
 
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
     {
+        if (parent.WhoCast == null)
+        {
+            if (parent.AreaHoverVFX != null)
+            {
+                parent.AreaHoverVFX.SetActive(false);
+                return;
+            }
+        }
+
         // If the spell is already in motion, it will disable this game object
         if (parent.SpellStartedMoving == true)
         {

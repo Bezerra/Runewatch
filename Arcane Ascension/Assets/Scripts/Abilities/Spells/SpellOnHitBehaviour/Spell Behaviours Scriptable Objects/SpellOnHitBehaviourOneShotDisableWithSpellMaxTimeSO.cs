@@ -24,7 +24,7 @@ sealed public class SpellOnHitBehaviourOneShotDisableWithSpellMaxTimeSO : SpellO
     {
         if (Time.time - parent.TimeSpawned > parent.Spell.MaxTime)
         {
-            if (parent.EffectNotNull)
+            if (parent.HasEffect)
             {
                 parent.EffectStop();
 

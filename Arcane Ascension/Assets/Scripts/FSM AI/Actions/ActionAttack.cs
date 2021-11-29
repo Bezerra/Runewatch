@@ -81,6 +81,7 @@ sealed public class ActionAttack : FSMAction
                         ai.Controller.CurrentTarget.transform.position) >
                         ai.Controller.CurrentlySelectedSpell.Range + 0.02f)
                     {
+                        ai.Controller.Agent.SetDestination(ai.Controller.CurrentTarget.position);
                         return;
                     }
                 }

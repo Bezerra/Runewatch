@@ -31,7 +31,7 @@ sealed public class SpellBehaviourDisableProjectileAfterSecondsSO : SpellBehavio
                 {
                     if (Time.time - parent.TimeSpawned > disableAfterSeconds)
                     {
-                        if (parent.EffectNotNull)
+                        if (parent.HasEffect)
                         {
                             parent.EffectStop();
 
@@ -58,7 +58,7 @@ sealed public class SpellBehaviourDisableProjectileAfterSecondsSO : SpellBehavio
             {
                 if (Time.time - parent.TimeSpawned > disableAfterSeconds)
                 {
-                    if (parent.EffectNotNull)
+                    if (parent.HasEffect)
                     {
                         parent.EffectStop();
 

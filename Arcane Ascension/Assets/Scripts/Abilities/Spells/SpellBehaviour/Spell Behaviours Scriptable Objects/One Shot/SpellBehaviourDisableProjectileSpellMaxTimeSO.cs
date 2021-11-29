@@ -24,7 +24,7 @@ public class SpellBehaviourDisableProjectileSpellMaxTimeSO : SpellBehaviourAbstr
         {
             if (Time.time - parent.TimeOfImpact > parent.Spell.MaxTime)
             {
-                if (parent.EffectNotNull)
+                if (parent.HasEffect)
                 {
                     parent.EffectStop();
 
