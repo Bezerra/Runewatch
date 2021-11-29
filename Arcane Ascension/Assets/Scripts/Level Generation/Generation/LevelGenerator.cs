@@ -4,21 +4,21 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.AI;
 using ExtensionMethods;
 
 public class LevelGenerator : MonoBehaviour, ISaveable
 {
     [Header("Generation Values")]
+    [SerializeField] private YieldType                              yieldType = YieldType.FixedUpdate;
     [SerializeField] private bool                                   randomSeed;
     [Range(-200000000, 200000000)] [SerializeField] private int     seed = 0;
     [Header("Generation Parameters")][SerializeField] private bool  allRandomGenerationParameters;
     [Range(75, 500)] [SerializeField] private int                   horizontalMaximumLevelSize;
     [Range(75, 500)] [SerializeField] private int                   forwardMaximumLevelSize;
     [SerializeField] private bool                                   randomMinimumNumberOfRooms;
-    [Range(7, 9)] [SerializeField] private int                     minimumNumberOfRooms;
+    [Range(7, 9)] [SerializeField] private int                      minimumNumberOfRooms;
     [SerializeField] private bool                                   randomMaximumNumberOfRooms;
-    [Range(12, 15)] [SerializeField] private int                     maximumNumberOfRooms;
+    [Range(12, 15)] [SerializeField] private int                    maximumNumberOfRooms;
 
     [Header("Level Pieces")]
     [SerializeField] private LevelPiece[]     startingPieces;
@@ -106,7 +106,24 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     private IEnumerator GenerateLevel(System.Random random, bool firstAttempt = true)
     {
         timeOfGeneration = 0;
-        YieldInstruction wffu = new WaitForEndOfFrame();
+
+        YieldInstruction yi = null;
+        switch(yieldType)
+        {
+            case YieldType.FixedUpdate:
+                yi = new WaitForFixedUpdate();
+                break;
+            case YieldType.Update:
+                yi = null;
+                break;
+            case YieldType.WaitForFrame:
+                yi = new WaitForEndOfFrame();
+                break;
+            case YieldType.WaitForSeconds:
+                yi = new WaitForSeconds(0.15f);
+                break;
+        }
+
         bool bossRoomSpawned = false;
         IList<ContactPoint> openedContactPoints;
 
@@ -217,7 +234,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
 
                         RotateAndSetPiece(pieceToPlace, pieceContactPoint, openedContactPoints[i]);
 
-                        yield return wffu;
+                        yield return yi;
 
                         ValidatePiece(pieceToPlace, pieceContactPoint, false, openedContactPoints, i, levelParent, random);
                     }
@@ -241,7 +258,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                         RotateAndSetPiece(
                             pieceToPlace, pieceContactPoint, openedContactPoints[i]);
 
-                        yield return wffu;
+                        yield return yi;
 
                         ValidatePiece(
                             pieceToPlace, pieceContactPoint, true, openedContactPoints, i, levelParent, random);
@@ -352,7 +369,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                         // Tries to set the room
                         RotateAndSetPiece(pieceToPlace, pieceContactPoint, openedContactPoints[i]);
 
-                        yield return wffu;
+                        yield return yi;
 
                         // If it's valid
                         if (IsPieceValid(pieceToPlace, random, false))
@@ -432,7 +449,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             // After looping through all points, if it was able to generate boss room
             if (bossRoomSpawned)
             {
-                generationCoroutine = FinalAdjustements(levelParent, openedContactPoints, wffu);
+                generationCoroutine = FinalAdjustements(levelParent, openedContactPoints, yi);
                 StartCoroutine(generationCoroutine);
             }
             else
@@ -449,10 +466,10 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// </summary>
     /// <param name="levelParent">Level parent game object with all pieces.</param>
     /// <param name="openedContactPoints">List with all opened contact points.</param>
-    /// <param name="wffu">Wait for fixed update.</param>
+    /// <param name="wfef">Wait for fixed update.</param>
     /// <returns>Null.</returns>
     private IEnumerator FinalAdjustements(GameObject levelParent, IList<ContactPoint> openedContactPoints,
-        YieldInstruction wffu)
+        YieldInstruction yi)
     {
         print("Generating walls on exits...");
         // Close every opened exit with a wall
@@ -460,7 +477,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         {
             for (int i = openedContactPoints.Count - 1; i >= 0; i--)
             {
-                yield return wffu;
+                yield return yi;
 
                 if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor ||
                     openedContactPoints[i].ParentRoom.Type == PieceType.Stairs)
@@ -511,6 +528,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         Debug.Log("Took " + timeOfGeneration + " seconds to generate, with seed " + seed +
             " and number of loops of " + numberOfLoops);
 
+        OnEndedGeneration();
         FindObjectOfType<SceneControl>().SpawnPlayerTEST(playerSpawnTransform);
     }
 
@@ -799,4 +817,9 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         }
         yield return null;
     }
+
+    protected virtual void OnEndedGeneration() => EndedGeneration?.Invoke();
+    public event Action EndedGeneration;
+
+    private enum YieldType { FixedUpdate, Update, WaitForFrame, WaitForSeconds }
 }

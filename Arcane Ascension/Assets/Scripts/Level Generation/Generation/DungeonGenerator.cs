@@ -17,7 +17,7 @@ public class DungeonGenerator: MonoBehaviour
     private void Start()
     {
         // TEMP
-        GenerateDungeon(false);
+        //GenerateDungeon(false);
     }
 
     /// <summary>
@@ -26,7 +26,7 @@ public class DungeonGenerator: MonoBehaviour
     /// </summary>
     /// <param name="loadedGame">True if this game was loaded, else false.</param>
     /// <param name="saveData">Saved data.</param>
-    public static void GenerateDungeon(bool loadedGame = false, RunSaveData saveData = null)
+    public static LevelGenerator GenerateDungeon(bool loadedGame = false, RunSaveData saveData = null)
     {
         ElementType element;
 
@@ -57,7 +57,11 @@ public class DungeonGenerator: MonoBehaviour
                 {
                     if (saveData != null) instance.StartCoroutine(levelGeneratedScript.LoadData(saveData));
                 }
+
+                return levelGeneratedScript;
             }
         }
+
+        return null;
     }
 }

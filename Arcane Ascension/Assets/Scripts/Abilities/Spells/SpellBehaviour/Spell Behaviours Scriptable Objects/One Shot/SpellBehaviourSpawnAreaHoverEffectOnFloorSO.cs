@@ -44,7 +44,7 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
                 parent.AreaHoverVFX == null)
             {
                 Ray playerFloorPosition = new Ray(
-                parent.AICharacter.CurrentTarget.position, Vector3.down);
+                    parent.AICharacter.CurrentTarget.position, Vector3.down);
 
                 if (Physics.Raycast(playerFloorPosition, out RaycastHit floorHit, 5, Layers.WallsFloor))
                 {

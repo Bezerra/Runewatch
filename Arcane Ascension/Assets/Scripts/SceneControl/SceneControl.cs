@@ -12,8 +12,6 @@ public class SceneControl : MonoBehaviour, ISaveable
 {
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject spellsPool;
-
-    // On tests
     [SerializeField] private Image loadingBar;
 
     private LevelGenerator levelGenerated;
@@ -130,9 +128,11 @@ public class SceneControl : MonoBehaviour, ISaveable
         // After the progress of the async operation reaches 1, the scene loads
         while (sceneToLoad.progress <= 1)
         {
-            //loadingBar.fillAmount = sceneToLoad.progress;
+            loadingBar.fillAmount = sceneToLoad.progress;
             yield return waitForFrame;
         }
+
+        // Load scene
     }
 
     /// <summary>
@@ -141,10 +141,6 @@ public class SceneControl : MonoBehaviour, ISaveable
     private void DisableControls()
     {
         PlayerInputCustom input = FindObjectOfType<PlayerInputCustom>();
-        if (input != null)
-        {
-            input.SwitchActionMapToUI();
-        }
+        if (input != null) input.SwitchActionMapToUI();
     }
-    // ON TESTS ------------------------------------------------------------------
 }

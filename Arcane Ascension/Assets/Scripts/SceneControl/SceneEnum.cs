@@ -3,6 +3,7 @@
 /// </summary>
 public enum SceneEnum
 {
-    Level,
+    ProceduralGeneration,
     MainMenu,
+    LoadingScreenNewGame,
 }
