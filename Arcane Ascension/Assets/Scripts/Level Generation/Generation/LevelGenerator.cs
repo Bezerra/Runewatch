@@ -581,29 +581,32 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         foreach (BoxCollider boxCollider in levelPiece.BoxColliders)
         {
             Collider[] roomCollider = 
-                Physics.OverlapBox(levelPiece.transform.position + boxCollider.gameObject.transform.localPosition +
-                boxCollider.center, boxCollider.size / 2,
-                levelPiece.transform.rotation, roomColliderLayer);
+                Physics.OverlapBox(
+                    levelPiece.transform.position + 
+                        boxCollider.gameObject.transform.localPosition + boxCollider.center, 
+                    boxCollider.size / 2,
+                    levelPiece.transform.rotation * 
+                        boxCollider.gameObject.transform.localRotation, 
+                    roomColliderLayer);
 
-            POS = levelPiece.transform.position + boxCollider.transform.localPosition +
-                boxCollider.center;
-            SIZE = boxCollider.size;
+            cube = levelPiece.transform.position +
+                        boxCollider.gameObject.transform.localPosition + boxCollider.center;
+            Size = boxCollider.size;
 
             if (roomCollider.Length > 1)
             {
-                Debug.Log("INTER");
+                Debug.Log(boxCollider.GetComponentInParent<LevelPiece>().gameObject.name);
                 return true;
             }
         }
         return false;
     }
 
-    Vector3 POS;
-    Vector3 SIZE;
-
+    Vector3 cube;
+    Vector3 Size;
     private void OnDrawGizmos()
     {
-        Gizmos.DrawCube(POS, SIZE);
+        Gizmos.DrawCube(cube, Size);
     }
 
     /// <summary>
@@ -651,17 +654,20 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// </summary>
     /// <param name="levelPiece">Piece to rotate.</param>
     /// <param name="levelPieceContact">Contact point of the piece.</param>
-    /// <param name="originContact">Contact point to match.</param>
+    /// <param name="connectionContactPoint">Contact point to match.</param>
     private void RotatePiece(LevelPiece levelPiece, ContactPoint levelPieceContact,
-        ContactPoint originContact)
+        ContactPoint connectionContactPoint)
     {
+        // Rotatesa piece towards a contact point
         levelPieceContact.ParentRoom.transform.rotation =
-            Quaternion.LookRotation(originContact.transform.forward, originContact.transform.up);
+            Quaternion.LookRotation(connectionContactPoint.transform.forward, connectionContactPoint.transform.up);
 
-        while (levelPieceContact.transform.SameDirectionAs(originContact.transform) == false)
+        // While both points don't have the same direction
+        while (levelPieceContact.transform.SameDirectionAs(connectionContactPoint.transform) == false)
         {
-            levelPieceContact.ParentRoom.transform.rotation *=
-            (levelPieceContact.transform.localRotation);
+            // It will keep rotating parent room
+            levelPieceContact.ParentRoom.transform.rotation *= 
+                levelPieceContact.transform.localRotation;
         }
     }
 
@@ -670,13 +676,17 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// </summary>
     /// <param name="levelPiece">Piece to place.</param>
     /// <param name="levelPieceContact">Contact point of the piece.</param>
-    /// <param name="originContact">Contact point to place the piece.</param>
-    private void SetPiece(LevelPiece levelPiece, ContactPoint levelPieceContact, ContactPoint originContact)
+    /// <param name="connectionContactPoint">Contact point to place the piece.</param>
+    private void SetPiece(LevelPiece levelPiece, ContactPoint levelPieceContact, 
+        ContactPoint connectionContactPoint)
     {
         levelPiece.transform.position = Vector3.zero;
 
-        Vector3 dir = levelPieceContact.transform.Direction(originContact.transform);
-        float dist = Vector3.Distance(levelPieceContact.transform.position, originContact.transform.position);
+        Vector3 dir = 
+            levelPieceContact.transform.Direction(connectionContactPoint.transform);
+
+        float dist = Vector3.Distance(
+            levelPieceContact.transform.position, connectionContactPoint.transform.position);
 
         levelPiece.transform.position += dir * dist;
     }
