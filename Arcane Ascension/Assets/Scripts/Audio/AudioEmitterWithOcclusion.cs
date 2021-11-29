@@ -18,6 +18,8 @@ public class AudioEmitterWithOcclusion : MonoBehaviour
     private float currentDistance;
     private bool currentlyOccluded;
 
+    public float InitialValue { get; set; }
+
     private IEnumerator soundFadeCoroutine;
     private YieldInstruction wffu;
 
@@ -25,6 +27,7 @@ public class AudioEmitterWithOcclusion : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         listener = FindObjectOfType<AudioListener>();
+        InitialValue = audioSource.volume;
 
         audioSource.spatialBlend = 1;
         if (audioSource.maxDistance > soundMaxDistance) audioSource.maxDistance = soundMaxDistance;
@@ -85,12 +88,12 @@ public class AudioEmitterWithOcclusion : MonoBehaviour
     /// <returns>Wait for fixed update.</returns>
     private IEnumerator FadeOutCoroutine()
     {
-        while (audioSource.volume > fadeUntilThisValue)
+        while (audioSource.volume > InitialValue * fadeUntilThisValue)
         {
             audioSource.volume -= Time.deltaTime * 2f;
 
-            if (audioSource.volume < fadeUntilThisValue)
-                audioSource.volume = fadeUntilThisValue;
+            if (audioSource.volume < InitialValue * fadeUntilThisValue)
+                audioSource.volume = InitialValue * fadeUntilThisValue;
 
             yield return wffu;
         }
@@ -106,8 +109,8 @@ public class AudioEmitterWithOcclusion : MonoBehaviour
         {
             audioSource.volume += Time.deltaTime * 2f;
 
-            if (audioSource.volume > 1)
-                audioSource.volume = 1;
+            if (audioSource.volume > InitialValue)
+                audioSource.volume = InitialValue;
 
             yield return wffu;
         }

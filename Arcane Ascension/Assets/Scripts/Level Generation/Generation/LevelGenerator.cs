@@ -20,7 +20,6 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     [SerializeField] private bool                                   randomMaximumNumberOfRooms;
     [Range(12, 15)] [SerializeField] private int                     maximumNumberOfRooms;
 
-
     [Header("Level Pieces")]
     [SerializeField] private LevelPiece[]     startingPieces;
     [SerializeField] private LevelPiece     bossRoom;
@@ -32,15 +31,17 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     private IList<LevelPiece> allRooms;
     private IList<LevelPiece> allRoomsAndCorridors;
 
-    // Generation
-    // This number will be set automatically and determines the number of attempts in each loop
+    // Generation variables
     private int numberOfLoops;
     private IEnumerator generationCoroutine;
     private System.Random random;
+    private Transform playerSpawnTransform;
 
+    [Header("Dungeon element")]
     [SerializeField] private ElementType element;
     public ElementType Element => element;
 
+    // Time that a generation attempt took
     private float timeOfGeneration;
 
     private void Update() => timeOfGeneration += Time.deltaTime;
@@ -144,6 +145,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                 startingRoomPiece.ContactPoints[random.Next(0, startingRoomPiece.ContactPoints.Length)];
             startingRoomPiece.transform.parent = levelParent.transform;
             allRoomsAndCorridors.Add(startingRoomPiece);
+            if (startingRoomPiece.gameObject.TryGetComponent(out PlayerSpawnLevelPiece playerSpawnPos))
+                playerSpawnTransform = playerSpawnPos.PlayerSpawnTransform;
             ////////////////////////////////////////////
 
             // Creates first corridor
@@ -429,7 +432,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             // After looping through all points, if it was able to generate boss room
             if (bossRoomSpawned)
             {
-                generationCoroutine = GenerateWallsOnExits(levelParent, openedContactPoints, wffu);
+                generationCoroutine = FinalAdjustements(levelParent, openedContactPoints, wffu);
                 StartCoroutine(generationCoroutine);
             }
             else
@@ -446,13 +449,12 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// </summary>
     /// <param name="levelParent">Level parent game object with all pieces.</param>
     /// <param name="openedContactPoints">List with all opened contact points.</param>
-    /// <param name="allContactPoints">List with all contact points.</param>
     /// <param name="wffu">Wait for fixed update.</param>
     /// <returns>Null.</returns>
-    private IEnumerator GenerateWallsOnExits(GameObject levelParent, IList<ContactPoint> openedContactPoints,
+    private IEnumerator FinalAdjustements(GameObject levelParent, IList<ContactPoint> openedContactPoints,
         YieldInstruction wffu)
     {
-        print("Doing final adjustements...");
+        print("Generating walls on exits...");
         // Close every opened exit with a wall
         while (openedContactPoints.Count > 0)
         {
@@ -480,14 +482,6 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             }
         }
 
-        FinalAdjustements();
-    }
-
-    /// <summary>
-    /// Generates a nav mesh for all pieces.
-    /// </summary>
-    private void FinalAdjustements()
-    {
         // Destroys empty levelParents game objects
         GameObject[] levelParents = GameObject.FindGameObjectsWithTag("LevelParent");
         foreach (GameObject lvlParent in levelParents)
@@ -499,12 +493,11 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             catch (UnityException)
             {
                 Destroy(lvlParent);
-            }  
+            }
         }
 
         // Deactivates RoomCollision collider
-        /*
-        foreach(LevelPiece piece in allRoomsAndCorridors)
+        foreach (LevelPiece piece in allRoomsAndCorridors)
         {
             if (piece != null)
             {
@@ -514,12 +507,11 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                 }
             }
         }
-        */
 
-        Debug.Log("Took " + timeOfGeneration + " seconds to generate, with seed " + seed +  
+        Debug.Log("Took " + timeOfGeneration + " seconds to generate, with seed " + seed +
             " and number of loops of " + numberOfLoops);
 
-        OnEndedGeneration();
+        FindObjectOfType<SceneControl>().SpawnPlayerTEST(playerSpawnTransform);
     }
 
     /// <summary>
@@ -807,11 +799,4 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         }
         yield return null;
     }
-
-    /// <summary>
-    /// Triggered when the level ends its generation.
-    /// </summary>
-    protected virtual void OnEndedGeneration() => EndedGeneration?.Invoke();
-
-    public event Action EndedGeneration; 
 }

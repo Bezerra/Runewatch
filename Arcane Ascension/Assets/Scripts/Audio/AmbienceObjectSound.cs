@@ -19,5 +19,8 @@ public class AmbienceObjectSound : MonoBehaviour
 
         audioSource.loop = true;
         soundToPlay.SetOnAudioSource(audioSource);
+
+        if (TryGetComponent(out AudioEmitterWithOcclusion audioEmitter))
+            audioEmitter.InitialValue = audioSource.volume;
     }
 }

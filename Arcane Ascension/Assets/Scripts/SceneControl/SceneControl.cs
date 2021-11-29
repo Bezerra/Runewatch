@@ -19,6 +19,21 @@ public class SceneControl : MonoBehaviour, ISaveable
     private LevelGenerator levelGenerated;
     private RunSaveData saveData;
 
+    private void Awake()
+    {
+        levelGenerated = FindObjectOfType<LevelGenerator>();
+    }
+
+    public void SpawnPlayerTEST(Transform playerSpawnTransform)
+    {
+        Instantiate(
+            playerPrefab, playerSpawnTransform.position,
+            playerSpawnTransform.rotation);
+
+        // Enables controls
+        FindObjectOfType<PlayerInputCustom>().SwitchActionMapToGameplay();
+    }
+
     public void SaveCurrentData(RunSaveData saveData)
     {
         // Left blank on purpose
@@ -53,12 +68,12 @@ public class SceneControl : MonoBehaviour, ISaveable
         Instantiate(spellsPool, Vector3.zero, Quaternion.identity);
 
         // DELETE THIS WHEN TESTS WITHOUT GENERATED DUNGEONS ARE OVER
-        SpawnPlayer();
+        //SpawnPlayer();
         //////////////////////////////////////
 
         // Will spawn player after the level is loaded
-        //      levelGenerated = FindObjectOfType<LevelGenerator>();
-        //      levelGenerated.EndedGeneration += SpawnPlayer;
+        levelGenerated = FindObjectOfType<LevelGenerator>();
+        //levelGenerated.EndedGeneration += SpawnPlayer;
     }
 
     /// <summary>
@@ -79,7 +94,7 @@ public class SceneControl : MonoBehaviour, ISaveable
         FindObjectOfType<PlayerInputCustom>().SwitchActionMapToGameplay();
 
         // COMMENTED STUFF TO BE ABLE TO LOAD OUTSIDE OF GENERATED DUNGEONS
-        //                 levelGenerated.EndedGeneration -= SpawnPlayer;
+        //levelGenerated.EndedGeneration -= SpawnPlayer;
     }
 
 

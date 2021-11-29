@@ -27,19 +27,22 @@ public class SpellMuzzleBehaviourPositionRotationUpdateSO : SpellMuzzleBehaviour
 
     public override void ContinuousFixedUpdateBehaviour(SpellMuzzleBehaviourOneShot parent)
     {
-        if (parent.WhoCast.CommonAttributes.Type == CharacterType.Player)
+        if (parent.Eyes != null)
         {
-            parent.transform.position = parent.Eyes.position +
-                (parent.Eyes.right * parent.MuzzlePlayerSpawnOffset.x) +
-                (parent.Eyes.up * parent.MuzzlePlayerSpawnOffset.y) +
-                (parent.Eyes.forward * parent.MuzzlePlayerSpawnOffset.z);
+            if (parent.WhoCast.CommonAttributes.Type == CharacterType.Player)
+            {
+                parent.transform.position = parent.Eyes.position +
+                    (parent.Eyes.right * parent.MuzzlePlayerSpawnOffset.x) +
+                    (parent.Eyes.up * parent.MuzzlePlayerSpawnOffset.y) +
+                    (parent.Eyes.forward * parent.MuzzlePlayerSpawnOffset.z);
 
-            parent.transform.rotation = Quaternion.LookRotation(parent.Eyes.forward);
-        }
-        else
-        {
-            parent.transform.position = parent.Hand.position;
-            parent.transform.rotation = Quaternion.LookRotation(parent.Eyes.forward);
+                parent.transform.rotation = Quaternion.LookRotation(parent.Eyes.forward);
+            }
+            else
+            {
+                parent.transform.position = parent.Hand.position;
+                parent.transform.rotation = Quaternion.LookRotation(parent.Eyes.forward);
+            }
         }
     }
 }
