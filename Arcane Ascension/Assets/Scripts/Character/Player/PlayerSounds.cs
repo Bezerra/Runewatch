@@ -98,21 +98,24 @@ public class PlayerSounds : MonoBehaviour
 
             if (playerMovement.IsPlayerMoving(0.1f))
             {
-                Ray rayToBottom = new Ray(
-                    transform.position + transform.up, 
-                    (transform.position + transform.up).Direction(transform.position + -transform.up));
-                if (Physics.Raycast(rayToBottom, out RaycastHit hit, 2, Layers.WallsFloor))
+                if (playerMovement.GetVelocity > 0.4f)
                 {
-                    if (hit.collider.TryGetComponent(out ISurface surface))
+                    Ray rayToBottom = new Ray(
+                    transform.position + transform.up,
+                    (transform.position + transform.up).Direction(transform.position + -transform.up));
+                    if (Physics.Raycast(rayToBottom, out RaycastHit hit, 2, Layers.WallsFloor))
                     {
-                        stepSoundsDictionary[surface.SurfaceType].PlaySound(audioSources.PlayerStepsAudioSource);
+                        if (hit.collider.TryGetComponent(out ISurface surface))
+                        {
+                            stepSoundsDictionary[surface.SurfaceType].PlaySound(audioSources.PlayerStepsAudioSource);
+                        }
+                        else
+                        {
+                            print(hit.collider.gameObject.name + " doesn't have Surface script.");
+                        }
                     }
-                    else
-                    {
-                        Debug.Log(hit.collider.gameObject.name + " doesn't have Surface script.");
-                    }
+                    timeToStep = Time.time;
                 }
-                timeToStep = Time.time;
             }
         } 
     }

@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
 
     // Movement
     private bool    castingContinuousSpell;
+    private float movementX;
+    private float movementZ;
     private Vector3 directionPressed;
     private float speed;
     public float    Speed { get => speed; private set { speed = value; OnEventSpeedChange(speed); } }
@@ -89,10 +91,12 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         // Movement Directions
-        Vector3 sideMovement = input.Movement.x * Speed * transform.right;
-        Vector3 forwardMovement = input.Movement.y * Speed * transform.forward;
+        movementX = Mathf.Lerp(movementX, input.Movement.x, Time.deltaTime * speed * 1.5f);
+        movementZ = Mathf.Lerp(movementZ, input.Movement.y, Time.deltaTime * speed * 1.5f);
+        Vector3 sideMovement = movementX * speed * transform.right;
+        Vector3 forwardMovement = movementZ * speed * transform.forward;
         directionPressed = sideMovement + forwardMovement;
-        if (input.Movement == Vector2.zero) directionPressed = Vector3.zero;
+        //if (input.Movement == Vector2.zero) directionPressed = Vector3.zero;
 
         // Controls character radius to prevent getting stuck on edges after jumping
         if (IsGrounded())
@@ -173,6 +177,12 @@ public class PlayerMovement : MonoBehaviour
         }
         return false;
     }
+
+    /// <summary>
+    /// Gets player velocity.
+    /// </summary>
+    public float GetVelocity => 
+        characterController.velocity.magnitude;
 
     /// <summary>
     /// Checks if player is stopped.
