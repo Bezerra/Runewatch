@@ -12,12 +12,14 @@ public class RoomOcclusion : MonoBehaviour
     private ParticleSystem[] childParticleSystems;
 
     // Coroutines
+    private YieldInstruction wffu;
     private IEnumerator coroutine;
 
     private void Awake()
     {
         childMeshRenderers = GetComponentsInChildren<MeshRenderer>();
         childParticleSystems = GetComponentsInChildren<ParticleSystem>();
+        wffu = new WaitForFixedUpdate();
 
         StartCoroutine(DisableRenderersCoroutine());
     }
@@ -40,22 +42,24 @@ public class RoomOcclusion : MonoBehaviour
 
     private IEnumerator EnableRenderersCoroutine()
     {
+        float time = Time.time;
         while(true)
         {
             for (int i = 0; i < childMeshRenderers.Length; i++)
             {
                 childMeshRenderers[i].enabled = true;
-                yield return null;
+                yield return wffu;
             }
             
             for (int i = 0; i < childParticleSystems.Length; i++)
             {
                 childParticleSystems[i].Play();
-                yield return null;
+                yield return wffu;
             }
 
             break;
         }
+        Debug.Log(Time.time - time);
     }
 
     private IEnumerator DisableRenderersCoroutine()
@@ -65,14 +69,14 @@ public class RoomOcclusion : MonoBehaviour
             for (int i = 0; i < childMeshRenderers.Length; i++)
             {
                 childMeshRenderers[i].enabled = false;
-                yield return null;
+                yield return wffu;
             }
 
             for (int i = 0; i < childParticleSystems.Length; i++)
             {
                 childParticleSystems[i].Clear(true);
                 childParticleSystems[i].Stop();
-                yield return null;
+                yield return wffu;
             }
 
             break;
