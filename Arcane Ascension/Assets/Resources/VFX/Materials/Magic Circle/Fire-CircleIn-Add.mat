@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Fire-02-Add
+  m_Name: Fire-CircleIn-Add
   m_Shader: {fileID: 4800000, guid: 00ddc540bb4f4884d8b80c89d91ca1f0, type: 3}
-  m_ShaderKeywords: _DISSOLVESMOOTH_ON _USECUSTOMDISSOLVETEX0Z_ON
+  m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -44,11 +44,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DissolveTexture:
-        m_Texture: {fileID: 2800000, guid: 433e00f05af7bf64d97875ccca3b783c, type: 3}
-        m_Scale: {x: 5, y: 5}
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DistortTexture:
-        m_Texture: {fileID: 2800000, guid: b57ff73ba471f5041af780412b7999fb, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -60,7 +60,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
-        m_Texture: {fileID: 2800000, guid: 99bcc8b09e7f32c48bd9860c16d80791, type: 3}
+        m_Texture: {fileID: 2800000, guid: 523089fedc145da46b8b52534bc7c6e6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTexture:
@@ -120,8 +120,8 @@ Material:
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DissolveAmount: 0
-    - _DissolveSmooth: 1
-    - _DistortStrength: 0.12
+    - _DissolveSmooth: 0
+    - _DistortStrength: 0
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
@@ -141,23 +141,17 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _TessEdgeLength: 16
-    - _TessMax: 25
-    - _TessMaxDisp: 25
-    - _TessMin: 10
-    - _TessPhongStrength: 0.5
-    - _TessValue: 16
     - _UseCustomDissolve: 0
-    - _UseCustomDissolveTex0z: 1
+    - _UseCustomDissolveTex0z: 0
     - _UseMaskAlpha: 0
     - _UseOffsetMaskAlpha: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 4.867144, g: 4.867144, b: 4.867144, a: 1}
+    - _Color: {r: 29.508846, g: 29.508846, b: 29.508846, a: 1}
     - _DissolveSpeed: {r: 0, g: 0, b: 0, a: 0}
-    - _DistortSpeed: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - _DistortSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MainTextureSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _MaskSpeed: {r: 0, g: 0, b: 0, a: 0}
