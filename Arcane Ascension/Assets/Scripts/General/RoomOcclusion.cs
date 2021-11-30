@@ -32,8 +32,7 @@ public class RoomOcclusion : MonoBehaviour
             levelGenerator = FindObjectOfType<LevelGenerator>();
             roomOcclusionController = FindObjectOfType<RoomOcclusionController>();
             roomOcclusionController.AddRoomOcclusion(this);
-            levelGenerator.EndedGeneration += EndedGeneration;
-
+            //levelGenerator.EndedGeneration += EndedGeneration;
             yield return wfs;
         }
     }
@@ -44,48 +43,59 @@ public class RoomOcclusion : MonoBehaviour
             levelGenerator.EndedGeneration -= EndedGeneration;
     }
 
+    /// <summary>
+    /// As soon as the generation ends, this method is called occlusion logic will start.
+    /// </summary>
     private void EndedGeneration() =>
         canStartOcclusion = true;
 
+    /// <summary>
+    /// Happens every time the player enters a new level piece.
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
         if (canStartOcclusion)
         {
             if (other.TryGetComponent(out Player player))
             {
-                if (roomOcclusionController.CurrentLevelPieceCollision != other.gameObject)
+                if (roomOcclusionController.CurrentLevelPieceCollision != thisLevelPiece.gameObject)
                 {
+                    if (roomOcclusionController.CurrentRoomOcclusion != null)
+                    {
+                        roomOcclusionController.CurrentRoomOcclusion.StopAllCoroutines();
+                    }
+
+                    // Resets if coroutine is already running
                     this.StartCoroutineWithReset(ref controlChildOccludeesCoroutine,
                         ControlChildOccludeesCoroutine());
+
                     roomOcclusionController.CurrentLevelPieceCollision = thisLevelPiece.gameObject;
+                    roomOcclusionController.CurrentRoomOcclusion = this;
                 }
             }
         }
     }
 
-    private IEnumerator ControlChildOccludeesCoroutine()
+    /// <summary>
+    /// Coroutine that enables all surrounding level pieces and disables the rest.
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator ControlChildOccludeesCoroutine()
     {
-        for (int i = 0; i < roomOcclusionController.RoomsOcclusion.Count; i++)
-        {
-            if (roomOcclusionController.RoomsOcclusion[i] != null)
-            {
-                if (roomOcclusionController.RoomsOcclusion[i] != this)
-                {
-                    roomOcclusionController.RoomsOcclusion[i].StopAllCoroutines();
-                }
-            }    
-            yield return null;
-        }
-
+        // Creates a new lsit with all level pieces
         IList<LevelPiece> generatedRoomPieces = new List<LevelPiece>();
         for (int i = 0; i < levelGenerator.AllGeneratedLevelPieces.Count; i++)
         {
             generatedRoomPieces.Add(levelGenerator.AllGeneratedLevelPieces[i]);
+            yield return null;
         }
         
+        // Enables pieces of this current piece
         StartCoroutine(thisLevelPiece.EnableChildOccludeesCoroutine());
         generatedRoomPieces.Remove(thisLevelPiece);
             
+        // Enables pieces for connect pieces to this piece
         for (int i = 0; i < thisLevelPiece.ConnectedPieces.Count; i++)
         {
             if (thisLevelPiece.ConnectedPieces[i] != null)
@@ -93,10 +103,10 @@ public class RoomOcclusion : MonoBehaviour
                 StartCoroutine(thisLevelPiece.ConnectedPieces[i].EnableChildOccludeesCoroutine());
                 generatedRoomPieces.Remove(thisLevelPiece.ConnectedPieces[i]);
             }
-                
             yield return null;
         }
 
+        // Disables the rest of the pieces
         for (int i = 0; i < generatedRoomPieces.Count; i++)
         {
             if (generatedRoomPieces[i] != null)

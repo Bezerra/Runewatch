@@ -35,7 +35,6 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     private int numberOfLoops;
     private IEnumerator generationCoroutine;
     private System.Random random;
-    private Transform playerSpawnTransform;
 
     [Header("Dungeon element")]
     [SerializeField] private ElementType element;
@@ -160,8 +159,6 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             ContactPoint startingRoomContactPoint = 
                 startingRoomPiece.ContactPoints[random.Next(0, startingRoomPiece.ContactPoints.Length)];
             startingRoomPiece.transform.parent = levelParent.transform;
-            if (startingRoomPiece.gameObject.TryGetComponent(out PlayerSpawnLevelPiece playerSpawnPos))
-                playerSpawnTransform = playerSpawnPos.PlayerSpawnTransform;
             ////////////////////////////////////////////
 
             // Creates first corridor
@@ -516,7 +513,6 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             " and number of loops of " + numberOfLoops);
 
         OnEndedGeneration();
-        FindObjectOfType<SceneControl>().SpawnPlayerTEST(playerSpawnTransform);
     }
 
     /// <summary>
