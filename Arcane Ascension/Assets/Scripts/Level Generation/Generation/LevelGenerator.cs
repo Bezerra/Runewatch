@@ -154,8 +154,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             allRooms = new List<LevelPiece>();
 
             // Creates and places first corridor
-            LevelPiece startingRoomPiece = Instantiate(startingPieces[random.Next(0, startingPieces.Length)]
-                , Vector3.zero, Quaternion.identity);
+            LevelPiece startingRoomPiece = Instantiate(startingPieces[
+                random.Next(0, startingPieces.Length)], Vector3.zero, Quaternion.identity);
             ContactPoint startingRoomContactPoint = 
                 startingRoomPiece.ContactPoints[random.Next(0, startingRoomPiece.ContactPoints.Length)];
             startingRoomPiece.transform.parent = levelParent.transform;

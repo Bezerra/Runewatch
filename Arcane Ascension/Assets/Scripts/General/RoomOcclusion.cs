@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Threading.Tasks;
 using System;
 using ExtensionMethods;
-using System.Linq;
 
+/// <summary>
+/// Class responsible for enabling and disabling gameobjects depending on which
+/// room the player triggered with.
+/// </summary>
 public class RoomOcclusion : MonoBehaviour
 {
     // Components
@@ -13,14 +15,12 @@ public class RoomOcclusion : MonoBehaviour
     private RoomOcclusionController roomOcclusionController;
     private LevelPiece thisLevelPiece;
 
-    private static IEnumerator controlChildOccludeesCoroutine;
-
-    private bool canStartOcclusion;
+    // Coroutines
+    private IEnumerator controlChildOccludeesCoroutine;
 
     private void Awake()
     {
         thisLevelPiece = GetComponentInParent<LevelPiece>();
-
         StartCoroutine(FindLevelGenerator());
     }
 
@@ -32,22 +32,9 @@ public class RoomOcclusion : MonoBehaviour
             levelGenerator = FindObjectOfType<LevelGenerator>();
             roomOcclusionController = FindObjectOfType<RoomOcclusionController>();
             roomOcclusionController.AddRoomOcclusion(this);
-            //levelGenerator.EndedGeneration += EndedGeneration;
             yield return wfs;
         }
     }
-
-    private void OnDisable()
-    {
-        if (levelGenerator != null)
-            levelGenerator.EndedGeneration -= EndedGeneration;
-    }
-
-    /// <summary>
-    /// As soon as the generation ends, this method is called occlusion logic will start.
-    /// </summary>
-    private void EndedGeneration() =>
-        canStartOcclusion = true;
 
     /// <summary>
     /// Happens every time the player enters a new level piece.
@@ -55,24 +42,22 @@ public class RoomOcclusion : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
-        if (canStartOcclusion)
+        if (other.TryGetComponent(out Player player))
         {
-            if (other.TryGetComponent(out Player player))
+            if (roomOcclusionController.CurrentLevelPieceCollision != thisLevelPiece)
             {
-                if (roomOcclusionController.CurrentLevelPieceCollision != thisLevelPiece.gameObject)
+                Debug.Log("AH");
+                if (roomOcclusionController.CurrentRoomOcclusion != null)
                 {
-                    if (roomOcclusionController.CurrentRoomOcclusion != null)
-                    {
-                        roomOcclusionController.CurrentRoomOcclusion.StopAllCoroutines();
-                    }
-
-                    // Resets if coroutine is already running
-                    this.StartCoroutineWithReset(ref controlChildOccludeesCoroutine,
-                        ControlChildOccludeesCoroutine());
-
-                    roomOcclusionController.CurrentLevelPieceCollision = thisLevelPiece.gameObject;
-                    roomOcclusionController.CurrentRoomOcclusion = this;
+                    roomOcclusionController.CurrentRoomOcclusion.StopAllCoroutines();
                 }
+
+                // Resets if coroutine is already running
+                this.StartCoroutineWithReset(ref controlChildOccludeesCoroutine,
+                    ControlChildOccludeesCoroutine());
+
+                roomOcclusionController.CurrentLevelPieceCollision = thisLevelPiece;
+                roomOcclusionController.CurrentRoomOcclusion = this;
             }
         }
     }
