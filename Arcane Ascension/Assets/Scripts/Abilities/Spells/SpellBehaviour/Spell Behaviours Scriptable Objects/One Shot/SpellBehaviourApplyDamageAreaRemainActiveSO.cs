@@ -19,7 +19,7 @@ public class SpellBehaviourApplyDamageAreaRemainActiveSO : SpellBehaviourAbstrac
 
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
     {
-        if (Time.time - parent.LastTimeDamaged > parent.Spell.TimeInterval)
+        if (Time.time - parent.LastTimeDamaged < parent.Spell.TimeInterval)
         {
             parent.Spell.DamageBehaviour.Damage(parent);
             parent.LastTimeDamaged = Time.time;

@@ -1,5 +1,4 @@
 using UnityEngine;
-using ExtensionMethods;
 
 /// <summary>
 /// Scriptable object responsible for moving the spell forward on start.

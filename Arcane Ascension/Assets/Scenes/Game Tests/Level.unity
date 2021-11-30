@@ -4167,8 +4167,7 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 242234091}
-    m_RemovedComponents:
-    - {fileID: 3616588930687491584, guid: d2075db750418ff4ba595da60d813a9f, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2075db750418ff4ba595da60d813a9f, type: 3}
 --- !u!1 &810234645
 GameObject:
@@ -10330,6 +10329,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Small Golem - Ignis Variant One Shot With Release Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 547049932782732175, guid: 79150e1f356e41d468cc6d5843ca1694, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 772326759074140095, guid: 79150e1f356e41d468cc6d5843ca1694, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 77.670135
@@ -11532,37 +11535,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1639890573, guid: 77340c0e06dd9a14a9f1aef8489784e8, type: 3}
-      propertyPath: m_BackGroundColor.a
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1208689545951214202, guid: 77340c0e06dd9a14a9f1aef8489784e8, type: 3}
       propertyPath: near clip plane
       value: 0.001
       objectReference: {fileID: 0}
-    - target: {fileID: 1208689545951214202, guid: 77340c0e06dd9a14a9f1aef8489784e8, type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 916983
-      objectReference: {fileID: 0}
-    - target: {fileID: 3722155925146324496, guid: 77340c0e06dd9a14a9f1aef8489784e8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5.63
-      objectReference: {fileID: 0}
-    - target: {fileID: 3722155925146324496, guid: 77340c0e06dd9a14a9f1aef8489784e8, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3722155925146324496, guid: 77340c0e06dd9a14a9f1aef8489784e8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 14.44
-      objectReference: {fileID: 0}
     - target: {fileID: 5293588720916298048, guid: 77340c0e06dd9a14a9f1aef8489784e8, type: 3}
       propertyPath: m_Name
       value: Cameras
-      objectReference: {fileID: 0}
-    - target: {fileID: 5293588720916298048, guid: 77340c0e06dd9a14a9f1aef8489784e8, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5293588720916298049, guid: 77340c0e06dd9a14a9f1aef8489784e8, type: 3}
       propertyPath: m_RootOrder

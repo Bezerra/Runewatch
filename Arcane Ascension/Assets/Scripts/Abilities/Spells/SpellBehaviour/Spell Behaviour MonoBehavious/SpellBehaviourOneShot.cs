@@ -70,6 +70,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
 
     /// <summary>
     /// Updated everytime the spell damages an enemy.
+    /// Last time damage is infinite on enabled. (Affecting applyDamageOnTimeOnImpact)
     /// </summary>
     public float LastTimeDamaged { get; set; }
 
@@ -106,8 +107,8 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         base.OnEnable();
         EffectPlay();
         SpellStartedMoving = false;
-        TimeOfImpact = Time.time + Mathf.Infinity; // algum bug? meter Time.time
-        LastTimeDamaged = Time.time + Mathf.Infinity;
+        TimeOfImpact = Time.time + Mathf.Infinity;
+        LastTimeDamaged = 0;
         PositionOnHit = transform.position; 
     }
 

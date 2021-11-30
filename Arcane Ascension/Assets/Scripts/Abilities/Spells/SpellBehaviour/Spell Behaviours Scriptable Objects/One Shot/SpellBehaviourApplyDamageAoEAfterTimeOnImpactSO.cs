@@ -22,11 +22,12 @@ public class SpellBehaviourApplyDamageAoEAfterTimeOnImpactSO : SpellBehaviourAbs
     {
         if (Time.time - parent.TimeOfImpact > parent.Spell.DelayToDoDamage)
         {
-            if (parent.DisableImmediatly == false)
+            // Last time damaged is infinite on enable
+            if (parent.LastTimeDamaged < parent.TimeOfImpact)
             {
                 parent.Spell.DamageBehaviour.Damage(parent);
-                parent.DisableImmediatly = true;
-            }   
+                parent.LastTimeDamaged = Time.time;
+            }
         }
     }
 
