@@ -1494,6 +1494,8 @@ GameObject:
   - component: {fileID: 9162998735997628195}
   - component: {fileID: 1098406087072568325}
   - component: {fileID: 7087602669562999849}
+  - component: {fileID: 8525340364049976287}
+  - component: {fileID: 1593767906282690389}
   m_Layer: 0
   m_Name: Ignis - Room Four Exits V1
   m_TagString: Untagged
@@ -1608,6 +1610,31 @@ MonoBehaviour:
   m_VoxelSize: 0.016
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: d9f2b1456c6d21d4ea86b3cd56c9d44e, type: 2}
+--- !u!114 &8525340364049976287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6735911809710083284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeeee2ccf78aebf49b5f89c0622f7183, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &1593767906282690389
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6735911809710083284}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 70, y: 30, z: 70}
+  m_Center: {x: 0, y: 4.35, z: 0}
 --- !u!1 &6823507960132220281
 GameObject:
   m_ObjectHideFlags: 0
