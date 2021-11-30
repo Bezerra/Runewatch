@@ -823,6 +823,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5113f68e1dea8fa4f9252d2c96251957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  incompatiblePieceConcreteTypes: 
 --- !u!1 &4140597378401683729
 GameObject:
   m_ObjectHideFlags: 0
@@ -1045,6 +1046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5113f68e1dea8fa4f9252d2c96251957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  incompatiblePieceConcreteTypes: 
 --- !u!1 &4935167194812598058
 GameObject:
   m_ObjectHideFlags: 0
@@ -1450,6 +1452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5113f68e1dea8fa4f9252d2c96251957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  incompatiblePieceConcreteTypes: 
 --- !u!1 &6735911809710083284
 GameObject:
   m_ObjectHideFlags: 0
@@ -1510,6 +1513,7 @@ MonoBehaviour:
   boxColliders:
   - {fileID: 9131351174640104670}
   roomWeights: {fileID: 11400000, guid: 6e70e9ea6b3789943bbc87dbe301cfb1, type: 2}
+  childOccludees: []
 --- !u!114 &9162998735997628195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1527,11 +1531,7 @@ MonoBehaviour:
   - {fileID: 6055489814413412795}
   - {fileID: 9165462206075842889}
   - {fileID: 5446368271206261484}
-  enemySpawnPoints:
-  - {fileID: 1644014637338978260}
-  - {fileID: 4369236001928448252}
-  - {fileID: 7096972636376407385}
-  - {fileID: 2994695652698415222}
+  enemySpawnPoints: []
   listOfEnemies: {fileID: 11400000, guid: e767d083673c993448fdb04f6eb74a2c, type: 2}
 --- !u!114 &1098406087072568325
 MonoBehaviour:
@@ -1602,8 +1602,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 70, y: 30, z: 70}
-  m_Center: {x: 0, y: 4.35, z: 0}
+  m_Size: {x: 33, y: 10.9, z: 32.7}
+  m_Center: {x: 0, y: 5.9, z: 0}
 --- !u!1 &6823507960132220281
 GameObject:
   m_ObjectHideFlags: 0
@@ -1954,6 +1954,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5113f68e1dea8fa4f9252d2c96251957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  incompatiblePieceConcreteTypes: 
 --- !u!1 &7704750180400781208
 GameObject:
   m_ObjectHideFlags: 0

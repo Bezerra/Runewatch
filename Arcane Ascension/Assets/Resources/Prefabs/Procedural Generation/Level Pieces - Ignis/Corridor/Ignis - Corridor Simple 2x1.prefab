@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8523822116474709581}
   - component: {fileID: 4264462879060290543}
+  - component: {fileID: 9036429219272193080}
   m_Layer: 0
   m_Name: Ignis - Corridor Simple 2x1
   m_TagString: Untagged
@@ -85,6 +86,18 @@ MonoBehaviour:
   boxColliders:
   - {fileID: 5732058348427432269}
   roomWeights: {fileID: 0}
+--- !u!114 &9036429219272193080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425413591445908718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeeee2ccf78aebf49b5f89c0622f7183, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2744090940984064915
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,6 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5113f68e1dea8fa4f9252d2c96251957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  incompatiblePieceConcreteTypes: 
 --- !u!1 &3025760123469765523
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,6 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5113f68e1dea8fa4f9252d2c96251957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  incompatiblePieceConcreteTypes: 
 --- !u!1 &7382706556806116567
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,7 +308,7 @@ GameObject:
   - component: {fileID: 6768451774090404516}
   m_Layer: 0
   m_Name: Models
-  m_TagString: Untagged
+  m_TagString: ChildOccludee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

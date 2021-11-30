@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -5,26 +8,77 @@ using UnityEngine;
 /// </summary>
 public class LevelPiece : MonoBehaviour
 {
-    public string Name => concreteType.ToString();
-
     [SerializeField] private PieceType type;
+    [SerializeField] private PieceConcreteType concreteType;
+    [SerializeField] private ContactPoint[] contactPoints;
+    [SerializeField] private GameObject boxCollidersParent;
+    [SerializeField] private BoxCollider[] boxColliders;
+    [SerializeField] private RoomWeightsSO roomWeights;
+
+    // Components
+    private LevelGenerator levelGenerator;
+    private YieldInstruction wffu;
+
+    private void Awake()
+    {
+        ChildPieces = new List<LevelPiece>();
+        levelGenerator = FindObjectOfType<LevelGenerator>();
+        wffu = new WaitForFixedUpdate();
+    }
+
+    private void OnEnable() =>
+        levelGenerator.EndedGeneration += GetchildOccludees;
+
+    private void OnDisable() =>
+        levelGenerator.EndedGeneration -= GetchildOccludees;
+
+    private void GetchildOccludees() =>
+        childOccludees = GetComponentsInChildren<Transform>().
+        Where(i => i.CompareTag("ChildOccludee")).ToArray();
+
+    public Transform[] childOccludees;
+
+    /// <summary>
+    /// General type of this piece.
+    /// </summary>
     public PieceType Type => type;
 
-    [SerializeField] private PieceConcreteType concreteType;
+    public string Name => 
+        concreteType.ToString();
+
+    /// <summary>
+    /// Conrecrete type of this piece.
+    /// </summary>
     public PieceConcreteType ConcreteType => concreteType;
 
-    [SerializeField] private ContactPoint[] contactPoints;
+    /// <summary>
+    /// Piece contact points.
+    /// </summary>
     public ContactPoint[] ContactPoints => contactPoints;
+    
+    /// <summary>
+    /// Contact point
+    /// </summary>
+    public ContactPoint ContactPointOfCreation { get; set; }
 
-    public ContactPoint ConnectedContactPoint { get; set; }
+    /// <summary>
+    /// Pieces that this piece has generated.
+    /// </summary>
+    public IList<LevelPiece> ChildPieces { get; set; }
 
-    [SerializeField] private GameObject boxCollidersParent;
+    /// <summary>
+    /// Parent of box colliders for procedural generation.
+    /// </summary>
     public GameObject BoxCollidersParent => boxCollidersParent;
 
-    [SerializeField] private BoxCollider[] boxColliders;
+    /// <summary>
+    /// Box collider for procedural generation.
+    /// </summary>
     public BoxCollider[] BoxColliders => boxColliders;
 
-    [SerializeField] private RoomWeightsSO roomWeights;
+    /// <summary>
+    /// Room weight.
+    /// </summary>
     public int RoomWeight
     {
         get
@@ -38,6 +92,32 @@ public class LevelPiece : MonoBehaviour
             
             }
             return 0;
+        }
+    }
+
+    public IEnumerator EnableRenderersCoroutine()
+    {
+        for (int i = 0; i < childOccludees.Length; i++)
+        {
+            if (childOccludees[i].gameObject.activeSelf == false)
+            {
+                childOccludees[i].gameObject.SetActive(true);
+            }
+
+            yield return null;
+        }
+    }
+
+    public IEnumerator DisableRenderersCoroutine()
+    {
+        for (int i = 0; i < childOccludees.Length; i++)
+        {
+            if (childOccludees[i].gameObject.activeSelf)
+            {
+                childOccludees[i].gameObject.SetActive(false);
+            }
+
+            yield return null;
         }
     }
 }

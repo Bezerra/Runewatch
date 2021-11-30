@@ -3,8 +3,14 @@ using UnityEngine;
 
 public class ContactPoint : MonoBehaviour
 {
+    /// <summary>
+    /// Parent room of this contact point.
+    /// </summary>
     public LevelPiece ParentRoom { get; private set; }
+
     private PointState state;
+
+    [SerializeField] private PieceConcreteType[] incompatiblePieceConcreteTypes;
 
     public ICollection<PieceConcreteType> IncompatiblePieces { get; set; }
 
@@ -12,6 +18,12 @@ public class ContactPoint : MonoBehaviour
     {
         ParentRoom = GetComponentInParent<LevelPiece>();
         IncompatiblePieces = new List<PieceConcreteType>();
+
+        if (incompatiblePieceConcreteTypes.Length > 0)
+        {
+            foreach (PieceConcreteType piece in incompatiblePieceConcreteTypes)
+                IncompatiblePieces.Add(piece);
+        }
     }
 
     /// <summary>

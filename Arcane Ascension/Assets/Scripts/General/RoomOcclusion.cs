@@ -9,51 +9,80 @@ using System.Linq;
 public class RoomOcclusion : MonoBehaviour
 {
     // Components
-    private Transform[] childOccludees;
+    private LevelGenerator levelGenerator;
+    private LevelPiece thisLevelPiece;
 
     // Coroutines
     private YieldInstruction wffu;
-    private IEnumerator coroutine;
+
+    private bool canCheckRenderers;
 
     private void Awake()
     {
-        childOccludees = GetComponentsInChildren<Transform>(true).Where(i => i.CompareTag("ChildOccludee")).ToArray();
         wffu = new WaitForFixedUpdate();
+        thisLevelPiece = GetComponentInParent<LevelPiece>();
 
-        StartCoroutine(DisableRenderersCoroutine());
+        StartCoroutine(FindLevelGenerator());
     }
 
-    private void OnTriggerEnter(Collider other)
+    private IEnumerator FindLevelGenerator()
     {
-        if (other.TryGetComponent(out Player player))
+        YieldInstruction wfs = new WaitForSeconds(0.2f);
+        while (levelGenerator == null)
         {
-            this.StartCoroutineWithReset(ref coroutine, EnableRenderersCoroutine());
+            levelGenerator = FindObjectOfType<LevelGenerator>();
+            levelGenerator.EndedGeneration += CanCheckRenderers;
+            yield return wfs;
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnDisable()
     {
-        if (other.TryGetComponent(out Player player))
+        if (levelGenerator != null)
+            levelGenerator.EndedGeneration -= CanCheckRenderers;
+    }
+
+    private void CanCheckRenderers() => canCheckRenderers = true;
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (canCheckRenderers)
         {
-            this.StartCoroutineWithReset(ref coroutine, DisableRenderersCoroutine());
+            if (other.TryGetComponent(out Player player))
+            {
+                StartCoroutine(ControlRenderersCoroutine());
+            }
         }
     }
 
-    private IEnumerator EnableRenderersCoroutine()
+    private IEnumerator ControlRenderersCoroutine()
     {
-        for (int i = 0; i < childOccludees.Length; i++)
+        IList<LevelPiece> generatedRoomPieces = new List<LevelPiece>();
+        for (int i = 0; i < levelGenerator.AllGeneratedLevelPieces.Count; i++)
         {
-            childOccludees[i].gameObject.SetActive(true);
-            yield return wffu;
+            generatedRoomPieces.Add(levelGenerator.AllGeneratedLevelPieces[i]);
         }
-    }
 
-    private IEnumerator DisableRenderersCoroutine()
-    {
-        for (int i = 0; i < childOccludees.Length; i++)
+        StartCoroutine(thisLevelPiece.EnableRenderersCoroutine());
+        generatedRoomPieces.Remove(thisLevelPiece);
+
+        if (thisLevelPiece.ContactPointOfCreation != null)
         {
-            childOccludees[i].gameObject.SetActive(false);
-            yield return wffu;
+            StartCoroutine(thisLevelPiece.ContactPointOfCreation.ParentRoom.EnableRenderersCoroutine());
+            generatedRoomPieces.Remove(thisLevelPiece.ContactPointOfCreation.ParentRoom);
         }
+            
+        for (int i = 0; i < thisLevelPiece.ChildPieces.Count; i++)
+        {
+            StartCoroutine(thisLevelPiece.ChildPieces[i].EnableRenderersCoroutine());
+            generatedRoomPieces.Remove(thisLevelPiece.ChildPieces[i]);
+            yield return null;
+        }
+
+        for (int i = 0; i < generatedRoomPieces.Count; i++)
+        {
+            StartCoroutine(generatedRoomPieces[i].DisableRenderersCoroutine());
+            yield return null;
+        }        
     }
 }
