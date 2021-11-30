@@ -641,6 +641,63 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.8, y: 4, z: 0.35}
   m_Center: {x: 0, y: 2, z: 0}
+--- !u!1 &3308870577289050277
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8625325016793571098}
+  - component: {fileID: 8255920556390494366}
+  - component: {fileID: 5307759822783207580}
+  m_Layer: 0
+  m_Name: Room Occlusion
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8625325016793571098
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3308870577289050277}
+  m_LocalRotation: {x: -0, y: -0.38268322, z: -0, w: 0.9238797}
+  m_LocalPosition: {x: 0, y: 3.91, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2013561412777815572}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: -45, z: 0}
+--- !u!114 &8255920556390494366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3308870577289050277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeeee2ccf78aebf49b5f89c0622f7183, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &5307759822783207580
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3308870577289050277}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 15.8, y: 9.3, z: 20.4}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3489423509861920699
 GameObject:
   m_ObjectHideFlags: 0
@@ -1408,6 +1465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5113f68e1dea8fa4f9252d2c96251957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  incompatiblePieceConcreteTypes: 
 --- !u!1 &7904063222696120777
 GameObject:
   m_ObjectHideFlags: 0
@@ -1598,6 +1656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5113f68e1dea8fa4f9252d2c96251957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  incompatiblePieceConcreteTypes: 
 --- !u!1 &8297730473216251600
 GameObject:
   m_ObjectHideFlags: 0
@@ -1611,7 +1670,6 @@ GameObject:
   - component: {fileID: 5869372500749595943}
   - component: {fileID: 2406016732877262337}
   - component: {fileID: 5476809182838812205}
-  - component: {fileID: 4990745808985898582}
   m_Layer: 0
   m_Name: Ignis - Room Two Exits Corner Straight V1
   m_TagString: Untagged
@@ -1631,6 +1689,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1861516036987188541}
+  - {fileID: 8625325016793571098}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1726,18 +1785,6 @@ MonoBehaviour:
   m_VoxelSize: 0.016
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: d2190336012ae2c44b00fa4563b89658, type: 2}
---- !u!114 &4990745808985898582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8297730473216251600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeeee2ccf78aebf49b5f89c0622f7183, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8971524494140128759
 GameObject:
   m_ObjectHideFlags: 0

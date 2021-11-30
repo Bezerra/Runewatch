@@ -579,6 +579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5113f68e1dea8fa4f9252d2c96251957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  incompatiblePieceConcreteTypes: 
 --- !u!1 &5120543108943059910
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,6 +646,63 @@ Transform:
   m_Father: {fileID: 2278977212702377759}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5374858868863373049
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1546429693904692763}
+  - component: {fileID: 1118051895099153161}
+  - component: {fileID: 8838859123775332410}
+  m_Layer: 0
+  m_Name: Room Occlusion
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1546429693904692763
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5374858868863373049}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 3.91, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3867512992863351824}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1118051895099153161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5374858868863373049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeeee2ccf78aebf49b5f89c0622f7183, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &8838859123775332410
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5374858868863373049}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 15.8, y: 9.3, z: 22.1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5616161694221220673
 GameObject:
   m_ObjectHideFlags: 0
@@ -749,7 +807,6 @@ GameObject:
   - component: {fileID: 9162998735997628195}
   - component: {fileID: 1098406087072568325}
   - component: {fileID: 7087602669562999849}
-  - component: {fileID: 8607879883328060862}
   m_Layer: 0
   m_Name: Ignis - Boss Room V1
   m_TagString: Untagged
@@ -773,6 +830,7 @@ Transform:
   - {fileID: 6652061475156703343}
   - {fileID: 6120586866619541097}
   - {fileID: 6917176429227625422}
+  - {fileID: 1546429693904692763}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -859,18 +917,6 @@ MonoBehaviour:
   m_VoxelSize: 0.016
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: b6cb3bbd222c65147b2cb6c064838e21, type: 2}
---- !u!114 &8607879883328060862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6735911809710083284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeeee2ccf78aebf49b5f89c0622f7183, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6823507960132220281
 GameObject:
   m_ObjectHideFlags: 0

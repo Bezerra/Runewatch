@@ -21,7 +21,7 @@ public class LevelPiece : MonoBehaviour
 
     private void Awake()
     {
-        ChildPieces = new List<LevelPiece>();
+        ConnectedPieces = new List<LevelPiece>();
         levelGenerator = FindObjectOfType<LevelGenerator>();
         wffu = new WaitForFixedUpdate();
     }
@@ -36,7 +36,7 @@ public class LevelPiece : MonoBehaviour
         childOccludees = GetComponentsInChildren<Transform>().
         Where(i => i.CompareTag("ChildOccludee")).ToArray();
 
-    public Transform[] childOccludees;
+    private Transform[] childOccludees;
 
     /// <summary>
     /// General type of this piece.
@@ -62,9 +62,9 @@ public class LevelPiece : MonoBehaviour
     public ContactPoint ContactPointOfCreation { get; set; }
 
     /// <summary>
-    /// Pieces that this piece has generated.
+    /// Pieces that are connect with this piece.
     /// </summary>
-    public IList<LevelPiece> ChildPieces { get; set; }
+    public IList<LevelPiece> ConnectedPieces { get; set; }
 
     /// <summary>
     /// Parent of box colliders for procedural generation.
@@ -95,7 +95,7 @@ public class LevelPiece : MonoBehaviour
         }
     }
 
-    public IEnumerator EnableRenderersCoroutine()
+    public IEnumerator EnableChildOccludeesCoroutine()
     {
         for (int i = 0; i < childOccludees.Length; i++)
         {
@@ -108,7 +108,7 @@ public class LevelPiece : MonoBehaviour
         }
     }
 
-    public IEnumerator DisableRenderersCoroutine()
+    public IEnumerator DisableChildOccludeesCoroutine()
     {
         for (int i = 0; i < childOccludees.Length; i++)
         {

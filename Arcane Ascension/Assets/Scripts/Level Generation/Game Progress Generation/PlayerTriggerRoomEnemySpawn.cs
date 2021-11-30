@@ -6,14 +6,19 @@ using ExtensionMethods;
 /// </summary>
 public class PlayerTriggerRoomEnemySpawn : MonoBehaviour
 {
+    [SerializeField] private bool triggerEnemySpawnColliders = true;
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == Layers.RoomProgressLayerNum)
+        if (triggerEnemySpawnColliders)
         {
-            if (other.TryGetComponentInParent(
-                out LevelPieceGameProgressControl progressControl))
+            if (other.gameObject.layer == Layers.RoomProgressLayerNum)
             {
-                progressControl.SpawnEnemies();
+                if (other.TryGetComponentInParent(
+                    out LevelPieceGameProgressControl progressControl))
+                {
+                    progressControl.SpawnEnemies();
+                }
             }
         }
     }

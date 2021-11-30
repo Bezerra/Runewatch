@@ -12,14 +12,12 @@ public class RoomOcclusion : MonoBehaviour
     private LevelGenerator levelGenerator;
     private LevelPiece thisLevelPiece;
 
-    // Coroutines
-    private YieldInstruction wffu;
+    private static IEnumerator controlChildOccludeesCoroutine;
 
-    private bool canCheckRenderers;
+    private bool canCheckChildOccludees;
 
     private void Awake()
     {
-        wffu = new WaitForFixedUpdate();
         thisLevelPiece = GetComponentInParent<LevelPiece>();
 
         StartCoroutine(FindLevelGenerator());
@@ -31,7 +29,7 @@ public class RoomOcclusion : MonoBehaviour
         while (levelGenerator == null)
         {
             levelGenerator = FindObjectOfType<LevelGenerator>();
-            levelGenerator.EndedGeneration += CanCheckRenderers;
+            levelGenerator.EndedGeneration += CanCheckChildOccludees;
             yield return wfs;
         }
     }
@@ -39,23 +37,23 @@ public class RoomOcclusion : MonoBehaviour
     private void OnDisable()
     {
         if (levelGenerator != null)
-            levelGenerator.EndedGeneration -= CanCheckRenderers;
+            levelGenerator.EndedGeneration -= CanCheckChildOccludees;
     }
 
-    private void CanCheckRenderers() => canCheckRenderers = true;
+    private void CanCheckChildOccludees() => canCheckChildOccludees = true;
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (canCheckRenderers)
+        if (canCheckChildOccludees)
         {
             if (other.TryGetComponent(out Player player))
             {
-                StartCoroutine(ControlRenderersCoroutine());
+                this.StartCoroutineWithReset(ref controlChildOccludeesCoroutine, ControlChildOccludeesCoroutine());
             }
         }
     }
 
-    private IEnumerator ControlRenderersCoroutine()
+    private IEnumerator ControlChildOccludeesCoroutine()
     {
         IList<LevelPiece> generatedRoomPieces = new List<LevelPiece>();
         for (int i = 0; i < levelGenerator.AllGeneratedLevelPieces.Count; i++)
@@ -63,25 +61,20 @@ public class RoomOcclusion : MonoBehaviour
             generatedRoomPieces.Add(levelGenerator.AllGeneratedLevelPieces[i]);
         }
 
-        StartCoroutine(thisLevelPiece.EnableRenderersCoroutine());
+        StartCoroutine(thisLevelPiece.EnableChildOccludeesCoroutine());
         generatedRoomPieces.Remove(thisLevelPiece);
-
-        if (thisLevelPiece.ContactPointOfCreation != null)
-        {
-            StartCoroutine(thisLevelPiece.ContactPointOfCreation.ParentRoom.EnableRenderersCoroutine());
-            generatedRoomPieces.Remove(thisLevelPiece.ContactPointOfCreation.ParentRoom);
-        }
             
-        for (int i = 0; i < thisLevelPiece.ChildPieces.Count; i++)
+        for (int i = 0; i < thisLevelPiece.ConnectedPieces.Count; i++)
         {
-            StartCoroutine(thisLevelPiece.ChildPieces[i].EnableRenderersCoroutine());
-            generatedRoomPieces.Remove(thisLevelPiece.ChildPieces[i]);
+            StartCoroutine(thisLevelPiece.ConnectedPieces[i].EnableChildOccludeesCoroutine());
+            generatedRoomPieces.Remove(thisLevelPiece.ConnectedPieces[i]);
             yield return null;
         }
 
         for (int i = 0; i < generatedRoomPieces.Count; i++)
         {
-            StartCoroutine(generatedRoomPieces[i].DisableRenderersCoroutine());
+            if (generatedRoomPieces[i] != null)
+                StartCoroutine(generatedRoomPieces[i].DisableChildOccludeesCoroutine());
             yield return null;
         }        
     }

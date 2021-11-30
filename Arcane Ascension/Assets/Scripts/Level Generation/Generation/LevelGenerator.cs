@@ -169,6 +169,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             ContactPoint initialCorridorContactPoint = 
                 initialCorridor.ContactPoints[random.Next(0, initialCorridor.ContactPoints.Length)];
             initialCorridor.ContactPointOfCreation = startingRoomContactPoint;
+            initialCorridor.ConnectedPieces.Add(startingRoomPiece);
+            startingRoomPiece.ConnectedPieces.Add(initialCorridor);
             initialCorridor.transform.parent = levelParent.transform;
             ////////////////////////////////////////////
 
@@ -180,7 +182,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             if (initialCorridorContactPoint.transform.childCount > 0)
                 initialCorridorContactPoint.transform.GetChild(0).gameObject.SetActive(false);
             // Sets this piece as a child of the piece that created it
-            startingRoomContactPoint.ParentRoom.ChildPieces.Add(initialCorridor);
+            startingRoomContactPoint.ParentRoom.ConnectedPieces.Add(initialCorridor);
 
             // Adds corridor open points to open points list
             foreach (ContactPoint newContactPoint in initialCorridor.ContactPoints)
@@ -295,9 +297,11 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             openedContactPoints = 
                 openedContactPoints.OrderByDescending(
                     i => Vector3.Distance(i.transform.position,
-                                                        startingRoomPiece.transform.position)).ToList();
+                                            startingRoomPiece.transform.position)).ToList();
+
             // Generate boss room
             LevelPiece bossRoomPiece = Instantiate(bossRoom);
+            LevelPiece corridorToPlace = null;
             ContactPoint bossRoomContactPoint = 
                 bossRoomPiece.ContactPoints[0];
             bossRoomPiece.transform.parent = levelParent.transform;
@@ -319,15 +323,9 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                     {
                         print("Valid level generation.");
 
-                        // Gets the wall on top of current piece to place contact point and deactivates it
-                        if (openedContactPoints[i].transform.childCount > 0)
-                            openedContactPoints[i].transform.GetChild(0).gameObject.SetActive(false);
-
-                        // Closes and remove the involved points
-                        bossRoom.ContactPointOfCreation = openedContactPoints[i];
-                        openedContactPoints[i].Close();
-                        bossRoomContactPoint.Close();
-                        openedContactPoints.Remove(openedContactPoints[i]);
+                        ValidatePiece(
+                            bossRoomPiece, bossRoomContactPoint, false, 
+                            openedContactPoints, i, levelParent, random);
 
                         bossRoomSpawned = true;
 
@@ -354,28 +352,29 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                     for (int j = 0; j < randomCorridors.Length; j++)
                     {
                         // Creates a corridor/stairs
-                        LevelPiece pieceToPlace = Instantiate(corridors[j]);
+                        corridorToPlace = Instantiate(corridors[j]);
                         ContactPoint pieceContactPoint =
-                            pieceToPlace.ContactPoints[random.Next(0, pieceToPlace.ContactPoints.Length)];
+                            corridorToPlace.ContactPoints[random.Next(0, corridorToPlace.ContactPoints.Length)];
 
                         // Skips incompatible pieces
                         if (openedContactPoints[i].IncompatiblePieces.Contains(
-                            pieceToPlace.ConcreteType))
+                            corridorToPlace.ConcreteType))
                         {
-                            Destroy(pieceToPlace.gameObject);
+                            Destroy(corridorToPlace.gameObject);
                             continue;
                         }
 
                         // Tries to set the room
-                        RotateAndSetPiece(pieceToPlace, pieceContactPoint, openedContactPoints[i]);
+                        RotateAndSetPiece(corridorToPlace, pieceContactPoint, openedContactPoints[i]);
 
                         yield return yi;
 
                         // If it's valid
-                        if (IsPieceValid(pieceToPlace, random, false))
+                        if (IsPieceValid(corridorToPlace, random, false))
                         {
                             ValidatePiece(
-                                pieceToPlace, pieceContactPoint, false, openedContactPoints, i, levelParent, random);
+                                corridorToPlace, pieceContactPoint, false, 
+                                openedContactPoints, i, levelParent, random);
 
                             finalCorridorCreated = true;
 
@@ -383,7 +382,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                         }
                         else
                         {
-                            Destroy(pieceToPlace.gameObject);
+                            Destroy(corridorToPlace.gameObject);
                             continue;
                         }
                     }
@@ -403,19 +402,9 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                         {
                             print("Valid level generation.");
 
-                            // Gets the wall on top of current piece to place contact point and deactivates it
-                            if (openedContactPoints[openedContactPoints.Count - 1].
-                                transform.childCount > 0)
-                            {
-                                openedContactPoints[openedContactPoints.Count - 1].
-                                    transform.GetChild(0).gameObject.SetActive(false);
-                            }
-
-                            // Closes and remove the involved points
-                            bossRoom.ContactPointOfCreation = openedContactPoints[openedContactPoints.Count - 1];
-                            openedContactPoints[openedContactPoints.Count - 1].Close();
-                            bossRoomContactPoint.Close();
-                            openedContactPoints.Remove(openedContactPoints[openedContactPoints.Count - 1]);
+                            ValidatePiece(
+                            bossRoomPiece, bossRoomContactPoint, false, 
+                                openedContactPoints, openedContactPoints.Count - 1, levelParent, random);
 
                             bossRoomSpawned = true;
 
@@ -753,8 +742,10 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             openedContactPoints[index].Close();
             // Sets this piece connected contact point to the point that it just connected
             pieceToPlace.ContactPointOfCreation = openedContactPoints[index];
-            // Sets this piece as a child of the piece that created it
-            openedContactPoints[index].ParentRoom.ChildPieces.Add(pieceToPlace);
+            // Adds this piece to the connected point parent room connected pieces
+            openedContactPoints[index].ParentRoom.ConnectedPieces.Add(pieceToPlace);
+            // Adds the connected point parent room to this piece connected pieces
+            pieceToPlace.ConnectedPieces.Add(openedContactPoints[index].ParentRoom);
             // Removes the contact point that the piece just connected to from opened contact points. 
             openedContactPoints.Remove(openedContactPoints[index]);
             // Sets transform parent (to be organized)
