@@ -4829,7 +4829,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1502173496687304975
 Transform:
   m_ObjectHideFlags: 0
@@ -9960,8 +9960,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.3
-      minScalar: 0.1
+      scalar: 0.35
+      minScalar: 0.25
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -29300,18 +29300,6 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2017407855285911037, guid: 682c767ef1b7795469efa7dcbc7dbfad, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 2017407855285911037, guid: 682c767ef1b7795469efa7dcbc7dbfad, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 2017407855285911037, guid: 682c767ef1b7795469efa7dcbc7dbfad, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 2017407855285911037, guid: 682c767ef1b7795469efa7dcbc7dbfad, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -29351,9 +29339,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3079928388756966914, guid: 682c767ef1b7795469efa7dcbc7dbfad, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7266544794464662284, guid: 682c767ef1b7795469efa7dcbc7dbfad, type: 3}
       propertyPath: m_Name
       value: Effect Fire Muzzle
+      objectReference: {fileID: 0}
+    - target: {fileID: 8670015210453766276, guid: 682c767ef1b7795469efa7dcbc7dbfad, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 682c767ef1b7795469efa7dcbc7dbfad, type: 3}
