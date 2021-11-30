@@ -1,35 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &309063091023536865
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1702366867442785173}
-  m_Layer: 0
-  m_Name: Doors
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1702366867442785173
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 309063091023536865}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: 0, z: 10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2278977212702377759}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &616957319066876950
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,7 +336,6 @@ Transform:
   - {fileID: 3472396320713002535}
   - {fileID: 920824867924901953}
   - {fileID: 736116465841212034}
-  - {fileID: 1702366867442785173}
   - {fileID: 1216277506419827813}
   - {fileID: 6059598843295414718}
   - {fileID: 7155272068356586364}
@@ -384,7 +353,7 @@ GameObject:
   - component: {fileID: 3472396320713002535}
   m_Layer: 0
   m_Name: Walls
-  m_TagString: Untagged
+  m_TagString: ChildOccludee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -656,7 +625,7 @@ GameObject:
   - component: {fileID: 7155272068356586364}
   m_Layer: 0
   m_Name: Platform
-  m_TagString: Untagged
+  m_TagString: ChildOccludee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -673,7 +642,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2278977212702377759}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4140597378401683729
 GameObject:
@@ -750,7 +719,7 @@ GameObject:
   - component: {fileID: 1216277506419827813}
   m_Layer: 0
   m_Name: Torches
-  m_TagString: Untagged
+  m_TagString: ChildOccludee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -771,7 +740,7 @@ Transform:
   - {fileID: 5856367940593085039}
   - {fileID: 3867054264706741130}
   m_Father: {fileID: 2278977212702377759}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4737689427071680213
 GameObject:
@@ -860,7 +829,7 @@ GameObject:
   - component: {fileID: 920824867924901953}
   m_Layer: 19
   m_Name: Ceiling
-  m_TagString: Untagged
+  m_TagString: ChildOccludee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1116,6 +1085,7 @@ GameObject:
   - component: {fileID: 9162998735997628195}
   - component: {fileID: 1098406087072568325}
   - component: {fileID: 7087602669562999849}
+  - component: {fileID: 3906658061171267398}
   m_Layer: 0
   m_Name: Ignis - Room Two Exits Straight V1
   m_TagString: Untagged
@@ -1226,6 +1196,18 @@ MonoBehaviour:
   m_VoxelSize: 0.016
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: d402000c9a83013438d0ac292512928c, type: 2}
+--- !u!114 &3906658061171267398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6735911809710083284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeeee2ccf78aebf49b5f89c0622f7183, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6823507960132220281
 GameObject:
   m_ObjectHideFlags: 0
@@ -1310,7 +1292,7 @@ GameObject:
   - component: {fileID: 6059598843295414718}
   m_Layer: 0
   m_Name: Deco
-  m_TagString: Untagged
+  m_TagString: ChildOccludee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1333,7 +1315,7 @@ Transform:
   - {fileID: 8005442829850273038}
   - {fileID: 6820090482443815879}
   m_Father: {fileID: 2278977212702377759}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7039302808556065043
 GameObject:
@@ -1464,7 +1446,7 @@ GameObject:
   - component: {fileID: 485930047691298571}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: ChildOccludee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2042,6 +2024,10 @@ PrefabInstance:
       value: Brazier - Ignis (2)
       objectReference: {fileID: 0}
     - target: {fileID: 7899553836347605351, guid: 397cec668c19c1b4ca640f72f8eb1601, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7899553836347605351, guid: 397cec668c19c1b4ca640f72f8eb1601, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 0}
@@ -2247,6 +2233,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 0fd6659d002ead941a29b56da7c0483b, type: 2}
+    - target: {fileID: 5464791144399156892, guid: 66ddb2e231845134ba52a8bc409d84b4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5464791144399156892, guid: 66ddb2e231845134ba52a8bc409d84b4, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -4598,6 +4588,10 @@ PrefabInstance:
       value: Brazier - Ignis
       objectReference: {fileID: 0}
     - target: {fileID: 7899553836347605351, guid: 397cec668c19c1b4ca640f72f8eb1601, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7899553836347605351, guid: 397cec668c19c1b4ca640f72f8eb1601, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 0}
@@ -5748,6 +5742,10 @@ PrefabInstance:
     - target: {fileID: 6682403069981615679, guid: 397cec668c19c1b4ca640f72f8eb1601, type: 3}
       propertyPath: m_Name
       value: Brazier - Ignis (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7899553836347605351, guid: 397cec668c19c1b4ca640f72f8eb1601, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7899553836347605351, guid: 397cec668c19c1b4ca640f72f8eb1601, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -9106,6 +9104,10 @@ PrefabInstance:
     - target: {fileID: 6682403069981615679, guid: 397cec668c19c1b4ca640f72f8eb1601, type: 3}
       propertyPath: m_Name
       value: Brazier - Ignis (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7899553836347605351, guid: 397cec668c19c1b4ca640f72f8eb1601, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7899553836347605351, guid: 397cec668c19c1b4ca640f72f8eb1601, type: 3}
       propertyPath: m_Materials.Array.data[0]

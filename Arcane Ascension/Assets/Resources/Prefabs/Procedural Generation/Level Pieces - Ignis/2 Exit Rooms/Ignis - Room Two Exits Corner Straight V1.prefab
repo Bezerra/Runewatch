@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 2192654828078175267}
   m_Layer: 0
   m_Name: Walls
-  m_TagString: Untagged
+  m_TagString: ChildOccludee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 4520668506541162081}
   m_Layer: 0
   m_Name: Torches
-  m_TagString: Untagged
+  m_TagString: ChildOccludee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -346,7 +346,7 @@ Transform:
   - {fileID: 6875593711515245208}
   - {fileID: 2015141625883060622}
   m_Father: {fileID: 3602101591253458203}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1669686042746557205
 GameObject:
@@ -469,7 +469,7 @@ GameObject:
   - component: {fileID: 5553241760667722104}
   m_Layer: 0
   m_Name: Platform
-  m_TagString: Untagged
+  m_TagString: ChildOccludee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -519,7 +519,7 @@ Transform:
   - {fileID: 4577919583736112934}
   - {fileID: 630744434168299406}
   m_Father: {fileID: 3602101591253458203}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2594136707468168340
 GameObject:
@@ -641,36 +641,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.8, y: 4, z: 0.35}
   m_Center: {x: 0, y: 2, z: 0}
---- !u!1 &3033089423982573797
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4178694327013179793}
-  m_Layer: 0
-  m_Name: Doors
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4178694327013179793
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3033089423982573797}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: 0, z: 10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 3602101591253458203}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3489423509861920699
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,7 +711,6 @@ Transform:
   - {fileID: 2192654828078175267}
   - {fileID: 2493547966420179525}
   - {fileID: 2624059241682817158}
-  - {fileID: 4178694327013179793}
   - {fileID: 4520668506541162081}
   - {fileID: 8810647215851725754}
   - {fileID: 5553241760667722104}
@@ -928,7 +897,7 @@ GameObject:
   - component: {fileID: 2946461576968391951}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: ChildOccludee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1127,7 +1096,7 @@ GameObject:
   - component: {fileID: 8810647215851725754}
   m_Layer: 0
   m_Name: Deco
-  m_TagString: Untagged
+  m_TagString: ChildOccludee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1153,7 +1122,7 @@ Transform:
   - {fileID: 8140368289823707587}
   - {fileID: 7810824963312323633}
   m_Father: {fileID: 3602101591253458203}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5759278634631760663
 GameObject:
@@ -1340,7 +1309,7 @@ GameObject:
   - component: {fileID: 2493547966420179525}
   m_Layer: 19
   m_Name: Ceiling
-  m_TagString: Untagged
+  m_TagString: ChildOccludee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1642,6 +1611,7 @@ GameObject:
   - component: {fileID: 5869372500749595943}
   - component: {fileID: 2406016732877262337}
   - component: {fileID: 5476809182838812205}
+  - component: {fileID: 4990745808985898582}
   m_Layer: 0
   m_Name: Ignis - Room Two Exits Corner Straight V1
   m_TagString: Untagged
@@ -1756,6 +1726,18 @@ MonoBehaviour:
   m_VoxelSize: 0.016
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: d2190336012ae2c44b00fa4563b89658, type: 2}
+--- !u!114 &4990745808985898582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8297730473216251600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeeee2ccf78aebf49b5f89c0622f7183, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8971524494140128759
 GameObject:
   m_ObjectHideFlags: 0
@@ -2717,6 +2699,10 @@ PrefabInstance:
     - target: {fileID: 6682403069981615679, guid: 397cec668c19c1b4ca640f72f8eb1601, type: 3}
       propertyPath: m_Name
       value: Brazier - Ignis
+      objectReference: {fileID: 0}
+    - target: {fileID: 7899553836347605351, guid: 397cec668c19c1b4ca640f72f8eb1601, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7899553836347605351, guid: 397cec668c19c1b4ca640f72f8eb1601, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -5583,6 +5569,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 0fd6659d002ead941a29b56da7c0483b, type: 2}
     - target: {fileID: 5464791144399156892, guid: 66ddb2e231845134ba52a8bc409d84b4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5464791144399156892, guid: 66ddb2e231845134ba52a8bc409d84b4, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 0}
@@ -8075,6 +8065,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 0fd6659d002ead941a29b56da7c0483b, type: 2}
     - target: {fileID: 5464791144399156892, guid: 66ddb2e231845134ba52a8bc409d84b4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5464791144399156892, guid: 66ddb2e231845134ba52a8bc409d84b4, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 0}
@@ -8609,6 +8603,10 @@ PrefabInstance:
     - target: {fileID: 6682403069981615679, guid: 397cec668c19c1b4ca640f72f8eb1601, type: 3}
       propertyPath: m_Name
       value: Brazier - Ignis (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7899553836347605351, guid: 397cec668c19c1b4ca640f72f8eb1601, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7899553836347605351, guid: 397cec668c19c1b4ca640f72f8eb1601, type: 3}
       propertyPath: m_Materials.Array.data[0]
