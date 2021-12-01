@@ -7,9 +7,12 @@ using UnityEngine;
 /// </summary>
 public class RoomOcclusionController : MonoBehaviour
 {
-    public IList<RoomOcclusion> RoomsOcclusion;
+    // Components
     private LevelGenerator levelGenerator;
     private GameObject startRoom;
+
+    // Rooms Occuslion
+    public IList<RoomOcclusion> RoomsOcclusion;
     private bool isPlayerSpawned;
 
     private void Awake()
@@ -23,10 +26,14 @@ public class RoomOcclusionController : MonoBehaviour
         levelGenerator.EndedGeneration += EndedGeneration;
     }
 
+    /// <summary>
+    /// Adds a room occlusion to a list and subscribes this class to OcclusionCompleted.
+    /// </summary>
+    /// <param name="roomOcclusion"></param>
     public void AddRoomOcclusion(RoomOcclusion roomOcclusion)
     {
         RoomsOcclusion.Add(roomOcclusion);
-        roomOcclusion.OcclusionCompleted += OnOcclusionCompleted; 
+        roomOcclusion.FirstOcclusionCompleted += FirstOnOcclusionCompleted; 
     }
 
     private void OnDisable()
@@ -34,11 +41,15 @@ public class RoomOcclusionController : MonoBehaviour
         for (int i = 0; i < RoomsOcclusion.Count; i++)
         {
             if (RoomsOcclusion[i] != null)
-                RoomsOcclusion[i].OcclusionCompleted -= OnOcclusionCompleted;
+                RoomsOcclusion[i].FirstOcclusionCompleted -= FirstOnOcclusionCompleted;
         }
         levelGenerator.EndedGeneration -= EndedGeneration;
     }
 
+    /// <summary>
+    /// Method called after the generation is over.
+    /// Starts occlusion from start piece.
+    /// </summary>
     private void EndedGeneration()
     {
         startRoom = GameObject.FindGameObjectWithTag("StartRoom");
@@ -46,10 +57,15 @@ public class RoomOcclusionController : MonoBehaviour
         LevelPiece startRoomLevelPiece = startRoom.GetComponent<LevelPiece>();
 
         CurrentLevelPieceCollision = startRoomLevelPiece;
-        StartCoroutine(startRoomOcclusion.ControlChildOccludeesCoroutine());
+
+        // Calls first occlusion of the game
+        StartCoroutine(startRoomOcclusion.ControlChildOccludeesCoroutine(true));
     }
 
-    private void OnOcclusionCompleted()
+    /// <summary>
+    /// Method called everytime an occlusion is finished.
+    /// </summary>
+    private void FirstOnOcclusionCompleted()
     {
         startRoom.TryGetComponent(out PlayerSpawnLevelPiece playerSpawnLevelPiece);
 
@@ -69,7 +85,4 @@ public class RoomOcclusionController : MonoBehaviour
     /// Current room occlusion the player is in.
     /// </summary>
     public RoomOcclusion CurrentRoomOcclusion { get; set; }
-
-    protected virtual void OnAllCoroutinesStopped() => AllCoroutinesStopped?.Invoke();
-    public event Action AllCoroutinesStopped;
 }

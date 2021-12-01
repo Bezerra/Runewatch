@@ -473,6 +473,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                     openedContactPoints[i].ParentRoom.ContactPointOfCreation.
                         transform.GetChild(0).gameObject.SetActive(true);
 
+                    // DESTROY DOOR ON THIS CONTACT POINT ^^^^^^^^^
+
                     // Destroys that corridor/stairs and removes its contact point from the list
                     Destroy(openedContactPoints[i].ParentRoom.gameObject);
                     openedContactPoints.Remove(openedContactPoints[i]);

@@ -12,6 +12,10 @@ public class LevelPieceGameProgressControl : MonoBehaviour
 
     private int quantityOfEnemiesSpawned;
     private bool haveEnemiesSpawned;
+    private ContactPoint[] contactPoints;
+
+    //private void Awake() =>
+    //    contactPoints = GetComponentsInChildren<Door>(true);
 
     /// <summary>
     /// Blocks all exits.
@@ -27,6 +31,9 @@ public class LevelPieceGameProgressControl : MonoBehaviour
                 else
                     exitBlock.enabled = false;
             }
+
+            //foreach (ContactPoint contactPoint in contactPoints)
+
         }
     }
 

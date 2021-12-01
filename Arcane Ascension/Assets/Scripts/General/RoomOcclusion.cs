@@ -46,7 +46,6 @@ public class RoomOcclusion : MonoBehaviour
         {
             if (roomOcclusionController.CurrentLevelPieceCollision != thisLevelPiece)
             {
-                Debug.Log("AH");
                 if (roomOcclusionController.CurrentRoomOcclusion != null)
                 {
                     roomOcclusionController.CurrentRoomOcclusion.StopAllCoroutines();
@@ -65,8 +64,9 @@ public class RoomOcclusion : MonoBehaviour
     /// <summary>
     /// Coroutine that enables all surrounding level pieces and disables the rest.
     /// </summary>
-    /// <returns></returns>
-    public IEnumerator ControlChildOccludeesCoroutine()
+    /// <param name="onGameBeggining">Is this the first occlusion in the game.</param>
+    /// <returns>Null.</returns>
+    public IEnumerator ControlChildOccludeesCoroutine(bool onGameBeggining = false)
     {
         // Creates a new lsit with all level pieces
         IList<LevelPiece> generatedRoomPieces = new List<LevelPiece>();
@@ -99,9 +99,17 @@ public class RoomOcclusion : MonoBehaviour
             yield return null;
         }
 
-        OnOcclusionCompleted();
+        OnOcclusionCompleted(thisLevelPiece);
+
+        if (onGameBeggining)
+            OnFirstOcclusionCompleted();
     }
 
-    protected virtual void OnOcclusionCompleted() => OcclusionCompleted?.Invoke();
-    public event Action OcclusionCompleted;
+    protected virtual void OnOcclusionCompleted(LevelPiece currentPiece) => 
+        OcclusionCompleted?.Invoke(currentPiece);
+    public event Action<LevelPiece> OcclusionCompleted;
+
+    protected virtual void OnFirstOcclusionCompleted() =>
+        FirstOcclusionCompleted?.Invoke();
+    public event Action FirstOcclusionCompleted;
 }
