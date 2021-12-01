@@ -33,6 +33,7 @@ public class LevelPieceGameProgressControl : MonoBehaviour
 
                 foreach (ContactPointDoor contactPoint in contactPointsDoors)
                 {
+                    contactPoint.BlockPassage();
                     contactPoint.ClosePassage();
                 }
             }
@@ -45,6 +46,7 @@ public class LevelPieceGameProgressControl : MonoBehaviour
 
                 foreach (ContactPointDoor contactPoint in contactPointsDoors)
                 {
+                    contactPoint.UnblockPassage();
                     contactPoint.OpenPassage();
                 }
             }

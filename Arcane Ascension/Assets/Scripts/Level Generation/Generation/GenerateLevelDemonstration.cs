@@ -1,7 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class responsible for spawning a level generator in scene.
+/// Used for demonstration only.
+/// </summary>
 public class GenerateLevelDemonstration : MonoBehaviour
 {
     [SerializeField] private LevelGenerator levelGenerators;
@@ -14,6 +16,5 @@ public class GenerateLevelDemonstration : MonoBehaviour
 
         levelGeneratedScript.GetValues();
         levelGeneratedScript.StartGeneration();
-        // Else loads saved data (after loading data it will start generation)
     }
 }

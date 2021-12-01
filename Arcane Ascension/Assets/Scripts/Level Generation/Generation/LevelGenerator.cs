@@ -6,6 +6,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using ExtensionMethods;
 
+/// <summary>
+/// Class responsible for generating a level.
+/// </summary>
 public class LevelGenerator : MonoBehaviour, ISaveable
 {
     [Header("Generation Values")]

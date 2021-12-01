@@ -1,51 +1,82 @@
 using UnityEngine;
 
-public class Door : ObjectEventOnInteraction, IPassageBlock, IInteractableWithAnimation
+/// <summary>
+/// Class responsible for containing behaviours of a door.
+/// </summary>
+public class Door : MonoBehaviour, IPassageBlock
 {
     // Components
     private Animator anim;
-    private Vector3 checkForPlayerSize;
+    //private ParticleSystem lockParticles;
 
-    private float lastTimeOpened;
-
+    /// <summary>
+    /// Property with bool to open door animation.
+    /// </summary>
     public bool ExecuteAnimation { get; set; }
 
-    protected override void Awake()
+    /// <summary>
+    /// Can this door open.
+    /// </summary>
+    public bool CanOpen { get; set; }
+
+    private void Awake()
     {
-        base.Awake();
         anim = GetComponent<Animator>();
-        checkForPlayerSize = new Vector3(2, 5, 2);
+        //lockParticles = GetComponentInChildren<ParticleSystem>();
     }
 
-    private void Update()
-    {
+    private void Start() =>
+        CanOpen = true;
+
+    private void Update() =>
         anim.SetBool("Execute", ExecuteAnimation);
 
-        if (ExecuteAnimation)
-        {
-            if (Time.time - lastTimeOpened > 2f)
-            {
-                lastTimeOpened = Time.time;
-                Close();
-            }
-        }
-    }
-
+    /// <summary>
+    /// Opens door if possible.
+    /// </summary>
     public void Open()
     {
-        ExecuteAnimation = true;
-        lastTimeOpened = Time.time;
+        if (CanOpen)
+            ExecuteAnimation = true;
     }
 
+    /// <summary>
+    /// Closes door.
+    /// </summary>
     public void Close()
     {
-        Collider[] playerHit = Physics.OverlapBox(
-            transform.position, checkForPlayerSize, 
-            Quaternion.identity, Layers.PlayerNormalAndInvisibleLayer);
-        Debug.Log(playerHit.Length);
-        if (playerHit.Length == 0)
-        {
-            ExecuteAnimation = false;
-        }
+        ExecuteAnimation = false;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.layer == Layers.PlayerLayerNum ||
+            other.gameObject.layer == Layers.InvisiblePlayerLayerNum)
+            Open();
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == Layers.PlayerLayerNum ||
+            other.gameObject.layer == Layers.InvisiblePlayerLayerNum)
+            Close();
+    }
+
+    /// <summary>
+    /// Blocks this passage.
+    /// </summary>
+    public void BlockPassage()
+    {
+        CanOpen = false;
+        //lockParticles.Play();
+    }
+
+    /// <summary>
+    /// Unblocks this passage.
+    /// </summary>
+    public void UnblockPassage()
+    {
+        CanOpen = true;
+        //lockParticles.Stop();
     }
 }

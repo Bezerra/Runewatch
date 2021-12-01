@@ -51,9 +51,6 @@ public class RoomOcclusion : MonoBehaviour
                     roomOcclusionController.CurrentRoomOcclusion.StopAllCoroutines();
                 }
 
-                // Closes all passages
-                StartCoroutine(thisLevelPiece.ClosePassagesCoroutine());
-
                 // Resets if coroutine is already running
                 this.StartCoroutineWithReset(ref controlChildOccludeesCoroutine,
                     ControlChildOccludeesCoroutine());

@@ -123,26 +123,6 @@ public class LevelPiece : MonoBehaviour
     }
 
     /// <summary>
-    /// Closes passages for current room and connected rooms.
-    /// </summary>
-    /// <returns></returns>
-    public IEnumerator ClosePassagesCoroutine()
-    {
-        for (int i = 0; i < ConnectedPieces.Count; i++)
-        {
-            for (int j = 0; j < ConnectedPieces[i].ContactPointsDoors.Count; j++)
-            {
-                ConnectedPieces[i].ContactPointsDoors[j].ClosePassage();
-                yield return null;
-            }
-        }
-        for (int i = 0; i < ContactPointsDoors.Count; i++)
-        {
-            ContactPointsDoors[i].ClosePassage();
-        }
-    }
-
-    /// <summary>
     /// Disables occludees gameobjects.
     /// </summary>
     /// <returns>Null.</returns>
