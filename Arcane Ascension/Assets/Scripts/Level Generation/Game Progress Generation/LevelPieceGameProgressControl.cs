@@ -12,10 +12,18 @@ public class LevelPieceGameProgressControl : MonoBehaviour
 
     private int quantityOfEnemiesSpawned;
     private bool haveEnemiesSpawned;
-    private ContactPoint[] contactPoints;
+    private ContactPointDoor[] contactPointsDoors;
 
     private void Awake() =>
-        contactPoints = GetComponentsInChildren<ContactPoint>();
+        contactPointsDoors = GetComponentsInChildren<ContactPointDoor>();
+
+    private void Start()
+    {
+        foreach (ContactPointDoor contactPoint in contactPointsDoors)
+        {
+            contactPoint.OpenPassage();
+        }
+    }
 
     /// <summary>
     /// Blocks all exits.
@@ -32,8 +40,10 @@ public class LevelPieceGameProgressControl : MonoBehaviour
                     exitBlock.enabled = false;
             }
 
-            //foreach (ContactPoint contactPoint in contactPoints)
-
+            foreach (ContactPointDoor contactPoint in contactPointsDoors)
+            {
+                contactPoint.ClosePassage();
+            }
         }
     }
 
