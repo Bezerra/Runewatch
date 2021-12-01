@@ -177,7 +177,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             startingRoomContactPoint.Close();
             // Gets the wall on top of this open contact point and deactivates it
             if (initialCorridorContactPoint.transform.childCount > 0)
-                initialCorridorContactPoint.transform.GetChild(0).gameObject.SetActive(false);
+                initialCorridorContactPoint.transform.
+                    GetComponentInChildren<ContactPointWall>().gameObject.SetActive(false);
             // Sets this piece as a child of the piece that created it
             startingRoomContactPoint.ParentRoom.ConnectedPieces.Add(initialCorridor);
 
@@ -471,9 +472,11 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                     // Gets the connectected contact point of this piece and
                     // activates its wall
                     openedContactPoints[i].ParentRoom.ContactPointOfCreation.
-                        transform.GetChild(0).gameObject.SetActive(true);
+                        GetComponentInChildren<ContactPointWall>(true).gameObject.SetActive(true);
 
-                    // DESTROY DOOR ON THIS CONTACT POINT ^^^^^^^^^
+                    // Destroys the door that was on top of this point (only the wall will remain)
+                    Destroy(openedContactPoints[i].ParentRoom.ContactPointOfCreation.
+                        GetComponentInChildren<ContactPointDoor>(true).gameObject);
 
                     // Destroys that corridor/stairs and removes its contact point from the list
                     Destroy(openedContactPoints[i].ParentRoom.gameObject);
@@ -481,6 +484,10 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                 }
                 else if (openedContactPoints[i].ParentRoom.Type == PieceType.Room)
                 {
+                    // Destroys the door that was on top of this point (only the wall will remain)
+                    Destroy(openedContactPoints[i].
+                        GetComponentInChildren<ContactPointDoor>(true).gameObject);
+
                     openedContactPoints[i].Close();
                     openedContactPoints.Remove(openedContactPoints[i]);
                 }
@@ -727,13 +734,15 @@ public class LevelGenerator : MonoBehaviour, ISaveable
 
             // Gets the wall on top of this open contact point and deactivates it
             if (openedContactPoints[index].transform.childCount > 0)
-                openedContactPoints[index].transform.GetChild(0).gameObject.SetActive(false);
+                openedContactPoints[index].transform.GetComponentInChildren<ContactPointWall>()
+                    .gameObject.SetActive(false);
 
             // Gets the wall on top of current piece to place contact point and deactivates it
             if (pieceToPlace != null)
             {
                 if (pieceContactPoint.transform.childCount > 0)
-                    pieceContactPoint.transform.GetChild(0).gameObject.SetActive(false);
+                    pieceContactPoint.transform.GetComponentInChildren<ContactPointWall>()
+                        .gameObject.SetActive(false);
             }
 
             // Closes point (gizmos to red)

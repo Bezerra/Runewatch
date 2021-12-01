@@ -14,8 +14,8 @@ public class LevelPieceGameProgressControl : MonoBehaviour
     private bool haveEnemiesSpawned;
     private ContactPoint[] contactPoints;
 
-    //private void Awake() =>
-    //    contactPoints = GetComponentsInChildren<Door>(true);
+    private void Awake() =>
+        contactPoints = GetComponentsInChildren<ContactPoint>();
 
     /// <summary>
     /// Blocks all exits.
