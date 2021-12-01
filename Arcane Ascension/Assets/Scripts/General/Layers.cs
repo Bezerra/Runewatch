@@ -33,6 +33,7 @@ public class Layers : MonoBehaviour
     [SerializeField] private LayerMask interectableLayer;
     [SerializeField] private int roomProgressLayerNum;
     [SerializeField] private int invisiblePlayerLayerNum;
+    [SerializeField] private LayerMask playerNormalAndInvisibleLayer;
 
     public static LayerMask AllExceptPlayerAndEnemy => instance.allExceptPlayerAndEnemy;
     public static LayerMask EnemyWithWalls => instance.enemyWithWalls;
@@ -60,6 +61,7 @@ public class Layers : MonoBehaviour
     public static LayerMask InterectableLayer => instance.interectableLayer;
     public static int RoomProgressLayerNum => instance.roomProgressLayerNum;
     public static int InvisiblePlayerLayerNum => instance.invisiblePlayerLayerNum;
+    public static LayerMask PlayerNormalAndInvisibleLayer => instance.playerNormalAndInvisibleLayer;
 
     private void Awake() =>
         instance = this;

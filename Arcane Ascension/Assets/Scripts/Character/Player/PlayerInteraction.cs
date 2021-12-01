@@ -19,7 +19,6 @@ public class PlayerInteraction : MonoBehaviour
     private PlayerInputCustom input;
     private float rayLength;
 
-
     private void Awake()
     {
         rayLength = GetComponent<Player>().Values.DefaultInteractionRayLength;
