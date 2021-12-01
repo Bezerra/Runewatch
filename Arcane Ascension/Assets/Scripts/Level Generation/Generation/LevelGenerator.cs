@@ -218,28 +218,60 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                     // If this point is in a room
                     if (openedContactPoints[i].ParentRoom.Type == PieceType.Room)
                     {
-                        // Creates a corridor/stairs
-                        pieceToPlace = Instantiate(corridors[random.Next(0, corridors.Length)]);
-                        pieceContactPoint = pieceToPlace.ContactPoints[
-                            random.Next(0, pieceToPlace.ContactPoints.Length)];
+                        // For all possible corridors in a random order
+                        corridors.Shuffle(random);
+                        int loopIndex = 0;
 
-                        // Skips incompatible pieces
-                        if (openedContactPoints[i].IncompatiblePieces.Contains(
-                            pieceToPlace.ConcreteType))
+                        // While this loop doesn't run all corridors, it will keep looping
+                        // until it finds a corridor that's able to fit
+                        do
                         {
-                            Destroy(pieceToPlace.gameObject);
+                            pieceToPlace = null;
+
+                            // For all corridors in that random order
+                            for (int j = 0; j < corridors.Length; j++)
+                            {
+                                // Skips incompatible pieces
+                                if (openedContactPoints[i].IncompatiblePieces.Contains(
+                                    corridors[j].ConcreteType))
+                                {
+                                    loopIndex++;
+                                    continue;
+                                }
+
+                                // Creates new piece
+                                pieceToPlace = Instantiate(corridors[j]);
+                                pieceContactPoint = pieceToPlace.ContactPoints[
+                                    random.Next(0, pieceToPlace.ContactPoints.Length)];
+
+                                // Tries to set it
+                                RotateAndSetPiece(pieceToPlace, pieceContactPoint, openedContactPoints[i]);
+
+                                yield return yi;
+                                break;
+                            }
+
+                            loopIndex++;
+
+                            // If loop reaches corridor's max size, it will break this loop
+                            if (loopIndex == corridors.Length)
+                                break;
+
+                            // Else
+                        // If that piece is not valid, it will try another piece
+                        } while (IsPieceValid(pieceToPlace, random) == false);
+
+                        // If it didn't find any piece for this contact point, skils the point
+                        if (pieceToPlace == null)
                             continue;
-                        }
 
-                        RotateAndSetPiece(pieceToPlace, pieceContactPoint, openedContactPoints[i]);
-
-                        yield return yi;
-
-                        ValidatePiece(pieceToPlace, pieceContactPoint, false, openedContactPoints, i, levelParent, random);
+                        // Open/Close/Remove/Add points logic happens here
+                        ValidatePiece(pieceToPlace, pieceContactPoint, false, 
+                            openedContactPoints, i, levelParent, random);
                     }
 
-                    // This should be and else if, but if it's changed to else if, it's bugged idkwhy
-                    // If it's a corridor/stairs
+                    // This should be and else if, but if it's changed to else if, it's bugged.....
+                    // If it's a corridor
                     if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor)
                     {
                         // Creates rooms depending on their weight
@@ -340,11 +372,11 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                 {
                     bool finalCorridorCreated = false;
 
-                    // For all possible corridors
-                    LevelPiece[] randomCorridors = corridors.OrderBy(i => Guid.NewGuid()).ToArray();
+                    // For all possible corridors in a random order
+                    corridors.Shuffle(random);
 
                     // For all rooms
-                    for (int j = 0; j < randomCorridors.Length; j++)
+                    for (int j = 0; j < corridors.Length; j++)
                     {
                         // Creates a corridor/stairs
                         corridorToPlace = Instantiate(corridors[j]);
