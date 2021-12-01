@@ -10,6 +10,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
 {
     [Header("Generation Values")]
     [SerializeField] private YieldType                              yieldType = YieldType.FixedUpdate;
+    [SerializeField] private bool                                   occludeAndSpawnPlayer = true;
     [SerializeField] private bool                                   randomSeed;
     [Range(-200000000, 200000000)] [SerializeField] private int     seed = 0;
     [Header("Generation Parameters")][SerializeField] private bool  allRandomGenerationParameters;
@@ -498,7 +499,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         Debug.Log("Took " + timeOfGeneration + " seconds to generate, with seed " + seed +
             " and number of loops of " + numberOfLoops);
 
-        OnEndedGeneration();
+        if (occludeAndSpawnPlayer)
+            OnEndedGeneration();
     }
 
     /// <summary>
