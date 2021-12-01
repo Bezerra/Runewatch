@@ -32,20 +32,7 @@ public class LevelPiece : MonoBehaviour
 
     private void OnDisable() =>
         levelGenerator.EndedGeneration -= GetchildOccludees;
-
-    private void GetchildOccludees()
-    {
-        childOccludees = GetComponentsInChildren<Transform>().
-            Where(i => i.CompareTag("ChildOccludee")).ToArray();
-
-        for (int i = 0; i < contactPoints.Length; i++)
-        {
-            if (contactPoints[i].gameObject.TryGetComponentInChildrenFirstGen(out ContactPointDoor cpDoor))
-                ContactPointsDoors.Add(cpDoor);
-        }
-    }
-        
-
+  
     private Transform[] childOccludees;
 
     /// <summary>
@@ -102,6 +89,18 @@ public class LevelPiece : MonoBehaviour
             
             }
             return 0;
+        }
+    }
+
+    private void GetchildOccludees()
+    {
+        childOccludees = GetComponentsInChildren<Transform>().
+            Where(i => i.CompareTag("ChildOccludee")).ToArray();
+
+        for (int i = 0; i < contactPoints.Length; i++)
+        {
+            if (contactPoints[i].gameObject.TryGetComponentInChildrenFirstGen(out ContactPointDoor cpDoor))
+                ContactPointsDoors.Add(cpDoor);
         }
     }
 

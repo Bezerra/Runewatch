@@ -8,6 +8,7 @@ public class MinimapIcon : MonoBehaviour
 {
     [SerializeField] private MinimapIconsSO allIcons;
     [SerializeField] private MinimapIconType iconType;
+    [SerializeField] private bool disableOnStart;
 
     private Image iconImage;
     private RectTransform rectTransform;
@@ -30,5 +31,11 @@ public class MinimapIcon : MonoBehaviour
                 canvas.sortingOrder = iconInfo.CanvasOrder;
             }
         }
+    }
+
+    private void Start()
+    {
+        if (disableOnStart)
+            gameObject.transform.parent.gameObject.SetActive(false);
     }
 }

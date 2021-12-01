@@ -3,16 +3,31 @@ using UnityEngine;
 
 public class ContactPoint : MonoBehaviour
 {
+    [SerializeField] private PieceConcreteType[] incompatiblePieceConcreteTypes;
+    public ICollection<PieceConcreteType> IncompatiblePieces { get; set; }
+
     /// <summary>
     /// Parent room of this contact point.
     /// </summary>
     public LevelPiece ParentRoom { get; private set; }
 
+    /// <summary>
+    /// Room this contact point created.
+    /// </summary>
+    public LevelPiece OriginatedRoom { get; set; }
+
     private PointState state;
+    private enum PointState { Opened, Closed, }
 
-    [SerializeField] private PieceConcreteType[] incompatiblePieceConcreteTypes;
+    /// <summary>
+    /// Sets contact point gizmos to green.
+    /// </summary>
+    public void Open() => state = PointState.Opened;
 
-    public ICollection<PieceConcreteType> IncompatiblePieces { get; set; }
+    /// <summary>
+    /// Sets contact point gizmos to red.
+    /// </summary>
+    public void Close() => state = PointState.Closed;
 
     private void Awake()
     {
@@ -25,18 +40,6 @@ public class ContactPoint : MonoBehaviour
                 IncompatiblePieces.Add(piece);
         }
     }
-
-    /// <summary>
-    /// Sets contact point gizmos to green.
-    /// </summary>
-    public void Open() => state = PointState.Opened;
-
-    /// <summary>
-    /// Sets contact point gizmos to red.
-    /// </summary>
-    public void Close() => state = PointState.Closed;
-
-    private enum PointState { Opened, Closed, }
 
     private void OnDrawGizmos()
     {

@@ -24,9 +24,9 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     [Header("Generation Parameters")]
     [Tooltip("Sets all generation parameters to a random value (inside their values)")]
     [SerializeField] private bool                                   allRandomGenerationParameters;
-    [Tooltip("Horizontal size of the level")]
+    [Tooltip("Maximum horizontal size of the level")]
     [Range(75, 500)] [SerializeField] private int                   horizontalMaximumLevelSize;
-    [Tooltip("Forward size of the level")]
+    [Tooltip("Maximum forward size of the level")]
     [Range(75, 500)] [SerializeField] private int                   forwardMaximumLevelSize;
     [Tooltip("Sets a random minimum number of rooms for each generation(inside its limits)")]
     [SerializeField] private bool                                   randomMinimumNumberOfRooms;
@@ -767,6 +767,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             openedContactPoints[index].Close();
             // Sets this piece connected contact point to the point that it just connected
             pieceToPlace.ContactPointOfCreation = openedContactPoints[index];
+            // Sets the opened contact point originated room as this piece
+            openedContactPoints[index].OriginatedRoom = pieceToPlace;
             // Adds this piece to the connected point parent room connected pieces
             openedContactPoints[index].ParentRoom.ConnectedPieces.Add(pieceToPlace);
             // Adds the connected point parent room to this piece connected pieces
