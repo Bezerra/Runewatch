@@ -38,6 +38,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     [Range(12, 15)] [SerializeField] private int                    maximumNumberOfRooms;
 
     [Header("Level Pieces")]
+    [Tooltip("Empty room. Serves as base of creating to starting piece and originated piece of boss room")]
+    [SerializeField] private LevelPiece     ghostRoomPiece;
     [Tooltip("Starting piece of generation")]
     [SerializeField] private LevelPiece[]   startingPieces;
     [Tooltip("Final piece of generation")]
@@ -176,12 +178,16 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             allRooms = new List<LevelPiece>();
 
             // Creates and places first corridor
+            LevelPiece ghostRoom = Instantiate(ghostRoomPiece);
+            ghostRoom.transform.parent = levelParent.transform;
+
             LevelPiece startingRoomPiece = Instantiate(startingPieces[
                 random.Next(0, startingPieces.Length)], Vector3.zero, Quaternion.identity);
             ContactPoint startingRoomContactPoint = 
                 startingRoomPiece.ContactPoints[random.Next(0, startingRoomPiece.ContactPoints.Length)];
             startingRoomPiece.transform.parent = levelParent.transform;
             openedContactPoints.Add(startingRoomContactPoint);
+            startingRoomPiece.ContactPointOfCreation = ghostRoom.ContactPoints[0];
             ////////////////////////////////////////////
 
             // Creates first corridor
@@ -359,6 +365,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                             bossRoomPiece, bossRoomContactPoint, true, 
                             openedContactPoints, i, levelParent, random);
 
+                        bossRoomPiece.ContactPoints[0].OriginatedRoom = ghostRoom;
+
                         bossRoomSpawned = true;
 
                         break;
@@ -437,6 +445,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                             ValidatePiece(
                                 bossRoomPiece, bossRoomContactPoint, true, 
                                 openedContactPoints, openedContactPoints.Count - 1, levelParent, random);
+
+                            bossRoomPiece.ContactPoints[0].OriginatedRoom = ghostRoom;
 
                             bossRoomSpawned = true;
 

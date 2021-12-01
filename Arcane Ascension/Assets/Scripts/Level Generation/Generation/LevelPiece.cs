@@ -122,6 +122,11 @@ public class LevelPiece : MonoBehaviour
 
             yield return null;
         }
+
+        for (int i = 0; i < ContactPointsDoors.Count; i++)
+        {
+            ContactPointsDoors[i].LevelLoaded();
+        }
     }
 
     /// <summary>
@@ -138,6 +143,11 @@ public class LevelPiece : MonoBehaviour
             }
 
             yield return null;
+        }
+
+        for (int i = 0; i < ContactPointsDoors.Count; i++)
+        {
+            ContactPointsDoors[i].LevelNotLoaded();
         }
     }
 }

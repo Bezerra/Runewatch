@@ -9,6 +9,11 @@ public interface IPassageBlock
     bool CanOpen { get; set; }
 
     /// <summary>
+    /// Property to know if the piece behind the door was loaded.
+    /// </summary>
+    bool IsDoorRoomFullyLoaded { get; set; }
+
+    /// <summary>
     /// Opens passage.
     /// </summary>
     void Open();

@@ -29,7 +29,7 @@ public class RoomOcclusionController : MonoBehaviour
     /// <summary>
     /// Adds a room occlusion to a list and subscribes this class to OcclusionCompleted.
     /// </summary>
-    /// <param name="roomOcclusion"></param>
+    /// <param name="roomOcclusion">Room occlusion to add.</param>
     public void AddRoomOcclusion(RoomOcclusion roomOcclusion)
     {
         RoomsOcclusion.Add(roomOcclusion);

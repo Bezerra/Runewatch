@@ -19,6 +19,11 @@ public class Door : MonoBehaviour, IPassageBlock
     /// </summary>
     public bool CanOpen { get; set; }
 
+    /// <summary>
+    /// Property to know if the room behind this door is fully loaded.
+    /// </summary>
+    public bool IsDoorRoomFullyLoaded { get; set; }
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -36,7 +41,7 @@ public class Door : MonoBehaviour, IPassageBlock
     /// </summary>
     public void Open()
     {
-        if (CanOpen)
+        if (CanOpen && IsDoorRoomFullyLoaded)
             ExecuteAnimation = true;
     }
 

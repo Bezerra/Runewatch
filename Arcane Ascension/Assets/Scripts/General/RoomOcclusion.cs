@@ -102,13 +102,23 @@ public class RoomOcclusion : MonoBehaviour
         OnOcclusionCompleted(thisLevelPiece);
 
         if (onGameBeggining)
+        {
+            // Invokes first occlusion event
             OnFirstOcclusionCompleted();
+        }
     }
 
+    /// <summary>
+    /// After each occlusion is completed.
+    /// </summary>
+    /// <param name="currentPiece"></param>
     protected virtual void OnOcclusionCompleted(LevelPiece currentPiece) => 
         OcclusionCompleted?.Invoke(currentPiece);
     public event Action<LevelPiece> OcclusionCompleted;
 
+    /// <summary>
+    /// After first occuslion is completed.
+    /// </summary>
     protected virtual void OnFirstOcclusionCompleted() =>
         FirstOcclusionCompleted?.Invoke();
     public event Action FirstOcclusionCompleted;
