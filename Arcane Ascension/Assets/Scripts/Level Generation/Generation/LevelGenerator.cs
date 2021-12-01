@@ -12,24 +12,42 @@ using ExtensionMethods;
 public class LevelGenerator : MonoBehaviour, ISaveable
 {
     [Header("Generation Values")]
+    [Tooltip("FixedUpdate will require more performance but it's faster")]
     [SerializeField] private YieldType                              yieldType = YieldType.FixedUpdate;
+    [Tooltip("Occlues all room non first gen. pieces and spawns the player")]
     [SerializeField] private bool                                   occludeAndSpawnPlayer = true;
+    [Tooltip("Uses a random seed on initial creation")]
     [SerializeField] private bool                                   randomSeed;
+    [Tooltip("Seed used on initial creation")]
     [Range(-200000000, 200000000)] [SerializeField] private int     seed = 0;
-    [Header("Generation Parameters")][SerializeField] private bool  allRandomGenerationParameters;
+    
+    [Header("Generation Parameters")]
+    [Tooltip("Sets all generation parameters to a random value (inside their values)")]
+    [SerializeField] private bool                                   allRandomGenerationParameters;
+    [Tooltip("Horizontal size of the level")]
     [Range(75, 500)] [SerializeField] private int                   horizontalMaximumLevelSize;
+    [Tooltip("Forward size of the level")]
     [Range(75, 500)] [SerializeField] private int                   forwardMaximumLevelSize;
+    [Tooltip("Sets a random minimum number of rooms for each generation(inside its limits)")]
     [SerializeField] private bool                                   randomMinimumNumberOfRooms;
+    [Tooltip("Minimum number of rooms on current generation")]
     [Range(7, 9)] [SerializeField] private int                      minimumNumberOfRooms;
+    [Tooltip("Sets a random maximum number of rooms for each generation(inside its limits)")]
     [SerializeField] private bool                                   randomMaximumNumberOfRooms;
+    [Tooltip("Maximum number of rooms on current generation")]
     [Range(12, 15)] [SerializeField] private int                    maximumNumberOfRooms;
 
     [Header("Level Pieces")]
-    [SerializeField] private LevelPiece[]     startingPieces;
+    [Tooltip("Starting piece of generation")]
+    [SerializeField] private LevelPiece[]   startingPieces;
+    [Tooltip("Final piece of generation")]
     [SerializeField] private LevelPiece     bossRoom;
+    [Tooltip("Corridors and stairs only")]
     [SerializeField] private LevelPiece[]   corridors;
+    [Tooltip("Rooms only")]
     [SerializeField] private LevelPiece[]   rooms;
-    [SerializeField] private LayerMask  roomColliderLayer;
+    [Tooltip("Layer to check if a room is colliding with another")]
+    [SerializeField] private LayerMask      roomColliderLayer;
 
     // Rooms lists
     private IList<LevelPiece> allRooms;
