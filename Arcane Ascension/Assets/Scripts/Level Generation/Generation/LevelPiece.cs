@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using ExtensionMethods;
+using Sirenix.OdinInspector;
 
 /// <summary>
 /// Class used by every level piece.
 /// </summary>
 public class LevelPiece : MonoBehaviour
 {
+    [EnumToggleButtons]
     [SerializeField] private PieceType type;
+    [EnumToggleButtons]
     [SerializeField] private PieceConcreteType concreteType;
     [SerializeField] private ContactPoint[] contactPoints;
     [SerializeField] private GameObject boxCollidersParent;

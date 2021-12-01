@@ -240,8 +240,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
 
                     // This should be and else if, but if it's changed to else if, it's bugged idkwhy
                     // If it's a corridor/stairs
-                    if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor ||
-                        openedContactPoints[i].ParentRoom.Type == PieceType.Stairs)
+                    if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor)
                     {
                         // Creates rooms depending on their weight
                         pieceToPlace = Instantiate(rooms[random.RandomWeight(roomWeights)]);
@@ -308,8 +307,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             for (int i = 0; i < openedContactPoints.Count; i++)
             {
                 // If it's a corridor
-                if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor ||
-                    openedContactPoints[i].ParentRoom.Type == PieceType.Stairs)
+                if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor)
                 {
                     // Sets and rotates piece
                     RotateAndSetPiece(bossRoomPiece, bossRoomContactPoint, openedContactPoints[i]);
@@ -465,8 +463,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             {
                 yield return yi;
 
-                if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor ||
-                    openedContactPoints[i].ParentRoom.Type == PieceType.Stairs)
+                if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor)
                 {
                     // Gets the connectected contact point of this piece and
                     // activates its wall
