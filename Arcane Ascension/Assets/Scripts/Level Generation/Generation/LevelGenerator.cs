@@ -159,38 +159,15 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             ContactPoint startingRoomContactPoint = 
                 startingRoomPiece.ContactPoints[random.Next(0, startingRoomPiece.ContactPoints.Length)];
             startingRoomPiece.transform.parent = levelParent.transform;
+            openedContactPoints.Add(startingRoomContactPoint);
             ////////////////////////////////////////////
 
             // Creates first corridor
             LevelPiece initialCorridor = Instantiate(corridors[random.Next(0, corridors.Length)]);
             ContactPoint initialCorridorContactPoint = 
                 initialCorridor.ContactPoints[random.Next(0, initialCorridor.ContactPoints.Length)];
-            initialCorridor.ContactPointOfCreation = startingRoomContactPoint;
-            initialCorridor.ConnectedPieces.Add(startingRoomPiece);
-            startingRoomPiece.ConnectedPieces.Add(initialCorridor);
-            initialCorridor.transform.parent = levelParent.transform;
-            ////////////////////////////////////////////
-
-            // Places first corridor and closes its contact points
             RotateAndSetPiece(initialCorridor, initialCorridorContactPoint, startingRoomContactPoint);
-            initialCorridorContactPoint.Close();
-            startingRoomContactPoint.Close();
-            // Gets the wall on top of this open contact point and deactivates it
-            if (initialCorridorContactPoint.transform.childCount > 0)
-                initialCorridorContactPoint.transform.
-                    GetComponentInChildren<ContactPointWall>().gameObject.SetActive(false);
-            // Sets this piece as a child of the piece that created it
-            startingRoomContactPoint.ParentRoom.ConnectedPieces.Add(initialCorridor);
-
-            // Adds corridor open points to open points list
-            foreach (ContactPoint newContactPoint in initialCorridor.ContactPoints)
-            {
-                if (newContactPoint.transform.position != initialCorridorContactPoint.transform.position)
-                {
-                    newContactPoint.Open();
-                    openedContactPoints.Add(newContactPoint);
-                }
-            }
+            ValidatePiece(initialCorridor, initialCorridorContactPoint, false, openedContactPoints, 0, levelParent, random);
             #endregion
 
             // Level creation loop
@@ -322,7 +299,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                         print("Valid level generation.");
 
                         ValidatePiece(
-                            bossRoomPiece, bossRoomContactPoint, false, 
+                            bossRoomPiece, bossRoomContactPoint, true, 
                             openedContactPoints, i, levelParent, random);
 
                         bossRoomSpawned = true;
@@ -401,7 +378,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                             print("Valid level generation.");
 
                             ValidatePiece(
-                            bossRoomPiece, bossRoomContactPoint, false, 
+                                bossRoomPiece, bossRoomContactPoint, true, 
                                 openedContactPoints, openedContactPoints.Count - 1, levelParent, random);
 
                             bossRoomSpawned = true;
@@ -717,12 +694,12 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// This method also deactivates pre activated walls that are on top of contact points.
     /// <param name="pieceToPlace">Piece to place.</param>
     /// <param name="pieceContactPoint">Piece contact point.</param>
-    /// <param name="addToAllRooms">Bool that determines if this piece should be add to all rooms list.</param>
+    /// <param name="isRoomPiece">Bool that determines if this piece should be add to all rooms list.</param>
     /// <param name="openedContactPoints">List with all opened contact points.</param>
     /// <param name="index">Index of opened contact points list.</param>
     /// <param name="levelParent">Gameobject parent of all level pieces.</param>
     /// <param name="random">Instance of Random.</param>
-    private void ValidatePiece(LevelPiece pieceToPlace, ContactPoint pieceContactPoint, bool addToAllRooms,
+    private void ValidatePiece(LevelPiece pieceToPlace, ContactPoint pieceContactPoint, bool isRoomPiece,
         IList<ContactPoint> openedContactPoints, int index, GameObject levelParent, System.Random random)
     {
         // Checks if the last piece is valid
@@ -732,17 +709,35 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             // Closes this piece contact point
             pieceContactPoint.Close();
 
-            // Gets the wall on top of this open contact point and deactivates it
-            if (openedContactPoints[index].transform.childCount > 0)
-                openedContactPoints[index].transform.GetComponentInChildren<ContactPointWall>()
-                    .gameObject.SetActive(false);
-
-            // Gets the wall on top of current piece to place contact point and deactivates it
-            if (pieceToPlace != null)
+            // For rooms only
+            if (isRoomPiece)
             {
-                if (pieceContactPoint.transform.childCount > 0)
-                    pieceContactPoint.transform.GetComponentInChildren<ContactPointWall>()
-                        .gameObject.SetActive(false);
+                // A variable to have control of all rooms (contains all spawned rooms)
+                allRooms.Add(pieceToPlace);
+
+                // Gets the wall on top of current piece to place contact point and deactivates it
+                // Only needs this for rooms, because corridors will always destroy walls
+                pieceContactPoint.GetComponentInChildren<ContactPointWall>().
+                    gameObject.SetActive(false);
+            }
+            // For corridors only
+            else
+            {
+                // If it's a corridor, destroys its walls and doors on contact points (they're not needed)
+
+                // Gets the wall on top of this open contact point and deactivates it
+                // Sets active to false because the contact point if it's a room, it can set it to true later
+                openedContactPoints[index].GetComponentInChildren<ContactPointWall>(true).
+                    gameObject.SetActive(false);
+
+                foreach (ContactPoint cp in pieceToPlace.ContactPoints)
+                {
+                    // Destroys the wall that's on top of this point
+                    Destroy(cp.GetComponentInChildren<ContactPointWall>(true).gameObject);
+
+                    // Destroys the door that's on top of this point
+                    Destroy(cp.GetComponentInChildren<ContactPointDoor>(true).gameObject);
+                }
             }
 
             // Closes point (gizmos to red)
@@ -756,11 +751,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             // Removes the contact point that the piece just connected to from opened contact points. 
             openedContactPoints.Remove(openedContactPoints[index]);
             // Sets transform parent (to be organized)
-            pieceToPlace.transform.parent = levelParent.transform;
-
-            // A variable to have control of all rooms (contains all spawned rooms)
-            if (addToAllRooms)
-                allRooms.Add(pieceToPlace);
+            pieceToPlace.transform.parent = levelParent.transform;   
 
             // Adds NEW contact points to open contact point list
             foreach (ContactPoint newContactPoint in pieceToPlace.ContactPoints)

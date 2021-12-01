@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using ExtensionMethods;
 
 /// <summary>
 /// Class used by every level piece.
@@ -17,13 +18,13 @@ public class LevelPiece : MonoBehaviour
 
     // Components
     private LevelGenerator levelGenerator;
-    private YieldInstruction wffu;
+    public IList<ContactPointDoor> ContactPointsDoors { get; private set; }
 
     private void Awake()
     {
         ConnectedPieces = new List<LevelPiece>();
         levelGenerator = FindObjectOfType<LevelGenerator>();
-        wffu = new WaitForFixedUpdate();
+        ContactPointsDoors = new List<ContactPointDoor>();
     }
 
     private void OnEnable() =>
@@ -32,9 +33,18 @@ public class LevelPiece : MonoBehaviour
     private void OnDisable() =>
         levelGenerator.EndedGeneration -= GetchildOccludees;
 
-    private void GetchildOccludees() =>
+    private void GetchildOccludees()
+    {
         childOccludees = GetComponentsInChildren<Transform>().
-        Where(i => i.CompareTag("ChildOccludee")).ToArray();
+            Where(i => i.CompareTag("ChildOccludee")).ToArray();
+
+        for (int i = 0; i < contactPoints.Length; i++)
+        {
+            if (contactPoints[i].gameObject.TryGetComponentInChildrenFirstGen(out ContactPointDoor cpDoor))
+                ContactPointsDoors.Add(cpDoor);
+        }
+    }
+        
 
     private Transform[] childOccludees;
 
@@ -95,6 +105,10 @@ public class LevelPiece : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Enables occludees gameobjects.
+    /// </summary>
+    /// <returns>Null.</returns>
     public IEnumerator EnableChildOccludeesCoroutine()
     {
         for (int i = 0; i < childOccludees.Length; i++)
@@ -108,6 +122,30 @@ public class LevelPiece : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Closes passages for current room and connected rooms.
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator ClosePassagesCoroutine()
+    {
+        for (int i = 0; i < ConnectedPieces.Count; i++)
+        {
+            for (int j = 0; j < ConnectedPieces[i].ContactPointsDoors.Count; j++)
+            {
+                ConnectedPieces[i].ContactPointsDoors[j].ClosePassage();
+                yield return null;
+            }
+        }
+        for (int i = 0; i < ContactPointsDoors.Count; i++)
+        {
+            ContactPointsDoors[i].ClosePassage();
+        }
+    }
+
+    /// <summary>
+    /// Disables occludees gameobjects.
+    /// </summary>
+    /// <returns>Null.</returns>
     public IEnumerator DisableChildOccludeesCoroutine()
     {
         for (int i = 0; i < childOccludees.Length; i++)

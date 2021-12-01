@@ -1,7 +1,7 @@
 /// <summary>
 /// Interface implemented by IInterectables that use a canvas.
 /// </summary>
-public interface IInterectableWithCanvas
+public interface IInteractableWithCanvas
 {
     /// <summary>
     /// Updates canvas information.

@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for informing this gameobject is a spell.
 /// </summary>
-public class SpellScroll : MonoBehaviour, IDroppedSpell, IInterectableWithSound
+public class SpellScroll : MonoBehaviour, IDroppedSpell, IInteractableWithSound
 {
     [Range(10, 60)][SerializeField] private float timeToDeactivate;
 
