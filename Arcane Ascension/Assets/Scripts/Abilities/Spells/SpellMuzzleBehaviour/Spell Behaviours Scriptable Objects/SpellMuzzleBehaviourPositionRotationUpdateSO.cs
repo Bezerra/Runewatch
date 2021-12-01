@@ -27,6 +27,11 @@ public class SpellMuzzleBehaviourPositionRotationUpdateSO : SpellMuzzleBehaviour
 
     public override void ContinuousFixedUpdateBehaviour(SpellMuzzleBehaviourOneShot parent)
     {
+        // Left blank on purpose
+    }
+
+    public override void ContinuousLateUpdateBehaviour(SpellMuzzleBehaviourOneShot parent)
+    {
         if (parent.Eyes != null)
         {
             if (parent.WhoCast.CommonAttributes.Type == CharacterType.Player)

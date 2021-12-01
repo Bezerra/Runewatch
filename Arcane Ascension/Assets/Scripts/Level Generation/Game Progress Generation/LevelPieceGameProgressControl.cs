@@ -46,8 +46,9 @@ public class LevelPieceGameProgressControl : MonoBehaviour
 
                 foreach (ContactPointDoor contactPoint in contactPointsDoors)
                 {
+                    // Keeps passage closed but unblocks it
+                    contactPoint.ClosePassage();
                     contactPoint.UnblockPassage();
-                    contactPoint.OpenPassage();
                 }
             }
         }

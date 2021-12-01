@@ -52,7 +52,7 @@ public class SpellMuzzleBehaviourOneShot : SpellMuzzleBehaviourAbstract
     }
 
     /// <summary>
-    /// Keeps running on update.
+    /// Keeps running on fixed update.
     /// </summary>
     private void FixedUpdate()
     {
@@ -60,6 +60,18 @@ public class SpellMuzzleBehaviourOneShot : SpellMuzzleBehaviourAbstract
         {
             foreach (SpellMuzzleBehaviourAbstractOneShotSO muzzleBehaviour in Spell.MuzzleBehaviourOneShot)
                 muzzleBehaviour.ContinuousFixedUpdateBehaviour(this);
+        }
+    }
+
+    /// <summary>
+    /// Keeps running on late update.
+    /// </summary>
+    private void LateUpdate()
+    {
+        if (Spell != null)
+        {
+            foreach (SpellMuzzleBehaviourAbstractOneShotSO muzzleBehaviour in Spell.MuzzleBehaviourOneShot)
+                muzzleBehaviour.ContinuousLateUpdateBehaviour(this);
         }
     }
 }

@@ -53,4 +53,9 @@ public class SpellMuzzleBehaviourDisableAfterSecondsSO : SpellMuzzleBehaviourAbs
     {
         // Left blank on purpose
     }
+
+    public override void ContinuousLateUpdateBehaviour(SpellMuzzleBehaviourOneShot parent)
+    {
+        // Left blank on purpose
+    }
 }
