@@ -5,22 +5,36 @@ using UnityEngine;
 /// </summary>
 public class AreaTargetSizeUpdate : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem circle;
-    [SerializeField] private ParticleSystem cilinder;
+    [SerializeField] private ParticleSystem[] circles;
+    [SerializeField] private ParticleSystem[] cylinders;
 
-    ParticleSystem.MainModule circleMain;
-    ParticleSystem.MainModule cilinderMain;
+    ParticleSystem.MainModule[] circleMain;
+    ParticleSystem.MainModule[] cylinderMain;
 
     private void Awake()
     {
-        circleMain = circle.main;
-        cilinderMain = cilinder.main;
+        circleMain = new ParticleSystem.MainModule[circles.Length];
+        cylinderMain = new ParticleSystem.MainModule[cylinders.Length];
+
+        for (int i = 0; i < circles.Length; i++)
+            circleMain[i] = circles[i].main;
+
+        for (int i = 0; i < cylinders.Length; i++)
+            cylinderMain[i] = cylinders[i].main;
     }
 
     public void UpdateAreaTargetSize(float radius)
     {
-        circleMain.startSize = radius * 3;
-        cilinderMain.startSizeX = radius;
-        cilinderMain.startSizeZ = radius;
+        for (int i = 0; i < circleMain.Length; i++)
+        {
+            circleMain[i].startSize = radius * circleMain[i].startSize.constant;
+        }
+
+        for (int i = 0; i < cylinderMain.Length; i++)
+        {
+            cylinderMain[i].startSizeX = radius * cylinderMain[i].startSizeX.constant;
+            cylinderMain[i].startSizeZ = radius * cylinderMain[i].startSizeZ.constant;
+        }
+            
     }
 }
