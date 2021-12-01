@@ -5,7 +5,7 @@ using UnityEngine;
 /// Abstract class for interaction event invokers.
 /// This class is used by objects that have interactions and trigger events.
 /// </summary>
-public abstract class AbstractEventOnInteraction : MonoBehaviour, IInterectable
+public abstract class AbstractEventOnInteraction : MonoBehaviour, IInterectable, IFindPlayer
 {
     [TextArea]
     [SerializeField] protected string notes;
@@ -17,7 +17,17 @@ public abstract class AbstractEventOnInteraction : MonoBehaviour, IInterectable
     protected PlayerInteraction playerInteraction;
 
     protected virtual void Awake() =>
-        playerInteraction = FindObjectOfType<PlayerInteraction>();
+        FindPlayer();
 
     public abstract void Execute();
+
+    public void FindPlayer()
+    {
+        playerInteraction = FindObjectOfType<PlayerInteraction>();
+    }
+
+    public void PlayerLost()
+    {
+        playerInteraction = FindObjectOfType<PlayerInteraction>();
+    }
 }

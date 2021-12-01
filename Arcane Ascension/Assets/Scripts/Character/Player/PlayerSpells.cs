@@ -288,7 +288,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
         // Updates dropped spell information with the dropped spell
         if (spellDropped.TryGetComponent(out IDroppedSpell droppedSpell))
             droppedSpell.DroppedSpell = spellToDrop;
-        if (spellDropped.TryGetComponent(out IInterectableWithCanvas interectableCanvas))
+        if (spellDropped.TryGetComponent(out IInteractableWithCanvas interectableCanvas))
             interectableCanvas.UpdateInformation(spellToDrop.Name);
     }
 

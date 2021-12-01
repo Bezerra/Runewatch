@@ -17,14 +17,6 @@ public class LevelPieceGameProgressControl : MonoBehaviour
     private void Awake() =>
         contactPointsDoors = GetComponentsInChildren<ContactPointDoor>();
 
-    private void Start()
-    {
-        foreach (ContactPointDoor contactPoint in contactPointsDoors)
-        {
-            contactPoint.OpenPassage();
-        }
-    }
-
     /// <summary>
     /// Blocks all exits.
     /// </summary>
@@ -32,17 +24,29 @@ public class LevelPieceGameProgressControl : MonoBehaviour
     {
         if (exitBlockers.Length > 0)
         {
-            foreach (BoxCollider exitBlock in exitBlockers)
+            if (condition)
             {
-                if (condition)
+                foreach (BoxCollider exitBlock in exitBlockers)
+                {
                     exitBlock.enabled = true;
-                else
-                    exitBlock.enabled = false;
-            }
+                }
 
-            foreach (ContactPointDoor contactPoint in contactPointsDoors)
+                foreach (ContactPointDoor contactPoint in contactPointsDoors)
+                {
+                    contactPoint.ClosePassage();
+                }
+            }
+            else
             {
-                contactPoint.ClosePassage();
+                foreach (BoxCollider exitBlock in exitBlockers)
+                {
+                    exitBlock.enabled = false;
+                }
+
+                foreach (ContactPointDoor contactPoint in contactPointsDoors)
+                {
+                    contactPoint.OpenPassage();
+                }
             }
         }
     }

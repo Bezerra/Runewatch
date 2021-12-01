@@ -1,7 +1,8 @@
 /// <summary>
-/// Interface implemented by gameobjects that are interectables and play sounds.
+/// Interface implemented by gameobjects that are interectables and play sounds
+/// in the exact moment of interaction.
 /// </summary>
-public interface IInterectableWithSound
+public interface IInteractableWithSound
 {
     /// <summary>
     /// Sound this interectable plays when interected with.

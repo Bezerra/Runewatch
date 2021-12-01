@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Class used by shopkeeper inventory gameobjects that can be interected with and trigger a scriptable object event.
 /// </summary>
-public class ShopkeeperEventOnInteraction : AbstractEventOnInteraction, IInterectable, IInterectableWithSound
+public class ShopkeeperEventOnInteraction : AbstractEventOnInteraction, IInterectable, IInteractableWithSound
 {
     [Header("Sound to be played when interected with")]
     [SerializeField] private LootAndInteractionSoundType lootAndInteractionSoundType;

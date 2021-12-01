@@ -4,7 +4,7 @@ using TMPro;
 /// <summary>
 /// Class responsible for interectables with canvas.
 /// </summary>
-public class InteractionCanvasText : MonoBehaviour, IInterectableWithCanvas
+public class InteractionCanvasText : MonoBehaviour, IInteractableWithCanvas
 {
     private GameObject canvas;
     private TextMeshProUGUI textMeshPro;

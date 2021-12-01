@@ -9,7 +9,7 @@ public class EventPlayInvokerInteractionSoundSO : EventAbstractSO
 {
     public override void Execute(AbstractEventOnInteraction invoker)
     {
-        if (invoker.TryGetComponent<IInterectableWithSound>(out IInterectableWithSound abilityInterectable))
+        if (invoker.TryGetComponent<IInteractableWithSound>(out IInteractableWithSound abilityInterectable))
         {
             LootSoundPoolCreator.Pool.InstantiateFromPool(
                 abilityInterectable.LootAndInteractionSoundType.ToString(), 

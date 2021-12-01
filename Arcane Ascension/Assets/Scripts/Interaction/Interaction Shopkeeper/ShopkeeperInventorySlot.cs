@@ -5,7 +5,7 @@ using TMPro;
 /// <summary>
 /// Class responsible for a shopkeeper slot.
 /// </summary>
-public class ShopkeeperInventorySlot : MonoBehaviour, IInterectableWithCanvas
+public class ShopkeeperInventorySlot : MonoBehaviour, IInteractableWithCanvas
 {
     [SerializeField] private Transform itemModelParent;
 

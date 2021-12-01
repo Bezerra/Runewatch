@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Class used by pickable item gameobjects that can be interected with and trigger a scriptable object event.
 /// </summary>
-public class ItemEventOnInteraction : AbstractEventOnInteraction, IInterectable
+public class ObjectEventOnInteraction : AbstractEventOnInteraction, IInterectable
 {
     /// <summary>
     /// Executes a list of events.
