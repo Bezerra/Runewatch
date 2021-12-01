@@ -201,10 +201,10 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             {
                 roomWeights.Add(rooms[i].RoomWeight);
             }
-            
+
             // Main generation loop.
             // Spawns rooms and corridors and tries to connect them while there are opened contact points
-            while (openedContactPoints.Count > 0 && numberOfCurrentLoop < numberOfLoops)
+            do
             {
                 int openedContacts = openedContactPoints.Count;
 
@@ -215,7 +215,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                     LevelPiece pieceToPlace = null;
                     ContactPoint pieceContactPoint = null;
 
-                    // If this point is in a room
+                    // If this point is a room
                     if (openedContactPoints[i].ParentRoom.Type == PieceType.Room)
                     {
                         // For all possible corridors in a random order
@@ -258,7 +258,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                                 break;
 
                             // Else
-                        // If that piece is not valid, it will try another piece
+                            // If that piece is not valid, it will try another piece
                         } while (IsPieceValid(pieceToPlace, random) == false);
 
                         // If it didn't find any piece for this contact point, skils the point
@@ -266,12 +266,12 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                             continue;
 
                         // Open/Close/Remove/Add points logic happens here
-                        ValidatePiece(pieceToPlace, pieceContactPoint, false, 
+                        ValidatePiece(pieceToPlace, pieceContactPoint, false,
                             openedContactPoints, i, levelParent, random);
                     }
 
                     // This should be and else if, but if it's changed to else if, it's bugged.....
-                    // If it's a corridor
+                    // If the point is a corridor
                     if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor)
                     {
                         // Creates rooms depending on their weight
@@ -294,13 +294,19 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                             pieceToPlace, pieceContactPoint, true, openedContactPoints, i, levelParent, random);
                     }
                 }
-                
+
                 numberOfCurrentLoop++;
-            }
 
-            #region Check if number of rooms is valid
+                // After every loop, if maximum number of rooms exceeds a limit, it breaks the current another
+                if (allRooms.Count > maximumNumberOfRooms)
+                {
+                    break;
+                }
 
-            // After main loop, if minimum or maximum number of rooms exceeds a limit, it starts another loop
+            } while (openedContactPoints.Count > 0 && numberOfCurrentLoop < numberOfLoops);
+
+            // After the main loop is over, if minimum or maximum number of
+            // rooms exceeds a limit, it starts another loop
             if (allRooms.Count < minimumNumberOfRooms || allRooms.Count > maximumNumberOfRooms)
             {
                 if (allRooms.Count < minimumNumberOfRooms) numberOfLoops++;
@@ -318,11 +324,10 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                 continue;
             }
 
-            #endregion
 
             #region Boss Room
-            // Organized a list with contact points by distance
-            openedContactPoints = 
+                // Organized a list with contact points by distance
+                openedContactPoints = 
                 openedContactPoints.OrderByDescending(
                     i => Vector3.Distance(i.transform.position,
                                             startingRoomPiece.transform.position)).ToList();

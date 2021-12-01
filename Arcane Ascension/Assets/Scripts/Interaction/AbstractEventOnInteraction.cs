@@ -17,7 +17,10 @@ public abstract class AbstractEventOnInteraction : MonoBehaviour, IInterectable,
     protected PlayerInteraction playerInteraction;
 
     protected virtual void Awake() =>
-        FindPlayer();
+        playerInteraction = FindObjectOfType<PlayerInteraction>();
+
+    private void OnEnable() =>
+        playerInteraction = FindObjectOfType<PlayerInteraction>();
 
     public abstract void Execute();
 
@@ -28,6 +31,6 @@ public abstract class AbstractEventOnInteraction : MonoBehaviour, IInterectable,
 
     public void PlayerLost()
     {
-        playerInteraction = FindObjectOfType<PlayerInteraction>();
+        playerInteraction = null;
     }
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2843422233167420272}
   - component: {fileID: 40860314454241210}
   - component: {fileID: 696397836}
+  - component: {fileID: 922948831}
   m_Layer: 13
   m_Name: Vase2 - Ignis
   m_TagString: Untagged
@@ -98,6 +99,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   surfaceType: 0
+--- !u!65 &922948831
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986604538573557359}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.60313916, y: 1.2972815, z: 0.60313916}
+  m_Center: {x: 0, y: 0.64864075, z: 0}
 --- !u!1 &7454894648509306014
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,8 +122,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4246492126137378897}
   - component: {fileID: 3461782536039642395}
-  - component: {fileID: 8585736403666896968}
-  m_Layer: 13
+  - component: {fileID: 361437830}
+  m_Layer: 0
   m_Name: Vase2.col
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,8 +152,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7454894648509306014}
   m_Mesh: {fileID: -3153966141355926910, guid: 51c08d5550ebd6d4c8620b6837fd4798, type: 3}
---- !u!64 &8585736403666896968
-MeshCollider:
+--- !u!65 &361437830
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -148,7 +162,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -3153966141355926910, guid: 51c08d5550ebd6d4c8620b6837fd4798, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.65, y: 1.42, z: 0.65}
+  m_Center: {x: 0, y: 0.75, z: 0}
