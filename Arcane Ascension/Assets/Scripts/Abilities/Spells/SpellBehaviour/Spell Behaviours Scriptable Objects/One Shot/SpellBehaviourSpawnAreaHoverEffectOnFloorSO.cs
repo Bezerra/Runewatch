@@ -43,6 +43,9 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
                 parent.AICharacter.CurrentlySelectedSpell.PercentageStoppingTimeTriggerAoESpell &&
                 parent.AreaHoverVFX == null)
             {
+                if (parent.AICharacter.CurrentTarget == null)
+                    return;
+
                 Ray playerFloorPosition = new Ray(
                     parent.AICharacter.CurrentTarget.position, Vector3.down);
 

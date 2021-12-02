@@ -9,8 +9,10 @@ public class PushPlayerBackOnTopOfEnemy : MonoBehaviour
 {
     [SerializeField] private BoxCollider colliderToGrow;
     [SerializeField] private BoxCollider growUntil;
-    private YieldInstruction wffu;
 
+    private Enemy enemy;
+
+    private YieldInstruction wffu;
     private IEnumerator pushPlayerBackCoroutine;
 
     private void Awake()
@@ -18,6 +20,30 @@ public class PushPlayerBackOnTopOfEnemy : MonoBehaviour
         wffu = new WaitForFixedUpdate();
         colliderToGrow.size = new Vector3(0, colliderToGrow.size.y, 0);
         colliderToGrow.enabled = false;
+        enemy = GetComponentInParent<Enemy>();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == Layers.PlayerLayerNum ||
+            collision.gameObject.layer == Layers.InvisiblePlayerLayerNum)
+        {
+            enemy.TouchingPlayerWithBlockCollider = true;
+        }
+    }
+
+    private void Update()
+    {
+        Debug.Log(enemy.TouchingPlayerWithBlockCollider);
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.layer == Layers.PlayerLayerNum ||
+            collision.gameObject.layer == Layers.InvisiblePlayerLayerNum)
+        {
+            enemy.TouchingPlayerWithBlockCollider = false;
+        }
     }
 
     private void OnTriggerEnter(Collider other)

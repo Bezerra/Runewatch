@@ -154,6 +154,11 @@ public class Enemy : Character
     public static int QuantityFighting { get; private set; }
 
     /// <summary>
+    /// Property set to true if enemy is touching the player.
+    /// </summary>
+    public bool TouchingPlayerWithBlockCollider { get; set; }
+
+    /// <summary>
     /// Property with player body transform.
     /// </summary>
     public Transform PlayerBody { get; set; }
