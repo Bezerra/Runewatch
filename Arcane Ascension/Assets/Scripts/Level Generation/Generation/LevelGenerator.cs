@@ -518,6 +518,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         {
             for (int i = openedContactPoints.Count - 1; i >= 0; i--)
             {
+                Debug.Log(i);
                 yield return yi;
 
                 if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor)
