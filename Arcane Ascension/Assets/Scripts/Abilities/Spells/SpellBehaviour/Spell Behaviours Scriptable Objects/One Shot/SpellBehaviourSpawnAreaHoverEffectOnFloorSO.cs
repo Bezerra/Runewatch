@@ -43,6 +43,9 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
                 parent.AICharacter.CurrentlySelectedSpell.PercentageStoppingTimeTriggerAoESpell &&
                 parent.AreaHoverVFX == null)
             {
+                if (parent.AICharacter.CurrentTarget == null)
+                    return;
+
                 Ray playerFloorPosition = new Ray(
                     parent.AICharacter.CurrentTarget.position, Vector3.down);
 
@@ -94,7 +97,7 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
                 Ray handHitToFloor = new Ray(
                     handObjectHit.point + handObjectHit.normal * 0.01f, -Vector3.up);
 
-                if (Physics.Raycast(handHitToFloor, out RaycastHit floorHit, 50, Layers.WallsFloor))
+                if (Physics.Raycast(handHitToFloor, out RaycastHit floorHit, 50, Layers.WallsFloorWithoutWallsSpells))
                 {
                     // Sets area hover hit
                     parent.AreaHoverAreaHit = floorHit;
@@ -132,7 +135,7 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
             Ray noWallRayToFloor = 
                 new Ray(parent.Eyes.position + parent.Eyes.forward * parent.Spell.MaximumDistance, -Vector3.up);
 
-            if (Physics.Raycast(noWallRayToFloor, out RaycastHit airToFloorHit, 50, layersToCheck))
+            if (Physics.Raycast(noWallRayToFloor, out RaycastHit airToFloorHit, 50, Layers.WallsFloorWithoutWallsSpells))
             {
                 // Sets area hover hit
                 parent.AreaHoverAreaHit = airToFloorHit;

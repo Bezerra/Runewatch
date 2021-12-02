@@ -1,6 +1,4 @@
 using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
 
 /// <summary>
 /// Class responsible for handling information of an ability spell card.
@@ -29,8 +27,11 @@ public class AbilitySpellCard : MonoBehaviour
     private void Awake()
     {
         abilitiesCanvas = GetComponentInParent<AbilitiesCanvas>();
-        playerInteraction = FindObjectOfType<PlayerInteraction>();
-        playerSpells = FindObjectOfType<PlayerSpells>();
+    }
+
+    public void FindPlayerComponents()
+    {
+        
     }
 
     /// <summary>
@@ -60,6 +61,12 @@ public class AbilitySpellCard : MonoBehaviour
     /// </summary>
     public void TryAddSpell()
     {
+        if (playerInteraction == null)
+            playerInteraction = FindObjectOfType<PlayerInteraction>();
+
+        if (playerSpells == null)
+            playerSpells = FindObjectOfType<PlayerSpells>();
+
         // If there are slots, it adds the spell.
         if (CheckAddSpellValidation())
         {

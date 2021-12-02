@@ -57,7 +57,7 @@ public class RunSaveDataController : MonoBehaviour
         if (instance.fileManager.ReadFile("saveRunProgress.d4s", out string json))
         {
             instance.saveData.LoadFromJson(json);
-  
+
             foreach (ISaveable iSaveable in iSaveables)
                 instance.StartCoroutine(iSaveable.LoadData(instance.saveData));
 
