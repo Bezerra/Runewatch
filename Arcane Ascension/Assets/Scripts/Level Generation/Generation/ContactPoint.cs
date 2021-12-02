@@ -4,7 +4,7 @@ using UnityEngine;
 public class ContactPoint : MonoBehaviour
 {
     [SerializeField] private PieceConcreteType[] incompatiblePieceConcreteTypes;
-    public ICollection<PieceConcreteType> IncompatiblePieces { get; set; }
+    public HashSet<PieceConcreteType> IncompatiblePieces { get; set; }
 
     /// <summary>
     /// Parent room of this contact point.
@@ -32,7 +32,7 @@ public class ContactPoint : MonoBehaviour
     private void Awake()
     {
         ParentRoom = GetComponentInParent<LevelPiece>();
-        IncompatiblePieces = new List<PieceConcreteType>();
+        IncompatiblePieces = new HashSet<PieceConcreteType>();
 
         if (incompatiblePieceConcreteTypes.Length > 0)
         {

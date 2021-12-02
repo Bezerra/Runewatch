@@ -64,10 +64,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     [SerializeField] private ElementType element;
     public ElementType Element => element;
 
-    // Time that a generation attempt took
-    private float timeOfGeneration;
-
-    private void Update() => timeOfGeneration += Time.deltaTime;
+    // Starting time of a generation
+    private float timeOfGenerationStart;
 
     /// <summary>
     /// Sets variables values.
@@ -128,7 +126,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// <returns>Null.</returns>
     private IEnumerator GenerateLevel(System.Random random, bool firstAttempt = true)
     {
-        timeOfGeneration = 0;
+        timeOfGenerationStart = Time.time;
 
         YieldInstruction yi = null;
         switch(yieldType)
@@ -203,9 +201,9 @@ public class LevelGenerator : MonoBehaviour, ISaveable
 
             // Creates a list of room weights 
             IList<int> roomWeights = new List<int>();
-            for (int i = 0; i < rooms.Length; i++)
+            for (int z = 0; z < rooms.Length; z++)
             {
-                roomWeights.Add(rooms[i].RoomWeight);
+                roomWeights.Add(rooms[z].RoomWeight);
             }
 
             // Main generation loop.
@@ -263,11 +261,14 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                             if (loopIndex == corridors.Length)
                                 break;
 
+                            if (pieceToPlace == null)
+                                break;
+
                             // Else
                             // If that piece is not valid, it will try another piece
-                        } while (IsPieceValid(pieceToPlace, random) == false);
+                        } while (IsPieceValid(pieceToPlace, openedContactPoints[i], random) == false);
 
-                        // If it didn't find any piece for this contact point, skils the point
+                        // If it didn't find any piece for this contact point, skips the point
                         if (pieceToPlace == null)
                             continue;
 
@@ -282,10 +283,12 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                     {
                         // Creates rooms depending on their weight
                         pieceToPlace = Instantiate(rooms[random.RandomWeight(roomWeights)]);
-                        pieceContactPoint = pieceToPlace.ContactPoints[random.Next(0, pieceToPlace.ContactPoints.Length)];
+                        pieceContactPoint = pieceToPlace.ContactPoints[
+                            random.Next(0, pieceToPlace.ContactPoints.Length)];
 
                         // Skips incompatible pieces
-                        if (openedContactPoints[i].IncompatiblePieces.Contains(pieceToPlace.ConcreteType))
+                        if (openedContactPoints[i].IncompatiblePieces.Contains(
+                            pieceToPlace.ConcreteType))
                         {
                             Destroy(pieceToPlace.gameObject);
                             continue;
@@ -297,7 +300,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                         yield return yi;
 
                         ValidatePiece(
-                            pieceToPlace, pieceContactPoint, true, openedContactPoints, i, levelParent, random);
+                            pieceToPlace, pieceContactPoint, true, openedContactPoints,
+                            i, levelParent, random);
                     }
                 }
 
@@ -306,6 +310,12 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                 // After every loop, if maximum number of rooms exceeds a limit, it breaks the current another
                 if (allRooms.Count > maximumNumberOfRooms)
                 {
+                    break;
+                }
+
+                if (Time.time - timeOfGenerationStart > 8f)
+                {
+                    Debug.Log("Maximum generation time exceeded.");
                     break;
                 }
 
@@ -329,7 +339,6 @@ public class LevelGenerator : MonoBehaviour, ISaveable
 
                 continue;
             }
-
 
             #region Boss Room
                 // Organized a list with contact points by distance
@@ -357,7 +366,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                     yield return new WaitForSeconds(0.25f);
 
                     // If everything is valid, ends generation
-                    if (IsPieceValid(bossRoomPiece, random, false))
+                    if (IsPieceValid(bossRoomPiece, openedContactPoints[i], random, false))
                     {
                         print("Valid level generation.");
 
@@ -410,7 +419,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                         yield return yi;
 
                         // If it's valid
-                        if (IsPieceValid(corridorToPlace, random, false))
+                        if (IsPieceValid(corridorToPlace, openedContactPoints[i], random, false))
                         {
                             ValidatePiece(
                                 corridorToPlace, pieceContactPoint, false, 
@@ -438,7 +447,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                         yield return new WaitForSeconds(0.25f);
 
                         // If everything is valid, ends generation
-                        if (IsPieceValid(bossRoomPiece, random, false))
+                        if (IsPieceValid(bossRoomPiece, 
+                            openedContactPoints[openedContactPoints.Count - 1], random, false))
                         {
                             print("Valid level generation.");
 
@@ -561,7 +571,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             }
         }
 
-        Debug.Log("Took " + timeOfGeneration + " seconds to generate, with seed " + seed +
+        Debug.Log("Took " + (Time.time - timeOfGenerationStart) + " seconds to generate, with seed " + seed +
             " and number of loops of " + numberOfLoops);
 
         if (occludeAndSpawnPlayer)
@@ -660,33 +670,39 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// Checks if a piece is valid. If it's not valid, it destroys it.
     /// </summary>
     /// <param name="levelPiece">Piece to check.</param>
+    /// <param name="contactPointToSetPiece">Contact point to set piece.</param>
     /// <param name="random">Instance of random.</param>
     /// <param name="creatingLevelBase">True if it's not creating 
     /// walls or boss room (meaning it's still creating the base structure).</param>
     /// <returns>Returns true if the piece is valid, else it returns false.</returns>
-    private bool IsPieceValid(LevelPiece levelPiece, System.Random random, bool creatingLevelBase = true)
+    private bool IsPieceValid(LevelPiece levelPiece, ContactPoint contactPointToSetPiece, 
+        System.Random random, bool creatingLevelBase = true)
     {
         if (creatingLevelBase)
         {
             // Horizontal limit
-            if (levelPiece.transform.position.z > forwardMaximumLevelSize ||
+            if (levelPiece != null)
+            {
+                if (levelPiece.transform.position.z > forwardMaximumLevelSize ||
                 levelPiece.transform.position.z < -forwardMaximumLevelSize)
-            {
-                Destroy(levelPiece.gameObject);
-                return false;
-            }
+                {
+                    Destroy(levelPiece.gameObject);
+                    return false;
+                }
 
-            // Forward limit
-            if (levelPiece.transform.position.x > horizontalMaximumLevelSize || 
-                levelPiece.transform.position.x < -horizontalMaximumLevelSize)
-            {
-                Destroy(levelPiece.gameObject);
-                return false;
+                // Forward limit
+                if (levelPiece.transform.position.x > horizontalMaximumLevelSize ||
+                    levelPiece.transform.position.x < -horizontalMaximumLevelSize)
+                {
+                    Destroy(levelPiece.gameObject);
+                    return false;
+                }
             }
         }
 
         if (PieceIntersection(levelPiece))
         {
+            contactPointToSetPiece.IncompatiblePieces.Add(levelPiece.ConcreteType);
             Destroy(levelPiece.gameObject);
             return false;
         }
@@ -707,10 +723,12 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     {
         // Rotatesa piece towards a contact point
         levelPieceContact.ParentRoom.transform.rotation =
-            Quaternion.LookRotation(connectionContactPoint.transform.forward, connectionContactPoint.transform.up);
+            Quaternion.LookRotation(connectionContactPoint.transform.forward, 
+            connectionContactPoint.transform.up);
 
         // While both points don't have the same direction
-        while (levelPieceContact.transform.SameDirectionAs(connectionContactPoint.transform) == false)
+        while (levelPieceContact.transform.SameDirectionAs(
+            connectionContactPoint.transform) == false)
         {
             // It will keep rotating parent room
             levelPieceContact.ParentRoom.transform.rotation *= 
@@ -771,7 +789,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     {
         // Checks if the last piece is valid
         // If it's not valid it will destroy it, else it will add its contact points to a list
-        if (IsPieceValid(pieceToPlace, random))
+        if (IsPieceValid(pieceToPlace, openedContactPoints[index], random))
         {
             // Closes this piece contact point
             pieceContactPoint.Close();
@@ -831,10 +849,6 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                     openedContactPoints.Add(newContactPoint);
                 }
             }
-        }
-        else
-        {
-            openedContactPoints[index].IncompatiblePieces.Add(pieceToPlace.ConcreteType);
         }
     }
     
