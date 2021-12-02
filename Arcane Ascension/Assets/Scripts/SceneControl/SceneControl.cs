@@ -82,7 +82,6 @@ public class SceneControl : MonoBehaviour, ISaveable
     }
 
 
-
     [SerializeField] protected AudioMixer master;
 
     [Header("String variables")]
@@ -91,7 +90,7 @@ public class SceneControl : MonoBehaviour, ISaveable
 
     [Header("If using loading methods without parameters")]
     [SerializeField] protected SceneEnum sceneToLoad;
-    [SerializeField] protected SceneEnum sceneToUnload;
+    [SerializeField] protected SceneEnum thisScene;
 
     // Audio fade
     protected float initialMasterValue;
@@ -99,7 +98,8 @@ public class SceneControl : MonoBehaviour, ISaveable
 
     protected virtual void Awake()
     {
-        master.GetFloat(masterVolumeExposed, out initialMasterValue);
+        initialMasterValue = 0;
+        //master.GetFloat(masterVolumeExposed, out initialMasterValue);
     }
 
     /// <summary>
@@ -146,17 +146,26 @@ public class SceneControl : MonoBehaviour, ISaveable
         SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(scene.ToString()));
 
     /// <summary>
-    /// Unloads a scene on a serialize field.
-    /// Can't overload because of animation events.
+    /// Unloades all other scenes that are not related with the switching.
     /// </summary>
-    public virtual void UnloadSceneOnSerializeField() =>
-        SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(sceneToUnload.ToString()));
+    public virtual void UnloadScenesThatAreaNotSwitching()
+    {
+        int scenes = SceneManager.sceneCount;
+        for (int i = 0; i < scenes; i++)
+        {
+            if (SceneManager.GetSceneAt(i).name != GetCurrentScene().name &&
+                SceneManager.GetSceneAt(i).name != thisScene.ToString())
+            {
+                SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i).buildIndex);
+            }
+        }
+    }
 
     /// <summary>
     /// Unloades a scene.
     /// </summary>
     public virtual void UnloadCurrentScene() =>
-        SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(CurrentSceneEnum().ToString()));
+        SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(thisScene.ToString()));
 
     /// <summary>
     /// Coroutine that loads a new scene.
@@ -166,11 +175,10 @@ public class SceneControl : MonoBehaviour, ISaveable
     /// <returns></returns>
     protected virtual IEnumerator LoadNewScene(SceneEnum scene, bool isAdditive = false)
     {
-        DisableControls();
-
         yield return null;
 
         master.SetFloat(masterVolumeExposed, -50f);
+        DisableControls();
 
         // Asyc loads a scene
         AsyncOperation sceneToLoadAsync;
@@ -188,7 +196,7 @@ public class SceneControl : MonoBehaviour, ISaveable
 
         // Load scene and sets it as main scene
         SetActiveScene(scene);
-
+        
         // Starts loading screen animation fade out
         GetComponent<Animator>().SetTrigger(backgroundAnimationTrigger);
     }
@@ -203,7 +211,7 @@ public class SceneControl : MonoBehaviour, ISaveable
     /// Fades in master audio.
     /// </summary>
     /// <returns>Null.</returns>
-    private IEnumerator FadeInMasterAudioCoroutine()
+    protected IEnumerator FadeInMasterAudioCoroutine()
     {
         master.GetFloat(masterVolumeExposed, out currentMasterValue);
 
@@ -218,11 +226,41 @@ public class SceneControl : MonoBehaviour, ISaveable
     }
 
     /// <summary>
-    /// Disables all controls. Happens when scene is ending.
+    /// Fades in master audio.
+    /// </summary>
+    /// <returns>Null.</returns>
+    protected IEnumerator FadeOutMasterAudioCoroutine()
+    {
+        float currentTime = 0;
+        while (currentTime < 1)
+        {
+            currentMasterValue = Mathf.Lerp(currentMasterValue, -50, currentTime);
+            master.SetFloat(masterVolumeExposed, currentMasterValue);
+            currentTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    /// <summary>
+    /// Disables all controls. Happens when scene is starting.
     /// </summary>
     protected void DisableControls()
     {
         PlayerInputCustom input = FindObjectOfType<PlayerInputCustom>();
-        if (input != null) input.SwitchActionMapToUI();
+        if (input != null) input.SwitchActionMapToNone();
+    }
+
+    /// <summary>
+    /// Enables all controls. Happens when scene is ending.
+    /// </summary>
+    protected void EnableControls()
+    {
+        PlayerInputCustom input = FindObjectOfType<PlayerInputCustom>();
+        if (input != null)
+        {
+            input.gameObject.SetActive(false);
+            input.gameObject.SetActive(true);
+            input.SwitchActionMapToGameplay();
+        }
     }
 }

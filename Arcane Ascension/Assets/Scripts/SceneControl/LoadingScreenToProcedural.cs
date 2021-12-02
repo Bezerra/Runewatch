@@ -5,14 +5,8 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// Class responsible for loading a new generation scene and start its generation.
 /// </summary>
-public class LoadingScreenNewGame : SceneControl
+public class LoadingScreenToProcedural : SceneControl
 {
-    protected override void Awake()
-    {
-        base.Awake();
-        StartCoroutine(LoadNewScene(sceneToLoad));
-    }
-
     /// <summary>
     /// Coroutine that loads a new scene.
     /// </summary>
@@ -20,11 +14,10 @@ public class LoadingScreenNewGame : SceneControl
     /// <returns>Returns null.</returns>
     protected override IEnumerator LoadNewScene(SceneEnum scene, bool isAdditive = true)
     {
-        DisableControls();
-
         yield return null;
 
         master.SetFloat("MasterVolume", -50f);
+        DisableControls();
 
         // Asyc loads a scene
         AsyncOperation sceneToLoadAsync =
@@ -38,6 +31,9 @@ public class LoadingScreenNewGame : SceneControl
 
         // Load scene and sets it as main scene
         SetActiveScene(sceneToLoad);
+
+        // Unloades unecessary scenes
+        UnloadScenesThatAreaNotSwitching();
 
         // Waits until scene is generated
         yield return DungeonGenerator.GenerateDungeon();
