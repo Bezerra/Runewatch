@@ -6,7 +6,7 @@ using UnityEngine.Audio;
 /// <summary>
 /// Class responsible for loading a new generation scene and start its generation.
 /// </summary>
-public class LoadingScreenNewGame : MonoBehaviour
+public class LoadingScreenNewGame : SceneControl
 {
     [SerializeField] private AudioMixer master;
     private float initialMasterValue;
@@ -23,7 +23,7 @@ public class LoadingScreenNewGame : MonoBehaviour
     /// </summary>
     /// <param name="scene">Scene to load.</param>
     /// <returns>Returns null.</returns>
-    private IEnumerator LoadNewScene(SceneEnum scene)
+    protected override IEnumerator LoadNewScene(SceneEnum scene)
     {
         yield return null;
         master.SetFloat("MasterVolume", -50f);
@@ -41,8 +41,9 @@ public class LoadingScreenNewGame : MonoBehaviour
         // Load scene and sets it as main scene
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(scene.ToString()));
 
-        LevelGenerator levelGenerated = DungeonGenerator.GenerateDungeon();
-        levelGenerated.EndedGeneration += SwitchToNewScene;
+        yield return DungeonGenerator.GenerateDungeon();
+
+        SwitchToNewScene();
     }
 
     private void SwitchToNewScene()

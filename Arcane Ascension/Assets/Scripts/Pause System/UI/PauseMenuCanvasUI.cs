@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Contains methods for pause menu.
@@ -67,5 +68,5 @@ public class PauseMenuCanvasUI : MonoBehaviour
         pauseSystem.PauseGame();
     }
     public void ButtonIntroMenuMainMenu() => 
-        FindObjectOfType<SceneControl>().LoadScene(SceneEnum.MainMenu);
+        SceneManager.LoadScene("MainMenu");
 }

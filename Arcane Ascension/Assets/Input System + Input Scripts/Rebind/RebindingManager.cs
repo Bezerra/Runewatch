@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class responsible for updating input on the beggining.
+/// </summary>
 public class RebindingManager : MonoBehaviour
 {
     private RebindingKey[] rebindKeys;

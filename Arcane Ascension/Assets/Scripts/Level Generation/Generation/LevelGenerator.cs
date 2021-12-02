@@ -57,7 +57,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
 
     // Generation variables
     private int numberOfLoops;
-    private IEnumerator generationCoroutine;
+    private IEnumerator generateLevelCoroutine;
     private System.Random random;
 
     [Header("Dungeon element")]
@@ -97,7 +97,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// </summary>
     /// <param name="loadedRandom">Checks if the game is being loaded.</param>
     /// <param name="seed">Seed to load.</param>
-    public void StartGeneration(bool loadedRandom = false)
+    public IEnumerator StartGeneration(bool loadedRandom = false)
     {
         // Adjust some values common to every generation (starting game generation or loading game generation)
         if (minimumNumberOfRooms > maximumNumberOfRooms) minimumNumberOfRooms = maximumNumberOfRooms;
@@ -107,15 +107,15 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         if (loadedRandom == false)
         {
             // This random can be from a user's seed or totally random
-            generationCoroutine = GenerateLevel(random);
+            generateLevelCoroutine = GenerateLevel(random);
         }
         else
         {
             // This random will always be from a user's seed (loading game = already existing level)
-            generationCoroutine = GenerateLevel(new System.Random(seed));
+            generateLevelCoroutine = GenerateLevel(new System.Random(seed));
         }
 
-        StartCoroutine(generationCoroutine);
+        yield return generateLevelCoroutine;
     }
 
     /// <summary>
@@ -490,8 +490,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             // After looping through all points, if it was able to generate boss room
             if (bossRoomSpawned)
             {
-                generationCoroutine = FinalAdjustements(levelParent, openedContactPoints, yi);
-                StartCoroutine(generationCoroutine);
+                generateLevelCoroutine = FinalAdjustements(levelParent, openedContactPoints, yi);
+                yield return generateLevelCoroutine;
             }
             else
             {
@@ -518,7 +518,6 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         {
             for (int i = openedContactPoints.Count - 1; i >= 0; i--)
             {
-                Debug.Log(i);
                 yield return yi;
 
                 if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor)
@@ -618,7 +617,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         if (random == null)
             random = new System.Random();
 
-        if (generationCoroutine != null) StopCoroutine(generationCoroutine);
+        if (generateLevelCoroutine != null) StopCoroutine(generateLevelCoroutine);
         print(message);
 
         yield return new WaitForSeconds(1);
@@ -633,8 +632,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         yield return new WaitForSeconds(1);
  
         // Generates another level
-        generationCoroutine = GenerateLevel(random, false);
-        StartCoroutine(generationCoroutine);
+        generateLevelCoroutine = GenerateLevel(random, false);
+        StartCoroutine(generateLevelCoroutine);
     }
 
     /// <summary>
@@ -716,10 +715,9 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// point outside, while corridors point inside. This way, the room/corridor will keep
     /// rotating until they match the desired direction, depending on the other piece type.
     /// </summary>
-    /// <param name="levelPiece">Piece to rotate.</param>
     /// <param name="levelPieceContact">Contact point of the piece.</param>
     /// <param name="connectionContactPoint">Contact point to match.</param>
-    private void RotatePiece(LevelPiece levelPiece, ContactPoint levelPieceContact,
+    private void RotatePiece(ContactPoint levelPieceContact,
         ContactPoint connectionContactPoint)
     {
         // Rotatesa piece towards a contact point
@@ -768,7 +766,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         ContactPoint contactPoint, ContactPoint openedContactPoint)
     {
         // Rotates piece to match contact point rotation
-        RotatePiece(pieceToPlace, contactPoint, openedContactPoint);
+        RotatePiece(contactPoint, openedContactPoint);
 
         // Sets a piece in a contact point
         SetPiece(pieceToPlace, contactPoint, openedContactPoint);
@@ -885,7 +883,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             maximumNumberOfRooms = saveData.DungeonSavedData.MaximumNumberOfRooms;
             element = saveData.DungeonSavedData.Element;
 
-            StartGeneration(true);
+            yield return StartGeneration(true);
         }
         yield return null;
     }

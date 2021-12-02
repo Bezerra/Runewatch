@@ -1,14 +1,13 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System;
 
 /// <summary>
 /// Class responsible for controlling scenes and spawns.
 /// </summary>
-public class SceneControl : MonoBehaviour, ISaveable
+public abstract class SceneControl : MonoBehaviour, ISaveable
 {
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject spellsPool;
@@ -46,7 +45,7 @@ public class SceneControl : MonoBehaviour, ISaveable
         // Destruction
 
         // Destroy spell pool
-        if (FindObjectOfType<SpellPoolCreator>() != null) Destroy(FindObjectOfType<SpellPoolCreator>().gameObject); 
+        if (FindObjectOfType<SpellPoolCreator>() != null) Destroy(FindObjectOfType<SpellPoolCreator>().gameObject);
 
         // Destroy player
         if (FindObjectOfType<Player>() != null) Destroy(FindObjectOfType<Player>().transform.parent.gameObject);
@@ -96,11 +95,19 @@ public class SceneControl : MonoBehaviour, ISaveable
     }
 
 
-    // ON TESTS ------------------------------------------------------------------
-    public Scene CurrentScene() => SceneManager.GetActiveScene();
 
+    /// <summary>
+    /// Gets current scene.
+    /// </summary>
+    /// <returns>Returns scene.</returns>
+    public Scene GetCurrentScene() => SceneManager.GetActiveScene();
+
+    /// <summary>
+    /// Gets current scene enum.
+    /// </summary>
+    /// <returns>Returns a scene enum.</returns>
     public SceneEnum CurrentSceneEnum() =>
-        (SceneEnum)Enum.Parse(typeof(SceneEnum), CurrentScene().name);
+        (SceneEnum)Enum.Parse(typeof(SceneEnum), GetCurrentScene().name);
 
     /// <summary>
     /// Loads a scene.
@@ -115,30 +122,12 @@ public class SceneControl : MonoBehaviour, ISaveable
     /// </summary>
     /// <param name="scene">Scene to load.</param>
     /// <returns>Returns null.</returns>
-    private IEnumerator LoadNewScene(SceneEnum scene)
-    {
-        YieldInstruction waitForFrame = new WaitForEndOfFrame();
-
-        DisableControls();
-
-        // Asyc loads a scene
-        AsyncOperation sceneToLoad =
-            SceneManager.LoadSceneAsync(scene.ToString());
-
-        // After the progress of the async operation reaches 1, the scene loads
-        while (sceneToLoad.progress <= 1)
-        {
-            loadingBar.fillAmount = sceneToLoad.progress;
-            yield return waitForFrame;
-        }
-
-        // Load scene
-    }
+    protected abstract IEnumerator LoadNewScene(SceneEnum scene);
 
     /// <summary>
     /// Disables all controls. Happens when scene is ending.
     /// </summary>
-    private void DisableControls()
+    protected void DisableControls()
     {
         PlayerInputCustom input = FindObjectOfType<PlayerInputCustom>();
         if (input != null) input.SwitchActionMapToUI();

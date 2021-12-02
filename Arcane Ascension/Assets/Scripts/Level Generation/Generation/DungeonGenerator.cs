@@ -26,19 +26,20 @@ public class DungeonGenerator: MonoBehaviour
     /// </summary>
     /// <param name="loadedGame">True if this game was loaded, else false.</param>
     /// <param name="saveData">Saved data.</param>
-    public static LevelGenerator GenerateDungeon(bool loadedGame = false, RunSaveData saveData = null)
+    public static IEnumerator GenerateDungeon(bool loadedGame = false, RunSaveData saveData = null)
     {
         ElementType element;
 
         if (saveData == null)
         {
-            // Gets random element
+            // Gets random element in possible prefabs
             int randomElement = UnityEngine.Random.Range(0, instance.levelGenerators.Count);
             element = instance.levelGenerators[randomElement].Element;
         }
         else
             element = saveData.DungeonSavedData.Element;
 
+        // Gets the dungeon of that element
         foreach(LevelGenerator level in instance.levelGenerators)
         {
             if (level.Element == element)
@@ -46,22 +47,21 @@ public class DungeonGenerator: MonoBehaviour
                 GameObject levelGenerated = Instantiate(level.gameObject);
                 LevelGenerator levelGeneratedScript = levelGenerated.GetComponent<LevelGenerator>();
 
-                // Gets random (or pre-defined) values and starts generation
-                if (loadedGame == false)
+                if (saveData == null)
                 {
+                    // Gets random (or pre-defined) values and starts generation
                     levelGeneratedScript.GetValues();
-                    levelGeneratedScript.StartGeneration();
+                    yield return levelGeneratedScript.StartGeneration();
                 }
                 // Else loads saved data (after loading data it will start generation)
                 else
                 {
-                    if (saveData != null) instance.StartCoroutine(levelGeneratedScript.LoadData(saveData));
+                    yield return levelGeneratedScript.LoadData(saveData);
                 }
-
-                return levelGeneratedScript;
+                break;
             }
         }
 
-        return null;
+        yield return null;
     }
 }

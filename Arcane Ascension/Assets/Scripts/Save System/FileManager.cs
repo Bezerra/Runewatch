@@ -53,7 +53,6 @@ public struct FileManager
                 return false;
             }
         }
-        Debug.Log("No save file found.");
         result = "";
         return false;
     }
