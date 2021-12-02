@@ -26,12 +26,11 @@ public class RoomOcclusion : MonoBehaviour
 
     private IEnumerator FindLevelGenerator()
     {
-        YieldInstruction wfs = new WaitForSeconds(0.2f);
+        YieldInstruction wfs = new WaitForSeconds(0.1f);
         while (levelGenerator == null)
         {
             levelGenerator = FindObjectOfType<LevelGenerator>();
             roomOcclusionController = FindObjectOfType<RoomOcclusionController>();
-            roomOcclusionController.AddRoomOcclusion(this);
             yield return wfs;
         }
     }
@@ -64,9 +63,8 @@ public class RoomOcclusion : MonoBehaviour
     /// <summary>
     /// Coroutine that enables all surrounding level pieces and disables the rest.
     /// </summary>
-    /// <param name="onGameBeggining">Is this the first occlusion in the game.</param>
     /// <returns>Null.</returns>
-    public IEnumerator ControlChildOccludeesCoroutine(bool onGameBeggining = false)
+    public IEnumerator ControlChildOccludeesCoroutine()
     {
         // Creates a new lsit with all level pieces
         IList<LevelPiece> generatedRoomPieces = new List<LevelPiece>();
@@ -75,9 +73,6 @@ public class RoomOcclusion : MonoBehaviour
             generatedRoomPieces.Add(levelGenerator.AllGeneratedLevelPieces[i]);
             yield return null;
         }
-        
-        // Enables pieces of this current piece
-        StartCoroutine(thisLevelPiece.EnableChildOccludeesCoroutine());
         generatedRoomPieces.Remove(thisLevelPiece);
             
         // Enables pieces for connect pieces to this piece
@@ -95,31 +90,21 @@ public class RoomOcclusion : MonoBehaviour
         for (int i = 0; i < generatedRoomPieces.Count; i++)
         {
             if (generatedRoomPieces[i] != null)
+            {
                 StartCoroutine(generatedRoomPieces[i].DisableChildOccludeesCoroutine());
+            }
             yield return null;
         }
 
         OnOcclusionCompleted(thisLevelPiece);
-
-        if (onGameBeggining)
-        {
-            // Invokes first occlusion event
-            OnFirstOcclusionCompleted();
-        }
     }
 
     /// <summary>
     /// After each occlusion is completed.
+    /// Registered on doors.
     /// </summary>
     /// <param name="currentPiece"></param>
     protected virtual void OnOcclusionCompleted(LevelPiece currentPiece) => 
         OcclusionCompleted?.Invoke(currentPiece);
     public event Action<LevelPiece> OcclusionCompleted;
-
-    /// <summary>
-    /// After first occuslion is completed.
-    /// </summary>
-    protected virtual void OnFirstOcclusionCompleted() =>
-        FirstOcclusionCompleted?.Invoke();
-    public event Action FirstOcclusionCompleted;
 }

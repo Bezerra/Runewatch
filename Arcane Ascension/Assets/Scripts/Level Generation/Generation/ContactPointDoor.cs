@@ -40,12 +40,12 @@ public class ContactPointDoor : MonoBehaviour
     /// <summary>
     /// Sets passage block room as not loaded.
     /// </summary>
-    public void LevelNotLoaded() =>
+    public void PieceNotLoaded() =>
         passageBlock.IsDoorRoomFullyLoaded = false;
 
     /// <summary>
     /// Sets passage  block room as loaded.
     /// </summary>
-    public void LevelLoaded() =>
+    public void PieceLoaded() =>
         passageBlock.IsDoorRoomFullyLoaded = true;
 }

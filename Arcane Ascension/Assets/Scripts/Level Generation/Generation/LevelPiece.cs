@@ -125,7 +125,21 @@ public class LevelPiece : MonoBehaviour
 
         for (int i = 0; i < ContactPointsDoors.Count; i++)
         {
-            ContactPointsDoors[i].LevelLoaded();
+            ContactPointsDoors[i].PieceLoaded();
+        }
+        StartCoroutine(PieceBehindDoorsIsLoaded());
+    }
+
+    /// <summary>
+    /// Sets piece behind a list of doors as loaded.
+    /// </summary>
+    /// <returns>Null.</returns>
+    public IEnumerator PieceBehindDoorsIsLoaded()
+    {
+        for (int i = 0; i < ContactPointsDoors.Count; i++)
+        {
+            ContactPointsDoors[i].PieceLoaded();
+            yield return null;
         }
     }
 
@@ -141,13 +155,21 @@ public class LevelPiece : MonoBehaviour
             {
                 childOccludees[i].gameObject.SetActive(false);
             }
-
             yield return null;
         }
+        StartCoroutine(PieceBehindDoorsIsNotLoaded());
+    }
 
+    /// <summary>
+    /// Sets piece behind a list of doors as not loaded.
+    /// </summary>
+    /// <returns>Null.</returns>
+    public IEnumerator PieceBehindDoorsIsNotLoaded()
+    {
         for (int i = 0; i < ContactPointsDoors.Count; i++)
         {
-            ContactPointsDoors[i].LevelNotLoaded();
+            ContactPointsDoors[i].PieceNotLoaded();
+            yield return null;
         }
     }
 }
