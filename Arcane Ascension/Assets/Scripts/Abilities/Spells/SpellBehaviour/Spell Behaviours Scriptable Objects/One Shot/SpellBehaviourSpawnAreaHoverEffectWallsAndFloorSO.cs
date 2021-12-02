@@ -118,7 +118,7 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectWallsAndFloorSO : SpellBeh
             Ray noWallRayToFloor =
                 new Ray(parent.Eyes.position + parent.Eyes.forward * parent.Spell.MaximumDistance, -Vector3.up);
 
-            if (Physics.Raycast(noWallRayToFloor, out RaycastHit airToFloorHit, 50, layersToCheck))
+            if (Physics.Raycast(noWallRayToFloor, out RaycastHit airToFloorHit, 50, Layers.WallsFloorWithoutWallsSpells))
             {
                 // Sets area hover hit
                 parent.AreaHoverAreaHit = airToFloorHit;
