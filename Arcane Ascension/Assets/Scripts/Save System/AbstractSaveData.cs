@@ -31,7 +31,6 @@ public abstract class AbstractSaveData
     protected string EncryptDecrypt(string data, int key)
     {
         // COMMENT TO ENCRYPT CODE
-        /*
         StringBuilder input = new StringBuilder(data);
         StringBuilder output = new StringBuilder(data.Length);
 
@@ -45,9 +44,8 @@ public abstract class AbstractSaveData
         }
 
         return output.ToString();
-        */
 
         // REMOVE COMMENT TO NOT ENCRYPT CODE
-        return data;
+        //return data;
     }
 }

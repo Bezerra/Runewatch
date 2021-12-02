@@ -13,16 +13,14 @@ public class AbilityPassiveCard : MonoBehaviour
     public IRunPassive PassiveOnCard { get; set; }
 
     // Components
-    private PlayerStats playerStats;
     private AbilitiesCanvas abilitiesCanvas;
-    private PlayerInteraction playerInteraction;
+    private PlayerStats playerStats;
     private AbilityPassiveCardText thisCardInformation;
+    private PlayerInteraction playerInteraction;
 
     private void Awake()
     {
-        playerInteraction = FindObjectOfType<PlayerInteraction>();
         abilitiesCanvas = GetComponentInParent<AbilitiesCanvas>();
-        playerStats = FindObjectOfType<PlayerStats>();
         thisCardInformation = GetComponentInChildren<AbilityPassiveCardText>();
     }
 
@@ -52,6 +50,12 @@ public class AbilityPassiveCard : MonoBehaviour
     /// </summary>
     public void AddPassive()
     {
+        if (playerInteraction == null)
+            playerInteraction = FindObjectOfType<PlayerInteraction>();
+
+        if (playerStats == null)
+            playerStats = FindObjectOfType<PlayerStats>();
+
         if (PassiveOnCard != null)
         {
             if (playerInteraction.LastObjectInteracted != null)
