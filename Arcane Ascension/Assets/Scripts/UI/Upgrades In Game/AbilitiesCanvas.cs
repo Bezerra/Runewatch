@@ -30,15 +30,12 @@ public class AbilitiesCanvas : MonoBehaviour
         if (input == null)
             input = FindObjectOfType<PlayerInputCustom>();
 
-        Debug.LogError("1");
-        input.SwitchActionMapToGameplay();
-        Debug.LogError("2");
-        Time.timeScale = 1;
         threeSpellCanvas.SetActive(false);
         oneSpellCanvas.SetActive(false);
         threePassiveCanvas.SetActive(false);
         spellsFullCanvas.SetActive(false);
-        Debug.LogError("3");
+        input.SwitchActionMapToGameplay();
+        Time.timeScale = 1;
     }
 
     private void EnableAll()
@@ -55,6 +52,10 @@ public class AbilitiesCanvas : MonoBehaviour
     private void Start()
     {
         EnableAll();
-        DisableAll();
+
+        threeSpellCanvas.SetActive(false);
+        oneSpellCanvas.SetActive(false);
+        threePassiveCanvas.SetActive(false);
+        spellsFullCanvas.SetActive(false);
     }
 }

@@ -1054,7 +1054,8 @@ GameObject:
   - component: {fileID: 6534030022521336353}
   - component: {fileID: 8236434712794967395}
   - component: {fileID: 2517952589072423126}
-  m_Layer: 7
+  - component: {fileID: 6291036340151655424}
+  m_Layer: 22
   m_Name: LavaFall_HoleBricks.014 with Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1139,6 +1140,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7044008849099838571, guid: d5f702e8c38ac4a4c9828fb93ed732d5, type: 3}
+--- !u!114 &6291036340151655424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7084040952415940270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8543f2c1d599184c89df84d91c66a46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  surfaceType: 0
 --- !u!1 &7298929327875041448
 GameObject:
   m_ObjectHideFlags: 0

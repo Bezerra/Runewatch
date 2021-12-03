@@ -23,6 +23,7 @@ public class PauseSystem : MonoBehaviour
     private void OnEnable()
     {
         playerInputCustom.PauseGame += PauseGame;
+        Debug.LogError(playerInputCustom);
     }
 
     private void OnDisable()
@@ -35,6 +36,7 @@ public class PauseSystem : MonoBehaviour
     /// </summary>
     public void PauseGame()
     {
+        Debug.LogError("AH");
         if (gameIsPaused == false)
         {
             gameIsPaused = true;

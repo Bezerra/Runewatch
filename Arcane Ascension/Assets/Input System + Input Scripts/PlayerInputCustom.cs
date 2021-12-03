@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Class responsible for all player input.
@@ -17,6 +18,9 @@ public class PlayerInputCustom : MonoBehaviour
     {
         inputActionsAsset = new InputActions();
         controls = GetComponent<PlayerInput>();
+
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
     }
 
     private void OnEnable()
