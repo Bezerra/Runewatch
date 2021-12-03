@@ -24,6 +24,9 @@ public class AbilityFullSpellChoiceKnownSpell : MonoBehaviour
 
     private void OnEnable()
     {
+        // Prevents bugs, don't add if null (TRUST)
+        playerSpells = FindObjectOfType<PlayerSpells>();
+
         if (droppedSpellResult.DroppedSpell != null &&
             playerSpells.CurrentSpells != null)
         {

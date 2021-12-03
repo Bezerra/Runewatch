@@ -98,11 +98,9 @@ public class AbilitySpellCard : MonoBehaviour
     /// <param name="slot"></param>
     public void AddSpellToSlot(int slot)
     {
-        if (playerInteraction == null)
-            playerInteraction = FindObjectOfType<PlayerInteraction>();
-
-        if (playerSpells == null)
-            playerSpells = FindObjectOfType<PlayerSpells>();
+        // Prevents bugs, don't add if null (TRUST)
+        playerInteraction = FindObjectOfType<PlayerInteraction>();
+        playerSpells = FindObjectOfType<PlayerSpells>();
 
         if (playerSpells.CurrentSpells[slot] != null)
         {

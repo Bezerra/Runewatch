@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using Sirenix.OdinInspector;
 
 /// <summary>
 /// Class responsible for controlling scenes and spawns.
@@ -91,14 +92,11 @@ public class SceneControl : MonoBehaviour, ISaveable
     [Header("If using loading methods without parameters")]
     [SerializeField] protected SceneEnum sceneToLoad;
     [SerializeField] protected SceneEnum thisScene;
-
-    // Audio fade
-    protected float initialMasterValue;
-    protected float currentMasterValue;
+    [SerializeField] protected ChangeToTypeOfControl changeToTypeOfControl;
 
     protected virtual void Awake()
     {
-        initialMasterValue = 0;
+        //initialMasterValue = 0;
         //master.GetFloat(masterVolumeExposed, out initialMasterValue);
     }
 
@@ -196,50 +194,19 @@ public class SceneControl : MonoBehaviour, ISaveable
 
         // Load scene and sets it as main scene
         SetActiveScene(scene);
-        
+
+        // Unloades unecessary scenes
+        UnloadScenesThatAreaNotSwitching();
+
         // Starts loading screen animation fade out
         GetComponent<Animator>().SetTrigger(backgroundAnimationTrigger);
     }
 
     /// <summary>
-    /// Animation event.
+    /// Updates master volume. Updated with OnValueChanged.
     /// </summary>
-    public void FadeInMasterAudioAnimationEvent() =>
-        StartCoroutine(FadeInMasterAudioCoroutine());
-
-    /// <summary>
-    /// Fades in master audio.
-    /// </summary>
-    /// <returns>Null.</returns>
-    protected IEnumerator FadeInMasterAudioCoroutine()
-    {
-        master.GetFloat(masterVolumeExposed, out currentMasterValue);
-
-        float currentTime = 0;
-        while (currentTime < 1)
-        {
-            currentMasterValue = Mathf.Lerp(currentMasterValue, initialMasterValue, currentTime);
-            master.SetFloat(masterVolumeExposed, currentMasterValue);
-            currentTime += Time.deltaTime;
-            yield return null;
-        }
-    }
-
-    /// <summary>
-    /// Fades in master audio.
-    /// </summary>
-    /// <returns>Null.</returns>
-    protected IEnumerator FadeOutMasterAudioCoroutine()
-    {
-        float currentTime = 0;
-        while (currentTime < 1)
-        {
-            currentMasterValue = Mathf.Lerp(currentMasterValue, -50, currentTime);
-            master.SetFloat(masterVolumeExposed, currentMasterValue);
-            currentTime += Time.deltaTime;
-            yield return null;
-        }
-    }
+    public void UpdateMasterVolume(float currentMasterValue) =>
+        master.SetFloat(masterVolumeExposed, currentMasterValue);
 
     /// <summary>
     /// Disables all controls. Happens when scene is starting.
@@ -260,7 +227,17 @@ public class SceneControl : MonoBehaviour, ISaveable
         {
             input.gameObject.SetActive(false);
             input.gameObject.SetActive(true);
-            input.SwitchActionMapToGameplay();
+
+            if (changeToTypeOfControl == ChangeToTypeOfControl.UI)
+            {
+                input.SwitchActionMapToUI();
+            }
+            else
+            {
+                input.SwitchActionMapToGameplay();
+            }
         }
     }
+
+    public enum ChangeToTypeOfControl { UI, Gameplay, };
 }

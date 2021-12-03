@@ -26,8 +26,6 @@ public class LoadingScreenWithButtonPress : SceneControl
             yield return new WaitForEndOfFrame();
         }
 
-        yield return FadeOutMasterAudioCoroutine();
-
         // Load scene and sets it as main scene
         SetActiveScene(sceneToLoad);
     }

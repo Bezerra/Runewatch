@@ -20,6 +20,7 @@ MonoBehaviour:
   backgroundAnimationTrigger: FadeToUnload
   sceneToLoad: 0
   thisScene: 2
+  changeToTypeOfControl: 1
 --- !u!1001 &8614284192009009900
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27,6 +28,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7039180841786073633, guid: 8f961ec590c9e484e8626ef59aa9348b, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2351907086045452203}
+    - target: {fileID: 7039180841786073633, guid: 8f961ec590c9e484e8626ef59aa9348b, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpdateMasterVolume
+      objectReference: {fileID: 0}
     - target: {fileID: 7220765635249499733, guid: 8f961ec590c9e484e8626ef59aa9348b, type: 3}
       propertyPath: m_Name
       value: Menu L - Loading Screen To New Game
@@ -118,6 +127,14 @@ PrefabInstance:
     - target: {fileID: 7220765635857531637, guid: 8f961ec590c9e484e8626ef59aa9348b, type: 3}
       propertyPath: m_text
       value: Generating map ...
+      objectReference: {fileID: 0}
+    - target: {fileID: 8980580083052045514, guid: 8f961ec590c9e484e8626ef59aa9348b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8980580083052045514, guid: 8f961ec590c9e484e8626ef59aa9348b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7137995993446775508, guid: 8f961ec590c9e484e8626ef59aa9348b, type: 3}

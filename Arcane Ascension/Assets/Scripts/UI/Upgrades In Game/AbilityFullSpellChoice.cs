@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 /// <summary>
 /// Class responsible for selecting a spell slot when all slots are full.
@@ -24,6 +23,9 @@ public class AbilityFullSpellChoice : MonoBehaviour
 
     private void OnEnable()
     {
+        // Prevents bugs, don't add if null (TRUST)
+        playerSpells = FindObjectOfType<PlayerSpells>();
+
         if (NewObtainedSpell != null)
         {
             for (int i = 0; i < allCards.Length; i++)
