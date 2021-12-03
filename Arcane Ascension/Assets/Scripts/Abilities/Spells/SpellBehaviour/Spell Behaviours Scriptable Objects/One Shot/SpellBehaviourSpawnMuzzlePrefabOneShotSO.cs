@@ -27,7 +27,7 @@ sealed public class SpellBehaviourSpawnMuzzlePrefabOneShotSO : SpellBehaviourAbs
             muzzleBehaviour.Eyes = parent.Eyes;
             muzzleBehaviour.Hand = parent.Hand;
             muzzleBehaviour.WhoCast = parent.WhoCast;
-            muzzleBehaviour.MuzzlePlayerSpawnOffset = muzzlePlayerSpawnOffset;
+            //muzzleBehaviour.MuzzlePlayerSpawnOffset = muzzlePlayerSpawnOffset;
 
             if (parent.Spell.Sounds.Muzzle != null)
             {

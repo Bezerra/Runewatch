@@ -15,6 +15,6 @@ public class GenerateLevelDemonstration : MonoBehaviour
         Destroy(levelGenerators.gameObject);
 
         levelGeneratedScript.GetValues();
-        levelGeneratedScript.StartGeneration();
+        StartCoroutine(levelGeneratedScript.StartGeneration());
     }
 }

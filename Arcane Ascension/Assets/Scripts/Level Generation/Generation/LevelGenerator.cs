@@ -66,6 +66,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
 
     // Starting time of a generation
     private float timeOfGenerationStart;
+    private float timeOfTotalGeneration;
 
     /// <summary>
     /// Sets variables values.
@@ -126,8 +127,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// <returns>Null.</returns>
     private IEnumerator GenerateLevel(System.Random random, bool firstAttempt = true)
     {
-        timeOfGenerationStart = Time.time;
-
+        timeOfTotalGeneration = Time.time;
         YieldInstruction yi = null;
         switch(yieldType)
         {
@@ -159,6 +159,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
 
         while (bossRoomSpawned == false)
         {
+            timeOfGenerationStart = Time.time;
+
             // Starts generating random seeds after first failed attempt
             if (firstAttempt == false)
                 GenerateSeed();
@@ -571,7 +573,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             }
         }
 
-        Debug.Log("Took " + (Time.time - timeOfGenerationStart) + " seconds to generate, with seed " + seed +
+        Debug.Log("Took " + (Time.time - timeOfTotalGeneration) + " seconds to generate, with seed " + seed +
             " and number of loops of " + numberOfLoops);
 
         if (occludeAndSpawnPlayer)
