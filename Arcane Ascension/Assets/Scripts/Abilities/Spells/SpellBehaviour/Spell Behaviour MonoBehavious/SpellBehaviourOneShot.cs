@@ -228,7 +228,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
                     {
                         return;
                     }
-
+   
                     PositionOnHit = transform.position;
                     TimeOfImpact = Time.time;
 
