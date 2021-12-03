@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using ExtensionMethods;
 
 /// <summary>
 /// Class responsible for handing all player's movement.
@@ -16,12 +17,12 @@ public class PlayerMovement : MonoBehaviour
 
     // Movement
     private bool    castingContinuousSpell;
-    private float movementX;
-    private float movementZ;
+    private float   movementX;
+    private float   movementZ;
     private Vector3 directionPressed;
-    private float speed;
+    private float   speed;
     public float    Speed { get => speed; private set { speed = value; OnEventSpeedChange(speed); } }
-    public bool Running { get; private set; }
+    public bool     Running { get; private set; }
     private Vector3 positionOnLastCalculation;
 
     // Dash
@@ -44,8 +45,8 @@ public class PlayerMovement : MonoBehaviour
     private readonly float  GRAVITY = 100f;
 
     // Character controller collider, don't change these values
-    private readonly float CONTROLLERRADIUSDEFAULT = 0.92f;
-    private readonly float CONTROLLERRADIUSONAIR = 0.5f;
+    private readonly float  CONTROLLERRADIUSDEFAULT = 0.92f;
+    private readonly float  CONTROLLERRADIUSONAIR = 0.5f;
 
     private void Awake()
     {
@@ -96,7 +97,6 @@ public class PlayerMovement : MonoBehaviour
         Vector3 sideMovement = movementX * speed * transform.right;
         Vector3 forwardMovement = movementZ * speed * transform.forward;
         directionPressed = sideMovement + forwardMovement;
-        //if (input.Movement == Vector2.zero) directionPressed = Vector3.zero;
 
         // Controls character radius to prevent getting stuck on edges after jumping
         if (IsGrounded())
@@ -121,6 +121,9 @@ public class PlayerMovement : MonoBehaviour
                 CurrentTimeToGetCharge = player.Values.TimeToGetDashCharge;
             }
         }
+
+        Debug.Log(directionPressed.magnitude);
+        FindObjectOfType<PLAUERUIBUILDTESTS>().UpdateText(directionPressed.ToString());
     }
 
     /// <summary>
@@ -215,7 +218,7 @@ public class PlayerMovement : MonoBehaviour
     private void Dash()
     {
         // Player must have a dash, and must be pressing a Direction.
-        if (dashing == false && (directionPressed.x != 0 || directionPressed.z != 0) &&
+        if (dashing == false && input.Movement.magnitude > 0.5f &&
             playerStats.DashCharge > 0)
         {
             dashing = true;
