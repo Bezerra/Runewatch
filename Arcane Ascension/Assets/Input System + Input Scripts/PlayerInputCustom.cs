@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -9,7 +8,7 @@ using UnityEngine.SceneManagement;
 /// The game is using Unity Events because PerformInteractiveRebinding 
 /// (in RebindActionUI script) only works with unity events.
 /// </summary>
-public class PlayerInputCustom : MonoBehaviour
+public class PlayerInputCustom : MonoBehaviour, IInput
 {
     private PlayerInput controls;
     private InputActions inputActionsAsset;
@@ -18,6 +17,16 @@ public class PlayerInputCustom : MonoBehaviour
     {
         inputActionsAsset = new InputActions();
         controls = GetComponent<PlayerInput>();
+
+        // TEMPORARY STUFF FOR EDITOR SCENES
+        Scene scene = SceneManager.GetActiveScene();
+        if (scene.name != "LoadingScreenToMainMenu" &&
+            scene.name != "LoadingScreenToNewGame" &&
+            scene.name != "MainMenu" &&
+            scene.name != "ProceduralGeneration")
+        {
+            SwitchActionMapToGameplay();
+        }
     }
 
     private void OnEnable()

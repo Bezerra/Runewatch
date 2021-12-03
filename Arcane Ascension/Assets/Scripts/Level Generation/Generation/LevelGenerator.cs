@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using ExtensionMethods;
+using System.Threading.Tasks;
 
 /// <summary>
 /// Class responsible for generating a level.
@@ -59,6 +60,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     private int numberOfLoops;
     private IEnumerator generateLevelCoroutine;
     private System.Random random;
+    private YieldInstruction yi;
 
     [Header("Dungeon element")]
     [SerializeField] private ElementType element;
@@ -128,7 +130,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     private IEnumerator GenerateLevel(System.Random random, bool firstAttempt = true)
     {
         timeOfTotalGeneration = Time.time;
-        YieldInstruction yi = null;
+        
         switch(yieldType)
         {
             case YieldType.FixedUpdate:
@@ -195,7 +197,9 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             ContactPoint initialCorridorContactPoint = 
                 initialCorridor.ContactPoints[random.Next(0, initialCorridor.ContactPoints.Length)];
             RotateAndSetPiece(initialCorridor, initialCorridorContactPoint, startingRoomContactPoint);
-            ValidatePiece(initialCorridor, initialCorridorContactPoint, false, openedContactPoints, 0, levelParent, random);
+            int indexOfOpenContacts = 0;
+            ValidatePiece(initialCorridor, initialCorridorContactPoint, false, 
+                openedContactPoints, ref indexOfOpenContacts, levelParent, random);
             #endregion
 
             // Level creation loop
@@ -212,13 +216,16 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             // Spawns rooms and corridors and tries to connect them while there are opened contact points
             do
             {
+                Debug.ClearDeveloperConsole();
                 int openedContacts = openedContactPoints.Count;
 
                 // For all opened contact points on this loop only < will ignore the ones added inside for now
                 for (int i = 0; i < openedContacts; i++)
                 {
-                    // Creates a common levelPiece and desired contactPoint to connect
-                    LevelPiece pieceToPlace = null;
+                    Debug.Log(allRooms.Count + " rooms ||| " + openedContactPoints[i].ParentRoom.Type);
+
+                        // Creates a common levelPiece and desired contactPoint to connect
+                        LevelPiece pieceToPlace = null;
                     ContactPoint pieceContactPoint = null;
 
                     // If this point is a room
@@ -250,10 +257,9 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                                 pieceContactPoint = pieceToPlace.ContactPoints[
                                     random.Next(0, pieceToPlace.ContactPoints.Length)];
 
-                                // Tries to set it
-                                RotateAndSetPiece(pieceToPlace, pieceContactPoint, openedContactPoints[i]);
+                                // Sets it
+                                yield return RotateAndSetPiece(pieceToPlace, pieceContactPoint, openedContactPoints[i]);
 
-                                yield return yi;
                                 break;
                             }
 
@@ -274,14 +280,18 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                         if (pieceToPlace == null)
                             continue;
 
+                        yield return yi;
+
                         // Open/Close/Remove/Add points logic happens here
                         ValidatePiece(pieceToPlace, pieceContactPoint, false,
-                            openedContactPoints, i, levelParent, random);
+                            openedContactPoints, ref i, levelParent, random);
+
+                        continue;
                     }
 
                     // This should be and else if, but if it's changed to else if, it's bugged.....
                     // If the point is a corridor
-                    if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor)
+                    else if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor)
                     {
                         // Creates rooms depending on their weight
                         pieceToPlace = Instantiate(rooms[random.RandomWeight(roomWeights)]);
@@ -296,14 +306,12 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                             continue;
                         }
 
-                        RotateAndSetPiece(
+                        yield return RotateAndSetPiece(
                             pieceToPlace, pieceContactPoint, openedContactPoints[i]);
-
-                        yield return yi;
 
                         ValidatePiece(
                             pieceToPlace, pieceContactPoint, true, openedContactPoints,
-                            i, levelParent, random);
+                            ref i, levelParent, random);
                     }
                 }
 
@@ -364,8 +372,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                 if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor)
                 {
                     // Sets and rotates piece
-                    RotateAndSetPiece(bossRoomPiece, bossRoomContactPoint, openedContactPoints[i]);
-                    yield return new WaitForSeconds(0.25f);
+                    yield return RotateAndSetPiece(bossRoomPiece, bossRoomContactPoint, openedContactPoints[i]);
+                    yield return new WaitForSeconds(0.1f);
 
                     // If everything is valid, ends generation
                     if (IsPieceValid(bossRoomPiece, openedContactPoints[i], random, false))
@@ -374,7 +382,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
 
                         ValidatePiece(
                             bossRoomPiece, bossRoomContactPoint, true, 
-                            openedContactPoints, i, levelParent, random);
+                            openedContactPoints, ref i, levelParent, random);
 
                         bossRoomPiece.ContactPoints[0].OriginatedRoom = ghostRoom;
 
@@ -416,16 +424,14 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                         }
 
                         // Tries to set the room
-                        RotateAndSetPiece(corridorToPlace, pieceContactPoint, openedContactPoints[i]);
-
-                        yield return yi;
+                        yield return RotateAndSetPiece(corridorToPlace, pieceContactPoint, openedContactPoints[i]);
 
                         // If it's valid
                         if (IsPieceValid(corridorToPlace, openedContactPoints[i], random, false))
                         {
                             ValidatePiece(
                                 corridorToPlace, pieceContactPoint, false, 
-                                openedContactPoints, i, levelParent, random);
+                                openedContactPoints, ref i, levelParent, random);
 
                             finalCorridorCreated = true;
 
@@ -443,7 +449,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                     {
                         // From now on, it will be used the last index on opened contact points
                         // because this was the point added on the previous corridor
-                        RotateAndSetPiece(bossRoomPiece, bossRoomContactPoint, 
+                        yield return RotateAndSetPiece(bossRoomPiece, bossRoomContactPoint, 
                             openedContactPoints[openedContactPoints.Count - 1]);
 
                         yield return new WaitForSeconds(0.25f);
@@ -454,9 +460,10 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                         {
                             print("Valid level generation.");
 
+                            int indexOfContactPoint = openedContactPoints.Count - 1;
                             ValidatePiece(
                                 bossRoomPiece, bossRoomContactPoint, true, 
-                                openedContactPoints, openedContactPoints.Count - 1, levelParent, random);
+                                openedContactPoints, ref indexOfContactPoint, levelParent, random);
 
                             bossRoomPiece.ContactPoints[0].OriginatedRoom = ghostRoom;
 
@@ -704,8 +711,11 @@ public class LevelGenerator : MonoBehaviour, ISaveable
 
         if (PieceIntersection(levelPiece))
         {
-            contactPointToSetPiece.IncompatiblePieces.Add(levelPiece.ConcreteType);
-            Destroy(levelPiece.gameObject);
+            if (creatingLevelBase)
+            {
+                contactPointToSetPiece.IncompatiblePieces.Add(levelPiece.ConcreteType);
+                Destroy(levelPiece.gameObject);
+            } 
             return false;
         }
 
@@ -719,7 +729,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// </summary>
     /// <param name="levelPieceContact">Contact point of the piece.</param>
     /// <param name="connectionContactPoint">Contact point to match.</param>
-    private void RotatePiece(ContactPoint levelPieceContact,
+    private IEnumerator RotatePiece(ContactPoint levelPieceContact,
         ContactPoint connectionContactPoint)
     {
         // Rotatesa piece towards a contact point
@@ -734,6 +744,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             // It will keep rotating parent room
             levelPieceContact.ParentRoom.transform.rotation *= 
                 levelPieceContact.transform.localRotation;
+            yield return yi;
         }
     }
 
@@ -764,11 +775,11 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// <param name="contactPoint">Piece contact point.</param>
     /// <param name="openedContactPoint">Opened contact point to place the piece.</param>
     /// <param name="random">Instance of Random.</param>
-    private void RotateAndSetPiece(LevelPiece pieceToPlace, 
+    private IEnumerator RotateAndSetPiece(LevelPiece pieceToPlace, 
         ContactPoint contactPoint, ContactPoint openedContactPoint)
     {
         // Rotates piece to match contact point rotation
-        RotatePiece(contactPoint, openedContactPoint);
+        yield return RotatePiece(contactPoint, openedContactPoint);
 
         // Sets a piece in a contact point
         SetPiece(pieceToPlace, contactPoint, openedContactPoint);
@@ -786,7 +797,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// <param name="levelParent">Gameobject parent of all level pieces.</param>
     /// <param name="random">Instance of Random.</param>
     private void ValidatePiece(LevelPiece pieceToPlace, ContactPoint pieceContactPoint, bool isRoomPiece,
-        IList<ContactPoint> openedContactPoints, int index, GameObject levelParent, System.Random random)
+        IList<ContactPoint> openedContactPoints, ref int index, GameObject levelParent, System.Random random)
     {
         // Checks if the last piece is valid
         // If it's not valid it will destroy it, else it will add its contact points to a list
@@ -838,6 +849,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             pieceToPlace.ConnectedPieces.Add(openedContactPoints[index].ParentRoom);
             // Removes the contact point that the piece just connected to from opened contact points. 
             openedContactPoints.Remove(openedContactPoints[index]);
+            // Pushes the currrent index one time back (since it removed it previously)
+            index--;
             // Sets transform parent (to be organized)
             pieceToPlace.transform.parent = levelParent.transform;   
 
