@@ -121,9 +121,6 @@ public class PlayerMovement : MonoBehaviour
                 CurrentTimeToGetCharge = player.Values.TimeToGetDashCharge;
             }
         }
-
-        Debug.Log(directionPressed.magnitude);
-        FindObjectOfType<PLAUERUIBUILDTESTS>().UpdateText(directionPressed.ToString());
     }
 
     /// <summary>

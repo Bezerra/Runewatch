@@ -29,11 +29,6 @@ public class AbilitySpellCard : MonoBehaviour
         abilitiesCanvas = GetComponentInParent<AbilitiesCanvas>();
     }
 
-    public void FindPlayerComponents()
-    {
-        
-    }
-
     /// <summary>
     /// Updates card info.
     /// </summary>
@@ -61,11 +56,9 @@ public class AbilitySpellCard : MonoBehaviour
     /// </summary>
     public void TryAddSpell()
     {
-        if (playerInteraction == null)
-            playerInteraction = FindObjectOfType<PlayerInteraction>();
-
-        if (playerSpells == null)
-            playerSpells = FindObjectOfType<PlayerSpells>();
+        // Prevents bugs, don't add if null(TRUST)
+        playerInteraction = FindObjectOfType<PlayerInteraction>();
+        playerSpells = FindObjectOfType<PlayerSpells>();
 
         // If there are slots, it adds the spell.
         if (CheckAddSpellValidation())
@@ -116,7 +109,6 @@ public class AbilitySpellCard : MonoBehaviour
                     playerInteraction.LastObjectInteracted.SetActive(false);
                 }
             }
-            
             // Drops a spell and updates player's spell list
             playerSpells.DropSpell(playerSpells.CurrentSpells[slot] as SpellSO);
             playerSpells.RemoveSpell(slot);
