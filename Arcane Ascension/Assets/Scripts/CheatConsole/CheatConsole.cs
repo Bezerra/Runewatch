@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 /// <summary>
 /// Class responsible for controling console and applying cheats.
 /// </summary>
-public class CheatConsole : MonoBehaviour, IFindPlayer
+public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
 {
     // Components
     private PlayerInputCustom input;
@@ -40,15 +40,11 @@ public class CheatConsole : MonoBehaviour, IFindPlayer
         FindRequiredComponents();
     }
 
-    private void OnEnable()
-    {
+    private void OnEnable() =>
         input.CheatConsole += ShowConsole;
-    }
 
-    private void OnDisable()
-    {
+    private void OnDisable() =>
         input.CheatConsole -= ShowConsole;
-    }
 
     /// <summary>
     /// Finds required components for cheats.
@@ -370,5 +366,24 @@ public class CheatConsole : MonoBehaviour, IFindPlayer
     public void PlayerLost()
     {
         // Left blank on purpose
+    }
+
+    public void FindInput()
+    {
+        if (input != null)
+        {
+            input.CheatConsole -= ShowConsole;
+        }
+
+        input = FindObjectOfType<PlayerInputCustom>();
+        input.CheatConsole += ShowConsole;
+    }
+        
+    public void LostInput()
+    {
+        if (input != null)
+        {
+            input.CheatConsole -= ShowConsole;
+        }
     }
 }

@@ -6,10 +6,8 @@ public class TEMPTOCHANGEINPUT : MonoBehaviour
 {
     [SerializeField] private bool switchToInput;
 
-    private IEnumerator Start()
+    private void Start()
     {
-        yield return new WaitForSeconds(1);
-
         if (switchToInput)
             FindObjectOfType<PlayerInputCustom>().SwitchActionMapToUI();
     }

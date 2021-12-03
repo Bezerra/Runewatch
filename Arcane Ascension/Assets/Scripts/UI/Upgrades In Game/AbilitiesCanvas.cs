@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for enabling child ability canvas.
 /// </summary>
-public class AbilitiesCanvas : MonoBehaviour
+public class AbilitiesCanvas : MonoBehaviour, IFindInput
 {
     // Components
     private PlayerInputCustom input;
@@ -27,9 +27,6 @@ public class AbilitiesCanvas : MonoBehaviour
 
     public void DisableAll()
     {
-        if (input == null)
-            input = FindObjectOfType<PlayerInputCustom>();
-
         threeSpellCanvas.SetActive(false);
         oneSpellCanvas.SetActive(false);
         threePassiveCanvas.SetActive(false);
@@ -57,5 +54,15 @@ public class AbilitiesCanvas : MonoBehaviour
         oneSpellCanvas.SetActive(false);
         threePassiveCanvas.SetActive(false);
         spellsFullCanvas.SetActive(false);
+    }
+
+    public void FindInput()
+    {
+        input = FindObjectOfType<PlayerInputCustom>();
+    }
+
+    public void LostInput()
+    {
+        // Left blank on purpose
     }
 }

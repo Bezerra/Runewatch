@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// Contains methods for pause menu.
 /// </summary>
-public class PauseMenuCanvasUI : MonoBehaviour
+public class PauseMenuCanvasUI : MonoBehaviour, IFindInput
 {
     [SerializeField] private GameObject backgroundCanvas;
     [SerializeField] private GameObject menuIntro;
@@ -69,4 +69,23 @@ public class PauseMenuCanvasUI : MonoBehaviour
     }
     public void ButtonIntroMenuMainMenu() => 
         SceneManager.LoadScene("MainMenu");
+
+    public void FindInput()
+    {
+        if (playerInputCustom != null)
+        {
+            playerInputCustom.PauseGame -= EnableDisableInterface;
+        }
+
+        playerInputCustom = FindObjectOfType<PlayerInputCustom>();
+        playerInputCustom.PauseGame += EnableDisableInterface;
+    }
+
+    public void LostInput()
+    {
+        if (playerInputCustom != null)
+        {
+            playerInputCustom.PauseGame -= EnableDisableInterface;
+        }
+    }
 }

@@ -6,7 +6,7 @@ using ExtensionMethods;
 /// <summary>
 /// Class responsible for handing all player's movement.
 /// </summary>
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IFindInput
 {
     // Components
     private PlayerInputCustom   input;
@@ -441,5 +441,31 @@ public class PlayerMovement : MonoBehaviour
 
     // Subscribed on PlayerSounds
     protected virtual void OnEventSpeedChange(float speed) => EventSpeedChange?.Invoke(speed);
+
+    public void FindInput()
+    {
+        if (input != null)
+        {
+            input.Jump -= JumpPress;
+            input.Dash -= Dash;
+            input.Run -= Run;
+        }
+
+        input = FindObjectOfType<PlayerInputCustom>();
+        input.Jump += JumpPress;
+        input.Dash += Dash;
+        input.Run += Run;
+    }
+
+    public void LostInput()
+    {
+        if (input != null)
+        {
+            input.Jump -= JumpPress;
+            input.Dash -= Dash;
+            input.Run -= Run;
+        }
+    }
+
     public event Action<float> EventSpeedChange;
 }

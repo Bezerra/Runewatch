@@ -18,15 +18,11 @@ public class PlayerInputCustom : MonoBehaviour
     {
         inputActionsAsset = new InputActions();
         controls = GetComponent<PlayerInput>();
-
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
     }
 
     private void OnEnable()
     {
         inputActionsAsset.Enable();
-        SwitchActionMapToGameplay();
     }
 
     private void OnDisable()
@@ -42,8 +38,6 @@ public class PlayerInputCustom : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        controls.uiInputModule.enabled = false;
-
         controls.SwitchCurrentActionMap("Gameplay");
     }
 
@@ -52,7 +46,6 @@ public class PlayerInputCustom : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     
-        controls.uiInputModule.enabled = false;
         controls.SwitchCurrentActionMap("None");
     }
 
@@ -64,7 +57,6 @@ public class PlayerInputCustom : MonoBehaviour
         Movement = Vector3.zero;
         Camera = Vector3.zero;
 
-        controls.uiInputModule.enabled = true;
         controls.SwitchCurrentActionMap("Interface");
     }
 
@@ -76,7 +68,6 @@ public class PlayerInputCustom : MonoBehaviour
         Movement = Vector3.zero;
         Camera = Vector3.zero;
 
-        controls.uiInputModule.enabled = true;
         controls.SwitchCurrentActionMap("AbilityChoice");
     }
 
@@ -86,7 +77,6 @@ public class PlayerInputCustom : MonoBehaviour
         Movement = Vector3.zero;
         Camera = Vector3.zero;
 
-        controls.uiInputModule.enabled = true;
         controls.SwitchCurrentActionMap("CheatsConsole");
     }
 
@@ -96,7 +86,6 @@ public class PlayerInputCustom : MonoBehaviour
         Cursor.visible = false;
 
         controls.SwitchCurrentActionMap("Nothing");
-        controls.uiInputModule.enabled = false;
     }
 
     public string GetCurrentActionMap() => controls.currentActionMap.name;

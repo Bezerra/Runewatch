@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for pausing and upausing the game.
 /// </summary>
-public class PauseSystem : MonoBehaviour
+public class PauseSystem : MonoBehaviour, IFindInput
 {
     // Components
     private PlayerInputCustom playerInputCustom;
@@ -20,23 +20,17 @@ public class PauseSystem : MonoBehaviour
         gameIsPaused = false;
     }
 
-    private void OnEnable()
-    {
+    private void OnEnable() =>
         playerInputCustom.PauseGame += PauseGame;
-        Debug.LogError(playerInputCustom);
-    }
 
-    private void OnDisable()
-    {
-        playerInputCustom.PauseGame -= PauseGame;
-    }
+    private void OnDisable() =>
+        LostInput();
 
     /// <summary>
     /// Pauses/Unpauses game and switches action map.
     /// </summary>
     public void PauseGame()
     {
-        Debug.LogError("AH");
         if (gameIsPaused == false)
         {
             gameIsPaused = true;
@@ -48,6 +42,25 @@ public class PauseSystem : MonoBehaviour
             gameIsPaused = false;
             Time.timeScale = 1;
             playerInputCustom.SwitchActionMapToGameplay();
+        }
+    }
+
+    public void FindInput()
+    {
+        if (playerInputCustom != null)
+        {
+            playerInputCustom.PauseGame -= PauseGame;
+        }
+
+        playerInputCustom = FindObjectOfType<PlayerInputCustom>();
+        playerInputCustom.PauseGame += PauseGame;
+    }
+
+    public void LostInput()
+    {
+        if (playerInputCustom != null)
+        {
+            playerInputCustom.PauseGame -= PauseGame;
         }
     }
 }
