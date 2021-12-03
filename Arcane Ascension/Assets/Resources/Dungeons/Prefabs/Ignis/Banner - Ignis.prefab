@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3723483889404577517}
   - component: {fileID: 289254347304765768}
   - component: {fileID: 2587128879433284994}
-  m_Layer: 0
+  m_Layer: 23
   m_Name: BannerBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,9 @@ GameObject:
   - component: {fileID: 8965263701798908337}
   - component: {fileID: 6597760946574034299}
   - component: {fileID: 2289071851788972092}
-  m_Layer: 0
+  - component: {fileID: 1527381214973441384}
+  - component: {fileID: 4330395465699853559}
+  m_Layer: 23
   m_Name: Banner - Ignis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,3 +187,28 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &1527381214973441384
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4651946766643635374}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.8330202, y: 2.5218477, z: 0.00000001186551}
+  m_Center: {x: 0, y: -1.2993562, z: 0.000000004910086}
+--- !u!114 &4330395465699853559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4651946766643635374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78dffd3caae115b4591ad90df849e434, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
