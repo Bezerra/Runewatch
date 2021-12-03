@@ -99,7 +99,6 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
         // This piece of code prevents undesired reflections.
         // For ex: if the player shoots upwards on the corner of a wall, the detection
         // will happen on the next frame and it will reflect the projectile towards INSIDE the wall
-
         if (Vector3.Dot(parent.transform.forward, spellHitPoint.normal) > 0)
         {
             return;
