@@ -50,11 +50,9 @@ public class AbilityPassiveCard : MonoBehaviour
     /// </summary>
     public void AddPassive()
     {
-        if (playerInteraction == null)
-            playerInteraction = FindObjectOfType<PlayerInteraction>();
-
-        if (playerStats == null)
-            playerStats = FindObjectOfType<PlayerStats>();
+        // Prevents bugs, don't add if null (TRUST)
+        playerInteraction = FindObjectOfType<PlayerInteraction>();
+        playerStats = FindObjectOfType<PlayerStats>();
 
         if (PassiveOnCard != null)
         {

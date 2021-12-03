@@ -43,6 +43,15 @@ public class PlayerInputCustom : MonoBehaviour
         controls.SwitchCurrentActionMap("Gameplay");
     }
 
+    public void SwitchActionMapToNone()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    
+        controls.uiInputModule.enabled = false;
+        controls.SwitchCurrentActionMap("None");
+    }
+
     public void SwitchActionMapToUI()
     {
         Cursor.lockState = CursorLockMode.Confined;

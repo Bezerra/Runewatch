@@ -5,5 +5,7 @@ public enum SceneEnum
 {
     ProceduralGeneration,
     MainMenu,
-    LoadingScreenNewGame,
+    LoadingScreenToNewGame,
+    LoadingScreenToContinueGame,
+    LoadingScreenToMainMenu,
 }

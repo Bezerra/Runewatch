@@ -3,16 +3,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Class responsible for loading a new generation scene and start its generation.
+/// Class responsible for loading a new scene with a button press.
 /// </summary>
-public class LoadingScreenNewGame : SceneControl
+public class LoadingScreenWithButtonPress : SceneControl
 {
-    protected override void Awake()
-    {
-        base.Awake();
-        StartCoroutine(LoadNewScene(sceneToLoad));
-    }
-
     /// <summary>
     /// Coroutine that loads a new scene.
     /// </summary>
@@ -21,11 +15,7 @@ public class LoadingScreenNewGame : SceneControl
     protected override IEnumerator LoadNewScene(SceneEnum scene, bool isAdditive = true)
     {
         DisableControls();
-
-        yield return null;
-
-        master.SetFloat("MasterVolume", -50f);
-
+        
         // Asyc loads a scene
         AsyncOperation sceneToLoadAsync =
             SceneManager.LoadSceneAsync(scene.ToString(), LoadSceneMode.Additive);
@@ -38,11 +28,5 @@ public class LoadingScreenNewGame : SceneControl
 
         // Load scene and sets it as main scene
         SetActiveScene(sceneToLoad);
-
-        // Waits until scene is generated
-        yield return DungeonGenerator.GenerateDungeon();
-
-        // Starts loading screen animation fade out
-        GetComponent<Animator>().SetTrigger(backgroundAnimationTrigger);
     }
 }

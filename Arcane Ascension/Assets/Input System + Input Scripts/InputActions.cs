@@ -1552,10 +1552,31 @@ public class @InputActions : IInputActionCollection, IDisposable
             ]
         },
         {
-            ""name"": ""Nothing"",
+            ""name"": ""None"",
             ""id"": ""d8f646cc-9fdc-44a7-a5c3-12f6fc07dc55"",
-            ""actions"": [],
-            ""bindings"": []
+            ""actions"": [
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""a5a00b0f-9f42-4158-a3de-62ac226eee5a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""fae21406-1a3d-49fe-baf4-d54f14369a32"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -1626,8 +1647,9 @@ public class @InputActions : IInputActionCollection, IDisposable
         // CheatsConsole
         m_CheatsConsole = asset.FindActionMap("CheatsConsole", throwIfNotFound: true);
         m_CheatsConsole_CheatConsole = m_CheatsConsole.FindAction("CheatConsole", throwIfNotFound: true);
-        // Nothing
-        m_Nothing = asset.FindActionMap("Nothing", throwIfNotFound: true);
+        // None
+        m_None = asset.FindActionMap("None", throwIfNotFound: true);
+        m_None_Newaction = m_None.FindAction("New action", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -2102,30 +2124,38 @@ public class @InputActions : IInputActionCollection, IDisposable
     }
     public CheatsConsoleActions @CheatsConsole => new CheatsConsoleActions(this);
 
-    // Nothing
-    private readonly InputActionMap m_Nothing;
-    private INothingActions m_NothingActionsCallbackInterface;
-    public struct NothingActions
+    // None
+    private readonly InputActionMap m_None;
+    private INoneActions m_NoneActionsCallbackInterface;
+    private readonly InputAction m_None_Newaction;
+    public struct NoneActions
     {
         private @InputActions m_Wrapper;
-        public NothingActions(@InputActions wrapper) { m_Wrapper = wrapper; }
-        public InputActionMap Get() { return m_Wrapper.m_Nothing; }
+        public NoneActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Newaction => m_Wrapper.m_None_Newaction;
+        public InputActionMap Get() { return m_Wrapper.m_None; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(NothingActions set) { return set.Get(); }
-        public void SetCallbacks(INothingActions instance)
+        public static implicit operator InputActionMap(NoneActions set) { return set.Get(); }
+        public void SetCallbacks(INoneActions instance)
         {
-            if (m_Wrapper.m_NothingActionsCallbackInterface != null)
+            if (m_Wrapper.m_NoneActionsCallbackInterface != null)
             {
+                @Newaction.started -= m_Wrapper.m_NoneActionsCallbackInterface.OnNewaction;
+                @Newaction.performed -= m_Wrapper.m_NoneActionsCallbackInterface.OnNewaction;
+                @Newaction.canceled -= m_Wrapper.m_NoneActionsCallbackInterface.OnNewaction;
             }
-            m_Wrapper.m_NothingActionsCallbackInterface = instance;
+            m_Wrapper.m_NoneActionsCallbackInterface = instance;
             if (instance != null)
             {
+                @Newaction.started += instance.OnNewaction;
+                @Newaction.performed += instance.OnNewaction;
+                @Newaction.canceled += instance.OnNewaction;
             }
         }
     }
-    public NothingActions @Nothing => new NothingActions(this);
+    public NoneActions @None => new NoneActions(this);
     private int m_ComputerSchemeIndex = -1;
     public InputControlScheme ComputerScheme
     {
@@ -2188,7 +2218,8 @@ public class @InputActions : IInputActionCollection, IDisposable
     {
         void OnCheatConsole(InputAction.CallbackContext context);
     }
-    public interface INothingActions
+    public interface INoneActions
     {
+        void OnNewaction(InputAction.CallbackContext context);
     }
 }
