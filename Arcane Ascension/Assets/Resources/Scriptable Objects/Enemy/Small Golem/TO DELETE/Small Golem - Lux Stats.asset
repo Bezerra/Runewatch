@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Small Golem - Ignis
   description: Small Golem lalalalalalalalalalalala
+  icon: {fileID: 21300000, guid: 53ac9e47d1d596c469daa99511f6c006, type: 3}
   element: 6
   characterType: 1
   defaultHealth: 100
@@ -30,6 +31,7 @@ MonoBehaviour:
   defaultUmbraMultiplier: 1
   defaultCriticalChance: 0.1
   defaultCriticalDamageModifier: 1
+  attackingDelay: {x: 0, y: 0}
   goldQuantity: {x: 50, y: 100}
   arcanePowerQuantity: {x: 5, y: 10}
   lootRates:
@@ -48,6 +50,7 @@ MonoBehaviour:
       lootRate: 5
   availableSpells:
   - spell: {fileID: 11400000, guid: ece89201399664e43a5c2cc72bd908d8, type: 2}
+    isMeleeAttack: 0
     spellWeight: 100
     range: {x: 10, y: 15}
     needsToBeInRangeToAttack: 0
