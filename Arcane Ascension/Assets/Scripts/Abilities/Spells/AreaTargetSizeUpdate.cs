@@ -11,16 +11,16 @@ public class AreaTargetSizeUpdate : MonoBehaviour
     private ParticleSystem.MainModule[] circleMain;
     private ParticleSystem.MainModule[] cylinderMain;
     private float[] initialCirclesSizes;
-    private float[] initialCilindersSizesX;
-    private float[] initialCilindersSizesZ;
+    private float[] initialCylindersSizesX;
+    private float[] initialCylindersSizesZ;
 
     private void Awake()
     {
         circleMain = new ParticleSystem.MainModule[circles.Length];
         cylinderMain = new ParticleSystem.MainModule[cylinders.Length];
         initialCirclesSizes = new float[circles.Length];
-        initialCilindersSizesX = new float[cylinders.Length];
-        initialCilindersSizesZ = new float[cylinders.Length];
+        initialCylindersSizesX = new float[cylinders.Length];
+        initialCylindersSizesZ = new float[cylinders.Length];
 
         for (int i = 0; i < circles.Length; i++)
         {
@@ -31,11 +31,15 @@ public class AreaTargetSizeUpdate : MonoBehaviour
         for (int i = 0; i < cylinders.Length; i++)
         {
             cylinderMain[i] = cylinders[i].main;
-            initialCilindersSizesX[i] = cylinderMain[i].startSizeX.constant;
-            initialCilindersSizesZ[i] = cylinderMain[i].startSizeZ.constant;
+            initialCylindersSizesX[i] = cylinderMain[i].startSizeX.constant;
+            initialCylindersSizesZ[i] = cylinderMain[i].startSizeZ.constant;
         }
     }
 
+    /// <summary>
+    /// Updates current particle sizes.
+    /// </summary>
+    /// <param name="radius">Radius to update size.</param>
     public void UpdateAreaTargetSize(float radius)
     {
         for (int i = 0; i < circleMain.Length; i++)
@@ -45,9 +49,8 @@ public class AreaTargetSizeUpdate : MonoBehaviour
 
         for (int i = 0; i < cylinderMain.Length; i++)
         {
-            cylinderMain[i].startSizeX = radius * initialCilindersSizesX[i];
-            cylinderMain[i].startSizeZ = radius * initialCilindersSizesZ[i];
-        }
-            
+            cylinderMain[i].startSizeX = radius * initialCylindersSizesX[i];
+            cylinderMain[i].startSizeZ = radius * initialCylindersSizesZ[i];
+        }  
     }
 }

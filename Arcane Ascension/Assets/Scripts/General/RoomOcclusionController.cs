@@ -57,9 +57,8 @@ public class RoomOcclusionController : MonoBehaviour
         StartCoroutine(startRoomLevelPiece.EnableChildOccludeesCoroutine());
 
         startRoom.TryGetComponent(out PlayerSpawnLevelPiece playerSpawnLevelPiece);
-        Instantiate(PLAYERTEMP, playerSpawnLevelPiece.PlayerSpawnTransform.position,
+        CharactersAndNpcsPoolCreator.Pool.InstantiateFromPool(
+                        "Player", playerSpawnLevelPiece.PlayerSpawnTransform.position,
             playerSpawnLevelPiece.PlayerSpawnTransform.rotation);
     }
-
-    [SerializeField] private GameObject PLAYERTEMP;
 }

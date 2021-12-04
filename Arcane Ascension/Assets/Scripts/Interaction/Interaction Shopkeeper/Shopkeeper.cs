@@ -40,10 +40,14 @@ public class Shopkeeper : MonoBehaviour, IFindPlayer
         } 
     }
 
-    private IEnumerator Start()
+    private void OnEnable()
+    {
+        StartCoroutine(SpawnShopKeeperCoroutine());
+    }
+
+    private IEnumerator SpawnShopKeeperCoroutine()
     {
         yield return new WaitForSeconds(1);
-
         SpawnShopkeeper();
     }
 
@@ -97,7 +101,7 @@ public class Shopkeeper : MonoBehaviour, IFindPlayer
                 }
 
                 if (numberOfInventorySlots == numberOfItemsSold)
-                    Destroy(gameObject);
+                    gameObject.SetActive(false);
             }
         }
     }

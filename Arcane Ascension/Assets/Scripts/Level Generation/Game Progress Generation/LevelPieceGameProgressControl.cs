@@ -8,8 +8,11 @@ public class LevelPieceGameProgressControl : MonoBehaviour
 {
     [SerializeField] private BoxCollider[] exitBlockers;
     [SerializeField] private EnemySpawnPoint[] enemySpawnPoints;
+    [SerializeField] private Transform shopkeeperTransform;
     [SerializeField] private AvailableListOfEnemiesToSpawnSO listOfEnemies;
 
+    // Variables to keep track of progress
+    public bool RoomSpawnsShopkeeper { get; set; }
     private int quantityOfEnemiesSpawned;
     private bool haveEnemiesSpawned;
     private ContactPointDoor[] contactPointsDoors;
@@ -18,7 +21,8 @@ public class LevelPieceGameProgressControl : MonoBehaviour
         contactPointsDoors = GetComponentsInChildren<ContactPointDoor>();
 
     /// <summary>
-    /// Blocks all exits.
+    /// Blocks/unblocks all exits.
+    /// Triggered when the player enters a room or defeats all enemies.
     /// </summary>
     private void BlockUnblockExits(bool condition)
     {
@@ -49,6 +53,14 @@ public class LevelPieceGameProgressControl : MonoBehaviour
                     // Keeps passage closed but unblocks it
                     contactPoint.ClosePassage();
                     contactPoint.UnblockPassage();
+                }
+
+                // If this piece is supposed to spawn shopkeeper, spawns it
+                if (RoomSpawnsShopkeeper && shopkeeperTransform != null)
+                {
+                    CharactersAndNpcsPoolCreator.Pool.InstantiateFromPool(
+                        "Shopkeeper", shopkeeperTransform.position, 
+                        shopkeeperTransform.rotation);
                 }
             }
         }

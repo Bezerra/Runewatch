@@ -133,7 +133,7 @@ public class CharacterSaveDataController : MonoBehaviour
     public void Save()
     {
         // Writes file with saved JSON
-        if (fileManager.WriteToFile("saveCharacterProgress.d4s", SaveData.ToJson()))
+        if (fileManager.WriteToFile("CHARACTERFILE.d4s", SaveData.ToJson()))
             Debug.Log("Character Data Saved");
     }
 
@@ -144,7 +144,7 @@ public class CharacterSaveDataController : MonoBehaviour
     /// </summary>
     public CharacterSaveData LoadGame()
     {
-        if (instance.fileManager.ReadFile("saveCharacterProgress.d4s", out string json))
+        if (instance.fileManager.ReadFile("CHARACTERFILE.d4s", out string json))
         {
             SaveData.LoadFromJson(json);
             Debug.Log("Character Data Loaded");
@@ -152,7 +152,7 @@ public class CharacterSaveDataController : MonoBehaviour
         }
         else
         {
-            if (fileManager.WriteToFile("saveCharacterProgress.d4s", SaveData.ToJson()))
+            if (fileManager.WriteToFile("CHARACTERFILE.d4s", SaveData.ToJson()))
                 Debug.Log("No character save found. Created new file.");
             SaveData.LoadFromJson(json);
             return SaveData;

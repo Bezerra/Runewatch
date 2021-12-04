@@ -2,33 +2,33 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Class responsible for creating loot items pools.
+/// Class responsible for creating characters and npcs pools.
 /// </summary>
-public class ItemLootPoolCreator : MonoBehaviour
+public class CharactersAndNpcsPoolCreator : MonoBehaviour
 {
     /// <summary>
     /// Prefab of the damage hit prefab.
     /// </summary>
-    [SerializeField] private List<ItemLootPool> pool;
+    [SerializeField] private List<BasePool> pool;
 
     // IList with pool for every base pool
-    private IList<ItemLootPool> listOfGameObjects;
+    private IList<BasePool> listOfGameObjects;
 
-    public static ObjectPool<ItemLootPool> Pool { get; private set; }
+    public static ObjectPool<BasePool> Pool { get; private set; }
 
     private void Awake()
     {
         // Creates a dictionary with gameobject name
-        Pool = new ObjectPool<ItemLootPool>(new Dictionary<string, Queue<GameObject>>());
+        Pool = new ObjectPool<BasePool>(new Dictionary<string, Queue<GameObject>>());
 
         // Creates a list for prefabs or hits/muzzles
-        listOfGameObjects = new List<ItemLootPool>();
+        listOfGameObjects = new List<BasePool>();
 
         // Foreach pool
         for (int i = 0; i < pool.Count; i++)
         {
-            ItemLootPool spawnedGameObject = 
-                new ItemLootPool(pool[i].LootName.ToString(), pool[i].Prefab, pool[i].Size);
+            BasePool spawnedGameObject = 
+                new BasePool(pool[i].ToString(), pool[i].Prefab, pool[i].Size);
             listOfGameObjects.Add(spawnedGameObject);
         }
 

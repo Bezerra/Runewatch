@@ -5,7 +5,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using ExtensionMethods;
-using System.Threading.Tasks;
 
 /// <summary>
 /// Class responsible for generating a level.
@@ -382,6 +381,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                             bossRoomPiece, bossRoomContactPoint, true, 
                             openedContactPoints, ref i, levelParent, random);
 
+                        allRooms.Remove(bossRoomPiece);
+
                         bossRoomPiece.ContactPoints[0].OriginatedRoom = ghostRoom;
 
                         bossRoomSpawned = true;
@@ -463,6 +464,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                                 bossRoomPiece, bossRoomContactPoint, true, 
                                 openedContactPoints, ref indexOfContactPoint, levelParent, random);
 
+                            allRooms.Remove(bossRoomPiece);
+
                             bossRoomPiece.ContactPoints[0].OriginatedRoom = ghostRoom;
 
                             bossRoomSpawned = true;
@@ -519,14 +522,14 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     private IEnumerator FinalAdjustements(GameObject levelParent, IList<ContactPoint> openedContactPoints,
         YieldInstruction yi)
     {
+        yield return yi;
+
         print("Generating walls on exits...");
         // Close every opened exit with a wall
         while (openedContactPoints.Count > 0)
         {
             for (int i = openedContactPoints.Count - 1; i >= 0; i--)
             {
-                yield return yi;
-
                 if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor)
                 {
                     // Gets the connectected contact point of this piece and
@@ -577,6 +580,11 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                 piece.BoxCollidersParent.SetActive(false);
             }
         }
+
+        // Sets random pieces shopkeepers as spawnable
+        allRooms.Shuffle(random);
+        allRooms[0].GetComponent<LevelPieceGameProgressControl>().RoomSpawnsShopkeeper = true;
+        allRooms[1].GetComponent<LevelPieceGameProgressControl>().RoomSpawnsShopkeeper = true;
 
         Debug.Log("Took " + (Time.time - timeOfTotalGeneration) + " seconds to generate, with seed " + seed +
             " and number of loops of " + numberOfLoops);
