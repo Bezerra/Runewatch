@@ -291,7 +291,6 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                     // If the point is a corridor
                     else if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor)
                     {
-
                         // Creates rooms depending on their weight
                         pieceToPlace = Instantiate(rooms[random.RandomWeight(roomWeights)]);
                         pieceContactPoint = pieceToPlace.ContactPoints[
