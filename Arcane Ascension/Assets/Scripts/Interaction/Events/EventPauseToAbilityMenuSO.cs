@@ -10,6 +10,7 @@ public class EventPauseToAbilityMenuSO : EventAbstractSO
     public override void Execute(AbstractEventOnInteraction invoker)
     {
         Time.timeScale = 0;
-        FindObjectOfType<PlayerInputCustom>().SwitchActionMapToAbilitiesUI();
+        IInput input = FindObjectOfType<PlayerInputCustom>();
+        input.SwitchActionMapToAbilitiesUI();
     }
 }

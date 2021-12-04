@@ -39,6 +39,12 @@ public class PlayerInputCustom : MonoBehaviour, IInput
         inputActionsAsset.Disable();
     }
 
+    public void ReenableInput()
+    {
+        inputActionsAsset.Disable();
+        inputActionsAsset.Enable();
+    }
+
     public Vector2 Movement { get; private set; }
     public Vector2 Camera { get; private set; }
 

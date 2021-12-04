@@ -76,7 +76,8 @@ public class SceneControl : MonoBehaviour, ISaveable
             StartCoroutine(iSaveable.LoadData(saveData));
 
         // Enables controls
-        FindObjectOfType<PlayerInputCustom>().SwitchActionMapToGameplay();
+        IInput input = FindObjectOfType<PlayerInputCustom>();
+        input.SwitchActionMapToGameplay();
 
         // COMMENTED STUFF TO BE ABLE TO LOAD OUTSIDE OF GENERATED DUNGEONS
         //levelGenerated.EndedGeneration -= SpawnPlayer;
@@ -213,7 +214,7 @@ public class SceneControl : MonoBehaviour, ISaveable
     /// </summary>
     protected void DisableControls()
     {
-        PlayerInputCustom input = FindObjectOfType<PlayerInputCustom>();
+        IInput input = FindObjectOfType<PlayerInputCustom>();
         if (input != null) input.SwitchActionMapToNone();
     }
 
@@ -222,11 +223,10 @@ public class SceneControl : MonoBehaviour, ISaveable
     /// </summary>
     protected void EnableControls()
     {
-        PlayerInputCustom input = FindObjectOfType<PlayerInputCustom>();
+        IInput input = FindObjectOfType<PlayerInputCustom>();
         if (input != null)
         {
-            input.gameObject.SetActive(false);
-            input.gameObject.SetActive(true);
+            input.ReenableInput();
 
             if (changeToTypeOfControl == ChangeToTypeOfControl.UI)
             {

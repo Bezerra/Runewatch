@@ -6,7 +6,7 @@ using UnityEngine;
 public class PauseSystem : MonoBehaviour, IFindInput
 {
     // Components
-    private PlayerInputCustom playerInputCustom;
+    private IInput playerInputCustom;
 
     private bool gameIsPaused;
 

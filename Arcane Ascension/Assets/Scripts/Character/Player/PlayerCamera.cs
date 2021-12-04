@@ -11,7 +11,7 @@ public class PlayerCamera : MonoBehaviour
     // Components
     private Player player;
     private PlayerMovement playerMovement;
-    private PlayerInputCustom input;
+    private IInput input;
     private CinemachineVirtualCamera virtualCinemachine;
     private CinemachineBasicMultiChannelPerlin cinemachineNoise;
 

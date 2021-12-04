@@ -16,7 +16,7 @@ public class PlayerUI : MonoBehaviour
     private PlayerSpells playerSpells;
     private PlayerStats playerStats;
     private IUseCurrency playerCurrency;
-    private PlayerInputCustom input;
+    private IInput input;
     private PlayerMovement playerMovement;
     private FPSCounter fpsCounter;
     private IList<EnemyStats> enemyStats;

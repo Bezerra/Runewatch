@@ -16,7 +16,7 @@ public class PlayerInteraction : MonoBehaviour
     // Components
     private YieldInstruction wfs;
     private Transform eyes;
-    private PlayerInputCustom input;
+    private IInput input;
     private float rayLength;
 
     private void Awake()

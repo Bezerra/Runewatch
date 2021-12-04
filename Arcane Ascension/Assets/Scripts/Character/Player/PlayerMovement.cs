@@ -9,7 +9,7 @@ using ExtensionMethods;
 public class PlayerMovement : MonoBehaviour, IFindInput
 {
     // Components
-    private PlayerInputCustom   input;
+    private IInput   input;
     private Player              player;
     private PlayerCastSpell     playerCastSpell;
     private CharacterController characterController;

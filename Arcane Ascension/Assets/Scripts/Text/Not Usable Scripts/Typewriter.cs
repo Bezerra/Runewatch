@@ -16,7 +16,7 @@ public class Typewriter : MonoBehaviour
 
     private IEnumerator skipToNextDialogAfterSeconds;
 
-    private PlayerInputCustom input;
+    private IInput input;
 
     private void Awake()
     {

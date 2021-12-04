@@ -8,7 +8,7 @@ using System.Collections;
 public class PlayerCastSpell : MonoBehaviour
 {
     // Components
-    private PlayerInputCustom input;
+    private IInput input;
     private PlayerStats playerStats;
     private PlayerSpells playerSpells;
     private Player player;

@@ -14,7 +14,7 @@ public class PauseMenuCanvasUI : MonoBehaviour, IFindInput
     [SerializeField] private GameObject menuOptions;
 
     // Components
-    private PlayerInputCustom playerInputCustom;
+    private IInput playerInputCustom;
     private Canvas canvas;
     private GraphicRaycaster raycaster;
     private PauseSystem pauseSystem;

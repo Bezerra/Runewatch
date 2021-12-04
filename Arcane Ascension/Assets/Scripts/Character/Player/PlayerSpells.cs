@@ -10,7 +10,7 @@ using ExtensionMethods;
 public class PlayerSpells : MonoBehaviour, ISaveable
 {
     // Components
-    private PlayerInputCustom input;
+    private IInput input;
     private PlayerHandEffect playerHandEffect;
     private PlayerStats playerStats;
     private IList<SpellSO> allSpells;

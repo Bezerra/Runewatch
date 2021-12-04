@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerFly : MonoBehaviour
 {
     // Components
-    private PlayerInputCustom input;
+    private IInput input;
     private Player player;
     private PlayerStats playerStats;
 

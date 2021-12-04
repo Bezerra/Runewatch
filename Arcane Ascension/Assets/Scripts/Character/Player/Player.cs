@@ -17,7 +17,7 @@ public class Player : Character, ISaveable
 
     private void OnDisable()
     {
-        PlayerInputCustom player = FindObjectOfType<PlayerInputCustom>();
+        IInput player = FindObjectOfType<PlayerInputCustom>();
         if (player != null) player.SwitchActionMapToUI();
     }
 

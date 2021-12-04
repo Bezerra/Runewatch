@@ -10,7 +10,7 @@ using UnityEngine.EventSystems;
 public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
 {
     // Components
-    private PlayerInputCustom input;
+    private IInput input;
 
     // Variables
     [SerializeField] private GameObject consoleGameObject;
