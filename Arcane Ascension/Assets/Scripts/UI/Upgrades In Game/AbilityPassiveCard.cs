@@ -5,7 +5,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Class responsible for handling information of an ability passive card.
 /// </summary>
-public class AbilityPassiveCard : MonoBehaviour
+public class AbilityPassiveCard : MonoBehaviour, IFindPlayer
 {
     /// <summary>
     /// Property to know which passive this card contains.
@@ -22,6 +22,7 @@ public class AbilityPassiveCard : MonoBehaviour
     {
         abilitiesCanvas = GetComponentInParent<AbilitiesCanvas>();
         thisCardInformation = GetComponentInChildren<AbilityPassiveCardText>();
+        FindPlayer();
     }
 
     private void OnDisable()
@@ -50,10 +51,6 @@ public class AbilityPassiveCard : MonoBehaviour
     /// </summary>
     public void AddPassive()
     {
-        // Prevents bugs, don't add if null (TRUST)
-        playerInteraction = FindObjectOfType<PlayerInteraction>();
-        playerStats = FindObjectOfType<PlayerStats>();
-
         if (PassiveOnCard != null)
         {
             if (playerInteraction.LastObjectInteracted != null)
@@ -73,5 +70,16 @@ public class AbilityPassiveCard : MonoBehaviour
             playerStats.CurrentPassives.Add(PassiveOnCard);
             abilitiesCanvas.DisableAll();
         }
+    }
+
+    public void FindPlayer()
+    {
+        playerInteraction = FindObjectOfType<PlayerInteraction>();
+        playerStats = FindObjectOfType<PlayerStats>();
+    }
+
+    public void PlayerLost()
+    {
+        // Left blank on purpose
     }
 }

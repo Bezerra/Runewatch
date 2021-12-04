@@ -15,7 +15,7 @@ public class PlayerFindMe : MonoBehaviour
         foreach (GameObject rootGameObject in rootGameObjects)
         {
             IFindPlayer[] childrenInterfaces =
-                rootGameObject.GetComponentsInChildren<IFindPlayer>();
+                rootGameObject.GetComponentsInChildren<IFindPlayer>(true);
 
             foreach (IFindPlayer childInterface in childrenInterfaces)
             {
@@ -25,7 +25,7 @@ public class PlayerFindMe : MonoBehaviour
     }
 
     /// <summary>
-    /// What happens when the player is dies.
+    /// What happens when player is lost.
     /// </summary>
     private void OnDisable()
     {
@@ -33,7 +33,7 @@ public class PlayerFindMe : MonoBehaviour
         foreach (GameObject rootGameObject in rootGameObjects)
         {
             IFindPlayer[] childrenInterfaces =
-                rootGameObject.GetComponentsInChildren<IFindPlayer>();
+                rootGameObject.GetComponentsInChildren<IFindPlayer>(true);
 
             foreach (IFindPlayer childInterface in childrenInterfaces)
             {

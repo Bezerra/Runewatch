@@ -26,6 +26,9 @@ public class LoadingScreenWithButtonPress : SceneControl
             yield return new WaitForEndOfFrame();
         }
 
+        // Needs to destroy current input, so it won't mess with next scene's input
+        Destroy(FindObjectOfType<PlayerInputCustom>().gameObject);
+
         // Load scene and sets it as main scene
         SetActiveScene(sceneToLoad);
     }

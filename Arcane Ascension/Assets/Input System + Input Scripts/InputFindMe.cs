@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class InputFindMe : MonoBehaviour
 {
     /// <summary>
-    /// What happens when the player is spawned.
+    /// What happens when the input is spawned.
     /// </summary>
     private void OnEnable()
     {
@@ -15,7 +15,7 @@ public class InputFindMe : MonoBehaviour
         foreach (GameObject rootGameObject in rootGameObjects)
         {
             IFindInput[] childrenInterfaces =
-                rootGameObject.GetComponentsInChildren<IFindInput>();
+                rootGameObject.GetComponentsInChildren<IFindInput>(true);
 
             foreach (IFindInput childInterface in childrenInterfaces)
             {
@@ -33,7 +33,7 @@ public class InputFindMe : MonoBehaviour
         foreach (GameObject rootGameObject in rootGameObjects)
         {
             IFindInput[] childrenInterfaces =
-                rootGameObject.GetComponentsInChildren<IFindInput>();
+                rootGameObject.GetComponentsInChildren<IFindInput>(true);
 
             foreach (IFindInput childInterface in childrenInterfaces)
             {

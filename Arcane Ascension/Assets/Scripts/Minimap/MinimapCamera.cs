@@ -15,15 +15,9 @@ public class MinimapCamera : MonoBehaviour, IFindPlayer
     private void Awake()
     {
         cam = GetComponent<Camera>();
-        player = FindObjectOfType<Player>();
+        FindPlayer();
 
         cam.orthographicSize = allIcons.CamSize;
-    }
-
-    private void Update()
-    {
-        if (player == null)
-            player = FindObjectOfType<Player>();
     }
 
     private void FixedUpdate()
@@ -48,7 +42,6 @@ public class MinimapCamera : MonoBehaviour, IFindPlayer
 
     public void FindPlayer()
     {
-        Debug.Log("FIND");
         player = FindObjectOfType<Player>();
     }
 

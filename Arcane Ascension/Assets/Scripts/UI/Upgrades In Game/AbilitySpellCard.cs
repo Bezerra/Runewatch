@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for handling information of an ability spell card.
 /// </summary>
-public class AbilitySpellCard : MonoBehaviour
+public class AbilitySpellCard : MonoBehaviour, IFindPlayer
 {
     /// <summary>
     /// Property to know which spell this card contains.
@@ -27,6 +27,7 @@ public class AbilitySpellCard : MonoBehaviour
     private void Awake()
     {
         abilitiesCanvas = GetComponentInParent<AbilitiesCanvas>();
+        FindPlayer();
     }
 
     /// <summary>
@@ -56,10 +57,6 @@ public class AbilitySpellCard : MonoBehaviour
     /// </summary>
     public void TryAddSpell()
     {
-        // Prevents bugs, don't add if null(TRUST)
-        playerInteraction = FindObjectOfType<PlayerInteraction>();
-        playerSpells = FindObjectOfType<PlayerSpells>();
-
         // If there are slots, it adds the spell.
         if (CheckAddSpellValidation())
         {
@@ -91,10 +88,6 @@ public class AbilitySpellCard : MonoBehaviour
     /// <param name="slot"></param>
     public void AddSpellToSlot(int slot)
     {
-        // Prevents bugs, don't add if null (TRUST)
-        playerInteraction = FindObjectOfType<PlayerInteraction>();
-        playerSpells = FindObjectOfType<PlayerSpells>();
-
         if (playerSpells.CurrentSpells[slot] != null)
         {
             if (playerInteraction.LastObjectInteracted != null)
@@ -133,5 +126,16 @@ public class AbilitySpellCard : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void FindPlayer()
+    {
+        playerInteraction = FindObjectOfType<PlayerInteraction>();
+        playerSpells = FindObjectOfType<PlayerSpells>();
+    }
+
+    public void PlayerLost()
+    {
+        // Left blank on purpose
     }
 }

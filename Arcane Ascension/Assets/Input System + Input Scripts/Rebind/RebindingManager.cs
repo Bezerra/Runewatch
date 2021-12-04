@@ -14,8 +14,7 @@ public class RebindingManager : MonoBehaviour
 
     private void Start()
     {
-        foreach (RebindingKey rebinding in rebindKeys)
-            rebinding.Initialize(this);
+        UpdateKeys();
     }
 
     /// <summary>
@@ -25,5 +24,11 @@ public class RebindingManager : MonoBehaviour
     {
         foreach (RebindingKey rebinding in rebindKeys)
             rebinding.DeactivateKeyAlreadySet();
+    }
+
+    public void UpdateKeys()
+    {
+        foreach (RebindingKey rebinding in rebindKeys)
+            rebinding.Initialize(this);
     }
 }

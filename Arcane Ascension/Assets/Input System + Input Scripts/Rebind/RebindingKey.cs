@@ -42,8 +42,6 @@ public class RebindingKey : MonoBehaviour
     /// </summary>
     public void Initialize(RebindingManager rebindingManager)
     {
-        
-
         RebindingManager = rebindingManager;
 
         string keyOverride = PlayerPrefs.GetString($"ACTION_{inputAction.action.bindings[0].action}", "null");
