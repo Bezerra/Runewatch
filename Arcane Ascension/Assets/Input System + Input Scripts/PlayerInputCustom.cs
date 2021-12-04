@@ -17,16 +17,6 @@ public class PlayerInputCustom : MonoBehaviour, IInput
     {
         inputActionsAsset = new InputActions();
         controls = GetComponent<PlayerInput>();
-
-        // TEMPORARY STUFF FOR EDITOR SCENES
-        Scene scene = SceneManager.GetActiveScene();
-        if (scene.name != "LoadingScreenToMainMenu" &&
-            scene.name != "LoadingScreenToNewGame" &&
-            scene.name != "MainMenu" &&
-            scene.name != "ProceduralGeneration")
-        {
-            SwitchActionMapToGameplay();
-        }
     }
 
     private void OnEnable()

@@ -63,11 +63,6 @@ public class PlayerCastSpell : MonoBehaviour
         input.CastBasicSpell -= SecondaryAttackKeyPress;
     }
 
-    private void Update()
-    {
-        
-    }
-
     /// <summary>
     /// Casts secondary basic spell.
     /// </summary>

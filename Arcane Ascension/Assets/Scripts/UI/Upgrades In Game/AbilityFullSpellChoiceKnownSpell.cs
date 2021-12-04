@@ -6,7 +6,7 @@ using UnityEngine;
 public class AbilityFullSpellChoiceKnownSpell : MonoBehaviour
 {
     // Components
-    private PlayerInputCustom input;
+    private IInput input;
     private PlayerSpells playerSpells;
 
     // Scriptable object with dropped spells values

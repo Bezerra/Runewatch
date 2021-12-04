@@ -6,7 +6,7 @@ using UnityEngine;
 public class AbilitiesCanvas : MonoBehaviour, IFindInput
 {
     // Components
-    private PlayerInputCustom input;
+    private IInput input;
 
     [SerializeField] private GameObject threeSpellCanvas;
     [SerializeField] private GameObject oneSpellCanvas;

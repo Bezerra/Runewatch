@@ -93,7 +93,9 @@ public class SceneControl : MonoBehaviour, ISaveable
     [Header("If using loading methods without parameters")]
     [SerializeField] protected SceneEnum sceneToLoad;
     [SerializeField] protected SceneEnum thisScene;
-    [SerializeField] protected ChangeToTypeOfControl changeToTypeOfControl;
+
+    [Header("Triggered when loading scene transition is ending")]
+    [SerializeField] protected TypeOfControl changeToTypeOfControl;
 
     protected virtual void Awake()
     {
@@ -228,7 +230,7 @@ public class SceneControl : MonoBehaviour, ISaveable
         {
             input.ReenableInput();
 
-            if (changeToTypeOfControl == ChangeToTypeOfControl.UI)
+            if (changeToTypeOfControl == TypeOfControl.UI)
             {
                 input.SwitchActionMapToUI();
             }
@@ -238,6 +240,4 @@ public class SceneControl : MonoBehaviour, ISaveable
             }
         }
     }
-
-    public enum ChangeToTypeOfControl { UI, Gameplay, };
 }
