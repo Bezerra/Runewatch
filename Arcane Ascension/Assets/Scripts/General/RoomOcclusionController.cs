@@ -6,6 +6,8 @@ using UnityEngine;
 /// </summary>
 public class RoomOcclusionController : MonoBehaviour
 {
+    [SerializeField] private PlayerControllerSO playerController;
+
     // Components
     private LevelGenerator levelGenerator;
     private GameObject startRoom;
@@ -57,8 +59,8 @@ public class RoomOcclusionController : MonoBehaviour
         StartCoroutine(startRoomLevelPiece.EnableChildOccludeesCoroutine());
 
         startRoom.TryGetComponent(out PlayerSpawnLevelPiece playerSpawnLevelPiece);
-        CharactersAndNpcsPoolCreator.Pool.InstantiateFromPool(
-                        "Player", playerSpawnLevelPiece.PlayerSpawnTransform.position,
+
+        playerController.Instantiate(playerSpawnLevelPiece.PlayerSpawnTransform.position,
             playerSpawnLevelPiece.PlayerSpawnTransform.rotation);
     }
 }
