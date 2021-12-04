@@ -222,10 +222,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                 // For all opened contact points on this loop only < will ignore the ones added inside for now
                 for (int i = 0; i < openedContacts; i++)
                 {
-                    Debug.Log(allRooms.Count + " rooms ||| " + openedContactPoints[i].ParentRoom.Type);
-
-                        // Creates a common levelPiece and desired contactPoint to connect
-                        LevelPiece pieceToPlace = null;
+                    // Creates a common levelPiece and desired contactPoint to connect
+                    LevelPiece pieceToPlace = null;
                     ContactPoint pieceContactPoint = null;
 
                     // If this point is a room
@@ -293,6 +291,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                     // If the point is a corridor
                     else if (openedContactPoints[i].ParentRoom.Type == PieceType.Corridor)
                     {
+
                         // Creates rooms depending on their weight
                         pieceToPlace = Instantiate(rooms[random.RandomWeight(roomWeights)]);
                         pieceContactPoint = pieceToPlace.ContactPoints[
@@ -629,7 +628,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         if (generateLevelCoroutine != null) StopCoroutine(generateLevelCoroutine);
         print(message);
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.1f);
 
         // Destroys every piece previously generated
         GameObject[] levelParents = GameObject.FindGameObjectsWithTag("LevelParent");
@@ -737,15 +736,15 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             Quaternion.LookRotation(connectionContactPoint.transform.forward, 
             connectionContactPoint.transform.up);
 
-        // While both points don't have the same direction
+        //// While both points don't have the same direction
         while (levelPieceContact.transform.SameDirectionAs(
-            connectionContactPoint.transform) == false)
+                connectionContactPoint.transform) == false)
         {
             // It will keep rotating parent room
             levelPieceContact.ParentRoom.transform.rotation *= 
                 levelPieceContact.transform.localRotation;
-            yield return yi;
         }
+        yield return yi;
     }
 
     /// <summary>
@@ -787,7 +786,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
 
     /// <summary>
     /// Checks if the last piece is valid.
-    /// If it's not valid it will destroy it, else it will add its contact points to a list.
+    /// If it's valid it will add its contact points to a list.
     /// This method also deactivates pre activated walls that are on top of contact points.
     /// <param name="pieceToPlace">Piece to place.</param>
     /// <param name="pieceContactPoint">Piece contact point.</param>
