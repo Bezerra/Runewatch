@@ -52,6 +52,8 @@ public class PlayerInputCustom : MonoBehaviour, IInput
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
+        controls.uiInputModule.enabled = false;
+
         controls.SwitchCurrentActionMap("Gameplay");
     }
 
@@ -59,7 +61,9 @@ public class PlayerInputCustom : MonoBehaviour, IInput
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-    
+
+        controls.uiInputModule.enabled = false;
+
         controls.SwitchCurrentActionMap("None");
     }
 
@@ -67,6 +71,8 @@ public class PlayerInputCustom : MonoBehaviour, IInput
     {
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
+
+        controls.uiInputModule.enabled = true;
 
         Movement = Vector3.zero;
         Camera = Vector3.zero;
@@ -78,6 +84,8 @@ public class PlayerInputCustom : MonoBehaviour, IInput
     {
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
+
+        controls.uiInputModule.enabled = true;
 
         Movement = Vector3.zero;
         Camera = Vector3.zero;
@@ -91,6 +99,8 @@ public class PlayerInputCustom : MonoBehaviour, IInput
         Movement = Vector3.zero;
         Camera = Vector3.zero;
 
+        controls.uiInputModule.enabled = true;
+
         controls.SwitchCurrentActionMap("CheatsConsole");
     }
 
@@ -98,6 +108,8 @@ public class PlayerInputCustom : MonoBehaviour, IInput
     {
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = false;
+
+        controls.uiInputModule.enabled = false;
 
         controls.SwitchCurrentActionMap("Nothing");
     }

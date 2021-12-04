@@ -180,7 +180,7 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
 
                         Player pl = playerRoot.GetComponentInChildren<Player>();
 
-                        Ray ray = new Ray(pl.Eyes.transform.position, pl.Eyes.transform.forward);
+                        Ray ray = new Ray(pl.Eyes.transform.position, pl.transform.forward);
                         if (Physics.Raycast(ray, spawnDistance, Layers.Walls))
                         {
                             // Do nothing

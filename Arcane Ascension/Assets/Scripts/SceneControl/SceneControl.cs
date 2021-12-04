@@ -27,7 +27,7 @@ public class SceneControl : MonoBehaviour, ISaveable
     public IEnumerator LoadData(RunSaveData saveData)
     {
         yield return null;
-        FindObjectOfType<PlayerInputCustom>().DisableAll();
+        //FindObjectOfType<PlayerInputCustom>().DisableAll();
         this.saveData = saveData;
 
         // Destruction
