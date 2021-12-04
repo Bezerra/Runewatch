@@ -1,18 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class responsible for containg shopkeeper spawn information.
+/// </summary>
 public class ShopkeeperGizmosMesh : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Mesh shopkeeperMesh;
 
-    // Update is called once per frame
-    void Update()
+    private void OnDrawGizmos()
     {
-        
+        Gizmos.color = Color.green;
+        Gizmos.DrawMesh(shopkeeperMesh, transform.position, transform.rotation);
     }
 }

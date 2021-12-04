@@ -8,8 +8,8 @@ public class LevelPieceGameProgressControl : MonoBehaviour
 {
     [SerializeField] private BoxCollider[] exitBlockers;
     [SerializeField] private EnemySpawnPoint[] enemySpawnPoints;
-    [SerializeField] private Transform shopkeeperTransform;
     [SerializeField] private AvailableListOfEnemiesToSpawnSO listOfEnemies;
+    private ShopkeeperGizmosMesh[] shopkeeper;
 
     // Variables to keep track of progress
     public bool RoomSpawnsShopkeeper { get; set; }
@@ -17,8 +17,11 @@ public class LevelPieceGameProgressControl : MonoBehaviour
     private bool haveEnemiesSpawned;
     private ContactPointDoor[] contactPointsDoors;
 
-    private void Awake() =>
+    private void Awake()
+    {
         contactPointsDoors = GetComponentsInChildren<ContactPointDoor>();
+        shopkeeper = GetComponentsInChildren<ShopkeeperGizmosMesh>(true);
+    }
 
     /// <summary>
     /// Blocks/unblocks all exits.
@@ -56,11 +59,23 @@ public class LevelPieceGameProgressControl : MonoBehaviour
                 }
 
                 // If this piece is supposed to spawn shopkeeper, spawns it
-                if (RoomSpawnsShopkeeper && shopkeeperTransform != null)
+                if (RoomSpawnsShopkeeper && shopkeeper != null)
                 {
-                    CharactersAndNpcsPoolCreator.Pool.InstantiateFromPool(
-                        "Shopkeeper", shopkeeperTransform.position, 
-                        shopkeeperTransform.rotation);
+                    for (int i = 0; i < shopkeeper.Length; i++)
+                    {
+                        Collider[] collisions = Physics.OverlapSphere(
+                            shopkeeper[i].transform.position, 4, 
+                            Layers.PlayerNormalAndInvisibleLayer);       
+
+                        if(collisions.Length == 0)
+                        {
+                            CharactersAndNpcsPoolCreator.Pool.InstantiateFromPool(
+                                "Shopkeeper", shopkeeper[i].transform.position,
+                                shopkeeper[i].transform.rotation);
+
+                            break;
+                        }
+                    }
                 }
             }
         }

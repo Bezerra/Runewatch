@@ -31,6 +31,7 @@ public class EnemySpawnPoint : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        Gizmos.color = Color.red;
         Gizmos.DrawMesh(meshForGizmos, transform.position, transform.rotation, new Vector3(0.2f, 0.2f, 0.2f));
     }
 }
