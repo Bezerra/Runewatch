@@ -201,6 +201,14 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         {
             // If it wasn't a player or enemy it will hit normally
 
+            // If this is an interectable spell object, it will trigger it's behaviour and ignore the rest
+            if (other.TryGetComponent(out IInteractionWithSpell interaction))
+            {
+                // Triggers an interaction if the elements match
+                interaction.ExecuteInteraction(Spell.Element);
+                return;
+            }
+
             // If enough time has passed, last hit game object will be null
             if (Time.time - TimeOfImpact > 0.1f)
                 lastHitGameObject = null;

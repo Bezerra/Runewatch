@@ -93,9 +93,9 @@ GameObject:
   - component: {fileID: 5459726432456572436}
   - component: {fileID: 8965263701798908337}
   - component: {fileID: 6597760946574034299}
+  - component: {fileID: 4330395465699853559}
   - component: {fileID: 2289071851788972092}
   - component: {fileID: 1527381214973441384}
-  - component: {fileID: 4330395465699853559}
   m_Layer: 23
   m_Name: Banner - Ignis
   m_TagString: Untagged
@@ -168,6 +168,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4330395465699853559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4651946766643635374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78dffd3caae115b4591ad90df849e434, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ignoreElement: 0
+  elementToInteractWith: 1
 --- !u!95 &2289071851788972092
 Animator:
   serializedVersion: 3
@@ -200,15 +214,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.8330202, y: 2.5218477, z: 0.00000001186551}
   m_Center: {x: 0, y: -1.2993562, z: 0.000000004910086}
---- !u!114 &4330395465699853559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4651946766643635374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78dffd3caae115b4591ad90df849e434, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
