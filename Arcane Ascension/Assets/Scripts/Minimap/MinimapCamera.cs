@@ -20,6 +20,12 @@ public class MinimapCamera : MonoBehaviour, IFindPlayer
         cam.orthographicSize = allIcons.CamSize;
     }
 
+    private void Update()
+    {
+        if (player == null)
+            player = FindObjectOfType<Player>();
+    }
+
     private void FixedUpdate()
     {
         if (player != null)
@@ -42,6 +48,7 @@ public class MinimapCamera : MonoBehaviour, IFindPlayer
 
     public void FindPlayer()
     {
+        Debug.Log("FIND");
         player = FindObjectOfType<Player>();
     }
 

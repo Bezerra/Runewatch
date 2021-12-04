@@ -29,4 +29,7 @@ public class LoadingScreenWithButtonPress : SceneControl
         // Load scene and sets it as main scene
         SetActiveScene(sceneToLoad);
     }
+
+    public void QuitGame() =>
+        Application.Quit();
 }

@@ -39,6 +39,11 @@ public class PlayerInputCustom : MonoBehaviour, IInput
         inputActionsAsset.Disable();
     }
 
+    private void Update()
+    {
+        Debug.Log(GetCurrentActionMap());
+    }
+
     public Vector2 Movement { get; private set; }
     public Vector2 Camera { get; private set; }
 
