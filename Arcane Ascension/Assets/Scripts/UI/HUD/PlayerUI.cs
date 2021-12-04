@@ -197,10 +197,20 @@ public class PlayerUI : MonoBehaviour
                     playerStats.Health / playerStats.CommonAttributes.MaxHealth, 
                     Time.fixedDeltaTime * 5f);
 
-            health.color =
-                health.color.Remap(
-                    0.3f, 0.5f, lowHealth,
-                    highHealth, health.fillAmount);
+            if (health.fillAmount <= 0.35f)
+            {
+                health.color =
+                    health.color.Remap(
+                        0.25f, 0.35f, lowHealth,
+                        mediumHealth, health.fillAmount);
+            }
+            else
+            {
+                health.color =
+                    health.color.Remap(
+                        0.35f, 0.45f, mediumHealth,
+                        highHealth, health.fillAmount);
+            }
 
             yield return wffu;
         }
