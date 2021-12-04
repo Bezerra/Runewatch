@@ -32,6 +32,7 @@ public class PlayerUI : MonoBehaviour
 
     [Header("Health bar")]
     [SerializeField] private Color lowHealth;
+    [SerializeField] private Color mediumHealth;
     [SerializeField] private Color highHealth;
 
     // Fields to update
@@ -256,7 +257,7 @@ public class PlayerUI : MonoBehaviour
                 Mathf.Lerp(
                     mana.fillAmount,
                     playerStats.Mana / playerStats.PlayerAttributes.MaxMana,
-                    Time.fixedDeltaTime * 5f);
+                    Time.fixedDeltaTime * 10f);
 
             yield return wffu;
         }
@@ -323,6 +324,9 @@ public class PlayerUI : MonoBehaviour
         UpdateStatusEffects();
     }
 
+    /// <summary>
+    /// Updates spells UI.
+    /// </summary>
     private void UpdateSpells()
     {
         for (int i = 0; i < playerSpells.CurrentSpells.Length; i++)
@@ -335,6 +339,7 @@ public class PlayerUI : MonoBehaviour
                 spellsBackgroundUI[i].fillAmount =
                     playerSpells.CurrentSpells[i].CooldownCounter / playerSpells.CurrentSpells[i].Cooldown;
 
+                // No mana
                 if (playerStats.Mana - playerSpells.CurrentSpells[i].ManaCost < 0)
                 {
                     spellsUI[i].color = noManaSpellColor;
@@ -357,6 +362,7 @@ public class PlayerUI : MonoBehaviour
             {
                 spellsUI[i].fillAmount = 0;
                 spellsUI[i].color = noSpellColor;
+                spellsBorderUI[i].enabled = false;
             }
         }
         spellsUI[4].sprite = playerSpells.SecondarySpell.Icon;
@@ -389,6 +395,9 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Update status effects timers.
+    /// </summary>
     private void UpdateStatusEffects()
     {
         if (statusEffectsSlotsInUse.Count > 0)
@@ -410,7 +419,7 @@ public class PlayerUI : MonoBehaviour
     }
 
     /// <summary>
-    /// Updates status effects bar.
+    /// Updates status effects bar with current status effects.
     /// </summary>
     /// <param name="type"></param>
     /// <param name=""></param>
