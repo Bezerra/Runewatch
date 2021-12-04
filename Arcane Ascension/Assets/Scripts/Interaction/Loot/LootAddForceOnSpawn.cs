@@ -42,6 +42,11 @@ public class LootAddForceOnSpawn : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.layer == Layers.WallsNum)
+        {
+            directionOfSpawn = 0;
+        }
+
         // Stops object in place
         if (rb.velocity.y < 0 && canDetectCollision)
         {

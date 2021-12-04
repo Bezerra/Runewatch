@@ -9,78 +9,21 @@ using Sirenix.OdinInspector;
 /// <summary>
 /// Class responsible for controlling scenes and spawns.
 /// </summary>
-public class SceneControl : MonoBehaviour, ISaveable
+public class SceneControl : MonoBehaviour
 {
-    [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private GameObject spellsPool;
-    [SerializeField] private Image loadingBar;
-
-    private LevelGenerator levelGenerated;
-    private RunSaveData saveData;
-
-
-    public void SaveCurrentData(RunSaveData saveData)
-    {
-        // Left blank on purpose
-    }
-
-    public IEnumerator LoadData(RunSaveData saveData)
-    {
-        yield return null;
-        //FindObjectOfType<PlayerInputCustom>().DisableAll();
-        this.saveData = saveData;
-
-        // Destruction
-
-        // Destroy spell pool
-        if (FindObjectOfType<SpellPoolCreator>() != null) Destroy(FindObjectOfType<SpellPoolCreator>().gameObject);
-
-        // Destroy player
-        if (FindObjectOfType<Player>() != null) Destroy(FindObjectOfType<Player>().transform.parent.gameObject);
-
-
-        // COMMENTED STUFF TO BE ABLE TO LOAD OUTSIDE OF GENERATED DUNGEONS
-        // Destroy level
-        //     Destroy(FindObjectOfType<LevelGenerator>().gameObject);
-        //     GameObject[] levelParents = GameObject.FindGameObjectsWithTag("LevelParent");
-        //     if (levelParents.Length > 0) foreach (GameObject lvlParent in levelParents) Destroy(lvlParent?.gameObject);
-        //     
-        //     // Creation
-        //     // Creates a new level
-        //     DungeonGenerator.GenerateDungeon(true, saveData);
-
-        // Creates a new spell pool
-        Instantiate(spellsPool, Vector3.zero, Quaternion.identity);
-
-        // DELETE THIS WHEN TESTS WITHOUT GENERATED DUNGEONS ARE OVER
-        //SpawnPlayer();
-        //////////////////////////////////////
-
-        // Will spawn player after the level is loaded
-        levelGenerated = FindObjectOfType<LevelGenerator>();
-        //levelGenerated.EndedGeneration += SpawnPlayer;
-    }
-
     /// <summary>
     /// Spawns player.
     /// </summary>
     private void SpawnPlayer()
     {
         // Spawn player
-        GameObject player = Instantiate(
-            playerPrefab, saveData.PlayerSavedData.Position,
-            saveData.PlayerSavedData.Rotation);
+        //GameObject player = Instantiate(
+        //    playerPrefab, saveData.PlayerSavedData.Position,
+        //    saveData.PlayerSavedData.Rotation);
 
         // Loads player variables
-        foreach (ISaveable iSaveable in player.GetComponentsInChildren<ISaveable>())
-            StartCoroutine(iSaveable.LoadData(saveData));
-
-        // Enables controls
-        IInput input = FindObjectOfType<PlayerInputCustom>();
-        input.SwitchActionMapToGameplay();
-
-        // COMMENTED STUFF TO BE ABLE TO LOAD OUTSIDE OF GENERATED DUNGEONS
-        //levelGenerated.EndedGeneration -= SpawnPlayer;
+        //foreach (ISaveable iSaveable in player.GetComponentsInChildren<ISaveable>())
+        //    StartCoroutine(iSaveable.LoadData(saveData));
     }
 
 
@@ -96,12 +39,6 @@ public class SceneControl : MonoBehaviour, ISaveable
 
     [Header("Triggered when loading scene transition is ending")]
     [SerializeField] protected TypeOfControl changeToTypeOfControl;
-
-    protected virtual void Awake()
-    {
-        //initialMasterValue = 0;
-        //master.GetFloat(masterVolumeExposed, out initialMasterValue);
-    }
 
     /// <summary>
     /// Gets current scene.
