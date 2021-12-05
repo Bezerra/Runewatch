@@ -79,7 +79,7 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
         else
         {
             parent.Rb.velocity = Vector3.zero;
-            parent.DisableImmediatly = true;
+            parent.DisableSpellAfterCollision = true;
         }
     }
 

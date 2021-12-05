@@ -42,8 +42,8 @@ public abstract class SpellSO : ScriptableObject, ISpell
 
     /// ---------------
     [BoxGroup("Damage")]
-    [HorizontalGroup("Damage/Split", 100)]
-    [HideLabel, PreviewField(100)] [SerializeField] protected Sprite targetTypeIcon;
+    [HorizontalGroup("Damage/Split", 120)]
+    [HideLabel, PreviewField(120)] [SerializeField] protected Sprite targetTypeIcon;
 
     [VerticalGroup("Damage/Split/Middle", 1), LabelWidth(120)]
     [Tooltip("Interval between damage with Overtime damage spells or interval between damage with continuous spells.")]

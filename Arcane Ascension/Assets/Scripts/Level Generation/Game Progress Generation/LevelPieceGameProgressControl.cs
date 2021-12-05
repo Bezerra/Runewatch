@@ -7,7 +7,6 @@ using ExtensionMethods;
 public class LevelPieceGameProgressControl : MonoBehaviour
 {
     [SerializeField] private BoxCollider[] exitBlockers;
-    [SerializeField] private EnemySpawnPoint[] enemySpawnPoints;
     [SerializeField] private AvailableListOfEnemiesToSpawnSO listOfEnemies;
 
     // Variables to keep track of progress
@@ -23,6 +22,7 @@ public class LevelPieceGameProgressControl : MonoBehaviour
     private Chest chestScript;
 
     // Enemies
+    private EnemySpawnPoint[] enemySpawnPoints;
     private int quantityOfEnemiesSpawned;
     private bool haveEnemiesSpawned;
 
@@ -31,6 +31,7 @@ public class LevelPieceGameProgressControl : MonoBehaviour
 
     private void Awake()
     {
+        enemySpawnPoints = GetComponentsInChildren<EnemySpawnPoint>();
         contactPointsDoors = GetComponentsInChildren<ContactPointDoor>();
         shopkeeper = GetComponentsInChildren<ShopkeeperGizmosMesh>(true);
         chest = GetComponentInChildren<ChestGizmosMesh>(true);
