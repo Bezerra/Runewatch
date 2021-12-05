@@ -8,6 +8,8 @@ public class PlayerDeath : MonoBehaviour, IFindInput
     [SerializeField] private GameObject[] gameobjectsToDisableInitially;
 
     // Components to disable on death
+    private PlayerGenerateCinemachineImpulse playerGenerateCMImpulse;
+    private CharacterController characterController;
     private PlayerMovement playerMovement;
     private PlayerCamera playerCamera;
     private PlayerSpells playerSpells;
@@ -23,6 +25,8 @@ public class PlayerDeath : MonoBehaviour, IFindInput
 
     private void Awake()
     {
+        playerGenerateCMImpulse = GetComponentInParent<PlayerGenerateCinemachineImpulse>();
+        characterController = GetComponentInParent<CharacterController>();
         playerMovement = GetComponentInParent<PlayerMovement>();
         playerCamera = GetComponentInParent<PlayerCamera>();
         playerSpells = GetComponentInParent<PlayerSpells>();
@@ -61,7 +65,8 @@ public class PlayerDeath : MonoBehaviour, IFindInput
     /// </summary>
     public void EndOfDeathAnimationEvent()
     {
-        playerStats.enabled = false;
+        playerGenerateCMImpulse.enabled = false;
+        characterController.enabled = false;
         playerFindMe.enabled = false;
         playerMovement.enabled = false;
         playerCamera.enabled = false;
@@ -69,6 +74,7 @@ public class PlayerDeath : MonoBehaviour, IFindInput
         playerCastSpell.enabled = false;
         playerEnemyHealthBar.enabled = false;
         playerInteraction.enabled = false;
+        playerStats.enabled = false;
     }
 
     public void FindInput()
