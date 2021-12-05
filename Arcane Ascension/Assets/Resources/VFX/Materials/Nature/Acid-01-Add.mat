@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Acid-01-Add
   m_Shader: {fileID: 4800000, guid: 00ddc540bb4f4884d8b80c89d91ca1f0, type: 3}
-  m_ShaderKeywords: _DISSOLVESMOOTH_ON _USECUSTOMDISSOLVETEX0Z_ON _USEDEPTH_ON
+  m_ShaderKeywords: _DISSOLVESMOOTH_ON _USECUSTOMDISSOLVETEX0Z_ON _USEDEPTH_ON _USEMASKALPHA_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -64,7 +64,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTexture:
-        m_Texture: {fileID: 2800000, guid: 735b3bca99c4b4b45bc5b5450e818009, type: 3}
+        m_Texture: {fileID: 2800000, guid: a24e1823fe8e87a4a9e350ff83621fb5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -147,7 +147,7 @@ Material:
     - _UseCustomDissolve: 0
     - _UseCustomDissolveTex0z: 1
     - _UseDepth: 1
-    - _UseMaskAlpha: 0
+    - _UseMaskAlpha: 1
     - _UseOffsetMaskAlpha: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
