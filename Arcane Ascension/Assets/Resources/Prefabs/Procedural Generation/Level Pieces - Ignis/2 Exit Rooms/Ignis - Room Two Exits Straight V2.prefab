@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 105816367898370943}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.88, y: 0, z: -3.78}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3891368233671343757}
@@ -720,12 +720,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   concreteType: 6
-  contactPoints:
-  - {fileID: 7474352888071368258}
-  - {fileID: 6098349510435034895}
   boxCollidersParent: {fileID: 1425384554306540710}
-  boxColliders:
-  - {fileID: 922754875524460907}
   roomWeights: {fileID: 11400000, guid: 6e70e9ea6b3789943bbc87dbe301cfb1, type: 2}
 --- !u!114 &963446949784857238
 MonoBehaviour:
@@ -739,14 +734,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e5704cb22a1ce147ae9a714824c7173, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exitBlockers:
-  - {fileID: 2434154697701084115}
-  - {fileID: 1056656738645310551}
-  enemySpawnPoints:
-  - {fileID: 7253027076909834849}
-  - {fileID: 5680727801387994441}
-  - {fileID: 1155973929714833644}
-  - {fileID: 6627065529093793219}
   listOfEnemies: {fileID: 11400000, guid: e767d083673c993448fdb04f6eb74a2c, type: 2}
 --- !u!114 &9027757565848031664
 MonoBehaviour:
@@ -1745,6 +1732,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7758749027156760411}
   - component: {fileID: 922754875524460907}
+  - component: {fileID: 4086242120881072168}
+  - component: {fileID: 941687081074919454}
   m_Layer: 6
   m_Name: Procedural Generation Collider
   m_TagString: Untagged
@@ -1774,11 +1763,39 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7446850084587889169}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 36.2, y: 19.3, z: 36.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4086242120881072168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7446850084587889169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec8bccaa17058542988d526d5b28dff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &941687081074919454
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7446850084587889169}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &7490544843341250519
 GameObject:
   m_ObjectHideFlags: 0
@@ -4560,17 +4577,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2ae8d31fabc6e947b0693432cfe6e65, type: 3}
---- !u!114 &6098349510435034895 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6541138589630085188, guid: d2ae8d31fabc6e947b0693432cfe6e65, type: 3}
-  m_PrefabInstance: {fileID: 1037932885017390923}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5113f68e1dea8fa4f9252d2c96251957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1940937547052396585 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1479681104380092258, guid: d2ae8d31fabc6e947b0693432cfe6e65, type: 3}
@@ -13798,17 +13804,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1479681104380092258, guid: d2ae8d31fabc6e947b0693432cfe6e65, type: 3}
   m_PrefabInstance: {fileID: 4430687428774761990}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7474352888071368258 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6541138589630085188, guid: d2ae8d31fabc6e947b0693432cfe6e65, type: 3}
-  m_PrefabInstance: {fileID: 4430687428774761990}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5113f68e1dea8fa4f9252d2c96251957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &4437091093973030873
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -35,6 +35,7 @@ public class Layers : MonoBehaviour
     [SerializeField] private LayerMask interectableLayer;
     [SerializeField] private int interectableLayerNum;
     [SerializeField] private int roomProgressLayerNum;
+    [SerializeField] private int roomCollisionLayerNum;
     [SerializeField] private int invisiblePlayerLayerNum;
     [SerializeField] private LayerMask playerNormalAndInvisibleLayer;
 
@@ -66,6 +67,7 @@ public class Layers : MonoBehaviour
     public static LayerMask InterectableLayer => instance.interectableLayer;
     public static int InterectableLayerNum => instance.interectableLayerNum;
     public static int RoomProgressLayerNum => instance.roomProgressLayerNum;
+    public static int RoomCollisionLayerNum => instance.roomCollisionLayerNum;
     public static int InvisiblePlayerLayerNum => instance.invisiblePlayerLayerNum;
     public static LayerMask PlayerNormalAndInvisibleLayer => instance.playerNormalAndInvisibleLayer;
 
