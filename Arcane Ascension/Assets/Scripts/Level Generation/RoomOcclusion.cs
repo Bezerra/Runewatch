@@ -68,9 +68,9 @@ public class RoomOcclusion : MonoBehaviour
     {
         // Creates a new list with all level pieces
         IList<LevelPiece> generatedRoomPieces = new List<LevelPiece>();
-        for (int i = 0; i < levelGenerator.AllRooms.Count; i++)
+        for (int i = 0; i < levelGenerator.AllLevelPiecesGenerated.Count; i++)
         {
-            generatedRoomPieces.Add(levelGenerator.AllRooms[i]);
+            generatedRoomPieces.Add(levelGenerator.AllLevelPiecesGenerated[i]);
             yield return null;
         }
         generatedRoomPieces.Remove(thisLevelPiece);

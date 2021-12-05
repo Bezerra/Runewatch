@@ -31,11 +31,11 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     [Tooltip("Sets a random minimum number of rooms for each generation(inside its limits)")]
     [SerializeField] private bool                                   randomMinimumNumberOfRooms;
     [Tooltip("Minimum number of rooms on current generation")]
-    [Range(7, 9)] [SerializeField] private int                      minimumNumberOfRooms;
+    [Range(2, 30)] [SerializeField] private int                      minimumNumberOfRooms;
     [Tooltip("Sets a random maximum number of rooms for each generation(inside its limits)")]
     [SerializeField] private bool                                   randomMaximumNumberOfRooms;
     [Tooltip("Maximum number of rooms on current generation")]
-    [Range(12, 15)] [SerializeField] private int                    maximumNumberOfRooms;
+    [Range(5, 75)] [SerializeField] private int                     maximumNumberOfRooms;
 
     [Header("Level Pieces")]
     [Tooltip("Empty room. Serves as base of creating to starting piece and originated piece of boss room")]
@@ -48,11 +48,10 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     [SerializeField] private LevelPiece[]   corridors;
     [Tooltip("Rooms only")]
     [SerializeField] private LevelPiece[]   rooms;
-    [Tooltip("Layer to check if a room is colliding with another")]
-    [SerializeField] private LayerMask      roomColliderLayer;
 
     // Rooms lists
-    public IList<LevelPiece> AllRooms { get; private set; }
+    private IList<LevelPiece> allRooms;
+    public IList<LevelPiece> AllLevelPiecesGenerated { get; private set; }
 
     // Generation variables
     private int numberOfLoops;
@@ -130,7 +129,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// <returns>Null.</returns>
     private IEnumerator GenerateLevel(System.Random random, bool firstAttempt = true)
     {
-        timeOfTotalGeneration = Time.time;
+        timeOfTotalGeneration = Time.realtimeSinceStartup;
         
         switch(yieldType)
         {
@@ -156,13 +155,12 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         // for each opened contact point.
         // This number is directly connect with the limit of rooms that can be spawned,
         // so if the number of rooms exceeds a limit, it will adjust numberOfLoops variable.
-        // For the number of rooms in our game, a number between 4 - 7 should be fine.
-        numberOfLoops = 5;
-        //5
+        // For the number of rooms in our game, a number between 3 - 5 should be fine.
+        numberOfLoops = random.Next(3, 6);
 
         while (bossRoomSpawned == false)
         {
-            timeOfGenerationStart = Time.time;
+            timeOfGenerationStart = Time.realtimeSinceStartup;
 
             // Starts generating random seeds after first failed attempt
             if (firstAttempt == false)
@@ -179,7 +177,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             #region Initial Rooms
             // All points, rooms and rooms + corridors
             openedContactPoints = new List<ContactPoint>();
-            AllRooms = new List<LevelPiece>();
+            allRooms = new List<LevelPiece>();
 
             // Creates and places first corridor
             LevelPiece ghostRoom = Instantiate(ghostRoomPiece);
@@ -328,19 +326,13 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                     }
 
                     // After every loop, if maximum number of rooms exceeds a limit, it breaks the current loop
-                    if (AllRooms.Count >= maximumNumberOfRooms)
+                    if (allRooms.Count >= maximumNumberOfRooms)
                     {
                         break;
                     }
                 }
 
-                // After every loop, if maximum number of rooms exceeds a limit, it breaks the current another
-                if (AllRooms.Count >= maximumNumberOfRooms)
-                {
-                    break;
-                }
-
-                if (Time.time - timeOfGenerationStart > 5f)
+                if (Time.realtimeSinceStartup - timeOfGenerationStart > 15f)
                 {
                     Debug.Log("Maximum generation time exceeded.");
                     break;
@@ -348,13 +340,14 @@ public class LevelGenerator : MonoBehaviour, ISaveable
 
                 numberOfCurrentLoop++;
 
-            } while (openedContactPoints.Count > 0 && numberOfCurrentLoop < numberOfLoops);
+            } while (openedContactPoints.Count > 0 && numberOfCurrentLoop < numberOfLoops &&
+                    allRooms.Count < maximumNumberOfRooms);
 
             // After the main loop is over, if minimum or maximum number of
             // rooms exceeds a limit, it starts another loop
-            if (AllRooms.Count < minimumNumberOfRooms)
+            if (allRooms.Count < minimumNumberOfRooms)
             {
-                if (AllRooms.Count < minimumNumberOfRooms) numberOfLoops++;
+                if (allRooms.Count < minimumNumberOfRooms) numberOfLoops++;
 
                 print("Invalid number of rooms. Attempting another time.");
 
@@ -403,7 +396,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                             openedContactPoints, ref i, levelParent);
 
                         // Because this variable will be used later and boss room doesn't count
-                        AllRooms.Remove(bossRoomPiece);
+                        allRooms.Remove(bossRoomPiece);
 
                         bossRoomPiece.ContactPoints[0].OriginatedRoom = ghostRoom;
 
@@ -492,7 +485,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                                 openedContactPoints, ref indexOfContactPoint, levelParent);
 
                             // Because this variable will be used later and boss room doesn't count
-                            AllRooms.Remove(bossRoomPiece);
+                            allRooms.Remove(bossRoomPiece);
 
                             bossRoomPiece.ContactPoints[0].OriginatedRoom = ghostRoom;
 
@@ -602,11 +595,11 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         }
 
         // In the end, checks collisions again as a safety measure
-        for (int i = 0; i < AllRooms.Count; i++)
+        for (int i = 0; i < allRooms.Count; i++)
         {
             pieceIntersected = false;
             PieceIntersectionCheck[] pieceIntersections = 
-                AllRooms[i].GetComponentsInChildren<PieceIntersectionCheck>();
+                allRooms[i].GetComponentsInChildren<PieceIntersectionCheck>();
             for (int j = 0; j < pieceIntersections.Length; j++)
             {
                 pieceIntersections[j].CollisionEvent += CheckIntersection;
@@ -639,20 +632,23 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         else
         {
             // Destroys procedural room colliders
-            for (int i = 0; i < AllRooms.Count; i++)
+            for (int i = 0; i < allRooms.Count; i++)
             {
-                Destroy(AllRooms[i].BoxCollidersParent.gameObject);
+                Destroy(allRooms[i].BoxCollidersParent.gameObject);
             }
 
+            // Finds all pieces generated
+            AllLevelPiecesGenerated = FindObjectsOfType<LevelPiece>();
+
             // Sets random pieces shopkeepers as spawnable
-            AllRooms.Shuffle(random);
-            AllRooms[0].GetComponent<LevelPieceGameProgressControl>().RoomSpawnsShopkeeper = true;
-            AllRooms[1].GetComponent<LevelPieceGameProgressControl>().RoomSpawnsShopkeeper = true;
+            allRooms.Shuffle(random);
+            allRooms[0].GetComponent<LevelPieceGameProgressControl>().RoomSpawnsShopkeeper = true;
+            allRooms[1].GetComponent<LevelPieceGameProgressControl>().RoomSpawnsShopkeeper = true;
 
             // Sets random chests to spawn
-            AllRooms.Shuffle(random);
-            LevelPieceGameProgressControl randRoom1 = AllRooms[0].GetComponent<LevelPieceGameProgressControl>();
-            LevelPieceGameProgressControl randRoom2 = AllRooms[1].GetComponent<LevelPieceGameProgressControl>();
+            allRooms.Shuffle(random);
+            LevelPieceGameProgressControl randRoom1 = allRooms[0].GetComponent<LevelPieceGameProgressControl>();
+            LevelPieceGameProgressControl randRoom2 = allRooms[1].GetComponent<LevelPieceGameProgressControl>();
             randRoom1.RoomSpawnsChest = true;
             randRoom1.AbilityType = random.Next(0, 2) == 1 ? AbilityType.Spell : AbilityType.Passive;
             randRoom1.SpawnChestAfterGeneration();
@@ -666,7 +662,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             if (occludeAndSpawnPlayer)
                 OnEndedGeneration();
 
-            Debug.Log("Took " + (Time.time - timeOfTotalGeneration) + " seconds to generate, with seed " + seed +
+            Debug.Log("Took " + (Time.realtimeSinceStartup - timeOfTotalGeneration) + 
+                " seconds to generate, with seed " + seed +
                 " and number of loops of " + numberOfLoops);
         }
     }
@@ -836,7 +833,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         if (isRoomPiece)
         {
             // A variable to have control of all rooms (contains all spawned rooms)
-            AllRooms.Add(pieceToPlace);
+            allRooms.Add(pieceToPlace);
 
             // Gets the wall on top of current piece to place contact point and deactivates it
             // Only needs this for rooms, because corridors will always destroy walls
