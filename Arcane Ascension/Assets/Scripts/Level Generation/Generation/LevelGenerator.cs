@@ -64,6 +64,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     [Header("Dungeon element")]
     [SerializeField] private ElementType element;
     public ElementType Element => element;
+    [SerializeField] private GameObject elementSettings;
 
     // Starting time of a generation
     private float timeOfGenerationStart;
@@ -586,11 +587,13 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         allRooms[0].GetComponent<LevelPieceGameProgressControl>().RoomSpawnsShopkeeper = true;
         allRooms[1].GetComponent<LevelPieceGameProgressControl>().RoomSpawnsShopkeeper = true;
 
-        Debug.Log("Took " + (Time.time - timeOfTotalGeneration) + " seconds to generate, with seed " + seed +
-            " and number of loops of " + numberOfLoops);
+        Instantiate(elementSettings);
 
         if (occludeAndSpawnPlayer)
             OnEndedGeneration();
+
+        Debug.Log("Took " + (Time.time - timeOfTotalGeneration) + " seconds to generate, with seed " + seed +
+            " and number of loops of " + numberOfLoops);
     }
 
     /// <summary>
