@@ -28,7 +28,7 @@ public class CharactersAndNpcsPoolCreator : MonoBehaviour
         for (int i = 0; i < pool.Count; i++)
         {
             BasePool spawnedGameObject = 
-                new BasePool(pool[i].ToString(), pool[i].Prefab, pool[i].Size);
+                new BasePool(pool[i].Name, pool[i].Prefab, pool[i].Size);
             listOfGameObjects.Add(spawnedGameObject);
         }
 

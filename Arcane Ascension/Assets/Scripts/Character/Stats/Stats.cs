@@ -16,7 +16,7 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     /// <summary>
     /// Property that keeps trace of character's current health.
     /// </summary>
-    public float Health { get; protected set; }
+    public float Health { get; set; }
 
     /// <summary>
     /// Property only used to know max health with IHealable interface.

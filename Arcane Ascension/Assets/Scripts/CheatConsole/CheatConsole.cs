@@ -25,6 +25,8 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
     private AllSpells allSpells;
     private SelectionBase playerRoot;
     private PlayerCurrency playerCurrency;
+    private bool infiniteHealth;
+    private bool infiniteMana;
 
     [Header("Enemy")]
     [SerializeField] private GameObject dummyEnemy;
@@ -149,27 +151,25 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
             {
                 case "god 1":
                     Debug.Log("God mode activated");
-                    playerStats.Heal(10000, StatsType.Health);
-                    playerStats.EventTakeDamageNumber += Godmode;
+                    infiniteHealth = true;
                     DisableConsole();
                     break;
 
                 case "god 0":
                     Debug.Log("God mode deactivated");
-                    playerStats.EventTakeDamageNumber -= Godmode;
+                    infiniteHealth = false;
                     DisableConsole();
                     break;
 
                 case "mana 1":
                     Debug.Log("Infinite mana activated");
-                    playerStats.Heal(10000, StatsType.Mana);
-                    playerStats.EventManaUpdate += InfiniteMana;
+                    infiniteMana = true;
                     DisableConsole();
                     break;
 
                 case "mana 0":
                     Debug.Log("Infinite mana deactivated");
-                    playerStats.EventManaUpdate -= InfiniteMana;
+                    infiniteMana = false;
                     DisableConsole();
                     break;
 
@@ -294,19 +294,6 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
         playerSpells.AddSpell(spell, number2 - 1);
     }
 
-    private void Godmode(float temp) => StartCoroutine(GodmodeCoroutine());
-    private IEnumerator GodmodeCoroutine()
-    {
-        yield return wffu;
-        playerStats.Heal(playerStats.CommonAttributes.MaxHealth, StatsType.Health);
-    }
-
-    private void InfiniteMana() => StartCoroutine(InfiniteManaCoroutine());
-    private IEnumerator InfiniteManaCoroutine()
-    {
-        yield return wffu;
-        playerStats.Heal(playerStats.PlayerAttributes.MaxMana, StatsType.Mana);
-    }
     #endregion
     /////////////////////////////////// Cheats code /////////////////////////////////////
 
@@ -342,6 +329,9 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
 
     private void Update()
     {
+        if (infiniteHealth) playerStats.Health = playerStats.MaxHealth;
+        if (infiniteMana) playerStats.Mana = playerStats.MaxMana;
+
         if (consoleGameObject.activeSelf)
         {
             if (eventSystem.currentSelectedGameObject == null)

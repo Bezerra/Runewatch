@@ -32,7 +32,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
     /// <summary>
     /// Current mana of the character.
     /// </summary>
-    public float Mana { get; private set; }
+    public float Mana { get; set; }
 
     /// <summary>
     /// Current armor of the character.

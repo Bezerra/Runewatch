@@ -65,10 +65,16 @@ public class LevelPieceGameProgressControl : MonoBehaviour
                     {
                         Collider[] collisions = Physics.OverlapSphere(
                             shopkeeper[i].transform.position, 4, 
-                            Layers.PlayerNormalAndInvisibleLayer);       
+                            Layers.PlayerNormalAndInvisibleLayer);
+
+                        for (int j = 0; j < collisions.Length; j++)
+                        {
+                            Debug.Log(collisions[i].gameObject.name);
+                        }
 
                         if(collisions.Length == 0)
                         {
+                            Debug.Log("SPAWN SHOP");
                             CharactersAndNpcsPoolCreator.Pool.InstantiateFromPool(
                                 "Shopkeeper", shopkeeper[i].transform.position,
                                 shopkeeper[i].transform.rotation);
