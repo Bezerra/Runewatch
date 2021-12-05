@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using ExtensionMethods;
 
@@ -6,7 +7,6 @@ using ExtensionMethods;
 /// </summary>
 public class LevelPieceGameProgressControl : MonoBehaviour
 {
-    [SerializeField] private BoxCollider[] exitBlockers;
     [SerializeField] private AvailableListOfEnemiesToSpawnSO listOfEnemies;
 
     // Variables to keep track of progress
@@ -26,8 +26,9 @@ public class LevelPieceGameProgressControl : MonoBehaviour
     private int quantityOfEnemiesSpawned;
     private bool haveEnemiesSpawned;
 
-    // Doors
+    // Doors and exit blockers
     private ContactPointDoor[] contactPointsDoors;
+    private IList<BoxCollider> exitBlockers;
 
     private void Awake()
     {
@@ -35,6 +36,11 @@ public class LevelPieceGameProgressControl : MonoBehaviour
         contactPointsDoors = GetComponentsInChildren<ContactPointDoor>();
         shopkeeper = GetComponentsInChildren<ShopkeeperGizmosMesh>(true);
         chest = GetComponentInChildren<ChestGizmosMesh>(true);
+
+        GameProgressCollider[] gameProgressColliders = GetComponentsInChildren<GameProgressCollider>(true);
+        exitBlockers = new List<BoxCollider>();
+        foreach (GameProgressCollider gpc in gameProgressColliders)
+            exitBlockers.Add(gpc.GetComponent<BoxCollider>());
     }
 
     public void SpawnChestAfterGeneration()
@@ -66,7 +72,7 @@ public class LevelPieceGameProgressControl : MonoBehaviour
     /// </summary>
     private void BlockUnblockExits(bool condition)
     {
-        if (exitBlockers.Length > 0)
+        if (exitBlockers.Count > 0)
         {
             if (condition)
             {
@@ -121,6 +127,35 @@ public class LevelPieceGameProgressControl : MonoBehaviour
                 {
                     chestScript.CanOpen = true;
                 }
+            }
+        }
+        else
+        {
+            // If this piece is supposed to spawn shopkeeper, spawns it
+            if (RoomSpawnsShopkeeper && shopkeeper != null)
+            {
+                for (int i = 0; i < shopkeeper.Length; i++)
+                {
+                    Collider[] collisions = Physics.OverlapSphere(
+                        shopkeeper[i].transform.position, 4,
+                        Layers.PlayerNormalAndInvisibleLayer);
+
+                    if (collisions.Length == 0)
+                    {
+                        RunProgressPoolCreator.Pool.InstantiateFromPool(
+                            "Shopkeeper", shopkeeper[i].transform.position,
+                            shopkeeper[i].transform.rotation);
+
+                        break;
+                    }
+                }
+            }
+
+            // If this piece is supposed to spawn a chest, spawns it
+            // Type of chest randomly set on the end of level generator
+            if (RoomSpawnsChest && chestScript != null)
+            {
+                chestScript.CanOpen = true;
             }
         }
     }
