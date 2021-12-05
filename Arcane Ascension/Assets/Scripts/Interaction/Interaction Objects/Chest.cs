@@ -8,15 +8,33 @@ public class Chest : MonoBehaviour
 {
     [SerializeField] private List<EventAbstractSO> eventsToRunOnChestOpen;
 
+    // Components
     private GameObject canvasText;
     private InteractionCanvasText interectableCanvas;
     private AbstractEventOnInteraction eventOnInteraction;
+
+    private bool canOpen;
+    public bool CanOpen
+    {
+        get => canOpen;
+        set
+        {
+            canOpen = value;
+            if (canOpen) gameObject.layer = Layers.InterectableLayerNum;
+            else gameObject.layer = Layers.DefaultNum;
+        }
+    }
 
     private void Awake()
     {
         canvasText = GetComponentInChildren<Canvas>().gameObject;
         interectableCanvas = GetComponent<InteractionCanvasText>();
         eventOnInteraction = GetComponent<AbstractEventOnInteraction>();
+    }
+
+    private void Start()
+    {
+        CanOpen = false;
     }
 
     public void ChestOpeningStartAnimationEvent()

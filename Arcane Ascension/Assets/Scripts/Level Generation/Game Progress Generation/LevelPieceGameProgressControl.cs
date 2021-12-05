@@ -10,9 +10,11 @@ public class LevelPieceGameProgressControl : MonoBehaviour
     [SerializeField] private EnemySpawnPoint[] enemySpawnPoints;
     [SerializeField] private AvailableListOfEnemiesToSpawnSO listOfEnemies;
     private ShopkeeperGizmosMesh[] shopkeeper;
+    private Chest chest;
 
     // Variables to keep track of progress
     public bool RoomSpawnsShopkeeper { get; set; }
+    public bool RoomSpawnsChest { get; set; }
     private int quantityOfEnemiesSpawned;
     private bool haveEnemiesSpawned;
     private ContactPointDoor[] contactPointsDoors;
@@ -21,6 +23,7 @@ public class LevelPieceGameProgressControl : MonoBehaviour
     {
         contactPointsDoors = GetComponentsInChildren<ContactPointDoor>();
         shopkeeper = GetComponentsInChildren<ShopkeeperGizmosMesh>(true);
+        chest = GetComponentInChildren<Chest>(true);
     }
 
     /// <summary>
@@ -76,6 +79,11 @@ public class LevelPieceGameProgressControl : MonoBehaviour
                             break;
                         }
                     }
+                }
+
+                if (RoomSpawnsChest)
+                {
+                    chest.CanOpen = true;
                 }
             }
         }

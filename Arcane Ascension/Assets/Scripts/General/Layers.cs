@@ -7,6 +7,7 @@ public class Layers : MonoBehaviour
 {
     private static Layers instance;
 
+    [SerializeField] private int defaultNum;
     [SerializeField] private LayerMask allExceptPlayerAndEnemy;
     [SerializeField] private LayerMask enemyWithWalls;
     [SerializeField] private LayerMask enemyWithWallsFloor;
@@ -32,10 +33,12 @@ public class Layers : MonoBehaviour
     [SerializeField] private LayerMask ignoreLayer;
     [SerializeField] private int ignoreLayerNum;
     [SerializeField] private LayerMask interectableLayer;
+    [SerializeField] private int interectableLayerNum;
     [SerializeField] private int roomProgressLayerNum;
     [SerializeField] private int invisiblePlayerLayerNum;
     [SerializeField] private LayerMask playerNormalAndInvisibleLayer;
 
+    public static int DefaultNum => instance.defaultNum;
     public static LayerMask AllExceptPlayerAndEnemy => instance.allExceptPlayerAndEnemy;
     public static LayerMask EnemyWithWalls => instance.enemyWithWalls;
     public static LayerMask EnemyWithWallsFloor => instance.enemyWithWallsFloor;
@@ -44,7 +47,6 @@ public class Layers : MonoBehaviour
     public static LayerMask PlayerWithWallsFloor => instance.playerWithWallsFloor;
     public static LayerMask WallsFloor => instance.wallsFloor;
     public static LayerMask WallsFloorWithoutWallsSpells => instance.wallsFloorWithoutWallsSpells;
-
     public static LayerMask Floor => instance.floor;
     public static int FloorNum => instance.floorNum;
     public static LayerMask Walls => instance.walls;
@@ -62,6 +64,7 @@ public class Layers : MonoBehaviour
     public static LayerMask IgnoreLayer => instance.ignoreLayer;
     public static int IgnoreLayerNum => instance.ignoreLayerNum;
     public static LayerMask InterectableLayer => instance.interectableLayer;
+    public static int InterectableLayerNum => instance.interectableLayerNum;
     public static int RoomProgressLayerNum => instance.roomProgressLayerNum;
     public static int InvisiblePlayerLayerNum => instance.invisiblePlayerLayerNum;
     public static LayerMask PlayerNormalAndInvisibleLayer => instance.playerNormalAndInvisibleLayer;
