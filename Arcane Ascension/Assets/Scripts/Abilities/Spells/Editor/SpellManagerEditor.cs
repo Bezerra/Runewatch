@@ -44,6 +44,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         tree.Add($"{CREATENEWSPELL}/Create New Continuous Spell", createNewSpellContinuousData);
         tree.AddAllAssetsAtPath("Status Data", $"{STATUSPATH}", typeof(StatusBehaviourAbstractSO));
         tree.AddAllAssetsAtPath("Spell Data", $"{SPELLSPATH}", typeof(SpellSO));
+        tree.SortMenuItemsByName(true);
 
         return tree;
     }
