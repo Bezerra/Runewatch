@@ -253,8 +253,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
 
                 FindObjectOfType<PlayerCastSpell>().AttackKeyRelease();
 
-                // This will do some other stuff later
-                Destroy(GetComponentInParent<SelectionBase>().gameObject);
+                OnEventDeath(this);
             }
         }
     }
@@ -311,9 +310,7 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
 
                 FindObjectOfType<PlayerCastSpell>().AttackKeyRelease();
 
-
-                // This will do some other stuff later
-                Destroy(GetComponentInParent<SelectionBase>().gameObject);
+                OnEventDeath(this);
             }
         }
     }

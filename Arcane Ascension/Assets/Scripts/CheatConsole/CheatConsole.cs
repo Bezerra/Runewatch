@@ -258,6 +258,12 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
                     DisableConsole();
                     break;
 
+                case "death":
+                    Debug.Log("Death");
+                    playerStats.TakeDamage(playerStats.MaxHealth, ElementType.Lux, Vector3.zero);
+                    DisableConsole();
+                    break;
+
                 default:
                     inputField.text = "";
                     inputField.ActivateInputField();
@@ -355,7 +361,11 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
 
     public void PlayerLost()
     {
-        // Left blank on purpose
+        inputField.text = "";
+        consoleGameObject.SetActive(false);
+
+        if (input != null)
+            input.CheatConsole -= ShowConsole;
     }
 
     public void FindInput()

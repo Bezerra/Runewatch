@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for pausing and upausing the game.
 /// </summary>
-public class PauseSystem : MonoBehaviour, IFindInput
+public class PauseSystem : MonoBehaviour, IFindInput, IFindPlayer
 {
     // Components
     private IInput playerInputCustom;
@@ -59,8 +59,17 @@ public class PauseSystem : MonoBehaviour, IFindInput
     public void LostInput()
     {
         if (playerInputCustom != null)
-        {
             playerInputCustom.PauseGame -= PauseGame;
-        }
+    }
+
+    public void FindPlayer()
+    {
+        // Left blank on purpose
+    }
+
+    public void PlayerLost()
+    {
+        if (playerInputCustom != null)
+            playerInputCustom.PauseGame -= PauseGame;
     }
 }

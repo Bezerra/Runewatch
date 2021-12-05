@@ -339,17 +339,6 @@ public class @InputActions : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""7dccd8a4-07f5-43de-8d5a-76494863fc67"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Computer"",
-                    ""action"": ""Pause"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""55dfad8c-872a-414d-afec-d7e293bfa1d1"",
                     ""path"": ""<Keyboard>/p"",
                     ""interactions"": """",
@@ -1527,17 +1516,6 @@ public class @InputActions : IInputActionCollection, IDisposable
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""4e0dbf79-a2b8-48a2-b0fa-f0f7d8db96fb"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Computer"",
-                    ""action"": ""CheatConsole"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""c8c5165d-dde2-4af3-9622-048dc3d3dba0"",

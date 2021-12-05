@@ -3426,9 +3426,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1090331632516666570}
+  - component: {fileID: 5081555996137519740}
   - component: {fileID: 3631884562662160071}
   - component: {fileID: 4474374900483154014}
   - component: {fileID: 1090331632516666571}
+  - component: {fileID: 881976562348776737}
   m_Layer: 0
   m_Name: Player Camera Cinemachine + Hand
   m_TagString: Untagged
@@ -3454,6 +3456,21 @@ Transform:
   m_Father: {fileID: 1090331631598940401}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5081555996137519740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090331632516666569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 336db93e1adb99348a5ec085e4029c13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameobjectsToDisableInitially:
+  - {fileID: 8624258032679941269}
+  - {fileID: 139114966}
 --- !u!114 &3631884562662160071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3520,6 +3537,25 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1090331631860241839}
+--- !u!95 &881976562348776737
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090331632516666569}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bd764687a342e5c45b8623aeee6b3035, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1096278194167081375
 GameObject:
   m_ObjectHideFlags: 0
@@ -6633,6 +6669,11 @@ PrefabInstance:
 --- !u!4 &139114967 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6579053173289723811, guid: 778583307dc16ce4cad91eba702ac69f, type: 3}
+  m_PrefabInstance: {fileID: 6579053173151735412}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &139114966 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6579053173289723810, guid: 778583307dc16ce4cad91eba702ac69f, type: 3}
   m_PrefabInstance: {fileID: 6579053173151735412}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7556735725980779758
