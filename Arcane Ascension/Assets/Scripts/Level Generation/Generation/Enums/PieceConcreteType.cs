@@ -32,4 +32,6 @@ public enum PieceConcreteType
     CorridorFiveRight,
     CorridorSixLeft,
     CorridorSixRight,
+
+    RoomSevenFifteen,
 }

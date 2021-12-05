@@ -14,10 +14,11 @@ public class LevelPiece : MonoBehaviour
     [SerializeField] private PieceType type;
     [EnumToggleButtons]
     [SerializeField] private PieceConcreteType concreteType;
-    [SerializeField] private ContactPoint[] contactPoints;
     [SerializeField] private GameObject boxCollidersParent;
-    [SerializeField] private BoxCollider[] boxColliders;
     [SerializeField] private RoomWeightsSO roomWeights;
+
+    private BoxCollider[] boxColliders;
+    private ContactPoint[] contactPoints;
 
     // Components
     private LevelGenerator levelGenerator;
@@ -25,6 +26,9 @@ public class LevelPiece : MonoBehaviour
 
     private void Awake()
     {
+        if (boxCollidersParent != null)
+            boxColliders = boxCollidersParent.GetComponentsInChildren<BoxCollider>();
+        contactPoints = GetComponentsInChildren<ContactPoint>();
         ConnectedPieces = new List<LevelPiece>();
         levelGenerator = FindObjectOfType<LevelGenerator>();
         ContactPointsDoors = new List<ContactPointDoor>();
