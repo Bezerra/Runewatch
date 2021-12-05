@@ -48,7 +48,9 @@ public class SpellBehaviourApplyDamageSingleTargetLeafShieldSO : SpellBehaviourA
             {
                 if (parent.WhoCast.TryGetComponent(out IHealable leafShield))
                 {
-                    leafShield.Heal(parent.Spell.Damage, StatsType.Armor);
+                    leafShield.Heal(
+                        parent.Spell.Damage(parent.WhoCast.CommonAttributes.Type), 
+                        StatsType.Armor);
                 }
             }
         }

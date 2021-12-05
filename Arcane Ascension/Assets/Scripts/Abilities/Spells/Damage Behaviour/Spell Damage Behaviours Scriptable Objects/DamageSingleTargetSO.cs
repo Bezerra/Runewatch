@@ -58,7 +58,7 @@ public class DamageSingleTargetSO : DamageBehaviourAbstractSO
                 character.TakeDamage(
                     parent.WhoCast.CommonAttributes.BaseDamageMultiplier *
                     parent.WhoCast.CommonAttributes.DamageElementMultiplier[parent.Spell.Element] *
-                    parent.Spell.Damage *
+                    parent.Spell.Damage(parent.WhoCast.CommonAttributes.Type) *
                     damageMultiplier,
                     criticalChance,
                     parent.WhoCast.CommonAttributes.CriticalDamageModifier,

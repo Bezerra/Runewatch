@@ -72,18 +72,14 @@ sealed public class ActionAttack : FSMAction
         {
             if (ai.Controller.CurrentTarget != null)
             {
-                // If the enemy needs to be at a certain range
-                if (ai.Controller.CurrentlySelectedSpell.NeedsToBeInRangeToAttack)
+                // If that range's distance is not met, it will ignore the rest of the method
+                // Adds a small value as compensation, so it can fail precise distance check safely
+                if (Vector3.Distance(ai.Controller.transform.position, 
+                    ai.Controller.CurrentTarget.transform.position) >
+                    ai.Controller.CurrentlySelectedSpell.Range + 0.02f)
                 {
-                    // If that range's distance is not met, it will ignore the rest of the method
-                    // Adds a small value as compensation, so it can fail precise distance check safely
-                    if (Vector3.Distance(ai.Controller.transform.position, 
-                        ai.Controller.CurrentTarget.transform.position) >
-                        ai.Controller.CurrentlySelectedSpell.Range + 0.02f)
-                    {
-                        ai.Controller.Agent.SetDestination(ai.Controller.CurrentTarget.position);
-                        return;
-                    }
+                    ai.Controller.Agent.SetDestination(ai.Controller.CurrentTarget.position);
+                    return;
                 }
 
                 // If the enemy is looking towards the player (with tolerance)

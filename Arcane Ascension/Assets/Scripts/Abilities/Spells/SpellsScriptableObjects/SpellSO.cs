@@ -58,8 +58,12 @@ public abstract class SpellSO : ScriptableObject, ISpell
     [Range(1f, 10f)] [SerializeField] protected float areaOfEffect;
 
     [VerticalGroup("Damage/Split/Middle", 1), LabelWidth(120)]
-    [Tooltip("Random damage between these 2 values")]
-    [SerializeField] [RangeMinMax(0, 100)] protected Vector2 damage;
+    [Tooltip("Used for player damage. Random damage between these 2 values")]
+    [SerializeField] [RangeMinMax(0, 200f)] protected Vector2 playerDamage;
+
+    [VerticalGroup("Damage/Split/Middle", 1), LabelWidth(120)]
+    [Tooltip("Used for enemy damage. Random damage between these 2 values")]
+    [SerializeField] [RangeMinMax(0, 200f)] protected Vector2 enemyDamage;
 
     [VerticalGroup("Damage/Split/Middle", 1), LabelWidth(120)]
     [Tooltip("Delay to apply damage. This is usually used for area spells, that require some" +
@@ -84,7 +88,7 @@ public abstract class SpellSO : ScriptableObject, ISpell
 
     // Continuous spells have cooldown too (ex. player equiped a spell, it has 1 seconds cooldown until it's possible to use it)
     [BoxGroup("Spell Type")]
-    [Tooltip("Cooldown of the spells WHEN EQUIPED. One Shot cooldowns after fire. Continuous spell hit time.")]
+    [Tooltip("Cooldown of the spells WHEN EQUIPED. One Shot cooldowns after fire.")]
     [Range(0, 10)] [SerializeField] protected float cooldown;
 
     [BoxGroup("Spell Type")]
@@ -136,14 +140,20 @@ public abstract class SpellSO : ScriptableObject, ISpell
     public float TimeInterval { get => timeInterval; set => timeInterval = value; }
     public float MaxTime { get => maxTime; set => maxTime = value; }
     public float AreaOfEffect { get => areaOfEffect; set => areaOfEffect = value; }
-    public float Damage => Random.Range(damage.x, damage.y);
     public float DelayToDoDamage => delayToDoDamage;
-    public Vector2 MinMaxDamage => damage;
+    public Vector2 MinMaxDamage => playerDamage;
     public SpellCastType CastType => spellCastType;
     public float Speed { get => speed; set => speed = value; }
     public float Cooldown => cooldown;
     public float CooldownCounter { get; set; }
     public float MaximumDistance => maximumDistance;
+    public float Damage(CharacterType characterType)
+    {
+        float finalDamage = 0;
+        if (characterType == CharacterType.Player) finalDamage = Random.Range(playerDamage.x, playerDamage.y);
+        else finalDamage = Random.Range(enemyDamage.x, enemyDamage.y);
+        return finalDamage;
+    }
 
     public virtual IList<SpellBehaviourAbstractOneShotSO> SpellBehaviourOneShot { get; }
     public virtual IList<SpellOnHitBehaviourAbstractOneShotSO> OnHitBehaviourOneShot { get; }
