@@ -587,9 +587,14 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         allRooms[0].GetComponent<LevelPieceGameProgressControl>().RoomSpawnsShopkeeper = true;
         allRooms[1].GetComponent<LevelPieceGameProgressControl>().RoomSpawnsShopkeeper = true;
 
+        // Sets random chests to spawn
         allRooms.Shuffle(random);
-        allRooms[0].GetComponent<LevelPieceGameProgressControl>().RoomSpawnsChest = true;
-        allRooms[1].GetComponent<LevelPieceGameProgressControl>().RoomSpawnsChest = true;
+        LevelPieceGameProgressControl randRoom1 = allRooms[0].GetComponent<LevelPieceGameProgressControl>();
+        LevelPieceGameProgressControl randRoom2 = allRooms[1].GetComponent<LevelPieceGameProgressControl>();
+        randRoom1.RoomSpawnsChest = true;
+        randRoom1.AbilityType = random.Next(0, 2) == 1 ? AbilityType.Spell : AbilityType.Passive;
+        randRoom2.RoomSpawnsChest = true;
+        randRoom2.AbilityType = random.Next(0, 2) == 1 ? AbilityType.Spell : AbilityType.Passive;
 
         Instantiate(elementSettings);
 

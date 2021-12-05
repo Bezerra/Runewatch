@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Class responsible for creating characters and npcs pools.
+/// Class responsible for creating progress elements pools (like shopkeeper and chests).
 /// </summary>
-public class CharactersAndNpcsPoolCreator : MonoBehaviour
+public class RunProgressPoolCreator : MonoBehaviour
 {
     /// <summary>
     /// Prefab of the damage hit prefab.

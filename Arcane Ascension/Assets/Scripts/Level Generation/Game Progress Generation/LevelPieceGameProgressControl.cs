@@ -9,21 +9,29 @@ public class LevelPieceGameProgressControl : MonoBehaviour
     [SerializeField] private BoxCollider[] exitBlockers;
     [SerializeField] private EnemySpawnPoint[] enemySpawnPoints;
     [SerializeField] private AvailableListOfEnemiesToSpawnSO listOfEnemies;
-    private ShopkeeperGizmosMesh[] shopkeeper;
-    private Chest chest;
 
     // Variables to keep track of progress
+    // Shopkeeper
+    private ShopkeeperGizmosMesh[] shopkeeper;
     public bool RoomSpawnsShopkeeper { get; set; }
+
+    // Chests
+    private ChestGizmosMesh chest;
+    public AbilityType AbilityType { get; set; }
     public bool RoomSpawnsChest { get; set; }
+
+    // Enemies
     private int quantityOfEnemiesSpawned;
     private bool haveEnemiesSpawned;
+
+    // Doors
     private ContactPointDoor[] contactPointsDoors;
 
     private void Awake()
     {
         contactPointsDoors = GetComponentsInChildren<ContactPointDoor>();
         shopkeeper = GetComponentsInChildren<ShopkeeperGizmosMesh>(true);
-        chest = GetComponentInChildren<Chest>(true);
+        chest = GetComponentInChildren<ChestGizmosMesh>(true);
     }
 
     /// <summary>
@@ -72,7 +80,7 @@ public class LevelPieceGameProgressControl : MonoBehaviour
 
                         if(collisions.Length == 0)
                         {
-                            CharactersAndNpcsPoolCreator.Pool.InstantiateFromPool(
+                            RunProgressPoolCreator.Pool.InstantiateFromPool(
                                 "Shopkeeper", shopkeeper[i].transform.position,
                                 shopkeeper[i].transform.rotation);
 
@@ -81,9 +89,27 @@ public class LevelPieceGameProgressControl : MonoBehaviour
                     }
                 }
 
+                // If this piece is supposed to spawn a chest, spawns it
+                // Type of chest randomly set on the end of level generator
                 if (RoomSpawnsChest)
                 {
-                    chest.CanOpen = true;
+                    GameObject spawnedChest;
+                    if (AbilityType == AbilityType.Spell)
+                    {
+                        spawnedChest = RunProgressPoolCreator.Pool.InstantiateFromPool(
+                            "Spell Chest", chest.transform.position,
+                            chest.transform.rotation);
+                    }
+                    else
+                    {
+                        spawnedChest = RunProgressPoolCreator.Pool.InstantiateFromPool(
+                            "Passive Chest", chest.transform.position,
+                            chest.transform.rotation);
+                    }
+                    if (spawnedChest.TryGetComponent(out Chest chestScript))
+                    {
+                        chestScript.CanOpen = true;
+                    }
                 }
             }
         }

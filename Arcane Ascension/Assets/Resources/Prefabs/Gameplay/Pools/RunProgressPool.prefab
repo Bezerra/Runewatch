@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &808398683016289724
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8376130512443310852}
+  - component: {fileID: 7302877337128101812}
+  m_Layer: 0
+  m_Name: RunProgressPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8376130512443310852
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808398683016289724}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7302877337128101812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808398683016289724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 304b234108f29b0478857ec0f1c66290, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pool:
+  - name: Shopkeeper
+    prefab: {fileID: 802680804455087217, guid: dd106ceb44f102a4b81c9ec5c0586b91, type: 3}
+    size: 2
+  - name: Spell Chest
+    prefab: {fileID: 7921107309181165519, guid: 1fae073515da0c94e983d72e53821bf3, type: 3}
+    size: 2
+  - name: Passive Chest
+    prefab: {fileID: 4368204534753961742, guid: 9ba66d6ebf0ca484f9a7060c9f6b918c, type: 3}
+    size: 2
