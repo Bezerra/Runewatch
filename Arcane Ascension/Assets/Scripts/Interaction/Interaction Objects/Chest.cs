@@ -20,8 +20,21 @@ public class Chest : MonoBehaviour
         set
         {
             canOpen = value;
-            if (canOpen) gameObject.layer = Layers.InterectableLayerNum;
-            else gameObject.layer = Layers.DefaultNum;
+            if (canOpen)
+            {
+                GetComponentInChildren<BoxCollider>().gameObject.layer = Layers.InterectableLayerNum;
+                eventOnInteraction.enabled = true;
+                interectableCanvas.enabled = true;
+                canvasText.SetActive(true);
+
+            }
+            else
+            {
+                GetComponentInChildren<BoxCollider>().gameObject.layer = Layers.DefaultNum;
+                eventOnInteraction.enabled = false;
+                interectableCanvas.enabled = false;
+                canvasText.SetActive(false);
+            }
         }
     }
 
@@ -42,6 +55,8 @@ public class Chest : MonoBehaviour
         LootSoundPoolCreator.Pool.InstantiateFromPool(
             LootAndInteractionSoundType.InteractChest.ToString(), transform.position, Quaternion.identity);
 
+        GetComponentInChildren<BoxCollider>().gameObject.layer = Layers.DefaultNum;
+        eventOnInteraction.enabled = false;
         interectableCanvas.enabled = false;
         canvasText.SetActive(false);
     }
