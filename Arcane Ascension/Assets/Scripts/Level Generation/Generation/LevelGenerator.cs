@@ -585,8 +585,6 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         allRooms.Shuffle(random);
         allRooms[0].GetComponent<LevelPieceGameProgressControl>().RoomSpawnsShopkeeper = true;
         allRooms[1].GetComponent<LevelPieceGameProgressControl>().RoomSpawnsShopkeeper = true;
-        Debug.Log(allRooms[0].name);
-        Debug.Log(allRooms[1].name);
 
         Debug.Log("Took " + (Time.time - timeOfTotalGeneration) + " seconds to generate, with seed " + seed +
             " and number of loops of " + numberOfLoops);

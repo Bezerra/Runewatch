@@ -24,13 +24,13 @@ public abstract class AbstractEventOnInteraction : MonoBehaviour, IInterectable,
 
     public abstract void Execute();
 
-    public void FindPlayer()
+    public virtual void FindPlayer()
     {
         playerInteraction = FindObjectOfType<PlayerInteraction>();
     }
 
     public void PlayerLost()
     {
-        playerInteraction = null;
+        // Left blank on purpose
     }
 }

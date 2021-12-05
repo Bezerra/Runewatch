@@ -3,7 +3,8 @@ using UnityEngine;
 /// <summary>
 /// Class used by shopkeeper inventory gameobjects that can be interected with and trigger a scriptable object event.
 /// </summary>
-public class ShopkeeperEventOnInteraction : AbstractEventOnInteraction, IInterectable, IInteractableWithSound
+public class ShopkeeperEventOnInteraction : AbstractEventOnInteraction, IInterectable, 
+    IInteractableWithSound, IFindPlayer
 {
     [Header("Sound to be played when interected with")]
     [SerializeField] private LootAndInteractionSoundType lootAndInteractionSoundType;
@@ -56,5 +57,11 @@ public class ShopkeeperEventOnInteraction : AbstractEventOnInteraction, IInterec
         {
             Debug.Log("Has no event to execute");
         }
+    }
+
+    public override void FindPlayer()
+    {
+        base.FindPlayer();
+        PlayerCurrency = FindObjectOfType<PlayerCurrency>();
     }
 }
