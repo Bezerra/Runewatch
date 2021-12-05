@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Splash-01-Alpha
+  m_Name: Water-Solid-Alpha
   m_Shader: {fileID: 4800000, guid: 667bc581efc758f43a7bd86c68dc5b40, type: 3}
-  m_ShaderKeywords: _USECUSTOMDISSOLVETEX0Z_ON _USEDEPTH_ON
+  m_ShaderKeywords: _INVERTMASK_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -44,8 +44,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DissolveTexture:
-        m_Texture: {fileID: 2800000, guid: 0af6ff4012476c642b487c8cb30d0dfc, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 0886c9c3fde2abc449f8dbd39c8c838e, type: 3}
+        m_Scale: {x: 2, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DistortTexture:
         m_Texture: {fileID: 0}
@@ -60,11 +60,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 8b16b60bb17099d47b65a8c2e8bffc22, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: b3f6c813a1219634bbfcd6f89c8d1750, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -120,18 +120,18 @@ Material:
     - _DepthDistance: 1
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DissolveAmount: 0.074
+    - _DissolveAmount: 0
     - _DissolveSmooth: 0
     - _DistortStrength: 0
     - _Distortion: 0.03
     - _DstBlend: 0
     - _EnvironmentReflections: 1
-    - _FresnelPower: 0
+    - _FresnelPower: 3.82
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _InvertDissolveMask: 0
-    - _InvertMask: 0
+    - _InvertMask: 1
     - _InvertOffsetMask: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
@@ -145,22 +145,22 @@ Material:
     - _SrcBlend: 1
     - _Surface: 0
     - _UseCustomDissolve: 0
-    - _UseCustomDissolveTex0z: 1
-    - _UseDepth: 1
+    - _UseCustomDissolveTex0z: 0
+    - _UseDepth: 0
     - _UseMaskAlpha: 0
     - _UseOffsetMaskAlpha: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 19.468573, g: 19.468573, b: 19.468573, a: 1}
-    - _DissolveSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 2.297397, g: 2.297397, b: 2.297397, a: 1}
+    - _DissolveSpeed: {r: 0.25, g: 0.5, b: 0, a: 0}
     - _DistortSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _DistortionSpeed: {r: 0.23, g: 0.2, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FresnelColor: {r: 0, g: 0, b: 0, a: 1}
+    - _FresnelColor: {r: 0.3160377, g: 0.7612838, b: 1, a: 1}
     - _Fresnelcolor: {r: 0, g: 8.969815, b: 12.996038, a: 1}
-    - _MainTextureSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _MainTextureSpeed: {r: 0.25, g: 0.74, b: 0, a: 0}
     - _MaskSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _OffsetMaskSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
