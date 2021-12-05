@@ -7,14 +7,21 @@ using UnityEngine;
 public class GenerateLevelDemonstration : MonoBehaviour
 {
     [SerializeField] private LevelGenerator levelGenerators;
+    private static GenerateLevelDemonstration instance;
 
     private void Start()
     {
-        GameObject levelGenerated = Instantiate(levelGenerators.gameObject);
+        instance = this;
+        GenerateDungeon();
+    }
+
+    public static void GenerateDungeon()
+    {
+        GameObject levelGenerated = Instantiate(instance.levelGenerators.gameObject);
         LevelGenerator levelGeneratedScript = levelGenerated.GetComponent<LevelGenerator>();
-        Destroy(levelGenerators.gameObject);
+        Destroy(instance.levelGenerators.gameObject);
 
         levelGeneratedScript.GetValues();
-        StartCoroutine(levelGeneratedScript.StartGeneration());
+        instance.StartCoroutine(levelGeneratedScript.StartGeneration());
     }
 }

@@ -66,11 +66,11 @@ public class RoomOcclusion : MonoBehaviour
     /// <returns>Null.</returns>
     public IEnumerator ControlChildOccludeesCoroutine()
     {
-        // Creates a new lsit with all level pieces
+        // Creates a new list with all level pieces
         IList<LevelPiece> generatedRoomPieces = new List<LevelPiece>();
-        for (int i = 0; i < levelGenerator.AllGeneratedLevelPieces.Count; i++)
+        for (int i = 0; i < levelGenerator.AllRooms.Count; i++)
         {
-            generatedRoomPieces.Add(levelGenerator.AllGeneratedLevelPieces[i]);
+            generatedRoomPieces.Add(levelGenerator.AllRooms[i]);
             yield return null;
         }
         generatedRoomPieces.Remove(thisLevelPiece);

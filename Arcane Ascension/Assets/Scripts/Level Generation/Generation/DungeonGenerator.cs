@@ -39,6 +39,8 @@ public class DungeonGenerator: MonoBehaviour
         else
             element = saveData.DungeonSavedData.Element;
 
+        CleantExistingDungeonElements();
+
         // Gets the dungeon of that element
         foreach(LevelGenerator level in instance.levelGenerators)
         {
@@ -63,5 +65,33 @@ public class DungeonGenerator: MonoBehaviour
         }
 
         yield return null;
+    }
+
+    /// <summary>
+    /// Deactivates chests and shopkeepers.
+    /// </summary>
+    public static void CleantExistingDungeonElements()
+    {
+        LevelGenerator levelGenerator = FindObjectOfType<LevelGenerator>();
+        Chest[] chests = FindObjectsOfType<Chest>();
+        Shopkeeper[] shopkeepers = FindObjectsOfType<Shopkeeper>();
+        if (chests.Length > 0)
+        {
+            for (int i = 0; i < chests.Length; i++)
+            {
+                chests[i].gameObject.SetActive(false);
+            }
+        }
+        if (shopkeepers.Length > 0)
+        {
+            for (int i = 0; i < shopkeepers.Length; i++)
+            {
+                shopkeepers[i].gameObject.SetActive(false);
+            }
+        }
+        if (levelGenerator != null)
+        {
+            Destroy(levelGenerator);
+        }
     }
 }

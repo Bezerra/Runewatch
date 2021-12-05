@@ -1,16 +1,17 @@
 using UnityEngine;
 using System;
 
+/// <summary>
+/// Script responsible for checking if this gameobject collided with another on RoomCollisionLayer.
+/// </summary>
 public class PieceIntersectionCheck : MonoBehaviour
 {
     private bool intersecting;
 
     public bool CanCheckCollision { private get; set; }
 
-    private void Start()
-    {
+    private void Start() =>
         intersecting = false;
-    }
 
     private void OnTriggerStay(Collider other)
     {

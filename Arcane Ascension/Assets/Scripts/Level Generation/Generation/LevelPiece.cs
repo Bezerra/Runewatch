@@ -17,7 +17,6 @@ public class LevelPiece : MonoBehaviour
     [SerializeField] private GameObject boxCollidersParent;
     [SerializeField] private RoomWeightsSO roomWeights;
 
-    private BoxCollider[] boxColliders;
     private ContactPoint[] contactPoints;
 
     // Components
@@ -26,8 +25,6 @@ public class LevelPiece : MonoBehaviour
 
     private void Awake()
     {
-        if (boxCollidersParent != null)
-            boxColliders = boxCollidersParent.GetComponentsInChildren<BoxCollider>();
         contactPoints = GetComponentsInChildren<ContactPoint>();
         ConnectedPieces = new List<LevelPiece>();
         levelGenerator = FindObjectOfType<LevelGenerator>();
@@ -74,11 +71,6 @@ public class LevelPiece : MonoBehaviour
     /// Parent of box colliders for procedural generation.
     /// </summary>
     public GameObject BoxCollidersParent => boxCollidersParent;
-
-    /// <summary>
-    /// Box collider for procedural generation.
-    /// </summary>
-    public BoxCollider[] BoxColliders => boxColliders;
 
     /// <summary>
     /// Room weight.
