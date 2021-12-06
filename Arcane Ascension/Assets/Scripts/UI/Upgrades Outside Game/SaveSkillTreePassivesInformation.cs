@@ -26,7 +26,7 @@ public class SaveSkillTreePassivesInformation : MonoBehaviour
         // Creates list with empty passives
         IList<byte> currentPassives = new List<byte>();
 
-        // Adds saved passves to current passives
+        // Adds saved passives to current passives
         CharacterSaveData saveData = characterSaveDataController.LoadGame();
         if (saveData != null)
         {
@@ -36,6 +36,7 @@ public class SaveSkillTreePassivesInformation : MonoBehaviour
             }
         }
 
+        // Idk why I left this, safety measure?
         // Foreach current passive the player has, it will write its information to a file and save it
         for (int i = 0; i < skillTreePassives.PassivesList.Count; i++)
         {

@@ -35,7 +35,7 @@ public class SkillTreePassiveCanvas : MonoBehaviour
     public List<byte> CurrentPassives { get; private set; }
 
     // Save system
-    CharacterSaveDataController characterSaveDataController;
+    private CharacterSaveDataController characterSaveDataController;
 
     private void Awake()
     {
@@ -59,6 +59,7 @@ public class SkillTreePassiveCanvas : MonoBehaviour
 
         CharacterSaveData saveData = characterSaveDataController.LoadGame();
 
+        // Adds saved data passives to a list with current passives
         foreach (byte passive in saveData.CurrentSkillTreePassives)
         {
             CurrentPassives.Add(passive);

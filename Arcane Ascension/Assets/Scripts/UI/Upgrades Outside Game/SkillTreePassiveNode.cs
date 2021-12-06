@@ -132,11 +132,13 @@ public class SkillTreePassiveNode : MonoBehaviour
             if (CurrentTier < nodePassives.Length)
             {
                 // If player has enough arcane power
-                if (parentNodeController.CurrencySO.CanSpend(CurrencyType.ArcanePower, nodePassives[CurrentTier].Cost))
+                if (parentNodeController.CurrencySO.CanSpend(
+                    CurrencyType.ArcanePower, nodePassives[CurrentTier].Cost))
                 {
                     // Increments tier, spends money, updates UI to next tier
                     CurrentTier++;
-                    parentNodeController.CurrencySO.SpendCurrency(CurrencyType.ArcanePower, nodePassives[CurrentTier-1].Cost);
+                    parentNodeController.CurrencySO.SpendCurrency(
+                        CurrencyType.ArcanePower, nodePassives[CurrentTier-1].Cost);
                     UpdateUI();
                     parentNodeController.UpdateInformation(this);
                 }

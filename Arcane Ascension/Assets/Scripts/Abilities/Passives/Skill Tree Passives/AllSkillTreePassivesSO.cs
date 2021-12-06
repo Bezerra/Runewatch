@@ -14,6 +14,7 @@ public class AllSkillTreePassivesSO : ScriptableObject
     [OnValueChanged("UpdateID")]
     [SerializeField] private bool inspectorReadOnlyList = true;
 
+    // List with all skill tree passives ingame
     [DisableIf("inspectorReadOnlyList", true)]
     [OnValueChanged("UpdateID")]
     [SerializeField] private List<SkillTreePassiveSO> passives;
