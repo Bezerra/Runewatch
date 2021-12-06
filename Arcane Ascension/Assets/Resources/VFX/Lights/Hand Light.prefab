@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1564321042008547097}
+  - component: {fileID: 109510864288943703}
   - component: {fileID: 1564321042008547096}
   m_Layer: 8
   m_Name: Hand Light
@@ -31,6 +32,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &109510864288943703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564321042008547103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53121556efe4ba547b027047e6f8cd91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  light: {fileID: 1564321042008547096}
 --- !u!108 &1564321042008547096
 Light:
   m_ObjectHideFlags: 0

@@ -32,7 +32,10 @@ public class PlayerHandEffect : MonoBehaviour
         if (spawnedSpell != null)
         {
             VisualEffect previousVFX = spawnedSpell.GetComponentInChildren<VisualEffect>();
+            HandEffectLightFade lightFade = spawnedSpell.GetComponentInChildren<HandEffectLightFade>();
 
+            // Adds current effect to previous effects, so it can disable them
+            lightFade.DeactivateLight();
             previousSpawnedSpell.Add(spawnedSpell);
             vfxPreviousSpawnedSpell.Add(previousVFX);
 
