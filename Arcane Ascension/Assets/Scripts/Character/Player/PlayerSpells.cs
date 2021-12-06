@@ -49,21 +49,26 @@ public class PlayerSpells : MonoBehaviour, ISaveable
 
     private void Start()
     {
-        //allSpells.Count or 2 or 4
-        // TEMPORARY TESTS // Adds 4 spells to current spells
-        for (int i = 0; i < 3; i++)
-        {
-            if (i <= CurrentSpells.Length)
-            {
-                // THIS IS TEMP, WHILE IN GAME PLAYER WILL ONLY CAST THE SPELLS ON HIS AVAILABLE SPELLS, NOT THIS ONE
+        ////allSpells.Count or 2 or 4
+        //// TEMPORARY TESTS // Adds 4 spells to current spells
+        //for (int i = 0; i < 3; i++)
+        //{
+        //    if (i <= CurrentSpells.Length)
+        //    {
+        //        // THIS IS TEMP, WHILE IN GAME PLAYER WILL ONLY CAST THE SPELLS ON HIS AVAILABLE SPELLS, NOT THIS ONE
+        //
+        //        AddSpell(allSpells[i]);
+        //    }
+        //}
 
-                AddSpell(allSpells[i]);
-            }
+        if (CurrentSpells[0] != null)
+        {
+            SelectSpell(0, true);
+
+            StartSpellCooldown();
         }
 
-        SelectSpell(0, true);
         StartSpellCooldown(SecondarySpell);
-        StartSpellCooldown();
     }
 
     // Registers events
@@ -199,11 +204,13 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     private void SelectSpell(byte index, bool initialSelection)
     {
         if (CurrentSpells[index] != null)
+        {
             CurrentSpellIndex = index;
 
-        playerHandEffect.UpdatePlayerHandEffect(ActiveSpell);
+            playerHandEffect.UpdatePlayerHandEffect(ActiveSpell);
 
-        StartSpellCooldown();
+            StartSpellCooldown();
+        }     
     }
 
     /// <summary>
@@ -213,8 +220,11 @@ public class PlayerSpells : MonoBehaviour, ISaveable
     /// <returns>Returns true if cooldown is over.</returns>
     public bool CooldownOver(ISpell spell)
     {
-        if (spell.CooldownCounter == spell.Cooldown)
-            return true;
+        if (CurrentSpells.Length > 0)
+        {
+            if (spell.CooldownCounter == spell.Cooldown)
+                return true;
+        }
         return false;
     }
 

@@ -308,6 +308,9 @@ public class PlayerUI : MonoBehaviour
     /// </summary>
     private void CastSpell()
     {
+        if (playerSpells.ActiveSpell == null)
+            return;
+
         if (playerSpells.ActiveSpell.CastType == SpellCastType.OneShotCastWithRelease &&
             playerSpells.CooldownOver(playerSpells.ActiveSpell) &&
             playerSpells.CooldownOver(playerSpells.SecondarySpell))

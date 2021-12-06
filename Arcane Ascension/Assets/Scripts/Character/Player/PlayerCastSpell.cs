@@ -35,6 +35,13 @@ public class PlayerCastSpell : MonoBehaviour
     private IEnumerator Start()
     {
         YieldInstruction wfs = new WaitForSeconds(0.2f);
+
+        while(playerSpells.ActiveSpell == null)
+        {
+            yield return wfs;
+        }
+
+        // Will only run this after the player obtains a spell
         while (true)
         {
             yield return wfs;
@@ -69,10 +76,16 @@ public class PlayerCastSpell : MonoBehaviour
     private void SecondaryAttackKeyPress()
     {
         // If main spell is not in cooldown
-        if (playerSpells.CooldownOver(playerSpells.ActiveSpell) &&
-            playerSpells.CooldownOver(playerSpells.SecondarySpell) &&
+        if (playerSpells.CooldownOver(playerSpells.SecondarySpell) &&
             currentlyCastSpell == null)
         {
+            // If there's an active spell and cooldown is not over yet, ignores the rest
+            if (playerSpells.ActiveSpell != null)
+            {
+                if (playerSpells.CooldownOver(playerSpells.ActiveSpell) == false)
+                    return;
+            }
+            
             playerSpells.SecondarySpell.AttackBehaviour.AttackKeyPress(
                     ref currentlyCastSpell, playerSpells.SecondarySpell, player, playerStats, ref spellBehaviour);
 
@@ -88,10 +101,13 @@ public class PlayerCastSpell : MonoBehaviour
     /// </summary>
     private void AttackKeyPress()
     {
+        if (playerSpells.ActiveSpell == null)
+            return;
+
         // If spell is not in cooldown
         // Important for OneShot spells (continuous don't have cooldown)
         if (playerSpells.CooldownOver(playerSpells.ActiveSpell) &&
-            playerSpells.CooldownOver(playerSpells.SecondarySpell))
+        playerSpells.CooldownOver(playerSpells.SecondarySpell))
         {
             // If player has enough mana to cast the active spell
             if (playerStats.Mana - playerSpells.ActiveSpell.ManaCost > 0)
@@ -136,7 +152,9 @@ public class PlayerCastSpell : MonoBehaviour
     /// </summary>
     public void AttackKeyRelease()
     {
-        // Mana and cooldown on oneshot with release
+        if (playerSpells.ActiveSpell == null)
+            return;
+
         if (playerSpells.ActiveSpell.CastType == SpellCastType.OneShotCastWithRelease)
         {
             // If player has a spell being prepared in hand and CDs are over

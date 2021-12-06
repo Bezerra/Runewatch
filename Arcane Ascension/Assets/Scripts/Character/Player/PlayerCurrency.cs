@@ -27,9 +27,18 @@ public class PlayerCurrency : MonoBehaviour, IUseCurrency, ISaveable
         yield return wffu;
         yield return wffu;
 
+        // Initial default gold
+        GainCurrency(CurrencyType.Gold,
+            player.AllValues.Currency.DefaultGold);
+
         // Initial gold with passives
         GainCurrency(CurrencyType.Gold, 
             FindObjectOfType<CharacterSaveDataController>().SaveData.Wealth);
+
+        // This will only be uncommented in the final build, for now it's being gained on main menu of skill tree
+        // Initial default arcane power
+        //GainCurrency(CurrencyType.ArcanePower,
+        //    PlayerPrefs.GetInt(CurrencyType.ArcanePower.ToString());
     }
 
     /// <summary>
