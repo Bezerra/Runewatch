@@ -9,7 +9,7 @@ public class EnvironmentLightControl : MonoBehaviour
     [SerializeField] private EnvironmentLightControlSO environmentLightsControlSO;
 
     [OnValueChanged("UpdateColor")]
-    [SerializeField] private ElementType currentElementTEMP;
+    [SerializeField] private ElementType element;
 
     private void Awake()
     {
@@ -17,5 +17,5 @@ public class EnvironmentLightControl : MonoBehaviour
     }
 
     private void UpdateColor() =>
-        environmentLightsControlSO.UpdateColor(currentElementTEMP);
+        environmentLightsControlSO.UpdateColor(element);
 }
