@@ -18,7 +18,6 @@ public class PauseSystem : MonoBehaviour, IFindInput, IFindPlayer
     private void Start()
     {
         gameIsPaused = false;
-        Time.timeScale = 1;
     }
 
     private void OnEnable() =>

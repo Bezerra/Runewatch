@@ -421,7 +421,8 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                         // Creates a corridor/stairs
                         corridorToPlace = Instantiate(corridors[j]);
                         ContactPoint pieceContactPoint =
-                            corridorToPlace.ContactPoints[random.Next(0, corridorToPlace.ContactPoints.Length)];
+                            corridorToPlace.ContactPoints[random.Next(
+                                0, corridorToPlace.ContactPoints.Length)];
 
                         // Skips incompatible pieces
                         if (openedContactPoints[i].IncompatiblePieces.Contains(

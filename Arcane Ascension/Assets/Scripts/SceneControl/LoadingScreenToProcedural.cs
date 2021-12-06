@@ -14,6 +14,8 @@ public class LoadingScreenToProcedural : SceneControl
     /// <returns>Returns null.</returns>
     protected override IEnumerator LoadNewScene(SceneEnum scene, bool isAdditive = true)
     {
+        Time.timeScale = 1;
+
         yield return null;
 
         // Unloades unecessary scenes
