@@ -4829,7 +4829,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1502173496687304975
 Transform:
   m_ObjectHideFlags: 0
@@ -19519,8 +19519,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.5
-      minScalar: 0.3
+      scalar: 0.3
+      minScalar: 0.1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -19573,7 +19573,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 3
-      minScalar: 5
+      minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -20011,7 +20011,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.3
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -20065,7 +20065,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 43.6
+    angle: 11.8
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -20151,7 +20151,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.07
+      value: 0.7
       mode: 0
       spread: 0
       speed:
@@ -22141,12 +22141,12 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
   NoiseModule:
-    enabled: 0
+    enabled: 1
     strength:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
-      minScalar: 1
+      minScalar: 0.1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -22197,7 +22197,7 @@ ParticleSystem:
         m_RotationOrder: 4
     strengthY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -22250,7 +22250,7 @@ ParticleSystem:
         m_RotationOrder: 4
     strengthZ:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -22302,7 +22302,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     separateAxes: 0
-    frequency: 0.5
+    frequency: 1.55
     damping: 1
     octaves: 1
     octaveMultiplier: 0.5
@@ -24249,7 +24249,7 @@ ParticleSystemRenderer:
   m_MaxParticleSize: 10
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
-  m_LengthScale: 5
+  m_LengthScale: 1
   m_SortingFudge: 0
   m_NormalDirection: 1
   m_ShadowBias: 0
