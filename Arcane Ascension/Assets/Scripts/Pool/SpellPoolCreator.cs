@@ -41,6 +41,14 @@ public class SpellPoolCreator : MonoBehaviour
             listSpellPools.Add(spawnedSpellPool);
         }
 
+        // Adds melee attack spell
+        if (allSpells.MeleeAttack.Prefab.Item1 != null)
+        {
+            SpellPool spawnedSpellPool =
+                new SpellPool(allSpells.MeleeAttack.Prefab.Item1, poolSize);
+            listSpellPools.Add(spawnedSpellPool);
+        }
+
         // After the spell pool was created, it will create queues for all spells or hits/muzzles
         Pool.CreatePool(this.gameObject, listSpellPools);
     }

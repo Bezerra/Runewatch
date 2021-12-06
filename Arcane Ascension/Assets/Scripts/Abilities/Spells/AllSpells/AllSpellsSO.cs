@@ -21,6 +21,9 @@ public class AllSpellsSO : ScriptableObject
     [SerializeField] private SpellSO defaultSpell;
     public SpellSO DefaultSpell => defaultSpell;
 
+    [SerializeField] private SpellSO meleeAttack;
+    public SpellSO MeleeAttack => meleeAttack;
+
     private void OnEnable()
     {
         for (int i = 0; i < spells.Count; i++)

@@ -12,4 +12,6 @@ public class AllSpells : MonoBehaviour
         allSpells.SpellList;
 
     public SpellSO DefaultSpell => allSpells.DefaultSpell;
+
+    public SpellSO MeleeAttack => allSpells.MeleeAttack;
 }
