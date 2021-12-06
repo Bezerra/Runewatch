@@ -232,33 +232,33 @@ Shader "D4/Particles/UberParticle-Add"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _DistortTexture_ST;
+			float4 _Color;
 			float4 _VertexOffsetTexture_ST;
 			float4 _MaskTexture_ST;
 			float4 _DissolveTexture_ST;
 			float4 _OffsetMaskTexture_ST;
 			float4 _DissolveMask_ST;
 			float4 _FresnelColor;
-			float4 _Color;
+			float4 _DistortTexture_ST;
 			float4 _MainTexture_ST;
-			float2 _MaskSpeed;
-			float2 _DissolveSpeed;
 			float2 _DistortSpeed;
+			float2 _MaskSpeed;
 			float2 _VertexOffsetSpeed;
+			float2 _DissolveSpeed;
 			float2 _OffsetMaskSpeed;
 			float2 _MainTextureSpeed;
-			float _UseDepth;
-			float _DistortStrength;
-			float _DissolveSmooth;
 			float _InvertDissolveMask;
-			float _FresnelPower;
-			float _UseOffsetMaskAlpha;
 			float _UseCustomDissolveTex0z;
 			float _DissolveAmount;
-			float _InvertMask;
+			float _DissolveSmooth;
 			float _UseMaskAlpha;
+			float _UseDepth;
+			float _InvertMask;
+			float _FresnelPower;
+			float _UseOffsetMaskAlpha;
 			float _InvertOffsetMask;
 			float _OffsetStrength;
+			float _DistortStrength;
 			float _DepthDistance;
 			#ifdef TESSELLATION_ON
 				float _TessPhongStrength;
@@ -272,10 +272,10 @@ Shader "D4/Particles/UberParticle-Add"
 			sampler2D _VertexOffsetTexture;
 			sampler2D _OffsetMaskTexture;
 			sampler2D _MainTexture;
+			sampler2D _MaskTexture;
 			sampler2D _DistortTexture;
 			sampler2D _DissolveMask;
 			sampler2D _DissolveTexture;
-			sampler2D _MaskTexture;
 			uniform float4 _CameraDepthTexture_TexelSize;
 
 
@@ -288,10 +288,10 @@ Shader "D4/Particles/UberParticle-Add"
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
 				float2 uv_VertexOffsetTexture = v.ase_texcoord * _VertexOffsetTexture_ST.xy + _VertexOffsetTexture_ST.zw;
-				float2 panner2_g130 = ( 1.0 * _Time.y * _VertexOffsetSpeed + uv_VertexOffsetTexture);
+				float2 panner2_g139 = ( 1.0 * _Time.y * _VertexOffsetSpeed + uv_VertexOffsetTexture);
 				float2 uv_OffsetMaskTexture = v.ase_texcoord.xy * _OffsetMaskTexture_ST.xy + _OffsetMaskTexture_ST.zw;
-				float2 panner2_g132 = ( 1.0 * _Time.y * _OffsetMaskSpeed + uv_OffsetMaskTexture);
-				float4 temp_output_105_0_g118 = tex2Dlod( _OffsetMaskTexture, float4( ( panner2_g132 + float2( 0,0 ) ), 0, 0.0) );
+				float2 panner2_g142 = ( 1.0 * _Time.y * _OffsetMaskSpeed + uv_OffsetMaskTexture);
+				float4 temp_output_105_0_g118 = tex2Dlod( _OffsetMaskTexture, float4( ( panner2_g142 + float2( 0,0 ) ), 0, 0.0) );
 				
 				float3 ase_worldNormal = TransformObjectToWorldNormal(v.ase_normal);
 				o.ase_texcoord3.xyz = ase_worldNormal;
@@ -309,7 +309,7 @@ Shader "D4/Particles/UberParticle-Add"
 				#else
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
-				float3 vertexValue = ( v.ase_normal * (( ( tex2Dlod( _VertexOffsetTexture, float4( ( panner2_g130 + float2( 0,0 ) ), 0, 0.0) ) * _OffsetStrength ) * (( _InvertOffsetMask )?( ( 1.0 - (( _UseOffsetMaskAlpha )?( temp_output_105_0_g118.a ):( (temp_output_105_0_g118).r )) ) ):( (( _UseOffsetMaskAlpha )?( temp_output_105_0_g118.a ):( (temp_output_105_0_g118).r )) )) )).r );
+				float3 vertexValue = ( v.ase_normal * (( ( tex2Dlod( _VertexOffsetTexture, float4( ( panner2_g139 + float2( 0,0 ) ), 0, 0.0) ) * _OffsetStrength ) * (( _InvertOffsetMask )?( ( 1.0 - (( _UseOffsetMaskAlpha )?( temp_output_105_0_g118.a ):( (temp_output_105_0_g118).r )) ) ):( (( _UseOffsetMaskAlpha )?( temp_output_105_0_g118.a ):( (temp_output_105_0_g118).r )) )) )).r );
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					v.vertex.xyz = vertexValue;
 				#else
@@ -443,24 +443,24 @@ Shader "D4/Particles/UberParticle-Add"
 				float fresnelNode117_g118 = ( 0.0 + 1.0 * pow( 1.0 - fresnelNdotV117_g118, _FresnelPower ) );
 				float4 Fresnel122_g118 = ( fresnelNode117_g118 * _FresnelColor );
 				float2 uv_MainTexture = IN.ase_texcoord4.xy * _MainTexture_ST.xy + _MainTexture_ST.zw;
-				float2 panner2_g133 = ( 1.0 * _Time.y * _MainTextureSpeed + uv_MainTexture);
+				float2 panner2_g143 = ( 1.0 * _Time.y * _MainTextureSpeed + uv_MainTexture);
+				float2 uv_MaskTexture = IN.ase_texcoord4.xy * _MaskTexture_ST.xy + _MaskTexture_ST.zw;
+				float2 panner2_g140 = ( 1.0 * _Time.y * _MaskSpeed + uv_MaskTexture);
+				float4 temp_output_57_0_g118 = tex2D( _MaskTexture, ( panner2_g140 + float2( 0,0 ) ) );
+				float Mask29_g118 = (( _InvertMask )?( ( 1.0 - (( _UseMaskAlpha )?( temp_output_57_0_g118.a ):( (temp_output_57_0_g118).r )) ) ):( (( _UseMaskAlpha )?( temp_output_57_0_g118.a ):( (temp_output_57_0_g118).r )) ));
 				float2 uv_DistortTexture = IN.ase_texcoord4.xy * _DistortTexture_ST.xy + _DistortTexture_ST.zw;
-				float2 panner2_g135 = ( 1.0 * _Time.y * _DistortSpeed + uv_DistortTexture);
-				float2 temp_cast_0 = (( (tex2D( _DistortTexture, ( panner2_g135 + float2( 0,0 ) ) )).r * _DistortStrength )).xx;
-				float4 temp_output_9_0_g134 = ( IN.ase_color * _Color * tex2D( _MainTexture, ( panner2_g133 + temp_cast_0 ) ) );
+				float2 panner2_g141 = ( 1.0 * _Time.y * _DistortSpeed + uv_DistortTexture);
+				float2 temp_cast_0 = (( ( Mask29_g118 * (tex2D( _DistortTexture, ( panner2_g141 + float2( 0,0 ) ) )).r ) * _DistortStrength )).xx;
+				float4 temp_output_9_0_g145 = ( IN.ase_color * _Color * tex2D( _MainTexture, ( panner2_g143 + temp_cast_0 ) ) );
 				float2 uv_DissolveMask = IN.ase_texcoord4.xy * _DissolveMask_ST.xy + _DissolveMask_ST.zw;
 				float4 tex2DNode77_g118 = tex2D( _DissolveMask, uv_DissolveMask );
 				float2 uv_DissolveTexture = IN.ase_texcoord4.xy * _DissolveTexture_ST.xy + _DissolveTexture_ST.zw;
-				float2 panner2_g129 = ( 1.0 * _Time.y * _DissolveSpeed + uv_DissolveTexture);
-				float clampResult85_g118 = clamp( ( (( _InvertDissolveMask )?( ( 1.0 - tex2DNode77_g118.r ) ):( tex2DNode77_g118.r )) + (tex2D( _DissolveTexture, ( panner2_g129 + float2( 0,0 ) ) )).r ) , 0.0 , 0.99 );
+				float2 panner2_g144 = ( 1.0 * _Time.y * _DissolveSpeed + uv_DissolveTexture);
+				float clampResult85_g118 = clamp( ( (( _InvertDissolveMask )?( ( 1.0 - tex2DNode77_g118.r ) ):( tex2DNode77_g118.r )) + (tex2D( _DissolveTexture, ( panner2_g144 + float2( 0,0 ) ) )).r ) , 0.0 , 0.99 );
 				float4 texCoord56_g118 = IN.ase_texcoord4;
 				texCoord56_g118.xy = IN.ase_texcoord4.xy * float2( 1,1 ) + float2( 0,0 );
 				float clampResult91_g118 = clamp( ( clampResult85_g118 - (-1.0 + ((( _UseCustomDissolveTex0z )?( texCoord56_g118.z ):( _DissolveAmount )) - 0.0) * (1.0 - -1.0) / (1.0 - 0.0)) ) , 0.0 , 1.0 );
 				float Dissolve31_g118 = (( _DissolveSmooth )?( clampResult91_g118 ):( step( ( 1.0 - clampResult85_g118 ) , ( 1.0 - (( _UseCustomDissolveTex0z )?( texCoord56_g118.z ):( _DissolveAmount )) ) ) ));
-				float2 uv_MaskTexture = IN.ase_texcoord4.xy * _MaskTexture_ST.xy + _MaskTexture_ST.zw;
-				float2 panner2_g131 = ( 1.0 * _Time.y * _MaskSpeed + uv_MaskTexture);
-				float4 temp_output_57_0_g118 = tex2D( _MaskTexture, ( panner2_g131 + float2( 0,0 ) ) );
-				float Mask29_g118 = (( _InvertMask )?( ( 1.0 - (( _UseMaskAlpha )?( temp_output_57_0_g118.a ):( (temp_output_57_0_g118).r )) ) ):( (( _UseMaskAlpha )?( temp_output_57_0_g118.a ):( (temp_output_57_0_g118).r )) ));
 				float4 screenPos = IN.ase_texcoord5;
 				float4 ase_screenPosNorm = screenPos / screenPos.w;
 				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
@@ -469,7 +469,7 @@ Shader "D4/Particles/UberParticle-Add"
 				
 				float3 BakedAlbedo = 0;
 				float3 BakedEmission = 0;
-				float3 Color = ( ( (Fresnel122_g118).rgb + (temp_output_9_0_g134).rgb ) * ( temp_output_9_0_g134.a * Dissolve31_g118 * Mask29_g118 * (( _UseDepth )?( distanceDepth114_g118 ):( 1.0 )) ) );
+				float3 Color = ( ( (Fresnel122_g118).rgb + (temp_output_9_0_g145).rgb ) * ( temp_output_9_0_g145.a * Dissolve31_g118 * Mask29_g118 * (( _UseDepth )?( distanceDepth114_g118 ):( 1.0 )) ) );
 				float Alpha = 1;
 				float AlphaClipThreshold = 0.5;
 				float AlphaClipThresholdShadow = 0.5;
@@ -543,33 +543,33 @@ Shader "D4/Particles/UberParticle-Add"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _DistortTexture_ST;
+			float4 _Color;
 			float4 _VertexOffsetTexture_ST;
 			float4 _MaskTexture_ST;
 			float4 _DissolveTexture_ST;
 			float4 _OffsetMaskTexture_ST;
 			float4 _DissolveMask_ST;
 			float4 _FresnelColor;
-			float4 _Color;
+			float4 _DistortTexture_ST;
 			float4 _MainTexture_ST;
-			float2 _MaskSpeed;
-			float2 _DissolveSpeed;
 			float2 _DistortSpeed;
+			float2 _MaskSpeed;
 			float2 _VertexOffsetSpeed;
+			float2 _DissolveSpeed;
 			float2 _OffsetMaskSpeed;
 			float2 _MainTextureSpeed;
-			float _UseDepth;
-			float _DistortStrength;
-			float _DissolveSmooth;
 			float _InvertDissolveMask;
-			float _FresnelPower;
-			float _UseOffsetMaskAlpha;
 			float _UseCustomDissolveTex0z;
 			float _DissolveAmount;
-			float _InvertMask;
+			float _DissolveSmooth;
 			float _UseMaskAlpha;
+			float _UseDepth;
+			float _InvertMask;
+			float _FresnelPower;
+			float _UseOffsetMaskAlpha;
 			float _InvertOffsetMask;
 			float _OffsetStrength;
+			float _DistortStrength;
 			float _DepthDistance;
 			#ifdef TESSELLATION_ON
 				float _TessPhongStrength;
@@ -595,17 +595,17 @@ Shader "D4/Particles/UberParticle-Add"
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO( o );
 
 				float2 uv_VertexOffsetTexture = v.ase_texcoord * _VertexOffsetTexture_ST.xy + _VertexOffsetTexture_ST.zw;
-				float2 panner2_g130 = ( 1.0 * _Time.y * _VertexOffsetSpeed + uv_VertexOffsetTexture);
+				float2 panner2_g139 = ( 1.0 * _Time.y * _VertexOffsetSpeed + uv_VertexOffsetTexture);
 				float2 uv_OffsetMaskTexture = v.ase_texcoord.xy * _OffsetMaskTexture_ST.xy + _OffsetMaskTexture_ST.zw;
-				float2 panner2_g132 = ( 1.0 * _Time.y * _OffsetMaskSpeed + uv_OffsetMaskTexture);
-				float4 temp_output_105_0_g118 = tex2Dlod( _OffsetMaskTexture, float4( ( panner2_g132 + float2( 0,0 ) ), 0, 0.0) );
+				float2 panner2_g142 = ( 1.0 * _Time.y * _OffsetMaskSpeed + uv_OffsetMaskTexture);
+				float4 temp_output_105_0_g118 = tex2Dlod( _OffsetMaskTexture, float4( ( panner2_g142 + float2( 0,0 ) ), 0, 0.0) );
 				
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
 				#else
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
-				float3 vertexValue = ( v.ase_normal * (( ( tex2Dlod( _VertexOffsetTexture, float4( ( panner2_g130 + float2( 0,0 ) ), 0, 0.0) ) * _OffsetStrength ) * (( _InvertOffsetMask )?( ( 1.0 - (( _UseOffsetMaskAlpha )?( temp_output_105_0_g118.a ):( (temp_output_105_0_g118).r )) ) ):( (( _UseOffsetMaskAlpha )?( temp_output_105_0_g118.a ):( (temp_output_105_0_g118).r )) )) )).r );
+				float3 vertexValue = ( v.ase_normal * (( ( tex2Dlod( _VertexOffsetTexture, float4( ( panner2_g139 + float2( 0,0 ) ), 0, 0.0) ) * _OffsetStrength ) * (( _InvertOffsetMask )?( ( 1.0 - (( _UseOffsetMaskAlpha )?( temp_output_105_0_g118.a ):( (temp_output_105_0_g118).r )) ) ):( (( _UseOffsetMaskAlpha )?( temp_output_105_0_g118.a ):( (temp_output_105_0_g118).r )) )) )).r );
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					v.vertex.xyz = vertexValue;
 				#else
@@ -812,33 +812,33 @@ Shader "D4/Particles/UberParticle-Add"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
-			float4 _DistortTexture_ST;
+			float4 _Color;
 			float4 _VertexOffsetTexture_ST;
 			float4 _MaskTexture_ST;
 			float4 _DissolveTexture_ST;
 			float4 _OffsetMaskTexture_ST;
 			float4 _DissolveMask_ST;
 			float4 _FresnelColor;
-			float4 _Color;
+			float4 _DistortTexture_ST;
 			float4 _MainTexture_ST;
-			float2 _MaskSpeed;
-			float2 _DissolveSpeed;
 			float2 _DistortSpeed;
+			float2 _MaskSpeed;
 			float2 _VertexOffsetSpeed;
+			float2 _DissolveSpeed;
 			float2 _OffsetMaskSpeed;
 			float2 _MainTextureSpeed;
-			float _UseDepth;
-			float _DistortStrength;
-			float _DissolveSmooth;
 			float _InvertDissolveMask;
-			float _FresnelPower;
-			float _UseOffsetMaskAlpha;
 			float _UseCustomDissolveTex0z;
 			float _DissolveAmount;
-			float _InvertMask;
+			float _DissolveSmooth;
 			float _UseMaskAlpha;
+			float _UseDepth;
+			float _InvertMask;
+			float _FresnelPower;
+			float _UseOffsetMaskAlpha;
 			float _InvertOffsetMask;
 			float _OffsetStrength;
+			float _DistortStrength;
 			float _DepthDistance;
 			#ifdef TESSELLATION_ON
 				float _TessPhongStrength;
@@ -862,17 +862,17 @@ Shader "D4/Particles/UberParticle-Add"
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
 				float2 uv_VertexOffsetTexture = v.ase_texcoord * _VertexOffsetTexture_ST.xy + _VertexOffsetTexture_ST.zw;
-				float2 panner2_g130 = ( 1.0 * _Time.y * _VertexOffsetSpeed + uv_VertexOffsetTexture);
+				float2 panner2_g139 = ( 1.0 * _Time.y * _VertexOffsetSpeed + uv_VertexOffsetTexture);
 				float2 uv_OffsetMaskTexture = v.ase_texcoord.xy * _OffsetMaskTexture_ST.xy + _OffsetMaskTexture_ST.zw;
-				float2 panner2_g132 = ( 1.0 * _Time.y * _OffsetMaskSpeed + uv_OffsetMaskTexture);
-				float4 temp_output_105_0_g118 = tex2Dlod( _OffsetMaskTexture, float4( ( panner2_g132 + float2( 0,0 ) ), 0, 0.0) );
+				float2 panner2_g142 = ( 1.0 * _Time.y * _OffsetMaskSpeed + uv_OffsetMaskTexture);
+				float4 temp_output_105_0_g118 = tex2Dlod( _OffsetMaskTexture, float4( ( panner2_g142 + float2( 0,0 ) ), 0, 0.0) );
 				
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					float3 defaultVertexValue = v.vertex.xyz;
 				#else
 					float3 defaultVertexValue = float3(0, 0, 0);
 				#endif
-				float3 vertexValue = ( v.ase_normal * (( ( tex2Dlod( _VertexOffsetTexture, float4( ( panner2_g130 + float2( 0,0 ) ), 0, 0.0) ) * _OffsetStrength ) * (( _InvertOffsetMask )?( ( 1.0 - (( _UseOffsetMaskAlpha )?( temp_output_105_0_g118.a ):( (temp_output_105_0_g118).r )) ) ):( (( _UseOffsetMaskAlpha )?( temp_output_105_0_g118.a ):( (temp_output_105_0_g118).r )) )) )).r );
+				float3 vertexValue = ( v.ase_normal * (( ( tex2Dlod( _VertexOffsetTexture, float4( ( panner2_g139 + float2( 0,0 ) ), 0, 0.0) ) * _OffsetStrength ) * (( _InvertOffsetMask )?( ( 1.0 - (( _UseOffsetMaskAlpha )?( temp_output_105_0_g118.a ):( (temp_output_105_0_g118).r )) ) ):( (( _UseOffsetMaskAlpha )?( temp_output_105_0_g118.a ):( (temp_output_105_0_g118).r )) )) )).r );
 				#ifdef ASE_ABSOLUTE_VERTEX_POS
 					v.vertex.xyz = vertexValue;
 				#else
@@ -1019,7 +1019,7 @@ Shader "D4/Particles/UberParticle-Add"
 }
 /*ASEBEGIN
 Version=18912
-0;0;1920;1029;717.1479;455.2177;1;True;True
+1920;0;1920;1029;717.1479;452.2177;1;True;True
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;68;205.7917,-47.15646;Inherit;False;2;2;0;FLOAT3;0,0,0;False;1;FLOAT;0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.FunctionNode;94;-81.11893,17.12418;Inherit;False;UberParticle-Master;0;;118;ce31370a03f90a146a4c77d4e374ba66;0;0;3;FLOAT3;0;FLOAT;24;FLOAT3;109
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;1;469.5933,-38.16187;Float;False;True;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;3;D4/Particles/UberParticle-Add;2992e84f91cbeb14eab234972e07ea9d;True;Forward;0;1;Forward;8;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;-1;False;True;0;False;-1;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Transparent=RenderType;Queue=Transparent=Queue=0;True;0;True;17;d3d9;d3d11;glcore;gles;gles3;metal;vulkan;xbox360;xboxone;xboxseries;ps4;playstation;psp2;n3ds;wiiu;switch;nomrt;0;False;True;1;1;False;-1;1;False;-1;1;1;False;-1;10;False;-1;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;True;True;True;0;False;-1;False;False;False;False;False;False;False;True;False;255;False;-1;255;False;-1;255;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;False;True;2;False;-1;True;3;False;-1;True;True;0;False;-1;0;False;-1;True;1;LightMode=UniversalForward;False;False;0;Hidden/InternalErrorShader;0;0;Standard;22;Surface;1;  Blend;2;Two Sided;1;Cast Shadows;1;  Use Shadow Threshold;0;Receive Shadows;1;GPU Instancing;1;LOD CrossFade;0;Built-in Fog;0;DOTS Instancing;0;Meta Pass;0;Extra Pre Pass;0;Tessellation;0;  Phong;0;  Strength;0.5,False,-1;  Type;0;  Tess;16,False,-1;  Min;10,False,-1;  Max;25,False,-1;  Edge Length;16,False,-1;  Max Displacement;25,False,-1;Vertex Position,InvertActionOnDeselection;1;0;5;False;True;True;True;False;False;;False;0
@@ -1032,4 +1032,4 @@ WireConnection;68;1;94;24
 WireConnection;1;2;68;0
 WireConnection;1;5;94;109
 ASEEND*/
-//CHKSM=D317E6AFCE9926463FC054B8AC13A1C7B8306D1D
+//CHKSM=7F0D5D9208B24BF0AC5AAEC3C84B49AF89065D7D
