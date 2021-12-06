@@ -36,7 +36,8 @@ public class LoadingScreenToProcedural : SceneControl
         UnloadScenesThatAreaNotSwitching();
 
         // Waits until scene is generated
-        yield return DungeonGenerator.GenerateDungeon();
+        //DungeonGenerator dungeonGenerator = FindObjectOfType<DungeonGenerator>();
+        //yield return dungeonGenerator.GenerateDungeon();
 
         // Starts loading screen animation fade out
         GetComponent<Animator>().SetTrigger(backgroundAnimationTrigger);

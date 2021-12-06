@@ -10,7 +10,8 @@ public class LevelGeneratorEditor : Editor
 
         GUILayout.BeginHorizontal();
         GUILayout.Label("Must be in playmode");
-        if (GUILayout.Button("Generate new level with random seed"))
+
+        if (GUILayout.Button("New Generator - Button is +- bugged"))
         {
             levelGenerator.StartCoroutine(levelGenerator.ResetGeneration("Generating new random level.", null));
         }

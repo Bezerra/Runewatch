@@ -373,7 +373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6937aab91b80d1046991e7497e2f4bf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelGenerators: {fileID: 2246640203830118958}
+  levelGenerators: {fileID: 2030862662}
 --- !u!1001 &1176674820
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -601,11 +601,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1160504967}
-  - {fileID: 2246640203830118959}
+  - {fileID: 2030862660}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2246640203830118957
+--- !u!1 &2030862659
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -613,37 +613,64 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2246640203830118959}
-  - component: {fileID: 2246640203830118958}
-  - component: {fileID: 4064610542018927506}
+  - component: {fileID: 2030862660}
+  - component: {fileID: 2030862662}
+  - component: {fileID: 2030862661}
   m_Layer: 0
-  m_Name: Level Generator Ignis ( yield on update )
+  m_Name: Level Generator Ignis ( yield on update ) (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2246640203830118958
+--- !u!4 &2030862660
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030862659}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1952141612}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2030862661
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2246640203830118957}
+  m_GameObject: {fileID: 2030862659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e0d0e85d012b8f4c834b66dd0446892, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 11400000, guid: 8aea8f0cdc16892498dd53cbcade494b, type: 2}
+--- !u!114 &2030862662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030862659}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed620342ceb31d540a3f6f1eb96d8667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   yieldType: 0
-  occludeAndSpawnPlayer: 1
-  randomSeed: 1
-  seed: 0
+  occludeAndSpawnPlayer: 0
+  randomSeed: 0
+  seed: 124810608
   allRandomGenerationParameters: 0
   horizontalMaximumLevelSize: 500
   forwardMaximumLevelSize: 500
   randomMinimumNumberOfRooms: 0
-  minimumNumberOfRooms: 7
+  minimumNumberOfRooms: 10
   randomMaximumNumberOfRooms: 0
   maximumNumberOfRooms: 10
   ghostRoomPiece: {fileID: 2492540051220639882, guid: 0b95cb10212a2bf4bba5891e0b379614, type: 3}
@@ -656,6 +683,11 @@ MonoBehaviour:
   - {fileID: 4264462879060290543, guid: 6ab6bb16c9449e04e93794e46df711f2, type: 3}
   - {fileID: 4264462879060290543, guid: 32dfa9afea3ea074ba7c3735574d57f0, type: 3}
   - {fileID: 4264462879060290543, guid: ebb6bdb8d59177549b159b1186b19583, type: 3}
+  firstRoomsToSpawn:
+  - {fileID: 921819574090689166, guid: 90710ce42a8af95499817de5ac9586d6, type: 3}
+  - {fileID: -8318217482847310393, guid: 793917073e9fc8349b7cc2ab425c19ab, type: 3}
+  - {fileID: 1022969293322297153, guid: 2044a861fcabf4349aaa596b1d258673, type: 3}
+  - {fileID: -8318217482847310393, guid: 25d50a24008da2f4fb130fdb1b9cc861, type: 3}
   rooms:
   - {fileID: 2492540051220639882, guid: fef3959bcdee65d4a99cfe6a5f7c0872, type: 3}
   - {fileID: 921819574090689166, guid: 90710ce42a8af95499817de5ac9586d6, type: 3}
@@ -667,30 +699,3 @@ MonoBehaviour:
   - {fileID: -8318217482847310393, guid: 25d50a24008da2f4fb130fdb1b9cc861, type: 3}
   element: 1
   elementSettings: {fileID: 4598046114400762127, guid: 2eaaa9600d1b68f41ae30a2728e63fb7, type: 3}
---- !u!4 &2246640203830118959
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2246640203830118957}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1952141612}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4064610542018927506
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2246640203830118957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e0d0e85d012b8f4c834b66dd0446892, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerController: {fileID: 11400000, guid: 8aea8f0cdc16892498dd53cbcade494b, type: 2}

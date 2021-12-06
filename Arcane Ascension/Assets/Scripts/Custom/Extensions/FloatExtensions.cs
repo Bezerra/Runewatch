@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 namespace ExtensionMethods
 {
@@ -46,6 +47,22 @@ namespace ExtensionMethods
         {
             float t = Mathf.InverseLerp(inputMin, inputMax, value);
             return Mathf.Lerp(outputMin, outputMax, t);
+        }
+
+        /// <summary>
+        /// Checks a percentage against 100% percentage.
+        /// Example: Enemy drops an item with a 10% chance; itemDrop.PercentageCheck(random),
+        /// will execute a probability to know if that 10% chance was met.
+        /// </summary>
+        /// <param name="desiredPercentage">Percentage that's being analysed.</param>
+        /// <param name="random">Random instance.</param>
+        /// <returns>True if desiredPercentage was met.</returns>
+        public static bool PercentageCheck(this float desiredPercentage, System.Random random)
+        {
+            float randomChance = random.Next(0, 101);
+            if (randomChance < desiredPercentage)
+                return true;
+            return false;
         }
     }
 }

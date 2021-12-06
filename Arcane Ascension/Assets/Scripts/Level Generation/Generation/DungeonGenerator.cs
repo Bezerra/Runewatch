@@ -8,16 +8,12 @@ using UnityEngine;
 /// </summary>
 public class DungeonGenerator: MonoBehaviour
 {
-    [SerializeField] private List<LevelGenerator> levelGenerators;
-    private static DungeonGenerator instance;
-
-    private void Awake() =>
-        instance = this;
+    [SerializeField] private List<GameObject> levelGenerators;
 
     private void Start()
     {
         // TEMP
-        //GenerateDungeon(false);
+        StartCoroutine(GenerateDungeon(false));
     }
 
     /// <summary>
@@ -26,15 +22,15 @@ public class DungeonGenerator: MonoBehaviour
     /// </summary>
     /// <param name="loadedGame">True if this game was loaded, else false.</param>
     /// <param name="saveData">Saved data.</param>
-    public static IEnumerator GenerateDungeon(bool loadedGame = false, RunSaveData saveData = null)
+    public IEnumerator GenerateDungeon(bool loadedGame = false, RunSaveData saveData = null)
     {
         ElementType element;
 
         if (saveData == null)
         {
             // Gets random element in possible prefabs
-            int randomElement = UnityEngine.Random.Range(0, instance.levelGenerators.Count);
-            element = instance.levelGenerators[randomElement].Element;
+            int randomElement = UnityEngine.Random.Range(0, levelGenerators.Count);
+            element = levelGenerators[randomElement].GetComponent<LevelGenerator>().Element;
         }
         else
             element = saveData.DungeonSavedData.Element;
@@ -42,15 +38,16 @@ public class DungeonGenerator: MonoBehaviour
         CleantExistingDungeonElements();
 
         // Gets the dungeon of that element
-        foreach(LevelGenerator level in instance.levelGenerators)
+        foreach(GameObject level in levelGenerators)
         {
-            if (level.Element == element)
+            if (level.GetComponent<LevelGenerator>().Element == element)
             {
                 GameObject levelGenerated = Instantiate(level.gameObject);
                 LevelGenerator levelGeneratedScript = levelGenerated.GetComponent<LevelGenerator>();
 
                 if (saveData == null)
                 {
+                    Debug.Log("NORMAL");
                     // Gets random (or pre-defined) values and starts generation
                     levelGeneratedScript.GetValues();
                     yield return levelGeneratedScript.StartGeneration();
@@ -58,6 +55,7 @@ public class DungeonGenerator: MonoBehaviour
                 // Else loads saved data (after loading data it will start generation)
                 else
                 {
+                    Debug.Log("LOAD");
                     yield return levelGeneratedScript.LoadData(saveData);
                 }
                 break;
@@ -70,7 +68,7 @@ public class DungeonGenerator: MonoBehaviour
     /// <summary>
     /// Deactivates chests and shopkeepers.
     /// </summary>
-    public static void CleantExistingDungeonElements()
+    private void CleantExistingDungeonElements()
     {
         LevelGenerator levelGenerator = FindObjectOfType<LevelGenerator>();
         Chest[] chests = FindObjectsOfType<Chest>();

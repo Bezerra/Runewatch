@@ -61,6 +61,14 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         gravityIncrement = DEFAULTGRAVITYINCREMENT;
         dashCurrentValue = player.Values.DashDefaultValue;
         CurrentTimeToGetCharge = 0;
+
+        input.CastSpell += TEMP;
+    }
+
+    private void TEMP()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(
+            UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 
     private void OnEnable()
