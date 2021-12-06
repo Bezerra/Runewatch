@@ -9,6 +9,8 @@ using ExtensionMethods;
 /// </summary>
 public class PlayerSpells : MonoBehaviour, ISaveable
 {
+    [Range(0, 4)][SerializeField] private int ADDINITIALSPELLSFORTESTS;
+
     // Components
     private IInput input;
     private PlayerHandEffect playerHandEffect;
@@ -49,17 +51,23 @@ public class PlayerSpells : MonoBehaviour, ISaveable
 
     private void Start()
     {
-        ////allSpells.Count or 2 or 4
-        //// TEMPORARY TESTS // Adds 4 spells to current spells
-        //for (int i = 0; i < 3; i++)
-        //{
-        //    if (i <= CurrentSpells.Length)
-        //    {
-        //        // THIS IS TEMP, WHILE IN GAME PLAYER WILL ONLY CAST THE SPELLS ON HIS AVAILABLE SPELLS, NOT THIS ONE
-        //
-        //        AddSpell(allSpells[i]);
-        //    }
-        //}
+        if (ADDINITIALSPELLSFORTESTS > 0)
+        {
+            //// TEMPORARY TESTS // Adds 4 spells to current spells
+            for (int i = 0; i < ADDINITIALSPELLSFORTESTS; i++)
+            {
+                if (i <= CurrentSpells.Length)
+                {
+                    // THIS IS TEMP, WHILE IN GAME PLAYER WILL ONLY CAST THE SPELLS ON HIS AVAILABLE SPELLS, NOT THIS ONE
+            
+                    AddSpell(allSpells[i]);
+                }
+            }
+        }
+
+
+
+
 
         if (CurrentSpells[0] != null)
         {
