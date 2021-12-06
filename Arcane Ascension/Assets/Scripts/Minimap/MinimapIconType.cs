@@ -15,4 +15,5 @@ public enum MinimapIconType
     Boss,
     Room,
     Chest,
+    Enemy,
 }
