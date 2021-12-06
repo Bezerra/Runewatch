@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Class responsible for handling chest behaviours.
@@ -7,11 +8,13 @@ using UnityEngine;
 public class Chest : MonoBehaviour
 {
     [SerializeField] private List<EventAbstractSO> eventsToRunOnChestOpen;
+    [SerializeField] private InputActionReference interactionActionAsset;
 
     // Components
     private GameObject canvasText;
     private InteractionCanvasText interectableCanvas;
     private AbstractEventOnInteraction eventOnInteraction;
+    private RebindingManager rebindingManager;
 
     private bool canOpen;
     public bool CanOpen
@@ -43,11 +46,30 @@ public class Chest : MonoBehaviour
         canvasText = GetComponentInChildren<Canvas>().gameObject;
         interectableCanvas = GetComponent<InteractionCanvasText>();
         eventOnInteraction = GetComponent<AbstractEventOnInteraction>();
+        rebindingManager = FindObjectOfType<RebindingManager>();
+    }
+
+    private void OnEnable()
+    {
+        rebindingManager.KeybindingsUpdated += KeybindingsUpdated;
+    }
+
+    private void OnDisable()
+    {
+        rebindingManager.KeybindingsUpdated -= KeybindingsUpdated;
     }
 
     private void Start()
     {
         CanOpen = true;
+    }
+
+    private void KeybindingsUpdated()
+    {
+        interectableCanvas.UpdateInformation(
+            InputControlPath.ToHumanReadableString(
+            interactionActionAsset.action.bindings[0].effectivePath,
+            InputControlPath.HumanReadableStringOptions.OmitDevice));
     }
 
     public void ChestOpeningStartAnimationEvent()

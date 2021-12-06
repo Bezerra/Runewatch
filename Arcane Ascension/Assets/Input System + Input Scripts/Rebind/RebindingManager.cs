@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -31,4 +32,7 @@ public class RebindingManager : MonoBehaviour
         foreach (RebindingKey rebinding in rebindKeys)
             rebinding.Initialize(this);
     }
+
+    public virtual void OnKeybindingsUpdated() => KeybindingsUpdated?.Invoke();
+    public event Action KeybindingsUpdated;
 }

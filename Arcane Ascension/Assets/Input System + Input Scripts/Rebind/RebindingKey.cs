@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
@@ -32,8 +30,11 @@ public class RebindingKey : MonoBehaviour
         {
             actionText.text = inputAction.action.bindings[0].action.ToString();
             bindingDisplayText.text =
-            InputControlPath.ToHumanReadableString(inputAction.action.bindings[0].effectivePath,
-            InputControlPath.HumanReadableStringOptions.OmitDevice);
+                InputControlPath.ToHumanReadableString(inputAction.action.bindings[0].effectivePath,
+                InputControlPath.HumanReadableStringOptions.OmitDevice);
+
+            if (RebindingManager != null)
+                RebindingManager.OnKeybindingsUpdated();
         }
     }
 
@@ -142,5 +143,4 @@ public class RebindingKey : MonoBehaviour
         if (keyAlreadySetGameobject.activeSelf) 
             keyAlreadySetGameobject.SetActive(false);
     }
-        
 }
