@@ -43,7 +43,7 @@ public class AttackBehaviourOneShotSO : AttackBehaviourAbstractOneShotSO
                 spell.Name, character.Controller.Hand.position,
                 Quaternion.identity);
 
-        SpellBehaviourOneShot  spellBehaviour = spawnedSpell.GetComponent<SpellBehaviourOneShot>();
+        SpellBehaviourOneShot spellBehaviour = spawnedSpell.GetComponent<SpellBehaviourOneShot>();
         spellBehaviour.WhoCast = characterStats;
         spellBehaviour.TriggerStartBehaviour();
     }

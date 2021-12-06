@@ -5,14 +5,14 @@ using UnityEngine;
 /// </summary>
 public class MinimapActivation : MonoBehaviour
 {
-    [SerializeField] private GameObject minimapIcon;
+    [SerializeField] private MinimapIcon minimapIcon;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == Layers.PlayerLayerNum ||
             other.gameObject.layer == Layers.InvisiblePlayerLayerNum)
         {
-            minimapIcon.SetActive(true);
+            minimapIcon.SetIconActive(true);
             Destroy(gameObject);
         }
     }

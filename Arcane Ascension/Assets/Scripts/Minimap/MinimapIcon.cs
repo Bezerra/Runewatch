@@ -36,6 +36,9 @@ public class MinimapIcon : MonoBehaviour
     private void Start()
     {
         if (disableOnStart)
-            gameObject.transform.parent.gameObject.SetActive(false);
+            SetIconActive(false);
     }
+
+    public void SetIconActive(bool condition) => 
+        gameObject.transform.parent.gameObject.SetActive(condition);
 }

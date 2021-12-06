@@ -126,6 +126,7 @@ public class LevelPieceGameProgressControl : MonoBehaviour
                 if (RoomSpawnsChest && chestScript != null)
                 {
                     chestScript.CanOpen = true;
+                    chestScript.GetComponentInChildren<MinimapIcon>(true).SetIconActive(true);
                 }
             }
         }
