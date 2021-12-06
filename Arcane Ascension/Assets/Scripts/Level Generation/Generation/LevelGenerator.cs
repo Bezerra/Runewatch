@@ -210,7 +210,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
                     pieceToPlace, pieceContactPoint, openedContactPoints[0]);
 
                 yield return IsPieceValid(pieceToPlace, openedContactPoints[0]);
-                Debug.Log("APAGAR");
+
                 if (pieceIsValid)
                 {
                     int tempIndex = 0;

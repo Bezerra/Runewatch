@@ -115,6 +115,9 @@ public class SceneControl : MonoBehaviour
     {
         yield return null;
 
+        // Unloades unecessary scenes
+        UnloadScenesThatAreaNotSwitching();
+
         master.SetFloat(masterVolumeExposed, -50f);
         DisableControls();
 
@@ -134,9 +137,6 @@ public class SceneControl : MonoBehaviour
 
         // Load scene and sets it as main scene
         SetActiveScene(scene);
-
-        // Unloades unecessary scenes
-        UnloadScenesThatAreaNotSwitching();
 
         // Starts loading screen animation fade out
         GetComponent<Animator>().SetTrigger(backgroundAnimationTrigger);

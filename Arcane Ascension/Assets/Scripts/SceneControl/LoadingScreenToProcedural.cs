@@ -16,6 +16,9 @@ public class LoadingScreenToProcedural : SceneControl
     {
         yield return null;
 
+        // Unloades unecessary scenes
+        UnloadScenesThatAreaNotSwitching();
+
         master.SetFloat("MasterVolume", -50f);
         DisableControls();
 
@@ -32,12 +35,9 @@ public class LoadingScreenToProcedural : SceneControl
         // Load scene and sets it as main scene
         SetActiveScene(sceneToLoad);
 
-        // Unloades unecessary scenes
-        UnloadScenesThatAreaNotSwitching();
-
         // Waits until scene is generated
-        //DungeonGenerator dungeonGenerator = FindObjectOfType<DungeonGenerator>();
-        //yield return dungeonGenerator.GenerateDungeon();
+        DungeonGenerator dungeonGenerator = FindObjectOfType<DungeonGenerator>();
+        yield return dungeonGenerator.GenerateDungeon();
 
         // Starts loading screen animation fade out
         GetComponent<Animator>().SetTrigger(backgroundAnimationTrigger);

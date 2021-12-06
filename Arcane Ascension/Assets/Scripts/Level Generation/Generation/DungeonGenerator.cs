@@ -13,7 +13,7 @@ public class DungeonGenerator: MonoBehaviour
     private void Start()
     {
         // TEMP
-        StartCoroutine(GenerateDungeon(false));
+        //StartCoroutine(GenerateDungeon(false));
     }
 
     /// <summary>
@@ -47,7 +47,6 @@ public class DungeonGenerator: MonoBehaviour
 
                 if (saveData == null)
                 {
-                    Debug.Log("NORMAL");
                     // Gets random (or pre-defined) values and starts generation
                     levelGeneratedScript.GetValues();
                     yield return levelGeneratedScript.StartGeneration();
@@ -55,7 +54,6 @@ public class DungeonGenerator: MonoBehaviour
                 // Else loads saved data (after loading data it will start generation)
                 else
                 {
-                    Debug.Log("LOAD");
                     yield return levelGeneratedScript.LoadData(saveData);
                 }
                 break;

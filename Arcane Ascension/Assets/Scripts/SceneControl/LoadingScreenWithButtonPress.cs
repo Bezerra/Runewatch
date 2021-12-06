@@ -14,6 +14,9 @@ public class LoadingScreenWithButtonPress : SceneControl
     /// <returns>Returns null.</returns>
     protected override IEnumerator LoadNewScene(SceneEnum scene, bool isAdditive = true)
     {
+        // Unloades unecessary scenes
+        UnloadScenesThatAreaNotSwitching();
+
         DisableControls();
         
         // Asyc loads a scene
