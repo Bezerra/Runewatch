@@ -27,7 +27,7 @@ public class SaveNewGameButton : MonoBehaviour
         IList<byte> currentPassives = new List<byte>();
 
         // Adds saved passives to current passives
-        CharacterSaveData saveData = characterSaveDataController.LoadGame();
+        CharacterSaveData saveData = characterSaveDataController.SaveData;
 
         // First it adds all skills to a list (to use Contains later)
         if (saveData != null)
