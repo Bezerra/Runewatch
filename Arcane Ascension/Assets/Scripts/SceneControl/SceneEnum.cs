@@ -8,4 +8,5 @@ public enum SceneEnum
     LoadingScreenToNewGame,
     LoadingScreenToContinueGame,
     LoadingScreenToMainMenu,
+    RunStats,
 }

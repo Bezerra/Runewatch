@@ -16,6 +16,7 @@ public class RunSaveDataController : MonoBehaviour
         SaveData = new RunSaveData();
         fileManager = new FileManager();
         SaveData = LoadGame();
+        Debug.Log(SaveData.Floor);
     }
 
     /// <summary>
@@ -25,8 +26,8 @@ public class RunSaveDataController : MonoBehaviour
     {
         IEnumerable<ISaveable> iSaveables = FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>();
 
-        foreach (ISaveable iSaveable in iSaveables)
-            iSaveable.SaveCurrentData(SaveData);
+        //foreach (ISaveable iSaveable in iSaveables)
+        //    iSaveable.SaveCurrentData(SaveData);
 
         // Writes file with saved JSON
         if (fileManager.WriteToFile("RUNPROGRESSFILE.d4s", SaveData.ToJson()))
@@ -39,24 +40,24 @@ public class RunSaveDataController : MonoBehaviour
     /// </summary>
     public RunSaveData LoadGame()
     {
-        HashSet<ISaveable> iSaveables = new HashSet<ISaveable>();
-        IEnumerable<GameObject> allGameObjects = FindObjectsOfType<GameObject>();
-
-        foreach (GameObject obj in allGameObjects)
-        {
-            if (obj.TryGetComponent<ISaveable>(out ISaveable save) &&
-                obj.TryGetComponentInParent<SelectionBase>(out SelectionBase character) == false)
-            {
-                iSaveables.Add(save);
-            }
-        }
+        //HashSet<ISaveable> iSaveables = new HashSet<ISaveable>();
+        //IEnumerable<GameObject> allGameObjects = FindObjectsOfType<GameObject>();
+        //
+        //foreach (GameObject obj in allGameObjects)
+        //{
+        //    if (obj.TryGetComponent<ISaveable>(out ISaveable save) &&
+        //        obj.TryGetComponentInParent<SelectionBase>(out SelectionBase character) == false)
+        //    {
+        //        iSaveables.Add(save);
+        //    }
+        //}
 
         if (fileManager.ReadFile("RUNPROGRESSFILE.d4s", out string json))
         {
             SaveData.LoadFromJson(json);
 
-            foreach (ISaveable iSaveable in iSaveables)
-                StartCoroutine(iSaveable.LoadData(SaveData));
+            //foreach (ISaveable iSaveable in iSaveables)
+            //    StartCoroutine(iSaveable.LoadData(SaveData));
 
             Debug.Log("Game Loaded");
             return SaveData;

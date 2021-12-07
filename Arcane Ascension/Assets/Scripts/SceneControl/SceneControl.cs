@@ -2,9 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using UnityEngine.Audio;
-using Sirenix.OdinInspector;
 
 /// <summary>
 /// Class responsible for controlling scenes and spawns.
