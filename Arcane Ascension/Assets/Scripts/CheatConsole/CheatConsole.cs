@@ -1,8 +1,8 @@
-using System.Collections;
 using UnityEngine;
 using TMPro;
 using System;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 /// <summary>
 /// Class responsible for controling console and applying cheats.
@@ -204,11 +204,27 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
 
                 case "fly 1":
                     Debug.Log("Player fly true");
+
+                    // Player Stuff
                     playerRoot.GetComponentInChildren<CharacterController>(true).enabled = false;
                     FindObjectOfType<PlayerFly>().CheatApplied = true;
                     ChangeLayersAllChilds(playerRoot.transform, Layers.PlayerLayerNum, Layers.InvisiblePlayerLayerNum, true);
                     foreach (Enemy en in FindObjectsOfType<Enemy>())
                         en.CurrentTarget = null;
+
+                    // Level Stuff
+                    // Creates a new list with all level pieces
+                    IList<LevelPiece> generatedRoomPieces = 
+                        FindObjectOfType<LevelGenerator>().AllLevelPiecesGenerated;
+                    // Disables the rest of the pieces
+                    for (int i = 0; i < generatedRoomPieces.Count; i++)
+                    {
+                        if (generatedRoomPieces[i] != null)
+                        {
+                            StartCoroutine(generatedRoomPieces[i].EnableChildOccludeesCoroutine());
+                        }
+                    }
+
                     DisableConsole();
                     break;
 
