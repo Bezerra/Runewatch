@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -39,24 +40,15 @@ public class RunSaveDataController : MonoBehaviour, IFindPlayer
     /// </summary>
     public RunSaveData LoadGame()
     {
-        HashSet<ISaveable> iSaveables = new HashSet<ISaveable>();
-        IEnumerable<GameObject> allGameObjects = FindObjectsOfType<GameObject>();
-        
-        foreach (GameObject obj in allGameObjects)
-        {
-            if (obj.TryGetComponent<ISaveable>(out ISaveable save) &&
-                obj.TryGetComponentInParent<SelectionBase>(out SelectionBase character) == false)
-            {
-                iSaveables.Add(save);
-            }
-        }
+        IEnumerable<IDungeonSaveable> iSaveables = 
+            FindObjectsOfType<MonoBehaviour>().OfType<IDungeonSaveable>();
 
         if (fileManager.ReadFile("RUNPROGRESSFILE.d4s", out string json))
         {
             SaveData.LoadFromJson(json);
 
-            foreach (ISaveable iSaveable in iSaveables)
-                StartCoroutine(iSaveable.LoadData(SaveData));
+            foreach (IDungeonSaveable iSaveable in iSaveables)
+                iSaveable.LoadData(SaveData);
 
             Debug.Log("Run Progress Loaded");
             return SaveData;
@@ -68,29 +60,22 @@ public class RunSaveDataController : MonoBehaviour, IFindPlayer
     /// Loads a JSON with all saved data.
     /// Makes every class that implements ISaveable load their stats.
     /// </summary>
-    public void LoadPlayerData()
+    public IEnumerator LoadPlayerData()
     {
-        HashSet<ISaveable> iSaveables = new HashSet<ISaveable>();
-        IEnumerable<GameObject> allGameObjects = FindObjectsOfType<GameObject>();
-        
-        foreach (GameObject obj in allGameObjects)
-        {
-            if (obj.TryGetComponent<ISaveable>(out ISaveable save) &&
-                obj.TryGetComponentInParent<SelectionBase>(out SelectionBase character))
-            {
-                iSaveables.Add(save);
-            }
-        }
+        IEnumerable<IPlayerSaveable> iSaveables =
+            FindObjectsOfType<MonoBehaviour>().OfType<IPlayerSaveable>();
 
         if (fileManager.ReadFile("RUNPROGRESSFILE.d4s", out string json))
         {
             SaveData.LoadFromJson(json);
 
-            foreach (ISaveable iSaveable in iSaveables)
-                StartCoroutine(iSaveable.LoadData(SaveData));
+            foreach (IPlayerSaveable iSaveable in iSaveables)
+                yield return iSaveable.LoadData(SaveData);
 
             Debug.Log("Player Progress Loaded");
         }
+
+        yield return null;
     }
 
     /// <summary>
@@ -101,7 +86,17 @@ public class RunSaveDataController : MonoBehaviour, IFindPlayer
 
     public void FindPlayer()
     {
-        LoadPlayerData();
+        StartCoroutine(LoadPlayerDataCoroutine());
+    }
+
+    private IEnumerator LoadPlayerDataCoroutine()
+    {
+        yield return new WaitForFixedUpdate();
+
+        // Updates player stats
+        yield return LoadPlayerData();
+
+        // Saves every run progress to a file
         Save();
     }
 

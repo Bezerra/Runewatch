@@ -7,7 +7,7 @@ using ExtensionMethods;
 /// <summary>
 /// Class responsible for controlling player spells and shot action.
 /// </summary>
-public class PlayerSpells : MonoBehaviour, ISaveable
+public class PlayerSpells : MonoBehaviour, IPlayerSaveable
 {
     [Range(0, 4)][SerializeField] private int ADDINITIALSPELLSFORTESTS;
 
@@ -349,8 +349,6 @@ public class PlayerSpells : MonoBehaviour, ISaveable
 
     public IEnumerator LoadData(RunSaveData saveData)
     {
-        yield return new WaitForFixedUpdate();
-
         // Loads current spell list
         byte[] savedSpells = saveData.PlayerSavedData.CurrentSpells;
         for (int i = 0; i < savedSpells.Length; i++)
@@ -382,5 +380,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
 
         SelectSpell(CurrentSpellIndex);
         StartSpellCooldown();
+
+        yield return null;
     }
 }

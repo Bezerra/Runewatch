@@ -1,4 +1,3 @@
-using System.Collections;
 
 /// <summary>
 /// Interface implemented by classes with saveable variables.
@@ -10,11 +9,4 @@ public interface ISaveable
     /// </summary>
     /// <param name="saveData">SaveData class.</param>
     void SaveCurrentData(RunSaveData saveData);
-
-    /// <summary>
-    /// Coroutine that defines which data is to be loaded.
-    /// </summary>
-    /// <param name="saveData">SaveData class.</param>
-    /// <returns>Null.</returns>
-    IEnumerator LoadData(RunSaveData saveData);
 }

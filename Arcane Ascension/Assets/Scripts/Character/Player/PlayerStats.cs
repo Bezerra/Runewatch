@@ -7,7 +7,7 @@ using ExtensionMethods;
 /// <summary>
 /// Class responsible for player stats.
 /// </summary>
-public class PlayerStats : Stats, IMana, IArmor, ISaveable
+public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
 {
     // Components
     private CharacterSaveDataController stpData;
@@ -526,27 +526,30 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
     {
         yield return new WaitForFixedUpdate();
 
-        // Passives
-        AllRunPassives allPassives = FindObjectOfType<AllRunPassives>();
-        CurrentPassives = new List<IRunPassive>();
-        for (int i = 0; i < saveData.PlayerSavedData.CurrentPassives.Length; i++)
+        if (saveData.DungeonSavedData.Floor > 1)
         {
-            for (int j = 0; j < allPassives.PassiveList.Count; j++)
+            // Passives
+            AllRunPassives allPassives = FindObjectOfType<AllRunPassives>();
+            CurrentPassives = new List<IRunPassive>();
+            for (int i = 0; i < saveData.PlayerSavedData.CurrentPassives.Length; i++)
             {
-                if (saveData.PlayerSavedData.CurrentPassives[i] == allPassives.PassiveList[j].ID)
+                for (int j = 0; j < allPassives.PassiveList.Count; j++)
                 {
-                    CurrentPassives.Add(allPassives.PassiveList[j]);
+                    if (saveData.PlayerSavedData.CurrentPassives[i] == allPassives.PassiveList[j].ID)
+                    {
+                        CurrentPassives.Add(allPassives.PassiveList[j]);
+                    }
                 }
             }
+            foreach (IRunPassive passive in CurrentPassives)
+            {
+                // Updates stats for each passive the player has
+                passive.Execute(this);
+            }
+
+            // Loads stats
+            SetStats(saveData.PlayerSavedData.Health, 0, saveData.PlayerSavedData.Mana);
         }
-        foreach (IRunPassive passive in CurrentPassives)
-        {
-            // Updates stats for each passive the player has
-            passive.Execute(this);
-        }
- 
-        // Loads stats
-        SetStats(saveData.PlayerSavedData.Health, 0, saveData.PlayerSavedData.Mana);
     }
 
     // Subscribed on player UI and CheatsConsole

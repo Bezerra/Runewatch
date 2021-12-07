@@ -20,14 +20,4 @@ public class Player : Character
         IInput player = FindObjectOfType<PlayerInputCustom>();
         if (player != null) player.SwitchActionMapToUI();
     }
-
-    /// <summary>
-    /// Null.
-    /// </summary>
-    /// <param name="saveData">Saved data class.</param>
-    /// <returns>Null.</returns>
-    public IEnumerator LoadData(RunSaveData saveData)
-    {
-        yield return null;
-    }
 }
