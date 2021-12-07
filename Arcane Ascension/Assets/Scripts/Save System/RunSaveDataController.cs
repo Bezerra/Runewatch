@@ -87,6 +87,17 @@ public class RunSaveDataController : MonoBehaviour, IFindPlayer
         SaveData = new RunSaveData();
     }
 
+    /// <summary>
+    /// Checks if file exists
+    /// </summary>
+    /// <returns>True if the file exists.</returns>
+    public bool FileExists()
+    {
+        if (fileManager.FileExists("RUNPROGRESSFILE.d4s"))
+            return true;
+        return false;
+    }
+
     public void FindPlayer()
     {
         StartCoroutine(LoadPlayerDataCoroutine());

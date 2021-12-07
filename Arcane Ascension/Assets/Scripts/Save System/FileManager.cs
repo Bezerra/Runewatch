@@ -58,6 +58,18 @@ public struct FileManager
     }
 
     /// <summary>
+    /// Checks if a file exists.
+    /// </summary>
+    /// <param name="fileName">Name of the file</param>
+    /// <returns>True if the file exists.</returns>
+    public bool FileExists(string fileName)
+    {
+        if (File.Exists(Path.Combine(Application.persistentDataPath, fileName)))
+            return true;
+        return false;
+    }
+
+    /// <summary>
     /// Deletes a file.
     /// </summary>
     /// <param name="fileName">File name</param>

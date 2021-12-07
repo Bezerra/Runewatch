@@ -1,17 +1,43 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 /// <summary>
 /// Class responsible for saving each posessed passive effect to a file.
 /// </summary>
-public class SaveNewGameButton : MonoBehaviour
+public class MainMenuButtonsControl : MonoBehaviour
 {
+    [Header("Skill tree passives scriptable object")]
     [SerializeField] private AllSkillTreePassivesSO skillTreePassives;
+
+    [Header("Buttons")]
+    [SerializeField] private Button continueButton;
+
+    // Components
+    private CharacterSaveDataController characterSaveDataController;
+    private RunSaveDataController runSaveDataController;
 
     private void Awake()
     {
         // Organizes passives by id
         skillTreePassives.UpdateID();
+        characterSaveDataController = FindObjectOfType<CharacterSaveDataController>();
+        runSaveDataController = FindObjectOfType<RunSaveDataController>();
+    }
+
+    private void Start()
+    {
+        if (runSaveDataController.FileExists())
+        {
+            continueButton.enabled = true;
+            continueButton.gameObject.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
+        }
+        else
+        {
+            continueButton.enabled = false;
+            continueButton.gameObject.GetComponentInChildren<TextMeshProUGUI>().color = Color.gray;
+        }
     }
 
     /// <summary>
@@ -21,8 +47,7 @@ public class SaveNewGameButton : MonoBehaviour
     /// </summary>
     public void SaveNewGameInformation()
     {
-        CharacterSaveDataController characterSaveDataController = 
-            FindObjectOfType<CharacterSaveDataController>();
+         
 
         // Creates list with empty passives
         IList<byte> currentPassives = new List<byte>();
