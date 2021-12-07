@@ -18,6 +18,8 @@ public class PlayerCastSpell : MonoBehaviour
     private GameObject currentlyCastSpell;
     public bool CurrentlyCasting => currentlyCastSpell == null ? false : true;
 
+    private float lastTimeSpellWasCast;
+
     private void Awake()
     {
         input = FindObjectOfType<PlayerInputCustom>();
@@ -71,6 +73,17 @@ public class PlayerCastSpell : MonoBehaviour
     }
 
     /// <summary>
+    /// A fixed spell cast for every spells.
+    /// </summary>
+    /// <returns></returns>
+    public bool SpellCastOnFixedDelay()
+    {
+        if (Time.time - lastTimeSpellWasCast > 0.15f)
+            return false;
+        return true;
+    }
+
+    /// <summary>
     /// Casts secondary basic spell.
     /// </summary>
     private void SecondaryAttackKeyPress()
@@ -79,13 +92,10 @@ public class PlayerCastSpell : MonoBehaviour
         if (playerSpells.CooldownOver(playerSpells.SecondarySpell) &&
             currentlyCastSpell == null)
         {
-            // If there's an active spell and cooldown is not over yet, ignores the rest
-            if (playerSpells.ActiveSpell != null)
-            {
-                if (playerSpells.CooldownOver(playerSpells.ActiveSpell) == false)
-                    return;
-            }
-            
+            if (SpellCastOnFixedDelay())
+                return;
+            lastTimeSpellWasCast = Time.time;
+
             playerSpells.SecondarySpell.AttackBehaviour.AttackKeyPress(
                     ref currentlyCastSpell, playerSpells.SecondarySpell, player, playerStats, ref spellBehaviour);
 
@@ -109,9 +119,16 @@ public class PlayerCastSpell : MonoBehaviour
         if (playerSpells.CooldownOver(playerSpells.ActiveSpell) &&
         playerSpells.CooldownOver(playerSpells.SecondarySpell))
         {
+            if (SpellCastOnFixedDelay())
+                return;
+
             // If player has enough mana to cast the active spell
             if (playerStats.Mana - playerSpells.ActiveSpell.ManaCost > 0)
             {
+                if (SpellCastOnFixedDelay())
+                    return;
+                lastTimeSpellWasCast = Time.time;
+
                 currentlyCastSpell = null;
 
                 playerSpells.ActiveSpell.AttackBehaviour.AttackKeyPress(
