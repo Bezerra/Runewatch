@@ -14,7 +14,7 @@ public class Chest : MonoBehaviour
     private GameObject canvasText;
     private InteractionCanvasText interectableCanvas;
     private AbstractEventOnInteraction eventOnInteraction;
-    private RebindingManager rebindingManager;
+    private ActionPath actionPath;
 
     private bool canOpen;
     public bool CanOpen
@@ -25,11 +25,12 @@ public class Chest : MonoBehaviour
             canOpen = value;
             if (canOpen)
             {
+                if (actionPath == null) actionPath = FindObjectOfType<ActionPath>();
+                interectableCanvas.UpdateInformation(actionPath.GetPath(BindingsAction.Interact));
                 GetComponentInChildren<BoxCollider>().gameObject.layer = Layers.InterectableLayerNum;
                 eventOnInteraction.enabled = true;
                 interectableCanvas.enabled = true;
                 canvasText.SetActive(true);
-
             }
             else
             {
@@ -46,22 +47,6 @@ public class Chest : MonoBehaviour
         canvasText = GetComponentInChildren<Canvas>().gameObject;
         interectableCanvas = GetComponent<InteractionCanvasText>();
         eventOnInteraction = GetComponent<AbstractEventOnInteraction>();
-        rebindingManager = FindObjectOfType<RebindingManager>();
-    }
-
-    private void OnEnable()
-    {
-        rebindingManager.KeybindingsUpdated += KeybindingsUpdated;
-    }
-
-    private void OnDisable()
-    {
-        rebindingManager.KeybindingsUpdated -= KeybindingsUpdated;
-    }
-
-    private void Start()
-    {
-        CanOpen = true;
     }
 
     private void KeybindingsUpdated()

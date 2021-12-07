@@ -1,4 +1,5 @@
 using UnityEngine;
+using ExtensionMethods;
 
 /// <summary>
 /// Scriptable object responsible for creating a spell's continuous apply damage.
@@ -19,7 +20,14 @@ public class SpellBehaviourContinuousApplyDamageSO : SpellBehaviourAbstractConti
             // If the spell is in hit time (updated on parent)
             if (Time.time > parent.LastTimeHit + parent.Spell.DelayToDoDamage)
             {
-                parent.Spell.DamageBehaviour.Damage(parent, parent.DamageableTarget);
+                // Temporary , will do something better later
+                if (parent.DamageableTarget.TryGetComponentInParent(out Enemy enemy))
+                {
+                    if (enemy.enabled)
+                    {
+                        parent.Spell.DamageBehaviour.Damage(parent, parent.DamageableTarget);
+                    }
+                }
             }
         }
     }

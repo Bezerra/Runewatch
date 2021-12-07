@@ -148,11 +148,11 @@ public class PlayerInputCustom : MonoBehaviour, IInput
     }
     public void HandleQuickSave(InputAction.CallbackContext context)
     {
-        if (context.started) RunSaveDataController.SaveGame();
+        //if (context.started) RunSaveDataController.SaveGame();
     }
     public void HandleQuickLoad(InputAction.CallbackContext context)
     {
-        if (context.started) RunSaveDataController.LoadGame();
+        //if (context.started) RunSaveDataController.LoadGame();
     }
     public void HandleLeftClickUI(InputAction.CallbackContext context) {
         if (context.started) OnClick(Direction.Left);

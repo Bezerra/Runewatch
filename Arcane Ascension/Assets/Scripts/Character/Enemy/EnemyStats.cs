@@ -15,6 +15,8 @@ public class EnemyStats : Stats
     // Save data
     private CharacterSaveDataController stpData;
 
+    private bool dead;
+
     protected override void Awake()
     {
         base.Awake();
@@ -69,32 +71,37 @@ public class EnemyStats : Stats
         }
         else
         {
-            if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
-            Health = 0;
-            OnEventTakeDamage();
-            OnEventHealthUpdate();
-            OnEventDeath(this);
-
-            // Gets random drops and spawns them
-            EnemyAttributes.Rates.GetDrop(transform.position + new Vector3(0, -transform.localPosition.y * 0.5f, 0));
-            IEnumerator<(LootType, Vector3)> itemEnumerator = EnemyAttributes.Rates.DroppedLoot.GetEnumerator();
-            while (itemEnumerator.MoveNext())
-            {
-                GameObject spawnedLoot = ItemLootPoolCreator.Pool.InstantiateFromPool(
-                    itemEnumerator.Current.Item1.ToString(),
-                    itemEnumerator.Current.Item2, Quaternion.identity);
-
-                if(spawnedLoot.TryGetComponent(out ICurrency currency))
-                {
-                    if (currency.CurrencyType == CurrencyType.Gold) 
-                        currency.Amount = EnemyAttributes.GoldQuantity;
-                    else
-                        currency.Amount = EnemyAttributes.ArcanePowerQuantity;
-                }
-            }
-
             // Death animation will be triggered in EnemyAnimations
-            EnemyDeath();
+            if (dead == false)
+            {
+                EnemyDeath(ref dead);
+
+                if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
+                Health = 0;
+                OnEventTakeDamage();
+                OnEventHealthUpdate();
+                OnEventDeath(this);
+
+                // Gets random drops and spawns them
+                EnemyAttributes.Rates.GetDrop(transform.position + new Vector3(0, -transform.localPosition.y * 0.5f, 0));
+                IEnumerator<(LootType, Vector3)> itemEnumerator = EnemyAttributes.Rates.DroppedLoot.GetEnumerator();
+                while (itemEnumerator.MoveNext())
+                {
+                    GameObject spawnedLoot = ItemLootPoolCreator.Pool.InstantiateFromPool(
+                        itemEnumerator.Current.Item1.ToString(),
+                        itemEnumerator.Current.Item2, Quaternion.identity);
+
+                    if (spawnedLoot.TryGetComponent(out ICurrency currency))
+                    {
+                        if (currency.CurrencyType == CurrencyType.Gold)
+                            currency.Amount = EnemyAttributes.GoldQuantity;
+                        else
+                            currency.Amount = EnemyAttributes.ArcanePowerQuantity;
+                    }
+                }
+
+                this.enabled = false;
+            }
         }
     }
 
@@ -141,56 +148,63 @@ public class EnemyStats : Stats
         }
         else
         {
-            if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
-            Health = 0;
-            OnEventTakeDamage();
-            OnEventHealthUpdate();
-            OnEventDeath(this);
-
-            // Gets random drops and spawns them
-            EnemyAttributes.Rates.GetDrop(transform.position + new Vector3(0, -transform.localPosition.y * 0.5f, 0));
-            IEnumerator<(LootType, Vector3)> itemEnumerator = EnemyAttributes.Rates.DroppedLoot.GetEnumerator();
-            while (itemEnumerator.MoveNext())
-            {
-                GameObject spawnedLoot = ItemLootPoolCreator.Pool.InstantiateFromPool(
-                    itemEnumerator.Current.Item1.ToString(),
-                    itemEnumerator.Current.Item2, Quaternion.identity);
-
-                // Currency is in a child of the prefab
-                ICurrency lootCurrency = spawnedLoot.GetComponentInChildren<ICurrency>();
-                if (lootCurrency != null)
-                {
-                    if (lootCurrency.CurrencyType == CurrencyType.Gold)
-                    {
-                        lootCurrency.AmountMultiplier = stpData.SaveData.Pickpocket;
-                        lootCurrency.Amount = EnemyAttributes.GoldQuantity;
-                    }
-                    else
-                        lootCurrency.Amount = EnemyAttributes.ArcanePowerQuantity;
-                }
-            }
-
             // Death animation will be triggered in EnemyAnimations
-            EnemyDeath();
+            if (dead == false)
+            {
+                EnemyDeath(ref dead);
+
+                if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
+                Health = 0;
+                OnEventTakeDamage();
+                OnEventHealthUpdate();
+                OnEventDeath(this);
+
+                // Gets random drops and spawns them
+                EnemyAttributes.Rates.GetDrop(transform.position + new Vector3(0, -transform.localPosition.y * 0.5f, 0));
+                IEnumerator<(LootType, Vector3)> itemEnumerator = EnemyAttributes.Rates.DroppedLoot.GetEnumerator();
+                while (itemEnumerator.MoveNext())
+                {
+                    GameObject spawnedLoot = ItemLootPoolCreator.Pool.InstantiateFromPool(
+                        itemEnumerator.Current.Item1.ToString(),
+                        itemEnumerator.Current.Item2, Quaternion.identity);
+
+                    // Currency is in a child of the prefab
+                    ICurrency lootCurrency = spawnedLoot.GetComponentInChildren<ICurrency>();
+                    if (lootCurrency != null)
+                    {
+                        if (lootCurrency.CurrencyType == CurrencyType.Gold)
+                        {
+                            lootCurrency.AmountMultiplier = stpData.SaveData.Pickpocket;
+                            lootCurrency.Amount = EnemyAttributes.GoldQuantity;
+                        }
+                        else
+                            lootCurrency.Amount = EnemyAttributes.ArcanePowerQuantity;
+                    }
+                }
+
+                this.enabled = false;
+            }
         }
     }
 
     /// <summary>
     /// Destroys enemy colliders.
     /// </summary>
-    private void EnemyDeath()
+    private void EnemyDeath(ref bool dead)
     {
+        SelectionBase enemyRoot = GetComponentInParent<SelectionBase>();
+        foreach (Collider colliders in enemyRoot.GetComponentsInChildren<Collider>())
+            colliders.enabled = false;
+
         NavMeshAgent agent = GetComponent<NavMeshAgent>();
         GetComponent<Enemy>().enabled = false;
+        Destroy(GetComponentInChildren<MinimapIcon>().transform.parent.gameObject);
 
         if (agent != null)
         {
             agent.isStopped = true;
             agent.radius = 0;
         }
-
-        SelectionBase enemyRoot = GetComponentInParent<SelectionBase>();
-        foreach (Collider colliders in enemyRoot.GetComponentsInChildren<Collider>())
-            colliders.enabled = false;
+        dead = true;
     }   
 }
