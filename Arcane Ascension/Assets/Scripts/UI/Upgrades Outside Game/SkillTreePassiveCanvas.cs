@@ -57,7 +57,7 @@ public class SkillTreePassiveCanvas : MonoBehaviour
         CharacterSaveDataController characterSaveDataController = 
             FindObjectOfType<CharacterSaveDataController>();
 
-        CharacterSaveData saveData = characterSaveDataController.LoadGame();
+        CharacterSaveData saveData = characterSaveDataController.SaveData;
 
         // Adds saved data passives to a list with current passives
         foreach (byte passive in saveData.CurrentSkillTreePassives)
@@ -81,7 +81,7 @@ public class SkillTreePassiveCanvas : MonoBehaviour
             // currencySO.DefaultArcanePower IN THIS NEXT LINE IS ALSO TEMP, IT'S SAVING DEFAULT AP.
             // IT SHOULD SAVE AS 0, SINCE IT'S THE FIRST NEW GAME, AP WILL ONLY SAVE IF THIS IF
             // STATEMENT IS ELSE (MEANING A SAVE FILE ALREADY EXISTS, THEREFORE SAVES AP (>0)
-            characterSaveDataController.SaveGame(new byte[] { 0 }, currencySO.DefaultArcanePower);
+            characterSaveDataController.Save(new byte[] { 0 }, currencySO.DefaultArcanePower);
         }
         else
         {
@@ -162,7 +162,7 @@ public class SkillTreePassiveCanvas : MonoBehaviour
         }
 
         // Saves current passives list and arcane power
-        characterSaveDataController.SaveGame(
+        characterSaveDataController.Save(
             passivesID, PlayerPrefs.GetInt(CurrencyType.ArcanePower.ToString()));
     }
 

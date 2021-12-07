@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for controlling what happens inside a normal level piece room.
 /// </summary>
-public class LevelPieceGameProgressControl : LevelPieceGameProgressControlAbstract
+public class LevelPieceGameProgressControlNormalRoom : LevelPieceGameProgressControlAbstract
 {
     // Variables to keep track of progress
     // Shopkeeper

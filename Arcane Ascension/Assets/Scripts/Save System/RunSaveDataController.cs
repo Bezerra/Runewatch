@@ -8,39 +8,36 @@ using ExtensionMethods;
 /// </summary>
 public class RunSaveDataController : MonoBehaviour
 {
-    // Basic singleton so save and load methods can be used anywhere.
-    private static RunSaveDataController instance;
-
-    private RunSaveData saveData;
+    public RunSaveData SaveData { get; private set; }
     private FileManager fileManager;
 
     private void Awake()
     {
-        instance = this;
-        saveData = new RunSaveData();
+        SaveData = new RunSaveData();
         fileManager = new FileManager();
+        SaveData = LoadGame();
     }
 
     /// <summary>
     /// Makes every class that implements ISaveable save their stats.
     /// </summary>
-    public static void SaveGame()
+    public void Save()
     {
         IEnumerable<ISaveable> iSaveables = FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>();
 
         foreach (ISaveable iSaveable in iSaveables)
-            iSaveable.SaveCurrentData(instance.saveData);
+            iSaveable.SaveCurrentData(SaveData);
 
         // Writes file with saved JSON
-        if (instance.fileManager.WriteToFile("RUNPROGRESSFILE.d4s", instance.saveData.ToJson()))
-            Debug.Log("Game Saved");
+        if (fileManager.WriteToFile("RUNPROGRESSFILE.d4s", SaveData.ToJson()))
+            Debug.Log("Run Progress Saved");
     }
 
     /// <summary>
     /// Loads a JSON with all saved data.
     /// Makes every class that implements ISaveable load their stats.
     /// </summary>
-    public static void LoadGame()
+    public RunSaveData LoadGame()
     {
         HashSet<ISaveable> iSaveables = new HashSet<ISaveable>();
         IEnumerable<GameObject> allGameObjects = FindObjectsOfType<GameObject>();
@@ -54,14 +51,22 @@ public class RunSaveDataController : MonoBehaviour
             }
         }
 
-        if (instance.fileManager.ReadFile("RUNPROGRESSFILE.d4s", out string json))
+        if (fileManager.ReadFile("RUNPROGRESSFILE.d4s", out string json))
         {
-            instance.saveData.LoadFromJson(json);
+            SaveData.LoadFromJson(json);
 
             foreach (ISaveable iSaveable in iSaveables)
-                instance.StartCoroutine(iSaveable.LoadData(instance.saveData));
+                StartCoroutine(iSaveable.LoadData(SaveData));
 
             Debug.Log("Game Loaded");
+            return SaveData;
+        }
+        else
+        {
+            if (fileManager.WriteToFile("RUNPROGRESSFILE.d4s", SaveData.ToJson()))
+                Debug.Log("No run progress save found. Created new file.");
+            SaveData.LoadFromJson(json);
+            return SaveData;
         }
     }
 }

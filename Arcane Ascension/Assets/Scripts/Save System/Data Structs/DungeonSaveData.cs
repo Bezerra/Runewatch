@@ -7,6 +7,7 @@ using System;
 public struct DungeonSaveData
 {
     // Public fields for JSON
+    public int Floor;
     public int Seed;
     public int HorizontalMaximumLevelSize;
     public int ForwardMaximumLevelSize;

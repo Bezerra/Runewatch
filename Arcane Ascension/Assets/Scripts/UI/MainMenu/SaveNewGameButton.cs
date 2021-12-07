@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for saving each posessed passive effect to a file.
 /// </summary>
-public class SaveSkillTreePassivesInformation : MonoBehaviour
+public class SaveNewGameButton : MonoBehaviour
 {
     [SerializeField] private AllSkillTreePassivesSO skillTreePassives;
 
@@ -18,7 +18,7 @@ public class SaveSkillTreePassivesInformation : MonoBehaviour
     /// Runs when the game starts. Will only run once per game session start.
     /// Called with start game button.
     /// </summary>
-    public void SavePassiveEffectsData()
+    public void SaveNewGameInformation()
     {
         CharacterSaveDataController characterSaveDataController = 
             FindObjectOfType<CharacterSaveDataController>();
@@ -28,6 +28,8 @@ public class SaveSkillTreePassivesInformation : MonoBehaviour
 
         // Adds saved passives to current passives
         CharacterSaveData saveData = characterSaveDataController.LoadGame();
+
+        // First it adds all skills to a list (to use Contains later)
         if (saveData != null)
         {
             for (int i = 0; i < saveData.CurrentSkillTreePassives.Length; i++)
@@ -36,8 +38,8 @@ public class SaveSkillTreePassivesInformation : MonoBehaviour
             }
         }
 
-        // Idk why I left this, safety measure?
-        // Foreach current passive the player has, it will write its information to a file and save it
+        // Foreach current passive the player has, it will write its information to a file and save it.
+        // This will update all skill tree passives on that file.
         for (int i = 0; i < skillTreePassives.PassivesList.Count; i++)
         {
             if (currentPassives.Contains(skillTreePassives.PassivesList[i].ID))
@@ -48,6 +50,14 @@ public class SaveSkillTreePassivesInformation : MonoBehaviour
             }
         }
         characterSaveDataController.Save();
+
+        // Sets floor to initial floor
+        RunSaveDataController runSaveDataController =
+            FindObjectOfType<RunSaveDataController>();
+        runSaveDataController.SaveData.Floor = 1;
+        runSaveDataController.Save();
+
+        
 
 
 

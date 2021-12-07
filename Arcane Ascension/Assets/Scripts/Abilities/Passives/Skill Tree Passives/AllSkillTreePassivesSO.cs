@@ -41,7 +41,6 @@ public class AllSkillTreePassivesSO : ScriptableObject
         for (int i = 0; i < passives.Count; i++)
         {
             passives[i].ID = (byte)i;
-            Debug.Log("Skill tree ordered.");
         }
     }
 }
