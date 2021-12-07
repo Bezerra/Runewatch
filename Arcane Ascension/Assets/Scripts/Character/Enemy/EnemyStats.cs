@@ -72,6 +72,7 @@ public class EnemyStats : Stats
         else
         {
             // Death animation will be triggered in EnemyAnimations
+            // This if only happens once, for sure
             if (dead == false)
             {
                 EnemyDeath(ref dead);
@@ -149,6 +150,7 @@ public class EnemyStats : Stats
         else
         {
             // Death animation will be triggered in EnemyAnimations
+            // This if only happens once, for sure
             if (dead == false)
             {
                 EnemyDeath(ref dead);

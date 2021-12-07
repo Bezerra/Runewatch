@@ -6,19 +6,21 @@ using TMPro;
 /// </summary>
 public class InteractionCanvasText : MonoBehaviour, IInteractableWithCanvas
 {
-    private GameObject canvas;
-    private TextMeshProUGUI textMeshPro;
     [Range(1f, 15f)][SerializeField] private float rangeToActivate;
     [SerializeField] private string textOnCanvas;
 
     // Components
     private Camera cam;
+    private GameObject canvas;
+    public TextMeshProUGUI TextMeshP { get; private set; }
+
+    public bool CurrentlyActive => canvas.activeSelf;
 
     private void Awake()
     {
         cam = Camera.main;
         canvas = GetComponentInChildren<Canvas>().gameObject;
-        textMeshPro = GetComponentInChildren<TextMeshProUGUI>();
+        TextMeshP = GetComponentInChildren<TextMeshProUGUI>();
         UpdateInformation(textOnCanvas);
     }
 
@@ -54,7 +56,7 @@ public class InteractionCanvasText : MonoBehaviour, IInteractableWithCanvas
 
     public void UpdateInformation(string text)
     {
-        textMeshPro.text = text;
+        TextMeshP.text = text;
     }
 
     public void UpdateRotation()
