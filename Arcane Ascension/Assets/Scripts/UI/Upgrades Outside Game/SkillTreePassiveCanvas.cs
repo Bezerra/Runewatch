@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -5,6 +6,8 @@ using UnityEngine.UI;
 
 /// <summary>
 /// Class responsible for controling nodes information and buying nodes.
+/// Note that every time a node is updated, the game is saved, but those passives
+/// will only take effect once the player starts a new game.
 /// </summary>
 public class SkillTreePassiveCanvas : MonoBehaviour
 {
@@ -60,14 +63,17 @@ public class SkillTreePassiveCanvas : MonoBehaviour
         CharacterSaveData saveData = characterSaveDataController.SaveData;
 
         // Adds saved data passives to a list with current passives
-        foreach (byte passive in saveData.CurrentSkillTreePassives)
+        if (saveData.CurrentSkillTreePassives != null)
         {
-            CurrentPassives.Add(passive);
+            foreach (byte passive in saveData.CurrentSkillTreePassives)
+            {
+                CurrentPassives.Add(passive);
+            }
+            CurrentPassives.Sort();
         }
-        CurrentPassives.Sort();
 
-        // If file already exists, without any passive in it
-        // meaning the file is completely empty. It's a new character.
+        // If the file is completely empty. It's a new character
+        // and this will happen
         if (CurrentPassives.Count == 0)
         {
             CurrentPassives.Add(0); // Adds default spell

@@ -3,7 +3,7 @@ using System.Collections;
 /// <summary>
 /// Class for player character.
 /// </summary>
-public class Player : Character, ISaveable
+public class Player : Character
 {
     /// <summary>
     /// Values of player.
@@ -19,20 +19,6 @@ public class Player : Character, ISaveable
     {
         IInput player = FindObjectOfType<PlayerInputCustom>();
         if (player != null) player.SwitchActionMapToUI();
-    }
-
-    /// <summary>
-    /// Saves player position and rotation.
-    /// </summary>
-    /// <param name="saveData">Saved data class.</param>
-    /// <returns>Null.</returns>
-    public void SaveCurrentData(RunSaveData saveData)
-    {
-        if (this != null) // Do not remove <
-        {
-            saveData.PlayerSavedData.Position = transform.position;
-            saveData.PlayerSavedData.Rotation = transform.rotation;
-        }
     }
 
     /// <summary>

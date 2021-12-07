@@ -56,4 +56,17 @@ public struct FileManager
         result = "";
         return false;
     }
+
+    /// <summary>
+    /// Deletes a file.
+    /// </summary>
+    /// <param name="fileName">File name</param>
+    public void DeleteFile(string fileName)
+    {
+        if (File.Exists(Path.Combine(Application.persistentDataPath, fileName)))
+        {
+            File.Delete(Path.Combine(Application.persistentDataPath, fileName));
+            Debug.Log($"Deleted {fileName} file");
+        }
+    }
 }

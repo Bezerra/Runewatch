@@ -6,7 +6,6 @@ public class RunSaveData: AbstractSaveData
     // Public fields for JSON
     public PlayerSaveData PlayerSavedData;
     public DungeonSaveData DungeonSavedData;
-    public int Floor;
 
     public RunSaveData()
     {

@@ -84,12 +84,9 @@ public class PlayerCurrency : MonoBehaviour, IUseCurrency, ISaveable
     /// <param name="saveData">SaveData to save to.</param>
     public void SaveCurrentData(RunSaveData saveData)
     {
-        // currency
-        if (this != null) // Do not remove <
-        {
-            saveData.PlayerSavedData.Gold = player.AllValues.Currency.Gold;
-            saveData.PlayerSavedData.ArcanePower = player.AllValues.Currency.ArcanePower;
-        }
+        saveData.PlayerSavedData.Gold = player.AllValues.Currency.Gold;
+        FindObjectOfType<CharacterSaveDataController>().SaveData.ArcanePower =
+            player.AllValues.Currency.ArcanePower;
     }
 
     /// <summary>
@@ -101,12 +98,11 @@ public class PlayerCurrency : MonoBehaviour, IUseCurrency, ISaveable
     {
         yield return new WaitForFixedUpdate();
 
-        // Currency
-        if (this != null) // Do not remove <
-        {
-            player.AllValues.Currency.GainCurrency(CurrencyType.Gold, saveData.PlayerSavedData.Gold);
-            player.AllValues.Currency.GainCurrency(CurrencyType.ArcanePower, saveData.PlayerSavedData.ArcanePower);
-        }
+        player.AllValues.Currency.ResetCurrency();
+        player.AllValues.Currency.GainCurrency(CurrencyType.Gold, saveData.PlayerSavedData.Gold);
+        player.AllValues.Currency.GainCurrency(
+            CurrencyType.ArcanePower, 
+            FindObjectOfType<CharacterSaveDataController>().SaveData.ArcanePower);
     }
 
     // Registered on playersounds

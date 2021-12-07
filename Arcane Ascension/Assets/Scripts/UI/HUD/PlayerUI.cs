@@ -58,8 +58,6 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private bool showFPS;
     // WILL BE CONTROLED VIA OPTIONS WHEN OPTIONS EXIST
 
-    
-
     // Coroutines
     private IEnumerator hitCrosshairCoroutine;
     private IEnumerator updateHealthCoroutine;
@@ -86,7 +84,7 @@ public class PlayerUI : MonoBehaviour
 
     private void OnEnable()
     {
-        // Needs to be a coroutine because onEnable is running before player awake
+        // Needs to be a coroutine because onEnable is running before player awake < wtf
         StartCoroutine(OnEnableCoroutine());
     }
 
@@ -99,9 +97,7 @@ public class PlayerUI : MonoBehaviour
         playerStats.EventHealthUpdate += OnTakeDamage;
         playerStats.EventManaUpdate += OnManaUpdate;
         playerStats.EventArmorUpdate += OnArmorUpdate;
-
         playerCurrency.EventCurrencyUpdate += OnCurrencyUpdate;
-
         playerStats.StatusEffectList.ValueChanged += UpdateStatusEffectsEvent;
 
         foreach (EnemyStats enemy in enemyStats)
@@ -119,7 +115,6 @@ public class PlayerUI : MonoBehaviour
         playerStats.EventManaUpdate -= OnManaUpdate;
         playerStats.EventArmorUpdate -= OnArmorUpdate;
         playerCurrency.EventCurrencyUpdate -= OnCurrencyUpdate;
-
         playerStats.StatusEffectList.ValueChanged -= UpdateStatusEffectsEvent;
 
         foreach (EnemyStats enemy in enemyStats)
@@ -135,6 +130,7 @@ public class PlayerUI : MonoBehaviour
     private void Start()
     {
         OnTakeDamage();
+        armor.fillAmount = 0;
     }
 
     public void SubscribeToEnemiesDamage()

@@ -1,5 +1,3 @@
-using UnityEngine;
-
 /// <summary>
 /// Class responsible for controlling what happens inside a normal level piece room.
 /// </summary>
@@ -15,7 +13,7 @@ public class LevelPieceGameProgressControlFinalRoom : LevelPieceGameProgressCont
 
     private void Start()
     {
-        if (saveData.Floor % 3 == 0)
+        if (saveData.DungeonSavedData.Floor % 3 == 0)
         {
             BossRoom();
         }

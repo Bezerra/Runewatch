@@ -17,6 +17,7 @@ public class SaveNewGameButton : MonoBehaviour
     /// <summary>
     /// Runs when the game starts. Will only run once per game session start.
     /// Called with start game button.
+    /// All passives bought will only be applied once this method is called.
     /// </summary>
     public void SaveNewGameInformation()
     {
@@ -54,14 +55,8 @@ public class SaveNewGameButton : MonoBehaviour
         // Sets floor to initial floor
         RunSaveDataController runSaveDataController =
             FindObjectOfType<RunSaveDataController>();
-        runSaveDataController.SaveData.Floor = 1;
+        runSaveDataController.DeleteFile();
+        runSaveDataController.SaveData.DungeonSavedData.Floor = 1;
         runSaveDataController.Save();
-
-        
-
-
-
-        // IN THE END, THROW AN EVENT HERE, TO REMOVE A BLACK SCREEN FROM TOP MAYBE
-        // SO ALL UPDATES WILL BE APPLIED ON UI BEFORE THE BLACK SCREEN DISAPPEARS
     }
 }

@@ -13,7 +13,7 @@ public abstract class AbstractSaveData
     /// </summary>
     /// <returns>String.</returns>
     public string ToJson() =>
-        EncryptDecrypt(JsonUtility.ToJson(this), ENCRYPTIONKEY);
+        EncryptDecrypt(JsonUtility.ToJson(this, true), ENCRYPTIONKEY);
 
     /// <summary>
     /// Converts json values to this class.
@@ -31,6 +31,7 @@ public abstract class AbstractSaveData
     protected string EncryptDecrypt(string data, int key)
     {
         // Encrypts / Decrypts code
+        /*
         StringBuilder input = new StringBuilder(data);
         StringBuilder output = new StringBuilder(data.Length);
 
@@ -44,9 +45,10 @@ public abstract class AbstractSaveData
         }
 
         return output.ToString();
+        */
 
         // REMOVE COMMENT AND COMMENT ABOVE THIS TO NOT ENCRYPT CODE
         // BUT THE FILE CANNOT BE ENCRYPTED ALREADY
-        //return data;
+        return data;
     }
 }

@@ -77,9 +77,14 @@ public class CurrencySO : ScriptableObject
         }
     }
 
-    private void OnEnable()
+    public void ResetCurrency()
     {
         Gold = 0;
         ArcanePower = 0;
+    }
+
+    private void OnEnable()
+    {
+        ResetCurrency();
     }
 }

@@ -253,6 +253,11 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
 
                 FindObjectOfType<PlayerCastSpell>().AttackKeyRelease();
 
+                // Deletes run progress file
+                RunSaveDataController runSaveDataController =
+                    FindObjectOfType<RunSaveDataController>();
+                runSaveDataController.DeleteFile();
+
                 OnEventDeath(this);
             }
         }
@@ -309,6 +314,11 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
                 if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
 
                 FindObjectOfType<PlayerCastSpell>().AttackKeyRelease();
+
+                // Deletes run progress file
+                RunSaveDataController runSaveDataController =
+                    FindObjectOfType<RunSaveDataController>();
+                runSaveDataController.DeleteFile();
 
                 OnEventDeath(this);
             }
@@ -496,19 +506,14 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
     /// <returns>Null.</returns>
     public void SaveCurrentData(RunSaveData saveData)
     {
-        if (this != null) // Do not remove <
-        {
-            saveData.PlayerSavedData.Health = Health;
-            saveData.PlayerSavedData.Armor = Armor;
-            saveData.PlayerSavedData.Mana = Mana;
-            saveData.PlayerSavedData.DashCharge = DashCharge;
+        saveData.PlayerSavedData.Health = Health;
+        saveData.PlayerSavedData.Mana = Mana;
 
-            // Passives
-            saveData.PlayerSavedData.CurrentPassives = new byte[CurrentPassives.Count];
-            for (int i = 0; i < CurrentPassives.Count; i++)
-            {
-                saveData.PlayerSavedData.CurrentPassives[i] = CurrentPassives[i].ID;
-            }
+        // Passives
+        saveData.PlayerSavedData.CurrentPassives = new byte[CurrentPassives.Count];
+        for (int i = 0; i < CurrentPassives.Count; i++)
+        {
+            saveData.PlayerSavedData.CurrentPassives[i] = CurrentPassives[i].ID;
         }
     }
 
@@ -521,31 +526,27 @@ public class PlayerStats : Stats, IMana, IArmor, ISaveable
     {
         yield return new WaitForFixedUpdate();
 
-        // Stats
-        if (this != null) // Do not remove <
+        // Passives
+        AllRunPassives allPassives = FindObjectOfType<AllRunPassives>();
+        CurrentPassives = new List<IRunPassive>();
+        for (int i = 0; i < saveData.PlayerSavedData.CurrentPassives.Length; i++)
         {
-            // Passives
-            AllRunPassives allPassives = FindObjectOfType<AllRunPassives>();
-            CurrentPassives = new List<IRunPassive>();
-            for (int i = 0; i < saveData.PlayerSavedData.CurrentPassives.Length; i++)
+            for (int j = 0; j < allPassives.PassiveList.Count; j++)
             {
-                for (int j = 0; j < allPassives.PassiveList.Count; j++)
+                if (saveData.PlayerSavedData.CurrentPassives[i] == allPassives.PassiveList[j].ID)
                 {
-                    if (saveData.PlayerSavedData.CurrentPassives[i] == allPassives.PassiveList[j].ID)
-                    {
-                        CurrentPassives.Add(allPassives.PassiveList[j]);
-                    }
+                    CurrentPassives.Add(allPassives.PassiveList[j]);
                 }
             }
-            foreach (IRunPassive passive in CurrentPassives)
-            {
-                passive.Execute(this);
-            }
- 
-            // Loads stats
-            SetStats(saveData.PlayerSavedData.Health, saveData.PlayerSavedData.Armor, saveData.PlayerSavedData.Mana);
-            DashCharge = saveData.PlayerSavedData.DashCharge;
         }
+        foreach (IRunPassive passive in CurrentPassives)
+        {
+            // Updates stats for each passive the player has
+            passive.Execute(this);
+        }
+ 
+        // Loads stats
+        SetStats(saveData.PlayerSavedData.Health, 0, saveData.PlayerSavedData.Mana);
     }
 
     // Subscribed on player UI and CheatsConsole

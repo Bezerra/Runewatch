@@ -63,17 +63,13 @@ public class PlayerSpells : MonoBehaviour, ISaveable
                     AddSpell(allSpells[i]);
                 }
             }
-        }
 
+            if (CurrentSpells[0] != null)
+            {
+                SelectSpell(0, true);
 
-
-
-
-        if (CurrentSpells[0] != null)
-        {
-            SelectSpell(0, true);
-
-            StartSpellCooldown();
+                StartSpellCooldown();
+            }
         }
 
         StartSpellCooldown(SecondarySpell);
@@ -341,7 +337,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
         for (int i = 0; i < CurrentSpells.Length; i++)
         {
             if (CurrentSpells[i] == null)
-                currentSpells[i] = 0;
+                currentSpells[i] = 255;
             else
                 currentSpells[i] = CurrentSpells[i].ID;
         }
@@ -359,7 +355,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
         byte[] savedSpells = saveData.PlayerSavedData.CurrentSpells;
         for (int i = 0; i < savedSpells.Length; i++)
         {
-            if (savedSpells[i] != 0)
+            if (savedSpells[i] != 255)
             {
                 for (int j = 0; j < allSpells.Count; j++)
                 {
@@ -367,6 +363,11 @@ public class PlayerSpells : MonoBehaviour, ISaveable
                     {
                         CurrentSpells[i] = allSpells[j];
                         break;
+                    }
+                    else
+                    {
+                        CurrentSpells[i] = null;
+                        continue;
                     }
                 }
             }
@@ -379,6 +380,7 @@ public class PlayerSpells : MonoBehaviour, ISaveable
         // Loads current spell selected
         CurrentSpellIndex = saveData.PlayerSavedData.CurrentSpellIndex;
 
+        SelectSpell(CurrentSpellIndex);
         StartSpellCooldown();
     }
 }

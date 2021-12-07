@@ -15,8 +15,8 @@ public class CharacterSaveDataController : MonoBehaviour
     private void Awake()
     {
         SaveData = new CharacterSaveData();
-        fileManager = new FileManager();
         SaveData = LoadGame();
+        fileManager = new FileManager();
     }
 
     /// <summary>
