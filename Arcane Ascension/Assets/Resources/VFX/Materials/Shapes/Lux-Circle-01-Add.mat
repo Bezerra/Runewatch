@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Lux-Symbol-Add
+  m_Name: Lux-Circle-01-Add
   m_Shader: {fileID: 4800000, guid: 00ddc540bb4f4884d8b80c89d91ca1f0, type: 3}
-  m_ShaderKeywords: _USEDEPTH_ON
+  m_ShaderKeywords: _USECUSTOMDISSOLVETEX0Z_ON _USEDEPTH_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -60,7 +60,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
-        m_Texture: {fileID: 2800000, guid: 53ac9e47d1d596c469daa99511f6c006, type: 3}
+        m_Texture: {fileID: 2800000, guid: bf701ca4a724de540ac48f1b2d2274c3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTexture:
@@ -117,7 +117,7 @@ Material:
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
-    - _DepthDistance: 0.1
+    - _DepthDistance: 1
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DissolveAmount: 0
@@ -144,7 +144,7 @@ Material:
     - _SrcBlend: 1
     - _Surface: 0
     - _UseCustomDissolve: 0
-    - _UseCustomDissolveTex0z: 0
+    - _UseCustomDissolveTex0z: 1
     - _UseDepth: 1
     - _UseMaskAlpha: 0
     - _UseOffsetMaskAlpha: 0
@@ -152,7 +152,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 29.508846, g: 29.508846, b: 29.508846, a: 1}
+    - _Color: {r: 16.94838, g: 16.94838, b: 16.94838, a: 1}
     - _DissolveSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _DistortSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
