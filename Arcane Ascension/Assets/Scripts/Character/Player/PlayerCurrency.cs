@@ -89,14 +89,18 @@ public class PlayerCurrency : MonoBehaviour, IUseCurrency, IPlayerSaveable
     {
         yield return new WaitForFixedUpdate();
 
+        CharacterSaveDataController characterSaveDataController =
+            FindObjectOfType<CharacterSaveDataController>();
+
         // Initial default gold
         if (saveData.DungeonSavedData.Floor > 1)
         {
             player.AllValues.Currency.ResetCurrency();
-            player.AllValues.Currency.GainCurrency(CurrencyType.Gold, saveData.PlayerSavedData.Gold);
+            GainCurrency(CurrencyType.Gold, 
+                saveData.PlayerSavedData.Gold);
             player.AllValues.Currency.GainCurrency(
                 CurrencyType.ArcanePower,
-                FindObjectOfType<CharacterSaveDataController>().SaveData.ArcanePower);
+                characterSaveDataController.SaveData.ArcanePower);
         }
         else
         {
@@ -105,7 +109,7 @@ public class PlayerCurrency : MonoBehaviour, IUseCurrency, IPlayerSaveable
                 player.AllValues.Currency.DefaultGold);
             player.AllValues.Currency.GainCurrency(
                 CurrencyType.ArcanePower,
-                FindObjectOfType<CharacterSaveDataController>().SaveData.ArcanePower);
+                characterSaveDataController.SaveData.ArcanePower);
         }
     }
 

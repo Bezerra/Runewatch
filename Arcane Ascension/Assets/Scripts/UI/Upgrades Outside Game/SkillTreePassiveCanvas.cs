@@ -82,7 +82,6 @@ public class SkillTreePassiveCanvas : MonoBehaviour
             // THE PLAYER WILL GET AP CURRENCY TO SPEND ON SKILL TREE, REMOVE ON FINAL BUILD
             // AND SET DEFAULT AP GAINED ON PLAYERCURRENCY SCRIPT.
             currencySO.GainCurrency(CurrencyType.ArcanePower, currencySO.DefaultArcanePower);
-            PlayerPrefs.SetInt(CurrencyType.ArcanePower.ToString(), currencySO.DefaultArcanePower);
             //////////////////////////////////////////////////////////////////////////////////////
             // currencySO.DefaultArcanePower IN THIS NEXT LINE IS ALSO TEMP, IT'S SAVING DEFAULT AP.
             // IT SHOULD SAVE AS 0, SINCE IT'S THE FIRST NEW GAME, AP WILL ONLY SAVE IF THIS IF
@@ -92,7 +91,6 @@ public class SkillTreePassiveCanvas : MonoBehaviour
         else
         {
             currencySO.GainCurrency(CurrencyType.ArcanePower, saveData.ArcanePower);
-            PlayerPrefs.SetInt(CurrencyType.ArcanePower.ToString(), saveData.ArcanePower);
         }
         
         ClearAllInformation();
@@ -156,7 +154,7 @@ public class SkillTreePassiveCanvas : MonoBehaviour
         // Unlocks passive, spends money and updates arcane power.
         passiveNode.Unlock();
         arcanePowerText.text =
-            "Arcane Power: " + PlayerPrefs.GetInt(CurrencyType.ArcanePower.ToString()).ToString();
+            "Arcane Power: " + characterSaveDataController.SaveData.ArcanePower.ToString();
     }
 
     public void LeaveButton()
@@ -169,7 +167,7 @@ public class SkillTreePassiveCanvas : MonoBehaviour
 
         // Saves current passives list and arcane power
         characterSaveDataController.Save(
-            passivesID, PlayerPrefs.GetInt(CurrencyType.ArcanePower.ToString()));
+            passivesID, characterSaveDataController.SaveData.ArcanePower);
     }
 
     /// <summary>
@@ -186,6 +184,6 @@ public class SkillTreePassiveCanvas : MonoBehaviour
 
         // Update AP
         arcanePowerText.text = 
-            "Arcane Power: " + PlayerPrefs.GetInt(CurrencyType.ArcanePower.ToString()).ToString();
+            "Arcane Power: " + characterSaveDataController.SaveData.ArcanePower.ToString();
     }
 }

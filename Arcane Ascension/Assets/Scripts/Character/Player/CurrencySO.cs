@@ -51,9 +51,9 @@ public class CurrencySO : ScriptableObject
             if (ArcanePower - amount > 0) ArcanePower -= amount;
             else ArcanePower = 0;
 
-            // Player prefs for arcane power is only used inside the skill
-            // tree menu outside the game so it's fine to use it.
-            PlayerPrefs.SetInt(currency.ToString(), ArcanePower);
+            CharacterSaveDataController characterSaveDataController =
+                FindObjectOfType<CharacterSaveDataController>();
+            characterSaveDataController.SaveData.ArcanePower = ArcanePower;
         }
     }
 
