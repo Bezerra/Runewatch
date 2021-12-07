@@ -507,7 +507,6 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
     public void SaveCurrentData(RunSaveData saveData)
     {
         saveData.PlayerSavedData.Health = Health;
-        saveData.PlayerSavedData.Mana = Mana;
 
         // Passives
         saveData.PlayerSavedData.CurrentPassives = new byte[CurrentPassives.Count];
@@ -548,7 +547,7 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
             }
 
             // Loads stats
-            SetStats(saveData.PlayerSavedData.Health, 0, saveData.PlayerSavedData.Mana);
+            SetStats(saveData.PlayerSavedData.Health, 0, PlayerAttributes.MaxMana);
         }
     }
 

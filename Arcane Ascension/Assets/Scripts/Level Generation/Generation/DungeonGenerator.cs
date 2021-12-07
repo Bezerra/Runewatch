@@ -21,19 +21,23 @@ public class DungeonGenerator: MonoBehaviour
     /// If it's not a loaded game, it will generate values, else it will load the values saved.
     /// </summary>
     /// <param name="loadedGame">True if this game was loaded, else false.</param>
-    /// <param name="saveData">Saved data.</param>
-    public IEnumerator GenerateDungeon(bool loadedGame = false, RunSaveData saveData = null)
+    public IEnumerator GenerateDungeon(bool loadedGame = false)
     {
+        RunSaveDataController runSaveDataController = FindObjectOfType<RunSaveDataController>();
+
         ElementType element;
 
-        if (saveData == null)
+        if (loadedGame == false)
         {
             // Gets random element in possible prefabs
             int randomElement = UnityEngine.Random.Range(0, levelGenerators.Count);
             element = levelGenerators[randomElement].GetComponent<LevelGenerator>().Element;
         }
         else
-            element = saveData.DungeonSavedData.Element;
+        {
+
+            element = runSaveDataController.SaveData.DungeonSavedData.Element;
+        }
 
         CleantExistingDungeonElements();
 
@@ -45,7 +49,7 @@ public class DungeonGenerator: MonoBehaviour
                 GameObject levelGenerated = Instantiate(level.gameObject);
                 LevelGenerator levelGeneratedScript = levelGenerated.GetComponent<LevelGenerator>();
 
-                if (saveData == null)
+                if (loadedGame == false)
                 {
                     // Gets random (or pre-defined) values and starts generation
                     levelGeneratedScript.GetValues();
@@ -54,7 +58,7 @@ public class DungeonGenerator: MonoBehaviour
                 // Else loads saved data (after loading data it will start generation)
                 else
                 {
-                    yield return levelGeneratedScript.LoadData(saveData);
+                    yield return levelGeneratedScript.LoadGeneration(runSaveDataController.SaveData);
                 }
                 break;
             }

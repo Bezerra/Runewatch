@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class LoadingScreenToProcedural : SceneControl
 {
+    [SerializeField] private bool loadingSaveFile;
+
     /// <summary>
     /// Coroutine that loads a new scene.
     /// </summary>
@@ -37,9 +39,19 @@ public class LoadingScreenToProcedural : SceneControl
         // Load scene and sets it as main scene
         SetActiveScene(sceneToLoad);
 
-        // Waits until scene is generated
-        DungeonGenerator dungeonGenerator = FindObjectOfType<DungeonGenerator>();
-        yield return dungeonGenerator.GenerateDungeon();
+        if (loadingSaveFile == false)
+        {
+            // Waits until scene is generated
+            DungeonGenerator dungeonGenerator = FindObjectOfType<DungeonGenerator>();
+            yield return dungeonGenerator.GenerateDungeon();
+        }
+        else
+        {
+            // Waits until scene is generated
+            DungeonGenerator dungeonGenerator = FindObjectOfType<DungeonGenerator>();
+            yield return dungeonGenerator.GenerateDungeon(true);
+        }
+        
 
         // Starts loading screen animation fade out
         GetComponent<Animator>().SetTrigger(backgroundAnimationTrigger);

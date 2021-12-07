@@ -1,6 +1,4 @@
 using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
 
 /// <summary>
 /// Class responsible for handling information of an ability passive card.

@@ -9,7 +9,7 @@ using ExtensionMethods;
 /// <summary>
 /// Class responsible for generating a level.
 /// </summary>
-public class LevelGenerator : MonoBehaviour, ISaveable
+public class LevelGenerator : MonoBehaviour, IDungeonSaveable
 {
     [Header("Generation Values")]
     [Tooltip("FixedUpdate will require more performance but it's faster")]
@@ -82,15 +82,15 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         {
             horizontalMaximumLevelSize = random.Next(75, 500);
             forwardMaximumLevelSize = random.Next(75, 500);
-            minimumNumberOfRooms = random.Next(7, 10);
-            maximumNumberOfRooms = random.Next(12, 16);
+            minimumNumberOfRooms = random.Next(3, 10);
+            maximumNumberOfRooms = random.Next(11, 20);
         }
         else
         {
             if (randomMinimumNumberOfRooms)
-                minimumNumberOfRooms = random.Next(7, 10);
+                minimumNumberOfRooms = random.Next(3, 10);
             if (randomMaximumNumberOfRooms)
-                maximumNumberOfRooms = random.Next(12, 16);
+                maximumNumberOfRooms = random.Next(11, 20);
         }
     }
 
@@ -119,6 +119,25 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         }
 
         yield return generateLevelCoroutine;
+    }
+
+    /// <summary>
+    /// Loads saved data to variables and starts generation with that data.
+    /// </summary>
+    /// <param name="saveData">Saved data.</param>
+    /// <returns>Null.</returns>
+    public IEnumerator LoadGeneration(RunSaveData saveData)
+    {
+        seed = saveData.DungeonSavedData.Seed;
+        horizontalMaximumLevelSize = saveData.DungeonSavedData.HorizontalMaximumLevelSize;
+        forwardMaximumLevelSize = saveData.DungeonSavedData.ForwardMaximumLevelSize;
+        minimumNumberOfRooms = saveData.DungeonSavedData.MinimumNumberOfRooms;
+        maximumNumberOfRooms = saveData.DungeonSavedData.MaximumNumberOfRooms;
+        element = saveData.DungeonSavedData.Element;
+
+        yield return StartGeneration(true);
+
+        yield return null;
     }
 
     /// <summary>
@@ -527,7 +546,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
             // After looping through all points, if it was able to generate boss room
             if (finalRoomSpawned)
             {
-                generateLevelCoroutine = FinalAdjustements(levelParent, openedContactPoints, yi);
+                generateLevelCoroutine = FinalAdjustements(levelParent, openedContactPoints, yi, random);
                 yield return generateLevelCoroutine;
             }
             // Else it will go back to the beggining of the whole loop, destroy everything and 
@@ -539,11 +558,12 @@ public class LevelGenerator : MonoBehaviour, ISaveable
     /// Generates walls to cover all exits with opened contact points.
     /// </summary>
     /// <param name="levelParent">Level parent game object with all pieces.</param>
-    /// <param name="openedContactPoints">List with all opened contact points.</param>
-    /// <param name="wfef">Wait for fixed update.</param>
+    /// <param name="openedContactPoints">List with all opened contact points
+    /// <param name="yi">Yield instruction.</param>
+    /// <param name="random">Systen random instance.</param>
     /// <returns>Null.</returns>
     private IEnumerator FinalAdjustements(GameObject levelParent, IList<ContactPoint> openedContactPoints,
-        YieldInstruction yi)
+        YieldInstruction yi, System.Random random)
     {
         yield return yi;
 
@@ -915,7 +935,7 @@ public class LevelGenerator : MonoBehaviour, ISaveable
 
             // This scene load will depend if it's a new game or loading game
             // Implement in the future
-            SceneManager.LoadScene("LoadingScreenToNewGame");
+            SceneManager.LoadScene(SceneEnum.LoadingScreenToNewGame.ToString());
             ////////////////////////////
         }
     }
@@ -934,27 +954,10 @@ public class LevelGenerator : MonoBehaviour, ISaveable
         saveData.DungeonSavedData.Element = element;
     }
 
-    /// <summary>
-    /// Loads saved data to variables and starts generation with that data.
-    /// </summary>
-    /// <param name="saveData">Saved data.</param>
-    /// <returns>Null.</returns>
     public IEnumerator LoadData(RunSaveData saveData)
     {
-        yield return new WaitForSeconds(0.25f);
-
-        if (this != null) // < DO NOT REMOVE
-        {
-            seed = saveData.DungeonSavedData.Seed;
-            horizontalMaximumLevelSize = saveData.DungeonSavedData.HorizontalMaximumLevelSize;
-            forwardMaximumLevelSize = saveData.DungeonSavedData.ForwardMaximumLevelSize;
-            minimumNumberOfRooms = saveData.DungeonSavedData.MinimumNumberOfRooms;
-            maximumNumberOfRooms = saveData.DungeonSavedData.MaximumNumberOfRooms;
-            element = saveData.DungeonSavedData.Element;
-
-            yield return StartGeneration(true);
-        }
         yield return null;
+        // Left blank on purpose
     }
 
     /// <summary>

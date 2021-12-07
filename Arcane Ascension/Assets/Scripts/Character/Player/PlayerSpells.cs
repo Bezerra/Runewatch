@@ -360,6 +360,7 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
                     if (savedSpells[i] == allSpells[j].ID)
                     {
                         CurrentSpells[i] = allSpells[j];
+                        CurrentSpells[i].CooldownCounter = CurrentSpells[i].Cooldown;
                         break;
                     }
                     else
@@ -379,7 +380,6 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
         CurrentSpellIndex = saveData.PlayerSavedData.CurrentSpellIndex;
 
         SelectSpell(CurrentSpellIndex);
-        StartSpellCooldown();
 
         yield return null;
     }

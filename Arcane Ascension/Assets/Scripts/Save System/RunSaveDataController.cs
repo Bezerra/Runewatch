@@ -81,8 +81,11 @@ public class RunSaveDataController : MonoBehaviour, IFindPlayer
     /// <summary>
     /// Deletes run progress fgile.
     /// </summary>
-    public void DeleteFile() => 
+    public void DeleteFile()
+    {
         fileManager.DeleteFile("RUNPROGRESSFILE.d4s");
+        SaveData = new RunSaveData();
+    }
 
     public void FindPlayer()
     {
