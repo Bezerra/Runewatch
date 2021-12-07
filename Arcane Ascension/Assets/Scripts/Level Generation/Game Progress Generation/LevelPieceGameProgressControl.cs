@@ -1,14 +1,10 @@
-using System.Collections.Generic;
 using UnityEngine;
-using ExtensionMethods;
 
 /// <summary>
-/// Class responsible for controlling what happens when the player is inside a level piece room.
+/// Class responsible for controlling what happens inside a normal level piece room.
 /// </summary>
-public class LevelPieceGameProgressControl : MonoBehaviour
+public class LevelPieceGameProgressControl : LevelPieceGameProgressControlAbstract
 {
-    [SerializeField] private AvailableListOfEnemiesToSpawnSO listOfEnemies;
-
     // Variables to keep track of progress
     // Shopkeeper
     private ShopkeeperGizmosMesh[] shopkeeper;
@@ -21,28 +17,16 @@ public class LevelPieceGameProgressControl : MonoBehaviour
     private GameObject spawnedChest;
     private Chest chestScript;
 
-    // Enemies
-    private EnemySpawnPoint[] enemySpawnPoints;
-    private int quantityOfEnemiesSpawned;
-    private bool haveEnemiesSpawned;
-
-    // Doors and exit blockers
-    private ContactPointDoor[] contactPointsDoors;
-    private IList<BoxCollider> exitBlockers;
-
-    private void Awake()
+    protected override void Awake()
     {
-        enemySpawnPoints = GetComponentsInChildren<EnemySpawnPoint>();
-        contactPointsDoors = GetComponentsInChildren<ContactPointDoor>();
+        base.Awake();
         shopkeeper = GetComponentsInChildren<ShopkeeperGizmosMesh>(true);
         chest = GetComponentInChildren<ChestGizmosMesh>(true);
-
-        GameProgressCollider[] gameProgressColliders = GetComponentsInChildren<GameProgressCollider>(true);
-        exitBlockers = new List<BoxCollider>();
-        foreach (GameProgressCollider gpc in gameProgressColliders)
-            exitBlockers.Add(gpc.GetComponent<BoxCollider>());
     }
 
+    /// <summary>
+    /// Spawns chests after generating level.
+    /// </summary>
     public void SpawnChestAfterGeneration()
     {
         if (RoomSpawnsChest)
@@ -70,7 +54,7 @@ public class LevelPieceGameProgressControl : MonoBehaviour
     /// Blocks/unblocks all exits.
     /// Triggered when the player enters a room or defeats all enemies.
     /// </summary>
-    private void BlockUnblockExits(bool condition)
+    protected override void BlockUnblockExits(bool condition)
     {
         if (exitBlockers.Count > 0)
         {
@@ -107,10 +91,10 @@ public class LevelPieceGameProgressControl : MonoBehaviour
                     for (int i = 0; i < shopkeeper.Length; i++)
                     {
                         Collider[] collisions = Physics.OverlapSphere(
-                            shopkeeper[i].transform.position, 4, 
+                            shopkeeper[i].transform.position, 4,
                             Layers.PlayerNormalAndInvisibleLayer);
 
-                        if(collisions.Length == 0)
+                        if (collisions.Length == 0)
                         {
                             RunProgressPoolCreator.Pool.InstantiateFromPool(
                                 "Shopkeeper", shopkeeper[i].transform.position,
@@ -158,52 +142,6 @@ public class LevelPieceGameProgressControl : MonoBehaviour
             {
                 chestScript.CanOpen = true;
             }
-        }
-    }
-
-    /// <summary>
-    /// Spawns enemies on enemy points of this room.
-    /// </summary>
-    public void SpawnEnemies()
-    {
-        if (haveEnemiesSpawned == false)
-        {
-            if (enemySpawnPoints.Length > 0)
-            {
-                BlockUnblockExits(true);
-
-                foreach (EnemySpawnPoint enemySpawnPoint in enemySpawnPoints)
-                {
-                    GameObject enemySpawnedGO = Instantiate(
-                        listOfEnemies.SpawnEnemy(
-                            enemySpawnPoint.PointInformation[DifficultyType.Normal]),
-                        enemySpawnPoint.transform.position,
-                        enemySpawnPoint.transform.rotation);
-
-                    quantityOfEnemiesSpawned++;
-                    if (enemySpawnedGO.TryGetComponentInChildrenFirstGen(out Stats enemyStats))
-                    {
-                        enemyStats.EventDeath += EnemyDeath;
-                    }
-                }
-                haveEnemiesSpawned = true;
-            }
-        }
-    }
-
-    /// <summary>
-    /// When an enemy dies, checks if all enemies are dead to unblock room exits.
-    /// </summary>
-    /// <param name="enemyStats">EnemyStats of the dead enemy</param>
-    private void EnemyDeath(Stats enemyStats)
-    {
-        enemyStats.EventDeath -= EnemyDeath;
-        quantityOfEnemiesSpawned--;
-
-        // If all enemies area dead
-        if (quantityOfEnemiesSpawned == 0)
-        {
-            BlockUnblockExits(false);
         }
     }
 }
