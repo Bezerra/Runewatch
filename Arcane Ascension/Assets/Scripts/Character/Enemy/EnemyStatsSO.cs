@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
-using System;
+using ExtensionMethods;
 
 /// <summary>
 /// Scriptable object with stats for an enemy.
@@ -71,14 +72,14 @@ public class EnemyStatsSO : StatsSO
     public struct LootRates
     {
         [SerializeField] private List<LootPiece> lootPieces;
-        private float randomChance;
+        private System.Random random;
         public IList<(LootType, Vector3)> DroppedLoot { get; private set; }
         private CharacterSaveDataController stpData;
 
         public void Init(CharacterSaveDataController stpData)
         {
             DroppedLoot = new List<(LootType, Vector3)>();
-            randomChance = UnityEngine.Random.Range(0, 100f);
+            random = new System.Random();
             this.stpData = stpData;
         }
 
@@ -96,7 +97,7 @@ public class EnemyStatsSO : StatsSO
                     lootPieces[i].LootRate = stpData.SaveData.Reaper;
                 }
 
-                if (randomChance < lootPieces[i].LootRate)
+                if (lootPieces[i].LootRate.PercentageCheck(random))
                 {
                     Vector3 newPosition = position + new Vector3(
                         UnityEngine.Random.Range(-1f, 1f), 0,
