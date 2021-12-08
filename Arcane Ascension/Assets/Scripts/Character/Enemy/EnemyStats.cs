@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.AI;
+using ExtensionMethods;
 
 /// <summary>
 /// Class responsible for handling enemy stats.
@@ -11,6 +12,8 @@ public class EnemyStats : Stats
 
     // Creates a list of room weights 
     public IList<int> AvailableSpellsWeight { get; private set; }
+
+    private IList<(LootType, Vector3)> droppedLoot;
 
     // Save data
     private CharacterSaveDataController stpData;
@@ -24,7 +27,8 @@ public class EnemyStats : Stats
         // Creates a list of spell weights 
         AvailableSpellsWeight = new List<int>();
         stpData = FindObjectOfType<CharacterSaveDataController>();
-        EnemyAttributes.Initialize(stpData);
+        EnemyAttributes.Initialize();
+        droppedLoot = new List<(LootType, Vector3)>();
     }
 
     protected override void Start()
@@ -84,8 +88,8 @@ public class EnemyStats : Stats
                 OnEventDeath(this);
 
                 // Gets random drops and spawns them
-                EnemyAttributes.Rates.GetDrop(transform.position + new Vector3(0, -transform.localPosition.y * 0.5f, 0));
-                IEnumerator<(LootType, Vector3)> itemEnumerator = EnemyAttributes.Rates.DroppedLoot.GetEnumerator();
+                GetDrop(transform.position + new Vector3(0, -transform.localPosition.y * 0.5f, 0));
+                IEnumerator<(LootType, Vector3)> itemEnumerator = droppedLoot.GetEnumerator();
                 while (itemEnumerator.MoveNext())
                 {
                     GameObject spawnedLoot = ItemLootPoolCreator.Pool.InstantiateFromPool(
@@ -162,8 +166,8 @@ public class EnemyStats : Stats
                 OnEventDeath(this);
 
                 // Gets random drops and spawns them
-                EnemyAttributes.Rates.GetDrop(transform.position + new Vector3(0, -transform.localPosition.y * 0.5f, 0));
-                IEnumerator<(LootType, Vector3)> itemEnumerator = EnemyAttributes.Rates.DroppedLoot.GetEnumerator();
+                GetDrop(transform.position + new Vector3(0, -transform.localPosition.y * 0.5f, 0));
+                IEnumerator<(LootType, Vector3)> itemEnumerator = droppedLoot.GetEnumerator();
                 while (itemEnumerator.MoveNext())
                 {
                     GameObject spawnedLoot = ItemLootPoolCreator.Pool.InstantiateFromPool(
@@ -185,6 +189,31 @@ public class EnemyStats : Stats
                 }
 
                 this.enabled = false;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Gets a drop and sets random position with a received position.
+    /// </summary>
+    /// <param name="position">Position to set the item.</param>
+    public void GetDrop(Vector3 position)
+    {
+        for (int i = 0; i < EnemyAttributes.Rates.LootPieces.Count; i++)
+        {
+            // If it's a healing potion, its rate will be automatically set
+            if (EnemyAttributes.Rates.LootPieces[i].LootType == LootType.PotionHealing)
+            {
+                EnemyAttributes.Rates.LootPieces[i].LootRate = stpData.SaveData.Reaper;
+            }
+
+            if (EnemyAttributes.Rates.LootPieces[i].LootRate.PercentageCheck(random))
+            {
+                Vector3 newPosition = position + new Vector3(
+                    UnityEngine.Random.Range(-1f, 1f), 0,
+                    UnityEngine.Random.Range(-1f, 1f));
+
+                droppedLoot.Add((EnemyAttributes.Rates.LootPieces[i].LootType, newPosition));
             }
         }
     }

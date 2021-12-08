@@ -58,10 +58,8 @@ public class EnemyStatsSO : StatsSO
     /// <summary>
     /// Initiates lootrates struct.
     /// </summary>
-    /// <param name="stpData">Save data.</param>
-    public void Initialize(CharacterSaveDataController stpData)
+    public void Initialize()
     {
-        lootRates.Init(stpData);
         AttackingSpeedReductionMultiplier = 1f;
     }
 
@@ -72,47 +70,13 @@ public class EnemyStatsSO : StatsSO
     public struct LootRates
     {
         [SerializeField] private List<LootPiece> lootPieces;
-        private System.Random random;
-        public IList<(LootType, Vector3)> DroppedLoot { get; private set; }
-        private CharacterSaveDataController stpData;
-
-        public void Init(CharacterSaveDataController stpData)
-        {
-            DroppedLoot = new List<(LootType, Vector3)>();
-            random = new System.Random();
-            this.stpData = stpData;
-        }
-
-        /// <summary>
-        /// Gets a drop and sets random position with a received position.
-        /// </summary>
-        /// <param name="position">Position to set the item.</param>
-        public void GetDrop(Vector3 position)
-        {
-            for (int i = 0; i < lootPieces.Count; i++)
-            {
-                // If it's a healing potion, its rate will be automatically set
-                if (lootPieces[i].LootType == LootType.PotionHealing)
-                {
-                    lootPieces[i].LootRate = stpData.SaveData.Reaper;
-                }
-
-                if (lootPieces[i].LootRate.PercentageCheck(random))
-                {
-                    Vector3 newPosition = position + new Vector3(
-                        UnityEngine.Random.Range(-1f, 1f), 0,
-                        UnityEngine.Random.Range(-1f, 1f));
-
-                    DroppedLoot.Add((lootPieces[i].LootType, newPosition));
-                }
-            }
-        }
+        public List<LootPiece> LootPieces => lootPieces;
 
         /// <summary>
         /// Class with a type of loot and its chance of being dropped.
         /// </summary>
         [Serializable]
-        private class LootPiece
+        public class LootPiece
         {
             [SerializeField] private LootType lootType;
             [Range(0f, 100f)] [SerializeField] private float lootRate;
