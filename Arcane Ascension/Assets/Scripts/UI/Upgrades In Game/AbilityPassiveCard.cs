@@ -18,6 +18,14 @@ public class AbilityPassiveCard : MonoBehaviour, IFindPlayer
 
     private void Awake()
     {
+        CallAwake();
+    }
+
+    /// <summary>
+    /// This is also called on AbilityPassiveChoice enable, to prevent null errors.
+    /// </summary>
+    public void CallAwake()
+    {
         abilitiesCanvas = GetComponentInParent<AbilitiesCanvas>();
         thisCardInformation = GetComponentInChildren<AbilityPassiveCardText>();
         FindPlayer();

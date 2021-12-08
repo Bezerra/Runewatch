@@ -30,6 +30,7 @@ public class AbilityPassiveChoice : MonoBehaviour
                 {
                     passiveCards[i].PassiveOnCard = null;
                 }
+                passiveCards[i].CallAwake();
                 passiveCards[i].UpdateInformation();
             }
 

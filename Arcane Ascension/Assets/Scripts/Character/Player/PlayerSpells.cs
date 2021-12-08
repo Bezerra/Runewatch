@@ -382,7 +382,7 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
         // Loads current spell selected
         CurrentSpellIndex = saveData.PlayerSavedData.CurrentSpellIndex;
 
-        SelectSpell(CurrentSpellIndex);
+        SelectSpell(CurrentSpellIndex, true);
 
         yield return null;
     }

@@ -78,11 +78,9 @@ sealed public class ActionAttack : FSMAction
                     ai.Controller.CurrentTarget.transform.position) >
                     ai.Controller.CurrentlySelectedSpell.Range + 0.02f)
                 {
-                    ai.Controller.MovingCloseToAttack = true;
                     ai.Controller.Agent.SetDestination(ai.Controller.CurrentTarget.position);
                     return;
                 }
-                ai.Controller.MovingCloseToAttack = false;
 
                 // If the enemy is looking towards the player (with tolerance)
                 if (ai.Controller.transform.IsLookingTowards(
@@ -137,6 +135,5 @@ sealed public class ActionAttack : FSMAction
         ai.AllowedToChangeState = true;
         ai.Controller.CanRunAttackStoppedLoop = true;
         ai.Controller.CanRunAttackLoop = true;
-        ai.Controller.MovingCloseToAttack = false;
     }
 }
