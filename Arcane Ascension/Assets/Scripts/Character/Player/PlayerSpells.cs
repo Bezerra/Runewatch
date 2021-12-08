@@ -49,8 +49,10 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
         wffu = new WaitForFixedUpdate();
     }
 
-    private void Start()
+    private IEnumerator Start()
     {
+        yield return null;
+
         if (ADDINITIALSPELLSFORTESTS > 0)
         {
             //// TEMPORARY TESTS // Adds 4 spells to current spells
@@ -67,7 +69,6 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
             if (CurrentSpells[0] != null)
             {
                 SelectSpell(0, true);
-
                 StartSpellCooldown();
             }
         }

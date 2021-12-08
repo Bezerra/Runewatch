@@ -66,6 +66,6 @@ sealed public class SpellBehaviourHomingSO : SpellBehaviourAbstractOneShotSO
 
     public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
-        // Left blank on purpose
+        parent.Rb.constraints = RigidbodyConstraints.FreezePosition;
     }
 }

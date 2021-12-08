@@ -33,7 +33,7 @@ public class SpellBehaviourDisableProjectileIfCollisionSO : SpellBehaviourAbstra
                     parent.EffectStop();
                 }
             }
-
+      
             if (Time.time - parent.TimeOfImpact > disableAfterSecondsAfterCollision)
             {
                 if (parent.HasEffect)

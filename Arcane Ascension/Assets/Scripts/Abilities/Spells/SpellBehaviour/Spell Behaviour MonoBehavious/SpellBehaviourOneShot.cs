@@ -127,7 +127,11 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         DisableImmediatly = false;
         HomingTarget = null;
 
-        if (Rb != null) Rb.velocity = Vector3.zero;
+        if (Rb != null)
+        {
+            Rb.constraints = RigidbodyConstraints.None;
+            Rb.velocity = Vector3.zero;
+        }
     }
 
     /// <summary>
