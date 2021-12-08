@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
     private float   movementZ;
     private Vector3 directionPressed;
     private float   speed;
-    public float    Speed { get => speed; private set { speed = value; OnEventSpeedChange(speed); } }
+    public float    Speed { get => speed; private set { speed = value; OnEventSpeedChange(Speed); } }
     public bool     Running { get; private set; }
     private Vector3 positionOnLastCalculation;
 
@@ -441,6 +441,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
 
     // Subscribed on PlayerSounds
     protected virtual void OnEventSpeedChange(float speed) => EventSpeedChange?.Invoke(speed);
+    public event Action<float> EventSpeedChange;
 
     public void FindInput()
     {
@@ -465,7 +466,5 @@ public class PlayerMovement : MonoBehaviour, IFindInput
             input.Dash -= Dash;
             input.Run -= Run;
         }
-    }
-
-    public event Action<float> EventSpeedChange;
+    }    
 }

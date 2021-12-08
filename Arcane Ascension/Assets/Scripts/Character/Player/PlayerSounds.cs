@@ -47,16 +47,18 @@ public class PlayerSounds : MonoBehaviour
     {
         playerMovement.EventDash += PlayDash;
         playerCurrency.EventSpendMoney += SpendMoney;
-        playerMovement.EventSpeedChange += UpdateStepSoundDelay;
         playerStats.EventTakeDamage += PlayTakeDamage;
+        playerStats.EventSpeedUpdate += UpdateStepSoundDelay;
+        playerMovement.EventSpeedChange += UpdateStepSoundDelay;
     }
 
     private void OnDisable()
     {
         playerMovement.EventDash -= PlayDash;
         playerCurrency.EventSpendMoney -= SpendMoney;
-        playerMovement.EventSpeedChange -= UpdateStepSoundDelay;
         playerStats.EventTakeDamage -= PlayTakeDamage;
+        playerStats.EventSpeedUpdate -= UpdateStepSoundDelay;
+        playerMovement.EventSpeedChange -= UpdateStepSoundDelay;
     }
 
     private void PlayDash() =>
@@ -71,12 +73,12 @@ public class PlayerSounds : MonoBehaviour
     /// <summary>
     /// Updates step sound delay based on player's speed.
     /// </summary>
-    /// <param name="speed">Player's speed.</param>
+    /// <param name="speed">Current speed.</param>
     private void UpdateStepSoundDelay(float speed)
     {
-        if (speed > player.Values.Speed * 
+        if (Mathf.Round(speed) > Mathf.Round(player.Values.Speed * 
             playerStats.CommonAttributes.MovementSpeedMultiplier *
-            playerStats.CommonAttributes.MovementStatusEffectMultiplier)
+            playerStats.CommonAttributes.MovementStatusEffectMultiplier))
         {
             stepSoundDelay = STEPSOUNDDELAYRUNNING;
         }
