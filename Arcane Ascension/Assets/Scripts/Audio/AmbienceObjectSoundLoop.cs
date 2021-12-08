@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for playing the sound of an ambience object.
 /// </summary>
-public class AmbienceObjectSound : MonoBehaviour
+public class AmbienceObjectSoundLoop : MonoBehaviour
 {
     [SerializeField] private AbstractSoundSO soundToPlay;
 

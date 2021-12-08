@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 7073652169992678357}
   - component: {fileID: -2555030268529842623}
-  - component: {fileID: 7073652169992678358}
   - component: {fileID: 7073652169992678359}
+  - component: {fileID: -4464377105410022785}
+  - component: {fileID: 2193526088744194126}
   m_Layer: 1
-  m_Name: Interact Passive Orb
+  m_Name: Sound - Door Open
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,20 +47,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsToWait: 5
---- !u!114 &7073652169992678358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7073652169992678361}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fdcab0e64772de41a479d2b0d74d149, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lootName: 11
-  lootSounds: {fileID: 11400000, guid: 7849472f2e898c145af48e9b825fefdf, type: 2}
 --- !u!82 &7073652169992678359
 AudioSource:
   m_ObjectHideFlags: 0
@@ -86,7 +73,7 @@ AudioSource:
   rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
-  BypassReverbZones: 1
+  BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -156,3 +143,30 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-4464377105410022785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7073652169992678361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84badda930a10534293bc9a7eefb0bf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundMaxDistance: 35
+  fadeUntilThisValue: 0.3
+--- !u!114 &2193526088744194126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7073652169992678361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb6c7a16503468048b1ece584693a4db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ambienceSound: {fileID: 11400000, guid: 9a40b45425948f14fb1305080a898703, type: 2}
