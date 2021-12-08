@@ -215,7 +215,9 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
 
             // If enough time has passed, last hit game object will be null
             if (Time.time - TimeOfImpact > 0.1f)
+            {
                 lastHitGameObject = null;
+            }
 
             if (lastHitGameObject != other.gameObject)
             {
@@ -240,7 +242,24 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
                     {
                         return;
                     }
-   
+
+                    if (spellHitPoint.collider.TryGetComponent(out BoxCollider boxCollider))
+                    {
+                        if (Vector3.Dot(spellHitPoint.collider.gameObject.transform.up, 
+                            spellHitPoint.normal) == 0)
+                        {
+                            if (boxCollider.size.y < 0.01)
+                                return;
+                        }
+
+                        if (Vector3.Dot(spellHitPoint.collider.gameObject.transform.forward, 
+                            spellHitPoint.normal) == 0)
+                        {
+                            if (boxCollider.size.z < 0.01)
+                                return;
+                        }
+                    }
+
                     PositionOnHit = transform.position;
                     TimeOfImpact = Time.time;
 

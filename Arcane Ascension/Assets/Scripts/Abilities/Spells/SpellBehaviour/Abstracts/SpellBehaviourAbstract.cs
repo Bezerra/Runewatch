@@ -54,7 +54,7 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
     /// <summary>
     /// Updated when spawned.
     /// </summary>
-    public Vector3 PositonWhenSpawned { get; set; }
+    public Vector3 PositionWhenSpawned { get; set; }
 
     /// <summary>
     /// Used if the character who cast the spell is an enemy.
@@ -85,6 +85,7 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
                 if (whoCast.TryGetComponent<Character>(out Character character))
                 {
                     Hand = character.Hand;
+                    PositionWhenSpawned = Hand.transform.position;
                     Eyes = character.Eyes;
                 }
 
@@ -109,7 +110,7 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
     protected virtual void OnEnable()
     {
         PositionOnHit = transform.position;
-        if (Hand != null) PositonWhenSpawned = Hand.transform.position;
+        if (Hand != null) PositionWhenSpawned = Hand.transform.position;
     }
 
     protected virtual void OnDisable()

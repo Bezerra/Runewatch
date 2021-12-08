@@ -92,7 +92,7 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractOneShotSO
     {
         parent.ProjectileReflected = false;
 
-        parent.PositonWhenSpawned = parent.transform.position;
+        parent.PositionWhenSpawned = parent.transform.position;
 
         Vector3 reflection = Vector3.Reflect(parent.Rb.velocity, spellHitPoint.normal).normalized;
 

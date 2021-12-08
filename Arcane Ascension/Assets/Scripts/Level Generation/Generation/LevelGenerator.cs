@@ -82,15 +82,15 @@ public class LevelGenerator : MonoBehaviour, IDungeonSaveable
         {
             horizontalMaximumLevelSize = random.Next(75, 500);
             forwardMaximumLevelSize = random.Next(75, 500);
-            minimumNumberOfRooms = random.Next(3, 10);
-            maximumNumberOfRooms = random.Next(11, 20);
+            minimumNumberOfRooms = random.Next(1, 10);
+            maximumNumberOfRooms = random.Next(5, 30);
         }
         else
         {
             if (randomMinimumNumberOfRooms)
-                minimumNumberOfRooms = random.Next(3, 10);
+                minimumNumberOfRooms = random.Next(1, 10);
             if (randomMaximumNumberOfRooms)
-                maximumNumberOfRooms = random.Next(11, 20);
+                maximumNumberOfRooms = random.Next(5, 30);
         }
     }
 
