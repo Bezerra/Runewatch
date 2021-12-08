@@ -32,22 +32,22 @@ MonoBehaviour:
   defaultCriticalChance: 0.1
   defaultCriticalDamageModifier: 1
   attackingDelay: {x: 0, y: 0}
-  goldQuantity: {x: 50, y: 100}
+  goldQuantity: {x: 0, y: 3}
   arcanePowerQuantity: {x: 5, y: 10}
   lootRates:
     lootPieces:
     - lootType: 1
-      lootRate: 25
+      lootRate: 100
     - lootType: 0
-      lootRate: 15
+      lootRate: 30
     - lootType: 4
       lootRate: 5
     - lootType: 2
-      lootRate: 5
+      lootRate: 2.5
     - lootType: 5
       lootRate: 0
     - lootType: 6
-      lootRate: 5
+      lootRate: 15
   availableSpells:
   - spell: {fileID: 11400000, guid: ece89201399664e43a5c2cc72bd908d8, type: 2}
     isMeleeAttack: 0
