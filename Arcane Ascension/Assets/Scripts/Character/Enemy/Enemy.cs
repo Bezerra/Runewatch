@@ -114,6 +114,11 @@ public class Enemy : Character
     public float TimeOfLastAttack { get; set; }
 
     /// <summary>
+    /// Property used to know if the enemy is getting close to try to attack.
+    /// </summary>
+    public bool MovingCloseToAttack { get; set; }
+
+    /// <summary>
     /// The delay of each attack.
     /// </summary>
     public float AttackDelay { get; set; }

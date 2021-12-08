@@ -14,6 +14,9 @@ sealed public class ActionLookToPlayer : FSMAction
 
     private void RotateToPlayer(StateController<Enemy> ai)
     {
+        if (ai.Controller.MovingCloseToAttack)
+            return;
+
         if (ai.Controller.CurrentTarget != null)
         {
             if (ai.Controller.RunningBackwards == false)

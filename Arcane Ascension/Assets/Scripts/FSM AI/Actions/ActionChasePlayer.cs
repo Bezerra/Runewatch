@@ -16,7 +16,7 @@ sealed public class ActionChasePlayer : FSMAction
     {
         // If the enemy is inside a current attack that needs him to stop, ignores the rest of the method
         if (ai.Controller.WalkingBackwards || ai.Controller.RunningBackwards ||
-            ai.Controller.IsAttackingWithStoppingTime)
+            ai.Controller.IsAttackingWithStoppingTime || ai.Controller.MovingCloseToAttack)
         {
             return;
         }
