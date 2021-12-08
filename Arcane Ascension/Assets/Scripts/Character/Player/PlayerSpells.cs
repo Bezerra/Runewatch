@@ -203,10 +203,10 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
     }
 
     /// <summary>
-    /// Sets a spell as active spell on game start.
+    /// Sets a spell as active spell.
     /// </summary>
     /// <param name="index">Index of the spell on array.</param>
-    private void SelectSpell(byte index, bool initialSelection)
+    public void SelectSpell(byte index, bool overrideSelection)
     {
         if (CurrentSpells[index] != null)
         {
@@ -248,6 +248,7 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
                     if (playerStats.PlayerAttributes.AvailableSpells.Contains(spellToAdd) == false)
                         playerStats.PlayerAttributes.AvailableSpells.Add(spellToAdd);
                     CurrentSpells[i] = spellToAdd;
+                    SelectSpell(CurrentSpellIndex, true);
                     StartSpellCooldown(CurrentSpells[i]);
                     break;
                 }
@@ -271,6 +272,7 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
                     if (playerStats.PlayerAttributes.AvailableSpells.Contains(spellToAdd) == false)
                         playerStats.PlayerAttributes.AvailableSpells.Add(spellToAdd);
                     CurrentSpells[i] = spellToAdd;
+                    SelectSpell(CurrentSpellIndex, true);
                     StartSpellCooldown(CurrentSpells[i]);
                     break;
                 }

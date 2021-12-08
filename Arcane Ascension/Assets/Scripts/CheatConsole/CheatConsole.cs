@@ -312,8 +312,7 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
     {
         playerSpells.RemoveSpell(number2 - 1);
         playerSpells.AddSpell(spell, number2 - 1);
-        playerSpells.SelectSpell(playerSpells.CurrentSpellIndex);
-        //FindObjectOfType<PlayerHandEffect>().UpdatePlayerHandEffect(playerSpells.ActiveSpell);
+        playerSpells.SelectSpell(playerSpells.CurrentSpellIndex, true);
     }
 
     #endregion
