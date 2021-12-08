@@ -184,7 +184,7 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
     /// Sets a spell as active spell.
     /// </summary>
     /// <param name="index">Index of the spell on array.</param>
-    private void SelectSpell(byte index)
+    public void SelectSpell(byte index)
     {
         if (playerCastSpell.CurrentlyCasting == false)
         {

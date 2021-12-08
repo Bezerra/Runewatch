@@ -16,7 +16,6 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
     [SerializeField] private GameObject consoleGameObject;
     [SerializeField] private TMP_InputField inputField;
     private bool showConsole;
-    private YieldInstruction wffu;
     private EventSystem eventSystem;
 
     // Variables for cheats
@@ -36,7 +35,6 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
     private void Awake()
     {
         input = FindObjectOfType<PlayerInputCustom>();
-        wffu = new WaitForFixedUpdate();
         eventSystem = FindObjectOfType<EventSystem>();
 
         FindRequiredComponents();
@@ -314,6 +312,7 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
     {
         playerSpells.RemoveSpell(number2 - 1);
         playerSpells.AddSpell(spell, number2 - 1);
+        FindObjectOfType<PlayerHandEffect>().UpdatePlayerHandEffect(playerSpells.ActiveSpell);
     }
 
     #endregion
