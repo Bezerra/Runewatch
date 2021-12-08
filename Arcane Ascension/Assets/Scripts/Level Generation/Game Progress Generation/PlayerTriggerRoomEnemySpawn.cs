@@ -15,7 +15,7 @@ public class PlayerTriggerRoomEnemySpawn : MonoBehaviour
             if (other.gameObject.layer == Layers.RoomProgressLayerNum)
             {
                 if (other.TryGetComponentInParent(
-                    out LevelPieceGameProgressControlNormalRoom progressControl))
+                    out LevelPieceGameProgressControlAbstract progressControl))
                 {
                     progressControl.SpawnEnemies();
                 }
