@@ -47,6 +47,8 @@ public class PauseMenuCanvasUI : MonoBehaviour, IFindInput, IFindPlayer
             raycaster.enabled = false;
             canvas.enabled = false;
             backgroundCanvas.SetActive(false);
+            MenuIntroDisable();
+            MenuOptionsDisable();
         }
         else
         {
