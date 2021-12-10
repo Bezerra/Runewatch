@@ -17,9 +17,9 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 80f5331606fed4447979df3004b1f8e9, type: 3}
   element: 4
   characterType: 1
-  defaultHealth: 90
-  damageResistance: 0.1
-  defaultMovementSpeedMultiplier: 1
+  defaultHealth: 45
+  damageResistance: 0
+  defaultMovementSpeedMultiplier: 3
   defaultBaseDamageMultiplier: 2
   defaultNeutralMultiplier: 1
   defaultIgnisMultiplier: 1
@@ -29,9 +29,9 @@ MonoBehaviour:
   defaultNaturaMultiplier: 1
   defaultLuxMultiplier: 1
   defaultUmbraMultiplier: 1
-  defaultCriticalChance: 0.1
+  defaultCriticalChance: 0.5
   defaultCriticalDamageModifier: 1
-  attackingDelay: {x: 1.5, y: 2}
+  attackingDelay: {x: 0, y: 0}
   goldQuantity: {x: 1, y: 5}
   arcanePowerQuantity: {x: 5, y: 10}
   lootRates:
@@ -52,8 +52,8 @@ MonoBehaviour:
   - spell: {fileID: 11400000, guid: b0d9d2fceb4a0534d93d2a1c31319172, type: 2}
     isMeleeAttack: 1
     spellWeight: 100
-    range: {x: 3, y: 3.5}
-    needsToBeInRangeToAttack: 1
+    range: {x: 2.5, y: 3}
+    needsToBeInRangeToAttack: 0
     enemyStopsOnAttack: 1
     stoppingTime: 0.25
     percentageStoppingTimeTriggerAoESpell: 0
