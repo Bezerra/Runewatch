@@ -13,7 +13,7 @@ public class EnemyStatsSO : StatsSO
 {
     [BoxGroup("General Stats")]
     [Tooltip("Minimum and maximum random delay of attack")]
-    [RangeMinMax(1, 20f)] [SerializeField] private Vector2 attackingDelay;
+    [RangeMinMax(0, 20f)] [SerializeField] private Vector2 attackingDelay;
 
     [BoxGroup("General Stats")]
     [RangeMinMax(0, 1000)] [SerializeField] private Vector2 goldQuantity;

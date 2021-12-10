@@ -33,10 +33,10 @@ public abstract class StatsSO : ScriptableObject
     [BoxGroup("General Stats")]
     [Range(0f, 1f)] [SerializeField] private float damageResistance;
     [BoxGroup("General Stats")]
-    [Range(0f, 2f)] [SerializeField] private float defaultMovementSpeedMultiplier;
+    [Range(0f, 5f)] [SerializeField] private float defaultMovementSpeedMultiplier;
     [BoxGroup("Damage Stats")]
     [DetailedInfoBox("Base Damage percentage of spell damage", "Base Damage percentage of spell damage")]
-    [Range(0f, 2f)] [SerializeField] private float defaultBaseDamageMultiplier;
+    [Range(0f, 5f)] [SerializeField] private float defaultBaseDamageMultiplier;
     [BoxGroup("Damage Stats")]
     [Range(1f, 2f)] [SerializeField] private float defaultNeutralMultiplier;
     [BoxGroup("Damage Stats")]
