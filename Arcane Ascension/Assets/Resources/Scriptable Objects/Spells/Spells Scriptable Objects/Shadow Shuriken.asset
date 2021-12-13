@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa9d642721915f846be63fa9e31b1ec0, type: 3}
-  m_Name: Light Dagger
+  m_Name: Shadow Shuriken
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 3da25cba4dceb0a4eb5f4be26c3e14e5, type: 3}
-  name: Light Dagger
+  icon: {fileID: 0}
+  name: Shadow Shuriken
   spellTier: 1
-  description: Throws a dagger made of light that pierces foes and boucnes on surfaces.
+  description: Throws a shuriken made of darkness that pierces foes and boucnes on
+    surfaces.
   elementIcon: {fileID: 21300000, guid: 53ac9e47d1d596c469daa99511f6c006, type: 3}
   element: 6
   manaCost: 6
@@ -23,23 +24,23 @@ MonoBehaviour:
   timeInterval: 0.01
   maxTime: 0.1
   areaOfEffect: 2
-  playerDamage: {x: 8, y: 12}
+  playerDamage: {x: 3, y: 4}
   enemyDamage: {x: 10, y: 12}
   delayToDoDamage: 0
   spellCastType: 0
-  speed: 30
+  speed: 25
   cooldown: 0.15
   maximumDistance: 40
-  spellPrefab: {fileID: 4544114618391733411, guid: a65f98e3b4741ed4dbe17da8ec297d11, type: 3}
-  spellHitPrefab: {fileID: 1692217177674820475, guid: 1595743cbfa82b54e8e47fdb1922cbfd, type: 3}
-  spellMuzzlePrefab: {fileID: 7228047335470632946, guid: cd5f5e9e9e727a04f874407f2dc12c35, type: 3}
-  spellHandEffectPrefab: {fileID: 5965007050869265157, guid: b5ac2d203b8b5f34daff24f297c095d0, type: 3}
+  spellPrefab: {fileID: 4544114618391733411, guid: b122656750287274c959e10757a93361, type: 3}
+  spellHitPrefab: {fileID: 1692217177674820475, guid: 8dc7fa19d49e87a40b12be66c6c78e64, type: 3}
+  spellMuzzlePrefab: {fileID: 7228047335470632946, guid: 666b75379a737fd4ab1c4aefad537859, type: 3}
+  spellHandEffectPrefab: {fileID: 5965007050869265157, guid: 4300263d8629e5d4ca8e733b82ec3a36, type: 3}
   areaHoverPrefab: {fileID: 0}
   damageBehaviour: {fileID: 11400000, guid: f61f29a589d8b6b49ab8eb8d558e9ac2, type: 2}
   statusBehaviour: {fileID: 0}
   sounds:
     projectile: {fileID: 0}
-    muzzle: {fileID: 11400000, guid: b748bc9e8406ce2438717080fdcfa5b5, type: 2}
+    muzzle: {fileID: 0}
     hit: {fileID: 0}
   surfaceSounds:
   - sound: {fileID: 11400000, guid: 39b6eaad5000c914bb9821991388ebd5, type: 2}
