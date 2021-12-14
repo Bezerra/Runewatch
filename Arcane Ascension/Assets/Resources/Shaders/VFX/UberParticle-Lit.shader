@@ -34,6 +34,7 @@ Shader "D4/Particles/UberParticle-Lit"
 		_OffsetMaskSpeed("Offset Mask Speed", Vector) = (0,0,0,0)
 		[Toggle]_UseOffsetMaskAlpha("Use Offset Mask Alpha", Float) = 0
 		[Toggle]_InvertOffsetMask("Invert Offset  Mask", Float) = 0
+		[Header(PBR)][Normal]_NormalTexture("Normal Texture", 2D) = "white" {}
 		_Metallic("Metallic", Range( 0 , 1)) = 0
 		[ASEEnd]_Roughness("Roughness", Range( 0 , 1)) = 0
 		[HideInInspector] _texcoord( "", 2D ) = "white" {}
@@ -193,6 +194,7 @@ Shader "D4/Particles/UberParticle-Lit"
 			#pragma multi_compile _ LOD_FADE_CROSSFADE
 			#pragma multi_compile_fog
 			#define ASE_FOG 1
+			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 110000
 			#define REQUIRE_DEPTH_TEXTURE 1
 
@@ -269,22 +271,23 @@ Shader "D4/Particles/UberParticle-Lit"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
+			float4 _MaskTexture_ST;
 			float4 _VertexOffsetTexture_ST;
 			float4 _DissolveTexture_ST;
 			float4 _DissolveMask_ST;
-			float4 _DistortTexture_ST;
+			float4 _NormalTexture_ST;
 			float4 _OffsetMaskTexture_ST;
+			float4 _DistortTexture_ST;
 			float4 _FresnelColor;
 			float4 _Color;
-			float4 _MaskTexture_ST;
 			float4 _MainTexture_ST;
-			float2 _VertexOffsetSpeed;
 			float2 _DissolveSpeed;
 			float2 _DistortSpeed;
 			float2 _MaskSpeed;
+			float2 _VertexOffsetSpeed;
 			float2 _MainTextureSpeed;
 			float2 _OffsetMaskSpeed;
-			float _UseMaskAlpha;
+			float _InvertMask;
 			float _DissolveAmount;
 			float _UseCustomDissolveTex0z;
 			float _OffsetStrength;
@@ -297,7 +300,7 @@ Shader "D4/Particles/UberParticle-Lit"
 			float _DistortStrength;
 			float _FresnelPower;
 			float _UseDepth;
-			float _InvertMask;
+			float _UseMaskAlpha;
 			float _DepthDistance;
 			#ifdef _TRANSMISSION_ASE
 				float _TransmissionShadow;
@@ -324,6 +327,7 @@ Shader "D4/Particles/UberParticle-Lit"
 			sampler2D _MainTexture;
 			sampler2D _MaskTexture;
 			sampler2D _DistortTexture;
+			sampler2D _NormalTexture;
 			sampler2D _DissolveMask;
 			sampler2D _DissolveTexture;
 			uniform float4 _CameraDepthTexture_TexelSize;
@@ -546,6 +550,8 @@ Shader "D4/Particles/UberParticle-Lit"
 				float2 appendResult130_g1 = (float2(temp_output_19_0_g1 , temp_output_19_0_g1));
 				float4 temp_output_9_0_g145 = ( IN.ase_color * _Color * tex2D( _MainTexture, ( panner2_g146 + appendResult130_g1 ) ) );
 				
+				float2 uv_NormalTexture = IN.ase_texcoord7.xy * _NormalTexture_ST.xy + _NormalTexture_ST.zw;
+				
 				float2 uv_DissolveMask = IN.ase_texcoord7.xy * _DissolveMask_ST.xy + _DissolveMask_ST.zw;
 				float4 tex2DNode77_g1 = tex2D( _DissolveMask, uv_DissolveMask );
 				float2 uv_DissolveTexture = IN.ase_texcoord7.xy * _DissolveTexture_ST.xy + _DissolveTexture_ST.zw;
@@ -561,7 +567,7 @@ Shader "D4/Particles/UberParticle-Lit"
 				float distanceDepth114_g1 = saturate( abs( ( screenDepth114_g1 - LinearEyeDepth( ase_screenPosNorm.z,_ZBufferParams ) ) / ( _DepthDistance ) ) );
 				
 				float3 Albedo = ( (Fresnel122_g1).rgb + (temp_output_9_0_g145).rgb );
-				float3 Normal = float3(0, 0, 1);
+				float3 Normal = UnpackNormalScale( tex2D( _NormalTexture, uv_NormalTexture ), 1.0f );
 				float3 Emission = 0;
 				float3 Specular = 0.5;
 				float Metallic = _Metallic;
@@ -739,6 +745,7 @@ Shader "D4/Particles/UberParticle-Lit"
 			#pragma multi_compile _ LOD_FADE_CROSSFADE
 			#pragma multi_compile_fog
 			#define ASE_FOG 1
+			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 110000
 			#define REQUIRE_DEPTH_TEXTURE 1
 
@@ -782,22 +789,23 @@ Shader "D4/Particles/UberParticle-Lit"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
+			float4 _MaskTexture_ST;
 			float4 _VertexOffsetTexture_ST;
 			float4 _DissolveTexture_ST;
 			float4 _DissolveMask_ST;
-			float4 _DistortTexture_ST;
+			float4 _NormalTexture_ST;
 			float4 _OffsetMaskTexture_ST;
+			float4 _DistortTexture_ST;
 			float4 _FresnelColor;
 			float4 _Color;
-			float4 _MaskTexture_ST;
 			float4 _MainTexture_ST;
-			float2 _VertexOffsetSpeed;
 			float2 _DissolveSpeed;
 			float2 _DistortSpeed;
 			float2 _MaskSpeed;
+			float2 _VertexOffsetSpeed;
 			float2 _MainTextureSpeed;
 			float2 _OffsetMaskSpeed;
-			float _UseMaskAlpha;
+			float _InvertMask;
 			float _DissolveAmount;
 			float _UseCustomDissolveTex0z;
 			float _OffsetStrength;
@@ -810,7 +818,7 @@ Shader "D4/Particles/UberParticle-Lit"
 			float _DistortStrength;
 			float _FresnelPower;
 			float _UseDepth;
-			float _InvertMask;
+			float _UseMaskAlpha;
 			float _DepthDistance;
 			#ifdef _TRANSMISSION_ASE
 				float _TransmissionShadow;
@@ -1083,6 +1091,7 @@ Shader "D4/Particles/UberParticle-Lit"
 			#pragma multi_compile _ LOD_FADE_CROSSFADE
 			#pragma multi_compile_fog
 			#define ASE_FOG 1
+			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 110000
 			#define REQUIRE_DEPTH_TEXTURE 1
 
@@ -1126,22 +1135,23 @@ Shader "D4/Particles/UberParticle-Lit"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
+			float4 _MaskTexture_ST;
 			float4 _VertexOffsetTexture_ST;
 			float4 _DissolveTexture_ST;
 			float4 _DissolveMask_ST;
-			float4 _DistortTexture_ST;
+			float4 _NormalTexture_ST;
 			float4 _OffsetMaskTexture_ST;
+			float4 _DistortTexture_ST;
 			float4 _FresnelColor;
 			float4 _Color;
-			float4 _MaskTexture_ST;
 			float4 _MainTexture_ST;
-			float2 _VertexOffsetSpeed;
 			float2 _DissolveSpeed;
 			float2 _DistortSpeed;
 			float2 _MaskSpeed;
+			float2 _VertexOffsetSpeed;
 			float2 _MainTextureSpeed;
 			float2 _OffsetMaskSpeed;
-			float _UseMaskAlpha;
+			float _InvertMask;
 			float _DissolveAmount;
 			float _UseCustomDissolveTex0z;
 			float _OffsetStrength;
@@ -1154,7 +1164,7 @@ Shader "D4/Particles/UberParticle-Lit"
 			float _DistortStrength;
 			float _FresnelPower;
 			float _UseDepth;
-			float _InvertMask;
+			float _UseMaskAlpha;
 			float _DepthDistance;
 			#ifdef _TRANSMISSION_ASE
 				float _TransmissionShadow;
@@ -1410,6 +1420,7 @@ Shader "D4/Particles/UberParticle-Lit"
 			#pragma multi_compile _ LOD_FADE_CROSSFADE
 			#pragma multi_compile_fog
 			#define ASE_FOG 1
+			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 110000
 			#define REQUIRE_DEPTH_TEXTURE 1
 
@@ -1460,22 +1471,23 @@ Shader "D4/Particles/UberParticle-Lit"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
+			float4 _MaskTexture_ST;
 			float4 _VertexOffsetTexture_ST;
 			float4 _DissolveTexture_ST;
 			float4 _DissolveMask_ST;
-			float4 _DistortTexture_ST;
+			float4 _NormalTexture_ST;
 			float4 _OffsetMaskTexture_ST;
+			float4 _DistortTexture_ST;
 			float4 _FresnelColor;
 			float4 _Color;
-			float4 _MaskTexture_ST;
 			float4 _MainTexture_ST;
-			float2 _VertexOffsetSpeed;
 			float2 _DissolveSpeed;
 			float2 _DistortSpeed;
 			float2 _MaskSpeed;
+			float2 _VertexOffsetSpeed;
 			float2 _MainTextureSpeed;
 			float2 _OffsetMaskSpeed;
-			float _UseMaskAlpha;
+			float _InvertMask;
 			float _DissolveAmount;
 			float _UseCustomDissolveTex0z;
 			float _OffsetStrength;
@@ -1488,7 +1500,7 @@ Shader "D4/Particles/UberParticle-Lit"
 			float _DistortStrength;
 			float _FresnelPower;
 			float _UseDepth;
-			float _InvertMask;
+			float _UseMaskAlpha;
 			float _DepthDistance;
 			#ifdef _TRANSMISSION_ASE
 				float _TransmissionShadow;
@@ -1755,6 +1767,7 @@ Shader "D4/Particles/UberParticle-Lit"
 			#pragma multi_compile _ LOD_FADE_CROSSFADE
 			#pragma multi_compile_fog
 			#define ASE_FOG 1
+			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 110000
 			#define REQUIRE_DEPTH_TEXTURE 1
 
@@ -1804,22 +1817,23 @@ Shader "D4/Particles/UberParticle-Lit"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
+			float4 _MaskTexture_ST;
 			float4 _VertexOffsetTexture_ST;
 			float4 _DissolveTexture_ST;
 			float4 _DissolveMask_ST;
-			float4 _DistortTexture_ST;
+			float4 _NormalTexture_ST;
 			float4 _OffsetMaskTexture_ST;
+			float4 _DistortTexture_ST;
 			float4 _FresnelColor;
 			float4 _Color;
-			float4 _MaskTexture_ST;
 			float4 _MainTexture_ST;
-			float2 _VertexOffsetSpeed;
 			float2 _DissolveSpeed;
 			float2 _DistortSpeed;
 			float2 _MaskSpeed;
+			float2 _VertexOffsetSpeed;
 			float2 _MainTextureSpeed;
 			float2 _OffsetMaskSpeed;
-			float _UseMaskAlpha;
+			float _InvertMask;
 			float _DissolveAmount;
 			float _UseCustomDissolveTex0z;
 			float _OffsetStrength;
@@ -1832,7 +1846,7 @@ Shader "D4/Particles/UberParticle-Lit"
 			float _DistortStrength;
 			float _FresnelPower;
 			float _UseDepth;
-			float _InvertMask;
+			float _UseMaskAlpha;
 			float _DepthDistance;
 			#ifdef _TRANSMISSION_ASE
 				float _TransmissionShadow;
@@ -2092,6 +2106,7 @@ Shader "D4/Particles/UberParticle-Lit"
 			#pragma multi_compile _ LOD_FADE_CROSSFADE
 			#pragma multi_compile_fog
 			#define ASE_FOG 1
+			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 110000
 			#define REQUIRE_DEPTH_TEXTURE 1
 
@@ -2136,22 +2151,23 @@ Shader "D4/Particles/UberParticle-Lit"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
+			float4 _MaskTexture_ST;
 			float4 _VertexOffsetTexture_ST;
 			float4 _DissolveTexture_ST;
 			float4 _DissolveMask_ST;
-			float4 _DistortTexture_ST;
+			float4 _NormalTexture_ST;
 			float4 _OffsetMaskTexture_ST;
+			float4 _DistortTexture_ST;
 			float4 _FresnelColor;
 			float4 _Color;
-			float4 _MaskTexture_ST;
 			float4 _MainTexture_ST;
-			float2 _VertexOffsetSpeed;
 			float2 _DissolveSpeed;
 			float2 _DistortSpeed;
 			float2 _MaskSpeed;
+			float2 _VertexOffsetSpeed;
 			float2 _MainTextureSpeed;
 			float2 _OffsetMaskSpeed;
-			float _UseMaskAlpha;
+			float _InvertMask;
 			float _DissolveAmount;
 			float _UseCustomDissolveTex0z;
 			float _OffsetStrength;
@@ -2164,7 +2180,7 @@ Shader "D4/Particles/UberParticle-Lit"
 			float _DistortStrength;
 			float _FresnelPower;
 			float _UseDepth;
-			float _InvertMask;
+			float _UseMaskAlpha;
 			float _DepthDistance;
 			#ifdef _TRANSMISSION_ASE
 				float _TransmissionShadow;
@@ -2429,6 +2445,7 @@ Shader "D4/Particles/UberParticle-Lit"
 			#pragma multi_compile _ LOD_FADE_CROSSFADE
 			#pragma multi_compile_fog
 			#define ASE_FOG 1
+			#define _NORMALMAP 1
 			#define ASE_SRP_VERSION 110000
 			#define REQUIRE_DEPTH_TEXTURE 1
 
@@ -2503,22 +2520,23 @@ Shader "D4/Particles/UberParticle-Lit"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
+			float4 _MaskTexture_ST;
 			float4 _VertexOffsetTexture_ST;
 			float4 _DissolveTexture_ST;
 			float4 _DissolveMask_ST;
-			float4 _DistortTexture_ST;
+			float4 _NormalTexture_ST;
 			float4 _OffsetMaskTexture_ST;
+			float4 _DistortTexture_ST;
 			float4 _FresnelColor;
 			float4 _Color;
-			float4 _MaskTexture_ST;
 			float4 _MainTexture_ST;
-			float2 _VertexOffsetSpeed;
 			float2 _DissolveSpeed;
 			float2 _DistortSpeed;
 			float2 _MaskSpeed;
+			float2 _VertexOffsetSpeed;
 			float2 _MainTextureSpeed;
 			float2 _OffsetMaskSpeed;
-			float _UseMaskAlpha;
+			float _InvertMask;
 			float _DissolveAmount;
 			float _UseCustomDissolveTex0z;
 			float _OffsetStrength;
@@ -2531,7 +2549,7 @@ Shader "D4/Particles/UberParticle-Lit"
 			float _DistortStrength;
 			float _FresnelPower;
 			float _UseDepth;
-			float _InvertMask;
+			float _UseMaskAlpha;
 			float _DepthDistance;
 			#ifdef _TRANSMISSION_ASE
 				float _TransmissionShadow;
@@ -2558,6 +2576,7 @@ Shader "D4/Particles/UberParticle-Lit"
 			sampler2D _MainTexture;
 			sampler2D _MaskTexture;
 			sampler2D _DistortTexture;
+			sampler2D _NormalTexture;
 			sampler2D _DissolveMask;
 			sampler2D _DissolveTexture;
 			uniform float4 _CameraDepthTexture_TexelSize;
@@ -2779,6 +2798,8 @@ Shader "D4/Particles/UberParticle-Lit"
 				float2 appendResult130_g1 = (float2(temp_output_19_0_g1 , temp_output_19_0_g1));
 				float4 temp_output_9_0_g145 = ( IN.ase_color * _Color * tex2D( _MainTexture, ( panner2_g146 + appendResult130_g1 ) ) );
 				
+				float2 uv_NormalTexture = IN.ase_texcoord7.xy * _NormalTexture_ST.xy + _NormalTexture_ST.zw;
+				
 				float2 uv_DissolveMask = IN.ase_texcoord7.xy * _DissolveMask_ST.xy + _DissolveMask_ST.zw;
 				float4 tex2DNode77_g1 = tex2D( _DissolveMask, uv_DissolveMask );
 				float2 uv_DissolveTexture = IN.ase_texcoord7.xy * _DissolveTexture_ST.xy + _DissolveTexture_ST.zw;
@@ -2794,7 +2815,7 @@ Shader "D4/Particles/UberParticle-Lit"
 				float distanceDepth114_g1 = saturate( abs( ( screenDepth114_g1 - LinearEyeDepth( ase_screenPosNorm.z,_ZBufferParams ) ) / ( _DepthDistance ) ) );
 				
 				float3 Albedo = ( (Fresnel122_g1).rgb + (temp_output_9_0_g145).rgb );
-				float3 Normal = float3(0, 0, 1);
+				float3 Normal = UnpackNormalScale( tex2D( _NormalTexture, uv_NormalTexture ), 1.0f );
 				float3 Emission = 0;
 				float3 Specular = 0.5;
 				float Metallic = _Metallic;
@@ -2955,11 +2976,12 @@ Shader "D4/Particles/UberParticle-Lit"
 }
 /*ASEBEGIN
 Version=18912
-1920;0;1920;1029;550.7664;536.8093;1;True;True
-Node;AmplifyShaderEditor.RangedFloatNode;129;-66.76642,207.1907;Inherit;False;Property;_Roughness;Roughness;31;0;Create;True;0;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;119;98.87307,-54.73675;Inherit;False;UberParticle-Master;0;;1;ce31370a03f90a146a4c77d4e374ba66;0;0;3;FLOAT3;0;FLOAT;24;FLOAT3;109
-Node;AmplifyShaderEditor.RangedFloatNode;128;137.2336,84.19067;Inherit;False;Property;_Metallic;Metallic;30;0;Create;True;0;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
+1920;0;1920;1029;677.7664;505.8093;1;True;True
+Node;AmplifyShaderEditor.RangedFloatNode;129;-66.76642,207.1907;Inherit;False;Property;_Roughness;Roughness;32;0;Create;True;0;0;0;False;0;False;0;0.895;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;128;137.2336,84.19067;Inherit;False;Property;_Metallic;Metallic;31;0;Create;True;0;0;0;False;0;False;0;0;0;1;0;1;FLOAT;0
 Node;AmplifyShaderEditor.OneMinusNode;130;281.2336,241.1907;Inherit;False;1;0;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;119;86.87307,-187.7368;Inherit;False;UberParticle-Master;0;;1;ce31370a03f90a146a4c77d4e374ba66;0;0;3;FLOAT3;0;FLOAT;24;FLOAT3;109
+Node;AmplifyShaderEditor.SamplerNode;131;-204.7664,-87.80933;Inherit;True;Property;_NormalTexture;Normal Texture;30;2;[Header];[Normal];Create;True;1;PBR;0;0;False;0;False;-1;None;None;True;0;False;white;Auto;True;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;120;469.5933,-38.16187;Float;False;False;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;1;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;ExtraPrePass;0;0;ExtraPrePass;5;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;-1;False;True;0;False;-1;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;0;True;17;d3d9;d3d11;glcore;gles;gles3;metal;vulkan;xbox360;xboxone;xboxseries;ps4;playstation;psp2;n3ds;wiiu;switch;nomrt;0;False;True;1;1;False;-1;0;False;-1;0;1;False;-1;0;False;-1;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;-1;False;True;True;True;True;True;0;False;-1;False;False;False;False;False;False;False;True;False;255;False;-1;255;False;-1;255;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;False;True;1;False;-1;True;3;False;-1;True;True;0;False;-1;0;False;-1;True;0;False;False;0;Hidden/InternalErrorShader;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;122;469.5933,-38.16187;Float;False;False;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;1;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;ShadowCaster;0;2;ShadowCaster;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;-1;False;True;0;False;-1;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;0;True;17;d3d9;d3d11;glcore;gles;gles3;metal;vulkan;xbox360;xboxone;xboxseries;ps4;playstation;psp2;n3ds;wiiu;switch;nomrt;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;-1;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;False;-1;True;3;False;-1;False;True;1;LightMode=ShadowCaster;False;False;0;Hidden/InternalErrorShader;0;0;Standard;0;False;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;123;469.5933,-38.16187;Float;False;False;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;1;New Amplify Shader;94348b07e5e8bab40bd6c8a1e3df54cd;True;DepthOnly;0;3;DepthOnly;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;-1;False;True;0;False;-1;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;0;True;17;d3d9;d3d11;glcore;gles;gles3;metal;vulkan;xbox360;xboxone;xboxseries;ps4;playstation;psp2;n3ds;wiiu;switch;nomrt;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;-1;False;False;False;True;False;False;False;False;0;False;-1;False;False;False;False;False;False;False;False;False;True;1;False;-1;False;False;True;1;LightMode=DepthOnly;False;False;0;Hidden/InternalErrorShader;0;0;Standard;0;False;0
@@ -2970,9 +2992,10 @@ Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;127;469.5933,-38.16187;Floa
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;121;557.5933,-51.16187;Float;False;True;-1;2;UnityEditor.ShaderGraph.PBRMasterGUI;0;2;D4/Particles/UberParticle-Lit;94348b07e5e8bab40bd6c8a1e3df54cd;True;Forward;0;1;Forward;18;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;-1;False;True;0;False;-1;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;3;RenderPipeline=UniversalPipeline;RenderType=Opaque=RenderType;Queue=Geometry=Queue=0;True;0;True;17;d3d9;d3d11;glcore;gles;gles3;metal;vulkan;xbox360;xboxone;xboxseries;ps4;playstation;psp2;n3ds;wiiu;switch;nomrt;0;False;True;1;1;False;-1;0;False;-1;1;1;False;-1;0;False;-1;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;True;True;True;0;False;-1;False;False;False;False;False;False;False;True;False;255;False;-1;255;False;-1;255;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;False;True;1;False;-1;True;3;False;-1;True;True;0;False;-1;0;False;-1;True;1;LightMode=UniversalForward;False;False;0;Hidden/InternalErrorShader;0;0;Standard;38;Workflow;1;Surface;0;  Refraction Model;0;  Blend;0;Two Sided;1;Fragment Normal Space,InvertActionOnDeselection;0;Transmission;0;  Transmission Shadow;0.5,False,-1;Translucency;0;  Translucency Strength;1,False,-1;  Normal Distortion;0.5,False,-1;  Scattering;2,False,-1;  Direct;0.9,False,-1;  Ambient;0.1,False,-1;  Shadow;0.5,False,-1;Cast Shadows;1;  Use Shadow Threshold;0;Receive Shadows;1;GPU Instancing;1;LOD CrossFade;1;Built-in Fog;1;_FinalColorxAlpha;0;Meta Pass;1;Override Baked GI;0;Extra Pre Pass;0;DOTS Instancing;0;Tessellation;0;  Phong;0;  Strength;0.5,False,-1;  Type;0;  Tess;16,False,-1;  Min;10,False,-1;  Max;25,False,-1;  Edge Length;16,False,-1;  Max Displacement;25,False,-1;Write Depth;0;  Early Z;0;Vertex Position,InvertActionOnDeselection;1;0;8;False;True;True;True;True;True;True;True;False;;False;0
 WireConnection;130;0;129;0
 WireConnection;121;0;119;0
+WireConnection;121;1;131;0
 WireConnection;121;3;128;0
 WireConnection;121;4;130;0
 WireConnection;121;6;119;24
 WireConnection;121;8;119;109
 ASEEND*/
-//CHKSM=EBD1EF97A1CE5211B650A7298E0657C0699742F5
+//CHKSM=27FD3FC1D3B026B949F5AA6FDC09E58F5B4F0F42

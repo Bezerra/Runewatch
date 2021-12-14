@@ -30,8 +30,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1157843956675972529}
-  m_RootOrder: 2
+  m_Father: {fileID: 3384489164804898570}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &9011372631806000956
 ParticleSystem:
@@ -4852,7 +4852,6 @@ Transform:
   m_Children:
   - {fileID: 7957094752188594418}
   - {fileID: 5195811712078554233}
-  - {fileID: 6107773026882734770}
   m_Father: {fileID: 7189111728712202334}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
@@ -9656,7 +9655,7 @@ GameObject:
   - component: {fileID: 182429098103369817}
   - component: {fileID: 570893707165956062}
   m_Layer: 11
-  m_Name: Rock
+  m_Name: Hammer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9669,13 +9668,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2295668441270804363}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.7071069, y: -0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3384489164804898570}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!198 &8508586026192302503
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -10840,7 +10839,7 @@ ParticleSystem:
     x:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 6.283185
+      scalar: 12.56637
       minScalar: 5.2359877
       maxCurve:
         serializedVersion: 2
@@ -10946,7 +10945,7 @@ ParticleSystem:
     curve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 6.283185
+      scalar: 0
       minScalar: 8.726646
       maxCurve:
         serializedVersion: 2
@@ -14503,7 +14502,7 @@ ParticleSystemRenderer:
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
   m_VertexStreams: 00010304
-  m_Mesh: {fileID: -5334860931677469557, guid: 393b39b3896232f40b0167eea49ebc82, type: 3}
+  m_Mesh: {fileID: 1314848586054192847, guid: 8ce234a08ed46ee4b8b2d7e0656c68a7, type: 3}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
@@ -24191,6 +24190,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 6107773026882734770}
   - {fileID: 1797301386746795216}
   m_Father: {fileID: 7189111728712202334}
   m_RootOrder: 1

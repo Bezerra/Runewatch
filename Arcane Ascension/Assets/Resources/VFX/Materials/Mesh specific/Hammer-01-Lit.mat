@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Star4-01-Alpha
-  m_Shader: {fileID: 4800000, guid: 00ddc540bb4f4884d8b80c89d91ca1f0, type: 3}
-  m_ShaderKeywords: _USECUSTOMDISSOLVETEX0Z_ON
+  m_Name: Hammer-01-Lit
+  m_Shader: {fileID: 4800000, guid: ef7e69e2e1ec16f4e88cb0014167601f, type: 3}
+  m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -60,7 +60,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
-        m_Texture: {fileID: 2800000, guid: 215d62633dad8e74cbe28fa35ffaa4b2, type: 3}
+        m_Texture: {fileID: 2800000, guid: f856b20267f4aea4faf6cc0ee96d5185, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTexture:
@@ -69,6 +69,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalTexture:
+        m_Texture: {fileID: 2800000, guid: c00eb90aa6e16ff47a0b392d814bcf5d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -117,7 +121,7 @@ Material:
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
-    - _DepthDistance: 0.1
+    - _DepthDistance: 1
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DissolveAmount: 0
@@ -125,6 +129,7 @@ Material:
     - _DistortStrength: 0
     - _DstBlend: 0
     - _EnvironmentReflections: 1
+    - _FresnelPower: 5
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -137,13 +142,14 @@ Material:
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _Roughness: 0.895
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
     - _UseCustomDissolve: 0
-    - _UseCustomDissolveTex0z: 1
+    - _UseCustomDissolveTex0z: 0
     - _UseDepth: 0
     - _UseMaskAlpha: 0
     - _UseOffsetMaskAlpha: 0
@@ -151,10 +157,11 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 16.94838, g: 16.94838, b: 16.94838, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _DistortSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _FresnelColor: {r: 0, g: 0, b: 0, a: 0}
     - _MainTextureSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _MaskSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _OffsetMaskSpeed: {r: 0, g: 0, b: 0, a: 0}
