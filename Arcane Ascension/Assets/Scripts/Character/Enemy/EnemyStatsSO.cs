@@ -58,8 +58,9 @@ public class EnemyStatsSO : StatsSO
     /// <summary>
     /// Initiates lootrates struct.
     /// </summary>
-    public void Initialize()
+    public override void Initialize()
     {
+        base.Initialize();
         AttackingSpeedReductionMultiplier = 1f;
     }
 

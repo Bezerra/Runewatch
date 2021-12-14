@@ -94,7 +94,7 @@ public abstract class StatsSO : ScriptableObject
     private IDictionary<ElementType, float> damageElementMultiplier;
     public IDictionary<ElementType, float> DamageElementMultiplier => damageElementMultiplier;
 
-    protected virtual void OnEnable()
+    public virtual void Initialize()
     {
         // If the game wasn't loaded it loads default stats
         MaxHealth = defaultHealth;

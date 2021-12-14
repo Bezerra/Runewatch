@@ -87,6 +87,7 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
 
     private void OnEnable()
     {
+        PlayerAttributes.Initialize();
         playerCastSpell.EventSpendMana += ReduceMana;
         playerCastSpell.EventSpendManaContinuous += StartLoseManaCoroutine;
         playerCastSpell.EventStopSpendManaContinuous += StopLoseManaCoroutine;

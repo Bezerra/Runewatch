@@ -36,9 +36,9 @@ public class PlayerStatsSO : StatsSO
     public float HealthPotionsPercentageMultiplier { get; set; }
     public List<SpellSO> AvailableSpells => availableSpells;
 
-    protected override void OnEnable()
+    public override void Initialize()
     {
-        base.OnEnable();
+        base.Initialize();
         MaxMana = defaultMana;
         MaxArmor = defaultArmor;
         ManaRegenAmount = defaultManaRegenAmount;

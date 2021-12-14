@@ -23,11 +23,10 @@ public class EnemyStats : Stats
     protected override void Awake()
     {
         base.Awake();
-
+        
         // Creates a list of spell weights 
         AvailableSpellsWeight = new List<int>();
         stpData = FindObjectOfType<CharacterSaveDataController>();
-        EnemyAttributes.Initialize();
         droppedLoot = new List<(LootType, Vector3)>();
     }
 
@@ -39,6 +38,11 @@ public class EnemyStats : Stats
         {
             AvailableSpellsWeight.Add(EnemyAttributes.AllEnemySpells[i].SpellWeight);
         }
+    }
+
+    private void OnEnable()
+    {
+        EnemyAttributes.Initialize();
     }
 
     /// <summary>
