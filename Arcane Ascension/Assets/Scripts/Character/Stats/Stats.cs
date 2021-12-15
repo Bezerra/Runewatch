@@ -25,6 +25,7 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
 
     public ExtendedDictionary<StatusEffectType, IStatusEffectInformation> StatusEffectList 
         { get; private set; }
+    public int StatusEffectStack { get; set; }
 
     protected IEnumerator damageOvertimeCoroutine;
 
@@ -38,6 +39,7 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     protected virtual void Start()
     {
         Heal(CommonAttributes.MaxHealth, StatsType.Health);
+        StatusEffectStack = 0;
     }
 
     /// <summary>

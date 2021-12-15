@@ -233,7 +233,10 @@ public class EnemyStats : Stats
 
         NavMeshAgent agent = GetComponent<NavMeshAgent>();
         GetComponent<Enemy>().enabled = false;
-        Destroy(GetComponentInChildren<MinimapIcon>().transform.parent.gameObject);
+
+        MinimapIcon minimapIcon = GetComponentInChildren<MinimapIcon>();
+        if (minimapIcon != null)
+            Destroy(minimapIcon.transform.parent.gameObject);
 
         if (agent != null)
         {

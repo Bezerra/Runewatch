@@ -33,13 +33,10 @@ public class StatusBehaviourCorruptSO : StatusBehaviourAbstractSO
             // If it's already taking effect
             else
             {
-                parent.Stack++;
-
                 parent.CharacterHit.StatusEffectList.Items[statusEffectType].TimeApplied = Time.time;
 
                 parent.CharacterHit.TakeDamageOvertime(
-                    damageToDo * (stackMultiplier * parent.Stack), 
-                    ElementType.Umbra, damageInterval, durationSeconds);
+                    damageToDo, ElementType.Umbra, damageInterval, durationSeconds);
 
                 parent.DisableStatusGameObject();
             }
@@ -49,8 +46,10 @@ public class StatusBehaviourCorruptSO : StatusBehaviourAbstractSO
         {
             parent.CharacterHit.StatusEffectList.Items[statusEffectType].TimeApplied = Time.time;
 
+            parent.CharacterHit.StatusEffectStack++;
             parent.CharacterHit.TakeDamageOvertime(
-                damageToDo, ElementType.Umbra, damageInterval, durationSeconds);
+                damageToDo * (stackMultiplier * parent.CharacterHit.StatusEffectStack),
+                ElementType.Umbra, damageInterval, durationSeconds);
 
             // Will only disable the spell if it's not the one that's causing the current effect
             // Do not remove this
@@ -68,6 +67,7 @@ public class StatusBehaviourCorruptSO : StatusBehaviourAbstractSO
             > durationSeconds)
         {
             parent.CharacterHit.StatusEffectList.Items.Remove(statusEffectType);
+            parent.CharacterHit.StatusEffectStack = 0;
             parent.DisableStatusGameObject();
         }
     }
