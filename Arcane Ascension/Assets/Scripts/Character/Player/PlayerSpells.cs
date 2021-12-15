@@ -52,6 +52,7 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
     private IEnumerator Start()
     {
         yield return null;
+        yield return null;
 
         if (ADDINITIALSPELLSFORTESTS > 0)
         {
@@ -61,8 +62,15 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
                 if (i <= CurrentSpells.Length)
                 {
                     // THIS IS TEMP, WHILE IN GAME PLAYER WILL ONLY CAST THE SPELLS ON HIS AVAILABLE SPELLS, NOT THIS ONE
-            
-                    AddSpell(allSpells[i]);
+                    if (CurrentSpells[i] == null)
+                    {
+                        AddSpell(allSpells[i]);
+                    }
+                    else
+                    {
+                        RemoveSpell(i);
+                        AddSpell(allSpells[i]);
+                    }
                 }
             }
 
