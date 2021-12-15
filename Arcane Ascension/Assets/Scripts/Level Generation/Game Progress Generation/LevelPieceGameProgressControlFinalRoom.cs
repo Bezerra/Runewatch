@@ -23,6 +23,9 @@ public class LevelPieceGameProgressControlFinalRoom : LevelPieceGameProgressCont
         }
     }
 
+    /// <summary>
+    /// If it's a boss room, destroys portal stuff.
+    /// </summary>
     private void BossRoom()
     {
         NextFloorPortalSpawnPoint[] nextFloorPortalSpawnPoints = GetComponentsInChildren<NextFloorPortalSpawnPoint>();
@@ -35,6 +38,9 @@ public class LevelPieceGameProgressControlFinalRoom : LevelPieceGameProgressCont
         }
     }
 
+    /// <summary>
+    /// If it's a portal room, destroys boss stuff.
+    /// </summary>
     private void ChangeFloorRoom()
     {
         EnemySpawnPoint[] enemySpawns = GetComponentsInChildren<EnemySpawnPoint>();

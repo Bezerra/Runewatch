@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 /// <summary>
 /// Class responsible for controlling what happens inside a normal level piece room.
@@ -111,6 +112,25 @@ public class LevelPieceGameProgressControlNormalRoom : LevelPieceGameProgressCon
                 {
                     chestScript.CanOpen = true;
                     chestScript.GetComponentInChildren<MinimapIcon>(true).SetIconActive(true);
+                }
+
+                // Gets random drops and spawns them
+                GetDrop(lootSpawnPosition.position);
+                IEnumerator<(LootType, Vector3)> itemEnumerator = droppedLoot.GetEnumerator();
+                while (itemEnumerator.MoveNext())
+                {
+                    GameObject spawnedLoot = ItemLootPoolCreator.Pool.InstantiateFromPool(
+                        itemEnumerator.Current.Item1.ToString(),
+                        itemEnumerator.Current.Item2,
+                        Quaternion.identity);
+ 
+                    if (spawnedLoot.TryGetComponent(out ICurrency currency))
+                    {
+                        if (currency.CurrencyType == CurrencyType.Gold)
+                            currency.Amount = goldQuantity;
+                        else
+                            currency.Amount = arcanePowerQuantity;
+                    }
                 }
             }
         }

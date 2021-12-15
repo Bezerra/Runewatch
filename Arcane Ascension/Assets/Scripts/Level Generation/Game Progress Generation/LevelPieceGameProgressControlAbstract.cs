@@ -9,6 +9,15 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
 {
     [SerializeField] protected AvailableListOfEnemiesToSpawnSO listOfEnemies;
 
+    // Loot
+    [Header("Loot variables")]
+    [SerializeField] protected LootRates lootRates;
+    [RangeMinMax(0, 1000)] [SerializeField] protected Vector2 goldQuantity;
+    [RangeMinMax(0, 1000)] [SerializeField] protected Vector2 arcanePowerQuantity;
+    protected IList<(LootType, Vector3)> droppedLoot;
+    private System.Random random;
+    [SerializeField] protected Transform lootSpawnPosition;
+
     // Enemies
     private EnemySpawnPoint[] enemySpawnPoints;
     private int quantityOfEnemiesSpawned;
@@ -22,11 +31,12 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
     {
         enemySpawnPoints = GetComponentsInChildren<EnemySpawnPoint>();
         contactPointsDoors = GetComponentsInChildren<ContactPointDoor>();
-        
+        droppedLoot = new List<(LootType, Vector3)>();
         GameProgressCollider[] gameProgressColliders = GetComponentsInChildren<GameProgressCollider>(true);
         exitBlockers = new List<BoxCollider>();
         foreach (GameProgressCollider gpc in gameProgressColliders)
             exitBlockers.Add(gpc.GetComponent<BoxCollider>());
+        random = new System.Random();
     }
 
     /// <summary>
@@ -93,6 +103,25 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
                     contactPoint.ClosePassage();
                     contactPoint.UnblockPassage();
                 }
+
+                // Gets random drops and spawns them
+                GetDrop(lootSpawnPosition.position);
+                IEnumerator<(LootType, Vector3)> itemEnumerator = droppedLoot.GetEnumerator();
+                while (itemEnumerator.MoveNext())
+                {
+                    GameObject spawnedLoot = ItemLootPoolCreator.Pool.InstantiateFromPool(
+                        itemEnumerator.Current.Item1.ToString(),
+                        itemEnumerator.Current.Item2, 
+                        Quaternion.identity);
+
+                    if (spawnedLoot.TryGetComponent(out ICurrency currency))
+                    {
+                        if (currency.CurrencyType == CurrencyType.Gold)
+                            currency.Amount = goldQuantity;
+                        else
+                            currency.Amount = arcanePowerQuantity;
+                    }
+                }
             }
         }
     }
@@ -110,6 +139,25 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
         if (quantityOfEnemiesSpawned == 0)
         {
             BlockUnblockExits(false);
+        }
+    }
+
+    /// <summary>
+    /// Gets a drop and sets random position with a received position.
+    /// </summary>
+    /// <param name="position">Position to set the item.</param>
+    protected void GetDrop(Vector3 position)
+    {
+        for (int i = 0; i < lootRates.LootPieces.Count; i++)
+        {
+            if (lootRates.LootPieces[i].LootRate.PercentageCheck(random))
+            {
+                Vector3 newPosition = position + new Vector3(
+                    UnityEngine.Random.Range(-1f, 1f), 0,
+                    UnityEngine.Random.Range(-1f, 1f));
+
+                droppedLoot.Add((lootRates.LootPieces[i].LootType, newPosition));
+            }
         }
     }
 }

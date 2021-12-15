@@ -496,6 +496,7 @@ Transform:
   - {fileID: 441490720641739649}
   - {fileID: 3148186792136244597}
   - {fileID: 6745466407228925345}
+  - {fileID: 1116885627999312624}
   m_Father: {fileID: 1797914490834749244}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -674,6 +675,36 @@ Transform:
   m_Father: {fileID: 3776583696341648209}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5602106491739521580
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1116885627999312624}
+  m_Layer: 0
+  m_Name: LootSpawnPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1116885627999312624
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5602106491739521580}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.468092, y: 4.97, z: 4.07}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6199229559346402214}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1313701081351367893
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -850,6 +881,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   listOfEnemies: {fileID: 11400000, guid: e767d083673c993448fdb04f6eb74a2c, type: 2}
+  lootRates:
+    lootPieces:
+    - lootType: 0
+      lootRate: 80
+    - lootType: 1
+      lootRate: 80
+    - lootType: 2
+      lootRate: 30
+    - lootType: 4
+      lootRate: 30
+  goldQuantity: {x: 10, y: 20}
+  arcanePowerQuantity: {x: 10, y: 20}
+  lootSpawnPosition: {fileID: 1116885627999312624}
 --- !u!114 &992750869703336394
 MonoBehaviour:
   m_ObjectHideFlags: 0

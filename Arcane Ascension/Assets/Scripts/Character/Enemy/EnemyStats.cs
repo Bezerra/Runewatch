@@ -201,7 +201,7 @@ public class EnemyStats : Stats
     /// Gets a drop and sets random position with a received position.
     /// </summary>
     /// <param name="position">Position to set the item.</param>
-    public void GetDrop(Vector3 position)
+    protected void GetDrop(Vector3 position)
     {
         for (int i = 0; i < EnemyAttributes.Rates.LootPieces.Count; i++)
         {
