@@ -59,19 +59,9 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
             //// TEMPORARY TESTS // Adds 4 spells to current spells
             for (int i = 0; i < ADDINITIALSPELLSFORTESTS; i++)
             {
-                if (i <= CurrentSpells.Length)
-                {
-                    // THIS IS TEMP, WHILE IN GAME PLAYER WILL ONLY CAST THE SPELLS ON HIS AVAILABLE SPELLS, NOT THIS ONE
-                    if (CurrentSpells[i] == null)
-                    {
-                        AddSpell(allSpells[i]);
-                    }
-                    else
-                    {
-                        RemoveSpell(i);
-                        AddSpell(allSpells[i]);
-                    }
-                }
+                // THIS IS TEMP, WHILE IN GAME PLAYER WILL ONLY CAST THE SPELLS ON HIS AVAILABLE SPELLS, NOT THIS ONE
+                RemoveSpell(i);
+                AddSpell(allSpells[i]);
             }
 
             if (CurrentSpells[0] != null)
