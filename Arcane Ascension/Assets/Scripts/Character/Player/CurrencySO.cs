@@ -17,6 +17,8 @@ public class CurrencySO : ScriptableObject
     public int Gold { get; private set; }
     public int ArcanePower { get; private set; }
 
+    private CharacterSaveDataController characterSaveDataController;
+
     /// <summary>
     /// Gains currency.
     /// </summary>
@@ -51,9 +53,17 @@ public class CurrencySO : ScriptableObject
             if (ArcanePower - amount > 0) ArcanePower -= amount;
             else ArcanePower = 0;
 
-            CharacterSaveDataController characterSaveDataController =
-                FindObjectOfType<CharacterSaveDataController>();
-            characterSaveDataController.SaveData.ArcanePower = ArcanePower;
+            if (characterSaveDataController == null)
+            {
+                characterSaveDataController =
+                    FindObjectOfType<CharacterSaveDataController>();
+
+                characterSaveDataController.SaveData.ArcanePower = ArcanePower;
+            }
+            else
+            {
+                characterSaveDataController.SaveData.ArcanePower = ArcanePower;
+            }
         }
     }
 
@@ -86,5 +96,7 @@ public class CurrencySO : ScriptableObject
     private void OnEnable()
     {
         ResetCurrency();
+        characterSaveDataController =
+            FindObjectOfType<CharacterSaveDataController>();
     }
 }

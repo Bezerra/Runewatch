@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -43,6 +42,7 @@ public class SkillTreePassiveCanvas : MonoBehaviour
     private void Awake()
     {
         characterSaveDataController = FindObjectOfType<CharacterSaveDataController>();
+
         CurrentPassives = new List<byte>();
     }
 
@@ -57,9 +57,6 @@ public class SkillTreePassiveCanvas : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        CharacterSaveDataController characterSaveDataController = 
-            FindObjectOfType<CharacterSaveDataController>();
-
         CharacterSaveData saveData = characterSaveDataController.SaveData;
 
         // Adds saved data passives to a list with current passives
@@ -71,6 +68,8 @@ public class SkillTreePassiveCanvas : MonoBehaviour
             }
             CurrentPassives.Sort();
         }
+
+        currencySO.ResetCurrency();
 
         // If the file is completely empty. It's a new character
         // and this will happen
@@ -92,8 +91,11 @@ public class SkillTreePassiveCanvas : MonoBehaviour
         {
             currencySO.GainCurrency(CurrencyType.ArcanePower, saveData.ArcanePower);
         }
-        
+
         ClearAllInformation();
+
+        arcanePowerText.text =
+            "Arcane Power: " + saveData.ArcanePower.ToString();
     }
 
     /// <summary>
@@ -181,9 +183,5 @@ public class SkillTreePassiveCanvas : MonoBehaviour
         passiveCost.text = " ";
         buyButton.enabled = false;
         buyButtonImage.color = lockedColor;
-
-        // Update AP
-        arcanePowerText.text = 
-            "Arcane Power: " + characterSaveDataController.SaveData.ArcanePower.ToString();
     }
 }

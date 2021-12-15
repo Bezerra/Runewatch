@@ -8,6 +8,7 @@ using UnityEngine;
 public class PlayerCurrency : MonoBehaviour, IUseCurrency, IPlayerSaveable
 {
     private Player player;
+    private PlayerStats playerStats;
 
     /// <summary>
     /// Property to get gold (item 1) and arcane power (item 2).
@@ -18,6 +19,7 @@ public class PlayerCurrency : MonoBehaviour, IUseCurrency, IPlayerSaveable
     private void Awake()
     {
         player = GetComponent<Player>();
+        playerStats = GetComponent<PlayerStats>();
     }
 
     private IEnumerator Start()
@@ -30,6 +32,27 @@ public class PlayerCurrency : MonoBehaviour, IUseCurrency, IPlayerSaveable
         // Initial gold with passives
         GainCurrency(CurrencyType.Gold, 
             FindObjectOfType<CharacterSaveDataController>().SaveData.Wealth);
+    }
+
+    private void OnEnable() =>
+        playerStats.EventDeath += OnDeath;
+
+    private void OnDisable() =>
+        playerStats.EventDeath -= OnDeath;
+
+    /// <summary>
+    /// Saves arcane power stats on death.
+    /// </summary>
+    /// <param name="emptyVar">Empty.</param>
+    private void OnDeath(Stats emptyVar)
+    {
+        CharacterSaveDataController characterSaveDataController =
+                    FindObjectOfType<CharacterSaveDataController>();
+
+        characterSaveDataController.SaveData.ArcanePower = 
+            player.AllValues.Currency.ArcanePower;
+
+        characterSaveDataController.Save();
     }
 
     /// <summary>
@@ -75,9 +98,16 @@ public class PlayerCurrency : MonoBehaviour, IUseCurrency, IPlayerSaveable
     /// <param name="saveData">SaveData to save to.</param>
     public void SaveCurrentData(RunSaveData saveData)
     {
+        // Saves gold
         saveData.PlayerSavedData.Gold = player.AllValues.Currency.Gold;
-        FindObjectOfType<CharacterSaveDataController>().SaveData.ArcanePower =
+
+        CharacterSaveDataController characterSaveDataController =
+            FindObjectOfType<CharacterSaveDataController>();
+
+        characterSaveDataController.SaveData.ArcanePower =
             player.AllValues.Currency.ArcanePower;
+
+        characterSaveDataController.Save();
     }
 
     /// <summary>

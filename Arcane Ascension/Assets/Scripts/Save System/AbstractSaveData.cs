@@ -45,7 +45,6 @@ public abstract class AbstractSaveData
 
         return output.ToString();
 
-
         // REMOVE COMMENT AND COMMENT ABOVE THIS TO NOT ENCRYPT CODE
         // BUT THE FILE CANNOT BE ENCRYPTED ALREADY
         //return data;
