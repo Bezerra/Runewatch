@@ -22,6 +22,11 @@ public class StatusBehaviour : MonoBehaviour
     public bool EffectActive { get; set; }
 
     /// <summary>
+    /// Each hit applies a stack.
+    /// </summary>
+    public int Stack { get; set; }
+
+    /// <summary>
     /// VFX of the effect.
     /// </summary>
     public GameObject PrefabVFX { get; set; }
@@ -55,6 +60,7 @@ public class StatusBehaviour : MonoBehaviour
         PrefabVFX = null;
         EffectActive = false;
         TimeSpawned = 0;
+        Stack = 0;
 
         Initialize(null, null, null);
     }
