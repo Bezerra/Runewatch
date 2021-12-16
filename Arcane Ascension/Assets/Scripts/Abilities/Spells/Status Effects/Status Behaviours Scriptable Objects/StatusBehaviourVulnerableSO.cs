@@ -4,10 +4,10 @@ using Sirenix.OdinInspector;
 /// <summary>
 /// Scriptable object responsible for creating vulnerable status behaviour.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Status/Status Behaviour Vunerable",
-    fileName = "Status Behaviour Vunerable")]
+[CreateAssetMenu(menuName = "Spells/Status/Status Behaviour Vulnerable",
+    fileName = "Status Behaviour Vulnerable")]
 [InlineEditor]
-public class StatusBehaviourVunerableSO : StatusBehaviourAbstractSO
+public class StatusBehaviourVulnerableSO : StatusBehaviourAbstractSO
 {
     [Header("0 = 0% plus damage, 1 = 100% plus damage")]
     [Range(0, 1f)] [SerializeField] private float damageToTakeMultiplier = 0;
