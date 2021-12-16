@@ -243,8 +243,6 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
             {
                 if (CurrentSpells[i] == null)
                 {
-                    if (playerStats.PlayerAttributes.AvailableSpells.Contains(spellToAdd) == false)
-                        playerStats.PlayerAttributes.AvailableSpells.Add(spellToAdd);
                     CurrentSpells[i] = spellToAdd;
                     SelectSpell(CurrentSpellIndex, true);
                     StartSpellCooldown(CurrentSpells[i]);
@@ -267,8 +265,6 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
             {
                 if (CurrentSpells[i] == null && i == slotNumber)
                 {
-                    if (playerStats.PlayerAttributes.AvailableSpells.Contains(spellToAdd) == false)
-                        playerStats.PlayerAttributes.AvailableSpells.Add(spellToAdd);
                     CurrentSpells[i] = spellToAdd;
                     SelectSpell(CurrentSpellIndex, true);
                     StartSpellCooldown(CurrentSpells[i]);

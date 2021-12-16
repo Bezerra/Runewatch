@@ -9,7 +9,7 @@ using Sirenix.OdinInspector;
 public class PlayerValuesSO : CharacterValuesSO
 {
     [BoxGroup("General Values")]
-    [Range(1f, 2f)] [SerializeField] private float outOfCombatSpeedMultiplier = 1.25;
+    [Range(1f, 2f)] [SerializeField] private float outOfCombatSpeedMultiplier = 1.25f;
     public float OutOfCombatSpeedMultiplier => outOfCombatSpeedMultiplier;
 
     [BoxGroup("General Values")]
