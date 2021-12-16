@@ -278,6 +278,13 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
                     DisableConsole();
                     break;
 
+                case "kill enemies":
+                    Debug.Log("Killed all enemies");
+                    foreach (Enemy enemy in FindObjectsOfType<Enemy>())
+                        enemy.GetComponent<EnemyStats>().TakeDamage(100000, ElementType.Neutral, Vector3.zero);
+                    DisableConsole();
+                    break;
+
                 default:
                     inputField.text = "";
                     inputField.ActivateInputField();
