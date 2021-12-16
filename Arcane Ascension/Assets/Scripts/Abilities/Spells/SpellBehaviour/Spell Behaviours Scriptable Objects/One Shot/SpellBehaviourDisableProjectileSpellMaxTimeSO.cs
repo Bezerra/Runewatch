@@ -20,9 +20,9 @@ public class SpellBehaviourDisableProjectileSpellMaxTimeSO : SpellBehaviourAbstr
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
     {
         // If the spell hits something
-        if (parent.DisableSpellAfterCollision && parent.SpellStartedMoving)
+        if (parent.SpellStartedMoving)
         {
-            if (Time.time - parent.TimeOfImpact > parent.Spell.MaxTime)
+            if (Time.time - parent.TimeSpawned > parent.Spell.MaxTime)
             {
                 if (parent.HasEffect)
                 {

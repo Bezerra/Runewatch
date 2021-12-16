@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Scriptable object responsible for applying normal damage.
+/// Scriptable object responsible for applying damage while the projectile is enabled.
 /// </summary>
 [CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Apply Damage Area Remain Active",
     fileName = "Spell Behaviour Apply Damage Area Remain Active")]
@@ -21,6 +21,7 @@ public class SpellBehaviourApplyDamageAreaRemainActiveSO : SpellBehaviourAbstrac
     {
         if (Time.time - parent.LastTimeDamaged > parent.Spell.TimeInterval)
         {
+            parent.PositionOnHit = parent.transform.position;
             parent.Spell.DamageBehaviour.Damage(parent);
             parent.LastTimeDamaged = Time.time;
         }
