@@ -17,6 +17,7 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
     // Coroutines
     private IEnumerator loseManaCoroutine;
     private IEnumerator regenManaCoroutine;
+    private IEnumerator regenManaCoroutineOutOfCombat;
     private IEnumerator loseLeafShieldCoroutine;
     private YieldInstruction wft;
     private YieldInstruction wfs;
@@ -76,8 +77,10 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
         // Starts regen Mana coroutine
         Heal(PlayerAttributes.MaxMana, StatsType.Mana);
         regenManaCoroutine = RegenManaCoroutine();
+        regenManaCoroutineOutOfCombat = RegenManaCoroutine();
         wft = new WaitForSeconds(PlayerAttributes.ManaRegenTime);
         StartCoroutine(regenManaCoroutine);
+        StartCoroutine(regenManaCoroutineOutOfCombat);
 
         // Starts lose leaf shield coroutine
         loseLeafShieldCoroutine = LoseLeafShieldCoroutine();
@@ -91,6 +94,7 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
         playerCastSpell.EventSpendMana += ReduceMana;
         playerCastSpell.EventSpendManaContinuous += StartLoseManaCoroutine;
         playerCastSpell.EventStopSpendManaContinuous += StopLoseManaCoroutine;
+        LevelPieceGameProgressControlAbstract.EventPlayerInCombat += InCombat;
     }
 
     private void OnDisable()
@@ -98,6 +102,18 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
         playerCastSpell.EventSpendMana -= ReduceMana;
         playerCastSpell.EventSpendManaContinuous -= StartLoseManaCoroutine;
         playerCastSpell.EventStopSpendManaContinuous -= StopLoseManaCoroutine;
+        LevelPieceGameProgressControlAbstract.EventPlayerInCombat -= InCombat;
+    }
+
+    private void InCombat(bool condition)
+    {
+        if (condition)
+        {
+            if (regenManaCoroutineOutOfCombat != null)
+                StopCoroutine(regenManaCoroutineOutOfCombat);
+        }
+        else
+            StartCoroutine(regenManaCoroutineOutOfCombat);
     }
 
     /// <summary>

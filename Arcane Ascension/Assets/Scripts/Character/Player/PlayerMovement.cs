@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
     private float   dashingTimer;
     private bool    dashing;
     public float    CurrentTimeToGetCharge { get; private set; }
+    private float   inCombatDashDelay;
 
     // Jump
     private YieldInstruction wffu;
@@ -62,7 +63,8 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         gravityIncrement = DEFAULTGRAVITYINCREMENT;
         dashCurrentValue = player.Values.DashDefaultValue;
         CurrentTimeToGetCharge = 0;
-        inCombatSpeed = 1f;
+        inCombatSpeed = player.Values.OutOfCombatSpeedMultiplier;
+        inCombatDashDelay = player.Values.OutOfCombatDashDelayMultiplier;
     }
 
     private void OnEnable()
@@ -93,11 +95,22 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         LevelPieceGameProgressControlAbstract.EventPlayerInCombat -= InCombat;
     }
 
+    /// <summary>
+    /// Called if player enters or leaves combat.
+    /// </summary>
+    /// <param name="condition"></param>
     private void InCombat(bool condition)
     {
-        Debug.Log("AH");
-        if (condition) inCombatSpeed = 1f;
-        else inCombatSpeed = player.Values.OutOfCombatSpeed;
+        if (condition)
+        {
+            inCombatSpeed = 1f;
+            inCombatDashDelay = 1f;
+        }
+        else
+        {
+            inCombatSpeed = player.Values.OutOfCombatSpeedMultiplier;
+            inCombatDashDelay = player.Values.OutOfCombatDashDelayMultiplier;
+        }
     }
 
     private void Update()
@@ -126,7 +139,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         // Dash counter. Updates dash timer and charges
         if (playerStats.DashCharge < playerStats.PlayerAttributes.MaxDashCharge)
         {
-            CurrentTimeToGetCharge -= Time.deltaTime;
+            CurrentTimeToGetCharge -= Time.deltaTime * inCombatDashDelay;
             if (CurrentTimeToGetCharge <= 0)
             {
                 playerStats.DashCharge++;
@@ -148,6 +161,15 @@ public class PlayerMovement : MonoBehaviour, IFindInput
                 fallingCoroutine = FallingCoroutine();
                 StartCoroutine(fallingCoroutine);
                 // Increments gravity smoothly
+            }
+        }
+
+        if (Running)
+        {
+            if (IsPlayerStopped())
+            {
+                Debug.Log("not moving");
+                Run(false);
             }
         }
 
@@ -295,7 +317,8 @@ public class PlayerMovement : MonoBehaviour, IFindInput
                 Running = true;
                 Speed = player.Values.RunningSpeed * 
                     playerStats.CommonAttributes.MovementSpeedMultiplier *
-                    playerStats.CommonAttributes.MovementStatusEffectMultiplier;
+                    playerStats.CommonAttributes.MovementStatusEffectMultiplier /
+                    inCombatSpeed;
             }
             else
             {

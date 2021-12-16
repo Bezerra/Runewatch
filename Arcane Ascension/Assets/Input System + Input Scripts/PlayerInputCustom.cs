@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Class responsible for all player input.
@@ -113,7 +112,6 @@ public class PlayerInputCustom : MonoBehaviour, IInput
     }
     public void HandleRun(InputAction.CallbackContext context) {
         if (context.started) OnRun(true);
-        if (context.canceled) OnRun(false);
     }
     public void HandleDash(InputAction.CallbackContext context)
     {

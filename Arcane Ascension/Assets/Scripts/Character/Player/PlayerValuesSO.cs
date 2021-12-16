@@ -9,8 +9,12 @@ using Sirenix.OdinInspector;
 public class PlayerValuesSO : CharacterValuesSO
 {
     [BoxGroup("General Values")]
-    [Range(5f, 15)] [SerializeField] private float outOfCombatSpeed = 2f;
-    public float OutOfCombatSpeed => outOfCombatSpeed;
+    [Range(1f, 2f)] [SerializeField] private float outOfCombatSpeedMultiplier = 1.25f;
+    public float OutOfCombatSpeedMultiplier => outOfCombatSpeedMultiplier;
+
+    [BoxGroup("General Values")]
+    [Range(1f, 4f)] [SerializeField] private float outOfCombatCooldownMultiplier = 2.5f;
+    public float OutOfCombatCooldownMultiplier => outOfCombatCooldownMultiplier;
 
     [BoxGroup("General Values")]
     [Tooltip("Running speed.")]
@@ -48,6 +52,10 @@ public class PlayerValuesSO : CharacterValuesSO
     [Tooltip("Default value = 5f. Time to get a dash charge.")]
     [Range(1, 10)] [SerializeField] private float timeToGetDashCharge = 5f;
     public float TimeToGetDashCharge => timeToGetDashCharge;
+
+    [BoxGroup("Dash")]
+    [Range(1f, 10f)] [SerializeField] private float outOfCombatDashDelayMultiplier = 5f;
+    public float OutOfCombatDashDelayMultiplier => outOfCombatDashDelayMultiplier;
 
     [BoxGroup("Camera")]
     [Range(2, 10f)] [SerializeField] private float cameraForceOnDash = 4f;

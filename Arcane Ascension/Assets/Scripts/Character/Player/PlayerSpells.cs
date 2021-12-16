@@ -14,10 +14,10 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
     // Components
     private IInput input;
     private PlayerHandEffect playerHandEffect;
-    private PlayerStats playerStats;
     private IList<SpellSO> allSpells;
     private SpellSO defaultSpell;
     private PlayerCastSpell playerCastSpell;
+    private Player player;
 
     // Array with all available spells
     public ISpell[] CurrentSpells { get; private set; }
@@ -31,6 +31,7 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
 
     // Coroutines
     private YieldInstruction wffu;
+    private float outOfCombatCooldownMultiplier;
 
     // Spell select scroll
     private float currentTimeScrollChanged;
@@ -38,15 +39,17 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
 
     private void Awake()
     {
+        player = GetComponent<Player>();
         input = FindObjectOfType<PlayerInputCustom>();
         playerHandEffect = FindObjectOfType<PlayerHandEffect>();
-        playerStats = GetComponent<PlayerStats>();
         allSpells = FindObjectOfType<AllSpells>().SpellList;
         defaultSpell = FindObjectOfType<AllSpells>().DefaultSpell;
         playerCastSpell = GetComponent<PlayerCastSpell>();
 
         CurrentSpells = new SpellSO[4];
         wffu = new WaitForFixedUpdate();
+
+        outOfCombatCooldownMultiplier = player.Values.OutOfCombatCooldownMultiplier;
     }
 
     private IEnumerator Start()
@@ -80,6 +83,7 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
         input.SelectSpell += SelectSpell;
         playerCastSpell.EventStartCooldown += StartSpellCooldown;
         input.PreviousNextSpell += SelectNextAndPreviousSpell;
+        LevelPieceGameProgressControlAbstract.EventPlayerInCombat += InCombat;
     }
 
     private void OnDisable()
@@ -87,6 +91,24 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
         input.SelectSpell -= SelectSpell;
         playerCastSpell.EventStartCooldown -= StartSpellCooldown;
         input.PreviousNextSpell -= SelectNextAndPreviousSpell;
+        LevelPieceGameProgressControlAbstract.EventPlayerInCombat -= InCombat;
+    }
+
+    /// <summary>
+    /// Called if player enters or leaves combat.
+    /// </summary>
+    /// <param name="condition"></param>
+    private void InCombat(bool condition)
+    {
+        if (condition)
+        {
+            outOfCombatCooldownMultiplier = 1f;
+        }
+        else
+        {
+            outOfCombatCooldownMultiplier = 
+                player.Values.OutOfCombatCooldownMultiplier;
+        }
     }
 
     /// <summary>
@@ -167,12 +189,11 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
     private IEnumerator StartSpellCooldownCoroutine(ISpell spell)
     {
         spell.CooldownCounter = 0;
-
-        float currentTime = Time.time;
-        while (Time.time < currentTime + spell.Cooldown)
+        while (spell.CooldownCounter < spell.Cooldown)
         {
             // Sets cooldown from 0 to active spell cooldown.
-            spell.CooldownCounter = (Time.time - currentTime);
+            spell.CooldownCounter += 
+                Time.fixedDeltaTime * outOfCombatCooldownMultiplier;
             yield return wffu;
         }
         spell.CooldownCounter = spell.Cooldown;
@@ -243,8 +264,6 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
             {
                 if (CurrentSpells[i] == null)
                 {
-                    if (playerStats.PlayerAttributes.AvailableSpells.Contains(spellToAdd) == false)
-                        playerStats.PlayerAttributes.AvailableSpells.Add(spellToAdd);
                     CurrentSpells[i] = spellToAdd;
                     SelectSpell(CurrentSpellIndex, true);
                     StartSpellCooldown(CurrentSpells[i]);
@@ -267,8 +286,6 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
             {
                 if (CurrentSpells[i] == null && i == slotNumber)
                 {
-                    if (playerStats.PlayerAttributes.AvailableSpells.Contains(spellToAdd) == false)
-                        playerStats.PlayerAttributes.AvailableSpells.Add(spellToAdd);
                     CurrentSpells[i] = spellToAdd;
                     SelectSpell(CurrentSpellIndex, true);
                     StartSpellCooldown(CurrentSpells[i]);
