@@ -11,6 +11,9 @@ public class SpellBehaviourSpawnHitOnAoEHoverSO : SpellBehaviourAbstractOneShotS
     {
         // Needed to run other behaviours
         parent.SpellStartedMoving = true;
+        parent.DisableSpellAfterCollision = true;
+        parent.TimeOfImpact = Time.time;
+        parent.TimeSpawned = Time.time;
 
         parent.transform.position = parent.AreaHoverAreaHit.point + parent.AreaHoverAreaHit.normal;
         parent.PositionOnHit = parent.AreaHoverAreaHit.point + parent.AreaHoverAreaHit.normal;

@@ -18,7 +18,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     /// <summary>
     /// Time of spell impact.
     /// </summary>
-    public float TimeOfImpact { get; private set; }
+    public float TimeOfImpact { get; set; }
 
     /// <summary>
     /// Property for rigidbody.

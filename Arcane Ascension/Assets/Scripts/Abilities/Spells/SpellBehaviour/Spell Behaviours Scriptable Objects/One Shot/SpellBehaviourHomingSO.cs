@@ -66,10 +66,13 @@ sealed public class SpellBehaviourHomingSO : SpellBehaviourAbstractOneShotSO
 
     public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
-        if (parent.transform.position.Similiar(parent.HomingTarget.position, 0.1f))
+        if (parent.HomingTarget != null)
         {
-            parent.DisableSpellAfterCollision = true;
-            parent.Rb.constraints = RigidbodyConstraints.FreezePosition;
+            if (parent.transform.position.Similiar(parent.HomingTarget.position, 0.1f))
+            {
+                parent.DisableSpellAfterCollision = true;
+                parent.Rb.constraints = RigidbodyConstraints.FreezePosition;
+            }
         }
     }
 }
