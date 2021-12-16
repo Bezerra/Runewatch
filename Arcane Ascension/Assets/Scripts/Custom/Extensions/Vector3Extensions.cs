@@ -34,7 +34,7 @@ namespace ExtensionMethods
         /// compensation.
         /// </summary>
         /// <param name="thisVector">Vector3 to analyze.</param>
-        /// <param name="desiredPosition">Desired Vector3 to check against.</param>
+        /// <param name="otherVector">Desired Vector3 to check against.</param>
         /// <param name="compensation">Compensation of values to check.</param>
         /// <returns>Returns true if this vector3 is similiar to another one,
         /// else it returns false.</returns>
@@ -52,6 +52,31 @@ namespace ExtensionMethods
                 thisVector.y > finalNegative.y &&
                 thisVector.z < finalPositive.z &&
                 thisVector.z > finalNegative.z)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Checks if a Vector3 is similiar to another with a determined 
+        /// compensation.
+        /// </summary>
+        /// <param name="thisVector">Vector3 to analyze.</param>
+        /// <param name="otherVector">Desired Vector3 to check against.</param>
+        /// <param name="compensation">Compensation of values to check.</param>
+        /// <returns>Returns true if this vector3 is similiar to another one,
+        /// else it returns false.</returns>
+        public static bool Lesser(this Vector3 thisVector,
+            Vector3 otherVector, float compensation = 0.01f)
+        {
+            Vector3 finalCompensation =
+                new Vector3(compensation, compensation, compensation);
+            Vector3 finalPositive = otherVector + finalCompensation;
+
+            if (Mathf.Abs(thisVector.x) < finalPositive.x &&
+                Mathf.Abs(thisVector.y) < finalPositive.y &&
+                Mathf.Abs(thisVector.z) < finalPositive.z)
             {
                 return true;
             }

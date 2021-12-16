@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 2922691851141723520}
   - component: {fileID: 5090159630398144815}
   - component: {fileID: -3507278263806750720}
+  - component: {fileID: 7558312168714797602}
+  - component: {fileID: 2358739628327243108}
   m_Layer: 16
   m_Name: Pickable - Potion Mana
   m_TagString: Untagged
@@ -76,6 +78,31 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!135 &7558312168714797602
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4516591354053293744}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2358739628327243108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4516591354053293744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edd55560fc00fb34d81b33764fc47348, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4516591354194254187
 GameObject:
   m_ObjectHideFlags: 0
