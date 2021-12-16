@@ -13,6 +13,10 @@ public class PlayerValuesSO : CharacterValuesSO
     public float OutOfCombatSpeedMultiplier => outOfCombatSpeedMultiplier;
 
     [BoxGroup("General Values")]
+    [Range(1f, 4f)] [SerializeField] private float outOfCombatCooldownMultiplier = 2.5f;
+    public float OutOfCombatCooldownMultiplier => outOfCombatCooldownMultiplier;
+
+    [BoxGroup("General Values")]
     [Tooltip("Running speed.")]
     [Range(5f, 15)] [SerializeField] private float runningSpeed = 10f;
     public float RunningSpeed => runningSpeed;
@@ -50,7 +54,7 @@ public class PlayerValuesSO : CharacterValuesSO
     public float TimeToGetDashCharge => timeToGetDashCharge;
 
     [BoxGroup("Dash")]
-    [Range(1f, 3f)] [SerializeField] private float outOfCombatDashDelayMultiplier = 3f;
+    [Range(1f, 10f)] [SerializeField] private float outOfCombatDashDelayMultiplier = 5f;
     public float OutOfCombatDashDelayMultiplier => outOfCombatDashDelayMultiplier;
 
     [BoxGroup("Camera")]

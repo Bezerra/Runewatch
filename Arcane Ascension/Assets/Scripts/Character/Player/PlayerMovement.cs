@@ -95,6 +95,10 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         LevelPieceGameProgressControlAbstract.EventPlayerInCombat -= InCombat;
     }
 
+    /// <summary>
+    /// Called if player enters or leaves combat.
+    /// </summary>
+    /// <param name="condition"></param>
     private void InCombat(bool condition)
     {
         if (condition)
