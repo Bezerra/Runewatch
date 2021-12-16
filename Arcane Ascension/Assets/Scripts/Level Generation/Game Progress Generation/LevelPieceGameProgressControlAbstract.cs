@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using ExtensionMethods;
@@ -8,6 +9,20 @@ using ExtensionMethods;
 public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
 {
     [SerializeField] protected AvailableListOfEnemiesToSpawnSO listOfEnemies;
+
+    private bool playerInCombat;
+    protected bool PlayerInCombat
+    {
+        get => playerInCombat;
+        set
+        {
+            playerInCombat = value;
+            OnPlayerInCombat(value);
+        }
+    }
+
+    private static void OnPlayerInCombat(bool condition) => EventPlayerInCombat?.Invoke(condition);
+    public static event Action<bool> EventPlayerInCombat;
 
     // Loot
     [Header("Loot variables")]
@@ -37,6 +52,7 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
         foreach (GameProgressCollider gpc in gameProgressColliders)
             exitBlockers.Add(gpc.GetComponent<BoxCollider>());
         random = new System.Random();
+        playerInCombat = false;
     }
 
     /// <summary>

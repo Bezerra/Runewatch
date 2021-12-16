@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
     public float    Speed { get => speed; private set { speed = value; OnEventSpeedChange(Speed); } }
     public bool     Running { get; private set; }
     private Vector3 positionOnLastCalculation;
+    private float   inCombatSpeed;
 
     // Dash
     private float   dashCurrentValue;
@@ -61,6 +62,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         gravityIncrement = DEFAULTGRAVITYINCREMENT;
         dashCurrentValue = player.Values.DashDefaultValue;
         CurrentTimeToGetCharge = 0;
+        inCombatSpeed = 1f;
     }
 
     private void OnEnable()
@@ -71,6 +73,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         playerStats.EventSpeedUpdate += UpdateSpeed;
         playerCastSpell.EventAttack += ReduceSpeedOnContinuousAttack;
         playerCastSpell.EventCancelAttack += NormalSpeedAfterContinuousAttack;
+        LevelPieceGameProgressControlAbstract.EventPlayerInCombat += InCombat;
     }
 
     private void Start()
@@ -87,6 +90,14 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         playerStats.EventSpeedUpdate -= UpdateSpeed;
         playerCastSpell.EventAttack -= ReduceSpeedOnContinuousAttack;
         playerCastSpell.EventCancelAttack -= NormalSpeedAfterContinuousAttack;
+        LevelPieceGameProgressControlAbstract.EventPlayerInCombat -= InCombat;
+    }
+
+    private void InCombat(bool condition)
+    {
+        Debug.Log("AH");
+        if (condition) inCombatSpeed = 1f;
+        else inCombatSpeed = player.Values.OutOfCombatSpeed;
     }
 
     private void Update()
@@ -97,6 +108,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         Vector3 sideMovement = movementX * speed * transform.right;
         Vector3 forwardMovement = movementZ * speed * transform.forward;
         directionPressed = sideMovement + forwardMovement;
+        directionPressed *= inCombatSpeed;
 
         // Controls character radius to prevent getting stuck on edges after jumping
         if (IsGrounded())

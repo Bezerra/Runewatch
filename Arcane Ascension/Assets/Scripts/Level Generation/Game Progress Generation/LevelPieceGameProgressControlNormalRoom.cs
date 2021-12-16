@@ -71,6 +71,8 @@ public class LevelPieceGameProgressControlNormalRoom : LevelPieceGameProgressCon
                     contactPoint.BlockPassage();
                     contactPoint.ClosePassage();
                 }
+
+                PlayerInCombat = true;
             }
             else
             {
@@ -132,6 +134,8 @@ public class LevelPieceGameProgressControlNormalRoom : LevelPieceGameProgressCon
                             currency.Amount = arcanePowerQuantity;
                     }
                 }
+
+                PlayerInCombat = false;
             }
         }
         else

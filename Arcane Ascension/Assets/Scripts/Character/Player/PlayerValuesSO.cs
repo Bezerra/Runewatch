@@ -9,6 +9,10 @@ using Sirenix.OdinInspector;
 public class PlayerValuesSO : CharacterValuesSO
 {
     [BoxGroup("General Values")]
+    [Range(5f, 15)] [SerializeField] private float outOfCombatSpeed = 2f;
+    public float OutOfCombatSpeed => outOfCombatSpeed;
+
+    [BoxGroup("General Values")]
     [Tooltip("Running speed.")]
     [Range(5f, 15)] [SerializeField] private float runningSpeed = 10f;
     public float RunningSpeed => runningSpeed;
