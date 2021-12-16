@@ -9,7 +9,7 @@ using Sirenix.OdinInspector;
 [InlineEditor]
 public class StatusBehaviourBurnSO : StatusBehaviourAbstractSO
 {
-    [Range(0, 4f)][SerializeField] private float damageToDo;
+    [Range(0, 10f)][SerializeField] private float damageToDo;
     [Range(0, 2f)] [SerializeField] private float damageInterval;
 
     public override void StartBehaviour(StatusBehaviour parent)
