@@ -49,6 +49,10 @@ public class PlayerValuesSO : CharacterValuesSO
     [Range(1, 10)] [SerializeField] private float timeToGetDashCharge = 5f;
     public float TimeToGetDashCharge => timeToGetDashCharge;
 
+    [BoxGroup("Dash")]
+    [Range(1f, 3f)] [SerializeField] private float outOfCombatDashDelayMultiplier = 3f;
+    public float OutOfCombatDashDelayMultiplier => outOfCombatDashDelayMultiplier;
+
     [BoxGroup("Camera")]
     [Range(2, 10f)] [SerializeField] private float cameraForceOnDash = 4f;
     public float CameraForceOnDash => cameraForceOnDash;

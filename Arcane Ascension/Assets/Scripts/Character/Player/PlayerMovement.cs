@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
     private float   dashingTimer;
     private bool    dashing;
     public float    CurrentTimeToGetCharge { get; private set; }
+    private float   inCombatDashDelay;
 
     // Jump
     private YieldInstruction wffu;
@@ -63,6 +64,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         dashCurrentValue = player.Values.DashDefaultValue;
         CurrentTimeToGetCharge = 0;
         inCombatSpeed = player.Values.OutOfCombatSpeedMultiplier;
+        inCombatDashDelay = player.Values.OutOfCombatDashDelayMultiplier;
     }
 
     private void OnEnable()
@@ -95,8 +97,16 @@ public class PlayerMovement : MonoBehaviour, IFindInput
 
     private void InCombat(bool condition)
     {
-        if (condition) inCombatSpeed = 1f;
-        else inCombatSpeed = player.Values.OutOfCombatSpeedMultiplier;
+        if (condition)
+        {
+            inCombatSpeed = 1f;
+            inCombatDashDelay = 1f;
+        }
+        else
+        {
+            inCombatSpeed = player.Values.OutOfCombatSpeedMultiplier;
+            inCombatDashDelay = player.Values.OutOfCombatDashDelayMultiplier;
+        }
     }
 
     private void Update()
@@ -125,7 +135,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         // Dash counter. Updates dash timer and charges
         if (playerStats.DashCharge < playerStats.PlayerAttributes.MaxDashCharge)
         {
-            CurrentTimeToGetCharge -= Time.deltaTime;
+            CurrentTimeToGetCharge -= Time.deltaTime * inCombatDashDelay;
             if (CurrentTimeToGetCharge <= 0)
             {
                 playerStats.DashCharge++;
