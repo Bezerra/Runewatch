@@ -850,6 +850,8 @@ GameObject:
   - component: {fileID: 4261507716500612855}
   - component: {fileID: 5242342487471872136}
   - component: {fileID: 452348920101884905}
+  - component: {fileID: 5041972238341324005}
+  - component: {fileID: 5960141370920288090}
   m_Layer: 16
   m_Name: Pickable - Loot Gold
   m_TagString: Untagged
@@ -913,3 +915,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!135 &5041972238341324005
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8722719063593831625}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5960141370920288090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8722719063593831625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edd55560fc00fb34d81b33764fc47348, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

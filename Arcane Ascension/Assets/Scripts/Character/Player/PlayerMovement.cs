@@ -168,7 +168,6 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         {
             if (IsPlayerStopped())
             {
-                Debug.Log("not moving");
                 Run(false);
             }
         }
@@ -356,28 +355,19 @@ public class PlayerMovement : MonoBehaviour, IFindInput
                 playerStats.CommonAttributes.MovementSpeedMultiplier *
                 playerStats.CommonAttributes.MovementStatusEffectMultiplier *
                 0.5f;
+
+            if (Running)
+            {
+                Run(false);
+            }
         }
     }
 
     /// <summary>
     /// Turns speed back to normal after continuous attack is over.
     /// </summary>
-    private void NormalSpeedAfterContinuousAttack()
-    {
+    private void NormalSpeedAfterContinuousAttack() =>
         castingContinuousSpell = false;
-        if (Running)
-        {
-            Speed = player.Values.RunningSpeed *
-                playerStats.CommonAttributes.MovementSpeedMultiplier *
-                playerStats.CommonAttributes.MovementStatusEffectMultiplier;
-        }
-        else
-        {
-            Speed = player.Values.Speed * 
-                playerStats.CommonAttributes.MovementSpeedMultiplier *
-                playerStats.CommonAttributes.MovementStatusEffectMultiplier;
-        }
-    }
 
     /// <summary>
     /// Jumps and increments gravity value.
