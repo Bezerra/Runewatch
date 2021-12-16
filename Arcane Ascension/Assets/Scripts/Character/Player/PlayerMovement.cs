@@ -62,7 +62,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         gravityIncrement = DEFAULTGRAVITYINCREMENT;
         dashCurrentValue = player.Values.DashDefaultValue;
         CurrentTimeToGetCharge = 0;
-        inCombatSpeed = 1f;
+        inCombatSpeed = player.Values.OutOfCombatSpeedMultiplier;
     }
 
     private void OnEnable()
@@ -95,9 +95,8 @@ public class PlayerMovement : MonoBehaviour, IFindInput
 
     private void InCombat(bool condition)
     {
-        Debug.Log("AH");
         if (condition) inCombatSpeed = 1f;
-        else inCombatSpeed = player.Values.OutOfCombatSpeed;
+        else inCombatSpeed = player.Values.OutOfCombatSpeedMultiplier;
     }
 
     private void Update()
@@ -295,7 +294,8 @@ public class PlayerMovement : MonoBehaviour, IFindInput
                 Running = true;
                 Speed = player.Values.RunningSpeed * 
                     playerStats.CommonAttributes.MovementSpeedMultiplier *
-                    playerStats.CommonAttributes.MovementStatusEffectMultiplier;
+                    playerStats.CommonAttributes.MovementStatusEffectMultiplier /
+                    inCombatSpeed;
             }
             else
             {
