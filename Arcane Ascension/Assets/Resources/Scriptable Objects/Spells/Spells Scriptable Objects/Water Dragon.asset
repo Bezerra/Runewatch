@@ -10,42 +10,43 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa9d642721915f846be63fa9e31b1ec0, type: 3}
-  m_Name: Wave of Terror
+  m_Name: Water Dragon
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  name: Wave of Terror
+  name: Water Dragon
   spellTier: 1
-  description: Casts a wave that travels forward and pierces enemies, incrementing
-    damage with each hit.
-  elementIcon: {fileID: 21300000, guid: d8f0a6b039af50c4baa562d354de8131, type: 3}
-  element: 7
-  manaCost: 20
+  description: Creates a water dragon that homes in on an enemy. Pierces up to 6
+    enemies.
+  elementIcon: {fileID: 21300000, guid: 0185a9f74d11b5344bf4a9132f2bef27, type: 3}
+  element: 2
+  manaCost: 50
   targetTypeIcon: {fileID: 21300000, guid: 7b046770569e6a44fa8fc1f6b9a10e41, type: 3}
   timeInterval: 0.01
   maxTime: 0.1
-  areaOfEffect: 1
-  playerDamage: {x: 8, y: 20}
-  enemyDamage: {x: 0, y: 35}
+  areaOfEffect: 2
+  playerDamage: {x: 135, y: 150}
+  enemyDamage: {x: 0, y: 0}
   delayToDoDamage: 0
   spellCastType: 0
-  speed: 13
-  cooldown: 0.15
-  maximumDistance: 40
-  spellPrefab: {fileID: 4544114618391733411, guid: 5d5018db95036674da66f4f80b70e246, type: 3}
-  spellHitPrefab: {fileID: 1692217177674820475, guid: daf02e685000a4d49885b549d83382c0, type: 3}
-  spellMuzzlePrefab: {fileID: 7228047335470632946, guid: fd3ac13717c0c2d43bfba04e8bb9801d, type: 3}
-  spellHandEffectPrefab: {fileID: 5965007050869265157, guid: 4300263d8629e5d4ca8e733b82ec3a36, type: 3}
+  speed: 5
+  cooldown: 3
+  maximumDistance: 45
+  spellPrefab: {fileID: 7189111728712202335, guid: b7ae090674f8cf040b99a3c4e2c084cd, type: 3}
+  spellHitPrefab: {fileID: 1692217177674820475, guid: 84424e21486fd9949aaace1dbe8ea94b, type: 3}
+  spellMuzzlePrefab: {fileID: 7228047335470632946, guid: 4f92dfa44c5c5eb4f9563260ce0a273b, type: 3}
+  spellHandEffectPrefab: {fileID: 5965007050869265157, guid: 98ec61fddd1e1234a915fa1f20865505, type: 3}
   areaHoverPrefab: {fileID: 0}
   damageBehaviour: {fileID: 11400000, guid: f61f29a589d8b6b49ab8eb8d558e9ac2, type: 2}
   statusBehaviour: {fileID: 0}
   sounds:
     projectile: {fileID: 0}
-    muzzle: {fileID: 0}
+    muzzle: {fileID: 11400000, guid: 1969bbb868608d2428bb4f69577d59a2, type: 2}
     hit: {fileID: 0}
   surfaceSounds: []
   spellBehaviourOneShot:
   - {fileID: 11400000, guid: 20cb4169d3aa11d468e125db71cf86b6, type: 2}
-  - {fileID: 11400000, guid: c314adb0b78e7b8428497fa66a09b4df, type: 2}
+  - {fileID: 11400000, guid: 030e36e9e09522f488a1e65e57d8d705, type: 2}
+  - {fileID: 11400000, guid: 7262268dff4b39f4bae5b5cb1742735c, type: 2}
   - {fileID: 11400000, guid: 7d59c711f20f28a47883065ae929a4f8, type: 2}
   - {fileID: 11400000, guid: 967dabe4675969a4b80cb9ab4fb1783c, type: 2}
   attackBehaviourOneShot: {fileID: 11400000, guid: 951b735271f52a24b8c27da0e99a077c, type: 2}
