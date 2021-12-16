@@ -164,6 +164,15 @@ public class PlayerMovement : MonoBehaviour, IFindInput
             }
         }
 
+        if (Running)
+        {
+            if (IsPlayerStopped())
+            {
+                Debug.Log("not moving");
+                Run(false);
+            }
+        }
+
         // Happens when player is dashing
         if (dashing)
         {
