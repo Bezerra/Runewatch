@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa9d642721915f846be63fa9e31b1ec0, type: 3}
   m_Name: Shadow Shuriken
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 8ad37682a063523438ce2872b38302ff, type: 3}
   name: Shadow Shuriken
   spellTier: 1
   description: Throws a shuriken made of darkness that pierces foes and bounces on
@@ -24,12 +24,12 @@ MonoBehaviour:
   timeInterval: 0.01
   maxTime: 0.1
   areaOfEffect: 2
-  playerDamage: {x: 3, y: 4}
+  playerDamage: {x: 1, y: 2}
   enemyDamage: {x: 10, y: 12}
   delayToDoDamage: 0
   spellCastType: 0
   speed: 25
-  cooldown: 0.15
+  cooldown: 0.5
   maximumDistance: 40
   spellPrefab: {fileID: 4544114618391733411, guid: b122656750287274c959e10757a93361, type: 3}
   spellHitPrefab: {fileID: 1692217177674820475, guid: 8dc7fa19d49e87a40b12be66c6c78e64, type: 3}
