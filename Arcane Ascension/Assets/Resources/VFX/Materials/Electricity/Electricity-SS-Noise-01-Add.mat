@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Electricity-SS-01-Add
+  m_Name: Electricity-SS-Noise-01-Add
   m_Shader: {fileID: 4800000, guid: 00ddc540bb4f4884d8b80c89d91ca1f0, type: 3}
   m_ShaderKeywords: _USECUSTOMDISSOLVETEX0Z_ON
   m_LightmapFlags: 4
@@ -48,7 +48,7 @@ Material:
         m_Scale: {x: 3, y: 3}
         m_Offset: {x: 0, y: 0}
     - _DistortTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 6ced2592c2d284140b7bbe3df789f1b2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -122,7 +122,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DissolveAmount: 0
     - _DissolveSmooth: 0
-    - _DistortStrength: 0
+    - _DistortStrength: 0.09
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _FresnelPower: 5
@@ -154,7 +154,7 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 33.89676, g: 33.89676, b: 33.89676, a: 1}
     - _DissolveSpeed: {r: 0, g: 0, b: 0, a: 0}
-    - _DistortSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _DistortSpeed: {r: 1, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FresnelColor: {r: 0, g: 0, b: 0, a: 0}
     - _MainTextureSpeed: {r: 0, g: 0, b: 0, a: 0}
