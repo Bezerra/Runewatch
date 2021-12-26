@@ -26,7 +26,7 @@ public class StatusBehaviourCorruptSO : StatusBehaviourAbstractSO
 
                 parent.CharacterHit.TakeDamageOvertime(
                     damageToDo, ElementType.Umbra, damageInterval, durationSeconds);
-                Debug.Log("first");
+
                 parent.PrefabVFX = prefabVFX;
                 parent.EffectActive = true;
             }
@@ -37,7 +37,7 @@ public class StatusBehaviourCorruptSO : StatusBehaviourAbstractSO
 
                 parent.CharacterHit.TakeDamageOvertime(
                     damageToDo, ElementType.Umbra, damageInterval, durationSeconds);
-                Debug.Log("first else");
+
                 parent.DisableStatusGameObject();
             }
         }
@@ -50,7 +50,6 @@ public class StatusBehaviourCorruptSO : StatusBehaviourAbstractSO
             parent.CharacterHit.TakeDamageOvertime(
                 damageToDo * (stackMultiplier * parent.CharacterHit.StatusEffectStack),
                 ElementType.Umbra, damageInterval, durationSeconds);
-            Debug.Log("already");
 
             // Will only disable the spell if it's not the one that's causing the current effect
             // Do not remove this
