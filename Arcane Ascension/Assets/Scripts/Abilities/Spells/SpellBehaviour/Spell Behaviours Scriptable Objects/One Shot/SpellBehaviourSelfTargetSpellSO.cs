@@ -45,7 +45,7 @@ sealed public class SpellBehaviourSelfTargetSpellSO : SpellBehaviourAbstractOneS
 
     public override void ContinuousFixedUpdateBehaviour(SpellBehaviourOneShot parent)
     {
-        // Left blank on purpose
+        parent.transform.position = parent.WhoCast.transform.position;
     }
 
     public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)

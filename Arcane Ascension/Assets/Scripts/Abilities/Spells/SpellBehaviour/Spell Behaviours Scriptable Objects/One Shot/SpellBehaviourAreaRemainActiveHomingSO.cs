@@ -8,11 +8,13 @@ using ExtensionMethods;
     fileName = "Spell Behaviour Homing Area Remain Active")]
 sealed public class SpellBehaviourAreaRemainActiveHomingSO : SpellBehaviourAbstractOneShotSO
 {
+    [Range(1, 15f)] [SerializeField] private float homingRange = 10f;
+
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
         // Creates a sphere collider to check every enemy in front of the player
         Collider[] enemyColliders = 
-            Physics.OverlapSphere(parent.transform.position, 10f,
+            Physics.OverlapSphere(parent.transform.position, homingRange,
             Layers.EnemySensiblePoint);
 
         // If it found enemies
@@ -49,7 +51,7 @@ sealed public class SpellBehaviourAreaRemainActiveHomingSO : SpellBehaviourAbstr
         {
             // Creates a sphere collider to check every enemy in front of the player
             Collider[] enemyColliders =
-                Physics.OverlapSphere(parent.transform.position, 10f,
+                Physics.OverlapSphere(parent.transform.position, homingRange,
                 Layers.EnemySensiblePoint);
 
             // If it found enemies
