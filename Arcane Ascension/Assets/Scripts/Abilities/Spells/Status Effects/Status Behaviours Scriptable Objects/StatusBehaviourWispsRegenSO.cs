@@ -23,6 +23,7 @@ public class StatusBehaviourWispsRegenSO : StatusBehaviourAbstractSO
                 parent.CharacterHit.StatusEffectList.AddItem(statusEffectType,
                     new StatusEffectInformation(Time.time, durationSeconds, icon));
 
+                parent.LastTimeHit = 0;
                 parent.PrefabVFX = prefabVFX;
                 parent.EffectActive = true;
             }
@@ -47,6 +48,12 @@ public class StatusBehaviourWispsRegenSO : StatusBehaviourAbstractSO
 
     public override void ContinuousUpdateBehaviour(StatusBehaviour parent)
     {
+        if (Time.time - parent.LastTimeHit > healingInterval)
+        {
+            parent.LastTimeHit = Time.time;
+            parent.CharacterHit.Heal(healingToDo, StatsType.Armor);
+        }
+
         // This will happen to the active effect
         // In order for this to happen, the effect is active, so the stats Dictionary will
         // have this key for sure
@@ -55,8 +62,6 @@ public class StatusBehaviourWispsRegenSO : StatusBehaviourAbstractSO
         {
             parent.CharacterHit.StatusEffectList.Items.Remove(statusEffectType);
             parent.DisableStatusGameObject();
-        }
-
-        //if ()
+        } 
     }
 }

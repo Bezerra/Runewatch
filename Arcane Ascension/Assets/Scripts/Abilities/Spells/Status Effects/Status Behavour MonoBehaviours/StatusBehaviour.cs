@@ -26,6 +26,11 @@ public class StatusBehaviour : MonoBehaviour
     /// </summary>
     public GameObject PrefabVFX { get; set; }
 
+    /// <summary>
+    /// Last time the effect was applied.
+    /// </summary>
+    public float LastTimeHit { get; set; }
+
     private Stats characterHit;
 
     /// <summary>
@@ -106,5 +111,6 @@ public class StatusBehaviour : MonoBehaviour
         Spell = spell;
         WhoCast = whoCast;
         CharacterHit = characterHit;
+        LastTimeHit = Time.time;
     }
 }
