@@ -111,6 +111,5 @@ public class StatusBehaviour : MonoBehaviour
         Spell = spell;
         WhoCast = whoCast;
         CharacterHit = characterHit;
-        LastTimeHit = Time.time;
     }
 }

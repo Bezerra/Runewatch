@@ -2,10 +2,10 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 
 /// <summary>
-/// Scriptable object responsible for creating wisps regen status behaviour.
+/// Scriptable object responsible for creating wisps healing status behaviour.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Status/Status Behaviour Wisps Regen",
-    fileName = "Status Behaviour Wisps Regen")]
+[CreateAssetMenu(menuName = "Spells/Status/Status Behaviour Wisps Healing",
+    fileName = "Status Behaviour Wisps Healing")]
 [InlineEditor]
 public class StatusBehaviourWispsRegenSO : StatusBehaviourAbstractSO
 {
