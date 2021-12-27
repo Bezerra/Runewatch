@@ -10,4 +10,5 @@ public enum StatusEffectType
     Vulnerable,
     Fortified,
     WispsRegen,
+    Sacrifice,
 }
