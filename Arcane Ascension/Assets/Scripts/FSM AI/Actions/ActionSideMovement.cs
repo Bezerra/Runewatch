@@ -18,9 +18,10 @@ sealed public class ActionSideMovement: FSMAction
     /// <param name="ai">AI Character.</param>
     private void SideMovement(StateController<Enemy> ai)
     {
-        if (ai.Controller.RunningBackwards || 
-            ai.Controller.IsAttackingWithStoppingTime)
+        if (ai.Controller.IsAttackingWithStoppingTime ||
+            ai.Controller.Agent.velocity.magnitude > 1f)
         {
+            Debug.Log(ai.Controller.Agent.velocity.magnitude);
             return;
         }
 

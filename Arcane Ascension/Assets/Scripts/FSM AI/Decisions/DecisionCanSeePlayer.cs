@@ -35,9 +35,12 @@ sealed public class DecisionCanSeePlayer : FSMDecision
                 {
                     if (colliders[i].TryGetComponentInParent<Player>(out Player player))
                     {
-                        ai.Controller.CurrentTarget
-                            = player.Eyes.transform;
-                        ai.Controller.PlayerBody = player.GetComponentInChildren<CapsuleCollider>().transform;
+                        ai.Controller.CurrentTarget = player.Eyes.transform;
+                        
+
+                        CapsuleCollider bodyCollider = player.GetComponentInChildren<CapsuleCollider>();
+                        if (bodyCollider != null)
+                            ai.Controller.PlayerBody = bodyCollider.transform;
                     }
                     else
                     {
