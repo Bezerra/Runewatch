@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Acid Seed
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  name: Eruption
+  name: Acid Seed
   spellTier: 1
-  description: Creates a pillar of fire at location.
+  description: Plants a seed which explodes when an enemy gets close, dealing damage
+    to all enemies surrounding. Applies vulnerable
   elementIcon: {fileID: 21300000, guid: b7d8b4380f9ac714ca760f1c57b7e637, type: 3}
   element: 5
   manaCost: 50
@@ -36,7 +37,7 @@ MonoBehaviour:
   spellHandEffectPrefab: {fileID: 5965007050869265157, guid: adf3c96132e7d5141aa94734fc2e24a9, type: 3}
   areaHoverPrefab: {fileID: 1369274409782311434, guid: d1412072d0a506d45b80f2ffa459d147, type: 3}
   damageBehaviour: {fileID: 11400000, guid: 416113b2a45cb57448020076a9603528, type: 2}
-  statusBehaviour: {fileID: 0}
+  statusBehaviour: {fileID: 11400000, guid: 54462c69d8303bd488eeb2e99648ec75, type: 2}
   sounds:
     projectile: {fileID: 0}
     muzzle: {fileID: 0}
@@ -50,7 +51,7 @@ MonoBehaviour:
   attackBehaviourOneShot: {fileID: 11400000, guid: ab869008ef5c4074298c42944aa52938, type: 2}
   onHitBehaviourOneShot:
   - {fileID: 11400000, guid: 86d0af31415029440a6ad24253079b63, type: 2}
-  - {fileID: 11400000, guid: f9fa5f0dff83ae146ad847d4b5b3b664, type: 2}
+  - {fileID: 11400000, guid: b67a21e782d7c3141894566198d37048, type: 2}
   muzzleBehaviourOneShot:
   - {fileID: 11400000, guid: da438eaf63e47e74a8e7e0d60862b84e, type: 2}
   - {fileID: 11400000, guid: e54eb235ea9381946a4a076f5351e0f3, type: 2}
