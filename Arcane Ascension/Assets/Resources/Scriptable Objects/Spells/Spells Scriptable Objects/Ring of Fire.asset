@@ -10,33 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa9d642721915f846be63fa9e31b1ec0, type: 3}
-  m_Name: Thunder Storm
+  m_Name: Ring of Fire
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  name: Thunder Storm
+  name: Ring Of Fire
   spellTier: 1
-  description: Creates an area with thunders, causing damage every interval of time.
-  elementIcon: {fileID: 21300000, guid: 80f5331606fed4447979df3004b1f8e9, type: 3}
-  element: 4
-  manaCost: 50
+  description: A ring of fire that remains active. Enemies will be damage while inside
+    the ring. Applies burn.
+  elementIcon: {fileID: 21300000, guid: 0bfd4d829ff5ddd49a1cc3db69719a7c, type: 3}
+  element: 1
+  manaCost: 20
   targetTypeIcon: {fileID: 21300000, guid: f7859ac33a8e3dc4c872877e535801e4, type: 3}
-  timeInterval: 1
-  maxTime: 10
-  areaOfEffect: 6
-  playerDamage: {x: 20, y: 30}
+  timeInterval: 0.5
+  maxTime: 5
+  areaOfEffect: 3
+  playerDamage: {x: 5, y: 7}
   enemyDamage: {x: 0, y: 0}
   delayToDoDamage: 0
   spellCastType: 2
   speed: 0.01
   cooldown: 0.25
   maximumDistance: 20
-  spellPrefab: {fileID: 7189111728712202335, guid: b4c9861f11731db49bb8f4d423c4d8e5, type: 3}
-  spellHitPrefab: {fileID: 2310489982616561858, guid: 42af888589dbc094b85efe5600fbcb36, type: 3}
-  spellMuzzlePrefab: {fileID: 7228047335470632946, guid: 1092bb792a5d9cc499e956a24ff942a9, type: 3}
-  spellHandEffectPrefab: {fileID: 5965007050869265157, guid: addbe2c6faac7ac4db395420eee1153b, type: 3}
+  spellPrefab: {fileID: 7189111728712202335, guid: b1206a3d4e695c7428597637425d84ad, type: 3}
+  spellHitPrefab: {fileID: 2310489982616561858, guid: 7483e8cd8862faf4f83ef64598817926, type: 3}
+  spellMuzzlePrefab: {fileID: 7228047335470632946, guid: 58352e71074d1ce4abece68daec19568, type: 3}
+  spellHandEffectPrefab: {fileID: 5965007050869265157, guid: 280d2b34b0ce0e549a6782d20b15f614, type: 3}
   areaHoverPrefab: {fileID: 1369274409782311434, guid: d1412072d0a506d45b80f2ffa459d147, type: 3}
   damageBehaviour: {fileID: 11400000, guid: 416113b2a45cb57448020076a9603528, type: 2}
-  statusBehaviour: {fileID: 0}
+  statusBehaviour: {fileID: 11400000, guid: bff563f3dfe3e8c46a3f048d42c21991, type: 2}
   sounds:
     projectile: {fileID: 0}
     muzzle: {fileID: 0}
