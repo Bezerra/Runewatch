@@ -29,19 +29,36 @@ sealed public class SpellBehaviourApplyDamageAndSpreadSO : SpellBehaviourAbstrac
         {
             // Checks which layer should it damage
             LayerMask layerToHit = parent.WhoCast.CommonAttributes.Type ==
-                CharacterType.Player ? Layers.EnemyLayer : Layers.PlayerLayer;
+                CharacterType.Player ? Layers.EnemySensiblePoint : Layers.PlayerLayer;
 
             // Creates a sphere collider to check every enemy in front of the player
             Collider[] enemyColliders =
                 Physics.OverlapSphere(parent.transform.position, spreadRange,
                 layerToHit);
 
-            // If it found enemies
-            if (enemyColliders.Length > 0)
+            // Creates a list for colliders found
+            IList<Collider> collidersList = new List<Collider>();
+            for (int i = 0; i < enemyColliders.Length; i++)
             {
+                if (enemyColliders[i].TryGetComponentInParent(out SelectionBase colliderHit))
+                {
+                    if (parent.CharacterHit.gameObject.TryGetComponentInParent(out SelectionBase characterHit))
+                    {
+                        // If collider selection base is different than the current character being damaged
+                        if (colliderHit != characterHit)
+                        {
+                            collidersList.Add(enemyColliders[i]);
+                        }
+                    }  
+                }  
+            }
+
+            // If it found enemies
+            // Sets a new homing target
+            if (collidersList.Count > 0)
+            {
+                parent.HomingTarget = collidersList[Random.Range(0, collidersList.Count)].transform;
                 parent.TriggerSpread = false;
-                
-                parent.HomingTarget = enemyColliders[Random.Range(0, enemyColliders.Length)].transform;
             }
             else
             {
@@ -56,8 +73,9 @@ sealed public class SpellBehaviourApplyDamageAndSpreadSO : SpellBehaviourAbstrac
         // Guides the spell towards the homing target
         if (parent.HomingTarget != null)
         {
-            Vector3 direction = parent.transform.position.Direction(parent.HomingTarget.position);
-            parent.Rb.velocity = direction * parent.Spell.Speed;
+            parent.transform.rotation =
+                Quaternion.LookRotation(parent.transform.Direction(parent.HomingTarget.position));
+            parent.Rb.velocity = parent.transform.forward * parent.Spell.Speed;
         }
     }
 
