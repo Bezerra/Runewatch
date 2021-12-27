@@ -11,6 +11,11 @@ public class StatusBehaviour : MonoBehaviour
     public ISpell Spell { get; private set; }
 
     /// <summary>
+    /// Spell behaviour that created this status.
+    /// </summary>
+    public SpellBehaviourAbstract ParentSpell { get; private set; }
+
+    /// <summary>
     /// Time of spawn.
     /// </summary>
     public float TimeSpawned { get; set; }
@@ -61,7 +66,7 @@ public class StatusBehaviour : MonoBehaviour
         EffectActive = false;
         TimeSpawned = 0;
 
-        Initialize(null, null, null);
+        Initialize(null, null, null, null);
     }
 
     /// <summary>
@@ -106,10 +111,13 @@ public class StatusBehaviour : MonoBehaviour
     /// <param name="spell">Spell cast.</param>
     /// <param name="whoCast">Who cast the spell</param>
     /// <param name="characterHit">Who was hit by the spell.</param>
-    public void Initialize(ISpell spell, Stats whoCast, Stats characterHit)
+    /// <param name="parentSpell">Spell behaviour that created this status.</param>
+    public void Initialize(ISpell spell, Stats whoCast, Stats characterHit, 
+        SpellBehaviourAbstract parentSpell)
     {
         Spell = spell;
         WhoCast = whoCast;
         CharacterHit = characterHit;
+        ParentSpell = parentSpell;
     }
 }

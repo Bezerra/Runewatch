@@ -21,10 +21,10 @@ MonoBehaviour:
   element: 1
   manaCost: 20
   targetTypeIcon: {fileID: 21300000, guid: 7b046770569e6a44fa8fc1f6b9a10e41, type: 3}
-  timeInterval: 0.5
+  timeInterval: 0.01
   maxTime: 5
   areaOfEffect: 8
-  playerDamage: {x: 40, y: 50}
+  playerDamage: {x: 0, y: 0}
   enemyDamage: {x: 0, y: 0}
   delayToDoDamage: 0
   spellCastType: 0
@@ -36,8 +36,8 @@ MonoBehaviour:
   spellMuzzlePrefab: {fileID: 7228047335470632946, guid: 2ee376359bec3e642821de9a00dcba38, type: 3}
   spellHandEffectPrefab: {fileID: 5965007050869265157, guid: 280d2b34b0ce0e549a6782d20b15f614, type: 3}
   areaHoverPrefab: {fileID: 0}
-  damageBehaviour: {fileID: 11400000, guid: 416113b2a45cb57448020076a9603528, type: 2}
-  statusBehaviour: {fileID: 0}
+  damageBehaviour: {fileID: 0}
+  statusBehaviour: {fileID: 11400000, guid: ef2241cb4b6c8d747a039a177326b862, type: 2}
   sounds:
     projectile: {fileID: 0}
     muzzle: {fileID: 11400000, guid: 7cbb442276e6d1042850bd75da321d3a, type: 2}

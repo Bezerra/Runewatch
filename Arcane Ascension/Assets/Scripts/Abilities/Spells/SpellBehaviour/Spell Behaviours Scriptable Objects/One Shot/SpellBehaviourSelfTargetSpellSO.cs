@@ -20,7 +20,7 @@ sealed public class SpellBehaviourSelfTargetSpellSO : SpellBehaviourAbstractOneS
 
             if (statusGO.TryGetComponent(out StatusBehaviour statusBehaviour))
             {
-                statusBehaviour.Initialize(parent.Spell, parent.WhoCast, parent.WhoCast);
+                statusBehaviour.Initialize(parent.Spell, parent.WhoCast, parent.WhoCast, parent);
                 statusBehaviour.TriggerStartBehaviour();
             }
         }
