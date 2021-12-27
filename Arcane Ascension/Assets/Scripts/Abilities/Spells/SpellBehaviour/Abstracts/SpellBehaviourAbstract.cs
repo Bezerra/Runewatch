@@ -81,6 +81,7 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
             if (whoCast != value)
             {
                 whoCast = value;
+                LayerOfWhoCast = whoCast.gameObject.layer;
                 if (whoCast.TryGetComponent<Character>(out Character character))
                 {
                     Hand = character.Hand;
@@ -91,12 +92,10 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
                 if (whoCast.TryGetComponent<Enemy>(out Enemy enemy))
                 {
                     AICharacter = enemy;
-                    LayerOfWhoCast = Layers.EnemyLayer;
                 }
                 else
                 {
                     AICharacter = null;
-                    LayerOfWhoCast = Layers.PlayerLayer;
                 }
 
                 ThisIDamageable = WhoCast.GetComponent<IDamageable>();

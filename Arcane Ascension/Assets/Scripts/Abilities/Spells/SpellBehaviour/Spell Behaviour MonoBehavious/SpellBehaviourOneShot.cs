@@ -94,6 +94,11 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     /// </summary>
     public Transform HomingTarget { get; set; }
 
+    /// <summary>
+    /// Property to know if the spell should trigger spread.
+    /// </summary>
+    public bool TriggerSpread { get; set; }
+
     protected override void Awake()
     {
         base.Awake();
@@ -126,6 +131,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         AreaHoverDealtDamage = false;
         DisableImmediatly = false;
         HomingTarget = null;
+        TriggerSpread = false;
 
         if (Rb != null)
         {

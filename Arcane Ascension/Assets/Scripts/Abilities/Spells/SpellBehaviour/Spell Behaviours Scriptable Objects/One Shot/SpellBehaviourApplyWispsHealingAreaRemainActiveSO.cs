@@ -22,7 +22,7 @@ public class SpellBehaviourApplyWispsHealingAreaRemainActiveSO : SpellBehaviourA
         if (Time.time - parent.LastTimeDamaged > parent.Spell.TimeInterval)
         {
             Collider[] whoCastHit = Physics.OverlapSphere(parent.transform.position, 
-                parent.Spell.AreaOfEffect, parent.LayerOfWhoCast);
+                parent.Spell.AreaOfEffect, Layers.PlayerNormalAndInvisibleLayer);
 
             if (whoCastHit.Length > 0)
             {

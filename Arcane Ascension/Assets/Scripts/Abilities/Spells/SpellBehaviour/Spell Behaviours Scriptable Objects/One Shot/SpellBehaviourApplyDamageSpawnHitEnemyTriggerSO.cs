@@ -26,8 +26,8 @@ public class SpellBehaviourApplyDamageSpawnHitEnemyTriggerSO : SpellBehaviourAbs
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
     {
         // Checks which layer should it damage
-        LayerMask layerToHit = parent.LayerOfWhoCast == 
-            Layers.PlayerLayer ? Layers.EnemyLayer : Layers.PlayerLayer;
+        LayerMask layerToHit = parent.WhoCast.CommonAttributes.Type == 
+            CharacterType.Player ? Layers.EnemyLayer : Layers.PlayerLayer;
 
         // Checks if a for is in range
         Collider[] characterInRange = Physics.OverlapSphere(parent.transform.position,
