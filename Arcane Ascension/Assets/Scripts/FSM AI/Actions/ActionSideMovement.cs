@@ -21,7 +21,6 @@ sealed public class ActionSideMovement: FSMAction
         if (ai.Controller.IsAttackingWithStoppingTime ||
             ai.Controller.Agent.velocity.magnitude > 1f)
         {
-            Debug.Log(ai.Controller.Agent.velocity.magnitude);
             return;
         }
 

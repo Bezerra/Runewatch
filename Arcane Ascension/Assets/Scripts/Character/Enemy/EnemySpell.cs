@@ -21,10 +21,6 @@ public struct EnemySpell
         "a randm value between this X and Y.")]
     [RangeMinMax(2.5f, 20f)] [SerializeField] private Vector2 range; // 2.5 MINIMUM BECAUSE OF THE ENEMY COLLISION AGAINST PLAYER
 
-    [Tooltip("The enemy will only cast a spell when it reaches the range obtained on the " +
-        "beggining of the attack.")]
-    [SerializeField] private bool needsToBeInRangeToAttack;
-
     [Space(25f)]
     [Tooltip("As soon as the enemy starts casting any spell, it will stop.")]
     [InfoBox("If spell is one shot cast with release, 'Enemy Stops On Attack' variable MUST BE TRUE.")]
@@ -80,11 +76,6 @@ public struct EnemySpell
     /// A random range between two pre-defined values.
     /// </summary>
     public float Range { get; set; }
-
-    /// <summary>
-    /// Property to know if the character needs to be at least in this range to attack.
-    /// </summary>
-    public bool NeedsToBeInRangeToAttack => needsToBeInRangeToAttack;
 
     /// <summary>
     /// Property to know if the enemy stops on attack.

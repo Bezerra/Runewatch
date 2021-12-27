@@ -25,8 +25,9 @@ sealed public class ActionChasePlayer : FSMAction
         // If the agent has reached its final destination
         if (ai.Controller.CurrentTarget != null)
         {
-            if (Vector3.Distance(
-                ai.Controller.transform.position, ai.Controller.CurrentTarget.position) > ai.Controller.CurrentlySelectedSpell.Range)
+            if (Vector3.Distance(ai.Controller.transform.position,
+                    ai.Controller.CurrentTarget.transform.position) >
+                    ai.Controller.CurrentlySelectedSpell.Range + 0.02f)
             {
                 ai.Controller.Agent.SetDestination(
                     ai.Controller.CurrentTarget.position +
