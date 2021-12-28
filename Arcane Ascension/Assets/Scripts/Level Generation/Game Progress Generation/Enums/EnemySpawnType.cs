@@ -11,5 +11,11 @@ public enum EnemySpawnType
     SingleTargetSpellcasterTankie,
     AreaTargetSpellcasterAgile,
     AreaTargetSpellcasterTankie,
-    Boss,
+    IgnisBoss,
+    AquaBoss,
+    FulgurBoss,
+    NaturaBoss,
+    TerraBoss,
+    LuxBoss,
+    UmbraBoss,
 }

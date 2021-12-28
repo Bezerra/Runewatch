@@ -13,14 +13,16 @@ MonoBehaviour:
   m_Name: Small Golem - Ignis Stats Boss
   m_EditorClassIdentifier: 
   name: Small Golem - Ignis
-  description: Small Golem lalalalalalalalalalalala
+  description: 'boss
+
+'
   icon: {fileID: 21300000, guid: 0bfd4d829ff5ddd49a1cc3db69719a7c, type: 3}
   element: 1
   characterType: 1
-  defaultHealth: 2000
-  damageResistance: 0
+  defaultHealth: 10000
+  damageResistance: 0.25
   defaultMovementSpeedMultiplier: 1
-  defaultBaseDamageMultiplier: 1
+  defaultBaseDamageMultiplier: 3.5
   defaultNeutralMultiplier: 1
   defaultIgnisMultiplier: 1
   defaultFulgurMultiplier: 1
@@ -29,11 +31,9 @@ MonoBehaviour:
   defaultNaturaMultiplier: 1
   defaultLuxMultiplier: 1
   defaultUmbraMultiplier: 1
-  defaultCriticalChance: 0.1
+  defaultCriticalChance: 0.2
   defaultCriticalDamageModifier: 1
-  attackingDelay: {x: 2, y: 2.5}
-  goldQuantity: {x: 1, y: 5}
-  arcanePowerQuantity: {x: 5, y: 10}
+  attackingDelay: {x: 2, y: 2}
   lootRates:
     lootPieces:
     - lootType: 5
@@ -48,7 +48,7 @@ MonoBehaviour:
     enemyStopsOnAttack: 1
     stoppingTime: 0.25
     percentageStoppingTimeTriggerAoESpell: 0
-  - spell: {fileID: 11400000, guid: ece89201399664e43a5c2cc72bd908d8, type: 2}
+  - spell: {fileID: 11400000, guid: ef72fe58194a8bf4a8594cf2f3a330a0, type: 2}
     isMeleeAttack: 0
     spellWeight: 60
     range: {x: 10, y: 15}
@@ -62,3 +62,10 @@ MonoBehaviour:
     enemyStopsOnAttack: 1
     stoppingTime: 1
     percentageStoppingTimeTriggerAoESpell: 0.8
+  - spell: {fileID: 11400000, guid: 9f818f43d526dff45a0486b487730a36, type: 2}
+    isMeleeAttack: 0
+    spellWeight: 15
+    range: {x: 2.5, y: 20}
+    enemyStopsOnAttack: 0
+    stoppingTime: 0.1
+    percentageStoppingTimeTriggerAoESpell: 0

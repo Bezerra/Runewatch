@@ -15,11 +15,12 @@ public class EnemyStatsSO : StatsSO
     [Tooltip("Minimum and maximum random delay of attack")]
     [RangeMinMax(0, 20f)] [SerializeField] private Vector2 attackingDelay;
 
-    [BoxGroup("General Stats")]
-    [RangeMinMax(0, 1000)] [SerializeField] private Vector2 goldQuantity;
-    
-    [BoxGroup("General Stats")]
-    [RangeMinMax(0, 1000)] [SerializeField] private Vector2 arcanePowerQuantity;
+    // PODE FICAR POR AGORA CASO SE VOLTE AO ANTERIOR, APAGAR SE OS DROPS FICAREM NOS ROOMS
+    //[BoxGroup("General Stats")]
+    //[RangeMinMax(0, 1000)] [SerializeField] private Vector2 goldQuantity;
+    //
+    //[BoxGroup("General Stats")]
+    //[RangeMinMax(0, 1000)] [SerializeField] private Vector2 arcanePowerQuantity;
     
     // List with all possible loots in enemy
     [BoxGroup("General Stats")]
@@ -42,12 +43,6 @@ public class EnemyStatsSO : StatsSO
     /// </summary>
     public Vector2 AttackingDelay => 
         attackingDelay * AttackingSpeedReductionMultiplier;
-
-    public Vector2 GoldQuantity =>
-        goldQuantity;
-
-    public Vector2 ArcanePowerQuantity =>
-        arcanePowerQuantity;
 
     public LootRates Rates => 
         lootRates;

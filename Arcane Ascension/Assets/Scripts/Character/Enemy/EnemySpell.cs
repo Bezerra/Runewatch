@@ -13,6 +13,8 @@ public struct EnemySpell
 
     [SerializeField] private bool isMeleeAttack;
 
+    // damage override
+
     [Tooltip("Probability of this spell being picked. All spells available from spell list should have a sum" +
         "of 100.")]
     [Range(0, 100)] [SerializeField] private int spellWeight;
