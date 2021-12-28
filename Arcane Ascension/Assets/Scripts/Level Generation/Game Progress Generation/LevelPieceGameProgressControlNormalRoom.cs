@@ -126,12 +126,17 @@ public class LevelPieceGameProgressControlNormalRoom : LevelPieceGameProgressCon
                         itemEnumerator.Current.Item2,
                         Quaternion.identity);
  
-                    if (spawnedLoot.TryGetComponent(out ICurrency currency))
+                    // Currency is in a child of the prefab
+                    ICurrency lootCurrency = spawnedLoot.GetComponentInChildren<ICurrency>();
+                    if (lootCurrency != null)
                     {
-                        if (currency.CurrencyType == CurrencyType.Gold)
-                            currency.Amount = goldQuantity;
+                        if (lootCurrency.CurrencyType == CurrencyType.Gold)
+                        {
+                            lootCurrency.AmountMultiplier = stpData.SaveData.Pickpocket;
+                            lootCurrency.Amount = goldQuantity;
+                        }
                         else
-                            currency.Amount = arcanePowerQuantity;
+                            lootCurrency.Amount = arcanePowerQuantity;
                     }
                 }
 

@@ -96,17 +96,9 @@ public class EnemyStats : Stats
                 IEnumerator<(LootType, Vector3)> itemEnumerator = droppedLoot.GetEnumerator();
                 while (itemEnumerator.MoveNext())
                 {
-                    GameObject spawnedLoot = ItemLootPoolCreator.Pool.InstantiateFromPool(
+                    ItemLootPoolCreator.Pool.InstantiateFromPool(
                         itemEnumerator.Current.Item1.ToString(),
                         itemEnumerator.Current.Item2, Quaternion.identity);
-
-                    if (spawnedLoot.TryGetComponent(out ICurrency currency))
-                    {
-                        if (currency.CurrencyType == CurrencyType.Gold)
-                            currency.Amount = EnemyAttributes.GoldQuantity;
-                        else
-                            currency.Amount = EnemyAttributes.ArcanePowerQuantity;
-                    }
                 }
 
                 this.enabled = false;
@@ -174,22 +166,9 @@ public class EnemyStats : Stats
                 IEnumerator<(LootType, Vector3)> itemEnumerator = droppedLoot.GetEnumerator();
                 while (itemEnumerator.MoveNext())
                 {
-                    GameObject spawnedLoot = ItemLootPoolCreator.Pool.InstantiateFromPool(
+                    ItemLootPoolCreator.Pool.InstantiateFromPool(
                         itemEnumerator.Current.Item1.ToString(),
                         itemEnumerator.Current.Item2, Quaternion.identity);
-
-                    // Currency is in a child of the prefab
-                    ICurrency lootCurrency = spawnedLoot.GetComponentInChildren<ICurrency>();
-                    if (lootCurrency != null)
-                    {
-                        if (lootCurrency.CurrencyType == CurrencyType.Gold)
-                        {
-                            lootCurrency.AmountMultiplier = stpData.SaveData.Pickpocket;
-                            lootCurrency.Amount = EnemyAttributes.GoldQuantity;
-                        }
-                        else
-                            lootCurrency.Amount = EnemyAttributes.ArcanePowerQuantity;
-                    }
                 }
 
                 this.enabled = false;

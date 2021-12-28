@@ -32,6 +32,7 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
     protected IList<(LootType, Vector3)> droppedLoot;
     private System.Random random;
     [SerializeField] protected Transform lootSpawnPosition;
+    protected CharacterSaveDataController stpData;
 
     // Enemies
     private EnemySpawnPoint[] enemySpawnPoints;
@@ -54,6 +55,7 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
             exitBlockers.Add(gpc.GetComponent<BoxCollider>());
         random = new System.Random();
         playerInCombat = false;
+        stpData = FindObjectOfType<CharacterSaveDataController>();
 
         spawnedEnemies = new List<GameObject>();
     }
@@ -61,7 +63,7 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
     /// <summary>
     /// Creates all enemies and disables them.
     /// </summary>
-    private void Start()
+    protected virtual void Start()
     {
         foreach (EnemySpawnPoint enemySpawnPoint in enemySpawnPoints)
         {

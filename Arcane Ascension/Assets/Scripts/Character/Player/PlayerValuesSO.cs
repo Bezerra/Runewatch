@@ -9,10 +9,12 @@ using Sirenix.OdinInspector;
 public class PlayerValuesSO : CharacterValuesSO
 {
     [BoxGroup("General Values")]
+    [Tooltip("If out of combat, movement speed multiplier will be this value * faster.")]
     [Range(1f, 2f)] [SerializeField] private float outOfCombatSpeedMultiplier = 1.25f;
     public float OutOfCombatSpeedMultiplier => outOfCombatSpeedMultiplier;
 
     [BoxGroup("General Values")]
+    [Tooltip("If out of combat, spell cooldown will be this value * faster.")]
     [Range(1f, 4f)] [SerializeField] private float outOfCombatCooldownMultiplier = 2.5f;
     public float OutOfCombatCooldownMultiplier => outOfCombatCooldownMultiplier;
 
@@ -54,6 +56,7 @@ public class PlayerValuesSO : CharacterValuesSO
     public float TimeToGetDashCharge => timeToGetDashCharge;
 
     [BoxGroup("Dash")]
+    [Tooltip("If out of combat, the delay to get a charge will be this value * faster.")]
     [Range(1f, 10f)] [SerializeField] private float outOfCombatDashDelayMultiplier = 5f;
     public float OutOfCombatDashDelayMultiplier => outOfCombatDashDelayMultiplier;
 

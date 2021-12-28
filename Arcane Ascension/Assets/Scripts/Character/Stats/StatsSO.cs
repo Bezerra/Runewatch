@@ -29,7 +29,7 @@ public abstract class StatsSO : ScriptableObject
     public CharacterType Type => characterType;
 
     [BoxGroup("General Stats")]
-    [Range(1, 2000)] [SerializeField] private float defaultHealth;
+    [Range(1, 20000)] [SerializeField] private float defaultHealth;
     [BoxGroup("General Stats")]
     [Range(0f, 1f)] [SerializeField] private float damageResistance;
     [BoxGroup("General Stats")]

@@ -11,8 +11,10 @@ public class LevelPieceGameProgressControlFinalRoom : LevelPieceGameProgressCont
         saveData = FindObjectOfType<RunSaveDataController>().SaveData;
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         if (saveData.DungeonSavedData.Floor % 3 == 0)
         {
             BossRoom();

@@ -11,4 +11,5 @@ public enum EnemySpawnType
     SingleTargetSpellcasterTankie,
     AreaTargetSpellcasterAgile,
     AreaTargetSpellcasterTankie,
+    Boss,
 }
