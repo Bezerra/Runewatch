@@ -37,6 +37,7 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
     private EnemySpawnPoint[] enemySpawnPoints;
     private int quantityOfEnemiesSpawned;
     private bool haveEnemiesSpawned;
+    private IList<GameObject> spawnedEnemies;
 
     // Doors and exit blockers
     protected ContactPointDoor[] contactPointsDoors;
@@ -53,6 +54,25 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
             exitBlockers.Add(gpc.GetComponent<BoxCollider>());
         random = new System.Random();
         playerInCombat = false;
+
+        spawnedEnemies = new List<GameObject>();
+    }
+
+    /// <summary>
+    /// Creates all enemies and disables them.
+    /// </summary>
+    private void Start()
+    {
+        foreach (EnemySpawnPoint enemySpawnPoint in enemySpawnPoints)
+        {
+            GameObject spawnedEnemy = Instantiate(
+                    listOfEnemies.SpawnEnemy(enemySpawnPoint.PointInformation[DifficultyType.Normal]),
+                    enemySpawnPoint.transform.position,
+                    enemySpawnPoint.transform.rotation);
+
+            spawnedEnemies.Add(spawnedEnemy);
+            spawnedEnemy.SetActive(false);
+        }
     }
 
     /// <summary>
@@ -66,16 +86,11 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
             {
                 BlockUnblockExits(true);
 
-                foreach (EnemySpawnPoint enemySpawnPoint in enemySpawnPoints)
+                foreach (GameObject spawnedEnemy in spawnedEnemies)
                 {
-                    GameObject enemySpawnedGO = Instantiate(
-                        listOfEnemies.SpawnEnemy(
-                            enemySpawnPoint.PointInformation[DifficultyType.Normal]),
-                        enemySpawnPoint.transform.position,
-                        enemySpawnPoint.transform.rotation);
-
+                    spawnedEnemy.SetActive(true);
                     quantityOfEnemiesSpawned++;
-                    if (enemySpawnedGO.TryGetComponentInChildrenFirstGen(out Stats enemyStats))
+                    if (spawnedEnemy.TryGetComponentInChildrenFirstGen(out Stats enemyStats))
                     {
                         enemyStats.EventDeath += EnemyDeath;
                     }
