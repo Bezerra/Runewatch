@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
     public float    CurrentTimeToGetCharge { get; private set; }
     private float   inCombatDashDelay;
     private NavMeshObstacle navmeshObstacle;
-    private readonly int PLAYERLAYER = 8;
+    private int layerBeforeDash;
     private readonly int DASHINGLAYER = 24;
     [SerializeField] private Collider bodyToDamage;
 
@@ -256,6 +256,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         {
             dashing = true;
             dashingTimer = Time.time;
+            layerBeforeDash = gameObject.layer;
 
             // If player is running it divides this value so dash is always the same
             lastDirectionPressed = Speed == 
@@ -315,7 +316,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         {
             dashCurrentValue = player.Values.DashDefaultValue;
             dashing = false;
-            gameObject.layer = PLAYERLAYER;
+            gameObject.layer = layerBeforeDash;
             bodyToDamage.enabled = true;
             navmeshObstacle.enabled = true;
             return;
