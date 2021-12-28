@@ -13,6 +13,7 @@ public class StatusBehaviourSacrificeSO : StatusBehaviourAbstractSO
 {
     [Header("Damage to do on caster will never be less than 1")]
     [Range(0, 1f)] [SerializeField] private float damageOnCasterMultiplier = 0.2f;
+    [Range(0, 100f)] [SerializeField] private float damageOnMonsterCaster = 25f;
     [Range(0, 10f)][SerializeField] private float damageToDo;
     [Range(0, 2f)] [SerializeField] private float damageInterval;
 
@@ -97,13 +98,23 @@ public class StatusBehaviourSacrificeSO : StatusBehaviourAbstractSO
             // Reduces spell caster health
             if (parent.WhoCast != null)
             {
-                float damageToDoOnCaster = damageToDo * damageOnCasterMultiplier;
-                if (damageToDoOnCaster < 1) damageToDoOnCaster = 1.1f;
+                if (parent.WhoCast.CommonAttributes.Type == CharacterType.Player)
+                {
+                    float damageToDoOnCaster = damageToDo * damageOnCasterMultiplier;
+                    if (damageToDoOnCaster < 1) damageToDoOnCaster = 1.1f;
 
-                parent.WhoCast.TakeDamage(
-                    damageToDoOnCaster,
-                    parent.Spell.Element,
-                    Vector3.zero);
+                    parent.WhoCast.TakeDamage(
+                        damageToDoOnCaster,
+                        parent.Spell.Element,
+                        Vector3.zero);
+                }
+                else
+                {
+                    parent.WhoCast.TakeDamage(
+                        damageOnMonsterCaster * 2,
+                        ElementType.Neutral,
+                        Vector3.zero);
+                }
             }
 
             parent.LastTimeHit = Time.time;
