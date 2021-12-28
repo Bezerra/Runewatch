@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using ExtensionMethods;
+using UnityEngine.AI;
 
 /// <summary>
 /// Class responsible for handing all player's movement.
@@ -33,6 +34,10 @@ public class PlayerMovement : MonoBehaviour, IFindInput
     private bool    dashing;
     public float    CurrentTimeToGetCharge { get; private set; }
     private float   inCombatDashDelay;
+    private NavMeshObstacle navmeshObstacle;
+    private readonly int PLAYERLAYER = 8;
+    private readonly int DASHINGLAYER = 24;
+    [SerializeField] private Collider bodyToDamage;
 
     // Jump
     private YieldInstruction wffu;
@@ -60,6 +65,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         wffu = new WaitForFixedUpdate();
         jumpTime = new WaitForSeconds(player.Values.JumpTime);
         dashing = false;
+        navmeshObstacle = GetComponent<NavMeshObstacle>();
         gravityIncrement = DEFAULTGRAVITYINCREMENT;
         dashCurrentValue = player.Values.DashDefaultValue;
         CurrentTimeToGetCharge = 0;
@@ -279,24 +285,39 @@ public class PlayerMovement : MonoBehaviour, IFindInput
     private void Dashing()
     {
         // Decrements dash force smoothly
-        if (dashCurrentValue - Time.fixedDeltaTime * player.Values.DashingTimeReducer > 1)
+        float minimumDashForce = 3;
+
+        if (dashCurrentValue - Time.fixedDeltaTime * player.Values.DashingTimeReducer > minimumDashForce)
             dashCurrentValue -= Time.fixedDeltaTime * player.Values.DashingTimeReducer;
         else
-            dashCurrentValue = 1;
+            dashCurrentValue = minimumDashForce;
 
         // Calculates dash Direction
         Vector3 sideMovement = lastDirectionPressed.x * Vector3.right;
         Vector3 forwardMovement = lastDirectionPressed.z * Vector3.forward;
         Vector3 finalDirection = sideMovement + forwardMovement;
-        
+
+        // Disables variables to prevent player from colliding with enemies
+        gameObject.layer = DASHINGLAYER;
+        bodyToDamage.enabled = false;
+        navmeshObstacle.enabled = false;
+
         // Dashes
         characterController.Move(dashCurrentValue * Time.fixedDeltaTime * finalDirection);
 
+        // Checks if player is colliding with an enemy while dashing
+        Collider[] enemyCollision = Physics.OverlapSphere(transform.position,
+            CONTROLLERRADIUSDEFAULT, Layers.EnemyLayer);
+
         // Cancels dash and resets dash value
-        if (Time.time - dashingTimer > player.Values.DashingTime)
+        if (Time.time - dashingTimer > player.Values.DashingTime &&
+            enemyCollision.Length == 0)
         {
             dashCurrentValue = player.Values.DashDefaultValue;
             dashing = false;
+            gameObject.layer = PLAYERLAYER;
+            bodyToDamage.enabled = true;
+            navmeshObstacle.enabled = true;
             return;
         }
     }
