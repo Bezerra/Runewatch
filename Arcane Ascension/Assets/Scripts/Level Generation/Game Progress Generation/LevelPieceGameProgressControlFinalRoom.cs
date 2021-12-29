@@ -13,8 +13,6 @@ public class LevelPieceGameProgressControlFinalRoom : LevelPieceGameProgressCont
 
     protected override void Start()
     {
-        base.Start();
-
         if (saveData.DungeonSavedData.Floor % 3 == 0)
         {
             BossRoom();
@@ -23,19 +21,25 @@ public class LevelPieceGameProgressControlFinalRoom : LevelPieceGameProgressCont
         {
             ChangeFloorRoom();
         }
+
+        // Base start happens before initial logic, so if it's not a boss room,
+        // it will destroy enemy spawn points first, so base start won't spawn enemies
+        base.Start();
     }
 
     /// <summary>
-    /// If it's a boss room, destroys portal stuff.
+    /// If it's a boss room, disables portal stuff.
     /// </summary>
     private void BossRoom()
     {
-        NextFloorPortalSpawnPoint[] nextFloorPortalSpawnPoints = GetComponentsInChildren<NextFloorPortalSpawnPoint>();
+        NextFloorPortalSpawnPoint[] nextFloorPortalSpawnPoints = 
+            GetComponentsInChildren<NextFloorPortalSpawnPoint>();
+
         if (nextFloorPortalSpawnPoints.Length > 0)
         {
             foreach (NextFloorPortalSpawnPoint nextFloorPortalSpawnPoint in nextFloorPortalSpawnPoints)
             {
-                Destroy(nextFloorPortalSpawnPoint.gameObject);
+                nextFloorPortalSpawnPoint.gameObject.SetActive(false);
             }
         }
     }
@@ -45,13 +49,14 @@ public class LevelPieceGameProgressControlFinalRoom : LevelPieceGameProgressCont
     /// </summary>
     private void ChangeFloorRoom()
     {
-        EnemySpawnPoint[] enemySpawns = GetComponentsInChildren<EnemySpawnPoint>();
-        if (enemySpawns.Length > 0)
+        if (enemySpawnPoints.Count > 0)
         {
-            foreach(EnemySpawnPoint enemySpawn in enemySpawns)
+            foreach(EnemySpawnPoint enemySpawn in enemySpawnPoints)
             {
                 Destroy(enemySpawn.gameObject);
             }
+
+            enemySpawnPoints = null;
         }
     }
 }

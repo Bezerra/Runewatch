@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &7742734804996048001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2063701506867937844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98e025210beedcd498e32d9b235afb1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  master: {fileID: 24100000, guid: bfe86a41512082e4c85eb62e7c0e94f9, type: 2}
+  masterVolumeExposed: MasterVolume
+  backgroundAnimationTrigger: FadeToUnload
+  sceneToLoad: 1
+  thisScene: 0
+  changeToTypeOfControl: 1
+  isFinalFloor: 1
+--- !u!1001 &3115134787964195756
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2529613158832977050, guid: 40b7230797c6ca14fab3d2a8c8f3203c, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2529613158832977050, guid: 40b7230797c6ca14fab3d2a8c8f3203c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2529613158832977050, guid: 40b7230797c6ca14fab3d2a8c8f3203c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2529613158832977050, guid: 40b7230797c6ca14fab3d2a8c8f3203c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2529613158832977050, guid: 40b7230797c6ca14fab3d2a8c8f3203c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2529613158832977050, guid: 40b7230797c6ca14fab3d2a8c8f3203c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2529613158832977050, guid: 40b7230797c6ca14fab3d2a8c8f3203c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2529613158832977050, guid: 40b7230797c6ca14fab3d2a8c8f3203c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2529613158832977050, guid: 40b7230797c6ca14fab3d2a8c8f3203c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2529613158832977050, guid: 40b7230797c6ca14fab3d2a8c8f3203c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2529613158832977050, guid: 40b7230797c6ca14fab3d2a8c8f3203c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006113513521811864, guid: 40b7230797c6ca14fab3d2a8c8f3203c, type: 3}
+      propertyPath: m_Name
+      value: Trigger L - Loading Screen On Last Floor
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3606554741472421702, guid: 40b7230797c6ca14fab3d2a8c8f3203c, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 40b7230797c6ca14fab3d2a8c8f3203c, type: 3}
+--- !u!1 &2063701506867937844 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4006113513521811864, guid: 40b7230797c6ca14fab3d2a8c8f3203c, type: 3}
+  m_PrefabInstance: {fileID: 3115134787964195756}
+  m_PrefabAsset: {fileID: 0}

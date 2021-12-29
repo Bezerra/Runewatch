@@ -33,7 +33,7 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
             parent.ColliderTrigger.enabled = false;
 
         // If it's an enemy
-        if (parent.WhoCast.CommonAttributes.Type == CharacterType.Monster)
+        if (parent.WhoCast.CommonAttributes.Type != CharacterType.Player)
         {
             // If time while casting reaches the time limit set on enemy spell list,
             // shows one shot with release spell area.

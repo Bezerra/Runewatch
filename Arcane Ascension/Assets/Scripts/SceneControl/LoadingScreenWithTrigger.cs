@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class LoadingScreenWithTrigger : SceneControl
 {
+    [SerializeField] private bool isFinalFloor;
+    public bool IsFinalFloor => isFinalFloor;
+
     /// <summary>
     /// Coroutine that loads a new scene.
     /// </summary>

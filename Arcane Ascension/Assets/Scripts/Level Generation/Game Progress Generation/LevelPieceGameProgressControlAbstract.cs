@@ -35,7 +35,7 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
     protected CharacterSaveDataController stpData;
 
     // Enemies
-    private EnemySpawnPoint[] enemySpawnPoints;
+    protected IList<EnemySpawnPoint> enemySpawnPoints;
     private int quantityOfEnemiesSpawned;
     private bool haveEnemiesSpawned;
     private IList<GameObject> spawnedEnemies;
@@ -46,7 +46,7 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
 
     protected virtual void Awake()
     {
-        enemySpawnPoints = GetComponentsInChildren<EnemySpawnPoint>();
+        enemySpawnPoints = GetComponentsInChildren<EnemySpawnPoint>(true);
         contactPointsDoors = GetComponentsInChildren<ContactPointDoor>();
         droppedLoot = new List<(LootType, Vector3)>();
         GameProgressCollider[] gameProgressColliders = GetComponentsInChildren<GameProgressCollider>(true);
@@ -65,12 +65,16 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
     /// </summary>
     protected virtual void Start()
     {
+        // If the list is empty, ignores the rest
+        if (enemySpawnPoints == null || enemySpawnPoints.Count == 0)
+            return;
+
         foreach (EnemySpawnPoint enemySpawnPoint in enemySpawnPoints)
         {
             GameObject spawnedEnemy = Instantiate(
-                    listOfEnemies.SpawnEnemy(enemySpawnPoint.PointInformation[DifficultyType.Normal]),
-                    enemySpawnPoint.transform.position,
-                    enemySpawnPoint.transform.rotation);
+                listOfEnemies.SpawnEnemy(enemySpawnPoint.PointInformation[DifficultyType.Normal]),
+                enemySpawnPoint.transform.position,
+                enemySpawnPoint.transform.rotation);
 
             spawnedEnemies.Add(spawnedEnemy);
             spawnedEnemy.SetActive(false);
@@ -82,9 +86,13 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
     /// </summary>
     public void SpawnEnemies()
     {
+        // If the list is empty, ignores the rest
+        if (enemySpawnPoints == null || enemySpawnPoints.Count == 0)
+            return;
+
         if (haveEnemiesSpawned == false)
         {
-            if (enemySpawnPoints.Length > 0)
+            if (enemySpawnPoints.Count > 0)
             {
                 BlockUnblockExits(true);
 
@@ -95,6 +103,11 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
                     if (spawnedEnemy.TryGetComponentInChildrenFirstGen(out Stats enemyStats))
                     {
                         enemyStats.EventDeath += EnemyDeath;
+
+                        if (enemyStats.CommonAttributes.Type == CharacterType.Boss)
+                        {
+                            enemyStats.EventDeath += BossDeath;
+                        }
                     }
                 }
                 haveEnemiesSpawned = true;
@@ -173,6 +186,42 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
         {
             BlockUnblockExits(false);
         }
+    }
+
+    /// <summary>
+    /// Triggered when a boss dies.
+    /// </summary>
+    /// <param name="enemyStats">Boss stats.</param>
+    private void BossDeath(Stats enemyStats)
+    {
+        RunSaveData saveData = FindObjectOfType<RunSaveDataController>().SaveData;
+        LoadingScreenWithTrigger[] loadingScreen = FindObjectsOfType<LoadingScreenWithTrigger>();
+
+        // Not last floor
+        if (saveData.DungeonSavedData.Floor < 9)
+        {
+            foreach (LoadingScreenWithTrigger load in loadingScreen)
+            {
+                if (load.IsFinalFloor == false)
+                {
+                    load.LoadSceneOnSerializeField();
+                    break;
+                }
+            }
+        }
+        else // Last floor
+        {
+            foreach (LoadingScreenWithTrigger load in loadingScreen)
+            {
+                if (load.IsFinalFloor)
+                {
+                    load.LoadSceneOnSerializeField();
+                    break;
+                }
+            }
+        }
+
+        enemyStats.EventDeath -= BossDeath;
     }
 
     /// <summary>

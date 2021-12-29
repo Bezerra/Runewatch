@@ -6,16 +6,24 @@ using UnityEngine;
 public class NextFloorPortalSpawnPoint : MonoBehaviour
 {
     [SerializeField] private Mesh meshForGizmos;
-    private LoadingScreenWithTrigger loadingScreen;
+    private LoadingScreenWithTrigger[] loadingScreen;
 
     private void Awake() =>
-        loadingScreen = FindObjectOfType<LoadingScreenWithTrigger>();
+        loadingScreen = FindObjectsOfType<LoadingScreenWithTrigger>();
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out Player player))
         {
-            loadingScreen.LoadSceneOnSerializeField();
+            foreach(LoadingScreenWithTrigger load in loadingScreen)
+            {
+                if (load.IsFinalFloor == false)
+                {
+                    load.LoadSceneOnSerializeField();
+                    break;
+                }
+            }
+            
             Destroy(this); // destroys script
         }
     }

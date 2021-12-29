@@ -26,7 +26,8 @@ public class StatusBehaviourSlowSO : StatusBehaviourAbstractSO
                 parent.CharacterHit.CommonAttributes.MovementStatusEffectMultiplier = speedMultiplier;
                 parent.CharacterHit.UpdateSpeed();
 
-                if (parent.CharacterHit.CommonAttributes.Type == CharacterType.Monster)
+                // If character is an enemy
+                if (parent.CharacterHit.CommonAttributes.Type != CharacterType.Player)
                 {
                     (parent.CharacterHit as EnemyStats).
                         EnemyAttributes.AttackingSpeedReductionMultiplier = -(attackingSpeedMultiplier);
@@ -68,7 +69,8 @@ public class StatusBehaviourSlowSO : StatusBehaviourAbstractSO
             parent.CharacterHit.CommonAttributes.MovementStatusEffectMultiplier = 1f;
             parent.CharacterHit.UpdateSpeed();
 
-            if (parent.CharacterHit.CommonAttributes.Type == CharacterType.Monster)
+            // If character is an enemy
+            if (parent.CharacterHit.CommonAttributes.Type != CharacterType.Player)
             {
                 (parent.CharacterHit as EnemyStats).
                     EnemyAttributes.AttackingSpeedReductionMultiplier = attackingSpeedMultiplier;

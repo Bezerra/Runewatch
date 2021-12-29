@@ -37,7 +37,6 @@ public class SpellMuzzleBehaviourPositionRotationUpdateSO : SpellMuzzleBehaviour
             if (parent.WhoCast.CommonAttributes.Type == CharacterType.Player)
             {
                 parent.transform.position = parent.Hand.position;
-
                 parent.transform.rotation = Quaternion.LookRotation(parent.Eyes.forward);
             }
             else
