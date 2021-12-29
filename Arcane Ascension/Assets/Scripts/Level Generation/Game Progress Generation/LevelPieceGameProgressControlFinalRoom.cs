@@ -1,14 +1,20 @@
+using System.Collections;
+using UnityEngine;
+
 /// <summary>
 /// Class responsible for controlling what happens inside a normal level piece room.
 /// </summary>
 public class LevelPieceGameProgressControlFinalRoom : LevelPieceGameProgressControlAbstract
 {
     private RunSaveData saveData;
+    private NextFloorPortalSpawnPoint nextFloorPortalSpawnPoint;
 
     protected override void Awake()
     {
         base.Awake();
         saveData = FindObjectOfType<RunSaveDataController>().SaveData;
+        nextFloorPortalSpawnPoint =
+            GetComponentInChildren<NextFloorPortalSpawnPoint>();
     }
 
     protected override void Start()
@@ -32,15 +38,9 @@ public class LevelPieceGameProgressControlFinalRoom : LevelPieceGameProgressCont
     /// </summary>
     private void BossRoom()
     {
-        NextFloorPortalSpawnPoint[] nextFloorPortalSpawnPoints = 
-            GetComponentsInChildren<NextFloorPortalSpawnPoint>();
-
-        if (nextFloorPortalSpawnPoints.Length > 0)
+        if (nextFloorPortalSpawnPoint != null)
         {
-            foreach (NextFloorPortalSpawnPoint nextFloorPortalSpawnPoint in nextFloorPortalSpawnPoints)
-            {
-                nextFloorPortalSpawnPoint.gameObject.SetActive(false);
-            }
+            nextFloorPortalSpawnPoint.gameObject.SetActive(false);
         }
     }
 
@@ -57,6 +57,39 @@ public class LevelPieceGameProgressControlFinalRoom : LevelPieceGameProgressCont
             }
 
             enemySpawnPoints = null;
+        }
+    }
+
+    /// <summary>
+    /// Triggered after boss dies.
+    /// </summary>
+    /// <param name="enemyStats">Boss stats.</param>
+    protected override void BossDeath(Stats enemyStats)
+    {
+        base.BossDeath(enemyStats);
+        StartCoroutine(EnablePortal());
+    }
+
+    /// <summary>
+    /// Coroutine that enables a portal.
+    /// Will wait for player to leave the portal zone to enable it.
+    /// </summary>
+    /// <returns>Null.</returns>
+    private IEnumerator EnablePortal()
+    {
+        while(true)
+        {
+            Collider[] playerCollider =
+                Physics.OverlapSphere(
+                    nextFloorPortalSpawnPoint.transform.position, 3.5f, Layers.PlayerLayer);
+
+            if (playerCollider.Length == 0)
+            {
+                nextFloorPortalSpawnPoint.gameObject.SetActive(true);
+                break;
+            }
+
+            yield return null;
         }
     }
 }

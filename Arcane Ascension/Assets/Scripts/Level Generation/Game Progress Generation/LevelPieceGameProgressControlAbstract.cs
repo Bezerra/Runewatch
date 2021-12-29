@@ -192,37 +192,8 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
     /// Triggered when a boss dies.
     /// </summary>
     /// <param name="enemyStats">Boss stats.</param>
-    private void BossDeath(Stats enemyStats)
-    {
-        RunSaveData saveData = FindObjectOfType<RunSaveDataController>().SaveData;
-        LoadingScreenWithTrigger[] loadingScreen = FindObjectsOfType<LoadingScreenWithTrigger>();
-
-        // Not last floor
-        if (saveData.DungeonSavedData.Floor < 9)
-        {
-            foreach (LoadingScreenWithTrigger load in loadingScreen)
-            {
-                if (load.IsFinalFloor == false)
-                {
-                    load.LoadSceneOnSerializeField();
-                    break;
-                }
-            }
-        }
-        else // Last floor
-        {
-            foreach (LoadingScreenWithTrigger load in loadingScreen)
-            {
-                if (load.IsFinalFloor)
-                {
-                    load.LoadSceneOnSerializeField();
-                    break;
-                }
-            }
-        }
-
+    protected virtual void BossDeath(Stats enemyStats) =>
         enemyStats.EventDeath -= BossDeath;
-    }
 
     /// <summary>
     /// Gets a drop and sets random position with a received position.
