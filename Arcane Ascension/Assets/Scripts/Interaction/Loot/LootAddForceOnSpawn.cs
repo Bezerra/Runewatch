@@ -12,6 +12,8 @@ public class LootAddForceOnSpawn : MonoBehaviour
     private bool canDetectCollision;
     private float directionOfSpawn;
     public bool MovingTowardsPlayer { get; set; }
+    private bool canDetectCollisionWithTime;
+    private float timeSpawned;
 
     // Components
     private Rigidbody rb;
@@ -36,9 +38,11 @@ public class LootAddForceOnSpawn : MonoBehaviour
         rb.isKinematic = false;
         FreezePosition = false;
         canDetectCollision = false;
+        canDetectCollisionWithTime = false;
         forceValue = Random.Range(3, 6f);
         directionOfSpawn = Random.Range(-1f, 1f);
         addForceCoroutine = null;
+        timeSpawned = Time.time;
 
         this.StartCoroutineWithReset(ref addForceCoroutine, AddForceCoroutine());
     }
@@ -67,13 +71,19 @@ public class LootAddForceOnSpawn : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Time.time - timeSpawned > 0.2f)
+            canDetectCollisionWithTime = true;
+    }
+
     private void FixedUpdate()
     {
         if (MovingTowardsPlayer == false)
         {
             transform.Rotate(0, 10 * Time.fixedDeltaTime, 0, Space.Self);
 
-            if (rb.velocity.y < 0)
+            if (rb.velocity.y < 0 && canDetectCollisionWithTime)
                 canDetectCollision = true;
 
             if (FreezePosition)
