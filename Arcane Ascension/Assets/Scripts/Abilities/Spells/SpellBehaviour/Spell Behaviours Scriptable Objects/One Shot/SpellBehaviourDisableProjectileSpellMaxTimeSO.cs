@@ -26,7 +26,25 @@ public class SpellBehaviourDisableProjectileSpellMaxTimeSO : SpellBehaviourAbstr
             {
                 if (parent.HasEffect)
                 {
-                    parent.EffectStop();
+                    if (parent.ParticlesDisable != null)
+                    {
+                        foreach (ParticleDisable dis in parent.ParticlesDisable)
+                        {
+                            switch (dis.DisableType)
+                            {
+                                case DisableType.Fade:
+                                    parent.EffectStop();
+                                    break;
+                                case DisableType.Immediate:
+                                    dis.gameObject.SetActive(false);
+                                    break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        parent.EffectStop();
+                    }
 
                     if (parent.EffectGetAliveParticles == 0)
                     {

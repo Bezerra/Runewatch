@@ -95,6 +95,11 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     public Transform HomingTarget { get; set; }
 
     /// <summary>
+    /// Array with VFX particle disable types.
+    /// </summary>
+    public ParticleDisable[] ParticlesDisable { get; private set; }
+
+    /// <summary>
     /// Property to know if the spell should trigger spread.
     /// </summary>
     public bool TriggerSpread { get; set; }
@@ -104,12 +109,22 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         base.Awake();
         Rb = GetComponent<Rigidbody>();
         ColliderTrigger = GetComponent<CapsuleCollider>();
+        ParticlesDisable = GetComponentsInChildren<ParticleDisable>();
         spell.Initialize();
     }
 
     protected override void OnEnable()
     {
         base.OnEnable();
+
+        if (ParticlesDisable != null)
+        {
+            foreach (ParticleDisable dis in ParticlesDisable)
+            {
+                dis.gameObject.SetActive(true);
+            }
+        }
+
         EffectPlay();
         SpellStartedMoving = false;
         TimeOfImpact = Time.time + Mathf.Infinity;
