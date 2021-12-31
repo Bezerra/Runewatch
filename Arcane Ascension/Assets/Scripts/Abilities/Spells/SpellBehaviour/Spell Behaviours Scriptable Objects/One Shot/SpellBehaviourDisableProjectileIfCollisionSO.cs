@@ -31,9 +31,10 @@ public class SpellBehaviourDisableProjectileIfCollisionSO : SpellBehaviourAbstra
                 {
                     parent.ColliderTrigger.enabled = false;
 
-                    if (parent.ParticlesDisable != null)
+                    if (parent.ParticlesDisable != null && 
+                        parent.ParticlesDisable.Length > 0)
                     {
-                        foreach(ParticleDisable dis in parent.ParticlesDisable)
+                        foreach (ParticleDisable dis in parent.ParticlesDisable)
                         {
                             switch(dis.DisableType)
                             {

@@ -26,7 +26,8 @@ public class SpellBehaviourDisableProjectileSpellMaxTimeSO : SpellBehaviourAbstr
             {
                 if (parent.HasEffect)
                 {
-                    if (parent.ParticlesDisable != null)
+                    if (parent.ParticlesDisable != null &&
+                        parent.ParticlesDisable.Length > 0)
                     {
                         foreach (ParticleDisable dis in parent.ParticlesDisable)
                         {
