@@ -30,7 +30,7 @@ public class SpellOnHitBehaviourOneShot : SpellOnHitBehaviourAbstract
 
         if (Spell != null)
         {
-            foreach (SpellOnHitBehaviourAbstractOneShotSO onHitBehaviour in Spell.OnHitBehaviourOneShot)
+            foreach (SpellOnHitBehaviourAbstractSO onHitBehaviour in Spell.OnHitBehaviourOneShot)
                 onHitBehaviour.StartBehaviour(this);
         }
     }
@@ -42,7 +42,7 @@ public class SpellOnHitBehaviourOneShot : SpellOnHitBehaviourAbstract
     {
         if (Spell != null)
         {
-            foreach (SpellOnHitBehaviourAbstractOneShotSO onHitBehaviour in Spell.OnHitBehaviourOneShot)
+            foreach (SpellOnHitBehaviourAbstractSO onHitBehaviour in Spell.OnHitBehaviourOneShot)
                 onHitBehaviour.ContinuousUpdateBehaviour(this);
         }
     }

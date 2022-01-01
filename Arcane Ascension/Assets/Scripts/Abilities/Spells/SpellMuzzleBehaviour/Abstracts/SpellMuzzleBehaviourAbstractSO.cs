@@ -1,11 +1,27 @@
 using UnityEngine;
-using Sirenix.OdinInspector;
 
 /// <summary>
-/// Abstract scriptable object responsible for executing a spell muzzle behaviour.
+/// Abstract scriptable object responsible for executing a one shot spell muzzle behaviour.
 /// </summary>
-[InlineEditor]
 public abstract class SpellMuzzleBehaviourAbstractSO : ScriptableObject
 {
-    // Abstract type for muzzles
+    /// <summary>
+    /// Executes when prefab is enabled.
+    /// </summary>
+    public abstract void StartBehaviour(SpellMuzzleBehaviourOneShot parent);
+
+    /// <summary>
+    /// Executes on update.
+    /// </summary>
+    public abstract void ContinuousUpdateBehaviour(SpellMuzzleBehaviourOneShot parent);
+
+    /// <summary>
+    /// Executes on fixed update.
+    /// </summary>
+    public abstract void ContinuousFixedUpdateBehaviour(SpellMuzzleBehaviourOneShot parent);
+
+    /// <summary>
+    /// Executes on late update.
+    /// </summary>
+    public abstract void ContinuousLateUpdateBehaviour(SpellMuzzleBehaviourOneShot parent);
 }

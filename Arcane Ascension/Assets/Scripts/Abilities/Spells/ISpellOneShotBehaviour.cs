@@ -5,7 +5,7 @@ using System.Collections.Generic;
 /// </summary>
 public interface ISpellOneShotBehaviour
 {
-    IList<SpellBehaviourAbstractOneShotSO> SpellBehaviourOneShot { get; }
-    IList<SpellOnHitBehaviourAbstractOneShotSO> OnHitBehaviourOneShot { get; }
-    IList<SpellMuzzleBehaviourAbstractOneShotSO> MuzzleBehaviourOneShot { get; }
+    IList<SpellBehaviourAbstractSO> SpellBehaviourOneShot { get; }
+    IList<SpellOnHitBehaviourAbstractSO> OnHitBehaviourOneShot { get; }
+    IList<SpellMuzzleBehaviourAbstractSO> MuzzleBehaviourOneShot { get; }
 }

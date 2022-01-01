@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 [CreateAssetMenu(menuName = "Spells/Spell Hit Behaviour/One Shot/Spell Hit Behaviour Disable", 
     fileName = "Spell Hit Behaviour Disable")]
-sealed public class SpellOnHitBehaviourOneShotDisableSO : SpellOnHitBehaviourAbstractOneShotSO
+sealed public class SpellOnHitBehaviourOneShotDisableSO : SpellOnHitBehaviourAbstractSO
 {
     [Range(3f, 20)][SerializeField] private float disableAfterSeconds;
 

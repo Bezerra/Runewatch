@@ -122,19 +122,19 @@ public class SpellSO : ScriptableObject, ISpell
 
     [BoxGroup("Behaviours")]
     [Tooltip("What happens after the spell is spawned. Should contain at least a movement and apply damage behaviour")]
-    [SerializeField] protected List<SpellBehaviourAbstractOneShotSO> spellBehaviourOneShot;
+    [SerializeField] protected List<SpellBehaviourAbstractSO> spellBehaviourOneShot;
 
     [BoxGroup("Behaviours")]
     [Tooltip("Attack behaviour of this spell")]
-    [SerializeField] protected AttackBehaviourAbstractOneShotSO attackBehaviourOneShot;
+    [SerializeField] protected AttackBehaviourAbstractSO attackBehaviourOneShot;
 
     [BoxGroup("Behaviours Of Muzzle and Hit prefabs")]
     [Tooltip("What happens after the spell hit prefab is spawned (spawned after the spell hits something)")]
-    [SerializeField] protected List<SpellOnHitBehaviourAbstractOneShotSO> onHitBehaviourOneShot;
+    [SerializeField] protected List<SpellOnHitBehaviourAbstractSO> onHitBehaviourOneShot;
 
     [BoxGroup("Behaviours Of Muzzle and Hit prefabs")]
     [Tooltip("What happens after the spell hit prefab is spawned (spawned after the spell hits something)")]
-    [SerializeField] protected List<SpellMuzzleBehaviourAbstractOneShotSO> muzzleBehaviourOneShot;
+    [SerializeField] protected List<SpellMuzzleBehaviourAbstractSO> muzzleBehaviourOneShot;
 
     [BoxGroup("Sounds")]
     [SerializeField] protected SpellSound sounds;
@@ -171,13 +171,13 @@ public class SpellSO : ScriptableObject, ISpell
         return finalDamage;
     }
 
-    public  IList<SpellBehaviourAbstractOneShotSO> SpellBehaviourOneShot => 
+    public  IList<SpellBehaviourAbstractSO> SpellBehaviourOneShot => 
         spellBehaviourOneShot;
 
-    public  IList<SpellOnHitBehaviourAbstractOneShotSO> OnHitBehaviourOneShot => 
+    public  IList<SpellOnHitBehaviourAbstractSO> OnHitBehaviourOneShot => 
         onHitBehaviourOneShot;
 
-    public  IList<SpellMuzzleBehaviourAbstractOneShotSO> MuzzleBehaviourOneShot => 
+    public  IList<SpellMuzzleBehaviourAbstractSO> MuzzleBehaviourOneShot => 
         muzzleBehaviourOneShot;
 
     public  AttackBehaviourAbstractSO AttackBehaviour => 

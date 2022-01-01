@@ -164,31 +164,6 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
     }
 
     /// <summary>
-    /// Loses Mana Amount every X seconds.
-    /// </summary>
-    /// <param name="amountToLose">Amount to lose.</param>
-    /// <param name="timeToWait">Time to wait before each loss.</param>
-    /// <returns>Wait for seconds.</returns>
-    private IEnumerator LoseManaCoroutine(float amountToLose, float timeToWait)
-    {
-        YieldInstruction wfs = new WaitForSeconds(timeToWait);
-
-        while (true)
-        {
-            yield return wfs;
-
-            if (Mana - amountToLose > 0)
-            {
-                ReduceMana(amountToLose);
-            }
-            else
-            {
-                break;
-            }
-        }
-    }
-
-    /// <summary>
     /// Reduces mana.
     /// </summary>
     /// <param name="amount">Amount to reduce.</param>

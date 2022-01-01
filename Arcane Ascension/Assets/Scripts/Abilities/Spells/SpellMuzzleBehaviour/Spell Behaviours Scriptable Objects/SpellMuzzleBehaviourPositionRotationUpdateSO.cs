@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 [CreateAssetMenu(menuName = "Spells/Spell Muzzle Behaviour/One Shot/Spell Muzzle Behaviour Position Rotation Update", 
     fileName = "Spell Muzzle Behaviour Position Rotation Update")]
-public class SpellMuzzleBehaviourPositionRotationUpdateSO : SpellMuzzleBehaviourAbstractOneShotSO
+public class SpellMuzzleBehaviourPositionRotationUpdateSO : SpellMuzzleBehaviourAbstractSO
 {
     /// <summary>
     /// Executed when the spell is enabled.

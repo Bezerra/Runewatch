@@ -161,7 +161,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     /// </summary>
     public override void TriggerStartBehaviour()
     {
-        foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviourOneShot)
+        foreach (SpellBehaviourAbstractSO behaviour in spell.SpellBehaviourOneShot)
             behaviour.StartBehaviour(this);
     }
 
@@ -169,19 +169,19 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     {
         if (SpellStartedMoving)
         {
-            foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviourOneShot)
+            foreach (SpellBehaviourAbstractSO behaviour in spell.SpellBehaviourOneShot)
                 behaviour.ContinuousUpdateBehaviour(this);
         }
         else
         {
-            foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviourOneShot)
+            foreach (SpellBehaviourAbstractSO behaviour in spell.SpellBehaviourOneShot)
                 behaviour.ContinuousUpdateBeforeSpellBehaviour(this);
         }
     }
 
     private void FixedUpdate()
     {
-        foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviourOneShot)
+        foreach (SpellBehaviourAbstractSO behaviour in spell.SpellBehaviourOneShot)
             behaviour.ContinuousFixedUpdateBehaviour(this);
     }
 
@@ -208,7 +208,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
                     // Updates last character hit variables
                     CharacterHit = component.GetComponentInChildren<Stats>();
 
-                    foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviourOneShot)
+                    foreach (SpellBehaviourAbstractSO behaviour in spell.SpellBehaviourOneShot)
                         behaviour.HitTriggerBehaviour(other, this);
 
                     LayerOfCharacterHit = component.gameObject.layer;
@@ -285,7 +285,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
                     TimeOfImpact = Time.time;
 
                     // If it passes the code on top, triggers hit
-                    foreach (SpellBehaviourAbstractOneShotSO behaviour in spell.SpellBehaviourOneShot)
+                    foreach (SpellBehaviourAbstractSO behaviour in spell.SpellBehaviourOneShot)
                     {
                         behaviour.HitTriggerBehaviour(other, this);
                     }

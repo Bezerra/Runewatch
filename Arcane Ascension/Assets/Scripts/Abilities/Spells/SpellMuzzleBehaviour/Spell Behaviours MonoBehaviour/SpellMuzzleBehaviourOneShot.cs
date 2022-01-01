@@ -26,7 +26,7 @@ public class SpellMuzzleBehaviourOneShot : SpellMuzzleBehaviourAbstract
 
         if (Spell != null)
         {
-            foreach (SpellMuzzleBehaviourAbstractOneShotSO muzzleBehaviour in Spell.MuzzleBehaviourOneShot)
+            foreach (SpellMuzzleBehaviourAbstractSO muzzleBehaviour in Spell.MuzzleBehaviourOneShot)
                 muzzleBehaviour.StartBehaviour(this);
         }
     }
@@ -44,7 +44,7 @@ public class SpellMuzzleBehaviourOneShot : SpellMuzzleBehaviourAbstract
     {
         if (Spell != null)
         {
-            foreach (SpellMuzzleBehaviourAbstractOneShotSO muzzleBehaviour in Spell.MuzzleBehaviourOneShot)
+            foreach (SpellMuzzleBehaviourAbstractSO muzzleBehaviour in Spell.MuzzleBehaviourOneShot)
                 muzzleBehaviour.ContinuousUpdateBehaviour(this);
         }
     }
@@ -56,7 +56,7 @@ public class SpellMuzzleBehaviourOneShot : SpellMuzzleBehaviourAbstract
     {
         if (Spell != null)
         {
-            foreach (SpellMuzzleBehaviourAbstractOneShotSO muzzleBehaviour in Spell.MuzzleBehaviourOneShot)
+            foreach (SpellMuzzleBehaviourAbstractSO muzzleBehaviour in Spell.MuzzleBehaviourOneShot)
                 muzzleBehaviour.ContinuousFixedUpdateBehaviour(this);
         }
     }
@@ -68,7 +68,7 @@ public class SpellMuzzleBehaviourOneShot : SpellMuzzleBehaviourAbstract
     {
         if (Spell != null)
         {
-            foreach (SpellMuzzleBehaviourAbstractOneShotSO muzzleBehaviour in Spell.MuzzleBehaviourOneShot)
+            foreach (SpellMuzzleBehaviourAbstractSO muzzleBehaviour in Spell.MuzzleBehaviourOneShot)
                 muzzleBehaviour.ContinuousLateUpdateBehaviour(this);
         }
     }

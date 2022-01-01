@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 [CreateAssetMenu(menuName = "Spells/Spell Hit Behaviour/One Shot/Spell Hit Behaviour Play Sound After Delay To Do Damage", 
     fileName = "Spell Hit Play Sound After Delay To Do Damage")]
-sealed public class SpellOnHitBehaviourPlaySoundAfterDelayToDoDamageReleaseSO : SpellOnHitBehaviourAbstractOneShotSO
+sealed public class SpellOnHitBehaviourPlaySoundAfterDelayToDoDamageReleaseSO : SpellOnHitBehaviourAbstractSO
 {
     /// <summary>
     /// Executed when the spell is enabled.

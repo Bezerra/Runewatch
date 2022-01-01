@@ -4,7 +4,7 @@ using UnityEngine;
 /// Scriptable object for one shot attacks.
 /// </summary>
 [CreateAssetMenu(menuName = "Attack Behaviour/Attack Behaviour One Shot", fileName = "Attack Behaviour One Shot")]
-public class AttackBehaviourOneShotSO : AttackBehaviourAbstractOneShotSO
+public class AttackBehaviourOneShotSO : AttackBehaviourAbstractSO
 {
     /// <summary>
     /// Attack behaviour for one shot spells. Instantiates the spell from a pool and triggers its start behaviour.

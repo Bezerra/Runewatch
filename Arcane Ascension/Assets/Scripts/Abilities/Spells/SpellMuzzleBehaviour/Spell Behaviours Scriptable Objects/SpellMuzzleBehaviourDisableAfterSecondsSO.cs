@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 [CreateAssetMenu(menuName = "Spells/Spell Muzzle Behaviour/One Shot/Spell Muzzle Behaviour Disable After Seconds", 
     fileName = "Spell Muzzle Behaviour Disable After Seconds")]
-public class SpellMuzzleBehaviourDisableAfterSecondsSO : SpellMuzzleBehaviourAbstractOneShotSO
+public class SpellMuzzleBehaviourDisableAfterSecondsSO : SpellMuzzleBehaviourAbstractSO
 {
     // 4 secs minimum so it doesn't cut sounds
     [Range(4, 20f)] [SerializeField] private byte disableAfterSeconds;

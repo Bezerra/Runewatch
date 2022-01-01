@@ -40,7 +40,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         // Create new spells
         tree.Add($"{CREATENEWSPELL}/Create New One Shot Spell", createNewSpellOneShotData);
         tree.AddAllAssetsAtPath("Status Data", $"{STATUSPATH}", typeof(StatusBehaviourAbstractSO));
-        tree.AddAllAssetsAtPath("Spell Data", $"{SPELLSPATH}", typeof(SpellSO));
+        tree.AddAllAssetsAtPath("Spell Data", $"{SPELLSPATH}", typeof(SpellSO), true);
         tree.SortMenuItemsByName(true);
 
         return tree;

@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 [CreateAssetMenu(menuName = "Spells/Spell Hit Behaviour/One Shot/Spell Hit Behaviour Disable With Spell Max Time", 
     fileName = "Spell Hit Behaviour Disable With Spell Max Time")]
-sealed public class SpellOnHitBehaviourOneShotDisableWithSpellMaxTimeSO : SpellOnHitBehaviourAbstractOneShotSO
+sealed public class SpellOnHitBehaviourOneShotDisableWithSpellMaxTimeSO : SpellOnHitBehaviourAbstractSO
 {
     /// <summary>
     /// Executed when the spell is enabled.

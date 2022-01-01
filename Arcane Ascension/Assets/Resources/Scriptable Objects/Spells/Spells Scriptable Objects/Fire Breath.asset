@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa9d642721915f846be63fa9e31b1ec0, type: 3}
+  m_Script: {fileID: 11500000, guid: 645b99556f78c9a4d826b70d6a3a9a11, type: 3}
   m_Name: Fire Breath
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 47b0c8cbcd450124abdb1b62fb7f5806, type: 3}
@@ -23,7 +23,8 @@ MonoBehaviour:
   timeInterval: 0.01
   maxTime: 0.1
   areaOfEffect: 2
-  damage: {x: 10, y: 15}
+  playerDamage: {x: 0, y: 0}
+  enemyDamage: {x: 0, y: 0}
   delayToDoDamage: 0
   spellCastType: 0
   speed: 0.01
@@ -36,11 +37,6 @@ MonoBehaviour:
   areaHoverPrefab: {fileID: 0}
   damageBehaviour: {fileID: 11400000, guid: 416113b2a45cb57448020076a9603528, type: 2}
   statusBehaviour: {fileID: 0}
-  sounds:
-    projectile: {fileID: 11400000, guid: 3e5c402b0cf6f654db287eaa9e9693d0, type: 2}
-    muzzle: {fileID: 11400000, guid: 837b109736049044ebd0798458f7fcb4, type: 2}
-    hit: {fileID: 0}
-  surfaceSounds: []
   spellBehaviourOneShot: []
   attackBehaviourOneShot: {fileID: 11400000, guid: 951b735271f52a24b8c27da0e99a077c, type: 2}
   onHitBehaviourOneShot:
@@ -48,3 +44,8 @@ MonoBehaviour:
   muzzleBehaviourOneShot:
   - {fileID: 11400000, guid: da438eaf63e47e74a8e7e0d60862b84e, type: 2}
   - {fileID: 11400000, guid: e54eb235ea9381946a4a076f5351e0f3, type: 2}
+  sounds:
+    projectile: {fileID: 11400000, guid: 3e5c402b0cf6f654db287eaa9e9693d0, type: 2}
+    muzzle: {fileID: 11400000, guid: 837b109736049044ebd0798458f7fcb4, type: 2}
+    hit: {fileID: 0}
+  surfaceSounds: []

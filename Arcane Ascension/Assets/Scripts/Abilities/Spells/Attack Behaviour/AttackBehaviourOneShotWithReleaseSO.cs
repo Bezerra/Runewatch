@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 [CreateAssetMenu(menuName = "Attack Behaviour/Attack Behaviour One Shot With Release", 
     fileName = "Attack Behaviour One Shot With Release")]
-public class AttackBehaviourOneShotWithReleaseSO : AttackBehaviourAbstractOneShotSO
+public class AttackBehaviourOneShotWithReleaseSO : AttackBehaviourAbstractSO
 {
     /// <summary>
     /// Attack behaviour for one shot spells with release. Instantiates the spell from a pool.

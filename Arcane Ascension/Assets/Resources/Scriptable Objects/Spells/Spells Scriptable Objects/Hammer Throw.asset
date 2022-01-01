@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa9d642721915f846be63fa9e31b1ec0, type: 3}
+  m_Script: {fileID: 11500000, guid: 645b99556f78c9a4d826b70d6a3a9a11, type: 3}
   m_Name: Hammer Throw
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: b14fae135856aab47a0167c32b2e1050, type: 3}
@@ -37,19 +37,6 @@ MonoBehaviour:
   areaHoverPrefab: {fileID: 0}
   damageBehaviour: {fileID: 11400000, guid: f61f29a589d8b6b49ab8eb8d558e9ac2, type: 2}
   statusBehaviour: {fileID: 0}
-  sounds:
-    projectile: {fileID: 11400000, guid: 2431a91a5ce6a31439ecd7bcff9d45dd, type: 2}
-    muzzle: {fileID: 11400000, guid: 61aacb226175464469a43a1efc93087f, type: 2}
-    hit: {fileID: 0}
-  surfaceSounds:
-  - sound: {fileID: 11400000, guid: 39b6eaad5000c914bb9821991388ebd5, type: 2}
-    surfaceType: 0
-  - sound: {fileID: 11400000, guid: 9ad4c86b5a188f44e92941e4c6a8f81c, type: 2}
-    surfaceType: 3
-  - sound: {fileID: 11400000, guid: 50b56fc98c83bbe4ba475b530bcbdd0f, type: 2}
-    surfaceType: 1
-  - sound: {fileID: 11400000, guid: 435901cd58ff58a45beee2535a0d7054, type: 2}
-    surfaceType: 2
   spellBehaviourOneShot:
   - {fileID: 11400000, guid: 20cb4169d3aa11d468e125db71cf86b6, type: 2}
   - {fileID: 11400000, guid: 7683d527b55fc0c43950f5f7c190d144, type: 2}
@@ -63,3 +50,16 @@ MonoBehaviour:
   muzzleBehaviourOneShot:
   - {fileID: 11400000, guid: da438eaf63e47e74a8e7e0d60862b84e, type: 2}
   - {fileID: 11400000, guid: e54eb235ea9381946a4a076f5351e0f3, type: 2}
+  sounds:
+    projectile: {fileID: 11400000, guid: 2431a91a5ce6a31439ecd7bcff9d45dd, type: 2}
+    muzzle: {fileID: 11400000, guid: 61aacb226175464469a43a1efc93087f, type: 2}
+    hit: {fileID: 0}
+  surfaceSounds:
+  - sound: {fileID: 11400000, guid: 39b6eaad5000c914bb9821991388ebd5, type: 2}
+    surfaceType: 0
+  - sound: {fileID: 11400000, guid: 9ad4c86b5a188f44e92941e4c6a8f81c, type: 2}
+    surfaceType: 3
+  - sound: {fileID: 11400000, guid: 50b56fc98c83bbe4ba475b530bcbdd0f, type: 2}
+    surfaceType: 1
+  - sound: {fileID: 11400000, guid: 435901cd58ff58a45beee2535a0d7054, type: 2}
+    surfaceType: 2
