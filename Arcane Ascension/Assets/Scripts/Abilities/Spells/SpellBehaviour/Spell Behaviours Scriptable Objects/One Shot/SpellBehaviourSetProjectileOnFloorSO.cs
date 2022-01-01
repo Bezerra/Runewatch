@@ -31,7 +31,7 @@ sealed public class SpellBehaviourSetProjectileOnFloorSO : SpellBehaviourAbstrac
         {
             parent.transform.position = new Vector3(
                 parent.transform.position.x,
-                floorHit.point.y + floorHit.normal.y * 0.1f,
+                floorHit.point.y + floorHit.normal.y * 0.2f,
                 parent.transform.position.z);
         }
     }
