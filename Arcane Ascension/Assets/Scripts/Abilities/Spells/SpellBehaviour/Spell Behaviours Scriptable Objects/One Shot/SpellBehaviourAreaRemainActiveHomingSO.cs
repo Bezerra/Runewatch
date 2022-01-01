@@ -83,18 +83,7 @@ sealed public class SpellBehaviourAreaRemainActiveHomingSO : SpellBehaviourAbstr
         {
             Vector3 direction = parent.transform.position.Direction(parent.HomingTarget.position);
             parent.Rb.velocity = direction * parent.Spell.Speed;
-        }
-
-        // Sets the projectile close to the floor
-        if (Physics.Raycast(
-            new Ray(parent.transform.position + Vector3.up, Vector3.down), 
-            out RaycastHit floorHit, 10f, Layers.WallsFloor))
-        {
-            parent.transform.position = new Vector3(
-                parent.transform.position.x, 
-                floorHit.point.y + floorHit.normal.y * 0.1f, 
-                parent.transform.position.z);
-        }
+        }  
     }
 
     public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
