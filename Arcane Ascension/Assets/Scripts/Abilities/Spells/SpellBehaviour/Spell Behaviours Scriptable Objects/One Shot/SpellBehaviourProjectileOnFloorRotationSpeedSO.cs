@@ -1,15 +1,18 @@
 using UnityEngine;
+using ExtensionMethods;
 
 /// <summary>
-/// Scriptable object responsible for rotating the projectile to player's forward.
+/// Scriptable object responsible for rotating the projectile to player's forward and updating its speed.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Rotate To Player Forward", 
-    fileName = "Spell Behaviour Rotate To Player Forward")]
-sealed public class SpellBehaviourRotateToPlayerForwardSO : SpellBehaviourAbstractOneShotSO
+[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Projectile On Floor " +
+    "Rotation and Speed", 
+    fileName = "Spell Behaviour Projectile On Floor Rotation and Speed")]
+sealed public class SpellBehaviourProjectileOnFloorRotationSpeedSO : SpellBehaviourAbstractOneShotSO
 {
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
-        parent.transform.LookAt(parent.WhoCast.transform.forward);
+        parent.transform.rotation = Quaternion.LookRotation(parent.WhoCast.transform.forward, Vector3.up);
+        parent.Rb.velocity = parent.transform.forward * parent.Spell.Speed;
     }
 
     public override void ContinuousUpdateBeforeSpellBehaviour(SpellBehaviourOneShot parent)
