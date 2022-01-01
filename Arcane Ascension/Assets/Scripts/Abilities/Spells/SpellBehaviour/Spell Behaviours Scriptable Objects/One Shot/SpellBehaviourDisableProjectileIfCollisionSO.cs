@@ -7,8 +7,8 @@ using UnityEngine;
     fileName = "Spell Behaviour Disable Projectile If Collision")]
 public class SpellBehaviourDisableProjectileIfCollisionSO : SpellBehaviourAbstractOneShotSO
 {
-    [Header("This variables is used to disable the spell after colliding with something")]
-    [Range(1, 10)] [SerializeField] private float disableAfterSecondsAfterCollision;
+    [Header("After this time, the spell will be disabled if it has 0 particles alive")]
+    [Range(1, 10)] [SerializeField] private float disableSecondsAfterCollision = 3f;
 
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
@@ -54,7 +54,7 @@ public class SpellBehaviourDisableProjectileIfCollisionSO : SpellBehaviourAbstra
                 }
             }
       
-            if (Time.time - parent.TimeOfImpact > disableAfterSecondsAfterCollision)
+            if (Time.time - parent.TimeOfImpact > disableSecondsAfterCollision)
             {
                 if (parent.HasEffect)
                 {
@@ -70,7 +70,7 @@ public class SpellBehaviourDisableProjectileIfCollisionSO : SpellBehaviourAbstra
             }
 
             // Safety measure if too much time passes and the effect didn't get disabled
-            if (Time.time - parent.TimeSpawned > disableAfterSecondsAfterCollision * 3)
+            if (Time.time - parent.TimeSpawned > disableSecondsAfterCollision * 3)
             {
                 parent.DisableSpell();
             }
