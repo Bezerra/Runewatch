@@ -50,7 +50,6 @@ public class PlayerCastSpell : MonoBehaviour
 
             if (playerStats.Mana - playerSpells.ActiveSpell.ManaCost < 0)
             {
-                OnEventCancelScreenShake();
                 OnEventCancelAttack();
                 currentlyCastSpell = null;
                 currentlyCastSpell = null;
@@ -141,12 +140,6 @@ public class PlayerCastSpell : MonoBehaviour
                     OnEventSpendMana(playerSpells.ActiveSpell.ManaCost);
                 }
 
-                // Mana and cooldown on continuous
-                if (playerSpells.ActiveSpell.CastType == SpellCastType.ContinuousCast)
-                {
-                    OnEventSpendManaContinuous(playerSpells.ActiveSpell.ManaCost, playerSpells.ActiveSpell.Cooldown);
-                }
-
                 // Attack Events
                 // Screen Shake Events
                 if (playerSpells.ActiveSpell.CastType != SpellCastType.OneShotCastWithRelease)
@@ -159,7 +152,6 @@ public class PlayerCastSpell : MonoBehaviour
             else
             {
                 OnEventCancelAttack();
-                OnEventCancelScreenShake();
             }
         }
     }
@@ -204,8 +196,6 @@ public class PlayerCastSpell : MonoBehaviour
 
             // For the rest of spells, invokes events.
             OnEventCancelAttack();
-            OnEventCancelScreenShake();
-            OnEventStopSpendManaContinuous();
         }
 
         spellBehaviour = null;
@@ -218,13 +208,6 @@ public class PlayerCastSpell : MonoBehaviour
     protected virtual void OnEventSpendMana(float amount) => EventSpendMana?.Invoke(amount);
     public event Action<float> EventSpendMana;
 
-    protected virtual void OnEventSpendManaContinuous(float amount, float timeInterval) => 
-        EventSpendManaContinuous?.Invoke(amount, timeInterval);
-    public event Action<float, float> EventSpendManaContinuous;
-
-    protected virtual void OnEventStopSpendManaContinuous() => EventStopSpendManaContinuous?.Invoke();
-    public event Action EventStopSpendManaContinuous;
-
     protected virtual void OnEventAttack(SpellCastType castType) => EventAttack?.Invoke(castType);
     public event Action<SpellCastType> EventAttack;
     protected virtual void OnEventCancelAttack() => EventCancelAttack.Invoke();
@@ -233,6 +216,4 @@ public class PlayerCastSpell : MonoBehaviour
     // Registered on PlayerGenerateCinemachineImpulse
     protected virtual void OnEventStartScreenShake(SpellCastType castType) => EventStartScreenShake?.Invoke(castType);
     public event Action<SpellCastType> EventStartScreenShake;
-    protected virtual void OnEventCancelScreenShake() => EventCancelScreenShake?.Invoke();
-    public event Action EventCancelScreenShake;
 }

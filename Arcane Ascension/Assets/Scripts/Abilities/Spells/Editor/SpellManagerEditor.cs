@@ -23,7 +23,6 @@ public class SpellManagerEditor : OdinMenuEditorWindow
 
     // New spells
     private CreateNewSpellOneShotData createNewSpellOneShotData;
-    private CreateNewSpellContinuousData createNewSpellContinuousData;
 
     protected override void OnGUI()
     {
@@ -37,11 +36,9 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         OdinMenuTree tree = new OdinMenuTree();
 
         createNewSpellOneShotData = new CreateNewSpellOneShotData();
-        createNewSpellContinuousData = new CreateNewSpellContinuousData();
         
         // Create new spells
         tree.Add($"{CREATENEWSPELL}/Create New One Shot Spell", createNewSpellOneShotData);
-        tree.Add($"{CREATENEWSPELL}/Create New Continuous Spell", createNewSpellContinuousData);
         tree.AddAllAssetsAtPath("Status Data", $"{STATUSPATH}", typeof(StatusBehaviourAbstractSO));
         tree.AddAllAssetsAtPath("Spell Data", $"{SPELLSPATH}", typeof(SpellSO));
         tree.SortMenuItemsByName(true);
@@ -78,9 +75,6 @@ public class SpellManagerEditor : OdinMenuEditorWindow
         base.OnDestroy();
         if (createNewSpellOneShotData != null)
             DestroyImmediate(createNewSpellOneShotData.Spell);
-
-        if (createNewSpellContinuousData != null)
-            DestroyImmediate(createNewSpellContinuousData.Spell);
     }
 
     /// <summary>
@@ -90,11 +84,11 @@ public class SpellManagerEditor : OdinMenuEditorWindow
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
-        public SpellOneShotSO Spell { get; private set; }
+        public SpellSO Spell { get; private set; }
 
         public CreateNewSpellOneShotData()
         {
-            Spell = ScriptableObject.CreateInstance<SpellOneShotSO>();
+            Spell = ScriptableObject.CreateInstance<SpellSO>();
         }
 
         [Button("Create", ButtonSizes.Large)]
@@ -104,29 +98,7 @@ public class SpellManagerEditor : OdinMenuEditorWindow
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
-            Spell = ScriptableObject.CreateInstance<SpellOneShotSO>();
-        }
-    }
-
-    public class CreateNewSpellContinuousData
-    {
-        [ShowInInspector]
-        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
-        public SpellContinuousSO Spell { get; private set; }
-
-        public CreateNewSpellContinuousData()
-        {
-            Spell = ScriptableObject.CreateInstance<SpellContinuousSO>();
-        }
-
-        [Button("Create", ButtonSizes.Large)]
-        private void CreateNewData()
-        {
-            AssetDatabase.CreateAsset(Spell, $"Assets/Resources/Scriptable Objects/Spells/Spells Scriptable Objects/New Spell " +
-                DateTime.Now.Millisecond.ToString() + ".asset");
-            AssetDatabase.SaveAssets();
-
-            Spell = ScriptableObject.CreateInstance<SpellContinuousSO>();
+            Spell = ScriptableObject.CreateInstance<SpellSO>();
         }
     }
 }

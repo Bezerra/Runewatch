@@ -10,7 +10,7 @@ using System.Collections.Generic;
 /// Scriptableobject for spells creation.
 /// </summary>
 [InlineEditor]
-public abstract class SpellSO : ScriptableObject, ISpell
+public class SpellSO : ScriptableObject, ISpell
 {
     [BoxGroup("General")]
     [HorizontalGroup("General/Split", 72)]
@@ -120,6 +120,22 @@ public abstract class SpellSO : ScriptableObject, ISpell
     [Tooltip("What kind of status will this spell cause")]
     [SerializeField] protected StatusBehaviourAbstractSO statusBehaviour;
 
+    [BoxGroup("Behaviours")]
+    [Tooltip("What happens after the spell is spawned. Should contain at least a movement and apply damage behaviour")]
+    [SerializeField] protected List<SpellBehaviourAbstractOneShotSO> spellBehaviourOneShot;
+
+    [BoxGroup("Behaviours")]
+    [Tooltip("Attack behaviour of this spell")]
+    [SerializeField] protected AttackBehaviourAbstractOneShotSO attackBehaviourOneShot;
+
+    [BoxGroup("Behaviours Of Muzzle and Hit prefabs")]
+    [Tooltip("What happens after the spell hit prefab is spawned (spawned after the spell hits something)")]
+    [SerializeField] protected List<SpellOnHitBehaviourAbstractOneShotSO> onHitBehaviourOneShot;
+
+    [BoxGroup("Behaviours Of Muzzle and Hit prefabs")]
+    [Tooltip("What happens after the spell hit prefab is spawned (spawned after the spell hits something)")]
+    [SerializeField] protected List<SpellMuzzleBehaviourAbstractOneShotSO> muzzleBehaviourOneShot;
+
     [BoxGroup("Sounds")]
     [SerializeField] protected SpellSound sounds;
 
@@ -155,15 +171,23 @@ public abstract class SpellSO : ScriptableObject, ISpell
         return finalDamage;
     }
 
-    public virtual IList<SpellBehaviourAbstractOneShotSO> SpellBehaviourOneShot { get; }
-    public virtual IList<SpellOnHitBehaviourAbstractOneShotSO> OnHitBehaviourOneShot { get; }
-    public virtual IList<SpellMuzzleBehaviourAbstractOneShotSO> MuzzleBehaviourOneShot { get; }
-    public virtual IList<SpellBehaviourAbstractContinuousSO> SpellBehaviourContinuous { get; }
-    public virtual IList<SpellOnHitBehaviourAbstractContinuousSO> OnHitBehaviourContinuous { get; }
-    public virtual IList<SpellMuzzleBehaviourAbstractContinuousSO> MuzzleBehaviourContinuous { get; }
-    public DamageBehaviourAbstractSO DamageBehaviour => damageBehaviour;
-    public StatusBehaviourAbstractSO StatusBehaviour => statusBehaviour;
-    public abstract AttackBehaviourAbstractSO AttackBehaviour { get; }
+    public  IList<SpellBehaviourAbstractOneShotSO> SpellBehaviourOneShot => 
+        spellBehaviourOneShot;
+
+    public  IList<SpellOnHitBehaviourAbstractOneShotSO> OnHitBehaviourOneShot => 
+        onHitBehaviourOneShot;
+
+    public  IList<SpellMuzzleBehaviourAbstractOneShotSO> MuzzleBehaviourOneShot => 
+        muzzleBehaviourOneShot;
+
+    public  AttackBehaviourAbstractSO AttackBehaviour => 
+        attackBehaviourOneShot;
+
+    public DamageBehaviourAbstractSO DamageBehaviour => 
+        damageBehaviour;
+
+    public StatusBehaviourAbstractSO StatusBehaviour => 
+        statusBehaviour;
 
     /// <summary>
     /// Item1 is spell Prefab. Item2 is spell hit prefab. Item 3 is spell muzzle prefab.

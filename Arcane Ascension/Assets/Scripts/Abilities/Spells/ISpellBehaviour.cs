@@ -1,7 +1,7 @@
 /// <summary>
 /// Interface implemented by objects with spell behaviours.
 /// </summary>
-public interface ISpellBehaviour: ISpellOneShotBehaviour, ISpellContinuousBehaviour
+public interface ISpellBehaviour: ISpellOneShotBehaviour
 {
     SpellCastType CastType { get; }
     float Speed { get; }

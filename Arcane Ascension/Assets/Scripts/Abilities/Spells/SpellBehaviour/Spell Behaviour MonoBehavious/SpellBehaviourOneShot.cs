@@ -6,7 +6,7 @@ using ExtensionMethods;
 /// </summary>
 public class SpellBehaviourOneShot : SpellBehaviourAbstract
 {
-    [SerializeField] protected SpellOneShotSO spell;
+    [SerializeField] protected SpellSO spell;
 
     public override ISpell Spell => spell;
 

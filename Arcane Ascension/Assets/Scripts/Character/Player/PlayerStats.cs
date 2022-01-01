@@ -92,16 +92,12 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
     {
         PlayerAttributes.Initialize();
         playerCastSpell.EventSpendMana += ReduceMana;
-        playerCastSpell.EventSpendManaContinuous += StartLoseManaCoroutine;
-        playerCastSpell.EventStopSpendManaContinuous += StopLoseManaCoroutine;
         LevelPieceGameProgressControlAbstract.EventPlayerInCombat += InCombat;
     }
 
     private void OnDisable()
     {
         playerCastSpell.EventSpendMana -= ReduceMana;
-        playerCastSpell.EventSpendManaContinuous -= StartLoseManaCoroutine;
-        playerCastSpell.EventStopSpendManaContinuous -= StopLoseManaCoroutine;
         LevelPieceGameProgressControlAbstract.EventPlayerInCombat -= InCombat;
     }
 
@@ -166,29 +162,6 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
             }
         }
     }
-
-    /// <summary>
-    /// Starts a coroutine to burn mana.
-    /// </summary>
-    /// <param name="amountToLose">Amount to lose.</param>
-    /// <param name="timeToWait">Time to wait before each loss.</param>
-    private void StartLoseManaCoroutine(float amountToLose, float timeToWait)
-    {
-        this.StartCoroutineWithReset(
-            ref loseManaCoroutine, LoseManaCoroutine(amountToLose, timeToWait));
-    }
-
-    /// <summary>
-    /// Stops coroutine to burn mana.
-    /// </summary>
-    /// <param name="amountToLose">Amount to lose.</param>
-    /// <param name="timeToWait">Time to wait before each loss.</param>
-    private void StopLoseManaCoroutine()
-    {
-        if (loseManaCoroutine != null) StopCoroutine(loseManaCoroutine);
-        loseManaCoroutine = null;
-    }
-
 
     /// <summary>
     /// Loses Mana Amount every X seconds.

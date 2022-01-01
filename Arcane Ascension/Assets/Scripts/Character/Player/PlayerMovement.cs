@@ -79,7 +79,6 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         input.Dash += Dash;
         input.Run += Run;
         playerStats.EventSpeedUpdate += UpdateSpeed;
-        playerCastSpell.EventAttack += ReduceSpeedOnContinuousAttack;
         playerCastSpell.EventCancelAttack += NormalSpeedAfterContinuousAttack;
         LevelPieceGameProgressControlAbstract.EventPlayerInCombat += InCombat;
     }
@@ -96,7 +95,6 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         input.Dash -= Dash;
         input.Run -= Run;
         playerStats.EventSpeedUpdate -= UpdateSpeed;
-        playerCastSpell.EventAttack -= ReduceSpeedOnContinuousAttack;
         playerCastSpell.EventCancelAttack -= NormalSpeedAfterContinuousAttack;
         LevelPieceGameProgressControlAbstract.EventPlayerInCombat -= InCombat;
     }
@@ -359,27 +357,6 @@ public class PlayerMovement : MonoBehaviour, IFindInput
 
         // Checks if character is running and updates speed depending on it
         Run(Running);
-    }
-
-    /// <summary>
-    /// Reduces speed if the player is attacking with a continuous spell.
-    /// </summary>
-    /// <param name="spellCastType"></param>
-    private void ReduceSpeedOnContinuousAttack(SpellCastType spellCastType)
-    {
-        if (spellCastType == SpellCastType.ContinuousCast)
-        {
-            castingContinuousSpell = true;
-            Speed = player.Values.Speed * 
-                playerStats.CommonAttributes.MovementSpeedMultiplier *
-                playerStats.CommonAttributes.MovementStatusEffectMultiplier *
-                0.5f;
-
-            if (Running)
-            {
-                Run(false);
-            }
-        }
     }
 
     /// <summary>
