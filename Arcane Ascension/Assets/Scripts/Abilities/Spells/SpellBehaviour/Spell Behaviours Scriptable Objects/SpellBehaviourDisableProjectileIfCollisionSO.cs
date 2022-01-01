@@ -52,6 +52,10 @@ public class SpellBehaviourDisableProjectileIfCollisionSO : SpellBehaviourAbstra
                         parent.EffectStop();
                     }
                 }
+                else
+                {
+                    parent.DisableSpell();
+                }
             }
       
             if (Time.time - parent.TimeOfImpact > disableSecondsAfterCollision)

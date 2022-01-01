@@ -1,8 +1,10 @@
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 /// <summary>
 /// Abstract scriptable object responsible for executing a one shot spell muzzle behaviour.
 /// </summary>
+[InlineEditor]
 public abstract class SpellMuzzleBehaviourAbstractSO : ScriptableObject
 {
     /// <summary>

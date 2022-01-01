@@ -8,6 +8,7 @@ using UnityEditor;
 /// <summary>
 /// Abstract scriptable object used to create one shot spell behaviours.
 /// </summary>
+[InlineEditor]
 public abstract class SpellBehaviourAbstractSO: ScriptableObject
 {
     /// <summary>
