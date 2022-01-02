@@ -9,15 +9,17 @@ public class PlayerHandEffect : MonoBehaviour
 {
     [SerializeField] private Transform currentEffectPosition;
 
+    // Spawned spells
     private GameObject spawnedSpell;
     private IList<GameObject> previousSpawnedSpell;
 
+    // Particle system
     private IList<ParticleSystem> particlesPreviousSpawnedSpell;
     private ParticleSystem previousParticle;
 
+    // VFX
     private IList<VisualEffect> vfxPreviousSpawnedSpell;
     private VisualEffect previousVFX;
-
 
     // Pool transform
     private Transform poolTransformParent;
@@ -41,21 +43,24 @@ public class PlayerHandEffect : MonoBehaviour
             previousParticle = null;
             previousVFX = null;
 
-            previousParticle = spawnedSpell.GetComponentInChildren<ParticleSystem>();
-            previousVFX = spawnedSpell.GetComponentInChildren<VisualEffect>();
-
-            HandEffectLightFade lightFade = spawnedSpell.GetComponentInChildren<HandEffectLightFade>();
-
-            // Adds current effect to previous effects, so it can disable them
-            lightFade.DeactivateLight();
-
             previousSpawnedSpell.Add(spawnedSpell);
 
+            // If particle system
+            previousParticle = spawnedSpell.GetComponentInChildren<ParticleSystem>();
             if (previousParticle != null)
                 particlesPreviousSpawnedSpell.Add(previousParticle);
 
+            // If vfx
+            previousVFX = spawnedSpell.GetComponentInChildren<VisualEffect>();
             if (previousVFX != null)
                 vfxPreviousSpawnedSpell.Add(previousVFX);
+
+            // Disable light
+            HandEffectLightFade lightFade = 
+                spawnedSpell.GetComponentInChildren<HandEffectLightFade>();
+
+            // Adds current effect to previous effects, so it can disable them
+            lightFade.DeactivateLight();
 
             EffectStop();
         }
@@ -88,6 +93,8 @@ public class PlayerHandEffect : MonoBehaviour
     private void FixedUpdate()
     {
         // If there's a previows spell still active, it will disable it when it stops emitting particles
+
+        // for particles
         if (particlesPreviousSpawnedSpell.Count > 0)
         {
             for (int i = 0; i < particlesPreviousSpawnedSpell.Count; i++)
@@ -102,6 +109,7 @@ public class PlayerHandEffect : MonoBehaviour
             }
         }
 
+        // for vfx
         if (vfxPreviousSpawnedSpell.Count > 0)
         {
             for (int i = 0; i < particlesPreviousSpawnedSpell.Count; i++)
@@ -117,6 +125,9 @@ public class PlayerHandEffect : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Stops an effect.
+    /// </summary>
     public void EffectStop()
     {
         if (previousVFX != null)
