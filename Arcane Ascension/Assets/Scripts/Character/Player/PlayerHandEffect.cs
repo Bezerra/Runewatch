@@ -11,7 +11,13 @@ public class PlayerHandEffect : MonoBehaviour
 
     private GameObject spawnedSpell;
     private IList<GameObject> previousSpawnedSpell;
+
     private IList<ParticleSystem> particlesPreviousSpawnedSpell;
+    private ParticleSystem previousParticle;
+
+    private IList<VisualEffect> vfxPreviousSpawnedSpell;
+    private VisualEffect previousVFX;
+
 
     // Pool transform
     private Transform poolTransformParent;
@@ -20,6 +26,7 @@ public class PlayerHandEffect : MonoBehaviour
     {
         previousSpawnedSpell = new List<GameObject>();
         particlesPreviousSpawnedSpell = new List<ParticleSystem>();
+        vfxPreviousSpawnedSpell = new List<VisualEffect>();
     }
 
     /// <summary>
@@ -31,15 +38,26 @@ public class PlayerHandEffect : MonoBehaviour
         // If there's an active effect, it stops it
         if (spawnedSpell != null)
         {
-            ParticleSystem previousVFX = spawnedSpell.GetComponentInChildren<ParticleSystem>();
+            previousParticle = null;
+            previousVFX = null;
+
+            previousParticle = spawnedSpell.GetComponentInChildren<ParticleSystem>();
+            previousVFX = spawnedSpell.GetComponentInChildren<VisualEffect>();
+
             HandEffectLightFade lightFade = spawnedSpell.GetComponentInChildren<HandEffectLightFade>();
 
             // Adds current effect to previous effects, so it can disable them
             lightFade.DeactivateLight();
-            previousSpawnedSpell.Add(spawnedSpell);
-            particlesPreviousSpawnedSpell.Add(previousVFX);
 
-            previousVFX.Stop();
+            previousSpawnedSpell.Add(spawnedSpell);
+
+            if (previousParticle != null)
+                particlesPreviousSpawnedSpell.Add(previousParticle);
+
+            if (previousVFX != null)
+                vfxPreviousSpawnedSpell.Add(previousVFX);
+
+            EffectStop();
         }
 
         if (spell.Prefab.Item4 != null)
@@ -82,6 +100,32 @@ public class PlayerHandEffect : MonoBehaviour
                     i--;
                 }
             }
+        }
+
+        if (vfxPreviousSpawnedSpell.Count > 0)
+        {
+            for (int i = 0; i < particlesPreviousSpawnedSpell.Count; i++)
+            {
+                if (particlesPreviousSpawnedSpell[i].particleCount == 0)
+                {
+                    previousSpawnedSpell[i].SetActive(false);
+                    previousSpawnedSpell.Remove(previousSpawnedSpell[i]);
+                    particlesPreviousSpawnedSpell.Remove(particlesPreviousSpawnedSpell[i]);
+                    i--;
+                }
+            }
+        }
+    }
+
+    public void EffectStop()
+    {
+        if (previousVFX != null)
+        {
+            previousVFX.Stop();
+        }
+        if (previousParticle != null)
+        {
+            previousParticle.Stop();
         }
     }
 }
