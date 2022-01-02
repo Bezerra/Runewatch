@@ -11,7 +11,7 @@ public class PlayerHandEffect : MonoBehaviour
 
     private GameObject spawnedSpell;
     private IList<GameObject> previousSpawnedSpell;
-    private IList<VisualEffect> vfxPreviousSpawnedSpell;
+    private IList<ParticleSystem> particlesPreviousSpawnedSpell;
 
     // Pool transform
     private Transform poolTransformParent;
@@ -19,7 +19,7 @@ public class PlayerHandEffect : MonoBehaviour
     private void Awake()
     {
         previousSpawnedSpell = new List<GameObject>();
-        vfxPreviousSpawnedSpell = new List<VisualEffect>();
+        particlesPreviousSpawnedSpell = new List<ParticleSystem>();
     }
 
     /// <summary>
@@ -31,13 +31,13 @@ public class PlayerHandEffect : MonoBehaviour
         // If there's an active effect, it stops it
         if (spawnedSpell != null)
         {
-            VisualEffect previousVFX = spawnedSpell.GetComponentInChildren<VisualEffect>();
+            ParticleSystem previousVFX = spawnedSpell.GetComponentInChildren<ParticleSystem>();
             HandEffectLightFade lightFade = spawnedSpell.GetComponentInChildren<HandEffectLightFade>();
 
             // Adds current effect to previous effects, so it can disable them
             lightFade.DeactivateLight();
             previousSpawnedSpell.Add(spawnedSpell);
-            vfxPreviousSpawnedSpell.Add(previousVFX);
+            particlesPreviousSpawnedSpell.Add(previousVFX);
 
             previousVFX.Stop();
         }
@@ -70,15 +70,15 @@ public class PlayerHandEffect : MonoBehaviour
     private void FixedUpdate()
     {
         // If there's a previows spell still active, it will disable it when it stops emitting particles
-        if (vfxPreviousSpawnedSpell.Count > 0)
+        if (particlesPreviousSpawnedSpell.Count > 0)
         {
-            for (int i = 0; i < vfxPreviousSpawnedSpell.Count; i++)
+            for (int i = 0; i < particlesPreviousSpawnedSpell.Count; i++)
             {
-                if (vfxPreviousSpawnedSpell[i].aliveParticleCount == 0)
+                if (particlesPreviousSpawnedSpell[i].particleCount == 0)
                 {
                     previousSpawnedSpell[i].SetActive(false);
                     previousSpawnedSpell.Remove(previousSpawnedSpell[i]);
-                    vfxPreviousSpawnedSpell.Remove(vfxPreviousSpawnedSpell[i]);
+                    particlesPreviousSpawnedSpell.Remove(particlesPreviousSpawnedSpell[i]);
                     i--;
                 }
             }
