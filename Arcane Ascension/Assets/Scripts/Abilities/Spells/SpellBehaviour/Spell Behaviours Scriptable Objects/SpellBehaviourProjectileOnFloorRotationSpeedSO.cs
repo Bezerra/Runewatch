@@ -1,5 +1,4 @@
 using UnityEngine;
-using ExtensionMethods;
 
 /// <summary>
 /// Scriptable object responsible for rotating the projectile to player's forward and updating its speed.

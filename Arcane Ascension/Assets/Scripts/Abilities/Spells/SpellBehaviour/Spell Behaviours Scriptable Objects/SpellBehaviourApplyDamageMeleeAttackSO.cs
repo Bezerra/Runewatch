@@ -77,6 +77,8 @@ sealed public class SpellBehaviourApplyDamageMeleeAttackSO : SpellBehaviourAbstr
         parent.SpellStartedMoving = true;
         parent.TimeSpawned = Time.time;
         parent.Spell.DamageBehaviour.Damage(parent);
+        parent.transform.rotation = 
+            Quaternion.LookRotation(parent.Hand.transform.forward, Vector3.up);
     }
 
     public override void ContinuousUpdateBeforeSpellBehaviour(SpellBehaviourOneShot parent)
