@@ -10,38 +10,38 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 645b99556f78c9a4d826b70d6a3a9a11, type: 3}
-  m_Name: Healing Tree
+  m_Name: Smite
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  name: Healing Tree
+  name: Smite
   spellTier: 1
-  description: "Creates a tree that regenerates player\u2019s Leaf Shield."
-  elementIcon: {fileID: 21300000, guid: b7d8b4380f9ac714ca760f1c57b7e637, type: 3}
-  element: 5
-  manaCost: 35
+  description: Casts down a beam of light from the sky that damages foes.
+  elementIcon: {fileID: 21300000, guid: 53ac9e47d1d596c469daa99511f6c006, type: 3}
+  element: 6
+  manaCost: 30
   targetTypeIcon: {fileID: 21300000, guid: f7859ac33a8e3dc4c872877e535801e4, type: 3}
-  timeInterval: 1
-  maxTime: 7
-  areaOfEffect: 8
-  playerDamage: {x: 5, y: 5}
+  timeInterval: 0.01
+  maxTime: 5
+  areaOfEffect: 1.5
+  playerDamage: {x: 35, y: 40}
   enemyDamage: {x: 0, y: 0}
-  delayToDoDamage: 0
+  delayToDoDamage: 0.35
   spellCastType: 1
   speed: 0.01
-  cooldown: 0.25
+  cooldown: 2.5
   maximumDistance: 20
-  spellPrefab: {fileID: 7189111728712202335, guid: c01eb2567218e4347beedd831f1e39fd, type: 3}
-  spellHitPrefab: {fileID: 2310489982616561858, guid: 3a7091dae3e3c0743a87e200cfd2a9e7, type: 3}
-  spellMuzzlePrefab: {fileID: 7228047335470632946, guid: 9e0430d4d6f1dca48b8ac69aeb87e7cc, type: 3}
-  spellHandEffectPrefab: {fileID: 5965007050869265157, guid: adf3c96132e7d5141aa94734fc2e24a9, type: 3}
+  spellPrefab: {fileID: 7189111728712202335, guid: 74e35a633000be7448d9a2a5f03f0145, type: 3}
+  spellHitPrefab: {fileID: 2310489982616561858, guid: 1c399f62677def846baa1f167522dd06, type: 3}
+  spellMuzzlePrefab: {fileID: 7228047335470632946, guid: 848dd8fef247e1b4e927b768e42ef947, type: 3}
+  spellHandEffectPrefab: {fileID: 5965007050869265157, guid: b5ac2d203b8b5f34daff24f297c095d0, type: 3}
   areaHoverPrefab: {fileID: 1369274409782311434, guid: d1412072d0a506d45b80f2ffa459d147, type: 3}
-  damageBehaviour: {fileID: 0}
+  damageBehaviour: {fileID: 11400000, guid: 416113b2a45cb57448020076a9603528, type: 2}
   statusBehaviour: {fileID: 0}
   spellBehaviourOneShot:
   - {fileID: 11400000, guid: a49dcf44605afa94ab22c59e891faf12, type: 2}
   - {fileID: 11400000, guid: 46efe22d2ec6cd24e937694280adf623, type: 2}
-  - {fileID: 11400000, guid: b702259838758fd4ebd628f6f457f33e, type: 2}
-  - {fileID: 11400000, guid: b1991810118e2824087b4ef076d38e09, type: 2}
+  - {fileID: 11400000, guid: 26eb1ed56da6d7948a0f1716a9246e68, type: 2}
+  - {fileID: 11400000, guid: 551155c3044876149a4d8ec909880225, type: 2}
   - {fileID: 11400000, guid: 391e6fdc62eda2c4ba7dae6900236270, type: 2}
   attackBehaviourOneShot: {fileID: 11400000, guid: ab869008ef5c4074298c42944aa52938, type: 2}
   onHitBehaviourOneShot:
@@ -52,6 +52,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e54eb235ea9381946a4a076f5351e0f3, type: 2}
   sounds:
     projectile: {fileID: 0}
-    muzzle: {fileID: 0}
-    hit: {fileID: 0}
+    muzzle: {fileID: 11400000, guid: 109870663cf2efa409a13c768cffc680, type: 2}
+    hit: {fileID: 11400000, guid: b77c5a6a4ea81724790b828cc0d0970a, type: 2}
   surfaceSounds: []
