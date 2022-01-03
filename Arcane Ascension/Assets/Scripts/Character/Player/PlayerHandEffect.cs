@@ -90,7 +90,7 @@ public class PlayerHandEffect : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         // If there's a previows spell still active, it will disable it when it stops emitting particles
 
