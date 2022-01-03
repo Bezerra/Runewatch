@@ -12,40 +12,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 645b99556f78c9a4d826b70d6a3a9a11, type: 3}
   m_Name: Fire Breath
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 47b0c8cbcd450124abdb1b62fb7f5806, type: 3}
+  icon: {fileID: 21300000, guid: ef4f3f3526d044e4189eb8c9c00d0636, type: 3}
   name: Fire Breath
   spellTier: 1
-  description: Fires a cone of fire.
+  description: Casts a cone of fire.
   elementIcon: {fileID: 21300000, guid: 0bfd4d829ff5ddd49a1cc3db69719a7c, type: 3}
   element: 1
-  manaCost: 8
-  targetTypeIcon: {fileID: 21300000, guid: 7b046770569e6a44fa8fc1f6b9a10e41, type: 3}
+  manaCost: 10
+  targetTypeIcon: {fileID: 21300000, guid: 646785eca119e9749825928c12b058e1, type: 3}
   timeInterval: 0.01
   maxTime: 0.1
-  areaOfEffect: 2
-  playerDamage: {x: 0, y: 0}
+  areaOfEffect: 1.15
+  playerDamage: {x: 18, y: 30}
   enemyDamage: {x: 0, y: 0}
   delayToDoDamage: 0
   spellCastType: 0
   speed: 0.01
   cooldown: 0.5
   maximumDistance: 2
-  spellPrefab: {fileID: 7189111728712202335, guid: 2f83a41da1ae59747a60d8a4c002add5, type: 3}
-  spellHitPrefab: {fileID: 1692217177674820475, guid: dff84a9b6e75e6f4abd5ccccd16f29a9, type: 3}
-  spellMuzzlePrefab: {fileID: 7228047335470632946, guid: b8af3ac7647233e478541b4222a65b71, type: 3}
+  spellPrefab: {fileID: 4544114618391733411, guid: 48c539823c1bdba4387138cf880fe498, type: 3}
+  spellHitPrefab: {fileID: 1692217177674820475, guid: 1f3641fbf11576c40ae53669a50c4164, type: 3}
+  spellMuzzlePrefab: {fileID: 7228047335470632946, guid: e78657c1f57aff34fb09509adb04879f, type: 3}
   spellHandEffectPrefab: {fileID: 5965007050869265157, guid: 280d2b34b0ce0e549a6782d20b15f614, type: 3}
   areaHoverPrefab: {fileID: 0}
   damageBehaviour: {fileID: 11400000, guid: 416113b2a45cb57448020076a9603528, type: 2}
   statusBehaviour: {fileID: 0}
-  spellBehaviourOneShot: []
+  spellBehaviourOneShot:
+  - {fileID: 11400000, guid: 295c7b5ef39c408488e744a106ce7dba, type: 2}
+  - {fileID: 11400000, guid: 391e6fdc62eda2c4ba7dae6900236270, type: 2}
+  - {fileID: 11400000, guid: 551155c3044876149a4d8ec909880225, type: 2}
   attackBehaviourOneShot: {fileID: 11400000, guid: 951b735271f52a24b8c27da0e99a077c, type: 2}
-  onHitBehaviourOneShot:
-  - {fileID: 11400000, guid: f9fa5f0dff83ae146ad847d4b5b3b664, type: 2}
+  onHitBehaviourOneShot: []
   muzzleBehaviourOneShot:
   - {fileID: 11400000, guid: da438eaf63e47e74a8e7e0d60862b84e, type: 2}
   - {fileID: 11400000, guid: e54eb235ea9381946a4a076f5351e0f3, type: 2}
   sounds:
-    projectile: {fileID: 11400000, guid: 3e5c402b0cf6f654db287eaa9e9693d0, type: 2}
-    muzzle: {fileID: 11400000, guid: 837b109736049044ebd0798458f7fcb4, type: 2}
+    projectile: {fileID: 0}
+    muzzle: {fileID: 11400000, guid: ec3679d8ef524e04e942c5f5ea292361, type: 2}
     hit: {fileID: 0}
   surfaceSounds: []
