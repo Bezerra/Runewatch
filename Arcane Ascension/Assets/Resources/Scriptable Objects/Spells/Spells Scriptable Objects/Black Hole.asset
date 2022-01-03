@@ -12,28 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 645b99556f78c9a4d826b70d6a3a9a11, type: 3}
   m_Name: Black Hole
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: c6a3a1fd6e601f74086182a09b075a56, type: 3}
-  name: Eruption
+  icon: {fileID: 0}
+  name: Black Hole
   spellTier: 1
-  description: Creates a pillar of fire at location.
-  elementIcon: {fileID: 21300000, guid: 0bfd4d829ff5ddd49a1cc3db69719a7c, type: 3}
-  element: 1
-  manaCost: 50
+  description: Forms a black hole that explodes after a delay.
+  elementIcon: {fileID: 21300000, guid: d8f0a6b039af50c4baa562d354de8131, type: 3}
+  element: 7
+  manaCost: 25
   targetTypeIcon: {fileID: 21300000, guid: f7859ac33a8e3dc4c872877e535801e4, type: 3}
   timeInterval: 0.01
   maxTime: 5
-  areaOfEffect: 2
-  playerDamage: {x: 70, y: 80}
-  enemyDamage: {x: 15, y: 20}
+  areaOfEffect: 2.5
+  playerDamage: {x: 35, y: 40}
+  enemyDamage: {x: 0, y: 0}
   delayToDoDamage: 0.35
   spellCastType: 1
   speed: 0.01
   cooldown: 2.5
   maximumDistance: 20
-  spellPrefab: {fileID: 7189111728712202335, guid: e32c1bdadfe006b4f8f87fcf7d851ec0, type: 3}
-  spellHitPrefab: {fileID: 2310489982616561858, guid: e62579a2766848f4792d2e2a89d8d03a, type: 3}
-  spellMuzzlePrefab: {fileID: 7228047335470632946, guid: 808a8527f3677b1448e0a420818a5f1f, type: 3}
-  spellHandEffectPrefab: {fileID: 5965007050869265157, guid: 280d2b34b0ce0e549a6782d20b15f614, type: 3}
+  spellPrefab: {fileID: 7189111728712202335, guid: f1ae90bcfc3788848bf7ccf4316b196a, type: 3}
+  spellHitPrefab: {fileID: 2310489982616561858, guid: b31ec8febbfb7164eb903ef40abcb3ce, type: 3}
+  spellMuzzlePrefab: {fileID: 7228047335470632946, guid: 75731e456f751774bb959f681e019238, type: 3}
+  spellHandEffectPrefab: {fileID: 5965007050869265157, guid: 4300263d8629e5d4ca8e733b82ec3a36, type: 3}
   areaHoverPrefab: {fileID: 1369274409782311434, guid: d1412072d0a506d45b80f2ffa459d147, type: 3}
   damageBehaviour: {fileID: 11400000, guid: 416113b2a45cb57448020076a9603528, type: 2}
   statusBehaviour: {fileID: 0}
