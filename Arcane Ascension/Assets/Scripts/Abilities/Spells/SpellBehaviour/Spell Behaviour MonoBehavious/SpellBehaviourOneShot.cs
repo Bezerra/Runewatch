@@ -39,7 +39,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     public byte CurrentPierceHitQuantity { get; set; }
 
     /// <summary>
-    /// Used for wall bouncing behaviours.
+    /// Used for wall hits.
     /// </summary>
     public byte CurrentWallHitQuantity { get; set; }
 

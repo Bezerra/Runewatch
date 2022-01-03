@@ -4,7 +4,8 @@ using ExtensionMethods;
 /// <summary>
 /// Scriptable object responsible for spawning hit of AoE hover spell.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Spawn Hit On Impact With AoE",
+[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Spawn Hit On Impact " +
+    "With AoE",
     fileName = "Spell Behaviour Spawn Hit On Impact With AoE")]
 public class SpellBehaviourSpawnHitOnImpactWithAoESO : SpellBehaviourAbstractSO
 {
@@ -20,7 +21,8 @@ public class SpellBehaviourSpawnHitOnImpactWithAoESO : SpellBehaviourAbstractSO
 
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
     {
-        // Left blank on purpose
+        if (parent.CurrentWallHitQuantity < 1)
+            parent.TimeSpawned = Time.time;
     }
 
     public override void ContinuousFixedUpdateBehaviour(SpellBehaviourOneShot parent)
@@ -30,6 +32,9 @@ public class SpellBehaviourSpawnHitOnImpactWithAoESO : SpellBehaviourAbstractSO
 
     public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
+        parent.CurrentWallHitQuantity++;
+        parent.TimeOfImpact = Time.time;
+
         // Safe margin to do calculations
         Vector3 positionSafeMargin;
 
