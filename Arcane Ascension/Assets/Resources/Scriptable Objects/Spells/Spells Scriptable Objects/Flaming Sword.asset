@@ -10,29 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 645b99556f78c9a4d826b70d6a3a9a11, type: 3}
-  m_Name: Fire Breath
+  m_Name: Flaming Sword
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  name: Fire Breath
+  name: Flaming Sword
   spellTier: 1
-  description: Casts a cone of fire.
+  description: A sword attack that throws a cone of fire in front of the player.
   elementIcon: {fileID: 21300000, guid: 0bfd4d829ff5ddd49a1cc3db69719a7c, type: 3}
   element: 1
-  manaCost: 10
+  manaCost: 25
   targetTypeIcon: {fileID: 21300000, guid: 646785eca119e9749825928c12b058e1, type: 3}
   timeInterval: 0.01
   maxTime: 0.1
-  areaOfEffect: 2
-  playerDamage: {x: 18, y: 30}
+  areaOfEffect: 2.5
+  playerDamage: {x: 30, y: 35}
   enemyDamage: {x: 0, y: 0}
   delayToDoDamage: 0
   spellCastType: 0
   speed: 0.01
   cooldown: 1
   maximumDistance: 2
-  spellPrefab: {fileID: 4544114618391733411, guid: 48c539823c1bdba4387138cf880fe498, type: 3}
-  spellHitPrefab: {fileID: 1692217177674820475, guid: 1f3641fbf11576c40ae53669a50c4164, type: 3}
-  spellMuzzlePrefab: {fileID: 7228047335470632946, guid: e78657c1f57aff34fb09509adb04879f, type: 3}
+  spellPrefab: {fileID: 4544114618391733411, guid: e870fd76eeca55349881ec8289710b18, type: 3}
+  spellHitPrefab: {fileID: 1692217177674820475, guid: 6ab58cd8ce5ad72439fbfd0da569bf76, type: 3}
+  spellMuzzlePrefab: {fileID: 7228047335470632946, guid: a52a9a357dcf003428c371ea95769efc, type: 3}
   spellHandEffectPrefab: {fileID: 5965007050869265157, guid: 280d2b34b0ce0e549a6782d20b15f614, type: 3}
   areaHoverPrefab: {fileID: 0}
   damageBehaviour: {fileID: 11400000, guid: 416113b2a45cb57448020076a9603528, type: 2}
