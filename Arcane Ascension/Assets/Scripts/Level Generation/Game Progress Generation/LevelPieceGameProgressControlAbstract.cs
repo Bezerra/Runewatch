@@ -134,7 +134,10 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
 
         // If no enemies were on second wave
         if (spawnedSecondWaveEnemies.Count == 0)
+        {
+            hasSpawnedSecondWave = true;
             return;
+        }
 
         // If this rooms spawns a second wave
         if (spawnsSecondWave)
