@@ -8,11 +8,9 @@ public class OPENDOORSONROOMAITESTS : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
 
-        foreach (Door door in FindObjectsOfType<Door>())
+        foreach (ContactPoint cp in FindObjectsOfType<ContactPoint>())
         {
-            door.IsDoorRoomFullyLoaded = true;
-            door.CanOpen = true;
-            door.Open();
+            cp.gameObject.SetActive(false);
         }
     }
 }
