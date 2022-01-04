@@ -212,14 +212,21 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
 
                     // Level Stuff
                     // Creates a new list with all level pieces
-                    IList<LevelPiece> generatedRoomPieces = 
-                        FindObjectOfType<LevelGenerator>().AllLevelPiecesGenerated;
-                    // Disables the rest of the pieces
-                    for (int i = 0; i < generatedRoomPieces.Count; i++)
+                    LevelGenerator levelGenerator = 
+                        FindObjectOfType<LevelGenerator>();
+
+                    if (levelGenerator != null)
                     {
-                        if (generatedRoomPieces[i] != null)
+                        IList<LevelPiece> generatedRoomPieces =
+                            levelGenerator.AllLevelPiecesGenerated;
+
+                        // Disables the rest of the pieces
+                        for (int i = 0; i < generatedRoomPieces.Count; i++)
                         {
-                            StartCoroutine(generatedRoomPieces[i].EnableChildOccludeesCoroutine());
+                            if (generatedRoomPieces[i] != null)
+                            {
+                                StartCoroutine(generatedRoomPieces[i].EnableChildOccludeesCoroutine());
+                            }
                         }
                     }
 

@@ -14,6 +14,12 @@ public class EnemySpawnPoint : MonoBehaviour
     [SerializeField]
     private List<EnemySpawnPointInformation> pointInformation;
 
+    [TableList]
+    [SerializeField]
+    private EnemyWave wave;
+
+    public EnemyWave Wave => wave;
+
     /// <summary>
     /// Getter for a dictionary with this point information.
     /// </summary>
@@ -35,3 +41,5 @@ public class EnemySpawnPoint : MonoBehaviour
         Gizmos.DrawMesh(meshForGizmos, transform.position, transform.rotation, new Vector3(0.2f, 0.2f, 0.2f));
     }
 }
+
+public enum EnemyWave { FirstWave, SecondWave }

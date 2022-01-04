@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ExtensionMethods;
@@ -9,6 +10,10 @@ using ExtensionMethods;
 public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
 {
     [SerializeField] protected AvailableListOfEnemiesToSpawnSO listOfEnemies;
+
+    [SerializeField] protected bool spawnsSecondWave = true;
+    [Range(5f, 30f)] [SerializeField] protected float timeToSpawnSecondWave = 7f;
+    private bool hasSpawnedSecondWave;
 
     private bool playerInCombat;
     protected bool PlayerInCombat
@@ -38,7 +43,8 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
     protected IList<EnemySpawnPoint> enemySpawnPoints;
     private int quantityOfEnemiesSpawned;
     private bool haveEnemiesSpawned;
-    private IList<GameObject> spawnedEnemies;
+    private IList<GameObject> spawnedFirstWaveEnemies;
+    private IList<GameObject> spawnedSecondWaveEnemies;
 
     // Doors and exit blockers
     protected ContactPointDoor[] contactPointsDoors;
@@ -49,15 +55,18 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
         enemySpawnPoints = GetComponentsInChildren<EnemySpawnPoint>(true);
         contactPointsDoors = GetComponentsInChildren<ContactPointDoor>();
         droppedLoot = new List<(LootType, Vector3)>();
-        GameProgressCollider[] gameProgressColliders = GetComponentsInChildren<GameProgressCollider>(true);
+        GameProgressCollider[] gameProgressColliders = 
+            GetComponentsInChildren<GameProgressCollider>(true);
         exitBlockers = new List<BoxCollider>();
         foreach (GameProgressCollider gpc in gameProgressColliders)
             exitBlockers.Add(gpc.GetComponent<BoxCollider>());
         random = new System.Random();
         playerInCombat = false;
         stpData = FindObjectOfType<CharacterSaveDataController>();
+        hasSpawnedSecondWave = false;
 
-        spawnedEnemies = new List<GameObject>();
+        spawnedFirstWaveEnemies = new List<GameObject>();
+        spawnedSecondWaveEnemies = new List<GameObject>();
     }
 
     /// <summary>
@@ -76,7 +85,15 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
                 enemySpawnPoint.transform.position,
                 enemySpawnPoint.transform.rotation);
 
-            spawnedEnemies.Add(spawnedEnemy);
+            if (enemySpawnPoint.Wave == EnemyWave.FirstWave)
+            {
+                spawnedFirstWaveEnemies.Add(spawnedEnemy);
+            }
+            else if (enemySpawnPoint.Wave == EnemyWave.SecondWave)
+            {
+                spawnedSecondWaveEnemies.Add(spawnedEnemy);
+            }
+
             spawnedEnemy.SetActive(false);
         }
     }
@@ -96,7 +113,7 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
             {
                 BlockUnblockExits(true);
 
-                foreach (GameObject spawnedEnemy in spawnedEnemies)
+                foreach (GameObject spawnedEnemy in spawnedFirstWaveEnemies)
                 {
                     spawnedEnemy.SetActive(true);
                     quantityOfEnemiesSpawned++;
@@ -110,9 +127,44 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
                         }
                     }
                 }
+
                 haveEnemiesSpawned = true;
             }
         }
+
+        // If no enemies were on second wave
+        if (spawnedSecondWaveEnemies.Count == 0)
+            return;
+
+        // If this rooms spawns a second wave
+        if (spawnsSecondWave)
+            StartCoroutine(SpawnSecondWaveEnemies());
+    }
+
+    /// <summary>
+    /// Second wave of enemies.
+    /// </summary>
+    /// <returns>Waits for seconds</returns>
+    private IEnumerator SpawnSecondWaveEnemies()
+    {
+        yield return new WaitForSeconds(timeToSpawnSecondWave);
+
+        foreach (GameObject spawnedEnemy in spawnedSecondWaveEnemies)
+        {
+            spawnedEnemy.SetActive(true);
+            quantityOfEnemiesSpawned++;
+            if (spawnedEnemy.TryGetComponentInChildrenFirstGen(out Stats enemyStats))
+            {
+                enemyStats.EventDeath += EnemyDeath;
+
+                if (enemyStats.CommonAttributes.Type == CharacterType.Boss)
+                {
+                    enemyStats.EventDeath += BossDeath;
+                }
+            }
+        }
+
+        hasSpawnedSecondWave = true;
     }
 
     /// <summary>
@@ -180,6 +232,13 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
     {
         enemyStats.EventDeath -= EnemyDeath;
         quantityOfEnemiesSpawned--;
+
+        // If second wave has not spawned yet
+        if (spawnsSecondWave)
+        {
+            if (hasSpawnedSecondWave == false)
+                return;
+        }
 
         // If all enemies area dead
         if (quantityOfEnemiesSpawned == 0)
