@@ -920,7 +920,8 @@ public class LevelGenerator : MonoBehaviour, IDungeonSaveable
             // Adds NEW contact points to open contact point list
             foreach (ContactPoint newContactPoint in pieceToPlace.ContactPoints)
             {
-                if (newContactPoint.transform.position != pieceContactPoint.transform.position)
+                if (newContactPoint.transform.position != 
+                    pieceContactPoint.transform.position)
                 {
                     newContactPoint.Open();
                     openedContactPoints.Add(newContactPoint);
@@ -931,7 +932,8 @@ public class LevelGenerator : MonoBehaviour, IDungeonSaveable
         {
             // This will never happen 99.9999% sure, but just as a safety measure
             // It's better than getting the game stuck
-            Debug.LogError("Missing reference. Generating another level as a safety measure.");
+            Debug.LogError("Missing reference. Generating another level as a " +
+                "safety measure.");
 
             // This scene load will depend if it's a new game or loading game
             // Implement in the future
@@ -948,7 +950,8 @@ public class LevelGenerator : MonoBehaviour, IDungeonSaveable
     {
         saveData.DungeonSavedData.Seed = seed;
         saveData.DungeonSavedData.HorizontalMaximumLevelSize = horizontalMaximumLevelSize;
-        saveData.DungeonSavedData.ForwardMaximumLevelSize = forwardMaximumLevelSize;
+        saveData.DungeonSavedData.ForwardMaximumLevelSize = 
+            forwardMaximumLevelSize;
         saveData.DungeonSavedData.MinimumNumberOfRooms = minimumNumberOfRooms;
         saveData.DungeonSavedData.MaximumNumberOfRooms = maximumNumberOfRooms;
         saveData.DungeonSavedData.Element = element;
@@ -993,13 +996,17 @@ public class LevelGenerator : MonoBehaviour, IDungeonSaveable
         if (random == null)
             random = new System.Random();
 
-        if (generateLevelCoroutine != null) StopCoroutine(generateLevelCoroutine);
+        if (generateLevelCoroutine != null) 
+            StopCoroutine(generateLevelCoroutine);
+
         print(message);
 
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.5f);
 
         // Destroys every piece previously generated
-        GameObject[] levelParents = GameObject.FindGameObjectsWithTag("LevelParent");
+        GameObject[] levelParents = 
+            GameObject.FindGameObjectsWithTag("LevelParent");
+
         foreach (GameObject lvlParent in levelParents)
             Destroy(lvlParent);
 

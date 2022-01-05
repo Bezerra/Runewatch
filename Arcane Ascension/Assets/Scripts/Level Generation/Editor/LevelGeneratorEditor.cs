@@ -13,7 +13,8 @@ public class LevelGeneratorEditor : Editor
 
         if (GUILayout.Button("New Generator - Button is +- bugged"))
         {
-            levelGenerator.StartCoroutine(levelGenerator.ResetGeneration("Generating new random level.", null));
+            levelGenerator.StartCoroutine(levelGenerator.
+                ResetGeneration("Generating new random level.", null));
         }
         GUILayout.EndHorizontal();
         base.OnInspectorGUI();
