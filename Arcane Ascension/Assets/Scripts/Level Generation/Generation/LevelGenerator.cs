@@ -14,7 +14,8 @@ public class LevelGenerator : MonoBehaviour, IDungeonSaveable
     [Header("Generation Values")]
     [Tooltip("FixedUpdate will require more performance but it's faster")]
     [SerializeField] private YieldType                              yieldType = YieldType.FixedUpdate;
-    [Tooltip("Occlues all room non first gen. pieces and spawns the player")]
+    [Tooltip("Occludes all room non first gen. pieces. Spawns the player. " +
+        "Spawns the enemies.")]
     [SerializeField] private bool                                   occludeAndSpawnPlayer = true;
     [Tooltip("Uses a random seed on initial creation")]
     [SerializeField] private bool                                   randomSeed;
@@ -237,6 +238,8 @@ public class LevelGenerator : MonoBehaviour, IDungeonSaveable
                         openedContactPoints, ref tempIndex, levelParent);
                     pieceIsValid = false;
                     firstRoomCreated = true;
+
+                    SetSpawnedRoomLevelGenerator(pieceToPlace.gameObject);
                 }
 
             } while (firstRoomCreated == false);
@@ -360,6 +363,8 @@ public class LevelGenerator : MonoBehaviour, IDungeonSaveable
                                 pieceToPlace, pieceContactPoint, true, openedContactPoints,
                                 ref i, levelParent);
                             pieceIsValid = false;
+
+                            SetSpawnedRoomLevelGenerator(pieceToPlace.gameObject);
                         }
                     }
                 }
@@ -405,6 +410,8 @@ public class LevelGenerator : MonoBehaviour, IDungeonSaveable
                         ValidatePiece(
                             finalRoomPiece, finalRoomContactPoint, true, 
                             openedContactPoints, ref i, levelParent);
+
+                        SetSpawnedRoomLevelGenerator(finalRoomPiece.gameObject);
 
                         // Because this variable will be used later and boss room doesn't count
                         allRooms.Remove(finalRoomPiece);
@@ -507,6 +514,8 @@ public class LevelGenerator : MonoBehaviour, IDungeonSaveable
                                 finalRoomPiece, finalRoomContactPoint, true, 
                                 openedContactPoints, ref indexOfContactPoint, levelParent);
 
+                            SetSpawnedRoomLevelGenerator(finalRoomPiece.gameObject);
+
                             // Because this variable will be used later and boss room doesn't count
                             allRooms.Remove(finalRoomPiece);
 
@@ -601,7 +610,9 @@ public class LevelGenerator : MonoBehaviour, IDungeonSaveable
         }
 
         // Destroys empty levelParents game objects
-        GameObject[] levelParents = GameObject.FindGameObjectsWithTag("LevelParent");
+        GameObject[] levelParents = 
+            GameObject.FindGameObjectsWithTag("LevelParent");
+
         foreach (GameObject lvlParent in levelParents)
         {
             try
@@ -989,6 +1000,19 @@ public class LevelGenerator : MonoBehaviour, IDungeonSaveable
                         Destroy(levelPiece.gameObject);
                 }
             }
+        }
+    }
+
+    /// <summary>
+    /// Sets a spawned room level generator.
+    /// </summary>
+    /// <param name="levelPiece"></param>
+    public void SetSpawnedRoomLevelGenerator(GameObject levelPiece)
+    {
+        if (levelPiece.TryGetComponent(
+            out LevelPieceGameProgressControlAbstract gameProgress))
+        {
+            gameProgress.LevelGenerator = this;
         }
     }
 

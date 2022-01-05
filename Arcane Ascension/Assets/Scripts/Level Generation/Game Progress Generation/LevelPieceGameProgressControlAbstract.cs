@@ -26,7 +26,8 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
         }
     }
 
-    private static void OnPlayerInCombat(bool condition) => EventPlayerInCombat?.Invoke(condition);
+    private static void OnPlayerInCombat(bool condition) => 
+        EventPlayerInCombat?.Invoke(condition);
     public static event Action<bool> EventPlayerInCombat;
 
     // Loot
@@ -50,6 +51,17 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
     protected ContactPointDoor[] contactPointsDoors;
     protected IList<BoxCollider> exitBlockers;
 
+    private LevelGenerator levelGenerator;
+    public LevelGenerator LevelGenerator
+    {
+        private get => levelGenerator;
+        set
+        {
+            levelGenerator = value;
+            LevelGenerator.EndedGeneration += EventSpawnEnemies;
+        }
+    }
+
     protected virtual void Awake()
     {
         enemySpawnPoints = GetComponentsInChildren<EnemySpawnPoint>(true);
@@ -69,14 +81,27 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
         spawnedSecondWaveEnemies = new List<GameObject>();
     }
 
+
+    private void OnDisable()
+    {
+        if (LevelGenerator != null)
+        {
+            LevelGenerator.EndedGeneration -= EventSpawnEnemies;
+        }
+    }
+        
+
     /// <summary>
     /// Creates all enemies and disables them.
     /// </summary>
-    protected virtual void Start()
+    private void EventSpawnEnemies()
     {
         // If the list is empty, ignores the rest
         if (enemySpawnPoints == null || enemySpawnPoints.Count == 0)
             return;
+
+        GameObject levelParent = 
+            GameObject.FindGameObjectWithTag("LevelParent");
 
         foreach (EnemySpawnPoint enemySpawnPoint in enemySpawnPoints)
         {
@@ -94,6 +119,7 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
                 spawnedSecondWaveEnemies.Add(spawnedEnemy);
             }
 
+            spawnedEnemy.transform.SetParent(levelParent.transform);
             spawnedEnemy.SetActive(false);
         }
     }

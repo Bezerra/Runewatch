@@ -17,7 +17,7 @@ public class LevelPieceGameProgressControlFinalRoom : LevelPieceGameProgressCont
             GetComponentInChildren<NextFloorPortalSpawnPoint>();
     }
 
-    protected override void Start()
+    private void Start()
     {
         if (saveData.DungeonSavedData.Floor % 3 == 0)
         {
@@ -28,9 +28,8 @@ public class LevelPieceGameProgressControlFinalRoom : LevelPieceGameProgressCont
             ChangeFloorRoom();
         }
 
-        // Base start happens before initial logic, so if it's not a boss room,
-        // it will destroy enemy spawn points first, so base start won't spawn enemies
-        base.Start();
+        // This happens before spawning enemies, so if it's a boss room
+        // it will destroy enemy spawn points first, so it won't spawn enemies
     }
 
     /// <summary>
