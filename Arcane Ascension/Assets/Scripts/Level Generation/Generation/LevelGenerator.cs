@@ -978,10 +978,17 @@ public class LevelGenerator : MonoBehaviour, IDungeonSaveable
     private void DestroyEveryPiece()
     {
         LevelPiece[] levelPieces = FindObjectsOfType<LevelPiece>();
-        foreach (LevelPiece levelPiece in levelPieces)
+
+        if (levelPieces != null)
         {
-            if (levelPiece != null)
-                Destroy(levelPiece.gameObject);
+            if (levelPieces.Length > 0)
+            {
+                foreach (LevelPiece levelPiece in levelPieces)
+                {
+                    if (levelPiece != null)
+                        Destroy(levelPiece.gameObject);
+                }
+            }
         }
     }
 
@@ -1001,14 +1008,31 @@ public class LevelGenerator : MonoBehaviour, IDungeonSaveable
 
         print(message);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.65f);
 
         // Destroys every piece previously generated
         GameObject[] levelParents = 
             GameObject.FindGameObjectsWithTag("LevelParent");
 
-        foreach (GameObject lvlParent in levelParents)
-            Destroy(lvlParent);
+        if (levelParents != null)
+        {
+            if (levelParents.Length > 0)
+            {
+                foreach (GameObject lvlParent in levelParents)
+                    Destroy(lvlParent);
+            }
+        }
+
+        SelectionBase[] enemies = FindObjectsOfType<SelectionBase>(true);
+
+        if (enemies != null)
+        {
+            if (enemies.Length > 0)
+            {
+                foreach (SelectionBase enemy in enemies)
+                    Destroy(enemy.gameObject);
+            }
+        }
 
         DestroyEveryPiece();
 
