@@ -1047,17 +1047,6 @@ public class LevelGenerator : MonoBehaviour, IDungeonSaveable
             }
         }
 
-        SelectionBase[] enemies = FindObjectsOfType<SelectionBase>(true);
-
-        if (enemies != null)
-        {
-            if (enemies.Length > 0)
-            {
-                foreach (SelectionBase enemy in enemies)
-                    Destroy(enemy.gameObject);
-            }
-        }
-
         DestroyEveryPiece();
 
         yield return new WaitForSeconds(0.25f);
