@@ -9803,7 +9803,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 0.3
-      minScalar: 0.1
+      minScalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -9908,8 +9908,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0, g: 0.2758026, b: 1, a: 1}
-      maxColor: {r: 0.39999998, g: 0.89126456, b: 1, a: 1}
+      minColor: {r: 0, g: 0.15648921, b: 0.426, a: 1}
+      maxColor: {r: 0.13270587, g: 0.29195288, b: 0.376, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -20256,7 +20256,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.85
+      value: 0.0001
       mode: 0
       spread: 0
       speed:
@@ -20375,7 +20375,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 20
+      scalar: 30
       minScalar: 20
       maxCurve:
         serializedVersion: 2
@@ -24537,7 +24537,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.011764705, g: 0.676469, b: 0.8666667, a: 1}
+      maxColor: {r: 0.011764705, g: 0.676469, b: 0.8666667, a: 0.4117647}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -24599,7 +24599,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.2
+      scalar: 1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -29463,7 +29463,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 4
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -34060,7 +34060,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3114585884269394969
 Transform:
   m_ObjectHideFlags: 0
@@ -48532,19 +48532,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7757600439537275677, guid: c30a6ce844c9d5e488a1df654b9f41a6, type: 3}
       propertyPath: InitialModule.startColor.maxColor.a
-      value: 0.14901961
+      value: 0.56078434
       objectReference: {fileID: 0}
     - target: {fileID: 7757600439537275677, guid: c30a6ce844c9d5e488a1df654b9f41a6, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.8666667
+      value: 0.92156863
       objectReference: {fileID: 0}
     - target: {fileID: 7757600439537275677, guid: c30a6ce844c9d5e488a1df654b9f41a6, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.572244
+      value: 0.5980993
       objectReference: {fileID: 0}
     - target: {fileID: 7757600439537275677, guid: c30a6ce844c9d5e488a1df654b9f41a6, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.011764705
+      value: 0.011764694
       objectReference: {fileID: 0}
     - target: {fileID: 8863427460817160651, guid: c30a6ce844c9d5e488a1df654b9f41a6, type: 3}
       propertyPath: m_Name
