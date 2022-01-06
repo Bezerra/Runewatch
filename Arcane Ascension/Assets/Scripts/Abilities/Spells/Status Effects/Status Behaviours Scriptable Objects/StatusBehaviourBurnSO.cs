@@ -26,7 +26,7 @@ public class StatusBehaviourBurnSO : StatusBehaviourAbstractSO
                 parent.CharacterHit.TakeDamageOvertime(
                     damageToDo, ElementType.Ignis, damageInterval, durationSeconds);
 
-                parent.PrefabVFX = prefabVFX;
+                parent.PrefabVFX = playerVFX;
                 parent.EffectActive = true;
             }
             // If it's already taking effect

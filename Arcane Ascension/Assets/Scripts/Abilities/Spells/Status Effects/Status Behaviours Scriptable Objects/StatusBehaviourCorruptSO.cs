@@ -27,7 +27,7 @@ public class StatusBehaviourCorruptSO : StatusBehaviourAbstractSO
                 parent.CharacterHit.TakeDamageOvertime(
                     damageToDo, ElementType.Umbra, damageInterval, durationSeconds);
 
-                parent.PrefabVFX = prefabVFX;
+                parent.PrefabVFX = playerVFX;
                 parent.EffectActive = true;
             }
             // If it's already taking effect

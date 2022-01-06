@@ -167,9 +167,4 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     // Subscribed on classes that use Speed
     protected virtual void OnSpeedUpdate(float speed) => EventSpeedUpdate?.Invoke(speed);
     public Action<float> EventSpeedUpdate;
-
-    // Subscribed on HUD classes
-    protected virtual void OnStatusEffectListUpdated(StatusEffectType type,
-        IStatusEffectInformation information) => EventStatusEffectListUpdated?.Invoke(type, information);
-    public Action<StatusEffectType, IStatusEffectInformation> EventStatusEffectListUpdated;
 }

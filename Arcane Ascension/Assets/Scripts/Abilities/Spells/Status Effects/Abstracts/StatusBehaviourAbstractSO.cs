@@ -5,6 +5,7 @@ using UnityEditor;
 
 using UnityEngine;
 using Sirenix.OdinInspector;
+using UnityEngine.Rendering;
 
 /// <summary>
 /// Abstract scriptable object responsible for executing a status behaviour.
@@ -26,7 +27,9 @@ public abstract class StatusBehaviourAbstractSO : ScriptableObject
     [EnumToggleButtons]
     [SerializeField] protected StatusEffectType statusEffectType;
 
-    [SerializeField] protected GameObject prefabVFX;
+    [SerializeField] protected GameObject enemyVFX;
+    [SerializeField] protected GameObject playerVFX;
+    [SerializeField] protected VolumeProfile postProcess;
 
     [Range(0, 400f)] [SerializeField] protected float durationSeconds;
 

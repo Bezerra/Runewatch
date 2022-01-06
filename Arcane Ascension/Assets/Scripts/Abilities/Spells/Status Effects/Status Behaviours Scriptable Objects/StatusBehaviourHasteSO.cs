@@ -25,7 +25,7 @@ public class StatusBehaviourHasteSO : StatusBehaviourAbstractSO
                 parent.WhoCast.StatusEffectList.AddItem(statusEffectType,
                     new StatusEffectInformation(Time.time, durationSeconds, icon));
 
-                parent.PrefabVFX = prefabVFX;
+                parent.PrefabVFX = playerVFX;
                 parent.EffectActive = true;
             }
             // If it's already taking effect
@@ -57,7 +57,7 @@ public class StatusBehaviourHasteSO : StatusBehaviourAbstractSO
         {
             parent.WhoCast.CommonAttributes.MovementStatusEffectMultiplier = 1f;
             parent.WhoCast.UpdateSpeed();
-            parent.WhoCast.StatusEffectList.Items.Remove(statusEffectType);
+            parent.WhoCast.StatusEffectList.RemoveItem(statusEffectType);
             parent.DisableStatusGameObject();
         }
     }

@@ -35,6 +35,23 @@ public class ExtendedDictionary<key, value> : Dictionary<key, value>
     }
 
     /// <summary>
+    /// Removes an item to the dictionary.
+    /// </summary>
+    /// <param name="key">Key to remove.</param>
+    public void RemoveItem(key key)
+    {
+        try
+        {
+            Items.Remove(key);
+            OnValueChangedRemove(key);
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+
+    /// <summary>
     /// Event triggered when an item is added.
     /// </summary>
     /// <param name="sender"></param>
@@ -43,4 +60,14 @@ public class ExtendedDictionary<key, value> : Dictionary<key, value>
         ValueChanged?.Invoke(key, value);
 
     public event Action<key, value> ValueChanged;
+
+    /// <summary>
+    /// Event triggered when an item is removed.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    protected virtual void OnValueChangedRemove(key key) =>
+        ValueChangedRemove?.Invoke(key);
+
+    public event Action<key> ValueChangedRemove;
 }

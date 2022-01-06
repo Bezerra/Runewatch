@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 /// <summary>
 /// Class responsible for running status logic.
@@ -30,6 +31,11 @@ public class StatusBehaviour : MonoBehaviour
     /// VFX of the effect.
     /// </summary>
     public GameObject PrefabVFX { get; set; }
+
+    /// <summary>
+    /// Post process on player camera.
+    /// </summary>
+    public Volume PostProcessEffect { get; set; }
 
     /// <summary>
     /// Last time the effect was applied.

@@ -36,7 +36,7 @@ public class StatusBehaviourSlowSO : StatusBehaviourAbstractSO
                 parent.CharacterHit.StatusEffectList.AddItem(statusEffectType,
                     new StatusEffectInformation(Time.time, durationSeconds, icon));
 
-                parent.PrefabVFX = prefabVFX;
+                parent.PrefabVFX = playerVFX;
                 parent.EffectActive = true;
             }
             // If it's already taking effect

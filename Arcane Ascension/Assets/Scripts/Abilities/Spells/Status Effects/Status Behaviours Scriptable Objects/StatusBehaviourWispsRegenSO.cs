@@ -24,7 +24,7 @@ public class StatusBehaviourWispsRegenSO : StatusBehaviourAbstractSO
                     new StatusEffectInformation(Time.time, durationSeconds, icon));
 
                 parent.LastTimeHit = 0;
-                parent.PrefabVFX = prefabVFX;
+                parent.PrefabVFX = playerVFX;
                 parent.EffectActive = true;
             }
             // If it's already taking effect
