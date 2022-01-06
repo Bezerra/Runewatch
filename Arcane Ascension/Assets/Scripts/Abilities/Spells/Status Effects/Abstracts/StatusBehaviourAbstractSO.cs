@@ -26,9 +26,6 @@ public abstract class StatusBehaviourAbstractSO : ScriptableObject
     [EnumToggleButtons]
     [SerializeField] protected StatusEffectType statusEffectType;
 
-    [Header("Player VFX is on main camera prefab.")]
-    [SerializeField] protected GameObject enemyVFX;
-
     [Range(0, 400f)] [SerializeField] protected float durationSeconds;
 
     /// <summary>

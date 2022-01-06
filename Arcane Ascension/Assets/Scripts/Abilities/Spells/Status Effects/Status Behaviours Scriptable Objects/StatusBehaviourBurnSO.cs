@@ -26,6 +26,7 @@ public class StatusBehaviourBurnSO : StatusBehaviourAbstractSO
                 parent.CharacterHit.TakeDamageOvertime(
                     damageToDo, ElementType.Ignis, damageInterval, durationSeconds);
 
+                parent.EffectType = statusEffectType;
                 parent.EffectActive = true;
             }
             // If it's already taking effect

@@ -25,6 +25,7 @@ public class StatusBehaviourHasteSO : StatusBehaviourAbstractSO
                 parent.WhoCast.StatusEffectList.AddItem(statusEffectType,
                     new StatusEffectInformation(Time.time, durationSeconds, icon));
 
+                parent.EffectType = statusEffectType;
                 parent.EffectActive = true;
             }
             // If it's already taking effect

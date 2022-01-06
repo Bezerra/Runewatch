@@ -6,6 +6,8 @@ using UnityEngine.Rendering;
 /// </summary>
 public class StatusBehaviour : MonoBehaviour
 {
+    private readonly Vector3 STATUSOFFSET = new Vector3(0, 0.5f, 0f);
+
     /// <summary>
     /// Parent spell of this 
     /// </summary>
@@ -27,10 +29,19 @@ public class StatusBehaviour : MonoBehaviour
     /// </summary>
     public bool EffectActive { get; set; }
 
+    private GameObject statusEffectGameobject;
+
     /// <summary>
-    /// VFX of the effect.
+    /// Effect type.
     /// </summary>
-    public GameObject PrefabVFX { get; set; }
+    public StatusEffectType EffectType
+    {
+        set
+        {
+            statusEffectGameobject = 
+                StatusEffectPoolCreator.Pool.InstantiateFromPool(value.ToString());
+        }
+    }
 
     /// <summary>
     /// Post process on player camera.
@@ -68,7 +79,8 @@ public class StatusBehaviour : MonoBehaviour
         if(characterHit != null)
             characterHit.EventDeath -= DisableStatusGameObject;
 
-        PrefabVFX = null;
+        statusEffectGameobject?.SetActive(false);
+        statusEffectGameobject = null;
         EffectActive = false;
         TimeSpawned = 0;
 
@@ -102,6 +114,10 @@ public class StatusBehaviour : MonoBehaviour
     {
         // To reach fixed update, spell has to be different than null, so it doesn't need check in here
         transform.position = characterHit.transform.position;
+
+        if(statusEffectGameobject != null)
+            statusEffectGameobject.transform.position = 
+                transform.position + STATUSOFFSET;
     }
 
     /// <summary>

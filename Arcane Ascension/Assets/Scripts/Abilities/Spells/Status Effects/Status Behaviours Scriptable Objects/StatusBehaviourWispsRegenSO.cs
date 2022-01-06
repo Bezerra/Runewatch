@@ -23,6 +23,7 @@ public class StatusBehaviourWispsRegenSO : StatusBehaviourAbstractSO
                 parent.WhoCast.StatusEffectList.AddItem(statusEffectType,
                     new StatusEffectInformation(Time.time, durationSeconds, icon));
 
+                parent.EffectType = statusEffectType;
                 parent.LastTimeHit = 0;
                 parent.EffectActive = true;
             }

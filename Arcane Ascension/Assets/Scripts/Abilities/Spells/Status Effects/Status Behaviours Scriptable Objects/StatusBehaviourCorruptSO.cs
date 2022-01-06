@@ -27,6 +27,7 @@ public class StatusBehaviourCorruptSO : StatusBehaviourAbstractSO
                 parent.CharacterHit.TakeDamageOvertime(
                     damageToDo, ElementType.Umbra, damageInterval, durationSeconds);
 
+                parent.EffectType = statusEffectType;
                 parent.EffectActive = true;
             }
             // If it's already taking effect
