@@ -6,19 +6,42 @@ using UnityEngine.Rendering;
 public class StatusEffectPostProcess : MonoBehaviour, IFindPlayer
 {
     [SerializeField] private Volume burn;
+    [SerializeField] private ParticleSystem[] burnParticles;
     [SerializeField] private Volume slow;
+    [SerializeField] private ParticleSystem[] slowParticles;
     [SerializeField] private Volume fortify;
+    [SerializeField] private ParticleSystem[] fortifyParticles;
     [SerializeField] private Volume corrupt;
+    [SerializeField] private ParticleSystem[] corruptParticles;
     [SerializeField] private Volume wispsHealing;
+    [SerializeField] private ParticleSystem[] wispsHealingParticles;
     [SerializeField] private Volume haste;
+    [SerializeField] private ParticleSystem[] hasteParticles;
     [SerializeField] private Volume sacrifice;
+    [SerializeField] private ParticleSystem[] sacrificeParticles;
     [SerializeField] private Volume vulnerable;
+    [SerializeField] private ParticleSystem[] vulnerableParticles;
+
+    private IEnumerator statusCoroutine;
 
     private Dictionary<StatusEffectType, Volume> volumes;
-    private PlayerStats playerStats;
+    private Dictionary<StatusEffectType, ParticleSystem[]> particles;
+    private Stats playerStats;
 
     private void Awake()
     {
+        particles = new Dictionary<StatusEffectType, ParticleSystem[]>()
+        {
+            { StatusEffectType.Burn, burnParticles },
+            { StatusEffectType.Slow, slowParticles },
+            { StatusEffectType.Fortified, fortifyParticles },
+            { StatusEffectType.Corrupt, corruptParticles },
+            { StatusEffectType.WispsRegen, wispsHealingParticles },
+            { StatusEffectType.Haste, hasteParticles },
+            { StatusEffectType.Sacrifice, sacrificeParticles },
+            { StatusEffectType.Vulnerable, vulnerableParticles },
+        };
+
         volumes = new Dictionary<StatusEffectType, Volume>()
         {
             {StatusEffectType.Burn, burn },
@@ -34,11 +57,20 @@ public class StatusEffectPostProcess : MonoBehaviour, IFindPlayer
 
     private void Start()
     {
-        foreach(KeyValuePair<StatusEffectType, Volume> keyVal in 
+        foreach(KeyValuePair<StatusEffectType, ParticleSystem[]> particleArray in 
+                particles)
+        {
+            foreach(ParticleSystem particle in particleArray.Value)
+            {
+                particle.Stop();
+            }
+        }
+
+        foreach(KeyValuePair<StatusEffectType, Volume> volume in 
                 volumes)
         {
-            keyVal.Value.weight = 0;
-            keyVal.Value.gameObject.SetActive(false);
+            volume.Value.weight = 0;
+            volume.Value.gameObject.SetActive(false);
         }
     }
 
@@ -63,8 +95,13 @@ public class StatusEffectPostProcess : MonoBehaviour, IFindPlayer
     /// <param name="type">Status effect type.</param>
     /// <param name="information"></param>
     private void UpdatePostProcess(StatusEffectType type, 
-        IStatusEffectInformation information) =>
-            StartCoroutine(UpdatePostProcessCoroutine(type));
+        IStatusEffectInformation information)
+    {
+        // If theres a coroutine running, cancels all effects
+        if (statusCoroutine != null) StopCoroutine(statusCoroutine);
+        statusCoroutine = UpdatePostProcessCoroutine(type);
+        StartCoroutine(statusCoroutine);
+    }
 
     /// <summary>
     /// Adds post process smoothly.
@@ -75,6 +112,18 @@ public class StatusEffectPostProcess : MonoBehaviour, IFindPlayer
     {
         if (volumes[type].gameObject.activeSelf == false)
         {
+            foreach (KeyValuePair<StatusEffectType, Volume> volume in
+                volumes)
+            {
+                if (volume.Key != type)
+                {
+                    RemovePostProcess(type);
+                }
+            }
+
+            foreach (ParticleSystem particle in particles[type])
+                particle.Play();
+
             volumes[type].gameObject.SetActive(true);
             while (volumes[type].weight < 1)
             {
@@ -98,12 +147,24 @@ public class StatusEffectPostProcess : MonoBehaviour, IFindPlayer
     /// <returns>Null.</returns>
     private IEnumerator RemovePostProcessCoroutine(StatusEffectType type)
     {
-        while (volumes[type].weight > 0)
+        if (volumes[type].gameObject.activeSelf)
         {
-            volumes[type].weight -= Time.deltaTime;
-            yield return null;
+            foreach (ParticleSystem particle in particles[type])
+                particle.Stop();
+
+            while (volumes[type].weight > 0)
+            {
+                volumes[type].weight -= Time.deltaTime;
+                yield return null;
+            }
+
+            while (EffectGetAliveParticles(particles[type]) > 0)
+            {
+                yield return null;
+            }
+
+            volumes[type].gameObject.SetActive(false);
         }
-        volumes[type].gameObject.SetActive(false);
     }
 
     public void FindPlayer()
@@ -128,5 +189,19 @@ public class StatusEffectPostProcess : MonoBehaviour, IFindPlayer
             playerStats.StatusEffectList.ValueChanged -= UpdatePostProcess;
             playerStats.StatusEffectList.ValueChangedRemove -= RemovePostProcess;
         }
+    }
+
+    /// <summary>
+    /// Gets alive particles of a particle system.
+    /// </summary>
+    /// <param name="particleSystem"></param>
+    /// <returns></returns>
+    private int EffectGetAliveParticles(ParticleSystem[] particleSystem)
+    {
+        int result = 0;
+        foreach (ParticleSystem particles in particleSystem)
+            result += particles.particleCount;
+
+        return result;
     }
 }
