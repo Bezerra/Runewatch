@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &203282413
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 203282414}
-  m_Layer: 0
-  m_Name: Haste Player Effect
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &203282414
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 203282413}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1472450622}
-  m_Father: {fileID: 4115928913777843191}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &839794003
 GameObject:
   m_ObjectHideFlags: 0
@@ -4850,7 +4819,7 @@ GameObject:
   - component: {fileID: 1472450624}
   - component: {fileID: 1472450623}
   m_Layer: 0
-  m_Name: Player Effect
+  m_Name: VFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4868,7 +4837,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 839794004}
-  m_Father: {fileID: 203282414}
+  m_Father: {fileID: 4115928913777843191}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &1472450625
@@ -9895,7 +9864,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 0
-  sharedProfile: {fileID: 0}
+  sharedProfile: {fileID: 11400000, guid: f35312c1ca831194ab8b07916d9a653c, type: 2}
 --- !u!1 &1096112456575273645
 GameObject:
   m_ObjectHideFlags: 0
@@ -9924,7 +9893,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 203282414}
+  - {fileID: 1472450622}
   m_Father: {fileID: 6261613573878143888}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9992,7 +9961,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 0
-  sharedProfile: {fileID: 0}
+  sharedProfile: {fileID: 11400000, guid: e676250bd2129b249a60366aa1230d5e, type: 2}
 --- !u!1 &2173741993890317203
 GameObject:
   m_ObjectHideFlags: 0
@@ -10040,7 +10009,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 0
-  sharedProfile: {fileID: 0}
+  sharedProfile: {fileID: 11400000, guid: 777ed8247dd12e54fb61d7555d35c2c9, type: 2}
 --- !u!1 &2328005829527715104
 GameObject:
   m_ObjectHideFlags: 0
@@ -10088,7 +10057,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 0
-  sharedProfile: {fileID: 0}
+  sharedProfile: {fileID: 11400000, guid: 556aee5cf5befb54bb1459aa6ee04562, type: 2}
 --- !u!1 &4105543714591749266
 GameObject:
   m_ObjectHideFlags: 0
@@ -10119,7 +10088,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4105543714591749266}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15.3, y: 1.6, z: -26.8}
+  m_LocalPosition: {x: 5.820681, y: -1.4644898, z: 2.6962147}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6261613573878143888}
@@ -10319,7 +10288,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 0
-  sharedProfile: {fileID: 0}
+  sharedProfile: {fileID: 11400000, guid: aa83d274acef38043b85baca610f6d37, type: 2}
 --- !u!1 &5293588720916298048
 GameObject:
   m_ObjectHideFlags: 0
@@ -10447,4 +10416,4 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 0
-  sharedProfile: {fileID: 0}
+  sharedProfile: {fileID: 11400000, guid: d7b7abcb672df9d4c88d0e215a532dae, type: 2}
