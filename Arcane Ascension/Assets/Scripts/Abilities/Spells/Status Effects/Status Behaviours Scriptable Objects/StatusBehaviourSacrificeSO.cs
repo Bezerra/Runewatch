@@ -129,7 +129,7 @@ public class StatusBehaviourSacrificeSO : StatusBehaviourAbstractSO
         if (Time.time - parent.WhoCast.StatusEffectList.Items[statusEffectType].TimeApplied
             > durationSeconds)
         {
-            parent.WhoCast.StatusEffectList.Items.Remove(statusEffectType);
+            parent.WhoCast.StatusEffectList.RemoveItem(statusEffectType);
             parent.DisableStatusGameObject();
         }
     }

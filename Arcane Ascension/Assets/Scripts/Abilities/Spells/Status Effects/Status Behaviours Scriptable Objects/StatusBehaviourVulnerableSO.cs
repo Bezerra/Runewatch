@@ -57,7 +57,7 @@ public class StatusBehaviourVulnerableSO : StatusBehaviourAbstractSO
             > durationSeconds)
         {
             parent.CharacterHit.CommonAttributes.DamageResistanceStatusEffectMultiplier = 0f;
-            parent.CharacterHit.StatusEffectList.Items.Remove(statusEffectType);
+            parent.CharacterHit.StatusEffectList.RemoveItem(statusEffectType);
             parent.DisableStatusGameObject();
         }
     }

@@ -76,7 +76,7 @@ public class StatusBehaviourSlowSO : StatusBehaviourAbstractSO
                     EnemyAttributes.AttackingSpeedReductionMultiplier = attackingSpeedMultiplier;
             }
 
-            parent.CharacterHit.StatusEffectList.Items.Remove(statusEffectType);
+            parent.CharacterHit.StatusEffectList.RemoveItem(statusEffectType);
             parent.DisableStatusGameObject();
         }
     }

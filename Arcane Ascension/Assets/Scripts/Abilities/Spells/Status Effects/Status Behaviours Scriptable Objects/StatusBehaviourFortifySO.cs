@@ -57,7 +57,7 @@ public class StatusBehaviourFortifySO : StatusBehaviourAbstractSO
             > durationSeconds)
         {
             parent.WhoCast.CommonAttributes.DamageResistanceStatusEffectMultiplier = 0f;
-            parent.WhoCast.StatusEffectList.Items.Remove(statusEffectType);
+            parent.WhoCast.StatusEffectList.RemoveItem(statusEffectType);
             parent.DisableStatusGameObject();
         }
     }

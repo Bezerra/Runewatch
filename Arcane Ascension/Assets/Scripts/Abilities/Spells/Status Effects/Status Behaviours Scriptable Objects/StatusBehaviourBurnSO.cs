@@ -62,7 +62,7 @@ public class StatusBehaviourBurnSO : StatusBehaviourAbstractSO
         if (Time.time - parent.CharacterHit.StatusEffectList.Items[statusEffectType].TimeApplied
             > durationSeconds)
         {
-            parent.CharacterHit.StatusEffectList.Items.Remove(statusEffectType);
+            parent.CharacterHit.StatusEffectList.RemoveItem(statusEffectType);
             parent.DisableStatusGameObject();
         }
     }
