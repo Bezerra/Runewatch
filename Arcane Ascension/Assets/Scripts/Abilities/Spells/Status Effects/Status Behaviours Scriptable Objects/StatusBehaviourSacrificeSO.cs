@@ -11,16 +11,16 @@ using ExtensionMethods;
 [InlineEditor]
 public class StatusBehaviourSacrificeSO : StatusBehaviourAbstractSO
 {
-    [Header("Damage to do on caster will never be less than 1.")]
-    [Tooltip("This value is a percentage of the damageToDo. Only used if it's" +
+    //[Header("Damage to do on caster will never be less than 1.")]
+    [Tooltip("Only used if it's " +
         "the player casting this status.")]
-    [Range(0, 1f)] [SerializeField] private float damageOnPlayerCasterPercentage = 0.2f;
+    [Range(0, 10f)] [SerializeField] private float damageOnPlayerCaster = 1f;
 
-    [Tooltip("This value is the base damage that will be done in the monster" +
+    [Tooltip("This value is the base damage that will be done in the monster " +
         "without calculating damage reductions.")]
     [Range(0, 100f)] [SerializeField] private float damageOnMonsterCaster = 25f;
 
-    [Range(0, 10f)][SerializeField] private float damageToDo;
+    [Range(0, 50f)][SerializeField] private float damageToDo;
     [Range(0, 2f)] [SerializeField] private float damageInterval;
 
     public override void StartBehaviour(StatusBehaviour parent)
@@ -106,8 +106,8 @@ public class StatusBehaviourSacrificeSO : StatusBehaviourAbstractSO
             {
                 if (parent.WhoCast.CommonAttributes.Type == CharacterType.Player)
                 {
-                    float damageToDoOnCaster = damageToDo * damageOnPlayerCasterPercentage;
-                    if (damageToDoOnCaster < 1) damageToDoOnCaster = 1.1f;
+                    float damageToDoOnCaster = /*damageToDo **/ damageOnPlayerCaster;
+                    //if (damageToDoOnCaster < 1) damageToDoOnCaster = 1.1f;
 
                     parent.WhoCast.TakeDamage(
                         damageToDoOnCaster,
