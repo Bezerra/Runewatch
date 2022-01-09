@@ -32,12 +32,10 @@ MonoBehaviour:
   defaultCriticalChance: 0.5
   defaultCriticalDamageModifier: 1
   attackingDelay: {x: 0, y: 0}
-  goldQuantity: {x: 1, y: 5}
-  arcanePowerQuantity: {x: 5, y: 10}
   lootRates:
     lootPieces:
     - lootType: 5
-      lootRate: 0
+      lootRate: 4
     - lootType: 6
       lootRate: 20
   availableSpells:
@@ -45,7 +43,6 @@ MonoBehaviour:
     isMeleeAttack: 1
     spellWeight: 100
     range: {x: 2.5, y: 3}
-    needsToBeInRangeToAttack: 0
     enemyStopsOnAttack: 1
     stoppingTime: 0.25
     percentageStoppingTimeTriggerAoESpell: 0
