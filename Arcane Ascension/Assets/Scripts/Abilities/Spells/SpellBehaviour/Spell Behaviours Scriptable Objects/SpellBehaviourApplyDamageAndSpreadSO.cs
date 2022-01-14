@@ -25,6 +25,12 @@ sealed public class SpellBehaviourApplyDamageAndSpreadSO : SpellBehaviourAbstrac
 
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
     {
+        if (parent.DisableSpellAfterCollision)
+        {
+            parent.Rb.velocity = Vector3.zero;
+            return;
+        }
+
         if (parent.TriggerSpread)
         {
             // Checks which layer should it damage
