@@ -34,7 +34,10 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
     [Header("Loot variables")]
     [SerializeField] protected LootRates lootRates;
     [RangeMinMax(0, 1000)] [SerializeField] protected Vector2 goldQuantity;
-    [RangeMinMax(0, 1000)] [SerializeField] protected Vector2 arcanePowerQuantity;
+
+    // ARCANE POWER DROPS ON ENEMIES FOR NOW, UNCOMMENT THIS LATER IF NEEDED
+    //[RangeMinMax(0, 1000)] [SerializeField] protected Vector2 arcanePowerQuantity;
+
     protected IList<(LootType, Vector3)> droppedLoot;
     private System.Random random;
     [SerializeField] protected Transform lootSpawnPosition;
@@ -245,8 +248,10 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
                     {
                         if (currency.CurrencyType == CurrencyType.Gold)
                             currency.Amount = goldQuantity;
-                        else
-                            currency.Amount = arcanePowerQuantity;
+
+                        // ARCANE POWER DROPS ON ENEMIES FOR NOW, UNCOMMENT THIS LATER IF NEEDED
+                        //else
+                        //    currency.Amount = arcanePowerQuantity;
                     }
                 }
             }

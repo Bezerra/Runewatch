@@ -135,8 +135,10 @@ public class LevelPieceGameProgressControlNormalRoom : LevelPieceGameProgressCon
                             lootCurrency.AmountMultiplier = stpData.SaveData.Pickpocket;
                             lootCurrency.Amount = goldQuantity;
                         }
-                        else
-                            lootCurrency.Amount = arcanePowerQuantity;
+
+                        // ARCANE POWER DROPS ON ENEMIES FOR NOW, UNCOMMENT THIS LATER IF NEEDED
+                        //else
+                        //    currency.Amount = arcanePowerQuantity;
                     }
                 }
 
