@@ -9,6 +9,8 @@ using ExtensionMethods;
 /// </summary>
 public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
 {
+    [Range(0f, 2f)][SerializeField] private float shieldLossPerSecond;
+
     // Components
     private CharacterSaveDataController stpData;
 
@@ -121,7 +123,7 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
         yield return wfs;
         Heal(0.01f, StatsType.Armor);
 
-        float leafShieldToLose = 1f;
+        float leafShieldToLose = shieldLossPerSecond;
         while (true)
         {
             yield return wfs;
