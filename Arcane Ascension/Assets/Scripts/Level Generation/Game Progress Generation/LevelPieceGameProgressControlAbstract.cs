@@ -32,6 +32,9 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
 
     // Loot
     [Header("Loot variables")]
+    // The FIXED loot on this room
+    protected LootType lootTypeOnCurrentRoom;
+    // Other possible random loot
     [SerializeField] protected LootRates lootRates;
     [RangeMinMax(0, 1000)] [SerializeField] protected Vector2 goldQuantity;
 
@@ -62,8 +65,35 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
         {
             levelGenerator = value;
             LevelGenerator.EndedGeneration += EventSpawnEnemies;
+            LevelGenerator.EndedGeneration += EventGetFixedRoomLoot;
         }
     }
+
+    /// <summary>
+    /// Sets fixed loot on this room and all room's doors icons.
+    /// </summary>
+    private void EventGetFixedRoomLoot()
+    {
+        int randomNumber = UnityEngine.Random.Range(0, 101);
+        if (randomNumber < 50)
+        {
+            lootTypeOnCurrentRoom = LootType.PassiveOrb;
+            Debug.Log("PORB");
+        }
+        else
+        {
+            lootTypeOnCurrentRoom = LootType.UnknownSpell;
+            Debug.Log("UNKSPELL");
+        }
+
+        foreach (DoorIconReward door in GetComponentsInChildren<DoorIconReward>(true))
+        {
+            door.UpdateIcon(lootTypeOnCurrentRoom);
+        }
+
+        LevelGenerator.EndedGeneration -= EventGetFixedRoomLoot;
+    }
+    
 
     protected virtual void Awake()
     {
@@ -219,6 +249,8 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
                     contactPoint.BlockPassage();
                     contactPoint.ClosePassage();
                 }
+
+                PlayerInCombat = true;
             }
             else
             {
@@ -254,7 +286,36 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
                         //    currency.Amount = arcanePowerQuantity;
                     }
                 }
+
+                // Spawns fixed item of this room
+                SpawnFixedRoomItem();
             }
+        }
+    }
+
+    /// <summary>
+    /// Spawns the fixed loot of this room.
+    /// </summary>
+    protected void SpawnFixedRoomItem()
+    {
+        if (lootTypeOnCurrentRoom == LootType.PassiveOrb)
+        {
+            ItemLootPoolCreator.Pool.InstantiateFromPool(
+                LootType.PassiveOrb.ToString(),
+                lootSpawnPosition.position,
+                Quaternion.identity);
+        }
+        else
+        {
+            ItemLootPoolCreator.Pool.InstantiateFromPool(
+                LootType.UnknownSpell.ToString(),
+                lootSpawnPosition.position,
+                Quaternion.identity);
+        }
+
+        foreach (DoorIconReward door in GetComponentsInChildren<DoorIconReward>(true))
+        {
+            door.DisableObject();
         }
     }
 

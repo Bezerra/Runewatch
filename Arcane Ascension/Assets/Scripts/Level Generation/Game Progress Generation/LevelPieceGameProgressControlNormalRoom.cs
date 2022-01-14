@@ -142,6 +142,9 @@ public class LevelPieceGameProgressControlNormalRoom : LevelPieceGameProgressCon
                     }
                 }
 
+                // Spawns fixed item of this room
+                SpawnFixedRoomItem();
+
                 PlayerInCombat = false;
             }
         }
