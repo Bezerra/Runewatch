@@ -292,6 +292,39 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
                     DisableConsole();
                     break;
 
+                case "next floor":
+                    Debug.Log("next floor");
+                    DisableConsole();
+                    RunSaveData saveData = FindObjectOfType<RunSaveDataController>().SaveData;
+                    LoadingScreenWithTrigger[] loadingScreen = FindObjectsOfType<LoadingScreenWithTrigger>();
+                    // If not last floor
+                    // loads next floor
+                    if (saveData.DungeonSavedData.Floor < 9)
+                    {
+                        foreach (LoadingScreenWithTrigger load in loadingScreen)
+                        {
+                            if (load.IsFinalFloor == false)
+                            {
+                                load.LoadSceneOnSerializeField();
+                                break;
+                            }
+                        }
+                    }
+                    else // Else it will load the final scene
+                    {
+                        foreach (LoadingScreenWithTrigger load in loadingScreen)
+                        {
+                            if (load.IsFinalFloor)
+                            {
+                                load.LoadSceneOnSerializeField();
+                                break;
+                            }
+                        }
+                    }
+                    
+
+                    break;
+
                 default:
                     inputField.text = "";
                     inputField.ActivateInputField();

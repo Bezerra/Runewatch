@@ -9,7 +9,7 @@ using Sirenix.OdinInspector;
     fileName = "Event Get Three Random Spells")]
 public class EventGetThreeRandomSpellsSO : EventAbstractSO
 {
-    [Tooltip("These weights only serve as reference for the lost bellow, affected by skill tree passives")]
+    [Tooltip("These weights only serve as reference for the curves bellow, affected by skill tree passives")]
     [SerializeField] private AnimationCurve defaultTierWeights;
 
     [Header("These weights are serialized but will ALLWAYS be set through code")]
@@ -36,8 +36,8 @@ public class EventGetThreeRandomSpellsSO : EventAbstractSO
             if (i > 0)
             {
                 spellWeights[i].MoveKey(2, new Keyframe(3,
-                defaultTierWeights.Evaluate(3) +
-                (defaultTierWeights.Evaluate(3) * masteryOfTheArtsPassive[i - 1].Amount * 0.01f)));
+                    defaultTierWeights.Evaluate(3) +
+                    (defaultTierWeights.Evaluate(3) * masteryOfTheArtsPassive[i - 1].Amount * 0.01f)));
                 spellWeights[i].MoveKey(1, new Keyframe(2,
                     defaultTierWeights.Evaluate(2) +
                     (defaultTierWeights.Evaluate(2) * masteryOfTheArtsPassive[i - 1].Amount * 0.01f)));
