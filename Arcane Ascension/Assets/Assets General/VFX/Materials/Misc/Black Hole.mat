@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Noise Darkness Dissolve
-  m_Shader: {fileID: 4800000, guid: 667bc581efc758f43a7bd86c68dc5b40, type: 3}
-  m_ShaderKeywords: _USECUSTOMDISSOLVETEX0Z_ON
+  m_Name: Black Hole
+  m_Shader: {fileID: 4800000, guid: ef7e69e2e1ec16f4e88cb0014167601f, type: 3}
+  m_ShaderKeywords: _DISSOLVESMOOTH_ON _USEDEPTH_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -44,8 +44,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DissolveTexture:
-        m_Texture: {fileID: 2800000, guid: a3866629ac99a2147b67dc584add0f40, type: 3}
-        m_Scale: {x: 3, y: 5}
+        m_Texture: {fileID: 2800000, guid: 708754a3126ce874dbc0fe5b0904e9fa, type: 3}
+        m_Scale: {x: 2, y: 2}
         m_Offset: {x: 0, y: 0}
     - _DistortTexture:
         m_Texture: {fileID: 0}
@@ -68,6 +68,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -120,8 +124,8 @@ Material:
     - _DepthDistance: 1
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DissolveAmount: 0.146
-    - _DissolveSmooth: 0
+    - _DissolveAmount: 0
+    - _DissolveSmooth: 1
     - _DistortStrength: 0
     - _DstBlend: 0
     - _EnvironmentReflections: 1
@@ -138,13 +142,14 @@ Material:
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _Roughness: 1
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
     - _UseCustomDissolve: 0
-    - _UseCustomDissolveTex0z: 1
+    - _UseCustomDissolveTex0z: 0
     - _UseDepth: 1
     - _UseMaskAlpha: 0
     - _UseOffsetMaskAlpha: 0
@@ -152,12 +157,12 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DissolveSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 38.937145, g: 38.937145, b: 38.937145, a: 1}
+    - _DissolveSpeed: {r: 1.04, g: -1.9, b: 0, a: 0}
     - _DistortSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FresnelColor: {r: 0, g: 0, b: 0, a: 0}
-    - _MainTextureSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _FresnelColor: {r: 10.115787, g: 0, b: 33.89676, a: 1}
+    - _MainTextureSpeed: {r: -0.21, g: 1.56, b: 0, a: 0}
     - _MaskSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _OffsetMaskSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
