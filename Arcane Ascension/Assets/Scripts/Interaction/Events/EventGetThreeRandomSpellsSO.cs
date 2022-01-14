@@ -91,6 +91,8 @@ public class EventGetThreeRandomSpellsSO : EventAbstractSO
                 spellWeights[masterOfTheArtsIndex].Evaluate(i + 1));
         }
 
+        // Now that we have the possible spell tiers for each element expertise that the player can have
+
         // Creates a new list with all available spells
         foreach (SpellSO spell in allSpellsDefault)
         {
@@ -105,6 +107,66 @@ public class EventGetThreeRandomSpellsSO : EventAbstractSO
         // Removes the spells that player already has from the list of all spells
         foreach (SpellSO spell in playerSpells.CurrentSpells)
             allSpellsAvailable.Remove(spell);
+
+        // Removes spells that are not possible to obtain (depends on the player's current spells)
+        // Checks if player does not have any spell yet
+        int currentSpellsSize = 0;
+        foreach (SpellSO playerSpell in playerSpells.CurrentSpells)
+        {
+            if (playerSpell != null) currentSpellsSize++;
+        }
+        // For all available spells
+        for (int i = 0; i < allSpellsAvailable.Count; i++)
+        {
+            if (currentSpellsSize < 1)
+            {
+                // If the player doesn't have spells and this spell is > tier 1, removes it
+                if (allSpellsAvailable[i].Tier > 1)
+                {
+                    allSpellsAvailable.Remove(allSpellsAvailable[i]);
+                    i--;
+                }
+
+                continue;
+            }
+
+            // For the current spell (on loop) for ALL player spells
+            // meaning this will will run 4 times, and check all current spells
+            bool removeSpell = true;
+            foreach (SpellSO playerSpell in playerSpells.CurrentSpells)
+            {
+                if (playerSpell == null)
+                {
+                    continue;
+                }
+
+                // If it's the same element, it must be lower tier or same tier + 1
+                if (allSpellsAvailable[i].Element == playerSpell.Element)
+                {
+                    if (allSpellsAvailable[i].Tier <= playerSpell.Tier ||
+                        allSpellsAvailable[i].Tier == playerSpell.Tier + 1)
+                    {
+                        removeSpell = false;
+                    }
+                }
+                // For all other elements, it only accepts tier 1
+                else
+                {
+                    if (allSpellsAvailable[i].Tier == 1)
+                    {
+                        removeSpell = false;
+                    }
+                }
+                
+                // This loop will remove all spells that are not possible to obtain yet
+            }
+
+            if (removeSpell)
+            {
+                allSpellsAvailable.Remove(allSpellsAvailable[i]);
+                i--;
+            }
+        }
 
         // Creates array with 3 random spells
         abilitiesToChose.SpellResult = GetSpell(allSpellsAvailable, availableSpellsWeight);
