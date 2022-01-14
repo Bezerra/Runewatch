@@ -15,10 +15,14 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
 
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
-        // Left blank on purpose
+        foreach (ParticleDisable particles in parent.ParticlesDisable)
+            particles.gameObject.SetActive(true);
     }
     public override void ContinuousUpdateBeforeSpellBehaviour(SpellBehaviourOneShot parent)
     {
+        foreach (ParticleDisable particles in parent.ParticlesDisable)
+            particles.gameObject.SetActive(false);
+
         if (parent.WhoCast == null)
         {
             if (parent.AreaHoverVFX != null)
