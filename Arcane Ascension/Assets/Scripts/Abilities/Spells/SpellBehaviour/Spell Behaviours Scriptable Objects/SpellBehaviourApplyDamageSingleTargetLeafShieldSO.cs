@@ -9,6 +9,7 @@ using ExtensionMethods;
     fileName = "Spell Behaviour Apply Damage Single Target Leaf Shield")]
 public class SpellBehaviourApplyDamageSingleTargetLeafShieldSO : SpellBehaviourAbstractSO
 {
+    [Range(0, 10f)] [SerializeField] private float shieldAmount;
     private IList<int> layersToDamage;
 
     public override void StartBehaviour(SpellBehaviourOneShot parent)
@@ -48,9 +49,10 @@ public class SpellBehaviourApplyDamageSingleTargetLeafShieldSO : SpellBehaviourA
             {
                 if (parent.WhoCast.TryGetComponent(out IHealable leafShield))
                 {
-                    leafShield.Heal(
+                    leafShield.Heal(shieldAmount, StatsType.Armor);
+                    /* leafShield.Heal(
                         parent.Spell.Damage(parent.WhoCast.CommonAttributes.Type), 
-                        StatsType.Armor);
+                        StatsType.Armor); */
                 }
             }
         }

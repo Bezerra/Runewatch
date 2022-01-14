@@ -2839,7 +2839,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 564.5, y: 72.1}
+  m_AnchoredPosition: {x: 564.5, y: 72.1001}
   m_SizeDelta: {x: 45, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8654523670714610897
@@ -2996,6 +2996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8171138126884c489b54b6390ff2ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shieldLossPerSecond: 0.5
 --- !u!114 &1090331631598940413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3487,7 +3488,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7761732, y: 1}
+    m_SensorSize: {x: 1.7775354, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
