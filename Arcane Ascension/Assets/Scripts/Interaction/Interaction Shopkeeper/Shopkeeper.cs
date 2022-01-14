@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class Shopkeeper : MonoBehaviour, IFindPlayer
 {
-    private readonly int numberOfVarietyOfItemsToSell = 4;
+    private readonly int numberOfVarietyOfItemsToSell = 3;
 
     // Slots must be active on awake
     private IList<ShopkeeperInventorySlot> allInventorySlots;
