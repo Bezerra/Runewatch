@@ -8,6 +8,12 @@ using UnityEngine.SceneManagement;
 public class LoadingScreenToProcedural : SceneControl
 {
     [SerializeField] private bool loadingSaveFile;
+    private bool triggerAnimationEnd;
+
+    private void OnEnable()
+    {
+        triggerAnimationEnd = false;
+    }
 
     /// <summary>
     /// Coroutine that loads a new scene.
@@ -51,9 +57,19 @@ public class LoadingScreenToProcedural : SceneControl
             DungeonGenerator dungeonGenerator = FindObjectOfType<DungeonGenerator>();
             yield return dungeonGenerator.GenerateDungeon(true);
         }
-        
+    }
 
-        // Starts loading screen animation fade out
-        GetComponent<Animator>().SetTrigger(backgroundAnimationTrigger);
+    /// <summary>
+    /// Starts loading screen animation fade out as soon as it finds the player.
+    /// The end of the animation will disable this script, so this can run on 
+    /// update without any problem.
+    /// </summary>
+    private void Update()
+    {
+        if (FindObjectOfType<Player>() != null && triggerAnimationEnd == false)
+        {
+            triggerAnimationEnd = true;
+            GetComponent<Animator>().SetTrigger(backgroundAnimationTrigger);
+        }
     }
 }

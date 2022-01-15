@@ -9,22 +9,6 @@ using UnityEngine.Audio;
 /// </summary>
 public class SceneControl : MonoBehaviour
 {
-    /// <summary>
-    /// Spawns player.
-    /// </summary>
-    private void SpawnPlayer()
-    {
-        // Spawn player
-        //GameObject player = Instantiate(
-        //    playerPrefab, saveData.PlayerSavedData.Position,
-        //    saveData.PlayerSavedData.Rotation);
-
-        // Loads player variables
-        //foreach (ISaveable iSaveable in player.GetComponentsInChildren<ISaveable>())
-        //    StartCoroutine(iSaveable.LoadData(saveData));
-    }
-
-
     [SerializeField] protected AudioMixer master;
 
     [Header("String variables")]
