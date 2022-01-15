@@ -14,6 +14,8 @@ public class LoadingScreenWithButtonPress : SceneControl
     /// <returns>Returns null.</returns>
     protected override IEnumerator LoadNewScene(SceneEnum scene, bool isAdditive = true)
     {
+        SaveArcanePower();
+
         // Unloades unecessary scenes
         UnloadScenesThatAreaNotSwitching();
 
@@ -34,6 +36,23 @@ public class LoadingScreenWithButtonPress : SceneControl
 
         // Load scene and sets it as main scene
         SetActiveScene(sceneToLoad);
+    }
+
+    private void SaveArcanePower()
+    {
+        CharacterSaveDataController characterSaveDataController =
+                    FindObjectOfType<CharacterSaveDataController>();
+
+        Player player = FindObjectOfType<Player>();
+
+        if (characterSaveDataController != null &
+            player != null)
+        {
+            characterSaveDataController.SaveData.ArcanePower =
+            player.AllValues.Currency.ArcanePower;
+
+            characterSaveDataController.Save();
+        }
     }
 
     public void QuitGame() =>

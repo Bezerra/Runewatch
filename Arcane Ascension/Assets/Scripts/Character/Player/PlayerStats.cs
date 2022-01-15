@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ExtensionMethods;
 
 /// <summary>
 /// Class responsible for player stats.
@@ -87,8 +86,6 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
         loseLeafShieldCoroutine = LoseLeafShieldCoroutine();
         wfs = new WaitForSeconds(1);
         StartCoroutine(loseLeafShieldCoroutine);
-
-        TakeDamage(50f, ElementType.Fulgur, Vector3.zero);
     }
 
     private void OnEnable()
