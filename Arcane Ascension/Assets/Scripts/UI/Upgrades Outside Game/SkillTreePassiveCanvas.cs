@@ -10,6 +10,8 @@ using UnityEngine.UI;
 /// </summary>
 public class SkillTreePassiveCanvas : MonoBehaviour
 {
+    [SerializeField] private GameObject existingRunButton;
+
     [Header("Child components for UI")]
     [SerializeField] private TextMeshProUGUI arcanePowerText;
     [SerializeField] private TextMeshProUGUI passiveName;
@@ -38,10 +40,12 @@ public class SkillTreePassiveCanvas : MonoBehaviour
 
     // Save system
     private CharacterSaveDataController characterSaveDataController;
+    private RunSaveDataController runSaveDataController;
 
     private void Awake()
     {
         characterSaveDataController = FindObjectOfType<CharacterSaveDataController>();
+        runSaveDataController = FindObjectOfType<RunSaveDataController>();
 
         CurrentPassives = new List<byte>();
     }
@@ -150,13 +154,22 @@ public class SkillTreePassiveCanvas : MonoBehaviour
     /// </summary>
     public void BuyPassive()
     {
-        // Must be before unlock (before tier raise)
-        CurrentPassives.Add(passiveNode.NodePassives[passiveNode.CurrentTier].ID);
+        if (runSaveDataController.FileExists() == false)
+        {
+            // Must be before unlock (before tier raise)
+            CurrentPassives.Add(passiveNode.NodePassives[passiveNode.CurrentTier].ID);
 
-        // Unlocks passive, spends money and updates arcane power.
-        passiveNode.Unlock();
-        arcanePowerText.text =
-            "Arcane Power: " + characterSaveDataController.SaveData.ArcanePower.ToString();
+            // Unlocks passive, spends money and updates arcane power.
+            passiveNode.Unlock();
+            arcanePowerText.text =
+                "Arcane Power: " + characterSaveDataController.SaveData.ArcanePower.ToString();
+
+            existingRunButton.SetActive(false);
+        }
+        else
+        {
+            existingRunButton.SetActive(true);
+        }
     }
 
     public void LeaveButton()
@@ -183,5 +196,16 @@ public class SkillTreePassiveCanvas : MonoBehaviour
         passiveCost.text = " ";
         buyButton.enabled = false;
         buyButtonImage.color = lockedColor;
+
+        if (runSaveDataController.FileExists() == false)
+        {
+            existingRunButton.SetActive(false);
+        }
+    }
+
+    public void EndCurrentRunOnSkillTree()
+    {
+        FindObjectOfType<RunSaveDataController>().DeleteFile();
+        existingRunButton.SetActive(false);
     }
 }
