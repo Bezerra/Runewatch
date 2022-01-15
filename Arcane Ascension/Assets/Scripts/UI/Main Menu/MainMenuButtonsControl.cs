@@ -24,9 +24,11 @@ public class MainMenuButtonsControl : MonoBehaviour
         skillTreePassives.UpdateID();
         characterSaveDataController = FindObjectOfType<CharacterSaveDataController>();
         runSaveDataController = FindObjectOfType<RunSaveDataController>();
+
+        Time.timeScale = 1;
     }
 
-    private void Start()
+    private void OnEnable()
     {
         if (runSaveDataController.FileExists())
         {
@@ -47,8 +49,6 @@ public class MainMenuButtonsControl : MonoBehaviour
     /// </summary>
     public void SaveNewGameInformation()
     {
-         
-
         // Creates list with empty passives
         IList<byte> currentPassives = new List<byte>();
 

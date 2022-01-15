@@ -1887,6 +1887,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 843584722}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &561697124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2119,7 +2131,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &569880475
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2973,12 +2985,12 @@ GameObject:
   - component: {fileID: 843584723}
   - component: {fileID: 843584724}
   m_Layer: 5
-  m_Name: Initial Menu Buttons
+  m_Name: Initial Menu Buttons + Scripts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &843584723
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4611,8 +4623,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 828, y: -494}
-  m_SizeDelta: {x: 1656, y: 988}
+  m_AnchoredPosition: {x: 250, y: -75}
+  m_SizeDelta: {x: 500, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1350142679
 GameObject:
@@ -5370,10 +5382,10 @@ RectTransform:
   m_Father: {fileID: 1337324438}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -1412.4, y: 942.7}
-  m_SizeDelta: {x: 213.923, y: 30}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 243.59998, y: -45.299988}
+  m_SizeDelta: {x: 213.92297, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1540779170
 MonoBehaviour:
@@ -6490,7 +6502,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1391, y: -85}
+  m_AnchoredPosition: {x: -249, y: -86}
   m_SizeDelta: {x: 492.74, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1774970603
@@ -6522,8 +6534,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4282861567
+  m_fontColor: {r: 1, g: 0.2783019, b: 0.2783019, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
