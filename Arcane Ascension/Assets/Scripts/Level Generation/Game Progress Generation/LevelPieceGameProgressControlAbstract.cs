@@ -78,12 +78,10 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
         if (randomNumber < 50)
         {
             lootTypeOnCurrentRoom = LootType.PassiveOrb;
-            Debug.Log("PORB");
         }
         else
         {
             lootTypeOnCurrentRoom = LootType.UnknownSpell;
-            Debug.Log("UNKSPELL");
         }
 
         foreach (DoorIconReward door in GetComponentsInChildren<DoorIconReward>(true))

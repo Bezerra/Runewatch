@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -11,9 +10,19 @@ using System;
 public struct EnemyTypeAndPrefabsInformation 
 {
     [SerializeField] private EnemySpawnType enemyType;
-
-    [SerializeField] private List<GameObject> enemyPrefabs;
-
+    [SerializeField] private List<ElementAndEnemyPrefab> enemyInformation;
     public EnemySpawnType EnemySpawnType => enemyType;
-    public IList<GameObject> EnemyPrefabs => enemyPrefabs;
+    public IList<ElementAndEnemyPrefab> EnemyInformation => enemyInformation;
+}
+
+/// <summary>
+/// Struct with element and prefab.
+/// </summary>
+[Serializable]
+public struct ElementAndEnemyPrefab
+{
+    [SerializeField] private ElementType element;
+    [SerializeField] private GameObject prefab;
+    public ElementType Element => element;
+    public GameObject Prefab => prefab;
 }
