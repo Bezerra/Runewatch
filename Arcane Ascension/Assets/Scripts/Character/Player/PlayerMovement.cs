@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
     public bool     Running { get; private set; }
     private Vector3 positionOnLastCalculation;
     private float   inCombatSpeed;
+    private float   timeThatLeftFloor;
 
     // Dash
     private float   dashCurrentValue;
@@ -128,16 +129,17 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         directionPressed *= inCombatSpeed;
 
         // Controls character radius to prevent getting stuck on edges after jumping
-        if (IsGrounded())
+        if (IsInAirAfterTime())
+        {
+            characterController.radius = CONTROLLERRADIUSONAIR;
+        }
+        else
         {
             // Character radius
             if (characterController.radius != CONTROLLERRADIUSDEFAULT)
                 characterController.radius =
-                    Mathf.Lerp(characterController.radius, CONTROLLERRADIUSDEFAULT, Time.deltaTime * 50f); 
-        }
-        else
-        {
-            characterController.radius = CONTROLLERRADIUSONAIR;
+                    Mathf.Lerp(characterController.radius, CONTROLLERRADIUSDEFAULT, Time.deltaTime * 50f);
+
         }
 
         // Dash counter. Updates dash timer and charges
@@ -407,12 +409,12 @@ public class PlayerMovement : MonoBehaviour, IFindInput
     private IEnumerator FallingCoroutine()
     {
         Ray rayToFloor = new Ray(transform.position, Vector3.down);
-
-        if (Physics.Raycast(rayToFloor, 0.4f, Layers.WallsFloor))
+        Debug.Log(characterController.radius);
+        if (Physics.Raycast(rayToFloor, 0.35f, Layers.WallsFloor))
         {
             Debug.Log("floor");
             // Gravity on a ramp for example
-            gravityIncrement = 0.2f / Time.fixedDeltaTime;
+            gravityIncrement = 0.25f / Time.fixedDeltaTime;
         }
         else
         {
@@ -449,7 +451,23 @@ public class PlayerMovement : MonoBehaviour, IFindInput
     /// <returns>Returns true if player is grounded.</returns>
     public bool IsGrounded()
     {
-        if (characterController.isGrounded) return true;
+        if (characterController.isGrounded)
+        {
+            timeThatLeftFloor = Time.time;
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Checks if player is in air after leaving the ground.
+    /// </summary>
+    /// <param name="timeLimit">Time after leaving the ground.</param>
+    /// <returns>Retruns true if player is in air.</returns>
+    public bool IsInAirAfterTime(float timeLimit = 0.25f)
+    {
+        if (Time.time - timeThatLeftFloor > timeLimit)
+            return true;
         return false;
     }
 
