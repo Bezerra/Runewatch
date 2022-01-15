@@ -10,7 +10,7 @@ using UnityEngine.AI;
 public class PlayerMovement : MonoBehaviour, IFindInput
 {
     // Components
-    private IInput   input;
+    private IInput              input;
     private Player              player;
     private PlayerCastSpell     playerCastSpell;
     private CharacterController characterController;
@@ -158,7 +158,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
     private void FixedUpdate()
     {
         // Happens if player is falling (without jumping)
-        if (jumpingCoroutine == null && IsGrounded() == false)
+        if (jumpingCoroutine == null && IsGrounded() == false && dashing == false)
         {
             if (fallingCoroutine == null)
             {
@@ -408,14 +408,15 @@ public class PlayerMovement : MonoBehaviour, IFindInput
     {
         Ray rayToFloor = new Ray(transform.position, Vector3.down);
 
-        if (Physics.Raycast(rayToFloor, 0.3f, Layers.WallsFloor))
+        if (Physics.Raycast(rayToFloor, 0.4f, Layers.WallsFloor))
         {
+            Debug.Log("floor");
             // Gravity on a ramp for example
             gravityIncrement = 0.2f / Time.fixedDeltaTime;
         }
         else
         {
-            // Gravity if there is not floor beneath,
+            // Gravity if there is no floor beneath,
             // it will increment smoothly from a low value
             gravityIncrement = 0.0025f;
         }
@@ -423,13 +424,13 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         // Starts incrementing gravity every fixed update
         while (true)
         {
-            yield return wffu;
-
             // 0.2f is the magic number that always works for our desired falling speed
 
             // Increments gravity
             if (gravityIncrement >= 0.2f / Time.fixedDeltaTime) gravityIncrement = 0.2f / Time.fixedDeltaTime;
             else gravityIncrement += player.Values.GravityIncrement;
+
+            yield return wffu;
 
             // Breaks the coroutine if the character touches the floor
             if (IsGrounded())

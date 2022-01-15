@@ -8,10 +8,9 @@ using UnityEngine;
 /// </summary>
 public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
 {
-    [Range(0f, 2f)][SerializeField] private float shieldLossPerSecond;
-
     // Components
     private CharacterSaveDataController stpData;
+    private Player player;
 
     public PlayerStatsSO PlayerAttributes => character.CommonValues.CharacterStats as PlayerStatsSO;
 
@@ -55,6 +54,7 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
         base.Awake();
         CurrentPassives = new List<IRunPassive>();
         playerCastSpell = GetComponent<PlayerCastSpell>();
+        player = GetComponent<Player>();
         stpData = FindObjectOfType<CharacterSaveDataController>();
     }
 
@@ -121,7 +121,7 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
         yield return wfs;
         Heal(0.01f, StatsType.Armor);
 
-        float leafShieldToLose = shieldLossPerSecond;
+        float leafShieldToLose = player.Values.ShieldLossPerSecond;
         while (true)
         {
             yield return wfs;

@@ -23,6 +23,10 @@ public class PlayerValuesSO : CharacterValuesSO
     [Range(5f, 15)] [SerializeField] private float runningSpeed = 10f;
     public float RunningSpeed => runningSpeed;
 
+    [BoxGroup("Leaf Shield")]
+    [Range(0, 2f)] [SerializeField] private float shieldLossPerSecond = 0.5f;
+    public float ShieldLossPerSecond => shieldLossPerSecond;
+
     [BoxGroup("Jump")]
     [Range(0, 1f)] [SerializeField] private float gravityIncrement;
     public float GravityIncrement => gravityIncrement;
