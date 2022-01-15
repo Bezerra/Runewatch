@@ -54,7 +54,7 @@ public class DamageManaStealSO : DamageBehaviourAbstractSO
                 }
 
                 // Damages character
-                character.TakeDamage(
+                float totalDamageDone = character.TakeDamage(
                     parent.WhoCast.CommonAttributes.BaseDamageMultiplier *
                     parent.WhoCast.CommonAttributes.DamageElementMultiplier[parent.Spell.Element] *
                     parent.Spell.Damage(parent.WhoCast.CommonAttributes.Type) *
@@ -71,6 +71,14 @@ public class DamageManaStealSO : DamageBehaviourAbstractSO
                     playerStats.Heal(
                         playerStats.PlayerAttributes.ManaRegenSteal, 
                         StatsType.Mana);
+                }
+
+                if (parent.WhoCast.CommonAttributes.Type == CharacterType.Player)
+                {
+                    parent.WhoCast.Heal(
+                        totalDamageDone *
+                        (parent.CharacterSaveData.SaveData.LifeSteal * 0.001f),
+                        StatsType.Health, true);
                 }
             }
         }

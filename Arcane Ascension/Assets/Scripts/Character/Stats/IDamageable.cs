@@ -11,7 +11,7 @@ public interface IDamageable
     /// <param name="damage">Damage to take.</param>
     /// <param name="element">Element of the damage.</param>
     /// <param name="damagePosition">Position of the damage.</param> 
-    void TakeDamage(float damage, ElementType element, Vector3 damagePosition);
+    float TakeDamage(float damage, ElementType element, Vector3 damagePosition);
 
     /// <summary>
     /// Reduces armor + Health.
@@ -21,7 +21,7 @@ public interface IDamageable
     /// <param name="criticalDamageModifier">Damage modifier on critical hits.</param>
     /// <param name="element">Element of the damage.</param>
     /// <param name="damagePosition">Position of the damage.</param> 
-    void TakeDamage(float damage, float criticalChance, float criticalDamageModifier, 
+    float TakeDamage(float damage, float criticalChance, float criticalDamageModifier, 
         ElementType element, Vector3 damagePosition);
 
     /// <summary>

@@ -51,7 +51,7 @@ public class EnemyStats : Stats
     /// <param name="damage">Damage to take.</param>
     /// <param name="element">Element of the damage.</param>
     /// <param name="damagePosition">Position of the damage.</param>
-    public override void TakeDamage(float damage, ElementType element, Vector3 damagePosition)
+    public override float TakeDamage(float damage, ElementType element, Vector3 damagePosition)
     {
         float damageToReceive =
             Mathf.Floor(
@@ -110,6 +110,8 @@ public class EnemyStats : Stats
                 this.enabled = false;
             }
         }
+
+        return damageToReceive;
     }
 
     /// <summary>
@@ -120,7 +122,7 @@ public class EnemyStats : Stats
     /// <param name="criticalDamageModifier">Damage modifier on critical hits.</param>
     /// <param name="element">Element of the damage.</param>
     /// <param name="damagePosition">Position of the damage.</param> 
-    public override void TakeDamage(float damage, float criticalChance, float criticalDamageModifier, 
+    public override float TakeDamage(float damage, float criticalChance, float criticalDamageModifier, 
         ElementType element, Vector3 damagePosition)
     {
         // Critical check
@@ -180,6 +182,8 @@ public class EnemyStats : Stats
                 this.enabled = false;
             }
         }
+
+        return damageToReceive;
     }
 
     /// <summary>

@@ -20,7 +20,7 @@ public enum SkillTreePassiveType
     Resilience,
     FleetingForm,
     ManaFountain,
-    ArcaneKnowledge,
+    LifeSteal,
     Wealth,
     Pickpocket,
     Dealer,

@@ -103,8 +103,8 @@ public class CharacterSaveDataController : MonoBehaviour
             case SkillTreePassiveType.ManaFountain:
                 SaveData.ManaFountain = amountToAdd;
                 break;
-            case SkillTreePassiveType.ArcaneKnowledge:
-                SaveData.ArcaneKnowledge = amountToAdd;
+            case SkillTreePassiveType.LifeSteal:
+                SaveData.LifeSteal = amountToAdd;
                 break;
             case SkillTreePassiveType.Wealth:
                 SaveData.Wealth = amountToAdd;

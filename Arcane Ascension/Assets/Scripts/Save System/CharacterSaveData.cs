@@ -25,7 +25,7 @@ public class CharacterSaveData : AbstractSaveData
     public byte Resilience;
     public byte FleetingForm;
     public byte ManaFountain;
-    public byte ArcaneKnowledge;
+    public byte LifeSteal;
     public byte Wealth;
     public byte Pickpocket;
     public byte Dealer;

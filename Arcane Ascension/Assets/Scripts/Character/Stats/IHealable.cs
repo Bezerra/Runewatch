@@ -8,5 +8,6 @@ public interface IHealable
     /// </summary>
     /// <param name="amountOfHeal">Amount of heal.</param>
     /// <param name="typeOfHeal">Stats to heal.</param>
-    void Heal(float amountOfHeal, StatsType typeOfHeal);
+    /// <param name="lifeSteal">Bool that is true only if the method is called with lifesteal</param>
+    void Heal(float amountOfHeal, StatsType healType, bool lifeSteal = false);
 }

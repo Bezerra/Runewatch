@@ -17,7 +17,6 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
     public PlayerStatsSO PlayerAttributes => character.CommonValues.CharacterStats as PlayerStatsSO;
 
     // Coroutines
-    private IEnumerator loseManaCoroutine;
     private IEnumerator regenManaCoroutine;
     private IEnumerator regenManaCoroutineOutOfCombat;
     private IEnumerator loseLeafShieldCoroutine;
@@ -88,6 +87,8 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
         loseLeafShieldCoroutine = LoseLeafShieldCoroutine();
         wfs = new WaitForSeconds(1);
         StartCoroutine(loseLeafShieldCoroutine);
+
+        TakeDamage(50f, ElementType.Fulgur, Vector3.zero);
     }
 
     private void OnEnable()
@@ -183,7 +184,7 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
     /// <param name="damage">Damage to take.</param>
     /// <param name="element">Element of the damage.</param>
     /// <param name="damagePosition">Position of the damage.</param> 
-    public override void TakeDamage(float damage, ElementType element, Vector3 damagePosition)
+    public override float TakeDamage(float damage, ElementType element, Vector3 damagePosition)
     {
         float damageToReceive = 
             Mathf.Floor(
@@ -228,6 +229,8 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
                 OnEventDeath(this);
             }
         }
+
+        return damageToReceive;
     }
 
     /// <summary>
@@ -238,7 +241,7 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
     /// <param name="criticalDamageModifier">Damage modifier on critical hits.</param>
     /// <param name="element">Element of the damage.</param>
     /// <param name="damagePosition">Position of the damage.</param> 
-    public override void TakeDamage(float damage, float criticalChance, float criticalDamageModifier, 
+    public override float TakeDamage(float damage, float criticalChance, float criticalDamageModifier, 
         ElementType element, Vector3 damagePosition)
     {
         // Critical check
@@ -290,6 +293,8 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
                 OnEventDeath(this);
             }
         }
+
+        return damageToReceive;
     }
 
     /// <summary>
@@ -297,12 +302,17 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
     /// </summary>
     /// <param name="amountOfHeal">Amount of heal.</param>
     /// <param name="healType">Type of heal (Health, Mana or Armor).</param>
-    public override void Heal(float amountOfHeal, StatsType healType)
+    /// <param name="lifeSteal">Bool that is true only if the method is called with lifesteal</param>
+    public override void Heal(float amountOfHeal, StatsType healType, bool lifeSteal = false)
     {
         switch (healType)
         {
             case StatsType.Health:
-                float healAmount = amountOfHeal * PlayerAttributes.HealthPotionsPercentageMultiplier;
+                float healAmount = amountOfHeal;
+
+                if (lifeSteal == false)
+                    healAmount = amountOfHeal * PlayerAttributes.HealthPotionsPercentageMultiplier;
+
                 if (Health + healAmount < PlayerAttributes.MaxHealth)
                 {
                     Health += healAmount;

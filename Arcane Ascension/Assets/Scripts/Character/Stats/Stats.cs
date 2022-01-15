@@ -86,7 +86,7 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     /// <param name="damage">Damage to take.</param>
     /// <param name="element">Element of the damage.</param>
     /// <param name="damagePosition">Position of the damage.</param> 
-    public abstract void TakeDamage(float damage, 
+    public abstract float TakeDamage(float damage, 
         ElementType element, Vector3 damagePosition);
 
     /// <summary>
@@ -97,7 +97,7 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     /// <param name="criticalDamageModifier">Damage modifier on critical hits.</param>
     /// <param name="element">Element of the damage.</param>
     /// <param name="damagePosition">Position of the damage.</param>
-    public abstract void TakeDamage(
+    public abstract float TakeDamage(
         float damage, float criticalChance, float criticalDamageModifier, 
         ElementType element, Vector3 damagePosition);
 
@@ -106,7 +106,8 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     /// </summary>
     /// <param name="amountOfHeal">Amount of heal.</param>
     /// <param name="healType">Type of heal (Health, Mana or Armor).</param>
-    public virtual void Heal(float amountOfHeal, StatsType healType)
+    /// <param name="lifeSteal">Bool that is true only if the method is called with lifesteal</param>
+    public virtual void Heal(float amountOfHeal, StatsType healType, bool lifeSteal = false)
     {
         switch (healType)
         {

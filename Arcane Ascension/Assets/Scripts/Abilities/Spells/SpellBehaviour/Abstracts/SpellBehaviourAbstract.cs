@@ -71,6 +71,13 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
     /// </summary>
     public IMana ThisIMana { get; private set; }
 
+    /// <summary>
+    /// This property is set here so it can be used on damage behaviours without
+    /// the need to find it every single shot, this way it will only find the script
+    /// on start.
+    /// </summary>
+    public CharacterSaveDataController CharacterSaveData { get; private set; }
+
     private Stats whoCast;
     public Stats WhoCast 
     { 
@@ -109,6 +116,7 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
         hitEffectVFX = GetComponentsInChildren<VisualEffect>();
         hitEffectParticleSystem = GetComponentsInChildren<ParticleSystem>();
         AudioS = GetComponent<AudioSource>();
+        CharacterSaveData = FindObjectOfType<CharacterSaveDataController>();
     }
 
     protected virtual void OnEnable()
