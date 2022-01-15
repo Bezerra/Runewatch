@@ -12,43 +12,73 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59e4efe1fab89124bbf253d966eb1dd5, type: 3}
   m_Name: Enemy List
   m_EditorClassIdentifier: 
+  chanceOnSameEnemyElement: 50
   enemyList:
   - enemyType: 0
-    enemyPrefabs:
-    - {fileID: 5463700545288763264, guid: c05f8bfdd3c4ab64a86d6f295099a93d, type: 3}
-    - {fileID: 7160967554967837917, guid: e47f2decfd54e7847a896ba47adc27c8, type: 3}
-    - {fileID: 8686441540528472239, guid: 5b71e99f6fe25ef478302203b5122b8c, type: 3}
-    - {fileID: 6746927027870817221, guid: ac7c8dbb28f822544b7ae8fa5aaafe07, type: 3}
-    - {fileID: 4913539770070873553, guid: ef91832e64d2ecf49b95b009d4d62ff6, type: 3}
-    - {fileID: 7357399476913341587, guid: 0d0a8a6fd6fa5b444b3abedff09ff399, type: 3}
-    - {fileID: 1448418658168975049, guid: b0c7a1e7c84fb6244846d91a781ead1d, type: 3}
+    enemyInformation:
+    - element: 4
+      prefab: {fileID: 7160967554967837917, guid: e47f2decfd54e7847a896ba47adc27c8, type: 3}
+    - element: 2
+      prefab: {fileID: 5463700545288763264, guid: c05f8bfdd3c4ab64a86d6f295099a93d, type: 3}
+    - element: 1
+      prefab: {fileID: 8686441540528472239, guid: 5b71e99f6fe25ef478302203b5122b8c, type: 3}
+    - element: 6
+      prefab: {fileID: 6746927027870817221, guid: ac7c8dbb28f822544b7ae8fa5aaafe07, type: 3}
+    - element: 5
+      prefab: {fileID: 4913539770070873553, guid: ef91832e64d2ecf49b95b009d4d62ff6, type: 3}
+    - element: 3
+      prefab: {fileID: 7357399476913341587, guid: 0d0a8a6fd6fa5b444b3abedff09ff399, type: 3}
+    - element: 7
+      prefab: {fileID: 1448418658168975049, guid: b0c7a1e7c84fb6244846d91a781ead1d, type: 3}
   - enemyType: 1
-    enemyPrefabs:
-    - {fileID: 5695715361358694353, guid: 07ed5f5a3cb7a37449c4edb6b1603d8a, type: 3}
-    - {fileID: 1309972778024399802, guid: 5dc808beec1748a489c23ea50f80b979, type: 3}
-    - {fileID: 2023914949083205035, guid: 710858716f75b264fa867cd2e1fa34d0, type: 3}
-    - {fileID: 5223770431577772208, guid: a3803a35f230fbd47975357ae64e1ffc, type: 3}
-    - {fileID: 2872138200083473567, guid: cf429b84520961244b60bd47693f5b00, type: 3}
-    - {fileID: 4676152540345972926, guid: 17a288e30edaf4d49abe0f2c2e225482, type: 3}
-    - {fileID: 3590434806523604111, guid: 28fdb6510f4beb449824b9349e6483d7, type: 3}
+    enemyInformation:
+    - element: 4
+      prefab: {fileID: 1309972778024399802, guid: 5dc808beec1748a489c23ea50f80b979, type: 3}
+    - element: 2
+      prefab: {fileID: 5695715361358694353, guid: 07ed5f5a3cb7a37449c4edb6b1603d8a, type: 3}
+    - element: 1
+      prefab: {fileID: 2023914949083205035, guid: 710858716f75b264fa867cd2e1fa34d0, type: 3}
+    - element: 6
+      prefab: {fileID: 2872138200083473567, guid: cf429b84520961244b60bd47693f5b00, type: 3}
+    - element: 5
+      prefab: {fileID: 5223770431577772208, guid: a3803a35f230fbd47975357ae64e1ffc, type: 3}
+    - element: 3
+      prefab: {fileID: 4676152540345972926, guid: 17a288e30edaf4d49abe0f2c2e225482, type: 3}
+    - element: 7
+      prefab: {fileID: 3590434806523604111, guid: 28fdb6510f4beb449824b9349e6483d7, type: 3}
   - enemyType: 2
-    enemyPrefabs:
-    - {fileID: 3126829827660024659, guid: 707e390c9b3072b4cac13168af35e69e, type: 3}
-    - {fileID: 8503451419091806376, guid: 018a0ef85af51d84ab11b27b29e90210, type: 3}
-    - {fileID: 3248736132520052904, guid: 68bb8afc7cf30e640ac40da17f832b4e, type: 3}
-    - {fileID: 7613418057452168123, guid: 972183e7d7ed50342b2c77433d0585e1, type: 3}
-    - {fileID: 7735663258063467137, guid: ae29f42a284d6604899a8350e523942a, type: 3}
-    - {fileID: 8222142371482778595, guid: 7d9392841c3e6b04da02fee29edaf1d7, type: 3}
-    - {fileID: 8945748543055946811, guid: 5862a23050eb4d34b8683d2b491daf60, type: 3}
+    enemyInformation:
+    - element: 4
+      prefab: {fileID: 8503451419091806376, guid: 018a0ef85af51d84ab11b27b29e90210, type: 3}
+    - element: 2
+      prefab: {fileID: 3126829827660024659, guid: 707e390c9b3072b4cac13168af35e69e, type: 3}
+    - element: 1
+      prefab: {fileID: 3248736132520052904, guid: 68bb8afc7cf30e640ac40da17f832b4e, type: 3}
+    - element: 6
+      prefab: {fileID: 7613418057452168123, guid: 972183e7d7ed50342b2c77433d0585e1, type: 3}
+    - element: 5
+      prefab: {fileID: 7735663258063467137, guid: ae29f42a284d6604899a8350e523942a, type: 3}
+    - element: 3
+      prefab: {fileID: 8222142371482778595, guid: 7d9392841c3e6b04da02fee29edaf1d7, type: 3}
+    - element: 7
+      prefab: {fileID: 8945748543055946811, guid: 5862a23050eb4d34b8683d2b491daf60, type: 3}
   - enemyType: 4
-    enemyPrefabs:
-    - {fileID: 350612671529362676, guid: 2bf01cf93fe0d7d4bafce2192a0eeab5, type: 3}
-    - {fileID: 1241525203436407983, guid: e12b3989d938bdc44bbcaf43d0b4ade0, type: 3}
-    - {fileID: 6834499750442086855, guid: a85d8dcb4809a604298b216ec2b5a372, type: 3}
-    - {fileID: 8827165902976932391, guid: 67c7a5c8257d3844ea872e15f32d4114, type: 3}
-    - {fileID: 6123911612728886308, guid: e3a1b8506aa13344f848ddfb79e03fac, type: 3}
-    - {fileID: 8487825167539571805, guid: f8dfd429c11a3434891f3eb4be36d193, type: 3}
-    - {fileID: 5124653319499859801, guid: 9061ba68370eb2048b4b364690924c1c, type: 3}
+    enemyInformation:
+    - element: 4
+      prefab: {fileID: 1241525203436407983, guid: e12b3989d938bdc44bbcaf43d0b4ade0, type: 3}
+    - element: 2
+      prefab: {fileID: 350612671529362676, guid: 2bf01cf93fe0d7d4bafce2192a0eeab5, type: 3}
+    - element: 1
+      prefab: {fileID: 6834499750442086855, guid: a85d8dcb4809a604298b216ec2b5a372, type: 3}
+    - element: 6
+      prefab: {fileID: 8827165902976932391, guid: 67c7a5c8257d3844ea872e15f32d4114, type: 3}
+    - element: 5
+      prefab: {fileID: 6123911612728886308, guid: e3a1b8506aa13344f848ddfb79e03fac, type: 3}
+    - element: 3
+      prefab: {fileID: 8487825167539571805, guid: f8dfd429c11a3434891f3eb4be36d193, type: 3}
+    - element: 7
+      prefab: {fileID: 5124653319499859801, guid: 9061ba68370eb2048b4b364690924c1c, type: 3}
   - enemyType: 6
-    enemyPrefabs:
-    - {fileID: 6588087173868754894, guid: a48fdd350d431e947a521bf58101e651, type: 3}
+    enemyInformation:
+    - element: 1
+      prefab: {fileID: 6588087173868754894, guid: a48fdd350d431e947a521bf58101e651, type: 3}
