@@ -9,6 +9,7 @@ public class LevelGeneratorEditor : Editor
         LevelGenerator levelGenerator = (LevelGenerator)target;
 
         GUILayout.Label("Button only for ProceduralGenerationDemonstration scene");
+        GUILayout.Label("Bug - Gameplay controls will stop working after this.");
         GUILayout.BeginHorizontal();
         GUILayout.Label("Must be in playmode");
 
@@ -16,6 +17,17 @@ public class LevelGeneratorEditor : Editor
         {
             levelGenerator.StartCoroutine(levelGenerator.
                 ResetGeneration("Generating new random level.", null));
+
+            SelectionBase[] characters = FindObjectsOfType<SelectionBase>();
+            if (characters.Length > 0)
+            {
+                foreach (SelectionBase sb in characters)
+                    Destroy(sb.gameObject);
+
+                DeathScreen deathScreen = FindObjectOfType<DeathScreen>();
+                if (deathScreen != null) 
+                    deathScreen.transform.GetChild(0).gameObject.SetActive(false);
+            }
         }
         GUILayout.EndHorizontal();
         base.OnInspectorGUI();
