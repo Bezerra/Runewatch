@@ -78,7 +78,8 @@ public class PlayerSounds : MonoBehaviour
     {
         if (Mathf.Round(speed) > Mathf.Round(player.Values.Speed * 
             playerStats.CommonAttributes.MovementSpeedMultiplier *
-            playerStats.CommonAttributes.MovementStatusEffectMultiplier))
+            playerStats.CommonAttributes.MovementStatusEffectMultiplier *
+            playerMovement.InCombatSpeed))
         {
             stepSoundDelay = STEPSOUNDDELAYRUNNING;
         }

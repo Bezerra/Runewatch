@@ -50,7 +50,6 @@ public class PlayerCastSpell : MonoBehaviour
 
             if (playerStats.Mana - playerSpells.ActiveSpell.ManaCost < 0)
             {
-                OnEventCancelAttack();
                 currentlyCastSpell = null;
                 currentlyCastSpell = null;
             }
@@ -149,10 +148,6 @@ public class PlayerCastSpell : MonoBehaviour
                     OnEventStartScreenShake(playerSpells.ActiveSpell.CastType);
                 }
             }
-            else
-            {
-                OnEventCancelAttack();
-            }
         }
     }
 
@@ -193,9 +188,6 @@ public class PlayerCastSpell : MonoBehaviour
         {
             playerSpells.ActiveSpell.AttackBehaviour.AttackKeyRelease(
                 ref currentlyCastSpell, playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
-
-            // For the rest of spells, invokes events.
-            OnEventCancelAttack();
         }
 
         spellBehaviour = null;
@@ -210,8 +202,6 @@ public class PlayerCastSpell : MonoBehaviour
 
     protected virtual void OnEventAttack(SpellCastType castType) => EventAttack?.Invoke(castType);
     public event Action<SpellCastType> EventAttack;
-    protected virtual void OnEventCancelAttack() => EventCancelAttack.Invoke();
-    public event Action EventCancelAttack;
 
     // Registered on PlayerGenerateCinemachineImpulse
     protected virtual void OnEventStartScreenShake(SpellCastType castType) => EventStartScreenShake?.Invoke(castType);

@@ -111,7 +111,7 @@ public class PlayerInputCustom : MonoBehaviour, IInput
         if (context.performed) Movement = context.ReadValue<Vector2>();
     }
     public void HandleRun(InputAction.CallbackContext context) {
-        if (context.started) OnRun(true);
+        if (context.started) OnRun();
     }
     public void HandleDash(InputAction.CallbackContext context)
     {
@@ -185,8 +185,8 @@ public class PlayerInputCustom : MonoBehaviour, IInput
     ///////////////////////// Events /////////////////////////////////////////
     protected virtual void OnDash() => Dash?.Invoke();
     public event Action Dash;
-    protected virtual void OnRun(bool condition) => Run?.Invoke(condition);
-    public event Action<bool> Run;
+    protected virtual void OnRun() => Run?.Invoke();
+    public event Action Run;
     protected virtual void OnJump() => Jump?.Invoke();
     public event Action Jump;
     protected virtual void OnCastSpell() => CastSpell?.Invoke();

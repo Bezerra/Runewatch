@@ -12,12 +12,10 @@ public class PlayerMovement : MonoBehaviour, IFindInput
     // Components
     private IInput              input;
     private Player              player;
-    private PlayerCastSpell     playerCastSpell;
     private CharacterController characterController;
     private PlayerStats         playerStats;
 
     // Movement
-    private bool    castingContinuousSpell;
     private float   movementX;
     private float   movementZ;
     private Vector3 directionPressed;
@@ -25,7 +23,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
     public float    Speed { get => speed; private set { speed = value; OnEventSpeedChange(Speed); } }
     public bool     Running { get; private set; }
     private Vector3 positionOnLastCalculation;
-    private float   inCombatSpeed;
+    public float   InCombatSpeed { get; private set; }
     private float   timeThatLeftFloor;
 
     // Dash
@@ -60,7 +58,6 @@ public class PlayerMovement : MonoBehaviour, IFindInput
     {
         input = FindObjectOfType<PlayerInputCustom>();
         player = GetComponent<Player>();
-        playerCastSpell = GetComponent<PlayerCastSpell>();
         characterController = GetComponent<CharacterController>();
         playerStats = GetComponent<PlayerStats>();
         wffu = new WaitForFixedUpdate();
@@ -68,35 +65,31 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         dashing = false;
         navmeshObstacle = GetComponent<NavMeshObstacle>();
         gravityIncrement = DEFAULTGRAVITYINCREMENT;
-        dashCurrentValue = player.Values.DashDefaultValue;
+        dashCurrentValue = player.Values.DashInitialForce;
         CurrentTimeToGetCharge = 0;
-        inCombatSpeed = player.Values.OutOfCombatSpeedMultiplier;
+        InCombatSpeed = player.Values.OutOfCombatSpeedMultiplier;
         inCombatDashDelay = player.Values.OutOfCombatDashDelayMultiplier;
     }
 
     private void OnEnable()
     {
+        LostInput();
         input.Jump += JumpPress;
         input.Dash += Dash;
         input.Run += Run;
         playerStats.EventSpeedUpdate += UpdateSpeed;
-        playerCastSpell.EventCancelAttack += NormalSpeedAfterContinuousAttack;
         LevelPieceGameProgressControlAbstract.EventPlayerInCombat += InCombat;
     }
 
     private void Start()
     {
-        Speed = player.Values.Speed * playerStats.CommonAttributes.MovementSpeedMultiplier *
-            playerStats.CommonAttributes.MovementStatusEffectMultiplier;
+        Run();
     }
 
     private void OnDisable()
     {
-        input.Jump -= JumpPress;
-        input.Dash -= Dash;
-        input.Run -= Run;
+        LostInput();
         playerStats.EventSpeedUpdate -= UpdateSpeed;
-        playerCastSpell.EventCancelAttack -= NormalSpeedAfterContinuousAttack;
         LevelPieceGameProgressControlAbstract.EventPlayerInCombat -= InCombat;
     }
 
@@ -108,12 +101,12 @@ public class PlayerMovement : MonoBehaviour, IFindInput
     {
         if (condition)
         {
-            inCombatSpeed = 1f;
+            InCombatSpeed = 1f;
             inCombatDashDelay = 1f;
         }
         else
         {
-            inCombatSpeed = player.Values.OutOfCombatSpeedMultiplier;
+            InCombatSpeed = player.Values.OutOfCombatSpeedMultiplier;
             inCombatDashDelay = player.Values.OutOfCombatDashDelayMultiplier;
         }
     }
@@ -126,7 +119,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         Vector3 sideMovement = movementX * speed * transform.right;
         Vector3 forwardMovement = movementZ * speed * transform.forward;
         directionPressed = sideMovement + forwardMovement;
-        directionPressed *= inCombatSpeed;
+        directionPressed *= InCombatSpeed;
 
         // Controls character radius to prevent getting stuck on edges after jumping
         if (IsInAirAfterTime())
@@ -260,7 +253,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
             layerBeforeDash = gameObject.layer;
 
             Vector3 directionPressedMultiplied = directionPressed.normalized *
-                player.Values.DashForce;
+                player.Values.DashContinuousForce;
 
             // Multiplies direction pressed by speed modifiers.
             lastDirectionPressed = 
@@ -317,7 +310,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         if (Time.time - dashingTimer > player.Values.DashingTime &&
             enemyCollision.Length == 0)
         {
-            dashCurrentValue = player.Values.DashDefaultValue;
+            dashCurrentValue = player.Values.DashInitialForce;
             dashing = false;
             gameObject.layer = layerBeforeDash;
             bodyToDamage.enabled = true;
@@ -329,27 +322,25 @@ public class PlayerMovement : MonoBehaviour, IFindInput
     /// <summary>
     /// Updates player's velocity if run is pressed or released.
     /// </summary>
-    private void Run(bool condition)
+    private void Run()
     {
-        if (castingContinuousSpell == false)
+        if (Running == false)
         {
-            if (condition)
-            {
-                Running = true;
-                Speed = player.Values.RunningSpeed * 
-                    playerStats.CommonAttributes.MovementSpeedMultiplier *
-                    playerStats.CommonAttributes.MovementStatusEffectMultiplier /
-                    inCombatSpeed;
-            }
-            else
-            {
-                Running = false;
-                Speed = player.Values.Speed * 
-                    playerStats.CommonAttributes.MovementSpeedMultiplier *
-                    playerStats.CommonAttributes.MovementStatusEffectMultiplier;
-            }
-            OnEventRun(condition);
+            Running = true;
+            Speed = player.Values.RunningSpeed *
+                playerStats.CommonAttributes.MovementSpeedMultiplier *
+                playerStats.CommonAttributes.MovementStatusEffectMultiplier *
+                InCombatSpeed;
         }
+        else
+        {
+            Running = false;
+            Speed = player.Values.Speed *
+                playerStats.CommonAttributes.MovementSpeedMultiplier *
+                playerStats.CommonAttributes.MovementStatusEffectMultiplier *
+                InCombatSpeed;
+        }
+        OnEventRun(Running);
     }
 
     /// <summary>
@@ -360,15 +351,21 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         // Updates speed
         Speed = speed;
 
-        // Checks if character is running and updates speed depending on it
-        Run(Running);
+        if (Running)
+        {
+            Speed = player.Values.RunningSpeed *
+                playerStats.CommonAttributes.MovementSpeedMultiplier *
+                playerStats.CommonAttributes.MovementStatusEffectMultiplier *
+                InCombatSpeed;
+        }
+        else
+        {
+            Speed = player.Values.Speed *
+                playerStats.CommonAttributes.MovementSpeedMultiplier *
+                playerStats.CommonAttributes.MovementStatusEffectMultiplier *
+                InCombatSpeed;
+        }
     }
-
-    /// <summary>
-    /// Turns speed back to normal after continuous attack is over.
-    /// </summary>
-    private void NormalSpeedAfterContinuousAttack() =>
-        castingContinuousSpell = false;
 
     /// <summary>
     /// Jumps and increments gravity value.

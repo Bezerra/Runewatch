@@ -12,7 +12,8 @@ public class StatusBehaviourSlowSO : StatusBehaviourAbstractSO
     [Header("Movement speed is multiplied by this value")]
     [Range(0.1f, 1f)] [SerializeField] private float speedMultiplier = 1f;
 
-    [Header("-1 is enemy default attacking speed. Lower values mean less attack speed")]
+    [Header("-1 is default attacking speed. -2 means double attack delay, etc")]
+    [Tooltip("Only applies to enemies. Formula is attacking delay * this multiplier")]
     [Range(-4f, -1f)] [SerializeField] private float attackingSpeedMultiplier = -1f;
 
     public override void StartBehaviour(StatusBehaviour parent)

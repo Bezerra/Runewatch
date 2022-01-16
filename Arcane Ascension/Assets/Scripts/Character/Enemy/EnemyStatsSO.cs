@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
-using ExtensionMethods;
 
 /// <summary>
 /// Scriptable object with stats for an enemy.

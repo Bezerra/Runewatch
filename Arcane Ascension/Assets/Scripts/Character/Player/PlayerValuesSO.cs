@@ -40,9 +40,14 @@ public class PlayerValuesSO : CharacterValuesSO
     public float JumpTime => jumpTime;
 
     [BoxGroup("Dash")]
-    [Tooltip("Force of the dash")]
-    [Range(0.5f, 3f)] [SerializeField] private float dashForce = 1f;
-    public float DashForce => dashForce;
+    [Tooltip("Continuous force of the dash.")]
+    [Range(0.5f, 3f)] [SerializeField] private float dashContinuousForce = 1.25f;
+    public float DashContinuousForce => dashContinuousForce;
+
+    [BoxGroup("Dash")]
+    [Tooltip("Default value = 7.5f. Initial dash force.")]
+    [Range(5, 10)] [SerializeField] private float dashInitialForce = 7.5f;
+    public float DashInitialForce => dashInitialForce ;
 
     [BoxGroup("Dash")]
     [Tooltip("Default value = 0.33. Multiplication of time.deltaTime to reduce dash overtime.")]
@@ -53,11 +58,6 @@ public class PlayerValuesSO : CharacterValuesSO
     [Tooltip("Default value = 0.25. Time that dash takes effect.")]
     [Range(0.05f, 0.3f)][SerializeField] private float dashingTime = 0.25f;
     public float DashingTime => dashingTime;
-
-    [BoxGroup("Dash")]
-    [Tooltip("Default value = 7.5f. Initial dash force.")]
-    [Range(5, 10)] [SerializeField] private float dashDefaultValue = 7.5f;
-    public float DashDefaultValue => dashDefaultValue;
 
     [BoxGroup("Dash")]
     [Tooltip("Default value = 5f. Time to get a dash charge.")]

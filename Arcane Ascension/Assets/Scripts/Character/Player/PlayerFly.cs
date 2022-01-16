@@ -44,11 +44,11 @@ public class PlayerFly : MonoBehaviour
     /// <summary>
     /// Updates player's velocity if run is pressed or released.
     /// </summary>
-    private void Run(bool condition)
+    private void Run()
     {
         if (CheatApplied)
         {
-            if (condition)
+            if (Running == false)
             {
                 Running = true;
                 Speed = player.Values.RunningSpeed * 

@@ -27,7 +27,7 @@ public interface IInput
     void ReenableInput();
 
     event Action Dash;
-    event Action<bool> Run;
+    event Action Run;
     event Action Jump;
     event Action CastSpell;
     event Action CastBasicSpell;
