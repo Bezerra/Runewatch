@@ -677,11 +677,6 @@ public class LevelGenerator : MonoBehaviour, IDungeonSaveable
             {
                 allRooms[0].GetComponent<LevelPieceGameProgressControlNormalRoom>().
                     RoomSpawnsShopkeeper = true;
-            }  
-            if (allRooms.Count > 1)
-            {
-                allRooms[1].GetComponent<LevelPieceGameProgressControlNormalRoom>().
-                    RoomSpawnsShopkeeper = true;
             }
 
             // Sets random chests to spawn
@@ -701,6 +696,24 @@ public class LevelGenerator : MonoBehaviour, IDungeonSaveable
                 randRoom2.RoomSpawnsChest = true;
                 randRoom2.AbilityType = random.Next(0, 2) == 1 ? AbilityType.Spell : AbilityType.Passive;
                 randRoom2.SpawnChestAfterGeneration();
+            }
+
+            // Deletes first chest if it's not the first floor
+            RunSaveDataController saveData = FindObjectOfType<RunSaveDataController>();
+            if (saveData != null)
+            {
+                if (saveData.SaveData.DungeonSavedData.Floor != 1)
+                {
+                    // Child 1 is always starting room. Child 0 is ghost room.
+                    Chest[] chests =
+                        levelParent.transform.GetChild(1).GetComponentsInChildren<Chest>();
+
+                    if (chests.Length > 0)
+                    {
+                        foreach (Chest chest in chests)
+                            Destroy(chest.gameObject);
+                    }
+                }
             }
    
             GameObject thisElementSettings = Instantiate(elementSettings);

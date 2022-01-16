@@ -170,10 +170,11 @@ public class PlayerMovement : MonoBehaviour, IFindInput
             }
         }
 
-        if (directionPressed.Lesser(Vector3.zero, 0.5f))
-        {
-            Run(false);
-        }
+        // Removes run of the player stopped
+        //if (directionPressed.Lesser(Vector3.zero, 0.5f))
+        //{
+        //    Run(false);
+        //}
 
         // Happens when player is dashing
         if (dashing)
