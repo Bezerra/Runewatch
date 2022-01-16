@@ -76,11 +76,11 @@ public class PlayerCurrency : MonoBehaviour, IUseCurrency, IPlayerSaveable
     {
         if (CanSpend(currency, amount))
         {
+            player.AllValues.Currency.SpendCurrency(currency, amount);
             OnEventSpendMoney();
             OnEventCurrencyUpdate(
                 player.AllValues.Currency.Gold, player.AllValues.Currency.ArcanePower);
         }
-        player.AllValues.Currency.SpendCurrency(currency, amount);
     }
 
     /// <summary>
