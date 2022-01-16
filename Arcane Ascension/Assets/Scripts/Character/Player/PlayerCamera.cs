@@ -72,8 +72,7 @@ public class PlayerCamera : MonoBehaviour
         }
     }
 
-
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         CameraControl();
         CameraTilt();

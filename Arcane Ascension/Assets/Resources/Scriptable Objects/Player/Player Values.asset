@@ -15,14 +15,18 @@ MonoBehaviour:
   name: Player Values
   speed: 5
   outOfCombatSpeedMultiplier: 1.25
+  outOfCombatCooldownMultiplier: 2.5
   runningSpeed: 10
+  shieldLossPerSecond: 0.5
   gravityIncrement: 0.25
   jumpForce: 7
   jumpTime: 0.1
+  dashForce: 1
   dashingTimeReducer: 30
   dashingTime: 0.2
   dashDefaultValue: 7.5
   timeToGetDashCharge: 5
+  outOfCombatDashDelayMultiplier: 5
   cameraForceOnDash: 4
   cameraRange: {x: -70, y: 70}
   cameraSpeed: 8

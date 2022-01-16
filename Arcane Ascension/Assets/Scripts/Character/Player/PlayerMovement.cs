@@ -258,10 +258,12 @@ public class PlayerMovement : MonoBehaviour, IFindInput
             dashingTimer = Time.time;
             layerBeforeDash = gameObject.layer;
 
-            // If player is running it divides this value so dash is always the same
-            lastDirectionPressed = Speed == 
-                player.Values.Speed ? directionPressed : 
-                directionPressed.normalized * 
+            Vector3 directionPressedMultiplied = directionPressed.normalized *
+                player.Values.DashForce;
+
+            // Multiplies direction pressed by speed modifiers.
+            lastDirectionPressed = 
+                directionPressedMultiplied * 
                 player.Values.Speed * 
                 playerStats.CommonAttributes.MovementSpeedMultiplier *
                 playerStats.CommonAttributes.MovementStatusEffectMultiplier;
@@ -409,10 +411,9 @@ public class PlayerMovement : MonoBehaviour, IFindInput
     private IEnumerator FallingCoroutine()
     {
         Ray rayToFloor = new Ray(transform.position, Vector3.down);
-        Debug.Log(characterController.radius);
+
         if (Physics.Raycast(rayToFloor, 0.35f, Layers.WallsFloor))
         {
-            Debug.Log("floor");
             // Gravity on a ramp for example
             gravityIncrement = 0.25f / Time.fixedDeltaTime;
         }

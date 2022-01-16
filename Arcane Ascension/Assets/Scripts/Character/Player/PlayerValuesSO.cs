@@ -40,6 +40,11 @@ public class PlayerValuesSO : CharacterValuesSO
     public float JumpTime => jumpTime;
 
     [BoxGroup("Dash")]
+    [Tooltip("Force of the dash")]
+    [Range(0.5f, 3f)] [SerializeField] private float dashForce = 1f;
+    public float DashForce => dashForce;
+
+    [BoxGroup("Dash")]
     [Tooltip("Default value = 0.33. Multiplication of time.deltaTime to reduce dash overtime.")]
     [Range(20f, 40f)][SerializeField] private float dashingTimeReducer = 33f;
     public float DashingTimeReducer => dashingTimeReducer;
