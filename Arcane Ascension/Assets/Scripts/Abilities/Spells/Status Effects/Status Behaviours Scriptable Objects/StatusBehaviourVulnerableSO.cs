@@ -14,35 +14,43 @@ public class StatusBehaviourVulnerableSO : StatusBehaviourAbstractSO
 
     public override void StartBehaviour(StatusBehaviour parent)
     {
-        // If the character is NOT suffering from the effect yet
-        if (parent.CharacterHit.StatusEffectList.Items.ContainsKey(statusEffectType) == false)
+        if (parent.CharacterHit.CommonAttributes.Type != CharacterType.Boss)
         {
-            // If the parent of this effect is not taking place yet
-            if (parent.EffectActive == false)
+            // If the character is NOT suffering from the effect yet
+            if (parent.CharacterHit.StatusEffectList.Items.ContainsKey(statusEffectType) == false)
             {
-                parent.CharacterHit.CommonAttributes.DamageResistanceStatusEffectMultiplier = 
-                    damageToTakeMultiplier;
+                // If the parent of this effect is not taking place yet
+                if (parent.EffectActive == false)
+                {
+                    parent.CharacterHit.CommonAttributes.DamageResistanceStatusEffectMultiplier =
+                        damageToTakeMultiplier;
 
-                parent.CharacterHit.StatusEffectList.AddItem(statusEffectType,
-                    new StatusEffectInformation(Time.time, durationSeconds, icon));
+                    parent.CharacterHit.StatusEffectList.AddItem(statusEffectType,
+                        new StatusEffectInformation(Time.time, durationSeconds, icon));
 
-                parent.EffectType = statusEffectType;
-                parent.EffectActive = true;
+                    parent.EffectType = statusEffectType;
+                    parent.EffectActive = true;
+                }
+                // If it's already taking effect
+                else
+                {
+                    parent.CharacterHit.StatusEffectList.Items[statusEffectType].TimeApplied = Time.time;
+
+                    parent.DisableStatusGameObject();
+                }
             }
-            // If it's already taking effect
+            // Else if the character is already suffering from the effect
             else
             {
                 parent.CharacterHit.StatusEffectList.Items[statusEffectType].TimeApplied = Time.time;
 
-                parent.DisableStatusGameObject();
+                // Will only disable the spell if it's not the one that's causing the current effect
+                if (parent.EffectActive == false)
+                    parent.DisableStatusGameObject();
             }
         }
-        // Else if the character is already suffering from the effect
         else
         {
-            parent.CharacterHit.StatusEffectList.Items[statusEffectType].TimeApplied = Time.time;
-
-            // Will only disable the spell if it's not the one that's causing the current effect
             if (parent.EffectActive == false)
                 parent.DisableStatusGameObject();
         }
