@@ -14,6 +14,12 @@ public class StatusBehaviourWispsRegenSO : StatusBehaviourAbstractSO
 
     public override void StartBehaviour(StatusBehaviour parent)
     {
+        if (parent.WhoCast == null)
+        {
+            parent.DisableStatusGameObject();
+            return;
+        }
+
         // If the character is NOT suffering from the effect yet
         if (parent.WhoCast.StatusEffectList.Items.ContainsKey(statusEffectType) == false)
         {
@@ -48,6 +54,12 @@ public class StatusBehaviourWispsRegenSO : StatusBehaviourAbstractSO
 
     public override void ContinuousUpdateBehaviour(StatusBehaviour parent)
     {
+        if (parent.WhoCast == null)
+        {
+            parent.DisableStatusGameObject();
+            return;
+        }
+
         if (Time.time - parent.LastTimeHit > healingInterval)
         {
             parent.LastTimeHit = Time.time;

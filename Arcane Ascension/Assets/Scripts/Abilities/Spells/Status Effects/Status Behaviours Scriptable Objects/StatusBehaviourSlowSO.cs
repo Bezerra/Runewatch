@@ -18,6 +18,12 @@ public class StatusBehaviourSlowSO : StatusBehaviourAbstractSO
 
     public override void StartBehaviour(StatusBehaviour parent)
     {
+        if (parent.CharacterHit == null)
+        {
+            parent.DisableStatusGameObject();
+            return;
+        }
+
         if (parent.CharacterHit.CommonAttributes.Type != CharacterType.Boss)
         {
             // If the character is NOT suffering from the effect yet
@@ -71,6 +77,12 @@ public class StatusBehaviourSlowSO : StatusBehaviourAbstractSO
 
     public override void ContinuousUpdateBehaviour(StatusBehaviour parent)
     {
+        if (parent.CharacterHit == null)
+        {
+            parent.DisableStatusGameObject();
+            return;
+        }
+
         // This will happen to the active effect
         // In order for this to happen, the effect is active, so the stats Dictionary will
         // have this key for sure

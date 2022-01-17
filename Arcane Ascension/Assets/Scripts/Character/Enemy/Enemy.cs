@@ -239,12 +239,14 @@ public class Enemy : Character
 
     private void OnEnable()
     {
+        EnemyStats.EventDeath += EventDeath;
         EnemyStats.EventTakeDamage += EventTakeDamage;
         EnemyStats.EventSpeedUpdate += UpdateSpeed;
     }
 
     private void OnDisable()
     {
+        EnemyStats.EventDeath -= EventDeath;
         EnemyStats.EventTakeDamage -= EventTakeDamage;
         EnemyStats.EventSpeedUpdate -= UpdateSpeed;
     }
@@ -252,6 +254,16 @@ public class Enemy : Character
     private void Update()
     {
         StateMachine.Update(StateMachine);
+    }
+
+    /// <summary>
+    /// On enemy death, disables the spell.
+    /// </summary>
+    /// <param name="stats"></param>
+    private void EventDeath(Stats stats)
+    {
+        if (CurrentlySelectedSpell.Spell.CastType == SpellCastType.OneShotCastWithRelease)
+            CurrentCastSpell.SetActive(false);
     }
 
     /// <summary>
