@@ -14429,6 +14429,7 @@ GameObject:
   - component: {fileID: 5505627311314674540}
   - component: {fileID: 2619679734665674080}
   - component: {fileID: 4164510127146666355}
+  - component: {fileID: 3323791677216147832}
   m_Layer: 11
   m_Name: Effect
   m_TagString: Untagged
@@ -19229,6 +19230,19 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &3323791677216147832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2838361891101553665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a7f3a8d1161ac4a8775b566fe5a86e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disableType: 0
 --- !u!1 &4029091582259722508
 GameObject:
   m_ObjectHideFlags: 0
@@ -29131,11 +29145,7 @@ VFXRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  m_Materials: []
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
