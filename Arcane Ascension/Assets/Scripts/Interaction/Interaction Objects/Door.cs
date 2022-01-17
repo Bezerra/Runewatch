@@ -5,9 +5,12 @@ using UnityEngine;
 /// </summary>
 public class Door : MonoBehaviour, IPassageBlock
 {
+    [SerializeField] private GameObject hasOpenned1, hasOpenned2;
+    [SerializeField] private GameObject locked;
+
     // Components
     private Animator anim;
-    //private ParticleSystem lockParticles;
+    //[SerializeField] private ParticleSystem lockParticles;
 
     /// <summary>
     /// Property with bool to open door animation.
@@ -43,6 +46,8 @@ public class Door : MonoBehaviour, IPassageBlock
     {
         if (CanOpen && IsDoorRoomFullyLoaded)
             ExecuteAnimation = true;
+        hasOpenned1.SetActive(false);
+        hasOpenned2.SetActive(false);
     }
 
     /// <summary>
@@ -73,6 +78,7 @@ public class Door : MonoBehaviour, IPassageBlock
     public void BlockPassage()
     {
         CanOpen = false;
+        locked.SetActive(true);
         //lockParticles.Play();
     }
 
@@ -82,6 +88,9 @@ public class Door : MonoBehaviour, IPassageBlock
     public void UnblockPassage()
     {
         CanOpen = true;
+        locked.SetActive(false);
+        print("Unlock Doors");
+
         //lockParticles.Stop();
     }
 }
