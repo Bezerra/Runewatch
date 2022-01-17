@@ -21,12 +21,12 @@ public class PlayerFinalCameraDashEvent : MonoBehaviour
 
     private void OnEnable()
     {
-        playerMovement.EventCameraTiltDash += Dash;
+        playerMovement.EventDash += Dash;
     }
 
     private void OnDisable()
     {
-        playerMovement.EventCameraTiltDash -= Dash;
+        playerMovement.EventDash -= Dash;
     }
 
     private void Dash() => 
@@ -38,18 +38,19 @@ public class PlayerFinalCameraDashEvent : MonoBehaviour
     /// <returns>Wffu.</returns>
     private IEnumerator DashCoroutine()
     {
-        float currentTime = 0;
-        while (currentTime < player.Values.DashingTime * 0.5f)
+
+        while (transform.localPosition.y < defaultCameraPosition.y + 1)
         {
             transform.localPosition = Vector3.MoveTowards(
-                transform.localPosition, defaultCameraPosition + Vector3.up, Time.fixedDeltaTime * player.Values.CameraForceOnDash * 0.5f);
-            currentTime += Time.fixedDeltaTime;
+                transform.localPosition, defaultCameraPosition + Vector3.up, Time.fixedDeltaTime * player.Values.CameraForceOnDash);
+
             yield return wffu;
         }
+
         while(transform.localPosition.y > defaultCameraPosition.y)
         {
             transform.localPosition = Vector3.MoveTowards(
-                transform.localPosition, defaultCameraPosition, Time.fixedDeltaTime * player.Values.CameraForceOnDash * 0.05f);
+                transform.localPosition, defaultCameraPosition, Time.fixedDeltaTime * player.Values.CameraForceOnDash * 2f);
             yield return wffu;
         }
     }

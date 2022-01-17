@@ -91,6 +91,9 @@ public class PlayerSounds : MonoBehaviour
 
     private void Update()
     {
+        if (playerMovement.Dashing)
+            return;
+
         // If step delay is over
         if (Time.time - timeToStep > stepSoundDelay)
         {
@@ -114,7 +117,8 @@ public class PlayerSounds : MonoBehaviour
                         }
                         else
                         {
-                            print(hit.collider.gameObject.name + " doesn't have Surface script.");
+                            print(hit.collider.gameObject.name + 
+                                " doesn't have Surface script.");
                         }
                     }
                     timeToStep = Time.time;

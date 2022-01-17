@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
     private float   dashCurrentValue;
     private Vector3 lastDirectionPressed;
     private float   dashingTimer;
-    private bool    dashing;
+    public bool    Dashing { get; private set; }
     public float    CurrentTimeToGetCharge { get; private set; }
     private float   inCombatDashDelay;
     private NavMeshObstacle navmeshObstacle;
@@ -62,7 +62,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         playerStats = GetComponent<PlayerStats>();
         wffu = new WaitForFixedUpdate();
         jumpTime = new WaitForSeconds(player.Values.JumpTime);
-        dashing = false;
+        Dashing = false;
         navmeshObstacle = GetComponent<NavMeshObstacle>();
         gravityIncrement = DEFAULTGRAVITYINCREMENT;
         dashCurrentValue = player.Values.DashInitialForce;
@@ -153,7 +153,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
     private void FixedUpdate()
     {
         // Happens if player is falling (without jumping)
-        if (jumpingCoroutine == null && IsGrounded() == false && dashing == false)
+        if (jumpingCoroutine == null && IsGrounded() == false && Dashing == false)
         {
             if (fallingCoroutine == null)
             {
@@ -169,10 +169,10 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         //    Run(false);
         //}
 
-        // Happens when player is dashing
-        if (dashing)
+        // Happens when player is Dashing
+        if (Dashing)
         {
-            Dashing();
+            DashingLogic();
             return;
         }
 
@@ -245,10 +245,10 @@ public class PlayerMovement : MonoBehaviour, IFindInput
     private void Dash()
     {
         // Player must have a dash, and must be pressing a Direction.
-        if (dashing == false && input.Movement.magnitude > 0.5f &&
+        if (Dashing == false && input.Movement.magnitude > 0.5f &&
             playerStats.DashCharge > 0)
         {
-            dashing = true;
+            Dashing = true;
             dashingTimer = Time.time;
             layerBeforeDash = gameObject.layer;
 
@@ -279,7 +279,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
     /// <summary>
     /// Player dashes.
     /// </summary>
-    private void Dashing()
+    private void DashingLogic()
     {
         // Decrements dash force smoothly
         float minimumDashForce = 3;
@@ -299,12 +299,10 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         bodyToDamage.enabled = false;
         navmeshObstacle.enabled = false;
 
-        OnEventCameraTiltDash();
-
         // Dashes
         characterController.Move(dashCurrentValue * Time.fixedDeltaTime * finalDirection);
 
-        // Checks if player is colliding with an enemy while dashing
+        // Checks if player is colliding with an enemy while Dashing
         Collider[] enemyCollision = Physics.OverlapSphere(transform.position,
             CONTROLLERRADIUSDEFAULT, Layers.EnemyLayer);
 
@@ -313,7 +311,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
             enemyCollision.Length == 0)
         {
             dashCurrentValue = player.Values.DashInitialForce;
-            dashing = false;
+            Dashing = false;
             gameObject.layer = layerBeforeDash;
             bodyToDamage.enabled = true;
             navmeshObstacle.enabled = true;
@@ -472,12 +470,9 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         return false;
     }
 
-    // Subscribed on PlayerSounds, PlayerDashEffect
+    // Subscribed on PlayerSounds, PlayerDashEffect, PlayerFinalCameraDashEvent
     protected virtual void OnEventDash() => EventDash?.Invoke();
     public event Action EventDash;
-    // Subscribed PlayerFinalCameraDashEvent
-    protected virtual void OnEventCameraTiltDash() => EventCameraTiltDash?.Invoke();
-    public event Action EventCameraTiltDash;
 
     // Subscribed on PlayerCamera
     protected virtual void OnEventRun(bool condition) => EventRun?.Invoke(condition);
