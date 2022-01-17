@@ -5,12 +5,12 @@ using UnityEngine;
 /// </summary>
 public class Door : MonoBehaviour, IPassageBlock
 {
-    [SerializeField] private GameObject hasOpenned1, hasOpenned2;
+    [SerializeField] private GameObject hasOpenned1;
+    [SerializeField] private GameObject hasOpenned2;
     [SerializeField] private GameObject locked;
 
     // Components
     private Animator anim;
-    //[SerializeField] private ParticleSystem lockParticles;
 
     /// <summary>
     /// Property with bool to open door animation.
@@ -30,11 +30,13 @@ public class Door : MonoBehaviour, IPassageBlock
     private void Awake()
     {
         anim = GetComponent<Animator>();
-        //lockParticles = GetComponentInChildren<ParticleSystem>();
     }
 
-    private void Start() =>
+    private void Start()
+    {
         CanOpen = true;
+        locked.SetActive(false);
+    }
 
     private void Update() =>
         anim.SetBool("Execute", ExecuteAnimation);
@@ -45,9 +47,11 @@ public class Door : MonoBehaviour, IPassageBlock
     public void Open()
     {
         if (CanOpen && IsDoorRoomFullyLoaded)
+        {
             ExecuteAnimation = true;
-        hasOpenned1.SetActive(false);
-        hasOpenned2.SetActive(false);
+            hasOpenned1.SetActive(false);
+            hasOpenned2.SetActive(false);
+        }
     }
 
     /// <summary>
@@ -73,24 +77,20 @@ public class Door : MonoBehaviour, IPassageBlock
     }
 
     /// <summary>
-    /// Blocks this passage.
+    /// Enables block symbol.
     /// </summary>
-    public void BlockPassage()
+    public void EnableBlockSymbol()
     {
-        CanOpen = false;
-        locked.SetActive(true);
-        //lockParticles.Play();
+        if (locked != null)
+            locked.SetActive(true);
     }
 
     /// <summary>
-    /// Unblocks this passage.
+    /// Disables block symbol.
     /// </summary>
-    public void UnblockPassage()
+    public void DisableBlockSymbol()
     {
-        CanOpen = true;
-        locked.SetActive(false);
-        print("Unlock Doors");
-
-        //lockParticles.Stop();
+        if (locked != null)
+            locked.SetActive(false);
     }
 }

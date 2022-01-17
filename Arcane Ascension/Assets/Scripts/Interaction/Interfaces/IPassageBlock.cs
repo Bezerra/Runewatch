@@ -19,14 +19,14 @@ public interface IPassageBlock
     void Open();
 
     /// <summary>
-    /// Blocks passage.
+    /// Enables block symbol.
     /// </summary>
-    void BlockPassage();
+    void EnableBlockSymbol();
 
     /// <summary>
-    /// Unblocks passage.
+    /// Disables block symbol.
     /// </summary>
-    void UnblockPassage();
+    void DisableBlockSymbol();
 
     /// <summary>
     /// Closes passage.

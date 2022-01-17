@@ -28,14 +28,20 @@ public class ContactPointDoor : MonoBehaviour
     /// <summary>
     /// Blocks a passage.
     /// </summary>
-    public void BlockPassage() =>
+    public void BlockPassage()
+    {
+        passageBlock?.EnableBlockSymbol();
         passageBlock.CanOpen = false;
+    }
 
     /// <summary>
     /// Unblocks a passage.
     /// </summary>
-    public void UnblockPassage() =>
+    public void UnblockPassage()
+    {
+        passageBlock?.DisableBlockSymbol();
         passageBlock.CanOpen = true;
+    }
 
     /// <summary>
     /// Sets passage block room as not loaded.
