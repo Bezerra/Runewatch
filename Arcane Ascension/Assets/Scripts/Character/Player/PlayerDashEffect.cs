@@ -14,8 +14,11 @@ public class PlayerDashEffect : MonoBehaviour, IFindPlayer
         particles = GetComponentInChildren<ParticleSystem>();
     }
 
-    private void OnEnable() =>
-        playerMovement.EventDash += DashEffect;
+    private void OnEnable()
+    {
+        if (playerMovement != null)
+            playerMovement.EventDash += DashEffect;
+    }
 
     private void OnDisable() =>
         PlayerLost();

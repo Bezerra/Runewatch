@@ -15,15 +15,13 @@ public class DoorIconReward : MonoBehaviour
 
         if (lootType == LootType.UnknownSpell)
         {
-            renderer.material.mainTexture = spellTexture;
+            renderer.material.SetTexture("_MainTexture", spellTexture); 
         }
         else
         {
-            renderer.material.mainTexture = passiveTexture;
+            renderer.material.SetTexture("_MainTexture", passiveTexture);
         }
     }
-
-
 
     /// <summary>
     /// Disables sprite..
