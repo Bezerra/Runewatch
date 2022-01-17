@@ -37,6 +37,7 @@ public class PlayerDeath : MonoBehaviour, IFindInput
         playerStats = GetComponentInParent<PlayerStats>();
         deathAnimator = GetComponent<Animator>();
         input = FindObjectOfType<PlayerInputCustom>();
+        deathAnimator.enabled = false;
     }
 
     private void OnEnable()
@@ -51,6 +52,7 @@ public class PlayerDeath : MonoBehaviour, IFindInput
 
     private void OnDeath(Stats stats)
     {
+        deathAnimator.enabled = true;
         input.SwitchActionMapToNone();
 
         foreach (GameObject go in gameobjectsToDisableInitially)

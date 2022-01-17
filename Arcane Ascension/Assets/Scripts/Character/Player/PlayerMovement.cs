@@ -163,7 +163,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
             }
         }
 
-        // Removes run of the player stopped
+        // Removes run if the player stopped
         //if (directionPressed.Lesser(Vector3.zero, 0.5f))
         //{
         //    Run(false);
@@ -298,6 +298,8 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         gameObject.layer = DASHINGLAYER;
         bodyToDamage.enabled = false;
         navmeshObstacle.enabled = false;
+
+        OnEventCameraTiltDash();
 
         // Dashes
         characterController.Move(dashCurrentValue * Time.fixedDeltaTime * finalDirection);
@@ -470,9 +472,12 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         return false;
     }
 
-    // Subscribed on PlayerSounds and PlayerFinalCameraDashEvent
+    // Subscribed on PlayerSounds, PlayerDashEffect
     protected virtual void OnEventDash() => EventDash?.Invoke();
     public event Action EventDash;
+    // Subscribed PlayerFinalCameraDashEvent
+    protected virtual void OnEventCameraTiltDash() => EventCameraTiltDash?.Invoke();
+    public event Action EventCameraTiltDash;
 
     // Subscribed on PlayerCamera
     protected virtual void OnEventRun(bool condition) => EventRun?.Invoke(condition);
