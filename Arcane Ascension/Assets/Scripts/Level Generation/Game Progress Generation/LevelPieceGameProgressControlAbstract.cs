@@ -37,14 +37,12 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
     // Other possible random loot
     [SerializeField] protected LootRates lootRates;
     [RangeMinMax(0, 1000)] [SerializeField] protected Vector2 goldQuantity;
-
-    // ARCANE POWER DROPS ON ENEMIES FOR NOW, UNCOMMENT THIS LATER IF NEEDED
-    //[RangeMinMax(0, 1000)] [SerializeField] protected Vector2 arcanePowerQuantity;
-
     protected IList<(LootType, Vector3)> droppedLoot;
     private System.Random random;
     [SerializeField] protected Transform lootSpawnPosition;
     protected CharacterSaveDataController stpData;
+    // ARCANE POWER DROPS ON ENEMIES FOR NOW, UNCOMMENT THIS LATER IF NEEDED
+    //[RangeMinMax(0, 1000)] [SerializeField] protected Vector2 arcanePowerQuantity;
 
     // Enemies
     protected IList<EnemySpawnPoint> enemySpawnPoints;
@@ -52,6 +50,7 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
     private bool haveEnemiesSpawned;
     private IList<GameObject> spawnedFirstWaveEnemies;
     private IList<GameObject> spawnedSecondWaveEnemies;
+    private RunSaveDataController runSaveData;
 
     // Doors and exit blockers
     protected ContactPointDoor[] contactPointsDoors;
@@ -86,7 +85,8 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
 
         foreach (DoorIconReward door in GetComponentsInChildren<DoorIconReward>(true))
         {
-            door.UpdateIcon(lootTypeOnCurrentRoom);
+            if (door != null)
+                door.UpdateIcon(lootTypeOnCurrentRoom);
         }
 
         LevelGenerator.EndedGeneration -= EventGetFixedRoomLoot;
@@ -95,7 +95,49 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
 
     protected virtual void Awake()
     {
-        enemySpawnPoints = GetComponentsInChildren<EnemySpawnPoint>(true);
+        stpData = FindObjectOfType<CharacterSaveDataController>();
+        runSaveData = FindObjectOfType<RunSaveDataController>();
+
+        // Gets enemies for easy floors, medium floors or hard floors,
+        // depending on the current floor saved on save data.
+        FloorFormation[] floorFormations = GetComponentsInChildren<FloorFormation>();
+
+        if (floorFormations != null && floorFormations.Length > 0)
+        {
+            for (int i = 0; i < floorFormations.Length; i++)
+            {
+                if (runSaveData.SaveData.DungeonSavedData.Floor > 6)
+                {
+                    if (floorFormations[i].FloorFormationType == FloorFormationType.SeventhNinethFloors)
+                    {
+                        enemySpawnPoints =
+                            floorFormations[i].GetComponentsInChildren<EnemySpawnPoint>(true);
+                        continue;
+                    }
+                }
+                else if (runSaveData.SaveData.DungeonSavedData.Floor > 3)
+                {
+                    if (floorFormations[i].FloorFormationType == FloorFormationType.ForthSixthFloors)
+                    {
+                        enemySpawnPoints =
+                            floorFormations[i].GetComponentsInChildren<EnemySpawnPoint>(true);
+                        continue;
+                    }
+                }
+                else if (runSaveData.SaveData.DungeonSavedData.Floor > 0)
+                {
+                    if (floorFormations[i].FloorFormationType == FloorFormationType.FirstThirdFloors)
+                    {
+                        enemySpawnPoints =
+                            floorFormations[i].GetComponentsInChildren<EnemySpawnPoint>(true);
+                        continue;
+                    }
+                }
+                Destroy(floorFormations[i].gameObject);
+                continue;
+            }
+        }
+
         contactPointsDoors = GetComponentsInChildren<ContactPointDoor>();
         droppedLoot = new List<(LootType, Vector3)>();
         GameProgressCollider[] gameProgressColliders = 
@@ -105,9 +147,7 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
             exitBlockers.Add(gpc.GetComponent<BoxCollider>());
         random = new System.Random();
         playerInCombat = false;
-        stpData = FindObjectOfType<CharacterSaveDataController>();
         hasSpawnedSecondWave = false;
-
         spawnedFirstWaveEnemies = new List<GameObject>();
         spawnedSecondWaveEnemies = new List<GameObject>();
     }

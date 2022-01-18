@@ -587,7 +587,6 @@ MonoBehaviour:
     - lootType: 5
       lootRate: 50
   goldQuantity: {x: 80, y: 100}
-  arcanePowerQuantity: {x: 80, y: 100}
   lootSpawnPosition: {fileID: 1912683828393804258}
 --- !u!114 &1098406087072568325
 MonoBehaviour:
@@ -858,6 +857,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 349269057164123726}
+  - component: {fileID: 4414738889977141165}
   m_Layer: 0
   m_Name: Enemy Spawn Points
   m_TagString: Untagged
@@ -880,6 +880,19 @@ Transform:
   m_Father: {fileID: 6120586866619541097}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4414738889977141165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7979489348733615697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a770b28addd1d44bd2c847c297ab95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floorFormation: 0
 --- !u!1 &8094282639842213280
 GameObject:
   m_ObjectHideFlags: 0

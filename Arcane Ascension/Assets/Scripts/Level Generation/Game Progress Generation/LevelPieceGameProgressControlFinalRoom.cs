@@ -48,7 +48,7 @@ public class LevelPieceGameProgressControlFinalRoom : LevelPieceGameProgressCont
     /// </summary>
     private void ChangeFloorRoom()
     {
-        if (enemySpawnPoints.Count > 0)
+        if (enemySpawnPoints?.Count > 0)
         {
             foreach(EnemySpawnPoint enemySpawn in enemySpawnPoints)
             {

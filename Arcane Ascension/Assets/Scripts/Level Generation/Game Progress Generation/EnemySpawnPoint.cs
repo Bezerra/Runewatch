@@ -46,4 +46,3 @@ public class EnemySpawnPoint : MonoBehaviour
     }
 }
 
-public enum EnemyWave { FirstWave, SecondWave }
