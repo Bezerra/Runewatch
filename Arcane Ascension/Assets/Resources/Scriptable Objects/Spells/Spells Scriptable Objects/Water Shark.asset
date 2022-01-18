@@ -10,31 +10,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 645b99556f78c9a4d826b70d6a3a9a11, type: 3}
-  m_Name: Eruption
+  m_Name: Water Shark
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: c6a3a1fd6e601f74086182a09b075a56, type: 3}
-  name: Eruption
-  spellTier: 3
-  description: Creates a pillar of fire at location.
-  elementIcon: {fileID: 21300000, guid: 0bfd4d829ff5ddd49a1cc3db69719a7c, type: 3}
-  element: 1
-  manaCost: 50
+  icon: {fileID: 0}
+  name: Water Shark
+  spellTier: 2
+  description: Spawns a shark that deals damage to all enemies inside an area.
+  elementIcon: {fileID: 21300000, guid: 0185a9f74d11b5344bf4a9132f2bef27, type: 3}
+  element: 2
+  manaCost: 30
   targetTypeIcon: {fileID: 21300000, guid: f7859ac33a8e3dc4c872877e535801e4, type: 3}
   timeInterval: 0.01
   maxTime: 5
-  areaOfEffect: 2.5
-  playerDamage: {x: 70, y: 80}
+  areaOfEffect: 2
+  playerDamage: {x: 50, y: 65}
   enemyDamage: {x: 18, y: 20}
   delayToDoDamage: 0.35
   spellCastType: 1
   speed: 0.01
   cooldown: 2.5
   maximumDistance: 20
-  spellPrefab: {fileID: 7189111728712202335, guid: e32c1bdadfe006b4f8f87fcf7d851ec0, type: 3}
-  spellHitPrefab: {fileID: 2310489982616561858, guid: e62579a2766848f4792d2e2a89d8d03a, type: 3}
-  spellMuzzlePrefab: {fileID: 7228047335470632946, guid: 808a8527f3677b1448e0a420818a5f1f, type: 3}
-  spellHandEffectPrefab: {fileID: 5965007050869265157, guid: 280d2b34b0ce0e549a6782d20b15f614, type: 3}
-  areaHoverPrefab: {fileID: 1369274409782311434, guid: d1412072d0a506d45b80f2ffa459d147, type: 3}
+  spellPrefab: {fileID: 7189111728712202335, guid: 17190669ba0aa894fa07dfdc3e3021c7, type: 3}
+  spellHitPrefab: {fileID: 2310489982616561858, guid: 446c3dec82897384785d19be82724b5c, type: 3}
+  spellMuzzlePrefab: {fileID: 7228047335470632946, guid: 8e4172567ca354e419f9741f3b0f1abb, type: 3}
+  spellHandEffectPrefab: {fileID: 5965007050869265157, guid: 98ec61fddd1e1234a915fa1f20865505, type: 3}
+  areaHoverPrefab: {fileID: 1369274409782311434, guid: ad64e96cc3903cc43bd7aab4a82d0641, type: 3}
   damageBehaviour: {fileID: 11400000, guid: 416113b2a45cb57448020076a9603528, type: 2}
   statusBehaviour: {fileID: 0}
   spellBehaviourOneShot:
@@ -52,6 +52,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e54eb235ea9381946a4a076f5351e0f3, type: 2}
   sounds:
     projectile: {fileID: 0}
-    muzzle: {fileID: 11400000, guid: 109870663cf2efa409a13c768cffc680, type: 2}
-    hit: {fileID: 11400000, guid: b77c5a6a4ea81724790b828cc0d0970a, type: 2}
+    muzzle: {fileID: 0}
+    hit: {fileID: 0}
   surfaceSounds: []
