@@ -39,7 +39,7 @@ public class SpellBehaviourPlayLoopSoundOnProjectileSO : SpellBehaviourAbstractS
                 {
                     if (parent.FadingOutSound == false)
                     {
-                        if (Time.time - parent.TimeSpawned > parent.Spell.MaxTime - 0.5f)
+                        if (Time.time - parent.TimeSpawned > parent.Spell.MaxTime - 1f)
                         {
                             parent.StartCoroutine(parent.FadeOutCoroutine());
                             parent.FadingOutSound = true;
@@ -57,6 +57,16 @@ public class SpellBehaviourPlayLoopSoundOnProjectileSO : SpellBehaviourAbstractS
 
     public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
-        // Left blank on purpose
+        if (parent.PlayingSound)
+        {
+            if (parent.Spell.Sounds.Projectile != null)
+            {
+                if (parent.FadingOutSound == false)
+                {
+                    parent.StartCoroutine(parent.FadeOutCoroutine());
+                    parent.FadingOutSound = true;
+                }
+            }
+        }
     }
 }
