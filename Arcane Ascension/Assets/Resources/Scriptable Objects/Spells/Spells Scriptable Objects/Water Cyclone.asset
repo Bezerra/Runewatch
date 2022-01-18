@@ -21,7 +21,7 @@ MonoBehaviour:
   element: 2
   manaCost: 30
   targetTypeIcon: {fileID: 21300000, guid: 7b046770569e6a44fa8fc1f6b9a10e41, type: 3}
-  timeInterval: 0.5
+  timeInterval: 0.3
   maxTime: 3
   areaOfEffect: 5
   playerDamage: {x: 90, y: 100}
@@ -43,18 +43,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7683d527b55fc0c43950f5f7c190d144, type: 2}
   - {fileID: 11400000, guid: 2f926b684efd9d748a7caa6e5f96e60d, type: 2}
   - {fileID: 11400000, guid: 029025e905538984a950a0e626e562d9, type: 2}
-  - {fileID: 11400000, guid: b1991810118e2824087b4ef076d38e09, type: 2}
   - {fileID: 11400000, guid: d992d46e74e743c44b4b3df0059766b3, type: 2}
   - {fileID: 11400000, guid: 391e6fdc62eda2c4ba7dae6900236270, type: 2}
+  - {fileID: 11400000, guid: 8e18ad8ddab37fc4c8d6ecffa5b3a5b8, type: 2}
+  - {fileID: 11400000, guid: 45981edeb4811a64383bb1f8bdb80346, type: 2}
+  - {fileID: 11400000, guid: 551155c3044876149a4d8ec909880225, type: 2}
   attackBehaviourOneShot: {fileID: 11400000, guid: 951b735271f52a24b8c27da0e99a077c, type: 2}
   onHitBehaviourOneShot:
-  - {fileID: 11400000, guid: 86d0af31415029440a6ad24253079b63, type: 2}
+  - {fileID: 11400000, guid: 10058f31616732e428724672c06b4122, type: 2}
   - {fileID: 11400000, guid: f9fa5f0dff83ae146ad847d4b5b3b664, type: 2}
   muzzleBehaviourOneShot:
   - {fileID: 11400000, guid: da438eaf63e47e74a8e7e0d60862b84e, type: 2}
   - {fileID: 11400000, guid: e54eb235ea9381946a4a076f5351e0f3, type: 2}
   sounds:
     projectile: {fileID: 0}
-    muzzle: {fileID: 0}
-    hit: {fileID: 0}
+    muzzle: {fileID: 11400000, guid: babf2b4bc0d4f4f49961699fa3683aa7, type: 2}
+    hit: {fileID: 11400000, guid: 1cca631d054a21046b91ec054f2237ad, type: 2}
   surfaceSounds: []
