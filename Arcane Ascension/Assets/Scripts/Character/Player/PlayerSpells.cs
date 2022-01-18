@@ -44,7 +44,7 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
         playerHandEffect = FindObjectOfType<PlayerHandEffect>();
         allSpells = FindObjectOfType<AllSpells>().SpellList;
         defaultSpell = FindObjectOfType<AllSpells>().DefaultSpell;
-        playerCastSpell = GetComponent<PlayerCastSpell>();
+        playerCastSpell = GetComponentInChildren<PlayerCastSpell>();
 
         CurrentSpells = new SpellSO[4];
         wffu = new WaitForFixedUpdate();

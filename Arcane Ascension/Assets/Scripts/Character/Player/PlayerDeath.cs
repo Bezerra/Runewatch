@@ -30,7 +30,7 @@ public class PlayerDeath : MonoBehaviour, IFindInput
         playerMovement = GetComponentInParent<PlayerMovement>();
         playerCamera = GetComponentInParent<PlayerCamera>();
         playerSpells = GetComponentInParent<PlayerSpells>();
-        playerCastSpell = GetComponentInParent<PlayerCastSpell>();
+        playerCastSpell = GetComponentInChildren<PlayerCastSpell>();
         playerEnemyHealthBar = GetComponentInParent<PlayerControlEnemyHealthBar>();
         playerInteraction = GetComponentInParent<PlayerInteraction>();
         playerFindMe = GetComponentInParent<PlayerFindMe>();

@@ -18,7 +18,7 @@ public class PlayerGenerateCinemachineImpulse : GenerateCinemachineImpulse
     protected override void Awake()
     {
         base.Awake();
-        castSpell = GetComponent<PlayerCastSpell>();
+        castSpell = GetComponentInChildren<PlayerCastSpell>();
         playerStats = GetComponent<PlayerStats>();
     }
 
