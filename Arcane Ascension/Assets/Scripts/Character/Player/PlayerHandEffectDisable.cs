@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for disabling hand effects while casting spells.
 /// </summary>
-public class PlayerHandEffectDisable : MonoBehaviour
+public class PlayerHandEffectDisable : MonoBehaviour, IFindPlayer
 {
     private ParticleSystem[] particles;
     private HandEffectLightFade handEffectLight;
@@ -18,14 +18,20 @@ public class PlayerHandEffectDisable : MonoBehaviour
 
     private void OnEnable()
     {
-        castSpell.AttackAnimationStart += Stop;
-        castSpell.AttackAnimationEnd += Play;
+        if (castSpell != null)
+        {
+            castSpell.AttackAnimationStart += Stop;
+            castSpell.AttackAnimationEnd += Play;
+        }
     }
 
     private void OnDisable()
     {
-        castSpell.AttackAnimationStart -= Stop;
-        castSpell.AttackAnimationEnd -= Play;
+        if(castSpell != null)
+        {
+            castSpell.AttackAnimationStart -= Stop;
+            castSpell.AttackAnimationEnd -= Play;
+        }
     }
 
     public void Stop()
@@ -41,5 +47,18 @@ public class PlayerHandEffectDisable : MonoBehaviour
         handEffectLight.gameObject.SetActive(true);
         foreach (ParticleSystem particle in particles)
             particle.Play();
+    }
+
+    public void FindPlayer()
+    {
+        if (castSpell == null)
+        {
+            castSpell = FindObjectOfType<PlayerCastSpell>();
+        }
+    }
+
+    public void PlayerLost()
+    {
+        // Left blank on purpose
     }
 }

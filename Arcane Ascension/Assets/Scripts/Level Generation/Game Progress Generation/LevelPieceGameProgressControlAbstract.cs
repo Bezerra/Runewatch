@@ -9,6 +9,7 @@ using ExtensionMethods;
 /// </summary>
 public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
 {
+    [SerializeField] private bool testRoomIsolatedScene;
     [Range(1, 9)] [SerializeField] private int floorToTestOnIsolatedScenes;
 
     [SerializeField] protected AvailableListOfEnemiesToSpawnSO listOfEnemies;
@@ -100,7 +101,7 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
         stpData = FindObjectOfType<CharacterSaveDataController>();
         runSaveData = FindObjectOfType<RunSaveDataController>();
 
-        if (levelGenerator == null) 
+        if (testRoomIsolatedScene) 
             GetComponentInChildren<RoomOcclusion>().gameObject.SetActive(false);
 
         // Gets enemies for easy floors, medium floors or hard floors,
@@ -109,9 +110,9 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
         
         if (floorFormations != null && floorFormations.Length > 0)
         {
-            int currentFloor = 1;
+            int currentFloor;
 
-            if (levelGenerator == null)
+            if (testRoomIsolatedScene == false)
                 currentFloor = floorToTestOnIsolatedScenes;
             else
                 currentFloor = runSaveData.SaveData.DungeonSavedData.Floor;
@@ -168,7 +169,7 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
         spawnedSecondWaveEnemies = new List<GameObject>();
 
         // For testing in isolated scenes
-        if (levelGenerator == null)
+        if (testRoomIsolatedScene)
         {
             EventSpawnEnemies();
             SpawnEnemies();
