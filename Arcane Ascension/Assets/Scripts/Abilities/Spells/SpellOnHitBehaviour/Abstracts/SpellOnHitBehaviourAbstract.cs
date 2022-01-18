@@ -29,6 +29,9 @@ public abstract class SpellOnHitBehaviourAbstract : MonoBehaviour, IVisualEffect
     /// </summary>
     public abstract float TimeSpawned { get; set; }
 
+    // Variables for casting loop fades
+    protected YieldInstruction wffu;
+
     // Effects
     private VisualEffect[] hitEffectVFX;
     private ParticleSystem[] hitEffectParticleSystem;
@@ -38,6 +41,7 @@ public abstract class SpellOnHitBehaviourAbstract : MonoBehaviour, IVisualEffect
         hitEffectVFX = GetComponentsInChildren<VisualEffect>();
         hitEffectParticleSystem = GetComponentsInChildren<ParticleSystem>();
         AudioS = GetComponent<AudioSource>();
+        wffu = new WaitForFixedUpdate();
     }
 
     /// <summary>

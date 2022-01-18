@@ -13,6 +13,8 @@ sealed public class RandomSoundRandomValuesSO : AbstractSoundSO
     [RangeMinMax(0f, 2f)] [SerializeField] private Vector2 volume;
     [RangeMinMax(0f, 2f)] [SerializeField] private Vector2 pitch;
 
+    public override float Volume { get; protected set; }
+
     /// <summary>
     /// Plays a sound on an audiosource.
     /// </summary>
@@ -22,9 +24,10 @@ sealed public class RandomSoundRandomValuesSO : AbstractSoundSO
         if (audioSource != null)
         {
             audioSource.pitch = Random.Range(pitch.x, pitch.y);
+            Volume = Random.Range(volume.x, volume.y);
             audioSource.PlayOneShot(
                 audioClips[Random.Range(0, audioClips.Count)],
-                Random.Range(volume.x, volume.y));
+                Volume);
         }
     }
 
@@ -34,8 +37,9 @@ sealed public class RandomSoundRandomValuesSO : AbstractSoundSO
     /// <param name="audioSource">Target audiosource.</param>
     public override void SetOnAudioSource(AudioSource audioSource)
     {
+        Volume = Random.Range(volume.x, volume.y);
         audioSource.pitch = Random.Range(pitch.x, pitch.y);
-        audioSource.volume = Random.Range(volume.x, volume.y);
+        audioSource.volume = Volume;
 
         audioSource.clip = audioClips[Random.Range(0, audioClips.Count)];
         audioSource.Play();

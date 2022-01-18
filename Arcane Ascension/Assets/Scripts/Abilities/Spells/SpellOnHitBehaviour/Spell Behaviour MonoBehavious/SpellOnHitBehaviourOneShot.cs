@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -19,6 +20,11 @@ public class SpellOnHitBehaviourOneShot : SpellOnHitBehaviourAbstract
     /// Property used to know if the class already played a sound.
     /// </summary>
     public bool PlayedSound { get; set; }
+
+    /// <summary>
+    /// Property used to know if the class is fading out the sound.
+    /// </summary>
+    public bool FadingOutSound { get; set; }
 
     /// <summary>
     /// Runs start behaviour when enabled with with pool.
@@ -50,6 +56,50 @@ public class SpellOnHitBehaviourOneShot : SpellOnHitBehaviourAbstract
     private void OnDisable()
     {
         PlayedSound = false;
+        FadingOutSound = false;
+    }
+
+    /// <summary>
+    /// Fades out volume.
+    /// </summary>
+    /// <returns>Wait for fixed update.</returns>
+    public IEnumerator FadeOutCoroutine()
+    {
+        while (AudioS.volume > 0)
+        {
+            AudioS.volume -= Time.deltaTime;
+
+            if (AudioS.volume < 0)
+            {
+                AudioS.volume = 0;
+                break;
+            }
+
+            yield return wffu;
+        }
+    }
+
+    /// <summary>
+    /// Fades out volume. Works for simples sounds only.
+    /// </summary>
+    /// <returns>Wait for fixed update.</returns>
+    public IEnumerator FadeInCoroutine()
+    {
+        AudioS.volume = 0;
+        Debug.Log(Spell.Sounds.Hit.Volume);
+        while (AudioS.volume < Spell.Sounds.Hit.Volume)
+        {
+            Debug.Log("inside");
+            AudioS.volume += Time.deltaTime;
+
+            if (AudioS.volume > Spell.Sounds.Hit.Volume)
+            {
+                AudioS.volume = Spell.Sounds.Hit.Volume;
+                break;
+            }
+
+            yield return wffu;
+        }
     }
 }
         

@@ -19,7 +19,11 @@ public abstract class AbstractSoundSO : ScriptableObject
     /// <summary>
     /// Sets an audioclip on an audio source.
     /// </summary>
-    /// <param name="audioClip">Audioclip to insert on audiosource.</param>
     /// <param name="audioSource">Target audiosource.</param>
     public abstract void SetOnAudioSource(AudioSource audioSource);
+
+    /// <summary>
+    /// GetSetter for volume.
+    /// </summary>
+    public abstract float Volume { get; protected set; }
 }

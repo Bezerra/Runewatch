@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class responsible for disabling hand effects while casting spells.
+/// </summary>
 public class PlayerHandEffectDisable : MonoBehaviour
 {
     private ParticleSystem[] particles;

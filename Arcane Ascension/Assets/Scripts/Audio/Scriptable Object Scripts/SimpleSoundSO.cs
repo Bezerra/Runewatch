@@ -13,6 +13,9 @@ sealed public class SimpleSoundSO : AbstractSoundSO
     [Range(0f, 2f)] [SerializeField] private float volume;
     [Range(0f, 2f)] [SerializeField] private float pitch;
 
+    protected float emptyVolume;
+    public override float Volume { get => volume; protected set => emptyVolume = 0; }
+
     /// <summary>
     /// Plays a sound on an audiosource.
     /// </summary>
