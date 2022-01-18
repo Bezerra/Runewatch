@@ -136,6 +136,9 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
     /// <param name="axis">Positive or negative number.</param>
     private void SelectNextAndPreviousSpellLogic(float axis)
     {
+        if (playerCastSpell.AnimationOver == false)
+            return;
+
         int finalIndex = CurrentSpellIndex;
 
         if (axis < 0)
@@ -205,6 +208,9 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
     /// <param name="index">Index of the spell on array.</param>
     public void SelectSpell(byte index)
     {
+        if (playerCastSpell.AnimationOver == false)
+            return;
+
         if (playerCastSpell.CurrentlyCasting == false)
         {
             // If the player selects an active spell different than the one currently selected
@@ -227,6 +233,9 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
     /// <param name="index">Index of the spell on array.</param>
     public void SelectSpell(byte index, bool overrideSelection)
     {
+        if (playerCastSpell.AnimationOver == false)
+            return;
+
         if (CurrentSpells[index] != null)
         {
             CurrentSpellIndex = index;

@@ -80,16 +80,15 @@ public class SpellOnHitBehaviourOneShot : SpellOnHitBehaviourAbstract
     }
 
     /// <summary>
-    /// Fades out volume. Works for simples sounds only.
+    /// Fades out volume.
     /// </summary>
     /// <returns>Wait for fixed update.</returns>
     public IEnumerator FadeInCoroutine()
     {
         AudioS.volume = 0;
-        Debug.Log(Spell.Sounds.Hit.Volume);
+
         while (AudioS.volume < Spell.Sounds.Hit.Volume)
         {
-            Debug.Log("inside");
             AudioS.volume += Time.deltaTime;
 
             if (AudioS.volume > Spell.Sounds.Hit.Volume)

@@ -18,7 +18,7 @@ public class PlayerCastSpell : MonoBehaviour, IFindInput
     public bool CurrentlyCasting => currentlyCastSpell == null ? false : true;
 
     private float lastTimeSpellWasCast;
-    private bool animationOver;
+    public bool AnimationOver { get; private set; }
 
     private void Awake()
     {
@@ -37,7 +37,7 @@ public class PlayerCastSpell : MonoBehaviour, IFindInput
     /// <returns></returns>
     private IEnumerator Start()
     {
-        animationOver = true;
+        AnimationOver = true;
         YieldInstruction wfs = new WaitForSeconds(0.2f);
 
         while (playerSpells.ActiveSpell == null)
@@ -81,7 +81,7 @@ public class PlayerCastSpell : MonoBehaviour, IFindInput
                 if (input.HoldingCastSpell &&
                     playerSpells.ActiveSpell.CastType == SpellCastType.OneShotCastWithRelease)
                 {
-                    if (animationOver)
+                    if (AnimationOver)
                         AttackKeyPress();
                 }
             }
@@ -104,7 +104,7 @@ public class PlayerCastSpell : MonoBehaviour, IFindInput
     /// </summary>
     private void SecondaryAttackKeyPress()
     {
-        if (animationOver == false)
+        if (AnimationOver == false)
             return;
 
         // If main spell is not in cooldown
@@ -116,7 +116,7 @@ public class PlayerCastSpell : MonoBehaviour, IFindInput
             lastTimeSpellWasCast = Time.time;
 
             anim.SetTrigger("CastSecondarySpell");
-            animationOver = false;
+            AnimationOver = false;
         }
     }
 
@@ -154,7 +154,7 @@ public class PlayerCastSpell : MonoBehaviour, IFindInput
     /// </summary>
     private void AttackKeyPress()
     {
-        if (animationOver == false)
+        if (AnimationOver == false)
             return;
 
         if (playerSpells.ActiveSpell == null)
@@ -185,7 +185,7 @@ public class PlayerCastSpell : MonoBehaviour, IFindInput
                     anim.SetBool("Channeling", true);
 
                 // Bool to know that animation us running
-                animationOver = false;
+                AnimationOver = false;
             }
         }
     }
@@ -277,7 +277,7 @@ public class PlayerCastSpell : MonoBehaviour, IFindInput
     /// <summary>
     /// Method used to update a bool to know that the animations are over.
     /// </summary>
-    public void AnimationOver() => animationOver = true;
+    public void AnimationOverAnimationEvent() => AnimationOver = true;
 
     protected virtual void OnEventStartCooldown(ISpell spell) => EventStartCooldown?.Invoke(spell);
     public event Action<ISpell> EventStartCooldown;
