@@ -104,6 +104,16 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     /// </summary>
     public bool TriggerSpread { get; set; }
 
+    /// <summary>
+    /// Property used to know if the prefab is playing a sound.
+    /// </summary>
+    public bool PlayingSound { get; set; }
+
+    /// <summary>
+    /// Property used to know if the class is fading out the sound.
+    /// </summary>
+    public bool FadingOutSound { get; set; }
+
     protected override void Awake()
     {
         base.Awake();
@@ -147,6 +157,8 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         DisableImmediatly = false;
         HomingTarget = null;
         TriggerSpread = false;
+        PlayingSound = false;
+        FadingOutSound = false;
 
         if (Rb != null)
         {

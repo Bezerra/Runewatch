@@ -80,7 +80,7 @@ public class SpellOnHitBehaviourOneShot : SpellOnHitBehaviourAbstract
     }
 
     /// <summary>
-    /// Fades out volume.
+    /// Fades in volume.
     /// </summary>
     /// <returns>Wait for fixed update.</returns>
     public IEnumerator FadeInCoroutine()

@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -71,6 +71,8 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
     /// </summary>
     public IMana ThisIMana { get; private set; }
 
+    private YieldInstruction wffu;
+
     /// <summary>
     /// This property is set here so it can be used on damage behaviours without
     /// the need to find it every single shot, this way it will only find the script
@@ -117,6 +119,7 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
         hitEffectParticleSystem = GetComponentsInChildren<ParticleSystem>();
         AudioS = GetComponent<AudioSource>();
         CharacterSaveData = FindObjectOfType<CharacterSaveDataController>();
+        wffu = new WaitForFixedUpdate();
     }
 
     protected virtual void OnEnable()
@@ -196,4 +199,46 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
     }
 
     public bool HasEffect => hitEffectVFX != null || hitEffectParticleSystem != null;
+
+    /// <summary>
+    /// Fades out volume.
+    /// </summary>
+    /// <returns>Wait for fixed update.</returns>
+    public IEnumerator FadeOutCoroutine()
+    {
+        while (AudioS.volume > 0)
+        {
+            AudioS.volume -= Time.deltaTime;
+
+            if (AudioS.volume < 0)
+            {
+                AudioS.volume = 0;
+                break;
+            }
+
+            yield return wffu;
+        }
+    }
+
+    /// <summary>
+    /// Fades in volume.
+    /// </summary>
+    /// <returns>Wait for fixed update.</returns>
+    public IEnumerator FadeInCoroutine()
+    {
+        AudioS.volume = 0;
+
+        while (AudioS.volume < Spell.Sounds.Projectile.Volume)
+        {
+            AudioS.volume += Time.deltaTime;
+
+            if (AudioS.volume > Spell.Sounds.Projectile.Volume)
+            {
+                AudioS.volume = Spell.Sounds.Projectile.Volume;
+                break;
+            }
+
+            yield return wffu;
+        }
+    }
 }
