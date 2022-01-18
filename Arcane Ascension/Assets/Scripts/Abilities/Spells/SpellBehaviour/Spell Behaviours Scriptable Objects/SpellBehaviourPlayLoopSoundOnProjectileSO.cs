@@ -4,9 +4,9 @@ using UnityEngine;
 /// Scriptable object responsible for applying damage while the projectile is enabled.
 /// </summary>
 [CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Play Loop Sound" +
-    " Area Remain Active",
-    fileName = "Spell Behaviour Play Loop Sound Area Remain Active")]
-public class SpellBehaviourPlayLoopSoundAreaRemainActiveSO : SpellBehaviourAbstractSO
+    " On Projectile",
+    fileName = "Spell Behaviour Play Loop Sound On Projectile")]
+public class SpellBehaviourPlayLoopSoundOnProjectileSO : SpellBehaviourAbstractSO
 {
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {

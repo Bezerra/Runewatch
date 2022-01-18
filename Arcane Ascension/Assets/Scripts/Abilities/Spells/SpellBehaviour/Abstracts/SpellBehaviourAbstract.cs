@@ -231,7 +231,7 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
         while (AudioS.volume < Spell.Sounds.Projectile.Volume)
         {
             AudioS.volume += Time.deltaTime;
-
+  
             if (AudioS.volume > Spell.Sounds.Projectile.Volume)
             {
                 AudioS.volume = Spell.Sounds.Projectile.Volume;
