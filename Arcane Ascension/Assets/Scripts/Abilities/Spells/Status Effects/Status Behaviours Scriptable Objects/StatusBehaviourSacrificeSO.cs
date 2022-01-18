@@ -118,21 +118,22 @@ public class StatusBehaviourSacrificeSO : StatusBehaviourAbstractSO
             {
                 if (parent.WhoCast.CommonAttributes.Type == CharacterType.Player)
                 {
-                    float damageToDoOnCaster = /*damageToDo **/ damageOnPlayerCaster;
-                    //if (damageToDoOnCaster < 1) damageToDoOnCaster = 1.1f;
+                    float damageToDoOnCaster = damageOnPlayerCaster;
+                    if (damageToDoOnCaster < 1) damageToDoOnCaster = 1.1f;
 
                     parent.WhoCast.TakeDamage(
                         damageToDoOnCaster,
                         parent.Spell.Element,
                         Vector3.zero);
                 }
-                else
+                else if (parent.WhoCast.CommonAttributes.Type == CharacterType.Monster)
                 {
                     parent.WhoCast.TakeDamage(
                         damageOnMonsterCaster * 2,
                         ElementType.Neutral,
                         Vector3.zero);
                 }
+                // Bosses don't take damage
             }
 
             parent.LastTimeHit = Time.time;
