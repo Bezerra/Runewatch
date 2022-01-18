@@ -24,6 +24,8 @@ public interface IInput
 
     Vector2 Camera { get; }
 
+    bool HoldingCastSpell { get; }
+
     void ReenableInput();
 
     event Action Dash;

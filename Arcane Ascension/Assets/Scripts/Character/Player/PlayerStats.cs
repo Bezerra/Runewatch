@@ -53,7 +53,7 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
     {
         base.Awake();
         CurrentPassives = new List<IRunPassive>();
-        playerCastSpell = GetComponent<PlayerCastSpell>();
+        playerCastSpell = GetComponentInChildren<PlayerCastSpell>();
         player = GetComponent<Player>();
         stpData = FindObjectOfType<CharacterSaveDataController>();
     }

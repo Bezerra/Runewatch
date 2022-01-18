@@ -2200,12 +2200,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1753875902}
-  m_LocalRotation: {x: 0.45748132, y: -0.25809544, z: 0.4212207, w: 0.73937184}
-  m_LocalPosition: {x: 0.061, y: -0.01, z: 0.741}
-  m_LocalScale: {x: 0.09139352, y: 0.091393515, z: 0.09139348}
+  m_LocalRotation: {x: 0.40427417, y: 0.5546035, z: 0.70704913, w: -0.17046706}
+  m_LocalPosition: {x: 0.032264248, y: 0.02448007, z: 0.18672216}
+  m_LocalScale: {x: 0.09151241, y: 0.09101045, z: 0.09159787}
   m_Children: []
-  m_Father: {fileID: 2049520610677567101}
-  m_RootOrder: 0
+  m_Father: {fileID: 8475411178102144116}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 63.371, y: 0.479, z: 59.636}
 --- !u!1 &1848482388
 GameObject:
@@ -2996,7 +2996,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8171138126884c489b54b6390ff2ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shieldLossPerSecond: 0.5
 --- !u!114 &1090331631598940413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3488,7 +3487,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7775354, y: 1}
+    m_SensorSize: {x: 1.7785715, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3891,8 +3890,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8475411178102144116}
+  - component: {fileID: 3907952098637086497}
   m_Layer: 9
-  m_Name: DEF-hand.R
+  m_Name: DEF-hand.R WITH SCRIPTS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3913,9 +3913,24 @@ Transform:
   - {fileID: 700743816078478214}
   - {fileID: 5183933217665762175}
   - {fileID: 5649505277687120117}
+  - {fileID: 1753875903}
+  - {fileID: 8931683632491863833}
   m_Father: {fileID: 1955197782244773764}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3907952098637086497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3283744179615412115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1456a5948eea81d438e6cbb72baee732, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentEffectPosition: {fileID: 1753875903}
 --- !u!1 &3742614474955079395
 GameObject:
   m_ObjectHideFlags: 0
@@ -5463,12 +5478,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6962618102517649803}
-  m_LocalRotation: {x: 0.000000029802315, y: 0.058606677, z: 0.000000007450573, w: 0.9982811}
-  m_LocalPosition: {x: 0.038084183, y: -0.0077839494, z: 0.7386928}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.09496573, y: 0.22504033, z: 0.94870347, w: 0.20074871}
+  m_LocalPosition: {x: 0.05202017, y: 0.012810727, z: 0.18917593}
+  m_LocalScale: {x: 0.99745935, y: 0.9911744, z: 1.0108914}
   m_Children: []
-  m_Father: {fileID: 2049520610677567101}
-  m_RootOrder: 1
+  m_Father: {fileID: 8475411178102144116}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 6.72, z: 0}
 --- !u!1 &7008597462946193118
 GameObject:
@@ -5783,7 +5798,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2049520610677567101}
-  - component: {fileID: 2473080824033814709}
   - component: {fileID: 6106082788895285418}
   m_Layer: 9
   m_Name: Glove
@@ -5802,25 +5816,10 @@ Transform:
   m_LocalRotation: {x: 6.123235e-17, y: -0.00000019470718, z: 6.123233e-17, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1753875903}
-  - {fileID: 8931683632491863833}
+  m_Children: []
   m_Father: {fileID: 1445343807580471942}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2473080824033814709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7945767068983843431}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1456a5948eea81d438e6cbb72baee732, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentEffectPosition: {fileID: 1753875903}
 --- !u!137 &6106082788895285418
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0

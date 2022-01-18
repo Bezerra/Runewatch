@@ -36,6 +36,7 @@ public class PlayerInputCustom : MonoBehaviour, IInput
 
     public Vector2 Movement { get; private set; }
     public Vector2 Camera { get; private set; }
+    public bool HoldingCastSpell { get; private set; }
 
     public void SwitchActionMapToGameplay()
     {
@@ -124,8 +125,16 @@ public class PlayerInputCustom : MonoBehaviour, IInput
         if (context.started) OnJump();
     }
     public void HandleCastSpell(InputAction.CallbackContext context) {
-        if (context.started) OnCastSpell();
-        if (context.canceled) OnStopCastSpell();
+        if (context.started)
+        {
+            OnCastSpell();
+            HoldingCastSpell = true;
+        }
+        if (context.canceled)
+        {
+            OnStopCastSpell();
+            HoldingCastSpell = false;
+        }
     }
     public void HandleCastBasicSpell(InputAction.CallbackContext context)
     {
@@ -191,6 +200,8 @@ public class PlayerInputCustom : MonoBehaviour, IInput
     public event Action Jump;
     protected virtual void OnCastSpell() => CastSpell?.Invoke();
     public event Action CastSpell;
+    protected virtual void OnHoldingSpell() => HoldingSpell?.Invoke();
+    public event Action HoldingSpell;
     protected virtual void OnCastBasicSpell() => CastBasicSpell?.Invoke();
     public event Action CastBasicSpell;
     protected virtual void OnStopCastSpell() => StopCastSpell?.Invoke();
