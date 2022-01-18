@@ -167,6 +167,7 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
         spawnedFirstWaveEnemies = new List<GameObject>();
         spawnedSecondWaveEnemies = new List<GameObject>();
 
+        // For testing in isolated scenes
         if (levelGenerator == null)
         {
             EventSpawnEnemies();
