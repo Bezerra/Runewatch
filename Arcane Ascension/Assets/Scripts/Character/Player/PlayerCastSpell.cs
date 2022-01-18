@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class PlayerCastSpell : MonoBehaviour
+public class PlayerCastSpell : MonoBehaviour, IFindInput
 {
     // Components
     private IInput input;
@@ -19,7 +19,6 @@ public class PlayerCastSpell : MonoBehaviour
 
     private float lastTimeSpellWasCast;
     private bool animationOver;
-    private bool channeling;
 
     private void Awake()
     {
@@ -61,18 +60,12 @@ public class PlayerCastSpell : MonoBehaviour
 
     private void OnEnable()
     {
-        input.CastSpell += AttackKeyPress;
-        //input.HoldingSpell += HoldingSpell;
-        input.StopCastSpell += AttackKeyRelease;
-        input.CastBasicSpell += SecondaryAttackKeyPress;
+        FindInput();
     }
 
     private void OnDisable()
     {
-        input.CastSpell -= AttackKeyPress;
-        //input.HoldingSpell -= HoldingSpell;
-        input.StopCastSpell -= AttackKeyRelease;
-        input.CastBasicSpell -= SecondaryAttackKeyPress;
+        LostInput();
     }
 
     /// <summary>
@@ -81,11 +74,17 @@ public class PlayerCastSpell : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (input.HoldingCastSpell && 
-            playerSpells.ActiveSpell.CastType == SpellCastType.OneShotCastWithRelease)
+        if (input != null)
         {
-            if (animationOver)
-                AttackKeyPress();
+            if (playerSpells.ActiveSpell != null)
+            {
+                if (input.HoldingCastSpell &&
+                    playerSpells.ActiveSpell.CastType == SpellCastType.OneShotCastWithRelease)
+                {
+                    if (animationOver)
+                        AttackKeyPress();
+                }
+            }
         }
     }
 
@@ -140,8 +139,8 @@ public class PlayerCastSpell : MonoBehaviour
     /// </summary>
     public void AttackKeyReleaseSecondarySpellAnimationEvent()
     {
-        playerSpells.ActiveSpell.AttackBehaviour.AttackKeyRelease(
-             ref currentlyCastSpell, playerSpells.ActiveSpell, player, playerStats, 
+        playerSpells.SecondarySpell.AttackBehaviour.AttackKeyRelease(
+             ref currentlyCastSpell, playerSpells.SecondarySpell, player, playerStats, 
              ref spellBehaviour);
 
         spellBehaviour = null;
@@ -291,5 +290,29 @@ public class PlayerCastSpell : MonoBehaviour
 
     // Registered on PlayerGenerateCinemachineImpulse
     protected virtual void OnEventStartScreenShake(SpellCastType castType) => EventStartScreenShake?.Invoke(castType);
+
+    public void FindInput()
+    {
+        LostInput();
+        if (input == null)
+        {
+            input = FindObjectOfType<PlayerInputCustom>();
+            input.CastSpell += AttackKeyPress;
+            input.StopCastSpell += AttackKeyRelease;
+            input.CastBasicSpell += SecondaryAttackKeyPress;
+        }
+    }
+
+    public void LostInput()
+    {
+        if (input != null)
+        {
+            input.CastSpell += AttackKeyPress;
+            input.StopCastSpell += AttackKeyRelease;
+            input.CastBasicSpell += SecondaryAttackKeyPress;
+            input = null;
+        }
+    }
+
     public event Action<SpellCastType> EventStartScreenShake;
 }
