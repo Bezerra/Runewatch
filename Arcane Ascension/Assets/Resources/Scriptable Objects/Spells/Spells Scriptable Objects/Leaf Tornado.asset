@@ -20,14 +20,14 @@ MonoBehaviour:
   element: 5
   manaCost: 18
   targetTypeIcon: {fileID: 21300000, guid: f7859ac33a8e3dc4c872877e535801e4, type: 3}
-  timeInterval: 0.25
+  timeInterval: 0.2
   maxTime: 7
-  areaOfEffect: 2
-  playerDamage: {x: 12, y: 14}
+  areaOfEffect: 2.25
+  playerDamage: {x: 20, y: 25}
   enemyDamage: {x: 0, y: 0}
   delayToDoDamage: 0
   spellCastType: 0
-  speed: 8
+  speed: 3
   cooldown: 0.25
   maximumDistance: 20
   spellPrefab: {fileID: 4544114618391733411, guid: 33517cfea46d82f45bcc08839c34419a, type: 3}
@@ -42,6 +42,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 22c7bd409db89864ab2b1aedf0035dc1, type: 2}
   - {fileID: 11400000, guid: 7abaf8d53c556c6419b140684a770d5a, type: 2}
   - {fileID: 11400000, guid: 3cceff732c8b18f4d820a7a51600bc36, type: 2}
+  - {fileID: 11400000, guid: 0eb9fa9a2c0c5a244aa9bf3983ba191c, type: 2}
   - {fileID: 11400000, guid: b1991810118e2824087b4ef076d38e09, type: 2}
   - {fileID: 11400000, guid: 391e6fdc62eda2c4ba7dae6900236270, type: 2}
   - {fileID: 11400000, guid: 3b5eddfcd23baf94bbbd6440e9bfe209, type: 2}
@@ -54,7 +55,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: da438eaf63e47e74a8e7e0d60862b84e, type: 2}
   - {fileID: 11400000, guid: e54eb235ea9381946a4a076f5351e0f3, type: 2}
   sounds:
-    projectile: {fileID: 0}
-    muzzle: {fileID: 0}
+    projectile: {fileID: 11400000, guid: 34dbe65aaebb8f741b6d1109555281cc, type: 2}
+    muzzle: {fileID: 11400000, guid: 6dfbc6f075be122468f79c40a5c37290, type: 2}
     hit: {fileID: 0}
   surfaceSounds: []
