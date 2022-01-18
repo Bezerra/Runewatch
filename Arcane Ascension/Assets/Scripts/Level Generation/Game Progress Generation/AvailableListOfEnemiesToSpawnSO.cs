@@ -36,7 +36,12 @@ public class AvailableListOfEnemiesToSpawnSO : ScriptableObject
     public GameObject SpawnEnemy(EnemySpawnType enemySpawnType)
     {
         if (random == null) random = new System.Random();
-        ElementType dungeonElement = FindObjectOfType<LevelGenerator>().Element;
+
+        LevelGenerator levelGenerator = FindObjectOfType<LevelGenerator>();
+        ElementType dungeonElement;
+
+        // Works for normal scenes and test isolated scenes.
+        dungeonElement = levelGenerator != null ? levelGenerator.Element : ElementType.Ignis;
 
         // Creates a list of enemy weights 
         IList<int> enemyWeights = new List<int>();

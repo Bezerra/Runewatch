@@ -31,11 +31,17 @@ public class LevelPiece : MonoBehaviour
         ContactPointsDoors = new List<ContactPointDoor>();
     }
 
-    private void OnEnable() =>
-        levelGenerator.EndedGeneration += GetchildOccludees;
+    private void OnEnable()
+    {
+        if (levelGenerator != null)
+            levelGenerator.EndedGeneration += GetchildOccludees;
+    }
 
-    private void OnDisable() =>
-        levelGenerator.EndedGeneration -= GetchildOccludees;
+    private void OnDisable()
+    {
+        if (levelGenerator != null)
+            levelGenerator.EndedGeneration -= GetchildOccludees;
+    }
   
     private Transform[] childOccludees;
 

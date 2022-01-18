@@ -9,6 +9,8 @@ using ExtensionMethods;
 /// </summary>
 public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
 {
+    [Range(1, 9)] [SerializeField] private int floorToTestOnIsolatedScenes;
+
     [SerializeField] protected AvailableListOfEnemiesToSpawnSO listOfEnemies;
 
     [SerializeField] protected bool spawnsSecondWave = true;
@@ -98,16 +100,27 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
         stpData = FindObjectOfType<CharacterSaveDataController>();
         runSaveData = FindObjectOfType<RunSaveDataController>();
 
+        if (levelGenerator == null) 
+            GetComponentInChildren<RoomOcclusion>().gameObject.SetActive(false);
+
         // Gets enemies for easy floors, medium floors or hard floors,
         // depending on the current floor saved on save data.
         FloorFormation[] floorFormations = GetComponentsInChildren<FloorFormation>();
+        
         if (floorFormations != null && floorFormations.Length > 0)
         {
+            int currentFloor = 1;
+
+            if (levelGenerator == null)
+                currentFloor = floorToTestOnIsolatedScenes;
+            else
+                currentFloor = runSaveData.SaveData.DungeonSavedData.Floor;
+
             for (int i = 0; i < floorFormations.Length; i++)
             {
-                if (runSaveData.SaveData.DungeonSavedData.Floor > 6)
+                if (currentFloor > 6)
                 {
-                    if (floorFormations[i].FloorFormationType == 
+                    if (floorFormations[i].FloorFormationType ==
                         FloorFormationType.SeventhNinethFloors)
                     {
                         enemySpawnPoints =
@@ -115,9 +128,9 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
                         continue;
                     }
                 }
-                else if (runSaveData.SaveData.DungeonSavedData.Floor > 3)
+                else if (currentFloor > 3)
                 {
-                    if (floorFormations[i].FloorFormationType == 
+                    if (floorFormations[i].FloorFormationType ==
                         FloorFormationType.ForthSixthFloors)
                     {
                         enemySpawnPoints =
@@ -125,9 +138,9 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
                         continue;
                     }
                 }
-                else if (runSaveData.SaveData.DungeonSavedData.Floor > 0)
+                else if (currentFloor > 0)
                 {
-                    if (floorFormations[i].FloorFormationType == 
+                    if (floorFormations[i].FloorFormationType ==
                         FloorFormationType.FirstThirdFloors)
                     {
                         enemySpawnPoints =
@@ -153,6 +166,12 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
         hasSpawnedSecondWave = false;
         spawnedFirstWaveEnemies = new List<GameObject>();
         spawnedSecondWaveEnemies = new List<GameObject>();
+
+        if (levelGenerator == null)
+        {
+            EventSpawnEnemies();
+            SpawnEnemies();
+        }
     }
 
 
@@ -193,7 +212,9 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
                 spawnedSecondWaveEnemies.Add(spawnedEnemy);
             }
 
-            spawnedEnemy.transform.SetParent(levelParent.transform);
+            if (levelParent != null)
+                spawnedEnemy.transform.SetParent(levelParent.transform);
+
             spawnedEnemy.SetActive(false);
         }
     }
