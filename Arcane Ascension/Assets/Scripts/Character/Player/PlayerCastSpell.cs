@@ -288,6 +288,18 @@ public class PlayerCastSpell : MonoBehaviour, IFindInput
     protected virtual void OnEventAttack(SpellCastType castType) => EventAttack?.Invoke(castType);
     public event Action<SpellCastType> EventAttack;
 
+    /// <summary>
+    /// Called through animation events.
+    /// </summary>
+    public virtual void OnAttackAnimationStart() => AttackAnimationStart?.Invoke();
+    public event Action AttackAnimationStart;
+
+    /// <summary>
+    /// Called through animation events.
+    /// </summary>
+    public virtual void OnAttackAnimationEnd() => AttackAnimationEnd?.Invoke();
+    public event Action AttackAnimationEnd;
+
     // Registered on PlayerGenerateCinemachineImpulse
     protected virtual void OnEventStartScreenShake(SpellCastType castType) => EventStartScreenShake?.Invoke(castType);
 
