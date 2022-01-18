@@ -8,9 +8,6 @@ using ExtensionMethods;
     fileName = "Spell Behaviour Spawn Muzzle Prefab")]
 sealed public class SpellBehaviourSpawnMuzzlePrefabOneShotSO : SpellBehaviourAbstractSO
 {
-    [Header("Default = 0.25, -0.45, 1")]
-    [SerializeField] private Vector3 muzzlePlayerSpawnOffset;
-
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
         // Creates spell muzzle prefab
