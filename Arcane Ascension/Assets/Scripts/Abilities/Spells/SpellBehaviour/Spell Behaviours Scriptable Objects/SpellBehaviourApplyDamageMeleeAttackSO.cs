@@ -53,6 +53,8 @@ sealed public class SpellBehaviourApplyDamageMeleeAttackSO : SpellBehaviourAbstr
                         
                 }
 
+                /*
+                // Spawns hit, CAN DELETE, not using
                 if (enemies.Count > 0)
                 {
                     for (int i = 0; i < enemies.Count; i++)
@@ -70,7 +72,8 @@ sealed public class SpellBehaviourApplyDamageMeleeAttackSO : SpellBehaviourAbstr
                             parent.Spell.Name, positionMargin,
                             Quaternion.LookRotation(positionMargin.Direction(parent.Eyes.transform.position)));
                     }
-                } 
+                }
+                */
             }
         }
 
