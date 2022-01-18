@@ -47,7 +47,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -115,7 +115,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: Infinity
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -4924,6 +4924,7 @@ GameObject:
   - component: {fileID: 4599002140436649254}
   - component: {fileID: 1431159736392744221}
   - component: {fileID: 3494208685583587973}
+  - component: {fileID: 287119472694708844}
   m_Layer: 0
   m_Name: Effect
   m_TagString: Untagged
@@ -9721,6 +9722,19 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &287119472694708844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6028265842878932843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a7f3a8d1161ac4a8775b566fe5a86e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disableType: 1
 --- !u!1001 &7255300625228957479
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9734,7 +9748,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1566582994732682082, guid: 9b0d111d431ea6c4fbdf46a77ffa587e, type: 3}
       propertyPath: looping
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1566582994732682082, guid: 9b0d111d431ea6c4fbdf46a77ffa587e, type: 3}
       propertyPath: SizeModule.enabled
@@ -9762,7 +9776,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1566582994732682082, guid: 9b0d111d431ea6c4fbdf46a77ffa587e, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 1
+      value: Infinity
       objectReference: {fileID: 0}
     - target: {fileID: 1566582994732682082, guid: 9b0d111d431ea6c4fbdf46a77ffa587e, type: 3}
       propertyPath: InitialModule.startRotation.scalar
@@ -9862,7 +9876,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7729186304284939371, guid: 9b0d111d431ea6c4fbdf46a77ffa587e, type: 3}
       propertyPath: looping
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7729186304284939371, guid: 9b0d111d431ea6c4fbdf46a77ffa587e, type: 3}
       propertyPath: SizeModule.enabled
@@ -9878,7 +9892,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7729186304284939371, guid: 9b0d111d431ea6c4fbdf46a77ffa587e, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 1
+      value: Infinity
       objectReference: {fileID: 0}
     - target: {fileID: 7729186304284939371, guid: 9b0d111d431ea6c4fbdf46a77ffa587e, type: 3}
       propertyPath: InitialModule.startColor.maxColor.a
