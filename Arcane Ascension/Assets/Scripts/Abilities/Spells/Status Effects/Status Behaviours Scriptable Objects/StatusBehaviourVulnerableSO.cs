@@ -45,7 +45,7 @@ public class StatusBehaviourVulnerableSO : StatusBehaviourAbstractSO
                     parent.DisableStatusGameObject();
                 }
             }
-            // Else if the character is already suffering from the effect
+            // Else if the character is already suffering from the effect (meants it has dict key)
             else
             {
                 parent.CharacterHit.StatusEffectList.Items[statusEffectType].TimeApplied = Time.time;
@@ -71,13 +71,19 @@ public class StatusBehaviourVulnerableSO : StatusBehaviourAbstractSO
         }
 
         // This will happen to the active effect
-        // In order for this to happen, the effect is active, so the stats Dictionary will
-        // have this key for sure
-        if (Time.time - parent.CharacterHit.StatusEffectList.Items[statusEffectType].TimeApplied
-            > durationSeconds)
+        if (parent.CharacterHit.StatusEffectList.Items.ContainsKey(statusEffectType))
+        {
+            if (Time.time - parent.CharacterHit.StatusEffectList.Items[statusEffectType].
+                TimeApplied> durationSeconds)
+            {
+                parent.CharacterHit.CommonAttributes.DamageResistanceStatusEffectMultiplier = 0f;
+                parent.CharacterHit.StatusEffectList.RemoveItem(statusEffectType);
+                parent.DisableStatusGameObject();
+            }
+        }
+        else
         {
             parent.CharacterHit.CommonAttributes.DamageResistanceStatusEffectMultiplier = 0f;
-            parent.CharacterHit.StatusEffectList.RemoveItem(statusEffectType);
             parent.DisableStatusGameObject();
         }
     }

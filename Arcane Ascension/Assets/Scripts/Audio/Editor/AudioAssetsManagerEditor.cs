@@ -37,6 +37,8 @@ public class AudioAssetsManagerEditor : OdinMenuEditorWindow
 
         tree.AddAllAssetsAtPath("Audio Asset", "Assets/Resources/Scriptable Objects/Audio", typeof(AbstractSoundSO), true);
 
+        tree.SortMenuItemsByName();
+
         return tree;
     }
 

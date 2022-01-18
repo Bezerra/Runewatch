@@ -142,12 +142,17 @@ public class StatusBehaviourSacrificeSO : StatusBehaviourAbstractSO
             return;
 
         // This will happen to the active effect
-        // In order for this to happen, the effect is active, so the stats Dictionary will
-        // have this key for sure
-        if (Time.time - parent.WhoCast.StatusEffectList.Items[statusEffectType].TimeApplied
-            > durationSeconds)
+        if (parent.WhoCast.StatusEffectList.Items.ContainsKey(statusEffectType))
         {
-            parent.WhoCast.StatusEffectList.RemoveItem(statusEffectType);
+            if (Time.time - parent.WhoCast.StatusEffectList.Items[statusEffectType].TimeApplied
+            > durationSeconds)
+            {
+                parent.WhoCast.StatusEffectList.RemoveItem(statusEffectType);
+                parent.DisableStatusGameObject();
+            }
+        }
+        else
+        {
             parent.DisableStatusGameObject();
         }
     }

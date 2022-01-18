@@ -69,12 +69,17 @@ public class StatusBehaviourBurnSO : StatusBehaviourAbstractSO
         }
 
         // This will happen to the active effect
-        // In order for this to happen, the effect is active, so the stats Dictionary will
-        // have this key for sure
-        if (Time.time - parent.CharacterHit.StatusEffectList.Items[statusEffectType].TimeApplied
-            > durationSeconds)
+        if (parent.CharacterHit.StatusEffectList.Items.ContainsKey(statusEffectType))
         {
-            parent.CharacterHit.StatusEffectList.RemoveItem(statusEffectType);
+            if (Time.time - parent.CharacterHit.StatusEffectList.Items[statusEffectType].TimeApplied
+            > durationSeconds)
+            {
+                parent.CharacterHit.StatusEffectList.RemoveItem(statusEffectType);
+                parent.DisableStatusGameObject();
+            }
+        }
+        else
+        {
             parent.DisableStatusGameObject();
         }
     }

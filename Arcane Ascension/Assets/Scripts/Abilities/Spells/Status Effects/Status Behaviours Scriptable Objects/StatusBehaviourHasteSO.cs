@@ -62,14 +62,21 @@ public class StatusBehaviourHasteSO : StatusBehaviourAbstractSO
         }
 
         // This will happen to the active effect
-        // In order for this to happen, the effect is active, so the stats Dictionary will
-        // have this key for sure
-        if (Time.time - parent.WhoCast.StatusEffectList.Items[statusEffectType].TimeApplied
-            > durationSeconds)
+        if (parent.WhoCast.StatusEffectList.Items.ContainsKey(statusEffectType))
+        {
+            if (Time.time - parent.WhoCast.StatusEffectList.Items[statusEffectType].TimeApplied
+                > durationSeconds)
+            {
+                parent.WhoCast.CommonAttributes.MovementStatusEffectMultiplier = 1f;
+                parent.WhoCast.UpdateSpeed();
+                parent.WhoCast.StatusEffectList.RemoveItem(statusEffectType);
+                parent.DisableStatusGameObject();
+            }
+        }
+        else
         {
             parent.WhoCast.CommonAttributes.MovementStatusEffectMultiplier = 1f;
             parent.WhoCast.UpdateSpeed();
-            parent.WhoCast.StatusEffectList.RemoveItem(statusEffectType);
             parent.DisableStatusGameObject();
         }
     }

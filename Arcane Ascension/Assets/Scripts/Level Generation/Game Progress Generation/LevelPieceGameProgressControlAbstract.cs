@@ -101,14 +101,14 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
         // Gets enemies for easy floors, medium floors or hard floors,
         // depending on the current floor saved on save data.
         FloorFormation[] floorFormations = GetComponentsInChildren<FloorFormation>();
-
         if (floorFormations != null && floorFormations.Length > 0)
         {
             for (int i = 0; i < floorFormations.Length; i++)
             {
                 if (runSaveData.SaveData.DungeonSavedData.Floor > 6)
                 {
-                    if (floorFormations[i].FloorFormationType == FloorFormationType.SeventhNinethFloors)
+                    if (floorFormations[i].FloorFormationType == 
+                        FloorFormationType.SeventhNinethFloors)
                     {
                         enemySpawnPoints =
                             floorFormations[i].GetComponentsInChildren<EnemySpawnPoint>(true);
@@ -117,7 +117,8 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
                 }
                 else if (runSaveData.SaveData.DungeonSavedData.Floor > 3)
                 {
-                    if (floorFormations[i].FloorFormationType == FloorFormationType.ForthSixthFloors)
+                    if (floorFormations[i].FloorFormationType == 
+                        FloorFormationType.ForthSixthFloors)
                     {
                         enemySpawnPoints =
                             floorFormations[i].GetComponentsInChildren<EnemySpawnPoint>(true);
@@ -126,13 +127,15 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
                 }
                 else if (runSaveData.SaveData.DungeonSavedData.Floor > 0)
                 {
-                    if (floorFormations[i].FloorFormationType == FloorFormationType.FirstThirdFloors)
+                    if (floorFormations[i].FloorFormationType == 
+                        FloorFormationType.FirstThirdFloors)
                     {
                         enemySpawnPoints =
                             floorFormations[i].GetComponentsInChildren<EnemySpawnPoint>(true);
                         continue;
                     }
                 }
+                // Destroys the formations that are not part of this floor
                 Destroy(floorFormations[i].gameObject);
                 continue;
             }
