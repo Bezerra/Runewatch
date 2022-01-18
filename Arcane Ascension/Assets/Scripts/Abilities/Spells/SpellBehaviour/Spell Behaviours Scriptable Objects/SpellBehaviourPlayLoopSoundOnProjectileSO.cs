@@ -28,7 +28,7 @@ public class SpellBehaviourPlayLoopSoundOnProjectileSO : SpellBehaviourAbstractS
                 {
                     parent.AudioS.loop = true;
                     parent.Spell.Sounds.Projectile.SetOnAudioSource(parent.AudioS);
-                    parent.StartCoroutine(parent.FadeInCoroutine());
+                    parent.SoundFadeControl(true);
                 }
                 parent.PlayingSound = true;
             }
@@ -41,7 +41,7 @@ public class SpellBehaviourPlayLoopSoundOnProjectileSO : SpellBehaviourAbstractS
                     {
                         if (Time.time - parent.TimeSpawned > parent.Spell.MaxTime - 1f)
                         {
-                            parent.StartCoroutine(parent.FadeOutCoroutine());
+                            parent.SoundFadeControl(false);
                             parent.FadingOutSound = true;
                         }
                     }
@@ -63,7 +63,7 @@ public class SpellBehaviourPlayLoopSoundOnProjectileSO : SpellBehaviourAbstractS
             {
                 if (parent.FadingOutSound == false)
                 {
-                    parent.StartCoroutine(parent.FadeOutCoroutine());
+                    parent.SoundFadeControl(false);
                     parent.FadingOutSound = true;
                 }
             }

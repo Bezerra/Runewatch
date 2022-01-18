@@ -71,7 +71,9 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
     /// </summary>
     public IMana ThisIMana { get; private set; }
 
+    // Sound fade variables
     private YieldInstruction wffu;
+    private IEnumerator soundFadeCoroutine;
 
     /// <summary>
     /// This property is set here so it can be used on damage behaviours without
@@ -146,6 +148,12 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
     public void DisableSpell()
     {
         gameObject.SetActive(false);
+
+        if (soundFadeCoroutine != null)
+        {
+            StopCoroutine(soundFadeCoroutine);
+            soundFadeCoroutine = null;
+        }
     }
 
     public void EffectPlay()
@@ -199,6 +207,28 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
     }
 
     public bool HasEffect => hitEffectVFX != null || hitEffectParticleSystem != null;
+
+    /// <summary>
+    /// Fades in or fades out sounds.
+    /// </summary>
+    /// <param name="condition"></param>
+    public void SoundFadeControl(bool condition)
+    {
+        if (condition)
+        {
+            soundFadeCoroutine = FadeInCoroutine();
+            StartCoroutine(soundFadeCoroutine);
+        }
+        else
+        {
+            if (soundFadeCoroutine != null)
+            {
+                StopCoroutine(soundFadeCoroutine);
+                soundFadeCoroutine = FadeOutCoroutine();
+                StartCoroutine(soundFadeCoroutine);
+            }
+        }
+    }
 
     /// <summary>
     /// Fades out volume.
