@@ -617,6 +617,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e5704cb22a1ce147ae9a714824c7173, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testRoomIsolatedScene: 0
+  floorToTestOnIsolatedScenes: 1
   listOfEnemies: {fileID: 11400000, guid: e767d083673c993448fdb04f6eb74a2c, type: 2}
   spawnsSecondWave: 1
   timeToSpawnSecondWave: 7
@@ -5989,6 +5991,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2391386720953511970}
     m_Modifications:
+    - target: {fileID: 394459300980596319, guid: d2ae8d31fabc6e947b0693432cfe6e65, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 394459300980596319, guid: d2ae8d31fabc6e947b0693432cfe6e65, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1479681104380092258, guid: d2ae8d31fabc6e947b0693432cfe6e65, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -6033,6 +6043,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2164637666935995656, guid: d2ae8d31fabc6e947b0693432cfe6e65, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4968736336249580026, guid: d2ae8d31fabc6e947b0693432cfe6e65, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -6052,6 +6066,10 @@ PrefabInstance:
     - target: {fileID: 6541138589630085188, guid: d2ae8d31fabc6e947b0693432cfe6e65, type: 3}
       propertyPath: incompatiblePieceConcreteTypes.Array.data[0]
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7630672525115612646, guid: d2ae8d31fabc6e947b0693432cfe6e65, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2ae8d31fabc6e947b0693432cfe6e65, type: 3}
