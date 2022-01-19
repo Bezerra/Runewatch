@@ -253,6 +253,8 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
                 }
             }
 
+            haveEnemiesSpawned = true;
+
             // If no enemies were on second wave
             if (spawnedSecondWaveEnemies.Count == 0)
             {
@@ -263,8 +265,6 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
             // If this rooms spawns a second wave
             if (spawnsSecondWave)
                 StartCoroutine(SpawnSecondWaveEnemies());
-
-            haveEnemiesSpawned = true;
         }
     }
 
