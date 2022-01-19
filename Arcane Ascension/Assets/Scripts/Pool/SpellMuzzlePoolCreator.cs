@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Monobehaviour SpellMuzzlePoolCreator, creates a SpellMuzzlePool of spell muzzle type.
 /// </summary>
-public class SpellMuzzlePoolCreator : MonoBehaviour
+public class SpellMuzzlePoolCreator : AbstractPoolCreator
 {
     [Range(1, 255)] [SerializeField] private byte poolSize;
 

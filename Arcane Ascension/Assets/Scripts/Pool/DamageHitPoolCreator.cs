@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for creating damage hit pools.
 /// </summary>
-public class DamageHitPoolCreator : MonoBehaviour
+public class DamageHitPoolCreator : AbstractPoolCreator
 {
     /// <summary>
     /// Prefab of the damage hit prefab.

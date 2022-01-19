@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Monobehaviour SpellPoolCreator, creates a SpellPool of SpellSO type.
 /// </summary>
-public class SpellPoolCreator : MonoBehaviour
+public class SpellPoolCreator : AbstractPoolCreator
 {
     [Range(1, 255)][SerializeField] private byte poolSize;
 

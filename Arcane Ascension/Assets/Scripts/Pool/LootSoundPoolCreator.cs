@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for creator damage hit pools.
 /// </summary>
-public class LootSoundPoolCreator : MonoBehaviour
+public class LootSoundPoolCreator : AbstractPoolCreator
 {
     /// <summary>
     /// Prefab of the damage hit prefab.

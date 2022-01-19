@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for creating ambience sound pools.
 /// </summary>
-public class AmbienceSoundPoolCreator : MonoBehaviour
+public class AmbienceSoundPoolCreator : AbstractPoolCreator
 {
     /// <summary>
     /// Prefab of the damage hit prefab.

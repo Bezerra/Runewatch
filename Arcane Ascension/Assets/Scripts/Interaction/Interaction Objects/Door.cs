@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -27,6 +28,8 @@ public class Door : MonoBehaviour, IPassageBlock
     /// </summary>
     public bool IsDoorRoomFullyLoaded { get; set; }
 
+    private bool doorAnimationIsOver;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -36,6 +39,7 @@ public class Door : MonoBehaviour, IPassageBlock
     {
         CanOpen = true;
         locked.SetActive(false);
+        doorAnimationIsOver = true;
     }
 
     private void Update() =>
@@ -53,6 +57,10 @@ public class Door : MonoBehaviour, IPassageBlock
             hasOpenned2.SetActive(false);
         }
     }
+
+    public void AnimationRunningAnimationEvent() => doorAnimationIsOver = false;
+    public void AnimationOverAnimationEvent() => doorAnimationIsOver = true;
+
 
     /// <summary>
     /// Closes door.
@@ -82,7 +90,18 @@ public class Door : MonoBehaviour, IPassageBlock
     public void EnableBlockSymbol()
     {
         if (locked != null)
-            locked.SetActive(true);
+            StartCoroutine(EnableBlockSymbolCoroutine());
+    }
+
+    private IEnumerator EnableBlockSymbolCoroutine()
+    {
+        while (locked.activeSelf == false)
+        {
+            if (doorAnimationIsOver)
+                locked.SetActive(true);
+
+            yield return null;
+        }
     }
 
     /// <summary>

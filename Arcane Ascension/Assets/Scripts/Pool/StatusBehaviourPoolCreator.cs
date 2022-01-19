@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for creating status behaviour pools.
 /// </summary>
-public class StatusBehaviourPoolCreator : MonoBehaviour
+public class StatusBehaviourPoolCreator : AbstractPoolCreator
 {
     /// <summary>
     /// Prefab of the damage hit prefab.

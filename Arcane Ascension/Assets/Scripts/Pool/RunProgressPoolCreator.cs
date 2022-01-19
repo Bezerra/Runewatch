@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for creating progress elements pools (like shopkeeper and chests).
 /// </summary>
-public class RunProgressPoolCreator : MonoBehaviour
+public class RunProgressPoolCreator : AbstractPoolCreator
 {
     /// <summary>
     /// Prefab of the damage hit prefab.

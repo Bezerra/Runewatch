@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for creating loot items pools.
 /// </summary>
-public class ItemLootPoolCreator : MonoBehaviour
+public class ItemLootPoolCreator : AbstractPoolCreator
 {
     /// <summary>
     /// Prefab of the damage hit prefab.
