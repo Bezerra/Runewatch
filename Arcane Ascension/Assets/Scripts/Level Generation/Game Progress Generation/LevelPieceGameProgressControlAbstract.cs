@@ -238,6 +238,7 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
 
                 foreach (GameObject spawnedEnemy in spawnedFirstWaveEnemies)
                 {
+                    Debug.Log(spawnedEnemy);
                     spawnedEnemy.SetActive(true);
                     quantityOfEnemiesSpawned++;
                     if (spawnedEnemy.TryGetComponentInChildrenFirstGen(out Stats enemyStats))
@@ -277,6 +278,7 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
 
         foreach (GameObject spawnedEnemy in spawnedSecondWaveEnemies)
         {
+            Debug.Log("2nd wave " + spawnedEnemy);
             spawnedEnemy.SetActive(true);
             quantityOfEnemiesSpawned++;
             if (spawnedEnemy.TryGetComponentInChildrenFirstGen(out Stats enemyStats))
