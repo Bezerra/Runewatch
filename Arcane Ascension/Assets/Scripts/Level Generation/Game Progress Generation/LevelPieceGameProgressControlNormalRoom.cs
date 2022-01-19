@@ -55,6 +55,7 @@ public class LevelPieceGameProgressControlNormalRoom : LevelPieceGameProgressCon
     /// Blocks/unblocks all exits.
     /// Triggered when the player enters a room or defeats all enemies.
     /// </summary>
+    /// <param name="condition">True if it's blocking, false if it's unblocking.</param>
     protected override void BlockUnblockExits(bool condition)
     {
         if (exitBlockers.Count > 0)

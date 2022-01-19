@@ -72,6 +72,7 @@ public class LevelPieceGameProgressControlFinalRoom : LevelPieceGameProgressCont
     /// <summary>
     /// Coroutine that enables a portal.
     /// Will wait for player to leave the portal zone to enable it.
+    /// Will enable NextFloorPortalSpawnPoint script portal.
     /// </summary>
     /// <returns>Null.</returns>
     private IEnumerator EnablePortal()
