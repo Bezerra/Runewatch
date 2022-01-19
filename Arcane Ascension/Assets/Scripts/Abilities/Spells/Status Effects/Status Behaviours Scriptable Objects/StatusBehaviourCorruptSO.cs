@@ -39,11 +39,6 @@ public class StatusBehaviourCorruptSO : StatusBehaviourAbstractSO
             // If it's already taking effect
             else
             {
-                parent.CharacterHit.StatusEffectList.Items[statusEffectType].TimeApplied = Time.time;
-
-                parent.CharacterHit.TakeDamageOvertime(
-                    damageToDo, ElementType.Umbra, damageInterval, durationSeconds);
-
                 parent.DisableStatusGameObject();
             }
         }

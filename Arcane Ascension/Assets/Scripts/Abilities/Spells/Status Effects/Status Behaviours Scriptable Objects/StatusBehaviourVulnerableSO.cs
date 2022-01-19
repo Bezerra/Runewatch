@@ -25,7 +25,7 @@ public class StatusBehaviourVulnerableSO : StatusBehaviourAbstractSO
             // If the character is NOT suffering from the effect yet
             if (parent.CharacterHit.StatusEffectList.Items.ContainsKey(statusEffectType) == false)
             {
-                // If the parent of this effect is not taking place yet
+                // If the parent of this effect is not taking effect yet
                 if (parent.EffectActive == false)
                 {
                     parent.CharacterHit.CommonAttributes.DamageResistanceStatusEffectMultiplier =
@@ -40,8 +40,6 @@ public class StatusBehaviourVulnerableSO : StatusBehaviourAbstractSO
                 // If it's already taking effect
                 else
                 {
-                    parent.CharacterHit.StatusEffectList.Items[statusEffectType].TimeApplied = Time.time;
-
                     parent.DisableStatusGameObject();
                 }
             }

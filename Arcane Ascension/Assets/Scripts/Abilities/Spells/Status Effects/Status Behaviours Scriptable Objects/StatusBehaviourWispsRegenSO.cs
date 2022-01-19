@@ -36,8 +36,6 @@ public class StatusBehaviourWispsRegenSO : StatusBehaviourAbstractSO
             // If it's already taking effect
             else
             {
-                parent.WhoCast.StatusEffectList.Items[statusEffectType].TimeApplied = Time.time;
-
                 parent.DisableStatusGameObject();
             }
         }

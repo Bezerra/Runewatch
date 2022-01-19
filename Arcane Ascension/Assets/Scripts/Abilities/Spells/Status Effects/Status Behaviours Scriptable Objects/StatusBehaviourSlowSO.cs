@@ -53,8 +53,6 @@ public class StatusBehaviourSlowSO : StatusBehaviourAbstractSO
                 // If it's already taking effect
                 else
                 {
-                    parent.CharacterHit.StatusEffectList.Items[statusEffectType].TimeApplied = Time.time;
-
                     parent.DisableStatusGameObject();
                 }
             }

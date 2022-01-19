@@ -38,11 +38,6 @@ public class StatusBehaviourBurnSO : StatusBehaviourAbstractSO
             // If it's already taking effect
             else
             {
-                parent.CharacterHit.StatusEffectList.Items[statusEffectType].TimeApplied = Time.time;
-
-                parent.CharacterHit.TakeDamageOvertime(
-                    damageToDo, ElementType.Ignis, damageInterval, durationSeconds);
-
                 parent.DisableStatusGameObject();
             }
         }
