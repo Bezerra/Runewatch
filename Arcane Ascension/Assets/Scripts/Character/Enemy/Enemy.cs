@@ -209,7 +209,7 @@ public class Enemy : Character
 
     // Coroutines
     private IEnumerator takeDamageCoroutine;
-    private YieldInstruction wfsAfterBeingHit;
+    private readonly float TIMEAFTERBEINGHIT = 0.25f;
 
     public System.Random Random;
     private void Awake()
@@ -219,7 +219,6 @@ public class Enemy : Character
         EnemyStats = GetComponent<EnemyStats>();
         PlayerScript = FindObjectOfType<Player>();
         StateMachine = new StateController<Enemy>(this, 2);
-        wfsAfterBeingHit = new WaitForSeconds(0.25f);
         Random = new System.Random();
     }
 
@@ -281,8 +280,16 @@ public class Enemy : Character
     /// <returns>Null.</returns>
     private IEnumerator TakeDamageCoroutine()
     {
-        Agent.speed = 0;
-        yield return wfsAfterBeingHit;
+        float currentTime = Time.time;
+        float timeAfterBeingHit = 
+            (TIMEAFTERBEINGHIT * (1 - CommonValues.CharacterStats.StatusResistance));
+
+        while (Time.time - currentTime < timeAfterBeingHit)
+        {
+            Agent.speed = 0;
+            yield return null;
+        }
+
         UpdateSpeed(Values.Speed * EnemyStats.CommonAttributes.MovementSpeedMultiplier *
             EnemyStats.CommonAttributes.MovementStatusEffectMultiplier);
     }

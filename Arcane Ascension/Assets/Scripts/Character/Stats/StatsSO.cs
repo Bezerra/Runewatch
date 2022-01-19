@@ -33,6 +33,8 @@ public abstract class StatsSO : ScriptableObject
     [BoxGroup("General Stats")]
     [Range(0f, 1f)] [SerializeField] private float damageResistance;
     [BoxGroup("General Stats")]
+    [Range(0f, 1f)] [SerializeField] private float statusResistance;
+    [BoxGroup("General Stats")]
     [Range(0f, 5f)] [SerializeField] private float defaultMovementSpeedMultiplier;
     [BoxGroup("Damage Stats")]
     [DetailedInfoBox("Base Damage percentage of spell damage", "Base Damage percentage of spell damage")]
@@ -66,6 +68,11 @@ public abstract class StatsSO : ScriptableObject
     /// Damage resistance.
     /// </summary>
     public float DamageResistance { get; set; }
+
+    /// <summary>
+    /// Status effects resistance.
+    /// </summary>
+    public float StatusResistance => statusResistance;
 
     /// <summary>
     /// Damage resistance obtained from status effects.
