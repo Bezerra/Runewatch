@@ -3,8 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Abstract class for objects that only interact with spells.
 /// </summary>
-[RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(BoxCollider))]
 public abstract class AbstractInteractionWithSpell : MonoBehaviour, IInteractionWithSpell
 {
     [Space(10)]
