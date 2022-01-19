@@ -5,7 +5,8 @@ using ExtensionMethods;
 /// <summary>
 /// Scriptable object responsible for applying normal damage and regenerate leaf shield.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Apply Damage Single Target Leaf Shield",
+[CreateAssetMenu(menuName = "Spells/Spell Behaviour/One Shot/Spell Behaviour Apply Damage Single " +
+    "Target Leaf Shield",
     fileName = "Spell Behaviour Apply Damage Single Target Leaf Shield")]
 public class SpellBehaviourApplyDamageSingleTargetLeafShieldSO : SpellBehaviourAbstractSO
 {
@@ -50,9 +51,13 @@ public class SpellBehaviourApplyDamageSingleTargetLeafShieldSO : SpellBehaviourA
                 if (parent.WhoCast.TryGetComponent(out IHealable leafShield))
                 {
                     leafShield.Heal(shieldAmount, StatsType.Armor);
-                    /* leafShield.Heal(
+
+                    // In case we cant it to heal the same as the damage done
+                    /* 
+                    leafShield.Heal(
                         parent.Spell.Damage(parent.WhoCast.CommonAttributes.Type), 
-                        StatsType.Armor); */
+                        StatsType.Armor);
+                    */
                 }
             }
         }
