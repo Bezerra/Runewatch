@@ -236,6 +236,7 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
             {
                 BlockUnblockExits(true);
 
+                // Spawns first wave
                 foreach (GameObject spawnedEnemy in spawnedFirstWaveEnemies)
                 {
                     spawnedEnemy.SetActive(true);
@@ -250,21 +251,21 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
                         }
                     }
                 }
-
-                haveEnemiesSpawned = true;
             }
-        }
 
-        // If no enemies were on second wave
-        if (spawnedSecondWaveEnemies.Count == 0)
-        {
-            hasSpawnedSecondWave = true;
-            return;
-        }
+            // If no enemies were on second wave
+            if (spawnedSecondWaveEnemies.Count == 0)
+            {
+                hasSpawnedSecondWave = true;
+                return;
+            }
 
-        // If this rooms spawns a second wave
-        if (spawnsSecondWave)
-            StartCoroutine(SpawnSecondWaveEnemies());
+            // If this rooms spawns a second wave
+            if (spawnsSecondWave)
+                StartCoroutine(SpawnSecondWaveEnemies());
+
+            haveEnemiesSpawned = true;
+        }
     }
 
     /// <summary>
@@ -277,6 +278,7 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
 
         foreach (GameObject spawnedEnemy in spawnedSecondWaveEnemies)
         {
+ 
             spawnedEnemy.SetActive(true);
             quantityOfEnemiesSpawned++;
             if (spawnedEnemy.TryGetComponentInChildrenFirstGen(out Stats enemyStats))

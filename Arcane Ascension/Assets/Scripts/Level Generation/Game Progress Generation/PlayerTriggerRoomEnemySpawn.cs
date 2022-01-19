@@ -18,6 +18,7 @@ public class PlayerTriggerRoomEnemySpawn : MonoBehaviour
                     out LevelPieceGameProgressControlAbstract progressControl))
                 {
                     progressControl.SpawnEnemies();
+                    triggerEnemySpawnColliders = false;
                 }
             }
         }
