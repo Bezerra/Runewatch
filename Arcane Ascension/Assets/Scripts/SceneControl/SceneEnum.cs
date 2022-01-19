@@ -9,4 +9,5 @@ public enum SceneEnum
     LoadingScreenToContinue,
     LoadingScreenToMainMenu,
     RunStats,
+    RunEndingStats,
 }
