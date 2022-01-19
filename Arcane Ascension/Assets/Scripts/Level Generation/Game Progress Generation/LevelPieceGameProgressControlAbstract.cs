@@ -53,7 +53,7 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
     private bool haveEnemiesSpawned;
     private IList<GameObject> spawnedFirstWaveEnemies;
     private IList<GameObject> spawnedSecondWaveEnemies;
-    private RunSaveDataController runSaveData;
+    protected RunSaveDataController runSaveData;
 
     // Doors and exit blockers
     protected ContactPointDoor[] contactPointsDoors;
@@ -116,7 +116,7 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
                 currentFloor = floorToTestOnIsolatedScenes;
             else
                 currentFloor = runSaveData.SaveData.DungeonSavedData.Floor;
-
+            
             for (int i = 0; i < floorFormations.Length; i++)
             {
                 if (currentFloor > 6)
@@ -150,6 +150,13 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
                     }
                 }
                 // Destroys the formations that are not part of this floor
+
+                if (GetComponent<LevelPiece>().ConcreteType == PieceConcreteType.BossRoom)
+                {
+                    Debug.Log(currentFloor);
+                    Debug.Log(floorFormations[i].gameObject);
+                }
+
                 Destroy(floorFormations[i].gameObject);
                 continue;
             }

@@ -6,20 +6,18 @@ using UnityEngine;
 /// </summary>
 public class LevelPieceGameProgressControlFinalRoom : LevelPieceGameProgressControlAbstract
 {
-    private RunSaveData saveData;
     private NextFloorPortalSpawnPoint nextFloorPortalSpawnPoint;
 
     protected override void Awake()
     {
         base.Awake();
-        saveData = FindObjectOfType<RunSaveDataController>().SaveData;
         nextFloorPortalSpawnPoint =
             GetComponentInChildren<NextFloorPortalSpawnPoint>();
     }
 
     private void Start()
     {
-        if (saveData.DungeonSavedData.Floor % 3 == 0)
+        if (runSaveData.SaveData.DungeonSavedData.Floor % 3 == 0)
         {
             BossRoom();
         }

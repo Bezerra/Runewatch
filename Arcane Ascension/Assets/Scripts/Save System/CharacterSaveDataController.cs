@@ -153,4 +153,24 @@ public class CharacterSaveDataController : MonoBehaviour
             return SaveData;
         }
     }
+
+    /// <summary>
+    /// Deletes run progress fgile.
+    /// </summary>
+    public void DeleteFile()
+    {
+        fileManager.DeleteFile("CHARACTERFILE.d4s");
+        SaveData = new CharacterSaveData();
+    }
+
+    /// <summary>
+    /// Checks if file exists
+    /// </summary>
+    /// <returns>True if the file exists.</returns>
+    public bool FileExists()
+    {
+        if (fileManager.FileExists("CHARACTERFILE.d4s"))
+            return true;
+        return false;
+    }
 }
