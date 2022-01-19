@@ -271,7 +271,10 @@ public class Enemy : Character
     /// </summary>
     private void EventTakeDamage()
     {
-        this.StartCoroutineWithReset(ref takeDamageCoroutine, TakeDamageCoroutine());
+        // Boss doesn't stop when being hit
+        if (CommonValues.CharacterStats.Type != CharacterType.Boss)
+            this.StartCoroutineWithReset(ref takeDamageCoroutine, TakeDamageCoroutine());
+
         TookDamage = true;
     }
 
