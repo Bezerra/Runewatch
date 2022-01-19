@@ -9,6 +9,7 @@ public class Extinguishable : AbstractInteractionWithSpell
 {
     private VisualEffect visualEffect;
     private YieldInstruction wfs;
+    private YieldInstruction wffu;
     private Light pointLight;
 
     private float lightIntensity;
@@ -19,6 +20,7 @@ public class Extinguishable : AbstractInteractionWithSpell
         pointLight = GetComponentInChildren<Light>();
         lightIntensity = pointLight.intensity;
         wfs = new WaitForSeconds(3);
+        wffu = new WaitForFixedUpdate();
     }
 
     protected override void ActionToTake()
@@ -32,6 +34,11 @@ public class Extinguishable : AbstractInteractionWithSpell
     {
         yield return wfs;
         visualEffect.Play();
-        pointLight.intensity = lightIntensity;
+
+        while (pointLight.intensity < lightIntensity)
+        {
+            pointLight.intensity += Time.fixedDeltaTime;
+            yield return wffu;
+        }
     }
 }
