@@ -24,7 +24,7 @@ public class PlayerSounds : MonoBehaviour
     private IDictionary<SurfaceType, AbstractSoundSO> stepSoundsDictionary;
     private float timeToStep;
     private readonly float STEPSOUNDDELAYWALKING = 0.6f;
-    private readonly float STEPSOUNDDELAYRUNNING = 0.35f;
+    private readonly float STEPSOUNDDELAYRUNNING = 0.45f;
     private float stepSoundDelay;
 
     private void Awake()
