@@ -31,7 +31,6 @@ public class StatusBehaviourBurnSO : StatusBehaviourAbstractSO
 
                 parent.CharacterHit.TakeDamageOvertime(
                     damageToDo, ElementType.Ignis, damageInterval, durationSeconds);
-
                 parent.EffectType = statusEffectType;
                 parent.EffectActive = true;
             }
@@ -67,7 +66,7 @@ public class StatusBehaviourBurnSO : StatusBehaviourAbstractSO
         if (parent.CharacterHit.StatusEffectList.Items.ContainsKey(statusEffectType))
         {
             if (Time.time - parent.CharacterHit.StatusEffectList.Items[statusEffectType].TimeApplied
-            > durationSeconds)
+                > durationSeconds)
             {
                 parent.CharacterHit.StatusEffectList.RemoveItem(statusEffectType);
                 parent.DisableStatusGameObject();

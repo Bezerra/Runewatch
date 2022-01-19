@@ -11,4 +11,5 @@ public enum StatusEffectType
     Fortified,
     WispsRegen,
     Sacrifice,
+    Null,
 }

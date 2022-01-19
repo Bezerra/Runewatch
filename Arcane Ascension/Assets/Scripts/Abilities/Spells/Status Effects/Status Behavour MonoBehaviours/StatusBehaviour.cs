@@ -38,8 +38,11 @@ public class StatusBehaviour : MonoBehaviour
     {
         set
         {
-            statusEffectGameobject = 
-                StatusEffectPoolCreator.Pool.InstantiateFromPool(value.ToString());
+            if (value != StatusEffectType.Null)
+            {
+                statusEffectGameobject =
+                    StatusEffectPoolCreator.Pool.InstantiateFromPool(value.ToString());
+            }
         }
     }
 
@@ -83,6 +86,7 @@ public class StatusBehaviour : MonoBehaviour
         statusEffectGameobject = null;
         EffectActive = false;
         TimeSpawned = 0;
+        EffectType = StatusEffectType.Null;
 
         Initialize(null, null, null, null);
     }
