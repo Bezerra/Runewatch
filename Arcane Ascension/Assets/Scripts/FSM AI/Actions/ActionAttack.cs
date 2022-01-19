@@ -29,7 +29,8 @@ sealed public class ActionAttack : FSMAction
             ai.Controller.Agent.isStopped = true;
             ai.AllowedToChangeState = false;
 
-            if (Time.time - ai.Controller.TimeEnemyStoppedWhileAttacking > ai.Controller.CurrentlySelectedSpell.StoppingTime)
+            if (Time.time - ai.Controller.TimeEnemyStoppedWhileAttacking >    
+                ai.Controller.CurrentlySelectedSpell.StoppingTime)
             {
                 if (ai.Controller.CurrentlySelectedSpell.Spell.CastType == SpellCastType.OneShotCastWithRelease)
                 {
@@ -72,6 +73,16 @@ sealed public class ActionAttack : FSMAction
         {
             if (ai.Controller.CurrentTarget != null)
             {
+                // If too much time has passed and the enemy wasn't able to attack
+                if (Time.time - ai.Controller.TimeOfLastAttack > ai.Controller.AttackDelay + 3)
+                {
+                    // Gets new random spell
+                    int randomSpell = ai.Controller.Random.RandomWeight
+                        (ai.Controller.EnemyStats.AvailableSpellsWeight);
+                    ai.Controller.CurrentlySelectedSpell =
+                        ai.Controller.EnemyStats.EnemyAttributes.AllEnemySpells[randomSpell];
+                }
+
                 // If that range's distance is not met, it will ignore the rest of the method
                 // Adds a small value as compensation, so it can fail precise distance check safely
                 if (Vector3.Distance(ai.Controller.transform.position, 
