@@ -19,6 +19,7 @@ MonoBehaviour:
   characterType: 1
   defaultHealth: 2000
   damageResistance: 0
+  statusResistance: 0
   defaultMovementSpeedMultiplier: 1
   defaultBaseDamageMultiplier: 1
   defaultNeutralMultiplier: 1
@@ -31,7 +32,7 @@ MonoBehaviour:
   defaultUmbraMultiplier: 1
   defaultCriticalChance: 0.1
   defaultCriticalDamageModifier: 1
-  goldQuantity: {x: 0, y: 0}
+  attackingDelay: {x: 0, y: 0}
   arcanePowerQuantity: {x: 0, y: 0}
   lootRates:
     lootPieces: []
@@ -40,7 +41,6 @@ MonoBehaviour:
     isMeleeAttack: 0
     spellWeight: 0
     range: {x: 0, y: 0}
-    needsToBeInRangeToAttack: 0
     enemyStopsOnAttack: 0
     stoppingTime: 0.1
     percentageStoppingTimeTriggerAoESpell: 0
@@ -48,7 +48,6 @@ MonoBehaviour:
     isMeleeAttack: 0
     spellWeight: 0
     range: {x: 0, y: 0}
-    needsToBeInRangeToAttack: 0
     enemyStopsOnAttack: 0
     stoppingTime: 0.1
     percentageStoppingTimeTriggerAoESpell: 0
