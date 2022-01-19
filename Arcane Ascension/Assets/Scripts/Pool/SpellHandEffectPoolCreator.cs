@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Monobehaviour SpellMuzzlePoolCreator, creates a SpellMuzzlePool of spell muzzle type.
 /// </summary>
-public class SpellHandEffectPoolCreator : MonoBehaviour
+public class SpellHandEffectPoolCreator : AbstractPoolCreator
 {
     private IList<SpellSO> allSpells;
 

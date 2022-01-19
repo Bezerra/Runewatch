@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for creating loot status effects pools.
 /// </summary>
-public class StatusEffectPoolCreator : MonoBehaviour
+public class StatusEffectPoolCreator : AbstractPoolCreator
 {
     /// <summary>
     /// Prefab of the status effect prefab.

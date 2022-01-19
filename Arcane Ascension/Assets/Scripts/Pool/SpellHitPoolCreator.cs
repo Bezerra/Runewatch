@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Monobehaviour SpellHitPoolCreator, creates a SpellHitPool of spell muzzle type.
 /// </summary>
-public class SpellHitPoolCreator : MonoBehaviour
+public class SpellHitPoolCreator : AbstractPoolCreator
 {
     [Range(1, 255)] [SerializeField] private byte poolSize;
 

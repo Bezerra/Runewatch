@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for creator damage hit pools.
 /// </summary>
-public class ShopkeeperLootPoolCreator : MonoBehaviour
+public class ShopkeeperLootPoolCreator : AbstractPoolCreator
 {
     /// <summary>
     /// Prefab of the damage hit prefab.
