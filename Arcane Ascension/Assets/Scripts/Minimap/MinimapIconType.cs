@@ -16,4 +16,5 @@ public enum MinimapIconType
     Room,
     Chest,
     Enemy,
+    Door,
 }
