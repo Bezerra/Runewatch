@@ -95,13 +95,16 @@ public class Door : MonoBehaviour, IPassageBlock
 
     private IEnumerator EnableBlockSymbolCoroutine()
     {
+        Debug.Log("CHAMOU");
         while (locked.activeSelf == false)
         {
+            Debug.Log("ENTROU");
             if (doorAnimationIsOver)
                 locked.SetActive(true);
 
             yield return null;
         }
+        Debug.Log("SAIU");
     }
 
     /// <summary>
