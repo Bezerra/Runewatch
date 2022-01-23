@@ -1,18 +1,19 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class HoverMouse : MonoBehaviour
+/// <summary>
+/// Class responsible for enabling a gameobject.
+/// </summary>
+public class MouseHoverDisplay : MonoBehaviour
 {
-    [SerializeField] private GameObject hover;
+    [SerializeField] private GameObject hoverGameobject;
+    [SerializeField] private float timeToDisplay = 0.5f;
 
     private float timer;
     private bool onHover;
 
-    private void Awake()
-    {
+    private void Start() =>
         timer = 0;    
-    }
 
     public void TurnOn()
     {
@@ -26,7 +27,11 @@ public class HoverMouse : MonoBehaviour
         while (onHover)
         {
             timer += Time.deltaTime;
-            if (timer > 0.5f) hover.SetActive(true);
+            if (timer > timeToDisplay)
+            {
+                hoverGameobject.SetActive(true);
+                break;
+            }
             yield return null;
         }
     }
@@ -35,6 +40,6 @@ public class HoverMouse : MonoBehaviour
     {
         onHover = false;
         timer = 0;
-        hover.SetActive(false);
+        hoverGameobject.SetActive(false);
     }
 }

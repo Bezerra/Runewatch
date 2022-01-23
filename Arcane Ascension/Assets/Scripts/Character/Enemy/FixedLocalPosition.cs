@@ -1,8 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class FireBossKeepYPosition : MonoBehaviour
+/// <summary>
+/// Fixes local position.
+/// </summary>
+public class FixedLocalPosition : MonoBehaviour
 {
     private Vector3 pos;
 

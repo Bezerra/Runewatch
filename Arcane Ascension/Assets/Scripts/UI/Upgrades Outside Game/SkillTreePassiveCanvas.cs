@@ -108,17 +108,10 @@ public class SkillTreePassiveCanvas : MonoBehaviour
     /// <param name="passiveNode"></param>
     public void UpdateInformation(SkillTreePassiveNode passiveNode)
     {
-        if (passiveNode.NodePassive.Tier <= passiveNode.NodePassives.Length)
-        {
-            this.passiveNode = passiveNode;
-            passiveName.text = passiveNode.NodePassive.Name.ToString();
-            passiveDescription.text = passiveNode.NodePassive.Description.ToString();
-            passiveCost.text = "Cost: " + passiveNode.NodePassive.Cost.ToString() + " arcane power";
-        }
-
         // Update buy button
         // If player has enough arcane power to buy selected node
-        if (currencySO.CanSpend(CurrencyType.ArcanePower, passiveNode.NodePassive.Cost))
+        if (passiveNode.NodePassiveNext != null &&
+            currencySO.CanSpend(CurrencyType.ArcanePower, passiveNode.NodePassiveNext.Cost))
         {
             int requiredNodes = 0;
             // Checks all required nodes
@@ -146,6 +139,12 @@ public class SkillTreePassiveCanvas : MonoBehaviour
         {
             buyButton.enabled = false;
             buyButtonImage.color = lockedColor;
+        }
+
+        if (passiveNode.CurrentTier < passiveNode.NodePassives.Length)
+        {
+            this.passiveNode = passiveNode;
+            passiveCost.text = "Cost: " + passiveNode.NodePassiveNext.Cost.ToString() + " arcane power";
         }
     }
 

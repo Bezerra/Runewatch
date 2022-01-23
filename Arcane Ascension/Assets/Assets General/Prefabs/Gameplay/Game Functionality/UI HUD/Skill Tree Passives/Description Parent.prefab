@@ -442,8 +442,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 10, y: 0}
-  m_SizeDelta: {x: 1001.164, y: 0}
+  m_AnchoredPosition: {x: 20, y: 0}
+  m_SizeDelta: {x: 991.164, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &3341836204412673243
 CanvasRenderer:
@@ -533,6 +533,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2401694913437598498}
   - component: {fileID: 2473468765449719952}
+  - component: {fileID: 3666285729427731006}
   m_Layer: 5
   m_Name: Description Parent
   m_TagString: Untagged
@@ -581,6 +582,23 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
+--- !u!114 &3666285729427731006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2401694913437598497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 347a06451c7c80c408cb208b55a835d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  passiveNode: {fileID: 0}
+  windowName: {fileID: 6509746798136355798}
+  windowTier: {fileID: 915806675730952178}
+  windowDescriptionCurrent: {fileID: 4004922278540837948}
+  windowDescriptionNext: {fileID: 2254550224902816957}
 --- !u!1 &2401694914134368596
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,7 +663,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 10
+    m_Left: 20
     m_Right: 10
     m_Top: 10
     m_Bottom: 10
@@ -740,8 +758,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 10, y: 0}
-  m_SizeDelta: {x: 1001.164, y: 0}
+  m_AnchoredPosition: {x: 20, y: 0}
+  m_SizeDelta: {x: 991.164, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &4172106854483311929
 CanvasRenderer:
@@ -1022,8 +1040,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: This is a description  example of a skill passive. This will have text
-    explaining the ability. Ah ah ahahahahahah.
+  m_text: ' '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

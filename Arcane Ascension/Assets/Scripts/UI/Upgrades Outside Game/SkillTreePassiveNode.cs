@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,8 +20,29 @@ public class SkillTreePassiveNode : MonoBehaviour
     public SkillTreePassiveSO[] NodePassives => nodePassives;
     public byte CurrentTier { get; private set; }
 
-    // Current passive obtained with current tier
+    /// <summary>
+    /// Returns current passive with current tier.
+    /// </summary>
     public SkillTreePassiveSO NodePassive
+    {
+        get
+        {
+            if (CurrentTier == 0)
+            {
+                return null;
+            }
+            else if (CurrentTier > 0 && CurrentTier <= nodePassives.Length)
+            {
+                return nodePassives[CurrentTier - 1];
+            }
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Returns next passive on the node.
+    /// </summary>
+    public SkillTreePassiveSO NodePassiveNext
     {
         get
         {
@@ -30,11 +52,11 @@ public class SkillTreePassiveNode : MonoBehaviour
             }
             else
             {
-                return nodePassives[CurrentTier - 1];
+                return null;
             }
         }
     }
-    
+
     [Header("Connections")]
     [SerializeField] private List<SkillTreePassiveNode> previousConnectionNodes;
     [SerializeField] private List<SkillTreePassiveNode> nextConnectionNodes;
@@ -51,6 +73,7 @@ public class SkillTreePassiveNode : MonoBehaviour
 
     // Components
     [SerializeField] private SkillTreePassiveCanvas parentNodeController;
+    [SerializeField] private UpdateHoverWindowInformation detailsWindowInformation;
 
     private void Start()
     {
@@ -85,6 +108,9 @@ public class SkillTreePassiveNode : MonoBehaviour
                 UpdateUI();
             }
         }
+
+        // Updates details window info
+        detailsWindowInformation.UpdateWindowDetails(this);
     }
 
     /// <summary>
@@ -112,6 +138,9 @@ public class SkillTreePassiveNode : MonoBehaviour
         {
             nodePassives = nodePassives.OrderBy(i => i.Tier).ToArray();
         }
+
+        // Updates details window info
+        detailsWindowInformation.UpdateWindowDetails(this);
     }
 
     /// <summary>
@@ -133,14 +162,19 @@ public class SkillTreePassiveNode : MonoBehaviour
             {
                 // If player has enough arcane power
                 if (parentNodeController.CurrencySO.CanSpend(
-                    CurrencyType.ArcanePower, nodePassives[CurrentTier].Cost))
+                    CurrencyType.ArcanePower, NodePassiveNext.Cost))
                 {
                     // Increments tier, spends money, updates UI to next tier
-                    CurrentTier++;
                     parentNodeController.CurrencySO.SpendCurrency(
-                        CurrencyType.ArcanePower, nodePassives[CurrentTier-1].Cost);
+                        CurrencyType.ArcanePower, NodePassiveNext.Cost);
+                    CurrentTier++;
                     UpdateUI();
+
+                    // Updates buy button info
                     parentNodeController.UpdateInformation(this);
+
+                    // Updates details window info
+                    detailsWindowInformation.UpdateWindowDetails(this);
                 }
             }
             return;
@@ -155,21 +189,31 @@ public class SkillTreePassiveNode : MonoBehaviour
                 requiredNodes++;
             }
         }
+
         // If all required nodes are already unlocked and the player has enough arcane power
         if (requiredNodes == PreviousConnectionNodes.Count &&
-            parentNodeController.CurrencySO.CanSpend(CurrencyType.ArcanePower, nodePassives[CurrentTier].Cost))
+            parentNodeController.CurrencySO.CanSpend(CurrencyType.ArcanePower,
+            NodePassiveNext.Cost))
         {
             // If it's not in maximum tier yet
             if (CurrentTier < nodePassives.Length)
             {
                 // If player has enough arcane power
-                if (parentNodeController.CurrencySO.CanSpend(CurrencyType.ArcanePower, nodePassives[CurrentTier].Cost))
+                if (parentNodeController.CurrencySO.CanSpend(CurrencyType.ArcanePower,
+                    NodePassiveNext.Cost))
                 {
                     // Increments tier, spends money, updates UI to next tier
+                    parentNodeController.CurrencySO.SpendCurrency(CurrencyType.ArcanePower,
+                        NodePassiveNext.Cost);
                     CurrentTier++;
-                    parentNodeController.CurrencySO.SpendCurrency(CurrencyType.ArcanePower, nodePassives[CurrentTier - 1].Cost);
                     UpdateUI();
+                    OnNodeUnlocked();
+
+                    // Updates buy button info
                     parentNodeController.UpdateInformation(this);
+
+                    // Updates details window info
+                    detailsWindowInformation.UpdateWindowDetails(this);
                 }
             }
         }
@@ -180,7 +224,7 @@ public class SkillTreePassiveNode : MonoBehaviour
     /// </summary>
     private void UpdateUI()
     {
-        if (IsUnlocked ==  false)
+        if (IsUnlocked == false)
         {
             IsUnlocked = true;
             nodeImage.color = parentNodeController.UnlockedColor;
@@ -294,4 +338,7 @@ public class SkillTreePassiveNode : MonoBehaviour
         // Connects this node to the next node
         connectionLine.sizeDelta = new Vector2(distance, LINEHEIGHT);
     }
+
+    protected virtual void OnNodeUnlocked() => NodeUnlocked?.Invoke();
+    public event Action NodeUnlocked; 
 }
