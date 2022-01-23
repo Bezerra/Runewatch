@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
 using TMPro;
 
+/// <summary>
+/// Class responsible updating details window information.
+/// </summary>
 public class UpdateHoverWindowInformation : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI windowName;
