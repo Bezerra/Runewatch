@@ -16,9 +16,16 @@ public class CreatePoolPrefab : MonoBehaviour
             Instance = this;
             GameObject prefab = Instantiate(poolsPrefab);
             prefab.transform.parent = this.transform;
+            DontDestroyOnLoad(this);
         }
         else
         {
+            // If there is another pool already, it will disable all enabled
+            // objects and destroy this new instance
+
+            CreatePoolPrefab.Instance.
+                GetComponentInChildren<PoolPrefabDisable>().DisableAllPrefabs();
+
             Destroy(gameObject);
         }
     }

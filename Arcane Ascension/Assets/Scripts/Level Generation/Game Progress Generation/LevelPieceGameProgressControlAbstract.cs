@@ -149,14 +149,8 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
                         continue;
                     }
                 }
+
                 // Destroys the formations that are not part of this floor
-
-                if (GetComponent<LevelPiece>().ConcreteType == PieceConcreteType.BossRoom)
-                {
-                    Debug.Log(currentFloor);
-                    Debug.Log(floorFormations[i].gameObject);
-                }
-
                 Destroy(floorFormations[i].gameObject);
                 continue;
             }
