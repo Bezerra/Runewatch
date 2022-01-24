@@ -4996,8 +4996,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1084492252}
-  - component: {fileID: 1084492253}
   - component: {fileID: 1084492254}
+  - component: {fileID: 1084492255}
+  - component: {fileID: 1084492253}
   m_Layer: 0
   m_Name: Main Menu General
   m_TagString: Untagged
@@ -5021,14 +5022,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &1084492253
-AudioListener:
+--- !u!114 &1084492253
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1084492251}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcaa3501271a1014ca732939a4853374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myAudioListener: {fileID: 1084492255}
 --- !u!82 &1084492254
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5125,6 +5131,14 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!81 &1084492255
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084492251}
+  m_Enabled: 1
 --- !u!1001 &1119583152
 PrefabInstance:
   m_ObjectHideFlags: 0
