@@ -34,6 +34,6 @@ public class StatusEffectPoolCreator : AbstractPoolCreator
             listOfGameObjects.Add(spawnedGameObject);
         }
 
-        Pool.CreatePool(this.gameObject, listOfGameObjects);
+        Pool.CreatePool(this.gameObject, listOfGameObjects, this);
     }
 }

@@ -37,6 +37,6 @@ public class SpellHandEffectPoolCreator : AbstractPoolCreator
         }
 
         // After the spell pool was created, it will create queues for all spells or hits/muzzles
-        Pool.CreatePool(this.gameObject, listHandEffectPools);
+        Pool.CreatePool(this.gameObject, listHandEffectPools, this);
     }
 }

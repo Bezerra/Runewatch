@@ -17,9 +17,10 @@ public struct ObjectPool<T> where T : BasePool
     /// <summary>
     /// Creates pools for every pool and adds them to a dictionary with all pools.
     /// </summary>
-    /// <param name="parent">Gameobject that created this instance (used to determin the gameobject parent).</param>
+    /// <param name="parent">Gameobject that created this instance (used to determin the 
+    /// gameobject parent).</param>
     /// <param name="pools">List with pools</param>
-    public void CreatePool(GameObject parent, IList<T> pools)
+    public void CreatePool(GameObject parent, IList<T> pools, AbstractPoolCreator poolCreator)
     {
         for (int i = 0; i < pools.Count; i++)
         {
@@ -27,8 +28,9 @@ public struct ObjectPool<T> where T : BasePool
 
             for (int j = 0; j < pools[i].Size; j++)
             {
-                // Spawns at 1000,1000,1000 so it doesn't mess with initial points like Vector3.zero
-                GameObject obj = MonoBehaviour.Instantiate(pools[i].Prefab, new Vector3(1000,1000,1000), Quaternion.identity);
+                // Spawns at 5000,5000,5000 so it doesn't mess with initial points like Vector3.zero
+                GameObject obj = MonoBehaviour.Instantiate(
+                    pools[i].Prefab, new Vector3(5000, 5000, 5000), Quaternion.identity);
                 obj.SetActive(false);
                 objectPool.Enqueue(obj);
                 obj.transform.parent = parent.transform;
@@ -64,7 +66,7 @@ public struct ObjectPool<T> where T : BasePool
         obj.SetActive(true);
         obj.transform.SetPositionAndRotation(position, rotation);
         poolDictionary[name].Enqueue(obj);
-
+        
         return obj;
     }
 

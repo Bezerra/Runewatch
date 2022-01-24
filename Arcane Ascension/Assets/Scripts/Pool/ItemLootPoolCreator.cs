@@ -33,6 +33,6 @@ public class ItemLootPoolCreator : AbstractPoolCreator
         }
 
         // After the spell pool was created, it will create queues for all spells or hits/muzzles
-        Pool.CreatePool(this.gameObject, listOfGameObjects);
+        Pool.CreatePool(this.gameObject, listOfGameObjects, this);
     }
 }

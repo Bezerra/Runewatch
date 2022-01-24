@@ -53,7 +53,7 @@ public class SpellMuzzlePoolCreator : AbstractPoolCreator
         }
 
         // After the spell pool was created, it will create queues for all spells or hits/muzzles
-        Pool.CreatePool(this.gameObject, listSpellMuzzlePools);
+        Pool.CreatePool(this.gameObject, listSpellMuzzlePools, this);
     }
 
 }
