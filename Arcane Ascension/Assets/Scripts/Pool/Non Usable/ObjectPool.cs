@@ -20,7 +20,7 @@ public struct ObjectPool<T> where T : BasePool
     /// <param name="parent">Gameobject that created this instance (used to determin the 
     /// gameobject parent).</param>
     /// <param name="pools">List with pools</param>
-    public void CreatePool(GameObject parent, IList<T> pools, AbstractPoolCreator poolCreator)
+    public void CreatePool(GameObject parent, IList<T> pools)
     {
         for (int i = 0; i < pools.Count; i++)
         {
@@ -34,6 +34,8 @@ public struct ObjectPool<T> where T : BasePool
                 obj.SetActive(false);
                 objectPool.Enqueue(obj);
                 obj.transform.parent = parent.transform;
+
+                AbstractPoolCreator.InstantiatedPrefabs++;
             }
 
             try

@@ -28,12 +28,14 @@ public class StatusEffectPoolCreator : AbstractPoolCreator
         // Foreach pool
         for (int i = 0; i < pool.Count; i++)
         {
+            AbstractPoolCreator.AllPrefabsToInstantiate += pool[i].Size;
+
             StatusEffectPool spawnedGameObject = 
                 new StatusEffectPool(pool[i].StatusName.ToString(), pool[i].Prefab, 
                 pool[i].Size);
             listOfGameObjects.Add(spawnedGameObject);
         }
 
-        Pool.CreatePool(this.gameObject, listOfGameObjects, this);
+        Pool.CreatePool(this.gameObject, listOfGameObjects);
     }
 }

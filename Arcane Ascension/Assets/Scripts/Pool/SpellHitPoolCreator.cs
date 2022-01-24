@@ -27,6 +27,8 @@ public class SpellHitPoolCreator : AbstractPoolCreator
         {
             if (allSpells.SpellList[i].Prefab.Item2 != null)
             {
+                AbstractPoolCreator.AllPrefabsToInstantiate += poolSize;
+
                 SpellPool spawnedSpellHitPool = 
                     new SpellPool(allSpells.SpellList[i].Prefab.Item2,
                     allSpells.SpellList[i].Prefab.Item1, poolSize);
@@ -37,6 +39,8 @@ public class SpellHitPoolCreator : AbstractPoolCreator
         // Adds default spell
         if (allSpells.DefaultSpell.Prefab.Item2 != null)
         {
+            AbstractPoolCreator.AllPrefabsToInstantiate += poolSize;
+
             SpellPool spawnedSpellHitPool =
                     new SpellPool(allSpells.DefaultSpell.Prefab.Item2,
                     allSpells.DefaultSpell.Prefab.Item1, poolSize);
@@ -46,6 +50,8 @@ public class SpellHitPoolCreator : AbstractPoolCreator
         // Adds melee attack spell
         if (allSpells.MeleeAttack.Prefab.Item2 != null)
         {
+            AbstractPoolCreator.AllPrefabsToInstantiate += poolSize;
+
             SpellPool spawnedSpellHitPool =
                     new SpellPool(allSpells.MeleeAttack.Prefab.Item2,
                     allSpells.MeleeAttack.Prefab.Item1, poolSize);
@@ -53,6 +59,6 @@ public class SpellHitPoolCreator : AbstractPoolCreator
         }
 
         // After the spell pool was created, it will create queues for all spells or hits/muzzles
-        Pool.CreatePool(this.gameObject, listSpellHitPools, this);
+        Pool.CreatePool(this.gameObject, listSpellHitPools);
     }
 }

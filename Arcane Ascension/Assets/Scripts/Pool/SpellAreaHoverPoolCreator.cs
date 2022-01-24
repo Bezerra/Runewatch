@@ -27,6 +27,8 @@ public class SpellAreaHoverPoolCreator : AbstractPoolCreator
         {
             if (allSpells.SpellList[i].Prefab.Item5 != null)
             {
+                AbstractPoolCreator.AllPrefabsToInstantiate += poolSize;
+
                 SpellPool spawnedSpellAreaOverPool = 
                     new SpellPool(allSpells.SpellList[i].Prefab.Item5, 
                     allSpells.SpellList[i].Prefab.Item1, poolSize);
@@ -37,6 +39,8 @@ public class SpellAreaHoverPoolCreator : AbstractPoolCreator
         // Adds default spell
         if (allSpells.DefaultSpell.Prefab.Item5 != null)
         {
+            AbstractPoolCreator.AllPrefabsToInstantiate += poolSize;
+
             SpellPool spawnedSpellAreaOverPool =
                 new SpellPool(allSpells.DefaultSpell.Prefab.Item5,
                 allSpells.DefaultSpell.Prefab.Item1, poolSize);
@@ -44,7 +48,7 @@ public class SpellAreaHoverPoolCreator : AbstractPoolCreator
         }
 
         // After the spell pool was created, it will create queues for all spells or hits/muzzles
-        Pool.CreatePool(this.gameObject, listSpellAreaOverPools, this);
+        Pool.CreatePool(this.gameObject, listSpellAreaOverPools);
     }
 
 }

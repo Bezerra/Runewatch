@@ -66,6 +66,10 @@ public class LoadingScreenToProcedural : SceneControl
     /// </summary>
     private void Update()
     {
+        if (AbstractPoolCreator.InstantiatedPrefabs !=
+            AbstractPoolCreator.AllPrefabsToInstantiate)
+            return;
+
         if (FindObjectOfType<Player>() != null && triggerAnimationEnd == false)
         {
             triggerAnimationEnd = true;

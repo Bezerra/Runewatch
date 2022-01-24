@@ -1,6 +1,8 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Class responsible for disabling prefabs created by a prefab creator.
+/// </summary>
 public class PoolPrefabDisable : MonoBehaviour
 {
     public void DisableAllPrefabs()
@@ -12,7 +14,8 @@ public class PoolPrefabDisable : MonoBehaviour
             {
                 if (child.gameObject.activeSelf)
                 {
-                    if (child.TryGetComponent(out AbstractPoolCreator poolCreator) == false)
+                    if (child.TryGetComponent(
+                        out AbstractPoolCreator poolCreator) == false)
                     {
                         child.gameObject.SetActive(false);
                     }

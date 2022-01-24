@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -7,5 +5,6 @@ using UnityEngine;
 /// </summary>
 public abstract class AbstractPoolCreator : MonoBehaviour
 {
-    // Left blank on purpose
+    public static int AllPrefabsToInstantiate { get; set; }
+    public static int InstantiatedPrefabs { get; set; }
 }

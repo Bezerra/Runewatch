@@ -31,12 +31,14 @@ public class SpellHandEffectPoolCreator : AbstractPoolCreator
         {
             if (allSpells[i].Prefab.Item4 != null)
             {
+                AbstractPoolCreator.AllPrefabsToInstantiate += poolSize;
+
                 SpellPool spawnedHandEffectPool = new SpellPool(allSpells[i].Prefab.Item4, allSpells[i].Prefab.Item1, poolSize);
                 listHandEffectPools.Add(spawnedHandEffectPool);
             }
         }
 
         // After the spell pool was created, it will create queues for all spells or hits/muzzles
-        Pool.CreatePool(this.gameObject, listHandEffectPools, this);
+        Pool.CreatePool(this.gameObject, listHandEffectPools);
     }
 }

@@ -27,11 +27,13 @@ public class DamageHitPoolCreator : AbstractPoolCreator
         // Foreach pool
         for (int i = 0; i < pool.Count; i++)
         {
+            AbstractPoolCreator.AllPrefabsToInstantiate += pool[i].Size;
+
             BasePool spawnedGameObject = new BasePool(pool[i].Name, pool[i].Prefab, pool[i].Size);
             listOfGameObjects.Add(spawnedGameObject);
         }
 
         // After the spell pool was created, it will create queues for all spells or hits/muzzles
-        Pool.CreatePool(this.gameObject, listOfGameObjects, this);
+        Pool.CreatePool(this.gameObject, listOfGameObjects);
     }
 }
