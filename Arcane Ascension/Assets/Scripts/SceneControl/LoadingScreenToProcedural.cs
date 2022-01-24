@@ -60,12 +60,14 @@ public class LoadingScreenToProcedural : SceneControl
     }
 
     /// <summary>
-    /// Starts loading screen animation fade out as soon as it finds the player.
-    /// The end of the animation will disable this script, so this can run on 
-    /// update without any problem.
+    /// Starts loading screen animation fade out as soon as it finds the player and
+    /// after loading all prefabs from pools.
+    /// The end of the animation WILL DISABLE this script, so this CAN RUN on 
+    /// update without any problem, because it will be destroyed.
     /// </summary>
     private void Update()
     {
+        // Will only let scene transition happen after loading all prefabs from pools
         if (AbstractPoolCreator.InstantiatedPrefabs !=
             AbstractPoolCreator.AllPrefabsToInstantiate)
             return;
