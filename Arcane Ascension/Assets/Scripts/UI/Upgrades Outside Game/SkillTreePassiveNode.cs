@@ -65,6 +65,7 @@ public class SkillTreePassiveNode : MonoBehaviour
     [HideInInspector] [SerializeField] private TextMeshProUGUI nodeName;
     [HideInInspector] [SerializeField] private TextMeshProUGUI nodeTier;
     [HideInInspector] [SerializeField] private Image nodeImage;
+    [HideInInspector] [SerializeField] private GameObject nodeRequired;
 
     // Properties
     public List<SkillTreePassiveNode> PreviousConnectionNodes => previousConnectionNodes;
@@ -195,6 +196,20 @@ public class SkillTreePassiveNode : MonoBehaviour
         {
             nodeImage.color = skillTreePassiveController.LockedColor;
         }
+    }
+
+    public void ActivateNodeRequiredImage()
+    {
+        nodeRequired.SetActive(true);
+        foreach (SkillTreePassiveNode node in PreviousConnectionNodes)
+            node.ActivateNodeRequiredImage();
+    }
+
+    public void DeactivateNodeRequiredImage()
+    {
+        nodeRequired.SetActive(false);
+        foreach (SkillTreePassiveNode node in PreviousConnectionNodes)
+            node.DeactivateNodeRequiredImage();
     }
 
     /// <summary>

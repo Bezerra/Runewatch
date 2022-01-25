@@ -45,6 +45,9 @@ public class UpdateHoverWindowInformation : MonoBehaviour
     {
         timerToBuySkill = 0;
         input.HoldingToBuyEvent -= HoldingToBuySkill;
+
+        foreach (SkillTreePassiveNode node in passiveNode.PreviousConnectionNodes)
+            node.DeactivateNodeRequiredImage();
     }
 
     /// <summary>
@@ -160,9 +163,12 @@ public class UpdateHoverWindowInformation : MonoBehaviour
     /// </summary>
     /// <param name="passiveNode">Passive node to update.</param>
     /// <param name="calledOnStart">Is this method being called on start.</param>
-    public void UpdateWindowDetails(SkillTreePassiveNode passiveNode, 
+    public void UpdateWindowDetails(SkillTreePassiveNode passiveNode,
         bool calledOnStart = false)
     {
+        // Disables deactivate image on start for all passives
+        if (calledOnStart) passiveNode.DeactivateNodeRequiredImage();
+
         this.passiveNode = passiveNode;
 
         if (passiveNode.NodePassives == null || passiveNode.NodePassives.Length < 1) return;
@@ -200,18 +206,17 @@ public class UpdateHoverWindowInformation : MonoBehaviour
             // If called on start, ignores the rest
             if (calledOnStart) return;
 
-
-            int requiredNodes = 0;
+            int requiredNodesNextPassive = 0;
             // Checks all required nodes
             foreach (SkillTreePassiveNode previousNode in passiveNode.PreviousConnectionNodes)
             {
                 if (previousNode.IsUnlocked)
                 {
-                    requiredNodes++;
+                    requiredNodesNextPassive++;
                 }
             }
             // If all required nodes are already unlocked
-            if (requiredNodes == passiveNode.PreviousConnectionNodes.Count &&
+            if (requiredNodesNextPassive == passiveNode.PreviousConnectionNodes.Count &&
                 passiveNode.CurrentTier < passiveNode.NodePassives.Length)
             {
                 // Checks if player has enough AP
@@ -236,6 +241,23 @@ public class UpdateHoverWindowInformation : MonoBehaviour
             descriptionNext.text = " ";
             descriptionNext.transform.parent.gameObject.SetActive(false);
             holdToBuyParent.SetActive(false);
+        }
+
+        // Required Nodes
+        int requiredNodesActivateImage = 0;
+        // Checks all required nodes
+        foreach (SkillTreePassiveNode previousNode in passiveNode.PreviousConnectionNodes)
+        {
+            if (previousNode.IsUnlocked)
+            {
+                requiredNodesActivateImage++;
+            }
+        }
+        // If all required nodes are already unlocked
+        if (requiredNodesActivateImage != passiveNode.PreviousConnectionNodes.Count)
+        {
+            foreach (SkillTreePassiveNode node in passiveNode.PreviousConnectionNodes)
+                node.ActivateNodeRequiredImage();
         }
     }
 }
