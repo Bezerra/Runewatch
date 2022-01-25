@@ -191,6 +191,11 @@ public class PlayerInputCustom : MonoBehaviour, IInput
     {
         if (context.performed) OnPreviousNextSpell(1, false);
     }
+    public void HoldingToBuy(InputAction.CallbackContext context)
+    {
+        if (context.started) OnHoldingToBuy(true);
+        if (context.canceled) OnHoldingToBuy(false);
+    }
     ///////////////////////// Events /////////////////////////////////////////
     protected virtual void OnDash() => Dash?.Invoke();
     public event Action Dash;
@@ -220,4 +225,6 @@ public class PlayerInputCustom : MonoBehaviour, IInput
     public event Action Interact;
     protected virtual void OnPreviousNextSpell(float axis, bool withDelay) => PreviousNextSpell?.Invoke(axis, withDelay);
     public event Action<float, bool> PreviousNextSpell;
+    protected virtual void OnHoldingToBuy(bool condition) => HoldingToBuyEvent?.Invoke(condition);
+    public event Action<bool> HoldingToBuyEvent;
 }

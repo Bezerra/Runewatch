@@ -7,10 +7,21 @@ using UnityEngine;
 public class MouseHoverDisplay : MonoBehaviour
 {
     [SerializeField] private GameObject hoverGameobject;
-    [SerializeField] private float timeToDisplay = 0.5f;
+    [SerializeField] private float timeToDisplay = 0.35f;
 
+    // Variables
     private float timer;
     private bool onHover;
+
+    // Components
+    private UpdateHoverWindowInformation windowInformation;
+    private SkillTreePassiveNode myPassiveNode;
+
+    private void Awake()
+    {
+        windowInformation = GetComponentInChildren<UpdateHoverWindowInformation>(true);
+        myPassiveNode = GetComponent<SkillTreePassiveNode>();
+    }
 
     private void Start() =>
         timer = 0;    
@@ -30,6 +41,7 @@ public class MouseHoverDisplay : MonoBehaviour
             if (timer > timeToDisplay)
             {
                 hoverGameobject.SetActive(true);
+                windowInformation.UpdateWindowDetails(myPassiveNode);
                 break;
             }
             yield return null;

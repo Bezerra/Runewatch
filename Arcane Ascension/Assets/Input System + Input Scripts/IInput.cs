@@ -41,4 +41,5 @@ public interface IInput
     event Action CheatConsole;
     event Action Interact;
     event Action<float, bool> PreviousNextSpell;
+    event Action<bool> HoldingToBuyEvent;
 }

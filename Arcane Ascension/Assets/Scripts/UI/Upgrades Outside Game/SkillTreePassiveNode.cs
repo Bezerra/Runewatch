@@ -72,7 +72,7 @@ public class SkillTreePassiveNode : MonoBehaviour
     public bool IsUnlocked { get; private set; }
 
     // Components
-    [SerializeField] private SkillTreePassiveCanvas parentNodeController;
+    [SerializeField] private SkillTreePassiveController skillTreePassiveController;
     [SerializeField] private UpdateHoverWindowInformation detailsWindowInformation;
 
     private void Start()
@@ -85,9 +85,9 @@ public class SkillTreePassiveNode : MonoBehaviour
         CurrentTier = 0;
 
         if (CurrentTier < nodePassives.Length)
-            nodeImage.color = parentNodeController.UnlockedColor;
+            nodeImage.color = skillTreePassiveController.UnlockedColor;
         else
-            nodeImage.color = parentNodeController.LockedColor;
+            nodeImage.color = skillTreePassiveController.LockedColor;
 
         // Creates connections to all nodes
         if (nextConnectionNodes.Count > 0)
@@ -102,7 +102,7 @@ public class SkillTreePassiveNode : MonoBehaviour
         // In that case, increments the tier of the node and updates UI.
         for (int i = 0; i < nodePassives.Length; i++)
         {
-            if (parentNodeController.CurrentPassives.Contains(nodePassives[i].ID))
+            if (skillTreePassiveController.CurrentPassives.Contains(nodePassives[i].ID))
             {
                 CurrentTier++;
                 UpdateUI();
@@ -110,7 +110,7 @@ public class SkillTreePassiveNode : MonoBehaviour
         }
 
         // Updates details window info
-        detailsWindowInformation.UpdateWindowDetails(this);
+        detailsWindowInformation.UpdateWindowDetails(this, true);
     }
 
     /// <summary>
@@ -140,83 +140,29 @@ public class SkillTreePassiveNode : MonoBehaviour
         }
 
         // Updates details window info
-        detailsWindowInformation.UpdateWindowDetails(this);
+        detailsWindowInformation.UpdateWindowDetails(this, true);
     }
 
     /// <summary>
-    /// Triggered with button click. Obtains a node information.
-    /// </summary>
-    public void ObtainNodeInformation() =>
-        parentNodeController.UpdateInformation(this);
-
-    /// <summary>
-    /// Increments current node tier. Unlocks a locked node.
+    /// Increments current node tier. Unlocks a locked node. Levels node. Spends currency.
     /// </summary>
     public void Unlock()
     {
-        // If this node doesn't require any previous connections
-        if (previousConnectionNodes.Count == 0)
-        {
-            // If it's not in maximum tier yet
-            if (CurrentTier < nodePassives.Length)
-            {
-                // If player has enough arcane power
-                if (parentNodeController.CurrencySO.CanSpend(
-                    CurrencyType.ArcanePower, NodePassiveNext.Cost))
-                {
-                    // Increments tier, spends money, updates UI to next tier
-                    parentNodeController.CurrencySO.SpendCurrency(
-                        CurrencyType.ArcanePower, NodePassiveNext.Cost);
-                    CurrentTier++;
-                    UpdateUI();
+        // Increments tier, spends money, updates UI to next tier
+        skillTreePassiveController.CurrencySO.SpendCurrency(
+            CurrencyType.ArcanePower, NodePassiveNext.Cost);
 
-                    // Updates buy button info
-                    parentNodeController.UpdateInformation(this);
+        skillTreePassiveController.CurrentPassives.Add
+            (NodePassiveNext.ID);
 
-                    // Updates details window info
-                    detailsWindowInformation.UpdateWindowDetails(this);
-                }
-            }
-            return;
-        }
+        CurrentTier++;
 
-        int requiredNodes = 0;
-        // Checks all required nodes
-        foreach (SkillTreePassiveNode previousNode in PreviousConnectionNodes)
-        {
-            if (previousNode.IsUnlocked)
-            {
-                requiredNodes++;
-            }
-        }
+        UpdateUI();
 
-        // If all required nodes are already unlocked and the player has enough arcane power
-        if (requiredNodes == PreviousConnectionNodes.Count &&
-            parentNodeController.CurrencySO.CanSpend(CurrencyType.ArcanePower,
-            NodePassiveNext.Cost))
-        {
-            // If it's not in maximum tier yet
-            if (CurrentTier < nodePassives.Length)
-            {
-                // If player has enough arcane power
-                if (parentNodeController.CurrencySO.CanSpend(CurrencyType.ArcanePower,
-                    NodePassiveNext.Cost))
-                {
-                    // Increments tier, spends money, updates UI to next tier
-                    parentNodeController.CurrencySO.SpendCurrency(CurrencyType.ArcanePower,
-                        NodePassiveNext.Cost);
-                    CurrentTier++;
-                    UpdateUI();
-                    OnNodeUnlocked();
+        OnNodeUnlocked();
 
-                    // Updates buy button info
-                    parentNodeController.UpdateInformation(this);
-
-                    // Updates details window info
-                    detailsWindowInformation.UpdateWindowDetails(this);
-                }
-            }
-        }
+        // Updates details window info
+        detailsWindowInformation.UpdateWindowDetails(this);
     }
 
     /// <summary>
@@ -227,7 +173,7 @@ public class SkillTreePassiveNode : MonoBehaviour
         if (IsUnlocked == false)
         {
             IsUnlocked = true;
-            nodeImage.color = parentNodeController.UnlockedColor;
+            nodeImage.color = skillTreePassiveController.UnlockedColor;
 
             // If this node was unlocked, it will grow a line from the previosu node to this one
             if (previousConnectionNodes.Count > 0)
@@ -246,7 +192,7 @@ public class SkillTreePassiveNode : MonoBehaviour
 
         if (CurrentTier == nodePassives.Length)
         {
-            nodeImage.color = parentNodeController.LockedColor;
+            nodeImage.color = skillTreePassiveController.LockedColor;
         }
     }
 
@@ -265,7 +211,7 @@ public class SkillTreePassiveNode : MonoBehaviour
 
         // Creates a line
         GameObject connectionLineGO = 
-            Instantiate(parentNodeController.ConnectionLinePrefab, transform.position, Quaternion.identity);
+            Instantiate(skillTreePassiveController.ConnectionLinePrefab, transform.position, Quaternion.identity);
         connectionLineGO.transform.SetParent(this.gameObject.transform.parent);
         connectionLineGO.transform.SetAsLastSibling();
         connectionLineGO.name = this.gameObject.name + " connect to " + targetGO.name;
@@ -276,7 +222,7 @@ public class SkillTreePassiveNode : MonoBehaviour
 
         // Gets image and line and colors it
         Image connectionLineImage = connectionLineGO.GetComponent<Image>();
-        connectionLineImage.color = parentNodeController.UnlockedColor;
+        connectionLineImage.color = skillTreePassiveController.UnlockedColor;
 
         // Gets a rectangle, calculates distance and rotation from this node to the next node
         RectTransform connectionLine = connectionLineGO.GetComponent<RectTransform>();
@@ -312,14 +258,15 @@ public class SkillTreePassiveNode : MonoBehaviour
     {
         // Creates a line
         GameObject connectionLineGO = 
-            Instantiate(parentNodeController.ConnectionLinePrefab, transform.position, Quaternion.identity);
+            Instantiate(skillTreePassiveController.ConnectionLinePrefab, 
+            transform.position, Quaternion.identity);
         connectionLineGO.transform.SetParent(this.gameObject.transform.parent);
         connectionLineGO.transform.SetAsFirstSibling();
         connectionLineGO.name = this.gameObject.name + " connect to " + targetGO.name;
 
         // Gets image and line and colors it
         Image connectionLineImage = connectionLineGO.GetComponent<Image>();
-        connectionLineImage.color = parentNodeController.LockedColor;
+        connectionLineImage.color = skillTreePassiveController.LockedColor;
 
         // Sets passive nodes as last sibling so they get rendered on top
         targetGO.transform.SetAsLastSibling();
