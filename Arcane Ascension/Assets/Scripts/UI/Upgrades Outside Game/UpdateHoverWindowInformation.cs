@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 /// <summary>
 /// Class responsible updating details window information.
+/// Keep in mind that most of this code will only run when the mouse is on
+/// top of the skill (window information is being displayed).
 /// </summary>
 public class UpdateHoverWindowInformation : MonoBehaviour
 {
@@ -23,7 +25,6 @@ public class UpdateHoverWindowInformation : MonoBehaviour
     private SkillTreePassiveController skillTreePassiveController;
     private SkillTreePassiveNode passiveNode;
 
-    private bool windowIsSelected;
     private float timerToBuySkill;
     private IEnumerator holdingToBuyCoroutine;
 
@@ -36,18 +37,20 @@ public class UpdateHoverWindowInformation : MonoBehaviour
 
     private void OnEnable()
     {
-        windowIsSelected = true;
         timerToBuySkill = 0;
         input.HoldingToBuyEvent += HoldingToBuySkill;
     }
 
     private void OnDisable()
     {
-        windowIsSelected = false;
         timerToBuySkill = 0;
         input.HoldingToBuyEvent -= HoldingToBuySkill;
     }
 
+    /// <summary>
+    /// Method called when pressing splace button to buy a passive.
+    /// </summary>
+    /// <param name="condition"></param>
     public void HoldingToBuySkill(bool condition)
     {
         if (condition)
@@ -64,6 +67,10 @@ public class UpdateHoverWindowInformation : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Coroutine invoked when pressing space button to buy a passive.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator HoldingToBuySkillCoroutine()
     {
         float maxTimer = 1f;
@@ -76,11 +83,14 @@ public class UpdateHoverWindowInformation : MonoBehaviour
         HoldingToBuySkill(false);
     }
 
+    /// <summary>
+    /// Updates bar fill amount.
+    /// </summary>
     private void Update() =>
         holdToBuyFillBackground.fillAmount = timerToBuySkill;
 
     /// <summary>
-    /// Buy selected passive.
+    /// Tries to buy selected passive.
     /// </summary>
     private void BuyPassive()
     {
@@ -145,6 +155,11 @@ public class UpdateHoverWindowInformation : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Updates all details on information window.
+    /// </summary>
+    /// <param name="passiveNode">Passive node to update.</param>
+    /// <param name="calledOnStart">Is this method being called on start.</param>
     public void UpdateWindowDetails(SkillTreePassiveNode passiveNode, 
         bool calledOnStart = false)
     {

@@ -75,11 +75,12 @@ public class SkillTreePassiveNode : MonoBehaviour
     [SerializeField] private SkillTreePassiveController skillTreePassiveController;
     [SerializeField] private UpdateHoverWindowInformation detailsWindowInformation;
 
-    private void Start()
-    {
+    private void Start() =>
         UpdateTiersOnStart();
-    }
 
+    /// <summary>
+    /// Updates all nodes and UI on start.
+    /// </summary>
     public void UpdateTiersOnStart()
     {
         CurrentTier = 0;
