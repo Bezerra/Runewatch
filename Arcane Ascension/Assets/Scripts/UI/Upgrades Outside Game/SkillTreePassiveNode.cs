@@ -198,6 +198,9 @@ public class SkillTreePassiveNode : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Activates required images on this node and all previous required nodes.
+    /// </summary>
     public void ActivateNodeRequiredImage()
     {
         nodeRequired.SetActive(true);
@@ -205,6 +208,9 @@ public class SkillTreePassiveNode : MonoBehaviour
             node.ActivateNodeRequiredImage();
     }
 
+    /// <summary>
+    /// Deactivates required images on this node and all previous required nodes.
+    /// </summary>
     public void DeactivateNodeRequiredImage()
     {
         nodeRequired.SetActive(false);

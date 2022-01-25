@@ -40,8 +40,14 @@ public class SkillTreePassiveController : MonoBehaviour
         characterSaveDataController = FindObjectOfType<CharacterSaveDataController>();
     }
 
-    private void OnEnable() =>
-        existingRunButton.SetActive(false);
+    private void OnEnable()
+    {
+        if (FindObjectOfType<RunSaveDataController>().FileExists() == false)
+            existingRunButton.SetActive(true);
+        else
+            existingRunButton.SetActive(false);
+    }
+        
 
     /// <summary>
     /// This logic MUST be on start, because the ID's are getting ordered on awake on
@@ -86,6 +92,10 @@ public class SkillTreePassiveController : MonoBehaviour
 
         UpdateArcanePowerText();
     }
+
+    /// <summary>
+    /// Called when pressing leave button. Saves current passives to save file.
+    /// </summary>
     public void LeaveButton()
     {
         byte[] passivesID = new byte[CurrentPassives.Count];
@@ -98,18 +108,28 @@ public class SkillTreePassiveController : MonoBehaviour
             passivesID, characterSaveDataController.SaveData.ArcanePower);
     }
 
+    /// <summary>
+    /// Updates arcane power text.
+    /// </summary>
     public void UpdateArcanePowerText()
     {
         arcanePowerText.text =
             "Arcane Power: " + characterSaveDataController.SaveData.ArcanePower.ToString();
     }
 
+    /// <summary>
+    /// Activates and deactivates 'existing run button'.
+    /// </summary>
+    /// <param name="condition">True to activate, false to deactivate.</param>
     public void ControlExistingRunButton(bool condition)
     {
         if (condition) existingRunButton.SetActive(true);
         else existingRunButton.SetActive(false);
     }
 
+    /// <summary>
+    /// Deletes run save file.
+    /// </summary>
     public void EndCurrentRunOnSkillTree()
     {
         FindObjectOfType<RunSaveDataController>().DeleteFile();

@@ -167,7 +167,11 @@ public class UpdateHoverWindowInformation : MonoBehaviour
         bool calledOnStart = false)
     {
         // Disables deactivate image on start for all passives
-        if (calledOnStart) passiveNode.DeactivateNodeRequiredImage();
+        if (calledOnStart)
+        {
+            passiveNode.DeactivateNodeRequiredImage();
+            return;
+        }
 
         this.passiveNode = passiveNode;
 
@@ -200,11 +204,18 @@ public class UpdateHoverWindowInformation : MonoBehaviour
         if (passiveNode.NodePassiveNext != null)
         {
             descriptionNext.text = passiveNode.NodePassiveNext.Description.ToString();
+
             descriptionNodeCost.text =
                 "Cost: " + passiveNode.NodePassiveNext.Cost + " AP";
-
-            // If called on start, ignores the rest
-            if (calledOnStart) return;
+            if (skillTreePassiveController.CurrencySO.CanSpend(
+                    CurrencyType.ArcanePower, passiveNode.NodePassiveNext.Cost))
+            {
+                descriptionNodeCost.color = Color.white;
+            }
+            else
+            {
+                descriptionNodeCost.color = Color.red;
+            }
 
             int requiredNodesNextPassive = 0;
             // Checks all required nodes
