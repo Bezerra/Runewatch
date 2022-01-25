@@ -200,22 +200,23 @@ public class UpdateHoverWindowInformation : MonoBehaviour
             // If called on start, ignores the rest
             if (calledOnStart) return;
 
-            // Checks if requirements to buy the skill are met
-            if (skillTreePassiveController.CurrencySO.CanSpend(
-                    CurrencyType.ArcanePower, passiveNode.NodePassiveNext.Cost))
+
+            int requiredNodes = 0;
+            // Checks all required nodes
+            foreach (SkillTreePassiveNode previousNode in passiveNode.PreviousConnectionNodes)
             {
-                int requiredNodes = 0;
-                // Checks all required nodes
-                foreach (SkillTreePassiveNode previousNode in passiveNode.PreviousConnectionNodes)
+                if (previousNode.IsUnlocked)
                 {
-                    if (previousNode.IsUnlocked)
-                    {
-                        requiredNodes++;
-                    }
+                    requiredNodes++;
                 }
-                // If all required nodes are already unlocked
-                if (requiredNodes == passiveNode.PreviousConnectionNodes.Count &&
-                    passiveNode.CurrentTier < passiveNode.NodePassives.Length)
+            }
+            // If all required nodes are already unlocked
+            if (requiredNodes == passiveNode.PreviousConnectionNodes.Count &&
+                passiveNode.CurrentTier < passiveNode.NodePassives.Length)
+            {
+                // Checks if player has enough AP
+                if (skillTreePassiveController.CurrencySO.CanSpend(
+                    CurrencyType.ArcanePower, passiveNode.NodePassiveNext.Cost))
                 {
                     holdToBuyParent.SetActive(true);
                 }
@@ -223,6 +224,10 @@ public class UpdateHoverWindowInformation : MonoBehaviour
                 {
                     holdToBuyParent.SetActive(false);
                 }
+            }
+            else
+            {
+                holdToBuyParent.SetActive(false);
             }
         }
         else
