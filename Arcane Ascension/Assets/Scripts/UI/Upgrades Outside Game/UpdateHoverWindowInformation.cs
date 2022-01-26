@@ -11,7 +11,11 @@ using UnityEngine.UI;
 /// </summary>
 public class UpdateHoverWindowInformation : MonoBehaviour
 {
-    [SerializeField] private Image baseWindowBackground;
+    [Header("Position")]
+    [SerializeField] private RectTransform rectTrans;
+    [SerializeField] private Side whichSideToSpawn;
+
+    [Header("Images and Text")]
     [SerializeField] private TextMeshProUGUI passiveName;
     [SerializeField] private TextMeshProUGUI tier;
     [SerializeField] private TextMeshProUGUI descriptionCurrent;
@@ -48,6 +52,9 @@ public class UpdateHoverWindowInformation : MonoBehaviour
         timerToBuySkill = 0;
         input.HoldingToBuyEvent += HoldingToBuySkill;
         input.HoldingToHideEvent += HoldingToHideWindow;
+
+        if (whichSideToSpawn == Side.Right) rectTrans.localPosition = new Vector3(0, 0, 0);
+        else rectTrans.localPosition = new Vector3(-1082.4f, 0, 0);
     }
 
     private void OnDisable()
@@ -337,4 +344,6 @@ public class UpdateHoverWindowInformation : MonoBehaviour
                 node.ActivateNodeRequiredImage();
         }
     }
+
+    private enum Side { Right, Left, }
 }
