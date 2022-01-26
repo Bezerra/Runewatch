@@ -262,6 +262,9 @@ public class UpdateHoverWindowInformation : MonoBehaviour
         // Next tier
         if (passiveNode.NodePassiveNext != null)
         {
+            // Always activates 'description next parent', in case it deactivated for some reason
+            descriptionNext.transform.parent.gameObject.SetActive(true);
+
             descriptionNext.text = passiveNode.NodePassiveNext.Description.ToString();
 
             descriptionNodeCost.text =
