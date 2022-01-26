@@ -246,11 +246,11 @@ public class UpdateHoverWindowInformation : MonoBehaviour
         // Current effect
         if (passiveNode.CurrentTier == 0)
         {
-            descriptionCurrent.text = "Passive not obtained.";
-            descriptionCurrent.color = new Color(0.75f, 0.75f, 0.75f, 1f);
+            descriptionCurrent.transform.parent.gameObject.SetActive(false);
         }
         else
         {
+            descriptionCurrent.transform.parent.gameObject.SetActive(true);
             descriptionCurrent.text = passiveNode.NodePassive.Description.ToString();
             descriptionCurrent.color = Color.white;
         }
