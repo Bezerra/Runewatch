@@ -42,4 +42,5 @@ public interface IInput
     event Action Interact;
     event Action<float, bool> PreviousNextSpell;
     event Action<bool> HoldingToBuyEvent;
+    event Action<bool> HoldingToHideEvent;
 }

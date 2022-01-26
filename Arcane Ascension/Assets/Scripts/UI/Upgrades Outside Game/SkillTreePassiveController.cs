@@ -43,9 +43,9 @@ public class SkillTreePassiveController : MonoBehaviour
     private void OnEnable()
     {
         if (FindObjectOfType<RunSaveDataController>().FileExists() == false)
-            existingRunButton.SetActive(true);
-        else
             existingRunButton.SetActive(false);
+        else
+            existingRunButton.SetActive(true);
     }
         
 

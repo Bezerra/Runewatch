@@ -548,6 +548,14 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""H"",
+                    ""type"": ""Button"",
+                    ""id"": ""57503e31-1467-43b9-9b0f-4f8a01bdca98"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -999,6 +1007,17 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Computer"",
                     ""action"": ""Space"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1d084dbe-be52-4df4-9e6f-c59484e6ef01"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Computer"",
+                    ""action"": ""H"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1641,6 +1660,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Interface_Navigate = m_Interface.FindAction("Navigate", throwIfNotFound: true);
         m_Interface_Pause = m_Interface.FindAction("Pause", throwIfNotFound: true);
         m_Interface_Space = m_Interface.FindAction("Space", throwIfNotFound: true);
+        m_Interface_H = m_Interface.FindAction("H", throwIfNotFound: true);
         // AbilityChoice
         m_AbilityChoice = asset.FindActionMap("AbilityChoice", throwIfNotFound: true);
         m_AbilityChoice_TrackedDeviceOrientation = m_AbilityChoice.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
@@ -1897,6 +1917,7 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Interface_Navigate;
     private readonly InputAction m_Interface_Pause;
     private readonly InputAction m_Interface_Space;
+    private readonly InputAction m_Interface_H;
     public struct InterfaceActions
     {
         private @InputActions m_Wrapper;
@@ -1913,6 +1934,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @Navigate => m_Wrapper.m_Interface_Navigate;
         public InputAction @Pause => m_Wrapper.m_Interface_Pause;
         public InputAction @Space => m_Wrapper.m_Interface_Space;
+        public InputAction @H => m_Wrapper.m_Interface_H;
         public InputActionMap Get() { return m_Wrapper.m_Interface; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1958,6 +1980,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Space.started -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnSpace;
                 @Space.performed -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnSpace;
                 @Space.canceled -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnSpace;
+                @H.started -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnH;
+                @H.performed -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnH;
+                @H.canceled -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnH;
             }
             m_Wrapper.m_InterfaceActionsCallbackInterface = instance;
             if (instance != null)
@@ -1998,6 +2023,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Space.started += instance.OnSpace;
                 @Space.performed += instance.OnSpace;
                 @Space.canceled += instance.OnSpace;
+                @H.started += instance.OnH;
+                @H.performed += instance.OnH;
+                @H.canceled += instance.OnH;
             }
         }
     }
@@ -2218,6 +2246,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnNavigate(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnSpace(InputAction.CallbackContext context);
+        void OnH(InputAction.CallbackContext context);
     }
     public interface IAbilityChoiceActions
     {

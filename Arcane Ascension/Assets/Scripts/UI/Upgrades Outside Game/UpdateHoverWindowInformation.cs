@@ -11,12 +11,14 @@ using UnityEngine.UI;
 /// </summary>
 public class UpdateHoverWindowInformation : MonoBehaviour
 {
+    [SerializeField] private Image baseWindowBackground;
     [SerializeField] private TextMeshProUGUI passiveName;
     [SerializeField] private TextMeshProUGUI tier;
     [SerializeField] private TextMeshProUGUI descriptionCurrent;
     [SerializeField] private TextMeshProUGUI descriptionNext;
-    [SerializeField] private GameObject holdToBuyParent;
+    [SerializeField] private Image holdToBuyBackground;
     [SerializeField] private Image holdToBuyFillBackground;
+    [SerializeField] private TextMeshProUGUI holdToBuyText;
     [SerializeField] private TextMeshProUGUI descriptionNodeCost;
 
     // Components
@@ -24,34 +26,43 @@ public class UpdateHoverWindowInformation : MonoBehaviour
     private RunSaveDataController runSaveDataController;
     private SkillTreePassiveController skillTreePassiveController;
     private SkillTreePassiveNode passiveNode;
+    private Animator anim;
 
     private float timerToBuySkill;
+    private float timerToHideWindow;
     private IEnumerator holdingToBuyCoroutine;
+    private IEnumerator holdingToHideCoroutine;
+
+    private readonly float TIMERTOHIDEWINDOW = 0.05f;
 
     private void Awake()
     {
         input = FindObjectOfType<PlayerInputCustom>();
         runSaveDataController = FindObjectOfType<RunSaveDataController>();
         skillTreePassiveController = GetComponentInParent<SkillTreePassiveController>();
+        anim = GetComponentInParent<Animator>();
     }
 
     private void OnEnable()
     {
         timerToBuySkill = 0;
         input.HoldingToBuyEvent += HoldingToBuySkill;
+        input.HoldingToHideEvent += HoldingToHideWindow;
     }
 
     private void OnDisable()
     {
         timerToBuySkill = 0;
+        timerToHideWindow = 0;
         input.HoldingToBuyEvent -= HoldingToBuySkill;
+        input.HoldingToHideEvent -= HoldingToHideWindow;
 
         foreach (SkillTreePassiveNode node in passiveNode.PreviousConnectionNodes)
             node.DeactivateNodeRequiredImage();
     }
 
     /// <summary>
-    /// Method called when pressing splace button to buy a passive.
+    /// Method called when pressing splace button to hide information window.
     /// </summary>
     /// <param name="condition"></param>
     public void HoldingToBuySkill(bool condition)
@@ -71,7 +82,7 @@ public class UpdateHoverWindowInformation : MonoBehaviour
     }
 
     /// <summary>
-    /// Coroutine invoked when pressing space button to buy a passive.
+    /// Coroutine invoked when pressing space button to hide information window.
     /// </summary>
     /// <returns></returns>
     private IEnumerator HoldingToBuySkillCoroutine()
@@ -87,10 +98,47 @@ public class UpdateHoverWindowInformation : MonoBehaviour
     }
 
     /// <summary>
+    /// Method called when pressing splace button to buy a passive.
+    /// </summary>
+    /// <param name="condition"></param>
+    public void HoldingToHideWindow(bool condition)
+    {
+        if (condition)
+        {
+            if (holdingToHideCoroutine != null) StopCoroutine(holdingToHideCoroutine);
+            holdingToHideCoroutine = HoldingToHideWindowCoroutine();
+            StartCoroutine(holdingToHideCoroutine);
+        }
+        else
+        {
+            if (holdingToHideCoroutine != null) StopCoroutine(holdingToHideCoroutine);
+            holdingToHideCoroutine = null;
+            timerToHideWindow = 0;
+        }
+    }
+
+    /// <summary>
+    /// Coroutine invoked when pressing space button to buy a passive.
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator HoldingToHideWindowCoroutine()
+    {
+        float maxTimer = TIMERTOHIDEWINDOW;
+        while (timerToHideWindow < maxTimer)
+        {
+            timerToHideWindow += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    /// <summary>
     /// Updates bar fill amount.
     /// </summary>
-    private void Update() =>
+    private void Update()
+    {
         holdToBuyFillBackground.fillAmount = timerToBuySkill;
+        anim.SetBool("pressingH", timerToHideWindow >= TIMERTOHIDEWINDOW);
+    }
 
     /// <summary>
     /// Tries to buy selected passive.
@@ -200,6 +248,10 @@ public class UpdateHoverWindowInformation : MonoBehaviour
             descriptionCurrent.color = Color.white;
         }
 
+        // Always activates 'hold to buy parent', in case it deactivated for some reason
+        // Do not remove this line (this gameObject was turning off sometimes for some reason)
+        holdToBuyBackground.transform.parent.gameObject.SetActive(true);
+
         // Next tier
         if (passiveNode.NodePassiveNext != null)
         {
@@ -234,16 +286,26 @@ public class UpdateHoverWindowInformation : MonoBehaviour
                 if (skillTreePassiveController.CurrencySO.CanSpend(
                     CurrencyType.ArcanePower, passiveNode.NodePassiveNext.Cost))
                 {
-                    holdToBuyParent.SetActive(true);
+                    // This block of code enables fill bars and text to buy a passive
+                    holdToBuyBackground.enabled = true;
+                    holdToBuyFillBackground.enabled = true;
+                    holdToBuyText.enabled = true;
+
                 }
                 else
                 {
-                    holdToBuyParent.SetActive(false);
+                    // This block of code disables fill bars and text to buy a passive
+                    holdToBuyBackground.enabled = false;
+                    holdToBuyFillBackground.enabled = false;
+                    holdToBuyText.enabled = false;
                 }
             }
             else
             {
-                holdToBuyParent.SetActive(false);
+                // This block of code disables fill bars and text to buy a passive
+                holdToBuyBackground.enabled = false;
+                holdToBuyFillBackground.enabled = false;
+                holdToBuyText.enabled = false;
             }
         }
         else
@@ -251,7 +313,11 @@ public class UpdateHoverWindowInformation : MonoBehaviour
             descriptionNodeCost.text = " ";
             descriptionNext.text = " ";
             descriptionNext.transform.parent.gameObject.SetActive(false);
-            holdToBuyParent.SetActive(false);
+
+            // This block of code disables fill bars and text to buy a passive
+            holdToBuyBackground.enabled = false;
+            holdToBuyFillBackground.enabled = false;
+            holdToBuyText.enabled = false;
         }
 
         // Required Nodes

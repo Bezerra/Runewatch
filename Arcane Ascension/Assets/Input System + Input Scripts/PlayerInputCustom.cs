@@ -196,6 +196,11 @@ public class PlayerInputCustom : MonoBehaviour, IInput
         if (context.started) OnHoldingToBuy(true);
         if (context.canceled) OnHoldingToBuy(false);
     }
+    public void HoldingToHide(InputAction.CallbackContext context)
+    {
+        if (context.started) OnHoldingToHide(true);
+        if (context.canceled) OnHoldingToHide(false);
+    }
     ///////////////////////// Events /////////////////////////////////////////
     protected virtual void OnDash() => Dash?.Invoke();
     public event Action Dash;
@@ -223,8 +228,11 @@ public class PlayerInputCustom : MonoBehaviour, IInput
     public event Action CheatConsole;
     protected virtual void OnInteract() => Interact?.Invoke();
     public event Action Interact;
-    protected virtual void OnPreviousNextSpell(float axis, bool withDelay) => PreviousNextSpell?.Invoke(axis, withDelay);
+    protected virtual void OnPreviousNextSpell(float axis, bool withDelay) => 
+        PreviousNextSpell?.Invoke(axis, withDelay);
     public event Action<float, bool> PreviousNextSpell;
     protected virtual void OnHoldingToBuy(bool condition) => HoldingToBuyEvent?.Invoke(condition);
     public event Action<bool> HoldingToBuyEvent;
+    protected virtual void OnHoldingToHide(bool condition) => HoldingToHideEvent?.Invoke(condition);
+    public event Action<bool> HoldingToHideEvent;
 }
