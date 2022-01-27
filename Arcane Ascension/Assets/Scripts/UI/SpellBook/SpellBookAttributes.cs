@@ -38,7 +38,7 @@ public class SpellBookAttributes : MonoBehaviour
         maxMana.text = playerStats.MaxMana.ToString("F0");
 
         // MANA REGEN TIME IS SET TO 0.1F, THIS CALCULATION IS BASED ON THAT VALUE
-        manaRegeneration.text = (playerStats.ManaRegenTime * 10f).
+        manaRegeneration.text = (playerStats.ManaRegenAmount * 10f).
             ToString("F1") + " / sec";
 
         movementSpeed.text = 

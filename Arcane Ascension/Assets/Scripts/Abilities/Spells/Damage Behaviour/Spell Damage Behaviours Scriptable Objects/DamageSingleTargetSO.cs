@@ -68,7 +68,7 @@ public class DamageSingleTargetSO : DamageBehaviourAbstractSO
                     parent.Spell.Element,
                     parent.WhoCast.transform.position);
 
-                
+                Debug.Log(totalDamageDone);
                 if (parent.WhoCast.CommonAttributes.Type == CharacterType.Player)
                 {
                     parent.WhoCast.Heal(

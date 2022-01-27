@@ -71,7 +71,7 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
         UpdateStats(stpData.SaveData.Healer, StatsType.HealthPotionsPercentageExtra);
         UpdateStats(stpData.SaveData.FleetingForm, StatsType.DashCharge);
         UpdateStats(stpData.SaveData.ManaFountain, StatsType.ManaRegenSteal);
-        UpdateStats(stpData.SaveData.LifeSteal, StatsType.LifeSteal);
+        UpdateStats(7, StatsType.LifeSteal);
 
         base.Start();
 
@@ -87,6 +87,7 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
         loseLeafShieldCoroutine = LoseLeafShieldCoroutine();
         wfs = new WaitForSeconds(1);
         StartCoroutine(loseLeafShieldCoroutine);
+        TakeDamage(50f, ElementType.Fulgur, Vector3.zero);
     }
 
     // Enable happens before start, that's why initialize is here
@@ -311,7 +312,7 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
 
                 if (lifeSteal == false)
                     healAmount = amountOfHeal * PlayerAttributes.HealthPotionsPercentageMultiplier;
-
+                Debug.Log(healAmount);
                 if (Health + healAmount < PlayerAttributes.MaxHealth)
                 {
                     Health += healAmount;
