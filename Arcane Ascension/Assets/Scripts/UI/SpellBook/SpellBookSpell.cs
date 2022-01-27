@@ -18,8 +18,21 @@ public class SpellBookSpell : MonoBehaviour, IPointerDownHandler,
     private SpellBookSpells parentSpellBookSpells;
     private Canvas canvas;
 
-    public ISpell Spell { get; set; }
     private Vector2 clampXPositions;
+
+    private ISpell spell;
+    /// <summary>
+    /// Updates this icon spell and image.
+    /// </summary>
+    public ISpell Spell
+    {
+        get => spell;
+        set
+        {
+            spell = value;
+            if (spell != null) image.sprite = Spell.Icon;
+        }
+    }
 
     private void Awake()
     {
@@ -39,15 +52,6 @@ public class SpellBookSpell : MonoBehaviour, IPointerDownHandler,
         newPosition.y = positionY;
         newPosition.x = Mathf.Clamp(newPosition.x, clampXPositions.x, clampXPositions.y);
         transform.position = newPosition;
-    }
-
-    /// <summary>
-    /// Updates this image to be the same as the Spell's property image.
-    /// </summary>
-    public void UpdateSpellSlotImage()
-    {
-        if (Spell != null)
-            image.sprite = Spell.Icon;
     }
 
 

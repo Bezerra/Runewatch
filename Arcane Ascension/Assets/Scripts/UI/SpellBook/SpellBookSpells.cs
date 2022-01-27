@@ -8,28 +8,26 @@ public class SpellBookSpells : MonoBehaviour, IFindPlayer
     private SpellBookSpell[] spellBookSpells;
     private PlayerSpells playerSpells;
 
-    public DisableType DisableType => throw new System.NotImplementedException();
-
     private void Awake()
     {
-        spellBookSpells = GetComponentsInChildren<SpellBookSpell>();
+        spellBookSpells = GetComponentsInChildren<SpellBookSpell>(true);
         FindPlayer();
     }
 
-    private void Start()
-    {
-        UpdateSpellSlots();
-    }
-
+    /// <summary>
+    /// Updates all spellbook spells Spell property and images.
+    /// </summary>
     public void UpdateSpellSlots()
     {
         for (int i = 0; i < spellBookSpells.Length; i++)
         {
             spellBookSpells[i].Spell = playerSpells.CurrentSpells[i];
-            spellBookSpells[i].UpdateSpellSlotImage();
         }
     }
 
+    /// <summary>
+    /// Reorganizes player spells to be the same as the spellbook.
+    /// </summary>
     public void ReorganizePlayerSpells()
     {
         spellBookSpells = GetComponentsInChildren<SpellBookSpell>();
