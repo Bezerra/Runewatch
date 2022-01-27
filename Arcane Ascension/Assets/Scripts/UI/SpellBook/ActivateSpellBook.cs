@@ -7,14 +7,14 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
 {
     [SerializeField] private GameObject spellbook;
 
-    private IInput input;
+    public IInput Input { get; private set; }
     private bool isSpellBookOpened;
 
     private SpellBookSpells spellBookSpells;
 
     private void Awake()
     {
-        input = FindObjectOfType<PlayerInputCustom>();
+        Input = FindObjectOfType<PlayerInputCustom>();
         spellBookSpells = GetComponent<SpellBookSpells>();
     }
 
@@ -42,31 +42,31 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
             spellBookSpells.UpdateSpellSlots();
             Time.timeScale = 0;
             spellbook.SetActive(true);
-            input.SwitchActionMapToSpellBook();
+            Input.SwitchActionMapToSpellBook();
         }
         else
         {
             Time.timeScale = 1;
             spellbook.SetActive(false);
-            input.SwitchActionMapToGameplay();
+            Input.SwitchActionMapToGameplay();
         }
     }
 
     public void FindInput()
     {
-        if (input != null)
+        if (Input != null)
         {
-            input.SpellBook -= ControlSpellBook;
+            Input.SpellBook -= ControlSpellBook;
         }
 
-        input = FindObjectOfType<PlayerInputCustom>();
-        input.SpellBook += ControlSpellBook;
+        Input = FindObjectOfType<PlayerInputCustom>();
+        Input.SpellBook += ControlSpellBook;
     }
 
     public void LostInput()
     {
-        if (input != null)
-            input.SpellBook -= ControlSpellBook;
+        if (Input != null)
+            Input.SpellBook -= ControlSpellBook;
     }
 
     public void FindPlayer()
@@ -76,7 +76,7 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
 
     public void PlayerLost()
     {
-        if (input != null)
-            input.SpellBook -= ControlSpellBook;
+        if (Input != null)
+            Input.SpellBook -= ControlSpellBook;
     }
 }

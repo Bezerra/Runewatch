@@ -674,7 +674,19 @@ MonoBehaviour:
     m_ActionId: a9a783c7-7523-4813-8175-89388d1f9cfe
     m_ActionName: SpellBook/Click[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7530049458223734075}
+        m_TargetAssemblyTypeName: PlayerInputCustom, Assembly-CSharp
+        m_MethodName: HandleMouseUIPosition
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 6fe21215-515b-42dd-a21d-f6e4b096e3d4
     m_ActionName: SpellBook/Point[/Mouse/position]
   - m_PersistentCalls:

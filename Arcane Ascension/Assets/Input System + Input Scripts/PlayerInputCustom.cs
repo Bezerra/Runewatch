@@ -34,6 +34,7 @@ public class PlayerInputCustom : MonoBehaviour, IInput
         inputActionsAsset.Enable();
     }
 
+    public Vector2 MousePosition { get; private set; }
     public Vector2 Movement { get; private set; }
     public Vector2 Camera { get; private set; }
     public bool HoldingCastSpell { get; private set; }
@@ -217,6 +218,10 @@ public class PlayerInputCustom : MonoBehaviour, IInput
     public void SpellBookControl(InputAction.CallbackContext context)
     {
         if (context.started) OnSpellBook();
+    }
+    public void HandleMouseUIPosition(InputAction.CallbackContext context)
+    {
+        if (context.performed) MousePosition = context.ReadValue<Vector2>();
     }
     ///////////////////////// Events /////////////////////////////////////////
     protected virtual void OnDash() => Dash?.Invoke();

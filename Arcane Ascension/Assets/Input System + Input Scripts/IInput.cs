@@ -22,6 +22,8 @@ public interface IInput
 
     string GetCurrentActionMap();
 
+    Vector2 MousePosition { get; }
+
     Vector2 Movement { get; }
 
     Vector2 Camera { get; }
