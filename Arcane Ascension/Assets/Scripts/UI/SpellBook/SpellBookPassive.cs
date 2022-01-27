@@ -19,8 +19,17 @@ public class SpellBookPassive : MonoBehaviour, IComparable<SpellBookPassive>
         set
         {
             passive = value;
-            if (passive != null) image.sprite = passive.Icon;
+            if (passive != null)
+            {
+                image.enabled = true;
+                image.sprite = passive.Icon;
+            }
         }
+    }
+
+    private void Awake()
+    {
+        image.enabled = false;
     }
 
     /// <summary>
@@ -32,8 +41,6 @@ public class SpellBookPassive : MonoBehaviour, IComparable<SpellBookPassive>
     {
         if (Passive == null) return 1;
         if (other.Passive == null) return -1;
-        if (string.Compare(Passive.Name, other.Passive.Name) > 1) return 1;
-        else if (string.Compare(Passive.Name, other.Passive.Name) < 1) return -1;
-        else return 0;
+        return string.Compare(this.Passive.Name, other.Passive.Name);
     }
 }

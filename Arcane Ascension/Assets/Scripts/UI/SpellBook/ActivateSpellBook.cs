@@ -12,12 +12,14 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
 
     private SpellBookSpells spellBookSpells;
     private SpellBookPassives spellBookPassives;
+    private SpellBookAttributes spellBookAttributes;
 
     private void Awake()
     {
         Input = FindObjectOfType<PlayerInputCustom>();
         spellBookSpells = GetComponent<SpellBookSpells>();
         spellBookPassives = GetComponent<SpellBookPassives>();
+        spellBookAttributes = GetComponent<SpellBookAttributes>();
     }
 
     private void OnEnable()
@@ -33,6 +35,10 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
     private void Start()
     {
         isSpellBookOpened = false;
+
+        spellBookSpells.UpdateSpellSlots();
+        spellBookPassives.UpdatePassiveSlots();
+        spellBookAttributes.UpdateText();
     }
 
     private void ControlSpellBook()
@@ -43,6 +49,7 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
         {
             spellBookSpells.UpdateSpellSlots();
             spellBookPassives.UpdatePassiveSlots();
+            spellBookAttributes.UpdateText();
             Time.timeScale = 0;
             spellbook.SetActive(true);
             Input.SwitchActionMapToSpellBook();

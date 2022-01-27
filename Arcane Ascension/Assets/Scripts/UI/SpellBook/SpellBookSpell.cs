@@ -30,12 +30,17 @@ public class SpellBookSpell : MonoBehaviour, IPointerDownHandler,
         set
         {
             spell = value;
-            if (spell != null) image.sprite = Spell.Icon;
+            if (spell != null)
+            {
+                image.enabled = true;
+                image.sprite = Spell.Icon;
+            }
         }
     }
 
     private void Awake()
     {
+        image.enabled = false;
         parentSpellBookSpells = GetComponentInParent<SpellBookSpells>();
         parentActivateSpellBook = GetComponentInParent<ActivateSpellBook>();
         canvas = GetComponent<Canvas>();
