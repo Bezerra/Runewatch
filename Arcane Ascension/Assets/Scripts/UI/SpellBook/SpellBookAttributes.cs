@@ -48,6 +48,9 @@ public class SpellBookAttributes : MonoBehaviour
         baseDamage.text = (playerStats.BaseDamageMultiplier * 100f).
             ToString("F1") + " %";
 
+        lifeSteal.text = playerStats.LifeSteal.
+            ToString("F1") + " %";
+
         criticalBonusDamage.text = 
             (playerStats.CriticalDamageModifier * 100f).ToString("F1") + " %";
 
