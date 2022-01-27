@@ -20,6 +20,8 @@ public class SpellBookSpell : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     [SerializeField] private List<SpellBookSpell> spellIcons;
     private Canvas canvas;
 
+    private Vector2 clampXPositions;
+
     private void Awake()
     {
         parentActivateSpellBook = GetComponentInParent<ActivateSpellBook>();
@@ -28,7 +30,11 @@ public class SpellBookSpell : MonoBehaviour, IPointerDownHandler, IDragHandler, 
 
     public void OnDrag(PointerEventData eventData)
     {
-        transform.position = parentActivateSpellBook.Input.MousePosition;
+        float positionY = transform.position.y;
+        Vector2 newPosition = parentActivateSpellBook.Input.MousePosition;
+        newPosition.y = positionY;
+        newPosition.x = Mathf.Clamp(newPosition.x, clampXPositions.x, clampXPositions.y);
+        transform.position = newPosition;
     }
 
     public void UpdateSpellSlotImage()
@@ -45,15 +51,25 @@ public class SpellBookSpell : MonoBehaviour, IPointerDownHandler, IDragHandler, 
 
         spellIcons.Sort();
 
-        foreach (SpellBookSpell go in spellIcons)
+        foreach (SpellBookSpell spellIcon in spellIcons)
         {
-            go.transform.SetAsFirstSibling();
+            spellIcon.transform.SetAsFirstSibling();
         }
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("AHH");
+        float maxX = Mathf.NegativeInfinity;
+        float minX = Mathf.Infinity;
+        foreach (SpellBookSpell spellIcon in spellIcons)
+        {
+            if (spellIcon.transform.position.x < minX) minX = spellIcon.transform.position.x - 0.1f;
+            if (spellIcon.transform.position.x > maxX) maxX = spellIcon.transform.position.x + 0.1f;
+        }
+
+        clampXPositions =
+            new Vector2(minX, maxX);
+
         canvas.sortingOrder = 31;
     }
 
