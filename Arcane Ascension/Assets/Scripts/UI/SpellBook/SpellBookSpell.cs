@@ -1,33 +1,37 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using System.Linq;
 using System.Collections.Generic;
 using System;
 
 /// <summary>
 /// Class responsible for containing a spell slot information on spellbook.
 /// </summary>
-public class SpellBookSpell : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler, 
-    IComparable<SpellBookSpell>
+public class SpellBookSpell : MonoBehaviour, IPointerDownHandler, 
+    IDragHandler, IPointerUpHandler, IComparable<SpellBookSpell>
 {
     [SerializeField] private Image image;
-
-    public ISpell Spell { get; set; }
-
-    private ActivateSpellBook parentActivateSpellBook;
-
     [SerializeField] private List<SpellBookSpell> spellIcons;
+
+    // Components
+    private ActivateSpellBook parentActivateSpellBook;
+    private SpellBookSpells parentSpellBookSpells;
     private Canvas canvas;
 
+    public ISpell Spell { get; set; }
     private Vector2 clampXPositions;
 
     private void Awake()
     {
+        parentSpellBookSpells = GetComponentInParent<SpellBookSpells>();
         parentActivateSpellBook = GetComponentInParent<ActivateSpellBook>();
         canvas = GetComponent<Canvas>();
     }
 
+    /// <summary>
+    /// While the player is dragging an icon, updates its position.
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnDrag(PointerEventData eventData)
     {
         float positionY = transform.position.y;
@@ -37,6 +41,9 @@ public class SpellBookSpell : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         transform.position = newPosition;
     }
 
+    /// <summary>
+    /// Updates this image to be the same as the Spell's property image.
+    /// </summary>
     public void UpdateSpellSlotImage()
     {
         if (Spell != null)
@@ -44,7 +51,11 @@ public class SpellBookSpell : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     }
 
 
-
+    /// <summary>
+    /// When the player releases the mouse, sorts spell icons by theyr X position and
+    /// organizes them.
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnPointerUp(PointerEventData eventData)
     {
         canvas.sortingOrder = 30;
@@ -55,16 +66,24 @@ public class SpellBookSpell : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         {
             spellIcon.transform.SetAsFirstSibling();
         }
+
+        parentSpellBookSpells.ReorganizePlayerSpells();
     }
 
+    /// <summary>
+    /// When the player presses the mouse, updates icon limits and canvas order.
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnPointerDown(PointerEventData eventData)
     {
         float maxX = Mathf.NegativeInfinity;
         float minX = Mathf.Infinity;
         foreach (SpellBookSpell spellIcon in spellIcons)
         {
-            if (spellIcon.transform.position.x < minX) minX = spellIcon.transform.position.x - 0.1f;
-            if (spellIcon.transform.position.x > maxX) maxX = spellIcon.transform.position.x + 0.1f;
+            if (spellIcon.transform.position.x < minX) 
+                minX = spellIcon.transform.position.x - 0.1f;
+            if (spellIcon.transform.position.x > maxX) 
+                maxX = spellIcon.transform.position.x + 0.1f;
         }
 
         clampXPositions =
@@ -73,6 +92,11 @@ public class SpellBookSpell : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         canvas.sortingOrder = 31;
     }
 
+    /// <summary>
+    /// Compares this class to sort a list.
+    /// </summary>
+    /// <param name="other"></param>
+    /// <returns></returns>
     public int CompareTo(SpellBookSpell other)
     {
         if (other.transform.position.x > transform.position.x) return 1;

@@ -8,6 +8,8 @@ public class SpellBookSpells : MonoBehaviour, IFindPlayer
     private SpellBookSpell[] spellBookSpells;
     private PlayerSpells playerSpells;
 
+    public DisableType DisableType => throw new System.NotImplementedException();
+
     private void Awake()
     {
         spellBookSpells = GetComponentsInChildren<SpellBookSpell>();
@@ -25,6 +27,15 @@ public class SpellBookSpells : MonoBehaviour, IFindPlayer
         {
             spellBookSpells[i].Spell = playerSpells.CurrentSpells[i];
             spellBookSpells[i].UpdateSpellSlotImage();
+        }
+    }
+
+    public void ReorganizePlayerSpells()
+    {
+        spellBookSpells = GetComponentsInChildren<SpellBookSpell>();
+        for (int i = 0; i < spellBookSpells.Length; i++)
+        {
+            playerSpells.CurrentSpells[i] = spellBookSpells[i].Spell;
         }
     }
 
