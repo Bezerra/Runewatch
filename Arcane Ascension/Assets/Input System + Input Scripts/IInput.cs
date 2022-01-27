@@ -12,6 +12,8 @@ public interface IInput
 
     void SwitchActionMapToUI();
 
+    void SwitchActionMapToSpellBook();
+
     void SwitchActionMapToAbilitiesUI();
 
     void SwitchActionMapToCheatConsole();

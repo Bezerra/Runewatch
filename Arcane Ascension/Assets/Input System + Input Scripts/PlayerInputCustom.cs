@@ -71,6 +71,19 @@ public class PlayerInputCustom : MonoBehaviour, IInput
         controls.SwitchCurrentActionMap("Interface");
     }
 
+    public void SwitchActionMapToSpellBook()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+
+        controls.uiInputModule.enabled = true;
+
+        Movement = Vector3.zero;
+        Camera = Vector3.zero;
+
+        controls.SwitchCurrentActionMap("SpellBook");
+    }
+
     public void SwitchActionMapToAbilitiesUI()
     {
         Cursor.lockState = CursorLockMode.Confined;
@@ -204,7 +217,6 @@ public class PlayerInputCustom : MonoBehaviour, IInput
     public void SpellBookControl(InputAction.CallbackContext context)
     {
         if (context.started) OnSpellBook();
-        Debug.Log("AH");
     }
     ///////////////////////// Events /////////////////////////////////////////
     protected virtual void OnDash() => Dash?.Invoke();

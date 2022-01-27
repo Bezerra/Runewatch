@@ -1,27 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ActivateSpellBook : MonoBehaviour, IFindInput
+/// <summary>
+/// Class responsible for activating and deactivating spellbook.
+/// </summary>
+public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
 {
     [SerializeField] private GameObject spellbook;
 
     private IInput input;
     private bool isSpellBookOpened;
 
+    private SpellBookSpells spellBookSpells;
+
     private void Awake()
     {
         input = FindObjectOfType<PlayerInputCustom>();
+        spellBookSpells = GetComponent<SpellBookSpells>();
     }
 
     private void OnEnable()
     {
-        input.SpellBook += ControlSpellBook;
+        FindInput();
     }
 
     private void OnDisable()
     {
-        input.SpellBook -= ControlSpellBook;
+        LostInput();
     }
 
     private void Start()
@@ -35,26 +39,44 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput
 
         if (isSpellBookOpened)
         {
+            spellBookSpells.UpdateSpellSlots();
+            Time.timeScale = 0;
             spellbook.SetActive(true);
-            input.SwitchActionMapToUI();
+            input.SwitchActionMapToSpellBook();
         }
         else
         {
+            Time.timeScale = 1;
             spellbook.SetActive(false);
             input.SwitchActionMapToGameplay();
         }
     }
 
-
-
-
     public void FindInput()
     {
-        if (input == null) input = FindObjectOfType<PlayerInputCustom>();
+        if (input != null)
+        {
+            input.SpellBook -= ControlSpellBook;
+        }
+
+        input = FindObjectOfType<PlayerInputCustom>();
+        input.SpellBook += ControlSpellBook;
     }
 
     public void LostInput()
     {
-        
+        if (input != null)
+            input.SpellBook -= ControlSpellBook;
+    }
+
+    public void FindPlayer()
+    {
+        // Left blank on purpose
+    }
+
+    public void PlayerLost()
+    {
+        if (input != null)
+            input.SpellBook -= ControlSpellBook;
     }
 }
