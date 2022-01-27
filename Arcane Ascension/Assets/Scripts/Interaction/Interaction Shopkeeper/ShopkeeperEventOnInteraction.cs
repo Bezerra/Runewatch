@@ -29,6 +29,12 @@ public class ShopkeeperEventOnInteraction : AbstractEventOnInteraction, IInterec
         PlayerCurrency = FindObjectOfType<PlayerCurrency>();
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        PlayerCurrency = FindObjectOfType<PlayerCurrency>();
+    }
+
     /// <summary>
     /// Executes an event.
     /// </summary>

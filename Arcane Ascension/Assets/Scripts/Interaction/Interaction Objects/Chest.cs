@@ -57,7 +57,7 @@ public class Chest : MonoBehaviour
     {
         if (interectableCanvas.CurrentlyActive)
         {
-            interectableCanvas.UpdateInformation(actionPath.GetPath(BindingsAction.Interact));
+            interectableCanvas.UpdateInformation(interactionActionAsset.action.ToString());
         }
     }
 

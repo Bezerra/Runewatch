@@ -73,7 +73,6 @@ public class DamageManaStealSO : DamageBehaviourAbstractSO
                         StatsType.Mana);
                 }
 
-                Debug.Log(totalDamageDone);
                 if (parent.WhoCast.CommonAttributes.Type == CharacterType.Player)
                 {
                     parent.WhoCast.Heal(
