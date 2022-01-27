@@ -156,6 +156,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "SpellBook",
+                    "type": "Button",
+                    "id": "0038d15b-0f70-41b4-9d21-785832346222",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -433,6 +441,17 @@
                     "action": "Run",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "90d7a79d-2e20-4a43-a38a-f5274f27159c",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Computer",
+                    "action": "SpellBook",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -540,6 +559,14 @@
                     "name": "H",
                     "type": "Button",
                     "id": "57503e31-1467-43b9-9b0f-4f8a01bdca98",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Tab",
+                    "type": "Button",
+                    "id": "7db625fe-5a06-4110-be28-af674175d535",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -1005,6 +1032,17 @@
                     "processors": "",
                     "groups": "Computer",
                     "action": "H",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "84c909f5-f0ff-4c8c-99cf-ac47972f538a",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Computer",
+                    "action": "Tab",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

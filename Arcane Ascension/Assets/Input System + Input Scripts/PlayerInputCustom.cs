@@ -201,6 +201,11 @@ public class PlayerInputCustom : MonoBehaviour, IInput
         if (context.started) OnHoldingToHide(true);
         if (context.canceled) OnHoldingToHide(false);
     }
+    public void SpellBookControl(InputAction.CallbackContext context)
+    {
+        if (context.started) OnSpellBook();
+        Debug.Log("AH");
+    }
     ///////////////////////// Events /////////////////////////////////////////
     protected virtual void OnDash() => Dash?.Invoke();
     public event Action Dash;
@@ -235,4 +240,6 @@ public class PlayerInputCustom : MonoBehaviour, IInput
     public event Action<bool> HoldingToBuyEvent;
     protected virtual void OnHoldingToHide(bool condition) => HoldingToHideEvent?.Invoke(condition);
     public event Action<bool> HoldingToHideEvent;
+    protected virtual void OnSpellBook() => SpellBook?.Invoke();
+    public event Action SpellBook;
 }

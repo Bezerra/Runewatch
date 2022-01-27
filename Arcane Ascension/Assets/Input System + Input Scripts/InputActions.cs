@@ -169,6 +169,14 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""SpellBook"",
+                    ""type"": ""Button"",
+                    ""id"": ""0038d15b-0f70-41b4-9d21-785832346222"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -446,6 +454,17 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""90d7a79d-2e20-4a43-a38a-f5274f27159c"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Computer"",
+                    ""action"": ""SpellBook"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -553,6 +572,14 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""name"": ""H"",
                     ""type"": ""Button"",
                     ""id"": ""57503e31-1467-43b9-9b0f-4f8a01bdca98"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Tab"",
+                    ""type"": ""Button"",
+                    ""id"": ""7db625fe-5a06-4110-be28-af674175d535"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -1018,6 +1045,17 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Computer"",
                     ""action"": ""H"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""84c909f5-f0ff-4c8c-99cf-ac47972f538a"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Computer"",
+                    ""action"": ""Tab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1646,6 +1684,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Gameplay_PreviousAndNextSpellMouseScroll = m_Gameplay.FindAction("PreviousAndNextSpellMouseScroll", throwIfNotFound: true);
         m_Gameplay_NextSpell = m_Gameplay.FindAction("Next Spell", throwIfNotFound: true);
         m_Gameplay_PreviousSpell = m_Gameplay.FindAction("Previous Spell", throwIfNotFound: true);
+        m_Gameplay_SpellBook = m_Gameplay.FindAction("SpellBook", throwIfNotFound: true);
         // Interface
         m_Interface = asset.FindActionMap("Interface", throwIfNotFound: true);
         m_Interface_TrackedDeviceOrientation = m_Interface.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
@@ -1661,6 +1700,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Interface_Pause = m_Interface.FindAction("Pause", throwIfNotFound: true);
         m_Interface_Space = m_Interface.FindAction("Space", throwIfNotFound: true);
         m_Interface_H = m_Interface.FindAction("H", throwIfNotFound: true);
+        m_Interface_Tab = m_Interface.FindAction("Tab", throwIfNotFound: true);
         // AbilityChoice
         m_AbilityChoice = asset.FindActionMap("AbilityChoice", throwIfNotFound: true);
         m_AbilityChoice_TrackedDeviceOrientation = m_AbilityChoice.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
@@ -1747,6 +1787,7 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_PreviousAndNextSpellMouseScroll;
     private readonly InputAction m_Gameplay_NextSpell;
     private readonly InputAction m_Gameplay_PreviousSpell;
+    private readonly InputAction m_Gameplay_SpellBook;
     public struct GameplayActions
     {
         private @InputActions m_Wrapper;
@@ -1770,6 +1811,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @PreviousAndNextSpellMouseScroll => m_Wrapper.m_Gameplay_PreviousAndNextSpellMouseScroll;
         public InputAction @NextSpell => m_Wrapper.m_Gameplay_NextSpell;
         public InputAction @PreviousSpell => m_Wrapper.m_Gameplay_PreviousSpell;
+        public InputAction @SpellBook => m_Wrapper.m_Gameplay_SpellBook;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1836,6 +1878,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @PreviousSpell.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPreviousSpell;
                 @PreviousSpell.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPreviousSpell;
                 @PreviousSpell.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPreviousSpell;
+                @SpellBook.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpellBook;
+                @SpellBook.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpellBook;
+                @SpellBook.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpellBook;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -1897,6 +1942,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @PreviousSpell.started += instance.OnPreviousSpell;
                 @PreviousSpell.performed += instance.OnPreviousSpell;
                 @PreviousSpell.canceled += instance.OnPreviousSpell;
+                @SpellBook.started += instance.OnSpellBook;
+                @SpellBook.performed += instance.OnSpellBook;
+                @SpellBook.canceled += instance.OnSpellBook;
             }
         }
     }
@@ -1918,6 +1966,7 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Interface_Pause;
     private readonly InputAction m_Interface_Space;
     private readonly InputAction m_Interface_H;
+    private readonly InputAction m_Interface_Tab;
     public struct InterfaceActions
     {
         private @InputActions m_Wrapper;
@@ -1935,6 +1984,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @Pause => m_Wrapper.m_Interface_Pause;
         public InputAction @Space => m_Wrapper.m_Interface_Space;
         public InputAction @H => m_Wrapper.m_Interface_H;
+        public InputAction @Tab => m_Wrapper.m_Interface_Tab;
         public InputActionMap Get() { return m_Wrapper.m_Interface; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1983,6 +2033,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @H.started -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnH;
                 @H.performed -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnH;
                 @H.canceled -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnH;
+                @Tab.started -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnTab;
+                @Tab.performed -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnTab;
+                @Tab.canceled -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnTab;
             }
             m_Wrapper.m_InterfaceActionsCallbackInterface = instance;
             if (instance != null)
@@ -2026,6 +2079,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @H.started += instance.OnH;
                 @H.performed += instance.OnH;
                 @H.canceled += instance.OnH;
+                @Tab.started += instance.OnTab;
+                @Tab.performed += instance.OnTab;
+                @Tab.canceled += instance.OnTab;
             }
         }
     }
@@ -2231,6 +2287,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnPreviousAndNextSpellMouseScroll(InputAction.CallbackContext context);
         void OnNextSpell(InputAction.CallbackContext context);
         void OnPreviousSpell(InputAction.CallbackContext context);
+        void OnSpellBook(InputAction.CallbackContext context);
     }
     public interface IInterfaceActions
     {
@@ -2247,6 +2304,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnPause(InputAction.CallbackContext context);
         void OnSpace(InputAction.CallbackContext context);
         void OnH(InputAction.CallbackContext context);
+        void OnTab(InputAction.CallbackContext context);
     }
     public interface IAbilityChoiceActions
     {

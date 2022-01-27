@@ -43,4 +43,5 @@ public interface IInput
     event Action<float, bool> PreviousNextSpell;
     event Action<bool> HoldingToBuyEvent;
     event Action<bool> HoldingToHideEvent;
+    event Action SpellBook;
 }
