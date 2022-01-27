@@ -19,6 +19,8 @@ public class PlayerStatsSO : StatsSO
     [BoxGroup("Mana Stats")]
     [Range(0.1f, 20f)] [SerializeField] private float defaultManaRegenSteal;
     [BoxGroup("General Stats")]
+    [Range(0f, 10f)] [SerializeField] private float defaultLifeSteal;
+    [BoxGroup("General Stats")]
     [Range(1, 2)] [SerializeField] private int defaultDashCharge;
     [BoxGroup("General Stats")]
     [Range(1, 2f)] [SerializeField] private float healthPotionsPercentageMultiplier;
@@ -28,6 +30,7 @@ public class PlayerStatsSO : StatsSO
     public float ManaRegenTime { get; set; }
     public float ManaRegenSteal { get; set; }
     public float MaxArmor { get; set; }
+    public float LifeSteal { get; set; }
     public int MaxDashCharge { get; set; }
     public float HealthPotionsPercentageMultiplier { get; set; }
 
@@ -36,6 +39,7 @@ public class PlayerStatsSO : StatsSO
         base.Initialize();
         MaxMana = defaultMana;
         MaxArmor = defaultArmor;
+        LifeSteal = defaultLifeSteal;
         ManaRegenAmount = defaultManaRegenAmount;
         ManaRegenTime = defaultManaRegenTime;
         ManaRegenSteal = defaultManaRegenSteal;

@@ -23,4 +23,5 @@ public enum StatsType
     DamageResistance,
     HealthPotionsPercentageExtra,
     DashCharge,
+    LifeSteal,
 }

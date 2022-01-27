@@ -71,6 +71,7 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
         UpdateStats(stpData.SaveData.Healer, StatsType.HealthPotionsPercentageExtra);
         UpdateStats(stpData.SaveData.FleetingForm, StatsType.DashCharge);
         UpdateStats(stpData.SaveData.ManaFountain, StatsType.ManaRegenSteal);
+        UpdateStats(stpData.SaveData.LifeSteal, StatsType.LifeSteal);
 
         base.Start();
 
@@ -88,6 +89,7 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
         StartCoroutine(loseLeafShieldCoroutine);
     }
 
+    // Enable happens before start, that's why initialize is here
     private void OnEnable()
     {
         PlayerAttributes.Initialize();
@@ -428,6 +430,11 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
             case StatsType.DashCharge:
                 float amount = amountToIncrement * 100f; // It's multiplied by 0.01 on the beggining
                 PlayerAttributes.MaxDashCharge += (int)(amount);
+                break;
+
+            case StatsType.LifeSteal:
+                PlayerAttributes.LifeSteal += amountToIncrement * 100f;
+                Debug.Log(PlayerAttributes.LifeSteal);
                 break;
 
             case StatsType.IgnisDamage:

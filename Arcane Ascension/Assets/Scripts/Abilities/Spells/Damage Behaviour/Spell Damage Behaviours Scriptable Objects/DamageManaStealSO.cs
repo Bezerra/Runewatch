@@ -77,7 +77,7 @@ public class DamageManaStealSO : DamageBehaviourAbstractSO
                 {
                     parent.WhoCast.Heal(
                         totalDamageDone *
-                        (parent.CharacterSaveData.SaveData.LifeSteal * 0.001f),
+                        ((parent.WhoCast as PlayerStats).PlayerAttributes.LifeSteal * 0.01f),
                         StatsType.Health, true);
                 }
             }

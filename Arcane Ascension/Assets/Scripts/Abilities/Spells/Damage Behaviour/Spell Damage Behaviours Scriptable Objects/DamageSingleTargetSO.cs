@@ -4,7 +4,8 @@ using ExtensionMethods;
 /// <summary>
 /// Scriptable object responsible for creating a spell's damage behaviour.
 /// </summary>
-[CreateAssetMenu(menuName = "Spells/Spell Damage Behaviour/Spell Damage Single Target", fileName = "Spell Damage Single Target")]
+[CreateAssetMenu(menuName = "Spells/Spell Damage Behaviour/Spell Damage Single Target", 
+    fileName = "Spell Damage Single Target")]
 public class DamageSingleTargetSO : DamageBehaviourAbstractSO
 {
     /// <summary>
@@ -13,7 +14,8 @@ public class DamageSingleTargetSO : DamageBehaviourAbstractSO
     /// <param name="parent">Parent spell behaviour.</param>
     /// <param name="other">Collider to damage.</param>
     /// <param name="damageMultiplier">Damage multiplier. It's 1 by default.</param>
-    public override void Damage(SpellBehaviourAbstract parent, Collider other = null, float damageMultiplier = 1)
+    public override void Damage(SpellBehaviourAbstract parent, Collider other = null, 
+        float damageMultiplier = 1)
     {
         DamageLogic(parent, other, damageMultiplier);
     }
@@ -24,7 +26,8 @@ public class DamageSingleTargetSO : DamageBehaviourAbstractSO
     /// <param name="parent">Parent spell behaviour.</param>
     /// <param name="other">Collider to get IDamageables to damage.</param>
     /// <param name="damageMultiplier">Damage multiplier. It's 1 by default.</param>
-    protected override void DamageLogic(SpellBehaviourAbstract parent, Collider other = null, float damageMultiplier = 1)
+    protected override void DamageLogic(SpellBehaviourAbstract parent, 
+        Collider other = null, float damageMultiplier = 1)
     {
         if (other.gameObject.TryGetComponentInParent<IDamageable>(out IDamageable character))
         {
@@ -70,7 +73,7 @@ public class DamageSingleTargetSO : DamageBehaviourAbstractSO
                 {
                     parent.WhoCast.Heal(
                         totalDamageDone *
-                        (parent.CharacterSaveData.SaveData.LifeSteal * 0.001f),
+                        ((parent.WhoCast as PlayerStats).PlayerAttributes.LifeSteal * 0.01f),
                         StatsType.Health, true);
                 }
             }
