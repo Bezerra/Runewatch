@@ -64,8 +64,11 @@ public class SpellBookSpell : MonoBehaviour, IPointerDownHandler,
     {
         canvas.sortingOrder = 30;
 
+        // Sorts by transform.position.x
         spellIcons.Sort();
 
+        // Orders as first sibling (list is in reverse order, so it will set
+        // the last elements as first sibling first
         foreach (SpellBookSpell spellIcon in spellIcons)
         {
             spellIcon.transform.SetAsFirstSibling();

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -5,12 +6,17 @@ using UnityEngine;
 /// </summary>
 public class SpellBookPassives : MonoBehaviour, IFindPlayer
 {
-    private SpellBookPassive[] spellBookPassives;
+    private List<SpellBookPassive> spellBookPassives;
     private PlayerStats playerStats;
 
     private void Awake()
     {
-        spellBookPassives = GetComponentsInChildren<SpellBookPassive>(true);
+        spellBookPassives = new List<SpellBookPassive>();
+        foreach(SpellBookPassive spellbookPassive in 
+            GetComponentsInChildren<SpellBookPassive>(true))
+        {
+            spellBookPassives.Add(spellbookPassive);
+        }
         FindPlayer();
     }
 
@@ -27,9 +33,17 @@ public class SpellBookPassives : MonoBehaviour, IFindPlayer
                 if (playerStats.CurrentPassives[i] != null)
                     spellBookPassives[i].Passive = playerStats.CurrentPassives[i];
             }
+
+            // Sorts by name
+            spellBookPassives.Sort();
+
+            // Orders as first sibling (list is in reverse order, so it will set
+            // the last elements as first sibling first
+            for (int i = spellBookPassives.Count - 1; i >= 0; i--)
+            {
+                spellBookPassives[i].transform.SetAsFirstSibling();
+            }
         }
-
-
     }
 
     public void FindPlayer()
