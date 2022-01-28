@@ -7,6 +7,8 @@ using UnityEngine;
 public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
 {
     [SerializeField] private GameObject spellbook;
+    [SerializeField] private GameObject middleColumnSpellCard;
+    [SerializeField] private GameObject middleColumnPassiveCard;
 
     public IInput Input { get; private set; }
     private bool isSpellBookOpened;
@@ -54,6 +56,8 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
         else
         {
             Time.timeScale = 1;
+            middleColumnSpellCard.SetActive(false);
+            middleColumnPassiveCard.SetActive(false);
             spellbook.SetActive(false);
             Input.SwitchActionMapToGameplay();
         }

@@ -12,7 +12,8 @@ public class SpellBookSpell : MonoBehaviour, IPointerDownHandler,
 {
     [SerializeField] private Image image;
     [SerializeField] private List<SpellBookSpell> spellIcons;
-    [SerializeField] private AbilitySpellCardText middleColumnCard;
+    [SerializeField] private GameObject middleColumnPassiveCard;
+    [SerializeField] private AbilitySpellCardText middleColumnSpellCard;
 
     // Components
     private ActivateSpellBook parentActivateSpellBook;
@@ -110,8 +111,9 @@ public class SpellBookSpell : MonoBehaviour, IPointerDownHandler,
     /// </summary>
     public void ShowMiddleCardUpdateText()
     {
-        middleColumnCard.transform.parent.gameObject.SetActive(true);
-        middleColumnCard.UpdateInfo(Spell);
+        middleColumnPassiveCard.SetActive(false);
+        middleColumnSpellCard.transform.parent.gameObject.SetActive(true);
+        middleColumnSpellCard.UpdateInfo(Spell);
     }
 
     /// <summary>
