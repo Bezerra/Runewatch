@@ -146,6 +146,8 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     {
         base.OnDisable();
         AreaHoverAreaHit = default;
+        if (AreaHoverVFX != null)
+            AreaHoverVFX.gameObject.SetActive(false);
         AreaHoverVFX = null;
         SpellStartedMoving = false;
         DisableSpellAfterCollision = false;

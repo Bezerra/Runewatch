@@ -78,7 +78,6 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
         }
 
         // If it's not an enemy, it will execute this code for player
-
         if (parent.AreaHoverVFX == null)
         {
             parent.AreaHoverVFX =
