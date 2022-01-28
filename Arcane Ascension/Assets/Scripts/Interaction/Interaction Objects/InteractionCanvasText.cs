@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 /// <summary>
 /// Class responsible for interectables with canvas.
@@ -25,35 +26,30 @@ public class InteractionCanvasText : MonoBehaviour, IInteractableWithCanvas
     private void OnEnable()
     {
         cam = Camera.main;
+        UpdateInformation();
     }
 
+    /// <summary>
+    /// Updates rotation and activated/deactivates itself if in player's range.
+    /// </summary>
     private void FixedUpdate()
     {
         if (Vector3.Distance(transform.position, cam.transform.position) < rangeToActivate)
         {
-            Enable();
-            UpdateRotation();
+            if (canvas.activeSelf == false)
+            {
+                canvas.SetActive(true);
+                canvas.transform.LookAt(cam.transform);
+            }
+
+            canvas.transform.LookAt(cam.transform);
         }
         else
         {
-            Disable();
-        }
-    }
-
-    public void Disable()
-    {
-        if (canvas.activeSelf)
-        {
-            canvas.SetActive(false);
-        }
-    }
-
-    public void Enable()
-    {
-        if (canvas.activeSelf == false)
-        {
-            canvas.SetActive(true);
-            UpdateRotation();
+            if (canvas.activeSelf)
+            {
+                canvas.SetActive(false);
+            }
         }
     }
 
@@ -61,7 +57,7 @@ public class InteractionCanvasText : MonoBehaviour, IInteractableWithCanvas
     {
         if (text == null)
         {
-            InputControlPath.ToHumanReadableString(
+            textToDipslay.text = InputControlPath.ToHumanReadableString(
                 interactionActionAsset.action.bindings[0].effectivePath,
                 InputControlPath.HumanReadableStringOptions.OmitDevice);
         }
@@ -69,10 +65,5 @@ public class InteractionCanvasText : MonoBehaviour, IInteractableWithCanvas
         {
             textToDipslay.text = text;
         }
-    }
-
-    public void UpdateRotation()
-    {
-        canvas.transform.LookAt(cam.transform);
     }
 }
