@@ -2,28 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LoopGameplayMusic : MonoBehaviour
+/// <summary>
+/// Class responsible for looping gameplay music.
+/// </summary>
+public class LoopGameplayMusic : MonoBehaviour, IFindPlayer
 {
     private AudioSource audioSource;
 
     [SerializeField] private AudioClipWithVolume[] audioClips;
-    private int clipIndex;
+    private readonly string CLIPINDEX = "CLIPINDEX";
+
+    private bool hasPlayerSpawned;
 
     private IEnumerator pickNextAudioClipCoroutine;
 
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-    }
-
-    private void Start()
-    {
-        clipIndex = Random.Range(0, audioClips.Length);
-        audioClips[clipIndex].PlayOnAudioSource(audioSource);
+        hasPlayerSpawned = false;
     }
 
     private void Update()
     {
+        if (hasPlayerSpawned == false) 
+            return;
+
         if (audioSource.isPlaying == false)
         {
             if (pickNextAudioClipCoroutine == null)
@@ -43,13 +46,27 @@ public class LoopGameplayMusic : MonoBehaviour
     private IEnumerator PickNextAudioClipCoroutine()
     {
         int nextClipIndex = Random.Range(0, audioClips.Length);
-        while (nextClipIndex == clipIndex)
+        while (nextClipIndex == PlayerPrefs.GetInt(CLIPINDEX))
         {
             nextClipIndex = Random.Range(0, audioClips.Length);
             yield return null;
         }
-        clipIndex = nextClipIndex;
-        audioClips[clipIndex].PlayOnAudioSource(audioSource);
+        PlayerPrefs.SetInt(CLIPINDEX, nextClipIndex);
+        audioClips[PlayerPrefs.GetInt(CLIPINDEX)].PlayOnAudioSource(audioSource);
         pickNextAudioClipCoroutine = null;
+    }
+
+    public void FindPlayer()
+    {
+        if (audioSource == null) audioSource = GetComponent<AudioSource>();
+
+        PlayerPrefs.SetInt(CLIPINDEX, Random.Range(0, audioClips.Length));
+        audioClips[PlayerPrefs.GetInt(CLIPINDEX)].PlayOnAudioSource(audioSource);
+        hasPlayerSpawned = true;
+    }
+
+    public void PlayerLost()
+    {
+        // Left blank on purpose
     }
 }
