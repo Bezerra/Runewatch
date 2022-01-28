@@ -37,16 +37,16 @@ public class PlayerHandEffectDisable : MonoBehaviour, IFindPlayer
     public void Stop()
     {
         handEffectLight.DeactivateLight();
-        foreach (ParticleSystem particle in particles)
-            particle.Stop();
+        //foreach (ParticleSystem particle in particles)
+        //    particle.Stop();
     }
 
     public void Play()
     {
         handEffectLight.gameObject.SetActive(false);
         handEffectLight.gameObject.SetActive(true);
-        foreach (ParticleSystem particle in particles)
-            particle.Play();
+        //foreach (ParticleSystem particle in particles)
+        //    particle.Play();
     }
 
     public void FindPlayer()
