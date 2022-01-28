@@ -655,8 +655,15 @@ public class LevelGenerator : MonoBehaviour, IDungeonSaveable
         // This is a really safety precaution, but it will never happen 99.99%
         if (pieceIntersected)
         {
-            Debug.Log("Detected collision after generation. Generating another level.");
-            SceneManager.LoadScene("MainMenu");
+            // This will never happen 99.9999% sure, but just as a safety measure
+            // It's better than getting the game stuck
+            Debug.LogError("Detected collision after generation. " +
+                "Generating another level as a safety measure.");
+
+            // This scene load will depend if it's a new game or loading game
+            // Implement in the future
+            SceneManager.LoadScene(SceneEnum.MainMenu.ToString());
+
             // Sucks but it's better than the game getting stuck
         }
         // Else

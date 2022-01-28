@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
-using System.Collections;
 
 /// <summary>
 /// Class responsible for interectables with canvas.
@@ -34,21 +33,24 @@ public class InteractionCanvasText : MonoBehaviour, IInteractableWithCanvas
     /// </summary>
     private void FixedUpdate()
     {
-        if (Vector3.Distance(transform.position, cam.transform.position) < rangeToActivate)
+        if (cam != null)
         {
-            if (canvas.activeSelf == false)
+            if (Vector3.Distance(transform.position, cam.transform.position) < rangeToActivate)
             {
-                canvas.SetActive(true);
+                if (canvas.activeSelf == false)
+                {
+                    canvas.SetActive(true);
+                    canvas.transform.LookAt(cam.transform);
+                }
+
                 canvas.transform.LookAt(cam.transform);
             }
-
-            canvas.transform.LookAt(cam.transform);
-        }
-        else
-        {
-            if (canvas.activeSelf)
+            else
             {
-                canvas.SetActive(false);
+                if (canvas.activeSelf)
+                {
+                    canvas.SetActive(false);
+                }
             }
         }
     }
