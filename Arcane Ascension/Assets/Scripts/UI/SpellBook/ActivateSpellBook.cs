@@ -35,10 +35,6 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
     private void Start()
     {
         isSpellBookOpened = false;
-
-        spellBookSpells.UpdateSpellSlots();
-        spellBookPassives.UpdatePassiveSlots();
-        spellBookAttributes.UpdateText();
     }
 
     private void ControlSpellBook()
@@ -47,11 +43,11 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
 
         if (isSpellBookOpened)
         {
+            Time.timeScale = 0;
+            spellbook.SetActive(true);
             spellBookSpells.UpdateSpellSlots();
             spellBookPassives.UpdatePassiveSlots();
             spellBookAttributes.UpdateText();
-            Time.timeScale = 0;
-            spellbook.SetActive(true);
             Input.SwitchActionMapToSpellBook();
         }
         else
@@ -81,7 +77,11 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
 
     public void FindPlayer()
     {
-        // Left blank on purpose
+        spellbook.SetActive(true);
+        spellBookSpells.UpdateSpellSlots();
+        spellBookPassives.UpdatePassiveSlots();
+        spellBookAttributes.UpdateText();
+        spellbook.SetActive(false);
     }
 
     public void PlayerLost()

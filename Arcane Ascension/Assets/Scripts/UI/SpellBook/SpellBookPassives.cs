@@ -25,7 +25,8 @@ public class SpellBookPassives : MonoBehaviour, IFindPlayer
     /// </summary>
     public void UpdatePassiveSlots()
     {
-        if (playerStats.CurrentPassives != null &&
+        if (playerStats != null &&
+            playerStats.CurrentPassives != null &&
             playerStats.CurrentPassives.Count > 0)
         {
             for (int i = 0; i < playerStats.CurrentPassives.Count; i++)

@@ -21,7 +21,12 @@ public class SpellBookSpells : MonoBehaviour, IFindPlayer
     {
         for (int i = 0; i < spellBookSpells.Length; i++)
         {
-            spellBookSpells[i].Spell = playerSpells.CurrentSpells[i];
+            if (playerSpells != null &&
+                playerSpells.CurrentSpells != null &&
+                playerSpells.CurrentSpells.Length > 0)
+            {
+                spellBookSpells[i].Spell = playerSpells.CurrentSpells[i];
+            }
         }
     }
 
@@ -33,7 +38,12 @@ public class SpellBookSpells : MonoBehaviour, IFindPlayer
         spellBookSpells = GetComponentsInChildren<SpellBookSpell>();
         for (int i = 0; i < spellBookSpells.Length; i++)
         {
-            playerSpells.CurrentSpells[i] = spellBookSpells[i].Spell;
+            if (playerSpells != null &&
+                playerSpells.CurrentSpells != null &&
+                playerSpells.CurrentSpells.Length > 0)
+            {
+                playerSpells.CurrentSpells[i] = spellBookSpells[i].Spell;
+            }
         }
     }
 

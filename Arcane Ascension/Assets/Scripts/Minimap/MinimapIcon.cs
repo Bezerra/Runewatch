@@ -33,7 +33,7 @@ public class MinimapIcon : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    private void Start()
     {
         if (disableOnStart)
             SetIconActive(false);
