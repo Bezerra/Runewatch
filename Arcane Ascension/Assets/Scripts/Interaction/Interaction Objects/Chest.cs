@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using System.Collections;
 
 /// <summary>
 /// Class responsible for handling chest behaviours.
@@ -8,16 +8,15 @@ using UnityEngine.InputSystem;
 public class Chest : MonoBehaviour
 {
     [SerializeField] private List<EventAbstractSO> eventsToRunOnChestOpen;
-    [SerializeField] private InputActionReference interactionActionAsset;
+    
 
     [Header("Is this chest unlocked by default")]
     [SerializeField] private bool chestUnlocked;
 
     // Components
-    private GameObject canvasText;
-    private InteractionCanvasText interectableCanvas;
-    private AbstractEventOnInteraction eventOnInteraction;
-    private ActionPath actionPath;
+    [SerializeField] private GameObject canvasText;
+    [SerializeField] private InteractionCanvasText interectableCanvas;
+    [SerializeField] private AbstractEventOnInteraction eventOnInteraction;
 
     private bool canOpen;
     public bool CanOpen
@@ -28,8 +27,6 @@ public class Chest : MonoBehaviour
             canOpen = value;
             if (canOpen)
             {
-                if (actionPath == null) actionPath = FindObjectOfType<ActionPath>();
-                
                 GetComponentInChildren<BoxCollider>().gameObject.layer = Layers.InterectableLayerNum;
                 eventOnInteraction.enabled = true;
                 interectableCanvas.enabled = true;
@@ -45,27 +42,38 @@ public class Chest : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void OnEnable()
     {
         if (chestUnlocked)
         {
             CanOpen = true;
         }
+        else
+        {
+            CanOpen = false;
+        }
+
+        StartCoroutine(ResetChest());
+    }
+
+    private IEnumerator ResetChest()
+    {
+        Animator anim = GetComponent<Animator>();
+        yield return new WaitForSeconds(1);
+        anim.SetTrigger("Reset");
+        yield return new WaitForSeconds(1);
+        anim.ResetTrigger("Reset");
+        anim.ResetTrigger("Execute");
+        
+        CanOpen = true;
     }
 
     private void Update()
     {
         if (interectableCanvas.CurrentlyActive)
         {
-            interectableCanvas.UpdateInformation(interactionActionAsset.action.ToString());
+            interectableCanvas.UpdateInformation();
         }
-    }
-
-    private void Awake()
-    {
-        canvasText = GetComponentInChildren<Canvas>().gameObject;
-        interectableCanvas = GetComponent<InteractionCanvasText>();
-        eventOnInteraction = GetComponent<AbstractEventOnInteraction>();
     }
 
     public void ChestOpeningStartAnimationEvent()

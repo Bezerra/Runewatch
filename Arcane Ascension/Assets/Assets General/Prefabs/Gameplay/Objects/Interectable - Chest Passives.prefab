@@ -315,7 +315,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rangeToActivate: 3.2
-  textOnCanvas: F
+  interactionActionAsset: {fileID: -1440297963529227884, guid: 839e6de1cd5977d4795f40965876d469, type: 3}
+  canvas: {fileID: 4368204533392485722}
+  textToDipslay: {fileID: 4368204534129808908}
 --- !u!114 &4368204534753961741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,8 +332,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventsToRunOnChestOpen:
   - {fileID: 11400000, guid: 327b43562aec2114fa00f42e7a66202d, type: 2}
-  interactionActionAsset: {fileID: -1440297963529227884, guid: 839e6de1cd5977d4795f40965876d469, type: 3}
   chestUnlocked: 0
+  canvasText: {fileID: 4368204533392485722}
+  interectableCanvas: {fileID: 6134418267198431388}
+  eventOnInteraction: {fileID: 726106135511347117}
 --- !u!95 &4368204534753961740
 Animator:
   serializedVersion: 3

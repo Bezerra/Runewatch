@@ -434,7 +434,6 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
 
             case StatsType.LifeSteal:
                 PlayerAttributes.LifeSteal += amountToIncrement * 100f;
-                Debug.Log(PlayerAttributes.LifeSteal);
                 break;
 
             case StatsType.IgnisDamage:

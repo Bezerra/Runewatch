@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Class responsible for interectables with canvas.
@@ -7,21 +8,23 @@ using TMPro;
 public class InteractionCanvasText : MonoBehaviour, IInteractableWithCanvas
 {
     [Range(1f, 15f)][SerializeField] private float rangeToActivate;
-    [SerializeField] private string textOnCanvas;
+    [SerializeField] private InputActionReference interactionActionAsset;
 
     // Components
     private Camera cam;
-    private GameObject canvas;
-    public TextMeshProUGUI TextMeshP { get; private set; }
+    [SerializeField] private GameObject canvas;
+    [SerializeField] public TextMeshProUGUI textToDipslay;
 
     public bool CurrentlyActive => canvas.activeSelf;
 
     private void Awake()
     {
         cam = Camera.main;
-        canvas = GetComponentInChildren<Canvas>().gameObject;
-        TextMeshP = GetComponentInChildren<TextMeshProUGUI>();
-        UpdateInformation(textOnCanvas);
+    }
+
+    private void OnEnable()
+    {
+        cam = Camera.main;
     }
 
     private void FixedUpdate()
@@ -54,9 +57,18 @@ public class InteractionCanvasText : MonoBehaviour, IInteractableWithCanvas
         }
     }
 
-    public void UpdateInformation(string text)
+    public void UpdateInformation(string text = null)
     {
-        TextMeshP.text = text;
+        if (text == null)
+        {
+            InputControlPath.ToHumanReadableString(
+                interactionActionAsset.action.bindings[0].effectivePath,
+                InputControlPath.HumanReadableStringOptions.OmitDevice);
+        }
+        else
+        {
+            textToDipslay.text = text;
+        }
     }
 
     public void UpdateRotation()

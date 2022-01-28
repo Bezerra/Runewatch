@@ -7,5 +7,5 @@ public interface IInteractableWithCanvas
     /// Updates canvas information.
     /// </summary>
     /// <param name="text">Text to update.</param>
-    void UpdateInformation(string text);
+    void UpdateInformation(string text = null);
 }

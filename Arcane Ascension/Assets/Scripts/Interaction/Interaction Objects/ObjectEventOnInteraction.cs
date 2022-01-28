@@ -12,12 +12,19 @@ public class ObjectEventOnInteraction : AbstractEventOnInteraction, IInterectabl
     {
         if (eventOnInteraction.Count > 0)
         {
-            playerInteraction.LastObjectInteracted = this.gameObject;
-            foreach (EventAbstractSO eve in eventOnInteraction)
+            // To prevent null errors if reference is lost
+            if (playerInteraction == null)
+                playerInteraction = FindObjectOfType<PlayerInteraction>();
+
+            if (playerInteraction != null)
             {
-                if (eve != null)
+                playerInteraction.LastObjectInteracted = this.gameObject;
+                foreach (EventAbstractSO eve in eventOnInteraction)
                 {
-                    eve.Execute(this);
+                    if (eve != null)
+                    {
+                        eve.Execute(this);
+                    }
                 }
             }
         }
