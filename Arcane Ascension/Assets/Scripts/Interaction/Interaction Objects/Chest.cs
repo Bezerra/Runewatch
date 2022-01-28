@@ -64,8 +64,6 @@ public class Chest : MonoBehaviour
         yield return new WaitForSeconds(1);
         anim.ResetTrigger("Reset");
         anim.ResetTrigger("Execute");
-        
-        CanOpen = true;
     }
 
     private void Update()

@@ -11,9 +11,16 @@ public class EnableAudoListener : MonoBehaviour
     private void Awake()
     {
         myAudioListener.enabled = false;
+
+        UpdateAudioListener();
     }
 
     private void Update()
+    {
+        UpdateAudioListener();
+    }
+
+    private void UpdateAudioListener()
     {
         AudioListener[] audioListeners = FindObjectsOfType<AudioListener>(true);
 
