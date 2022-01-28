@@ -20,6 +20,8 @@ public class SpellBehaviourPlayLoopSoundOnProjectileSO : SpellBehaviourAbstractS
 
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
     {
+        if (parent.gameObject.activeSelf == false) return;
+
         if (Time.time - parent.TimeSpawned > parent.Spell.DelayToDoDamage)
         {
             if (parent.PlayingSound == false)

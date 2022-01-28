@@ -230,6 +230,8 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
     {
         while (AudioS.volume > 0)
         {
+            if (gameObject.activeSelf == false) break;
+
             AudioS.volume -= Time.deltaTime;
 
             if (AudioS.volume < 0)
