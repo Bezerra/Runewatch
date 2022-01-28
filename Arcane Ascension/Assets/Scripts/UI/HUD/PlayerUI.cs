@@ -77,7 +77,7 @@ public class PlayerUI : MonoBehaviour
         playerCurrency = GetComponentInParent<IUseCurrency>();
         fpsCounter = GetComponent<FPSCounter>();
         enemyStats = FindObjectsOfType<EnemyStats>();
-        crosshairWaitForSeconds = new WaitForSeconds(1);
+        crosshairWaitForSeconds = new WaitForSeconds(0.3f);
         wffu = new WaitForFixedUpdate();
         statusEffectsSlotsInUse = new Dictionary<StatusEffectType, StatusEffectImage>();
     }
