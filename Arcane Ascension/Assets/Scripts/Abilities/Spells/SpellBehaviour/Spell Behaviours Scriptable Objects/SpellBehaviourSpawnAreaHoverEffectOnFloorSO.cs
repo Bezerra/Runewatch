@@ -18,6 +18,7 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
         foreach (ParticleDisable particles in parent.ParticlesDisable)
             particles.gameObject.SetActive(true);
     }
+
     public override void ContinuousUpdateBeforeSpellBehaviour(SpellBehaviourOneShot parent)
     {
         foreach (ParticleDisable particles in parent.ParticlesDisable)

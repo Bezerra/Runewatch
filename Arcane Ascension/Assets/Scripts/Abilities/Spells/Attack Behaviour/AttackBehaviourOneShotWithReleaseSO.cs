@@ -7,6 +7,8 @@ using UnityEngine;
     fileName = "Attack Behaviour One Shot With Release")]
 public class AttackBehaviourOneShotWithReleaseSO : AttackBehaviourAbstractSO
 {
+    private Vector3 DISTANTVECTOR = new Vector3(10000, 10000, 10000);
+
     /// <summary>
     /// Attack behaviour for one shot spells with release. Instantiates the spell from a pool.
     /// </summary>
@@ -19,14 +21,13 @@ public class AttackBehaviourOneShotWithReleaseSO : AttackBehaviourAbstractSO
         Character character, Stats characterStats, ref SpellBehaviourAbstract spellBehaviour)
     {
         // This spell is only instantiated in here, it will be used on method AttackKeyRelease
+        // Spawns in a distant vector, so it won't be seen for a frame before being disabled
         currentlyCastSpell =
             SpellPoolCreator.Pool.InstantiateFromPool(
-                spell.Name, character.
-                Hand.position,
-                Quaternion.identity);
-
+                spell.Name, DISTANTVECTOR, Quaternion.identity);
         
-        // Gets behaviour of the spawned spell. Starts the behaviour and passes whoCast object (stats) to the behaviour.
+        // Gets behaviour of the spawned spell.
+        // Starts the behaviour and passes whoCast object (stats) to the behaviour.
         spellBehaviour = currentlyCastSpell.GetComponent<SpellBehaviourOneShot>();
 
         // This has to happen here, so the scripts will have access to spellbehaviouroneshot variables
@@ -47,7 +48,6 @@ public class AttackBehaviourOneShotWithReleaseSO : AttackBehaviourAbstractSO
             SpellPoolCreator.Pool.InstantiateFromPool(
                 spell.Name, character.Controller.Hand.position,
                 Quaternion.identity);
-
 
         // Gets behaviour of the spawned spell. Starts the behaviour and passes whoCast object (stats) to the behaviour.
         character.Controller.CurrentSpellBehaviour = 
@@ -75,7 +75,8 @@ public class AttackBehaviourOneShotWithReleaseSO : AttackBehaviourAbstractSO
         // Sets position and rotation and triggers its start behaviour
         if (currentlyCastSpell != null)
         {
-            currentlyCastSpell.transform.SetPositionAndRotation(character.Hand.position, Quaternion.identity);
+            currentlyCastSpell.transform.SetPositionAndRotation(
+                character.Hand.position, Quaternion.identity);
             spellBehaviour.TriggerStartBehaviour();
         }
     }

@@ -7,6 +7,8 @@ using UnityEngine.VFX;
 /// </summary>
 public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
 {
+    private Vector3 DISTANTVECTOR = new Vector3(10000, 10000, 10000);
+
     // Effects
     private VisualEffect[] hitEffectVFX;
     private ParticleSystem[] hitEffectParticleSystem;
@@ -119,7 +121,9 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
     protected virtual void OnEnable()
     {
         PositionOnHit = transform.position;
-        if (Hand != null) PositionWhenSpawned = Hand.transform.position;
+
+        if (Hand != null) 
+            PositionWhenSpawned = Hand.transform.position;
     }
 
     protected virtual void OnDisable()
