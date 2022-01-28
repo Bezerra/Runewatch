@@ -12,6 +12,7 @@ public class SpellBookSpell : MonoBehaviour, IPointerDownHandler,
 {
     [SerializeField] private Image image;
     [SerializeField] private List<SpellBookSpell> spellIcons;
+    [SerializeField] private AbilitySpellCardText middleColumnCard;
 
     // Components
     private ActivateSpellBook parentActivateSpellBook;
@@ -102,6 +103,15 @@ public class SpellBookSpell : MonoBehaviour, IPointerDownHandler,
             new Vector2(minX, maxX);
 
         canvas.sortingOrder = 31;
+    }
+
+    /// <summary>
+    /// Method called when a spell icon is clicked.
+    /// </summary>
+    public void ShowMiddleCardUpdateText()
+    {
+        middleColumnCard.transform.parent.gameObject.SetActive(true);
+        middleColumnCard.UpdateInfo(Spell);
     }
 
     /// <summary>

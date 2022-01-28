@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -77,6 +78,12 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
 
     public void FindPlayer()
     {
+        StartCoroutine(SetSpellbookVariablesCoroutine());
+    }
+
+    private IEnumerator SetSpellbookVariablesCoroutine()
+    {
+        yield return new WaitForFixedUpdate();
         spellbook.SetActive(true);
         spellBookSpells.UpdateSpellSlots();
         spellBookPassives.UpdatePassiveSlots();
