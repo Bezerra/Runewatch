@@ -9,6 +9,7 @@ public class Door : MonoBehaviour, IPassageBlock
     [SerializeField] private GameObject hasOpenned1;
     [SerializeField] private GameObject hasOpenned2;
     [SerializeField] private GameObject locked;
+    [SerializeField] private GameObject lockBreak;
 
     // Components
     private Animator anim;
@@ -39,6 +40,7 @@ public class Door : MonoBehaviour, IPassageBlock
     {
         CanOpen = true;
         locked.SetActive(false);
+        lockBreak.SetActive(false);
         doorAnimationIsOver = true;
     }
 
@@ -110,6 +112,9 @@ public class Door : MonoBehaviour, IPassageBlock
     public void DisableBlockSymbol()
     {
         if (locked != null)
+        {
             locked.SetActive(false);
+            lockBreak.SetActive(true);
+        }
     }
 }

@@ -14916,6 +14916,7 @@ MonoBehaviour:
   hasOpenned1: {fileID: 3001603025669413585}
   hasOpenned2: {fileID: 7708406777098686210}
   locked: {fileID: 7515327551218103662}
+  lockBreak: {fileID: 7126187937702939895}
 --- !u!95 &5141350735420382886
 Animator:
   serializedVersion: 3
@@ -14982,7 +14983,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -24906,8 +24907,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6859945420182810754, guid: 232bc1aeb045994478d3d4af53d28ac1, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859945420225237960, guid: 232bc1aeb045994478d3d4af53d28ac1, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 232bc1aeb045994478d3d4af53d28ac1, type: 3}
+--- !u!1 &7126187937702939895 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4455786470482155704, guid: 232bc1aeb045994478d3d4af53d28ac1, type: 3}
+  m_PrefabInstance: {fileID: 6859945420733387855}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5161861162337094037 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1770461537607966170, guid: 232bc1aeb045994478d3d4af53d28ac1, type: 3}
