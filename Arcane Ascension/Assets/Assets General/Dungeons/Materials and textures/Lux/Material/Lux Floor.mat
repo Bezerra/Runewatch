@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Lux Floor
-  m_Shader: {fileID: 4800000, guid: 781d9ee303bcac842b9780e5790b6be5, type: 3}
+  m_Shader: {fileID: 4800000, guid: 83973789886e1024db0f93d61e6a81c1, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
@@ -24,7 +24,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AlbedoTex:
-        m_Texture: {fileID: 2800000, guid: 9d616810cab5f2b449d256fa155d8b0e, type: 3}
+        m_Texture: {fileID: 2800000, guid: c7bdfb3733a04c1468e62d3244481b4a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AmbientOcclusion:
@@ -44,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _L1Albedo:
-        m_Texture: {fileID: 2800000, guid: 28b93bc758764f948b6f204892d5cd7d, type: 3}
+        m_Texture: {fileID: 2800000, guid: c7bdfb3733a04c1468e62d3244481b4a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _L1Emissive:
@@ -52,19 +52,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _L1Normal:
-        m_Texture: {fileID: 2800000, guid: 7a769f7ec573c64428ae65dd984771ec, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0bcb05733781db045a8c82f551c8cca5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _L1Packed:
-        m_Texture: {fileID: 2800000, guid: 5c046e6f2b1c9fb468b98435695ffba8, type: 3}
+        m_Texture: {fileID: 2800000, guid: e9f74ee7148cd7d43b98b51da5f954bc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _L2Albedo:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: bb273763593e2fe4dbc6fa98edcfcbb3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _L2Emissive:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: bb273763593e2fe4dbc6fa98edcfcbb3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _L2Normal:
@@ -100,11 +100,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTex:
-        m_Texture: {fileID: 2800000, guid: cabb6c141336a614997d14ab7856659b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0bcb05733781db045a8c82f551c8cca5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _PackedTex:
-        m_Texture: {fileID: 2800000, guid: e2e3e8cf3c7f503488b66b0f500f220b, type: 3}
+        m_Texture: {fileID: 2800000, guid: e9f74ee7148cd7d43b98b51da5f954bc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _PackedTexture:
@@ -127,12 +127,12 @@ Material:
     - _Float1: 0
     - _HeightStrength: 1
     - _L1EmissiveStrength: 0
-    - _L1L2Amount: 0
+    - _L1L2Amount: 0.421
     - _L1L2BLend: 0
-    - _L1L2Constrast: 1
+    - _L1L2Constrast: 25
     - _L1L2Level: 0
-    - _L1L2MaxBorder: 0
-    - _L1L2MinBorder: 0
+    - _L1L2MaxBorder: 0.64
+    - _L1L2MinBorder: 0.21
     - _L1L3Amount: 0
     - _L1L3Constrast: 1
     - _L1L3Level: 0
@@ -140,8 +140,8 @@ Material:
     - _L1L3MinBorder: 0
     - _L1NormalScale: 1
     - _L1Tiling: 1
-    - _L2EmissiveStrength: 0
-    - _L2NoiseScale: 0
+    - _L2EmissiveStrength: 2.37
+    - _L2NoiseScale: 1.5
     - _L2NormalScale: 1
     - _L2Tiling: 1
     - _L3EmissiveStrength: 0
