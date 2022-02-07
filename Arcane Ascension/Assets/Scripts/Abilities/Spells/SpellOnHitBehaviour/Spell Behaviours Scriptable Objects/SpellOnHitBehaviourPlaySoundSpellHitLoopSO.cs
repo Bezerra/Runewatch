@@ -24,6 +24,20 @@ sealed public class SpellOnHitBehaviourPlaySoundSpellHitLoopSO :
     /// <param name="parent">Parent SpellOnHit monobehaviour.</param>
     public override void ContinuousUpdateBehaviour(SpellOnHitBehaviourOneShot parent)
     {
+        if (Time.timeScale == 0)
+        {
+            parent.AudioS.Pause();
+            parent.IsSoundPaused = true;
+        }
+        else
+        {
+            if (parent.IsSoundPaused == true)
+            {
+                parent.IsSoundPaused = false;
+                parent.AudioS.Play();
+            }
+        }
+
         if (Time.time - parent.TimeSpawned > parent.Spell.DelayToDoDamage)
         {
             if (parent.PlayedSound == false)

@@ -110,6 +110,11 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     public bool PlayingSound { get; set; }
 
     /// <summary>
+    /// Property used to know if the sound is paused.
+    /// </summary>
+    public bool IsSoundPaused { get; set; }
+
+    /// <summary>
     /// Property used to know if the class is fading out the sound.
     /// </summary>
     public bool FadingOutSound { get; set; }
@@ -160,6 +165,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         HomingTarget = null;
         TriggerSpread = false;
         PlayingSound = false;
+        IsSoundPaused = false;
         FadingOutSound = false;
 
         if (Rb != null)

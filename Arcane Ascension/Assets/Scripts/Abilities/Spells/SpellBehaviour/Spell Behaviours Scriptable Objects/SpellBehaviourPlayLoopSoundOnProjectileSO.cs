@@ -22,6 +22,20 @@ public class SpellBehaviourPlayLoopSoundOnProjectileSO : SpellBehaviourAbstractS
     {
         if (parent.gameObject.activeSelf == false) return;
 
+        if (Time.timeScale == 0)
+        {
+            parent.AudioS.Pause();
+            parent.IsSoundPaused = true;
+        }
+        else
+        {
+            if (parent.IsSoundPaused == true)
+            {
+                parent.IsSoundPaused = false;
+                parent.AudioS.Play();
+            }
+        }
+
         if (Time.time - parent.TimeSpawned > parent.Spell.DelayToDoDamage)
         {
             if (parent.PlayingSound == false)

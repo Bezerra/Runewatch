@@ -22,6 +22,11 @@ public class SpellOnHitBehaviourOneShot : SpellOnHitBehaviourAbstract
     public bool PlayedSound { get; set; }
 
     /// <summary>
+    /// Property used to know if the sound is paused.
+    /// </summary>
+    public bool IsSoundPaused { get; set; }
+
+    /// <summary>
     /// Property used to know if the class is fading out the sound.
     /// </summary>
     public bool FadingOutSound { get; set; }
@@ -56,6 +61,7 @@ public class SpellOnHitBehaviourOneShot : SpellOnHitBehaviourAbstract
     private void OnDisable()
     {
         PlayedSound = false;
+        IsSoundPaused = false;
         FadingOutSound = false;
     }
 
