@@ -340,7 +340,6 @@ public class PlayerMovement : MonoBehaviour, IFindInput
                 playerStats.CommonAttributes.MovementStatusEffectMultiplier *
                 InCombatSpeed;
         }
-        OnEventRun(Running);
     }
 
     /// <summary>
@@ -470,13 +469,9 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         return false;
     }
 
-    // Subscribed on PlayerSounds, PlayerDashEffect, PlayerFinalCameraDashEvent
+    // Subscribed on PlayerSounds, PlayerDashEffect, PlayerFinalCameraDashEvent, PlayerCamera
     protected virtual void OnEventDash() => EventDash?.Invoke();
     public event Action EventDash;
-
-    // Subscribed on PlayerCamera
-    protected virtual void OnEventRun(bool condition) => EventRun?.Invoke(condition);
-    public event Action<bool> EventRun;
 
     // Subscribed on PlayerSounds
     protected virtual void OnEventSpeedChange(float speed) => EventSpeedChange?.Invoke(speed);

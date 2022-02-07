@@ -42,7 +42,8 @@ public class PlayerFinalCameraDashEvent : MonoBehaviour
         while (transform.localPosition.y < defaultCameraPosition.y + 1)
         {
             transform.localPosition = Vector3.MoveTowards(
-                transform.localPosition, defaultCameraPosition + Vector3.up, Time.fixedDeltaTime * player.Values.CameraForceOnDash);
+                transform.localPosition, defaultCameraPosition + Vector3.up, 
+                Time.fixedDeltaTime * player.Values.CameraForceOnDash);
 
             yield return wffu;
         }
@@ -50,7 +51,8 @@ public class PlayerFinalCameraDashEvent : MonoBehaviour
         while(transform.localPosition.y > defaultCameraPosition.y)
         {
             transform.localPosition = Vector3.MoveTowards(
-                transform.localPosition, defaultCameraPosition, Time.fixedDeltaTime * player.Values.CameraForceOnDash * 2f);
+                transform.localPosition, defaultCameraPosition, Time.fixedDeltaTime * 
+                player.Values.CameraForceOnDash * 2f);
             yield return wffu;
         }
     }

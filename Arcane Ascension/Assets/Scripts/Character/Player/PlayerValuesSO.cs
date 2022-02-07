@@ -98,8 +98,8 @@ public class PlayerValuesSO : CharacterValuesSO
     public float DefaultFOV => defaultFOV;
 
     [BoxGroup("Camera")]
-    [Range(40, 60)] [SerializeField] private float fovWhileRunning = 54;
-    public float FOVWhileRunning => fovWhileRunning;
+    [Range(40, 60)] [SerializeField] private float fovWhileDashing = 54;
+    public float FOVWhileDashing => fovWhileDashing;
 
     [BoxGroup("Camera/Shake")]
     [Header("Not being used atm, can delete later.")]

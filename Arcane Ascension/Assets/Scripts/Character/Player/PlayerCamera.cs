@@ -22,9 +22,6 @@ public class PlayerCamera : MonoBehaviour
 
     // Coroutines
     private YieldInstruction wffu;
-    private IEnumerator runFOVUpdateCoroutine;
-    private bool running;
-    private float runningCurrentTime;
 
     private void Awake()
     {
@@ -45,32 +42,10 @@ public class PlayerCamera : MonoBehaviour
     }
 
     private void OnEnable() =>
-        playerMovement.EventRun += PlayerRunningEvent;
+        playerMovement.EventDash += PlayerRunningEvent;
 
     private void OnDisable() =>
-        playerMovement.EventRun -= PlayerRunningEvent;
-
-    /// <summary>
-    /// Sets running variable.
-    /// </summary>
-    private void Update()
-    {
-        // Sets running this way so the change on FoV coroutine is not too abrupt
-        // when the player changes directions (cause movement is change to 0 for a frame)
-        if (input.Movement.magnitude > 0 &&
-            playerMovement.Running)
-        {
-            runningCurrentTime = Time.time;
-            running = true;
-        }
-        else
-        {
-            if (Time.time - runningCurrentTime > 0.1f)
-            {
-                running = false;
-            }
-        }
-    }
+        playerMovement.EventDash -= PlayerRunningEvent;
 
     private void LateUpdate()
     {
@@ -106,89 +81,70 @@ public class PlayerCamera : MonoBehaviour
         if (input.Movement.x > 0)
         {
             zRotation = Mathf.SmoothDamp(
-                zRotation, -player.Values.CameraTilt, ref currentZRotation, Time.fixedDeltaTime * player.Values.CameraTiltSpeed);
+                zRotation, -player.Values.CameraTilt, ref currentZRotation, 
+                Time.fixedDeltaTime * player.Values.CameraTiltSpeed);
         }
         else if (input.Movement.x < 0)
         {
             zRotation = Mathf.SmoothDamp(
-                zRotation, player.Values.CameraTilt, ref currentZRotation, Time.fixedDeltaTime * player.Values.CameraTiltSpeed);
+                zRotation, player.Values.CameraTilt, ref currentZRotation, 
+                Time.fixedDeltaTime * player.Values.CameraTiltSpeed);
         }
         else
         {
             zRotation = Mathf.SmoothDamp(
-                zRotation, 0, ref currentZRotation, Time.fixedDeltaTime * player.Values.CameraTiltSpeed);
+                zRotation, 0, ref currentZRotation, Time.fixedDeltaTime * 
+                player.Values.CameraTiltSpeed);
         }
 
         virtualCinemachine.transform.eulerAngles = 
-            new Vector3(virtualCinemachine.transform.eulerAngles.x, virtualCinemachine.transform.eulerAngles.y, zRotation);
+            new Vector3(virtualCinemachine.transform.eulerAngles.x, 
+            virtualCinemachine.transform.eulerAngles.y, zRotation);
     }
 
     /// <summary>
-    /// Triggered when the player runs.
+    /// Triggered when the player dashes.
     /// </summary>
-    /// <param name="condition">Running true or false.</param>
-    private void PlayerRunningEvent(bool condition)
-    {
-        if (runFOVUpdateCoroutine != null) StopCoroutine(runFOVUpdateCoroutine);
-        runFOVUpdateCoroutine = RunFOVUpdateCoroutine(condition);
-        StartCoroutine(runFOVUpdateCoroutine);
-    }
+    private void PlayerRunningEvent() =>
+        StartCoroutine(RunFOVUpdateCoroutine());
 
     /// <summary>
     /// Lerps field of view and camera frequency gain depending if the player is running or not.
     /// </summary>
     /// <param name="condition">Running true or false.</param>
     /// <returns>WFFU.</returns>
-    private IEnumerator RunFOVUpdateCoroutine(bool condition)
+    private IEnumerator RunFOVUpdateCoroutine()
     {
-        if (condition) // Run true
+        while (virtualCinemachine.m_Lens.FieldOfView < player.Values.FOVWhileDashing)
         {
-            while (virtualCinemachine.m_Lens.FieldOfView < player.Values.FOVWhileRunning)
+            cinemachineNoise.m_FrequencyGain = player.Values.DefaultNoiseFrequencyValue;
+
+            virtualCinemachine.m_Lens.FieldOfView = Mathf.Lerp(
+                virtualCinemachine.m_Lens.FieldOfView, player.Values.FOVWhileDashing,
+                Time.fixedDeltaTime * 13);
+            
+            if (virtualCinemachine.m_Lens.FieldOfView.Similiar(
+                player.Values.FOVWhileDashing, 0.05f))
             {
-                if (running)
-                {
-                    virtualCinemachine.m_Lens.FieldOfView = Mathf.Lerp(
-                        virtualCinemachine.m_Lens.FieldOfView, player.Values.FOVWhileRunning, Time.fixedDeltaTime * 13);
-
-                    cinemachineNoise.m_FrequencyGain = player.Values.NoiseFrequencyValueWhileRunning;
-                }
-
-                if (running == false)
-                {
-                    cinemachineNoise.m_FrequencyGain = player.Values.DefaultNoiseFrequencyValue;
-
-                    virtualCinemachine.m_Lens.FieldOfView = Mathf.Lerp(
-                        virtualCinemachine.m_Lens.FieldOfView, player.Values.DefaultFOV, Time.fixedDeltaTime * 13);
-                }
-
-                if (running == false &&
-                    virtualCinemachine.m_Lens.FieldOfView.Similiar(player.Values.FOVWhileRunning, 0.05f))
-                {
-                    PlayerRunningEvent(false);
-                }
-
-                yield return wffu;
+                break;
             }
+
+            yield return wffu;
         }
-        else
+
+        while (virtualCinemachine.m_Lens.FieldOfView > player.Values.DefaultFOV)
         {
-            while (virtualCinemachine.m_Lens.FieldOfView > player.Values.DefaultFOV)
+            virtualCinemachine.m_Lens.FieldOfView = Mathf.Lerp(
+                virtualCinemachine.m_Lens.FieldOfView, player.Values.DefaultFOV, 
+                Time.fixedDeltaTime * 13);
+
+            if (virtualCinemachine.m_Lens.FieldOfView.Similiar(
+                player.Values.DefaultFOV, 0.05f))
             {
-                virtualCinemachine.m_Lens.FieldOfView = Mathf.Lerp(
-                    virtualCinemachine.m_Lens.FieldOfView, player.Values.DefaultFOV, Time.fixedDeltaTime * 13);
-
-                cinemachineNoise.m_FrequencyGain = player.Values.DefaultNoiseFrequencyValue;
-
-                if (virtualCinemachine.m_Lens.FieldOfView.Similiar(player.Values.DefaultFOV, 0.05f))
-                {
-                    if (running)
-                    {
-                        PlayerRunningEvent(true);
-                    }
-                }
-
-                yield return wffu;
+                break;
             }
+
+            yield return wffu;
         }
     }
 }
