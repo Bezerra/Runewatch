@@ -13,12 +13,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   master: {fileID: 24100000, guid: bfe86a41512082e4c85eb62e7c0e94f9, type: 2}
-  masterVolumeExposed: MasterVolume
+  masterVolumeExposed: MasterDeveloperVolume
   backgroundAnimationTrigger: FadeToUnload
   sceneToLoad: 0
   thisScene: 2
   changeToTypeOfControl: 0
   loadingSaveFile: 0
+--- !u!114 &9198869881694466569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421243863608153273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7ff8aa553b26134c8b83f0629c8838f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8614284192009009900
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31,6 +43,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7039180841786073633, guid: 8f961ec590c9e484e8626ef59aa9348b, type: 3}
+      propertyPath: m_Value
+      value: -50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7039180841786073633, guid: 8f961ec590c9e484e8626ef59aa9348b, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2351907086045452203}
@@ -40,7 +56,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7220765635249499733, guid: 8f961ec590c9e484e8626ef59aa9348b, type: 3}
       propertyPath: m_Name
-      value: Menu L - Loading Screen To New Game
+      value: Loading Screen To New Game
       objectReference: {fileID: 0}
     - target: {fileID: 7220765635249499737, guid: 8f961ec590c9e484e8626ef59aa9348b, type: 3}
       propertyPath: m_Pivot.x
@@ -129,6 +145,10 @@ PrefabInstance:
     - target: {fileID: 7220765635857531637, guid: 8f961ec590c9e484e8626ef59aa9348b, type: 3}
       propertyPath: m_text
       value: Generating map ...
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220765635857531637, guid: 8f961ec590c9e484e8626ef59aa9348b, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294835709
       objectReference: {fileID: 0}
     - target: {fileID: 8980580083052045514, guid: 8f961ec590c9e484e8626ef59aa9348b, type: 3}
       propertyPath: m_AnchorMax.x

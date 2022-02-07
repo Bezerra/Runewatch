@@ -13,7 +13,7 @@ public class VolumeSliderOption : PlayerPreferencesOption
 
     protected override void UpdateValueToMatchPlayerPrefs()
     {
-        slider.value = PlayerPrefs.GetFloat(optionToUpdate.ToString(), 0);
+        slider.value = PlayerPrefs.GetFloat(optionToUpdate.ToString(), -5f);
 
         switch(optionToUpdate)
         {
@@ -40,15 +40,31 @@ public class VolumeSliderOption : PlayerPreferencesOption
         {
             case AudioOption.MasterVolume:
                 audioMixer.audioMixer.SetFloat("MasterVolume", value);
+
+                if (value <= -29.7f)
+                    audioMixer.audioMixer.SetFloat("MasterVolume", -70f);
+
                 break;
             case AudioOption.AmbienceVolume:
                 audioMixer.audioMixer.SetFloat("AmbienceVolume", value);
+
+                if (value <= -29.7f)
+                    audioMixer.audioMixer.SetFloat("AmbienceVolume", -70f);
+
                 break;
             case AudioOption.SFXVolume:
                 audioMixer.audioMixer.SetFloat("SFXVolume", value);
+
+                if (value <= -29.7f)
+                    audioMixer.audioMixer.SetFloat("SFXVolume", -70f);
+
                 break;
             case AudioOption.MusicVolume:
                 audioMixer.audioMixer.SetFloat("MusicVolume", value);
+
+                if (value <= -29.7f)
+                    audioMixer.audioMixer.SetFloat("MusicVolume", -70f);
+
                 break;
         }
     }

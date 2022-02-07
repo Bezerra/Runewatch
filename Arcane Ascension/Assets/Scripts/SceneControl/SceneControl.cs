@@ -12,7 +12,7 @@ public class SceneControl : MonoBehaviour
     [SerializeField] protected AudioMixer master;
 
     [Header("String variables")]
-    [SerializeField] protected string masterVolumeExposed = "MasterVolume";
+    [SerializeField] protected string masterVolumeExposed = "MasterDeveloperVolume";
     [SerializeField] protected string backgroundAnimationTrigger = "FadeToUnload";
 
     [Header("If using loading methods without parameters")]

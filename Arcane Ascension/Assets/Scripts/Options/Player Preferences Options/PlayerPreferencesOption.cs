@@ -5,9 +5,6 @@ using UnityEngine;
 /// </summary>
 public abstract class PlayerPreferencesOption : MonoBehaviour
 {
-    /// <summary>
-    /// TEMP, DPS FAZER 1 class PARA FAZER UPDATE A TODOS
-    /// </summary>
     private void OnEnable() => UpdateValueToMatchPlayerPrefs();
 
     protected abstract void UpdateValueToMatchPlayerPrefs();

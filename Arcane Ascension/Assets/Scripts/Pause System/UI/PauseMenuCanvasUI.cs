@@ -26,12 +26,20 @@ public class PauseMenuCanvasUI : MonoBehaviour
         canvas = GetComponent<Canvas>();
     }
 
+    private void Start()
+    {
+        if (Application.isEditor &&
+            (SceneManager.GetActiveScene().name == "Level" ||
+            SceneManager.GetActiveScene().name == "MainMenu"))
+            StartCoroutine(UpdateAllMenuVariables());
+    }
+
     /// <summary>
     /// Updates all variables and disables everything after.
     /// Must be on start, after everything was loaded on awake.
     /// </summary>
     /// <returns></returns>
-    private IEnumerator Start()
+    public IEnumerator UpdateAllMenuVariables()
     {
         backgroundCanvas.SetActive(true);
         MenuIntroEnable();
@@ -52,12 +60,14 @@ public class PauseMenuCanvasUI : MonoBehaviour
 
     private void OnEnable()
     {
-        pauseSystem.GamePausedEvent += EnablePauseInterface;
+        if (pauseSystem != null)
+            pauseSystem.GamePausedEvent += EnablePauseInterface;
     }
 
     private void OnDisable()
     {
-        pauseSystem.GamePausedEvent -= EnablePauseInterface;
+        if (pauseSystem != null)
+            pauseSystem.GamePausedEvent -= EnablePauseInterface;
     }
 
     /// <summary>
@@ -84,7 +94,9 @@ public class PauseMenuCanvasUI : MonoBehaviour
         MenuControlsDisable();
         MenuVideoDisable();
         MenuAudioDisable();
-        pauseSystem.ResumeGame();
+
+        if (pauseSystem != null)
+            pauseSystem.ResumeGame();
     }
 
     public void MenuIntroEnable() => menuMain.SetActive(true);

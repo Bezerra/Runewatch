@@ -29,7 +29,7 @@ public class LoadingScreenToProcedural : SceneControl
         // Unloades unecessary scenes
         UnloadScenesThatAreaNotSwitching();
 
-        master.SetFloat("MasterVolume", -50f);
+        master.SetFloat("MasterDeveloperVolume", -50f);
         DisableControls();
 
         // Asyc loads a scene

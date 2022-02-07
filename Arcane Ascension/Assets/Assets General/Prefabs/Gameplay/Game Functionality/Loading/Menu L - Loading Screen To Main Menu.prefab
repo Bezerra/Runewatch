@@ -1,5 +1,17 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &2442640707794348534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5707441398958272604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7ff8aa553b26134c8b83f0629c8838f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3098959916667297289
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28,12 +40,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7137995993446775508, guid: 8f961ec590c9e484e8626ef59aa9348b, type: 3}
+      propertyPath: masterVolumeExposed
+      value: MasterDeveloperVolume
+      objectReference: {fileID: 0}
+    - target: {fileID: 7137995993446775508, guid: 8f961ec590c9e484e8626ef59aa9348b, type: 3}
       propertyPath: changeToTypeOfControl
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7220765635249499733, guid: 8f961ec590c9e484e8626ef59aa9348b, type: 3}
       propertyPath: m_Name
-      value: Menu L - Loading Screen To Main Menu
+      value: Loading Screen To Main Menu
       objectReference: {fileID: 0}
     - target: {fileID: 7220765635249499736, guid: 8f961ec590c9e484e8626ef59aa9348b, type: 3}
       propertyPath: sceneToLoad
@@ -141,3 +157,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f961ec590c9e484e8626ef59aa9348b, type: 3}
+--- !u!1 &5707441398958272604 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7220765635249499733, guid: 8f961ec590c9e484e8626ef59aa9348b, type: 3}
+  m_PrefabInstance: {fileID: 3098959916667297289}
+  m_PrefabAsset: {fileID: 0}

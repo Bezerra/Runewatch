@@ -8,6 +8,7 @@ public class SelectBackButtonPermanent : MonoBehaviour
 {
     private void Update()
     {
-        EventSystem.current.SetSelectedGameObject(gameObject);
+        if (gameObject != null && gameObject.activeSelf)
+            EventSystem.current.SetSelectedGameObject(gameObject);
     }
 }
