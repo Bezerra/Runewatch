@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -8,7 +9,7 @@ public class PauseSystem : MonoBehaviour, IFindInput, IFindPlayer
     // Components
     private IInput playerInputCustom;
 
-    private bool gameIsPaused;
+    public bool GameIsPaused { get; private set; }
 
     private void Awake()
     {
@@ -17,7 +18,7 @@ public class PauseSystem : MonoBehaviour, IFindInput, IFindPlayer
 
     private void Start()
     {
-        gameIsPaused = false;
+        GameIsPaused = false;
     }
 
     private void OnEnable() =>
@@ -31,18 +32,23 @@ public class PauseSystem : MonoBehaviour, IFindInput, IFindPlayer
     /// </summary>
     public void PauseGame()
     {
-        if (gameIsPaused == false)
+        if (GameIsPaused == false)
         {
-            gameIsPaused = true;
+            GameIsPaused = true;
             Time.timeScale = 0;
             playerInputCustom.SwitchActionMapToUI();
+            OnGamePausedEvent();
         }
-        else
-        {
-            gameIsPaused = false;
-            Time.timeScale = 1;
-            playerInputCustom.SwitchActionMapToGameplay();
-        }
+    }
+
+    /// <summary>
+    /// Resumes game.
+    /// </summary>
+    public void ResumeGame()
+    {
+        GameIsPaused = false;
+        Time.timeScale = 1;
+        playerInputCustom.SwitchActionMapToGameplay();
     }
 
     public void FindInput()
@@ -72,4 +78,7 @@ public class PauseSystem : MonoBehaviour, IFindInput, IFindPlayer
         if (playerInputCustom != null)
             playerInputCustom.PauseGame -= PauseGame;
     }
+
+    protected virtual void OnGamePausedEvent() => GamePausedEvent?.Invoke();
+    public event Action GamePausedEvent;
 }
