@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 /// <summary>
 /// Contains methods for pause menu.
@@ -23,6 +24,30 @@ public class PauseMenuCanvasUI : MonoBehaviour
         pauseSystem = FindObjectOfType<PauseSystem>();
         raycaster = GetComponent<GraphicRaycaster>();
         canvas = GetComponent<Canvas>();
+    }
+
+    /// <summary>
+    /// Updates all variables and disables everything after.
+    /// Must be on start, after everything was loaded on awake.
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator Start()
+    {
+        backgroundCanvas.SetActive(true);
+        MenuIntroEnable();
+        MenuSettingsEnable();
+        MenuControlsEnable();
+        MenuVideoEnable();
+        MenuAudioEnable();
+
+        yield return null;
+
+        MenuIntroDisable();
+        MenuSettingsDisable();
+        MenuControlsDisable();
+        MenuVideoDisable();
+        MenuAudioDisable();
+        backgroundCanvas.SetActive(false);
     }
 
     private void OnEnable()

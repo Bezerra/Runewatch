@@ -145,8 +145,14 @@ AudioMixerController:
   m_EnableSuspend: 1
   m_UpdateMode: 0
   m_ExposedParameters:
+  - guid: b3bdab29447a9b24f9de688d378ed07e
+    name: AmbienceVolume
   - guid: 64ac8bd8af289304f97e329fedd6144c
     name: MasterVolume
+  - guid: 179bd2948e18159498703e6f68672bc9
+    name: MusicVolume
+  - guid: c1e38b3ba944484429a183506acae409
+    name: SFXVolume
   m_AudioMixerGroupViews:
   - guids:
     - f685e77ffa9c95848865637c3824a406
@@ -213,17 +219,19 @@ AudioMixerSnapshotController:
     484de371d683c844fa8e6107fba6ea67: 16
     5f5d80b10497a4b43bbf8bb66bcfb53f: 0.037
     9e0de7f2a41799f4ea9da53c549aed2d: 0.13552584
-    179bd2948e18159498703e6f68672bc9: 0
+    179bd2948e18159498703e6f68672bc9: -30
     fcd56394e463b19458074258dc5bdd96: -0
     b7dcd84542cf40a46854c04e8781b290: 2.4583216
     0e2231b6a3254b146b696b7f41a247d0: 2.29
     0bbb9d583ee97984c80354b2d2146130: -0.08374883
     1ed6a4d8297148542ae1f464b34619ff: 0.0437
+    64ac8bd8af289304f97e329fedd6144c: -30
     727aac094fd1da643bb73c232b54a36e: -6.5566154
-    b3bdab29447a9b24f9de688d378ed07e: 0
+    b3bdab29447a9b24f9de688d378ed07e: -30
     4570c339449521849be76af8d235fdce: 0
     8adb821ac5c4f584dbb7f5f702d38f43: 1.74
     d9e54f4adc679474a876f1d6ef604f69: 0
+    c1e38b3ba944484429a183506acae409: -30
     9767ddbb0b3ebba4c9dfe197da30fd1c: -4724
     44a5c80cacd28794d86ace8c1585f3c5: -0.29184753
     5f02ce3ca09546545a14b6180b3c1535: -467
