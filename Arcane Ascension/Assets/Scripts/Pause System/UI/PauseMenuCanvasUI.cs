@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -10,8 +8,11 @@ using UnityEngine.SceneManagement;
 public class PauseMenuCanvasUI : MonoBehaviour, IFindInput, IFindPlayer
 {
     [SerializeField] private GameObject backgroundCanvas;
-    [SerializeField] private GameObject menuIntro;
-    [SerializeField] private GameObject menuOptions;
+    [SerializeField] private GameObject menuMain;
+    [SerializeField] private GameObject menuSettings;
+    [SerializeField] private GameObject menuControls;
+    [SerializeField] private GameObject menuVideo;
+    [SerializeField] private GameObject menuAudio;
 
     // Components
     private IInput playerInputCustom;
@@ -48,7 +49,10 @@ public class PauseMenuCanvasUI : MonoBehaviour, IFindInput, IFindPlayer
             canvas.enabled = false;
             backgroundCanvas.SetActive(false);
             MenuIntroDisable();
-            MenuOptionsDisable();
+            MenuSettingsDisable();
+            MenuControlsDisable();
+            MenuVideoDisable();
+            MenuAudioDisable();
         }
         else
         {
@@ -59,10 +63,16 @@ public class PauseMenuCanvasUI : MonoBehaviour, IFindInput, IFindPlayer
         }
     }
 
-    public void MenuIntroEnable() => menuIntro.SetActive(true);
-    public void MenuIntroDisable() => menuIntro.SetActive(false);
-    public void MenuOptionsEnable() => menuOptions.SetActive(true);
-    public void MenuOptionsDisable() => menuOptions.SetActive(false);
+    public void MenuIntroEnable() => menuMain.SetActive(true);
+    public void MenuIntroDisable() => menuMain.SetActive(false);
+    public void MenuSettingsEnable() => menuSettings.SetActive(true);
+    public void MenuSettingsDisable() => menuSettings.SetActive(false);
+    public void MenuControlsEnable() => menuControls.SetActive(true);
+    public void MenuControlsDisable() => menuControls.SetActive(false);
+    public void MenuVideoEnable() => menuVideo.SetActive(true);
+    public void MenuVideoDisable() => menuVideo.SetActive(false);
+    public void MenuAudioEnable() => menuAudio.SetActive(true);
+    public void MenuAudioDisable() => menuAudio.SetActive(false);
 
     public void ButtonIntroMenuResumeGame()
     {
