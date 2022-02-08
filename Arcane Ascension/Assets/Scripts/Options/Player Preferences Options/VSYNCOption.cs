@@ -3,22 +3,20 @@ using UnityEngine;
 /// <summary>
 /// Updates screenmode options.
 /// </summary>
-public class ScreenModeOption : ButtonArrowOption
+public class VSYNCOption : ButtonArrowOption
 {
     protected override void UpdateOption(float value)
     {
-        FullScreenMode windowMode = default;
         switch (value)
         {
             case 0:
-                windowMode = FullScreenMode.Windowed;
-                textToUpdate.text = "Windowed";
+                QualitySettings.vSyncCount = 0;
+                textToUpdate.text = "Off";
                 break;
             case 1:
-                windowMode = FullScreenMode.FullScreenWindow;
-                textToUpdate.text = "Fullscreen";
+                QualitySettings.vSyncCount = 1;
+                textToUpdate.text = "On";
                 break;
         }
-        Screen.fullScreenMode = windowMode;
     }
 }
