@@ -160,6 +160,8 @@ public class SceneControl : MonoBehaviour
         }
 
         // Only allows the pause the game after everything was loaded
-        FindObjectOfType<PauseSystem>().CanPauseTheGame = true;
+        PauseSystem pauseSystem = FindObjectOfType<PauseSystem>();
+        if (pauseSystem != null)
+            pauseSystem.CanPauseTheGame = true;
     }
 }
