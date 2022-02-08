@@ -27,10 +27,12 @@ public class PauseSystem : MonoBehaviour, IFindInput, IFindPlayer
     private void OnDisable() =>
         LostInput();
 
+#if UNITY_EDITOR == false
     private void OnApplicationFocus(bool focus)
     {
         if (focus == false) PauseGame();
     }
+#endif
 
     /// <summary>
     /// Pauses/Unpauses game and switches action map.

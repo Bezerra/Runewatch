@@ -11,7 +11,8 @@ public class SliderOption : PlayerPreferencesOption
 
     protected override void UpdateValueToMatchPlayerPrefs()
     {
-        slider.value = PlayerPrefs.GetFloat(optionToUpdate, 1);
+        float value = PlayerPrefs.GetFloat(optionToUpdate, 1);
+        slider.value = value;
     }
 
     public override void UpdateValue(float value)

@@ -55,9 +55,6 @@ public class PlayerCamera : MonoBehaviour
 
     private void CameraControl()
     {
-        // This player prefs with mouse speed is temp for delivery, don't forget to change later
-        ////////////////////////////////////////////////////////////////////////////////////////
-
         // Rotates camera on X axis (vertical)
         cameraX -= input.Camera.y * player.Values.CameraSpeed *
             PlayerPrefs.GetFloat("Mouse", 1) * Time.fixedDeltaTime;
