@@ -8,6 +8,7 @@ using TMPro;
 public class RebindingKey : MonoBehaviour
 {
     [SerializeField] private InputActionReference inputAction;
+    [SerializeField] private InputActionReference inputActionSecondary;
     [SerializeField] private TMP_Text bindingDisplayText;
     [SerializeField] private TMP_Text actionText;
     [SerializeField] private GameObject startRebindGameobject;
@@ -50,6 +51,12 @@ public class RebindingKey : MonoBehaviour
         {
             inputAction.action.ApplyBindingOverride(
                 PlayerPrefs.GetString($"ACTION_{inputAction.action.bindings[0].action}"));
+
+            if (inputActionSecondary != null)
+            {
+                inputActionSecondary.action.ApplyBindingOverride(
+                PlayerPrefs.GetString($"ACTION_{inputAction.action.bindings[0].action}"));
+            }
         }
 
         UpdateTextWithActionInformation();
@@ -87,16 +94,32 @@ public class RebindingKey : MonoBehaviour
         {
             if (binding.action != null)
             {
+                // If it's checking this action
                 if (binding.action == currentBinding.action)
                 {
+                    // Updates secondary key to be the same as this one
+                    if (inputActionSecondary != null)
+                    {
+                        inputActionSecondary.action.ApplyBindingOverride(
+                            inputAction.action.bindings[0].effectivePath);
+                    }
+
                     continue;
                 }
+                // If there's a key with the same path already
                 if (binding.effectivePath == currentBinding.effectivePath)
                 {
                     RebindCanceled();
                     keyAlreadySetGameobject.SetActive(true);
                     inputAction.action.ApplyBindingOverride(
-                        PlayerPrefs.GetString($"CurrentKeyPath"));
+                        PlayerPrefs.GetString("CurrentKeyPath"));
+
+                    if (inputActionSecondary != null)
+                    {
+                        inputActionSecondary.action.ApplyBindingOverride(
+                        PlayerPrefs.GetString("CurrentKeyPath"));
+                    }
+
                     return;
                 }
             }
@@ -104,7 +127,7 @@ public class RebindingKey : MonoBehaviour
 
         // If the path of this action doesn't exist, updates button text
         UpdateTextWithActionInformation();
-
+        Debug.Log("END");
         // Saves key to player prefs
         PlayerPrefs.SetString($"ACTION_{inputAction.action.bindings[0].action}",
             inputAction.action.bindings[0].effectivePath);

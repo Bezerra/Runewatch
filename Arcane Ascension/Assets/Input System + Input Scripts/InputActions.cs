@@ -1127,7 +1127,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Tab"",
+                    ""name"": ""SpellBook"",
                     ""type"": ""Button"",
                     ""id"": ""cac27a07-6cc4-4f92-b88b-ef5d4301c280"",
                     ""expectedControlType"": ""Button"",
@@ -1572,7 +1572,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Computer"",
-                    ""action"": ""Tab"",
+                    ""action"": ""SpellBook"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -2229,7 +2229,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_SpellBook_Cancel = m_SpellBook.FindAction("Cancel", throwIfNotFound: true);
         m_SpellBook_Submit = m_SpellBook.FindAction("Submit", throwIfNotFound: true);
         m_SpellBook_Navigate = m_SpellBook.FindAction("Navigate", throwIfNotFound: true);
-        m_SpellBook_Tab = m_SpellBook.FindAction("Tab", throwIfNotFound: true);
+        m_SpellBook_SpellBook = m_SpellBook.FindAction("SpellBook", throwIfNotFound: true);
         // AbilityChoice
         m_AbilityChoice = asset.FindActionMap("AbilityChoice", throwIfNotFound: true);
         m_AbilityChoice_TrackedDeviceOrientation = m_AbilityChoice.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
@@ -2621,7 +2621,7 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_SpellBook_Cancel;
     private readonly InputAction m_SpellBook_Submit;
     private readonly InputAction m_SpellBook_Navigate;
-    private readonly InputAction m_SpellBook_Tab;
+    private readonly InputAction m_SpellBook_SpellBook;
     public struct SpellBookActions
     {
         private @InputActions m_Wrapper;
@@ -2636,7 +2636,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @Cancel => m_Wrapper.m_SpellBook_Cancel;
         public InputAction @Submit => m_Wrapper.m_SpellBook_Submit;
         public InputAction @Navigate => m_Wrapper.m_SpellBook_Navigate;
-        public InputAction @Tab => m_Wrapper.m_SpellBook_Tab;
+        public InputAction @SpellBook => m_Wrapper.m_SpellBook_SpellBook;
         public InputActionMap Get() { return m_Wrapper.m_SpellBook; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -2676,9 +2676,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Navigate.started -= m_Wrapper.m_SpellBookActionsCallbackInterface.OnNavigate;
                 @Navigate.performed -= m_Wrapper.m_SpellBookActionsCallbackInterface.OnNavigate;
                 @Navigate.canceled -= m_Wrapper.m_SpellBookActionsCallbackInterface.OnNavigate;
-                @Tab.started -= m_Wrapper.m_SpellBookActionsCallbackInterface.OnTab;
-                @Tab.performed -= m_Wrapper.m_SpellBookActionsCallbackInterface.OnTab;
-                @Tab.canceled -= m_Wrapper.m_SpellBookActionsCallbackInterface.OnTab;
+                @SpellBook.started -= m_Wrapper.m_SpellBookActionsCallbackInterface.OnSpellBook;
+                @SpellBook.performed -= m_Wrapper.m_SpellBookActionsCallbackInterface.OnSpellBook;
+                @SpellBook.canceled -= m_Wrapper.m_SpellBookActionsCallbackInterface.OnSpellBook;
             }
             m_Wrapper.m_SpellBookActionsCallbackInterface = instance;
             if (instance != null)
@@ -2713,9 +2713,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Navigate.started += instance.OnNavigate;
                 @Navigate.performed += instance.OnNavigate;
                 @Navigate.canceled += instance.OnNavigate;
-                @Tab.started += instance.OnTab;
-                @Tab.performed += instance.OnTab;
-                @Tab.canceled += instance.OnTab;
+                @SpellBook.started += instance.OnSpellBook;
+                @SpellBook.performed += instance.OnSpellBook;
+                @SpellBook.canceled += instance.OnSpellBook;
             }
         }
     }
@@ -2951,7 +2951,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnCancel(InputAction.CallbackContext context);
         void OnSubmit(InputAction.CallbackContext context);
         void OnNavigate(InputAction.CallbackContext context);
-        void OnTab(InputAction.CallbackContext context);
+        void OnSpellBook(InputAction.CallbackContext context);
     }
     public interface IAbilityChoiceActions
     {
