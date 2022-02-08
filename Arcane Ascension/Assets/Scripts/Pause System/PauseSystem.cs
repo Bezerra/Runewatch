@@ -27,6 +27,11 @@ public class PauseSystem : MonoBehaviour, IFindInput, IFindPlayer
     private void OnDisable() =>
         LostInput();
 
+    private void OnApplicationFocus(bool focus)
+    {
+        if (focus == false) PauseGame();
+    }
+
     /// <summary>
     /// Pauses/Unpauses game and switches action map.
     /// </summary>

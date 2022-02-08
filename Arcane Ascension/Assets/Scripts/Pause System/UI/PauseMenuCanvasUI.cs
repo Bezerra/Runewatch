@@ -25,6 +25,17 @@ public class PauseMenuCanvasUI : MonoBehaviour
         raycaster = GetComponent<GraphicRaycaster>();
         canvas = GetComponent<Canvas>();
     }
+    private void OnEnable()
+    {
+        if (pauseSystem != null)
+            pauseSystem.GamePausedEvent += EnablePauseInterface;
+    }
+
+    private void OnDisable()
+    {
+        if (pauseSystem != null)
+            pauseSystem.GamePausedEvent -= EnablePauseInterface;
+    }
 
     private void Start()
     {
@@ -56,18 +67,6 @@ public class PauseMenuCanvasUI : MonoBehaviour
         MenuVideoDisable();
         MenuAudioDisable();
         backgroundCanvas.SetActive(false);
-    }
-
-    private void OnEnable()
-    {
-        if (pauseSystem != null)
-            pauseSystem.GamePausedEvent += EnablePauseInterface;
-    }
-
-    private void OnDisable()
-    {
-        if (pauseSystem != null)
-            pauseSystem.GamePausedEvent -= EnablePauseInterface;
     }
 
     /// <summary>
