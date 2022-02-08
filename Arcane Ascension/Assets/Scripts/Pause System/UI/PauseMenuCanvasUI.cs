@@ -10,6 +10,7 @@ public class PauseMenuCanvasUI : MonoBehaviour
 {
     [SerializeField] private GameObject backgroundCanvas;
     [SerializeField] private GameObject menuMain;
+    [SerializeField] private GameObject menuGeneral;
     [SerializeField] private GameObject menuSettings;
     [SerializeField] private GameObject menuControls;
     [SerializeField] private GameObject menuVideo;
@@ -54,6 +55,7 @@ public class PauseMenuCanvasUI : MonoBehaviour
     {
         backgroundCanvas.SetActive(true);
         MenuIntroEnable();
+        MenuGeneralEnable();
         MenuSettingsEnable();
         MenuControlsEnable();
         MenuVideoEnable();
@@ -62,6 +64,7 @@ public class PauseMenuCanvasUI : MonoBehaviour
         yield return null;
 
         MenuIntroDisable();
+        MenuGeneralDisable();
         MenuSettingsDisable();
         MenuControlsDisable();
         MenuVideoDisable();
@@ -89,6 +92,7 @@ public class PauseMenuCanvasUI : MonoBehaviour
         canvas.enabled = false;
         backgroundCanvas.SetActive(false);
         MenuIntroDisable();
+        MenuGeneralDisable();
         MenuSettingsDisable();
         MenuControlsDisable();
         MenuVideoDisable();
@@ -100,6 +104,8 @@ public class PauseMenuCanvasUI : MonoBehaviour
 
     public void MenuIntroEnable() => menuMain.SetActive(true);
     public void MenuIntroDisable() => menuMain.SetActive(false);
+    public void MenuGeneralEnable() => menuGeneral.SetActive(true);
+    public void MenuGeneralDisable() => menuGeneral.SetActive(false);
     public void MenuSettingsEnable() => menuSettings.SetActive(true);
     public void MenuSettingsDisable() => menuSettings.SetActive(false);
     public void MenuControlsEnable() => menuControls.SetActive(true);

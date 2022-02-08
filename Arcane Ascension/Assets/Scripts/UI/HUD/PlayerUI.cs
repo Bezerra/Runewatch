@@ -54,9 +54,8 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI gold;
     [SerializeField] private TextMeshProUGUI arcanePower;
     [Header("Misc")]
+    [SerializeField] private GameObject fpsCounterBackground;
     [SerializeField] private TextMeshProUGUI fpsCounterTMP;
-    [SerializeField] private bool showFPS;
-    // WILL BE CONTROLED VIA OPTIONS WHEN OPTIONS EXIST
 
     // Coroutines
     private IEnumerator hitCrosshairCoroutine;
@@ -86,6 +85,8 @@ public class PlayerUI : MonoBehaviour
     {
         // Needs to be a coroutine because onEnable is running before player awake < wtf
         StartCoroutine(OnEnableCoroutine());
+
+        ControlFPSCounter((int)PlayerPrefs.GetFloat("FPSCounter", 0));
     }
 
     private IEnumerator OnEnableCoroutine()
@@ -394,13 +395,27 @@ public class PlayerUI : MonoBehaviour
 
     private void UpdateFPS()
     {
-        if (showFPS)
+        if (PlayerPrefs.GetFloat("FPSCounter", 0) == 1)
         {
             if (fpsCounter.FrameRate >= 59) fpsCounterTMP.color = Color.green;
             else if (fpsCounter.FrameRate >= 29) fpsCounterTMP.color = new Color(0.75f, 1, 0.75f, 1);
             else if (fpsCounter.FrameRate > 20) fpsCounterTMP.color = Color.yellow;
             else fpsCounterTMP.color = Color.red;
             fpsCounterTMP.text = fpsCounter.FrameRate.ToString() + " fps";
+        }
+    }
+
+    public void ControlFPSCounter(int value)
+    {
+        if (value == 1)
+        {
+            fpsCounterBackground.SetActive(true);
+            fpsCounterTMP.enabled = true;
+        }
+        else
+        {
+            fpsCounterBackground.SetActive(false);
+            fpsCounterTMP.enabled = false;
         }
     }
 
