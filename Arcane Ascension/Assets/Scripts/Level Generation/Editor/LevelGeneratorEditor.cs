@@ -8,8 +8,7 @@ public class LevelGeneratorEditor : Editor
     {
         LevelGenerator levelGenerator = (LevelGenerator)target;
 
-        GUILayout.Label("Button only for ProceduralGenerationDemonstration scene");
-        GUILayout.Label("Bug - Gameplay controls will stop working after this.");
+        GUILayout.Label("Button ONLY for ProceduralGenerationDemonstration scene");
         GUILayout.BeginHorizontal();
         GUILayout.Label("Must be in playmode");
 

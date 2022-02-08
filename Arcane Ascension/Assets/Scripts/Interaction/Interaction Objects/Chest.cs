@@ -27,14 +27,32 @@ public class Chest : MonoBehaviour
             canOpen = value;
             if (canOpen)
             {
-                GetComponentInChildren<BoxCollider>().gameObject.layer = Layers.InterectableLayerNum;
+                BoxCollider childBoxCol = GetComponentInChildren<BoxCollider>();
+                if (childBoxCol != null)
+                {
+                    childBoxCol.gameObject.layer = Layers.InterectableLayerNum;
+                }
+
                 eventOnInteraction.enabled = true;
                 interectableCanvas.enabled = true;
                 canvasText.SetActive(true);
             }
             else
             {
-                GetComponentInChildren<BoxCollider>().gameObject.layer = Layers.DefaultNum;
+                BoxCollider childBoxCol = GetComponentInChildren<BoxCollider>();
+                if (childBoxCol != null)
+                {
+                    try
+                    {
+                        childBoxCol.gameObject.layer = Layers.DefaultNum;
+                    }
+                    // In case it's null (Happens on proc.gen.demo scene)
+                    catch
+                    {
+                        childBoxCol.gameObject.layer = 0;
+                    }
+                }
+
                 eventOnInteraction.enabled = false;
                 interectableCanvas.enabled = false;
                 canvasText.SetActive(false);
