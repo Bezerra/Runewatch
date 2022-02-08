@@ -11,6 +11,12 @@ public class PauseSystem : MonoBehaviour, IFindInput, IFindPlayer
 
     public bool GameIsPaused { get; private set; }
 
+    /// <summary>
+    /// Set to true after scene ended loading.
+    /// Only allows the pause the game after everything was loaded.
+    /// </summary>
+    public bool CanPauseTheGame { get; set; }
+
     private void Awake()
     {
         playerInputCustom = FindObjectOfType<PlayerInputCustom>();
@@ -19,6 +25,12 @@ public class PauseSystem : MonoBehaviour, IFindInput, IFindPlayer
     private void Start()
     {
         GameIsPaused = false;
+        CanPauseTheGame = false;
+
+        if (Application.isEditor)
+        {
+            CanPauseTheGame = true;
+        }
     }
 
     private void OnEnable() =>
@@ -30,7 +42,10 @@ public class PauseSystem : MonoBehaviour, IFindInput, IFindPlayer
 #if UNITY_EDITOR == false
     private void OnApplicationFocus(bool focus)
     {
-        if (focus == false) PauseGame();
+        if (CanPauseTheGame)
+        {
+            if (focus == false) PauseGame();
+        }
     }
 #endif
 
@@ -39,12 +54,15 @@ public class PauseSystem : MonoBehaviour, IFindInput, IFindPlayer
     /// </summary>
     public void PauseGame()
     {
-        if (GameIsPaused == false)
+        if (CanPauseTheGame)
         {
-            GameIsPaused = true;
-            Time.timeScale = 0;
-            playerInputCustom.SwitchActionMapToUI();
-            OnGamePausedEvent();
+            if (GameIsPaused == false)
+            {
+                GameIsPaused = true;
+                Time.timeScale = 0;
+                playerInputCustom.SwitchActionMapToUI();
+                OnGamePausedEvent();
+            }
         }
     }
 

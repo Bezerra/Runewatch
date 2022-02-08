@@ -158,5 +158,8 @@ public class SceneControl : MonoBehaviour
                 input.SwitchActionMapToGameplay();
             }
         }
+
+        // Only allows the pause the game after everything was loaded
+        FindObjectOfType<PauseSystem>().CanPauseTheGame = true;
     }
 }
