@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 /// <summary>
 /// Class responsible for activating and deactivating spellbook.
@@ -9,6 +10,7 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
     [SerializeField] private GameObject spellbook;
     [SerializeField] private GameObject middleColumnSpellCard;
     [SerializeField] private GameObject middleColumnPassiveCard;
+    [SerializeField] private TextMeshProUGUI spellbookClosingText;
 
     public IInput Input { get; private set; }
     private bool isSpellBookOpened;
@@ -46,6 +48,11 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
 
         if (isSpellBookOpened)
         {
+            ActionPath actionPath = FindObjectOfType<ActionPath>();
+            if (actionPath != null)
+                spellbookClosingText.text = "Press " + 
+                    actionPath.GetPath(BindingsAction.SpellBook) + " to close";
+
             Time.timeScale = 0;
             spellbook.SetActive(true);
             spellBookSpells.UpdateSpellSlots();

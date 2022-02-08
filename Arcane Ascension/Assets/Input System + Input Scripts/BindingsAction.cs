@@ -19,4 +19,5 @@ public enum BindingsAction
     Interact,
     NextSpell,
     PreviousSpell,
+    SpellBook,
 }
