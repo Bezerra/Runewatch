@@ -12,6 +12,7 @@ public class MainMenuButtonsControl : MonoBehaviour
     [SerializeField] private AllSkillTreePassivesSO skillTreePassives;
 
     [Header("Buttons")]
+    [SerializeField] private Image continueButtonImage;
     [SerializeField] private Button continueButton;
 
     // Components
@@ -32,11 +33,13 @@ public class MainMenuButtonsControl : MonoBehaviour
     {
         if (runSaveDataController.FileExists())
         {
+            continueButtonImage.enabled = true;
             continueButton.enabled = true;
             continueButton.gameObject.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
         }
         else
         {
+            continueButtonImage.enabled = false;
             continueButton.enabled = false;
             continueButton.gameObject.GetComponentInChildren<TextMeshProUGUI>().color = Color.gray;
         }
