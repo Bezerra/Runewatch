@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using ExtensionMethods;
 
 /// <summary>
 /// Class responsible for saving and loading game.
