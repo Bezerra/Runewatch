@@ -54,6 +54,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI gold;
     [SerializeField] private TextMeshProUGUI arcanePower;
     [Header("Misc")]
+    [SerializeField] private GameObject minimap;
     [SerializeField] private GameObject fpsCounterBackground;
     [SerializeField] private TextMeshProUGUI fpsCounterTMP;
 
@@ -86,7 +87,8 @@ public class PlayerUI : MonoBehaviour
         // Needs to be a coroutine because onEnable is running before player awake < wtf
         StartCoroutine(OnEnableCoroutine());
 
-        ControlFPSCounter((int)PlayerPrefs.GetFloat("FPSCounter", 0));
+        ControlFPSCounter((int)PlayerPrefs.GetFloat("FPSCounter", 0)); //off
+        ControlMinimap((int)PlayerPrefs.GetFloat("Minimap", 1)); //on
     }
 
     private IEnumerator OnEnableCoroutine()
@@ -380,6 +382,9 @@ public class PlayerUI : MonoBehaviour
                     playerSpells.SecondarySpell.CooldownCounter / playerSpells.SecondarySpell.Cooldown;
     }
 
+    /// <summary>
+    /// Updates dash cahrges.
+    /// </summary>
     private void UpdateDashCharges()
     {
         if (playerStats.DashCharge != playerStats.PlayerAttributes.MaxDashCharge)
@@ -393,6 +398,9 @@ public class PlayerUI : MonoBehaviour
         dashCharge.text = "x" + playerStats.DashCharge.ToString();
     }
 
+    /// <summary>
+    /// Updates fps counter.
+    /// </summary>
     private void UpdateFPS()
     {
         if (PlayerPrefs.GetFloat("FPSCounter", 0) == 1)
@@ -405,6 +413,10 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets fps counter to on or off.
+    /// </summary>
+    /// <param name="value"></param>
     public void ControlFPSCounter(int value)
     {
         if (value == 1)
@@ -420,26 +432,42 @@ public class PlayerUI : MonoBehaviour
     }
 
     /// <summary>
+    /// Sets minimap to on or off.
+    /// </summary>
+    /// <param name="value"></param>
+    public void ControlMinimap(int value)
+    {
+        if (value == 1)
+        {
+            minimap.SetActive(true);
+        }
+        else
+        {
+            minimap.SetActive(false);
+        }
+    }
+
+    /// <summary>
     /// Update status effects timers.
     /// </summary>
     private void UpdateStatusEffects()
     {
-        if (statusEffectsSlotsInUse.Count > 0)
+    if (statusEffectsSlotsInUse.Count > 0)
+    {
+        for (int i = 0; i < statusEffectsSlotsInUse.Count; i++)
         {
-            for (int i = 0; i < statusEffectsSlotsInUse.Count; i++)
-            {
-                statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Value.Type].Image.fillAmount = 1 -
-                    (Time.time -
-                    playerStats.StatusEffectList.Items[statusEffectsSlotsInUse.ElementAt(i).Value.Type].TimeApplied) /
-                    statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Key].Duration;
+            statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Value.Type].Image.fillAmount = 1 -
+                (Time.time -
+                playerStats.StatusEffectList.Items[statusEffectsSlotsInUse.ElementAt(i).Value.Type].TimeApplied) /
+                statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Key].Duration;
 
-                if (statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Value.Type].Image.fillAmount <= 0)
-                {
-                    statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Value.Type].Image.gameObject.SetActive(false);
-                    statusEffectsSlotsInUse.Remove(statusEffectsSlotsInUse.ElementAt(i).Value.Type);
-                }
+            if (statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Value.Type].Image.fillAmount <= 0)
+            {
+                statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Value.Type].Image.gameObject.SetActive(false);
+                statusEffectsSlotsInUse.Remove(statusEffectsSlotsInUse.ElementAt(i).Value.Type);
             }
         }
+    }
     }
 
     /// <summary>

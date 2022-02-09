@@ -1,5 +1,3 @@
-using UnityEngine;
-
 /// <summary>
 /// Updates fps options.
 /// </summary>
