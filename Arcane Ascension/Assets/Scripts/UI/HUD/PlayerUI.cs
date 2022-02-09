@@ -137,13 +137,10 @@ public class PlayerUI : MonoBehaviour
     {
         OnTakeDamage();
         armor.fillAmount = 0;
+        
+        // Timer will be saved everytime ending run scene is loaded
 
-        GameplayTime.PlayTimer();
-        RunSaveDataController runSaveData = FindObjectOfType<RunSaveDataController>();
-        if (runSaveData != null)
-        {
-            runSaveData.SaveData.CurrentSessionTime = GameplayTime.CurrentTime;
-        }
+        GameplayTime.LoadTimer();
     }
 
     public void SubscribeToEnemiesDamage()
@@ -527,18 +524,12 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Updates timer every update.
+    /// </summary>
     private void UpdateTimer()
     {
         GameplayTime.UpdateTimer();
         timerTMP.text = GameplayTime.GameTimer.ToString(@"hh\:mm\:ss");
-    }
-
-    private void OnApplicationQuit()
-    {
-        RunSaveDataController runSaveData = FindObjectOfType<RunSaveDataController>();
-        if (runSaveData != null)
-        {
-            runSaveData.SaveData.CurrentSessionTime = GameplayTime.CurrentTime;
-        }
     }
 }

@@ -17,6 +17,7 @@ public static class GameplayTime
     {
         isStopwatchActive = false;
         CurrentTime = 0;
+        PlayerPrefs.SetFloat(PPrefsGeneral.CurrentSessionGameTime.ToString(), 0);
     }
 
     /// <summary>
@@ -40,4 +41,12 @@ public static class GameplayTime
     /// Pauses the timer.
     /// </summary>
     public static void PauseTimer() => isStopwatchActive = false;
+
+    public static void SaveTimer() =>
+        PlayerPrefs.SetFloat(
+            PPrefsGeneral.CurrentSessionGameTime.ToString(), GameplayTime.CurrentTime);
+
+    public static void LoadTimer() =>
+        GameplayTime.CurrentTime = PlayerPrefs.GetFloat(
+            PPrefsGeneral.CurrentSessionGameTime.ToString(), 0);
 }
