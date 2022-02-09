@@ -21,7 +21,7 @@ public class PlayerControlEnemyHealthBar : MonoBehaviour
 
         while (true)
         {
-            if (PlayerPrefs.GetFloat(PPrefsNames.EnemyHealthBar.ToString(), 1) == 0)
+            if (PlayerPrefs.GetFloat(PPrefsOptions.EnemyHealthBar.ToString(), 1) == 0)
             {
                 yield return wfs;
 

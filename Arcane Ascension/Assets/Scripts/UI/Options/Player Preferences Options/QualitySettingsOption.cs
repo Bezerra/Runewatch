@@ -5,8 +5,8 @@ using UnityEngine;
 /// </summary>
 public class QualitySettingsOption : ButtonArrowOption
 {
-    [SerializeField] private PPrefsNames vsyncPlayerPrefsName;
-    [SerializeField] private PPrefsNames shadowsPlayerPrefsName;
+    [SerializeField] private PPrefsOptions vsyncPlayerPrefsName;
+    [SerializeField] private PPrefsOptions shadowsPlayerPrefsName;
 
     protected override void UpdateOption(float value)
     {

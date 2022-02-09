@@ -55,7 +55,8 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI arcanePower;
     [Header("Misc")]
     [SerializeField] private GameObject minimap;
-    [SerializeField] private GameObject timer;
+    [SerializeField] private RawImage timerBackground;
+    [SerializeField] private TextMeshProUGUI timerTMP;
     [SerializeField] private GameObject fpsCounterBackground;
     [SerializeField] private TextMeshProUGUI fpsCounterTMP;
 
@@ -136,6 +137,7 @@ public class PlayerUI : MonoBehaviour
     {
         OnTakeDamage();
         armor.fillAmount = 0;
+        GameplayTime.PlayTimer();
     }
 
     public void SubscribeToEnemiesDamage()
@@ -336,6 +338,7 @@ public class PlayerUI : MonoBehaviour
         UpdateDashCharges();
         UpdateFPS();
         UpdateStatusEffects();
+        UpdateTimer();
     }
 
     /// <summary>
@@ -457,11 +460,13 @@ public class PlayerUI : MonoBehaviour
     {
         if (value == 1)
         {
-            timer.SetActive(true);
+            timerBackground.enabled = true;
+            timerTMP.color = new Color(1, 1, 1, 1);
         }
         else
         {
-            timer.SetActive(false);
+            timerBackground.enabled = false;
+            timerTMP.color = new Color(1, 1, 1, 0);
         }
     }
 
@@ -510,5 +515,17 @@ public class PlayerUI : MonoBehaviour
                 break;
             }
         }
+    }
+
+    private void UpdateTimer()
+    {
+        GameplayTime.UpdateTimer();
+        timerTMP.text = GameplayTime.GameTimer.ToString(@"hh\:mm\:ss");
+    }
+
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetFloat(PPrefsGeneral.CurrentSessionGameTime.ToString(),
+            GameplayTime.CurrentTime);
     }
 }

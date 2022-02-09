@@ -115,5 +115,5 @@ public class PauseMenuCanvasUI : MonoBehaviour
     public void MenuAudioEnable() => menuAudio.SetActive(true);
     public void MenuAudioDisable() => menuAudio.SetActive(false);
     
-    public void ButtonIntroMenuMainMenu() => SceneManager.LoadScene("MainMenu");
+    public void ButtonLoadMainMenu() => SceneManager.LoadScene("MainMenu");
 }

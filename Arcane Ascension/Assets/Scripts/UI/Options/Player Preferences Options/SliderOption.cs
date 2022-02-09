@@ -6,7 +6,7 @@ using UnityEngine.UI;
 /// </summary>
 public class SliderOption : PlayerPreferencesOption
 {
-    [SerializeField] private PPrefsNames optionToUpdate;
+    [SerializeField] private PPrefsOptions optionToUpdate;
     [SerializeField] private float defaultValue;
     [SerializeField] private Slider slider;
 

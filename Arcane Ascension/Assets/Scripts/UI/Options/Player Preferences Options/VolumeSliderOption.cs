@@ -8,7 +8,7 @@ using UnityEngine.Audio;
 public class VolumeSliderOption : PlayerPreferencesOption
 {
     [SerializeField] private AudioMixerGroup audioMixer;
-    [SerializeField] private PPrefsNames optionToUpdate;
+    [SerializeField] private PPrefsOptions optionToUpdate;
     [SerializeField] private Slider slider;
 
     protected override void UpdateValueToMatchPlayerPrefs()
@@ -17,16 +17,16 @@ public class VolumeSliderOption : PlayerPreferencesOption
 
         switch(optionToUpdate)
         {
-            case PPrefsNames.MasterVolume:
+            case PPrefsOptions.MasterVolume:
                 audioMixer.audioMixer.SetFloat("MasterVolume", slider.value);
                 break;
-            case PPrefsNames.AmbienceVolume:
+            case PPrefsOptions.AmbienceVolume:
                 audioMixer.audioMixer.SetFloat("AmbienceVolume", slider.value);
                 break;
-            case PPrefsNames.SFXVolume:
+            case PPrefsOptions.SFXVolume:
                 audioMixer.audioMixer.SetFloat("SFXVolume", slider.value);
                 break;
-            case PPrefsNames.MusicVolume:
+            case PPrefsOptions.MusicVolume:
                 audioMixer.audioMixer.SetFloat("MusicVolume", slider.value);
                 break;
         }
@@ -38,28 +38,28 @@ public class VolumeSliderOption : PlayerPreferencesOption
 
         switch (optionToUpdate)
         {
-            case PPrefsNames.MasterVolume:
+            case PPrefsOptions.MasterVolume:
                 audioMixer.audioMixer.SetFloat("MasterVolume", value);
 
                 if (value <= -29.7f)
                     audioMixer.audioMixer.SetFloat("MasterVolume", -70f);
 
                 break;
-            case PPrefsNames.AmbienceVolume:
+            case PPrefsOptions.AmbienceVolume:
                 audioMixer.audioMixer.SetFloat("AmbienceVolume", value);
 
                 if (value <= -29.7f)
                     audioMixer.audioMixer.SetFloat("AmbienceVolume", -70f);
 
                 break;
-            case PPrefsNames.SFXVolume:
+            case PPrefsOptions.SFXVolume:
                 audioMixer.audioMixer.SetFloat("SFXVolume", value);
 
                 if (value <= -29.7f)
                     audioMixer.audioMixer.SetFloat("SFXVolume", -70f);
 
                 break;
-            case PPrefsNames.MusicVolume:
+            case PPrefsOptions.MusicVolume:
                 audioMixer.audioMixer.SetFloat("MusicVolume", value);
 
                 if (value <= -29.7f)

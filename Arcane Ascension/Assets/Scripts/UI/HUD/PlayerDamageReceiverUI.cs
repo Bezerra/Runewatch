@@ -33,7 +33,7 @@ public class PlayerDamageReceiverUI : MonoBehaviour
 
     private void UpdateUI(Vector3 damageDirection)
     {
-        if (PlayerPrefs.GetFloat(PPrefsNames.DamageIndicator.ToString(), 1) == 1)
+        if (PlayerPrefs.GetFloat(PPrefsOptions.DamageIndicator.ToString(), 1) == 1)
             StartCoroutine(UpdateUICoroutine(damageDirection));
     }
 

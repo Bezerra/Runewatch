@@ -5,8 +5,8 @@ using UnityEngine;
 /// </summary>
 public class ShadowsOption : ButtonArrowOption
 {
-    [SerializeField] private PPrefsNames vsyncPlayerPrefsName;
-    [SerializeField] private PPrefsNames qualitySettingsPlayerPrefsName;
+    [SerializeField] private PPrefsOptions vsyncPlayerPrefsName;
+    [SerializeField] private PPrefsOptions qualitySettingsPlayerPrefsName;
 
     protected override void UpdateOption(float value)
     {

@@ -7,7 +7,7 @@ using TMPro;
 public abstract class ButtonArrowOption : PlayerPreferencesOption
 {
     [SerializeField] protected TextMeshProUGUI textToUpdate;
-    [SerializeField] private PPrefsNames optionToUpdate;
+    [SerializeField] private PPrefsOptions optionToUpdate;
     [SerializeField] protected Vector2 limits;
     [Header("Must be a number between x and y limits")]
     [SerializeField] private int defaultValue;

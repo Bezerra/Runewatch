@@ -1,8 +1,8 @@
 /// <summary>
-/// Enum with all player prefs.
+/// Enum with all options player prefs.
 /// DO NOT CHANGE ORDER.
 /// </summary>
-public enum PPrefsNames
+public enum PPrefsOptions
 {
     Mouse,
     VSYNC,
