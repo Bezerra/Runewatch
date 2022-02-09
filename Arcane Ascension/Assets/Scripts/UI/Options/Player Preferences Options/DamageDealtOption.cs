@@ -1,7 +1,7 @@
 /// <summary>
 /// Updates show damage options.
 /// </summary>
-public class ShowDamageOption : ButtonArrowOption
+public class DamageDealtOption : ButtonArrowOption
 {
     protected override void UpdateOption(float value)
     {

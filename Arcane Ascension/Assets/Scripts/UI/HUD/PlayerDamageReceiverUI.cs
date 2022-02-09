@@ -31,8 +31,11 @@ public class PlayerDamageReceiverUI : MonoBehaviour
         playerStats.EventTakeDamagePosition -= UpdateUI;
     }
 
-    private void UpdateUI(Vector3 damageDirection) =>
-        StartCoroutine(UpdateUICoroutine(damageDirection));
+    private void UpdateUI(Vector3 damageDirection)
+    {
+        if (PlayerPrefs.GetFloat(PPrefsNames.DamageIndicator.ToString(), 1) == 1)
+            StartCoroutine(UpdateUICoroutine(damageDirection));
+    }
 
     /// <summary>
     /// Updates damage receives UI depending on the damage direction.

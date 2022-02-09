@@ -64,7 +64,7 @@ public class EnemyStats : Stats
         OnEventTakeDamage(damageToReceive);
 
         // Spawn damage text
-        if (PlayerPrefs.GetFloat(PPrefsNames.ShowDamage.ToString(), 1) == 1)
+        if (PlayerPrefs.GetFloat(PPrefsNames.DamageDealt.ToString(), 1) == 1)
         {
             GameObject damageHitText =
                     DamageHitPoolCreator.Pool.InstantiateFromPool(
@@ -147,7 +147,7 @@ public class EnemyStats : Stats
         OnEventTakeDamage(damageToReceive);
 
         // Spawn damage text
-        if (PlayerPrefs.GetFloat(PPrefsNames.ShowDamage.ToString(), 1) == 1)
+        if (PlayerPrefs.GetFloat(PPrefsNames.DamageDealt.ToString(), 1) == 1)
         {
             GameObject damageHitText =
                 DamageHitPoolCreator.Pool.InstantiateFromPool(
