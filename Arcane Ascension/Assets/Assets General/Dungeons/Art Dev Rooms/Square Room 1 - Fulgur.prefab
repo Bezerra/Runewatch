@@ -827,6 +827,7 @@ MonoBehaviour:
     enemySpawnType: 2
   - difficulty: 3
     enemySpawnType: 4
+  wave: 0
 --- !u!1 &3694335804880959454
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,7 +1072,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e5704cb22a1ce147ae9a714824c7173, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testRoomIsolatedScene: 0
+  floorToTestOnIsolatedScenes: 1
   listOfEnemies: {fileID: 11400000, guid: e767d083673c993448fdb04f6eb74a2c, type: 2}
+  spawnsSecondWave: 1
+  timeToSpawnSecondWave: 7
+  lootRates:
+    lootPieces: []
+  goldQuantity: {x: 0, y: 0}
+  lootSpawnPosition: {fileID: 0}
 --- !u!114 &7881980597182976942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1171,6 +1180,7 @@ MonoBehaviour:
     enemySpawnType: 2
   - difficulty: 3
     enemySpawnType: 4
+  wave: 0
 --- !u!1 &4763697693172951977
 GameObject:
   m_ObjectHideFlags: 0
@@ -1346,6 +1356,7 @@ MonoBehaviour:
     enemySpawnType: 2
   - difficulty: 3
     enemySpawnType: 4
+  wave: 0
 --- !u!1 &5549004163572278815
 GameObject:
   m_ObjectHideFlags: 0
@@ -2058,6 +2069,7 @@ MonoBehaviour:
     enemySpawnType: 1
   - difficulty: 3
     enemySpawnType: 4
+  wave: 0
 --- !u!1 &8834476923049896191
 GameObject:
   m_ObjectHideFlags: 0

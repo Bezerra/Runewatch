@@ -107,22 +107,6 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""QuickSave"",
-                    ""type"": ""Button"",
-                    ""id"": ""0f25e72a-a24c-4efb-82f7-6d450cdf9928"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""QuickLoad"",
-                    ""type"": ""Button"",
-                    ""id"": ""b8ce6067-546c-4b83-8810-8a1e4fab440c"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""c764ebdd-c789-4440-a40d-00fc72cb4c5b"",
@@ -320,28 +304,6 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": """",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""576f0d4f-a6c9-46d6-896b-72e07addcb6e"",
-                    ""path"": ""<Keyboard>/f5"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Computer"",
-                    ""action"": ""QuickSave"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""188b7645-adf0-4dd8-8864-6bf160be4b32"",
-                    ""path"": ""<Keyboard>/f8"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Computer"",
-                    ""action"": ""QuickLoad"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -2193,8 +2155,6 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Gameplay_Spell4 = m_Gameplay.FindAction("Spell 4", throwIfNotFound: true);
         m_Gameplay_Run = m_Gameplay.FindAction("Run", throwIfNotFound: true);
         m_Gameplay_Dash = m_Gameplay.FindAction("Dash", throwIfNotFound: true);
-        m_Gameplay_QuickSave = m_Gameplay.FindAction("QuickSave", throwIfNotFound: true);
-        m_Gameplay_QuickLoad = m_Gameplay.FindAction("QuickLoad", throwIfNotFound: true);
         m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
         m_Gameplay_CheatConsole = m_Gameplay.FindAction("Cheat Console", throwIfNotFound: true);
         m_Gameplay_Interact = m_Gameplay.FindAction("Interact", throwIfNotFound: true);
@@ -2308,8 +2268,6 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Spell4;
     private readonly InputAction m_Gameplay_Run;
     private readonly InputAction m_Gameplay_Dash;
-    private readonly InputAction m_Gameplay_QuickSave;
-    private readonly InputAction m_Gameplay_QuickLoad;
     private readonly InputAction m_Gameplay_Pause;
     private readonly InputAction m_Gameplay_CheatConsole;
     private readonly InputAction m_Gameplay_Interact;
@@ -2332,8 +2290,6 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @Spell4 => m_Wrapper.m_Gameplay_Spell4;
         public InputAction @Run => m_Wrapper.m_Gameplay_Run;
         public InputAction @Dash => m_Wrapper.m_Gameplay_Dash;
-        public InputAction @QuickSave => m_Wrapper.m_Gameplay_QuickSave;
-        public InputAction @QuickLoad => m_Wrapper.m_Gameplay_QuickLoad;
         public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
         public InputAction @CheatConsole => m_Wrapper.m_Gameplay_CheatConsole;
         public InputAction @Interact => m_Wrapper.m_Gameplay_Interact;
@@ -2383,12 +2339,6 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Dash.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
                 @Dash.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
                 @Dash.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
-                @QuickSave.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnQuickSave;
-                @QuickSave.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnQuickSave;
-                @QuickSave.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnQuickSave;
-                @QuickLoad.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnQuickLoad;
-                @QuickLoad.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnQuickLoad;
-                @QuickLoad.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnQuickLoad;
                 @Pause.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
@@ -2447,12 +2397,6 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
-                @QuickSave.started += instance.OnQuickSave;
-                @QuickSave.performed += instance.OnQuickSave;
-                @QuickSave.canceled += instance.OnQuickSave;
-                @QuickLoad.started += instance.OnQuickLoad;
-                @QuickLoad.performed += instance.OnQuickLoad;
-                @QuickLoad.canceled += instance.OnQuickLoad;
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
@@ -2913,8 +2857,6 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnSpell4(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
-        void OnQuickSave(InputAction.CallbackContext context);
-        void OnQuickLoad(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnCheatConsole(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);

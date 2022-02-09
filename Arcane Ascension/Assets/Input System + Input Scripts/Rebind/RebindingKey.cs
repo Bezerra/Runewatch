@@ -30,6 +30,7 @@ public class RebindingKey : MonoBehaviour
         if (inputAction != null)
         {
             actionText.text = inputAction.action.bindings[0].action.ToString();
+
             bindingDisplayText.text =
                 InputControlPath.ToHumanReadableString(inputAction.action.bindings[0].effectivePath,
                 InputControlPath.HumanReadableStringOptions.OmitDevice);
@@ -127,7 +128,7 @@ public class RebindingKey : MonoBehaviour
 
         // If the path of this action doesn't exist, updates button text
         UpdateTextWithActionInformation();
-        Debug.Log("END");
+
         // Saves key to player prefs
         PlayerPrefs.SetString($"ACTION_{inputAction.action.bindings[0].action}",
             inputAction.action.bindings[0].effectivePath);
