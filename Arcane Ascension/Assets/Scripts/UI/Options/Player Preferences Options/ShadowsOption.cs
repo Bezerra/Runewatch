@@ -5,14 +5,14 @@ using UnityEngine;
 /// </summary>
 public class ShadowsOption : ButtonArrowOption
 {
-    [SerializeField] private string vsyncPlayerPrefsName;
-    [SerializeField] private string qualitySettingsPlayerPrefsName;
+    [SerializeField] private PPrefsNames vsyncPlayerPrefsName;
+    [SerializeField] private PPrefsNames qualitySettingsPlayerPrefsName;
 
     protected override void UpdateOption(float value)
     {
-        float vSyncOption = PlayerPrefs.GetFloat(vsyncPlayerPrefsName, 1);
+        float vSyncOption = PlayerPrefs.GetFloat(vsyncPlayerPrefsName.ToString(), 1);
         float qualitySettingsOption = 
-            PlayerPrefs.GetFloat(qualitySettingsPlayerPrefsName, 2);
+            PlayerPrefs.GetFloat(qualitySettingsPlayerPrefsName.ToString(), 2);
 
         switch (value)
         {

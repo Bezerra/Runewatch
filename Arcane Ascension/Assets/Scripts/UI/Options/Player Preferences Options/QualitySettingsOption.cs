@@ -5,13 +5,13 @@ using UnityEngine;
 /// </summary>
 public class QualitySettingsOption : ButtonArrowOption
 {
-    [SerializeField] private string vsyncPlayerPrefsName;
-    [SerializeField] private string shadowsPlayerPrefsName;
+    [SerializeField] private PPrefsNames vsyncPlayerPrefsName;
+    [SerializeField] private PPrefsNames shadowsPlayerPrefsName;
 
     protected override void UpdateOption(float value)
     {
-        float vSyncOption = PlayerPrefs.GetFloat(vsyncPlayerPrefsName, 1);
-        float shadowsOption = PlayerPrefs.GetFloat(shadowsPlayerPrefsName, 1);
+        float vSyncOption = PlayerPrefs.GetFloat(vsyncPlayerPrefsName.ToString(), 1);
+        float shadowsOption = PlayerPrefs.GetFloat(shadowsPlayerPrefsName.ToString(), 1);
 
         switch (value)
         {

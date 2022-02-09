@@ -57,7 +57,7 @@ public class PlayerCamera : MonoBehaviour
     {
         // Rotates camera on X axis (vertical)
         cameraX -= input.Camera.y * player.Values.CameraSpeed *
-            PlayerPrefs.GetFloat("Mouse", 1) * Time.fixedDeltaTime;
+            PlayerPrefs.GetFloat(PPrefsNames.Mouse.ToString(), 1) * Time.fixedDeltaTime;
         cameraX = Mathf.Clamp(
             cameraX, player.Values.CameraRange.x, player.Values.CameraRange.y);
 
@@ -67,7 +67,7 @@ public class PlayerCamera : MonoBehaviour
 
         // Rotates the PLAYER on Y axis (horizontal)
         transform.Rotate(input.Camera.x * player.Values.CameraSpeed * 
-            PlayerPrefs.GetFloat("Mouse", 1) * Time.fixedDeltaTime * Vector3.up);
+            PlayerPrefs.GetFloat(PPrefsNames.Mouse.ToString(), 1) * Time.fixedDeltaTime * Vector3.up);
     }
 
     /// <summary>

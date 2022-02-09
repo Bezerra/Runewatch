@@ -6,18 +6,18 @@ using UnityEngine.UI;
 /// </summary>
 public class SliderOption : PlayerPreferencesOption
 {
-    [SerializeField] private string optionToUpdate;
+    [SerializeField] private PPrefsNames optionToUpdate;
     [SerializeField] private float defaultValue;
     [SerializeField] private Slider slider;
 
     protected override void UpdateValueToMatchPlayerPrefs()
     {
-        float value = PlayerPrefs.GetFloat(optionToUpdate, defaultValue);
+        float value = PlayerPrefs.GetFloat(optionToUpdate.ToString(), defaultValue);
         slider.value = value;
     }
 
     public override void UpdateValue(float value)
     {
-        PlayerPrefs.SetFloat(optionToUpdate, value);
+        PlayerPrefs.SetFloat(optionToUpdate.ToString(), value);
     }
 }

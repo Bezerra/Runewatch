@@ -7,7 +7,7 @@ using TMPro;
 public abstract class ButtonArrowOption : PlayerPreferencesOption
 {
     [SerializeField] protected TextMeshProUGUI textToUpdate;
-    [SerializeField] private string optionToUpdate;
+    [SerializeField] private PPrefsNames optionToUpdate;
     [SerializeField] protected Vector2 limits;
     [Header("Must be a number between x and y limits")]
     [SerializeField] private int defaultValue;
@@ -29,14 +29,14 @@ public abstract class ButtonArrowOption : PlayerPreferencesOption
 
     protected override void UpdateValueToMatchPlayerPrefs()
     {
-        float value = PlayerPrefs.GetFloat(optionToUpdate, defaultValue);
+        float value = PlayerPrefs.GetFloat(optionToUpdate.ToString(), defaultValue);
         UpdateOption(value);
     }
 
     public override void UpdateValue(float value)
     {
         UpdateOption(value);
-        PlayerPrefs.SetFloat(optionToUpdate, value);
+        PlayerPrefs.SetFloat(optionToUpdate.ToString(), value);
     }
 
     protected abstract void UpdateOption(float value);

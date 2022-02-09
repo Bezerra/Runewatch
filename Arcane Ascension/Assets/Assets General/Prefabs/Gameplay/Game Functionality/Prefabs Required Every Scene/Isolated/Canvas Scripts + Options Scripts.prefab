@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: -295507942051692594, guid: bfe86a41512082e4c85eb62e7c0e94f9, type: 2}
-  optionToUpdate: 3
+  optionToUpdate: 11
   slider: {fileID: 8165655113707150031}
 --- !u!114 &9044581726402398319
 MonoBehaviour:
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textToUpdate: {fileID: 2327031497062408034}
-  optionToUpdate: ScreenMode
+  optionToUpdate: 3
   limits: {x: 0, y: 1}
   defaultValue: 1
 --- !u!1 &2204377982235102324
@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textToUpdate: {fileID: 1131147385859294919}
-  optionToUpdate: FPSCounter
+  optionToUpdate: 6
   limits: {x: 0, y: 1}
   defaultValue: 0
 --- !u!1 &3963064452664957982
@@ -443,7 +443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textToUpdate: {fileID: 730662740878670994}
-  optionToUpdate: VSYNC
+  optionToUpdate: 1
   limits: {x: 0, y: 1}
   defaultValue: 1
 --- !u!1 &4247172020410185935
@@ -497,7 +497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 982977698816628333, guid: bfe86a41512082e4c85eb62e7c0e94f9, type: 2}
-  optionToUpdate: 0
+  optionToUpdate: 8
   slider: {fileID: 6172324121781358014}
 --- !u!114 &7258613812428648916
 MonoBehaviour:
@@ -512,11 +512,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textToUpdate: {fileID: 9160641169704686877}
-  optionToUpdate: Shadows
+  optionToUpdate: 4
   limits: {x: 0, y: 1}
   defaultValue: 1
-  vsyncPlayerPrefsName: VSYNC
-  qualitySettingsPlayerPrefsName: QualityLevel
+  vsyncPlayerPrefsName: 1
+  qualitySettingsPlayerPrefsName: 5
 --- !u!1 &4899481143137781480
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,7 +697,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5362832253027630928
 RectTransform:
   m_ObjectHideFlags: 0
@@ -982,7 +982,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &748184528039394058
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1084,11 +1084,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textToUpdate: {fileID: 7508208018103695101}
-  optionToUpdate: QualityLevel
+  optionToUpdate: 5
   limits: {x: 0, y: 2}
   defaultValue: 2
-  vsyncPlayerPrefsName: VSYNC
-  shadowsPlayerPrefsName: Shadows
+  vsyncPlayerPrefsName: 1
+  shadowsPlayerPrefsName: 4
 --- !u!1 &6251523393026939320
 GameObject:
   m_ObjectHideFlags: 0
@@ -1138,7 +1138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: -5551713805325232817, guid: bfe86a41512082e4c85eb62e7c0e94f9, type: 2}
-  optionToUpdate: 2
+  optionToUpdate: 10
   slider: {fileID: 3880605618015023295}
 --- !u!114 &2130832995822840149
 MonoBehaviour:
@@ -1153,7 +1153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 1452720451732320776, guid: bfe86a41512082e4c85eb62e7c0e94f9, type: 2}
-  optionToUpdate: 1
+  optionToUpdate: 9
   slider: {fileID: 3981325454891740268}
 --- !u!114 &2179384292481013476
 MonoBehaviour:
@@ -1168,7 +1168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textToUpdate: {fileID: 6728466250625565851}
-  optionToUpdate: Minimap
+  optionToUpdate: 7
   limits: {x: 0, y: 1}
   defaultValue: 1
 --- !u!1 &6969065017224115091
@@ -1622,7 +1622,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textToUpdate: {fileID: 5831083324930737991}
-  optionToUpdate: Resolution
+  optionToUpdate: 2
   limits: {x: 0, y: 2}
   defaultValue: 2
 --- !u!114 &6196254763267934260
@@ -1637,7 +1637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cafa419e1e0f974ab6d45c232b735d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionToUpdate: Mouse
+  optionToUpdate: 0
   defaultValue: 1
   slider: {fileID: 310725647732981090}
 --- !u!1 &9179041034519151313
@@ -2048,7 +2048,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6115861499504275107, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6115861499504275107, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
       propertyPath: m_AnchorMin.x
@@ -2056,11 +2056,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6115861499504275107, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6115861499504275107, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 1075.303
       objectReference: {fileID: 0}
     - target: {fileID: 6115861499504275107, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
       propertyPath: m_SizeDelta.y
@@ -2096,11 +2096,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6115861499504275107, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 537.6515
       objectReference: {fileID: 0}
     - target: {fileID: 6115861499504275107, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -43.95
       objectReference: {fileID: 0}
     - target: {fileID: 6115861499504275107, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5100,7 +5100,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6115861499504275107, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6115861499504275107, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
       propertyPath: m_AnchorMin.x
@@ -5108,11 +5108,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6115861499504275107, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6115861499504275107, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 1075.303
       objectReference: {fileID: 0}
     - target: {fileID: 6115861499504275107, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
       propertyPath: m_SizeDelta.y
@@ -5148,11 +5148,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6115861499504275107, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 537.6515
       objectReference: {fileID: 0}
     - target: {fileID: 6115861499504275107, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -139.64
       objectReference: {fileID: 0}
     - target: {fileID: 6115861499504275107, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
