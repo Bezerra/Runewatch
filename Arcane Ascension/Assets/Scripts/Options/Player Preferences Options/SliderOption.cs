@@ -7,11 +7,12 @@ using UnityEngine.UI;
 public class SliderOption : PlayerPreferencesOption
 {
     [SerializeField] private string optionToUpdate;
+    [SerializeField] private float defaultValue;
     [SerializeField] private Slider slider;
 
     protected override void UpdateValueToMatchPlayerPrefs()
     {
-        float value = PlayerPrefs.GetFloat(optionToUpdate, 1);
+        float value = PlayerPrefs.GetFloat(optionToUpdate, defaultValue);
         slider.value = value;
     }
 
