@@ -9800,21 +9800,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   burn: {fileID: 3065861867984760837}
-  burnParticles: []
+  burnParticles:
+  - {fileID: 2875795162610830491}
+  - {fileID: 1957893015502081923}
   slow: {fileID: 3309271942036052345}
-  slowParticles: []
+  slowParticles:
+  - {fileID: 6931491767393104927}
+  - {fileID: 4015854597006103330}
   fortify: {fileID: 602753457798279583}
-  fortifyParticles: []
+  fortifyParticles:
+  - {fileID: 6723271603979945891}
+  - {fileID: 5231025407973547120}
   corrupt: {fileID: 2743773217729977963}
-  corruptParticles: []
+  corruptParticles:
+  - {fileID: 268999812080878910}
+  - {fileID: 4029056040717140229}
+  - {fileID: 4547464607884226178}
   wispsHealing: {fileID: 2385235588098276036}
-  wispsHealingParticles: []
+  wispsHealingParticles:
+  - {fileID: 5858386720241841805}
+  - {fileID: 8995979365023812843}
   haste: {fileID: 330844337998958257}
   hasteParticles:
-  - {fileID: 839794006}
   - {fileID: 1472450625}
+  - {fileID: 839794006}
   sacrifice: {fileID: 4296728767473407495}
-  sacrificeParticles: []
+  sacrificeParticles:
+  - {fileID: 6364200064003529439}
+  - {fileID: 4079635243827556991}
   vulnerable: {fileID: 7037568435417459394}
   vulnerableParticles: []
 --- !u!1 &680602325414428373
@@ -43930,6 +43943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a6393320916e1e4c8473280d1dd133b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keepMainCamPostProcess: 0
 --- !u!20 &1208689545951214202
 Camera:
   m_ObjectHideFlags: 0
