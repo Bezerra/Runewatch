@@ -1,5 +1,6 @@
 /// <summary>
 /// Enum with all player prefs.
+/// DO NOT CHANGE ORDER.
 /// </summary>
 public enum PPrefsNames
 {
@@ -15,4 +16,5 @@ public enum PPrefsNames
     AmbienceVolume,
     SFXVolume,
     MusicVolume,
+    EnemyHealthBar,
 }
