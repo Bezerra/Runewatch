@@ -55,6 +55,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI arcanePower;
     [Header("Misc")]
     [SerializeField] private GameObject minimap;
+    [SerializeField] private GameObject timer;
     [SerializeField] private GameObject fpsCounterBackground;
     [SerializeField] private TextMeshProUGUI fpsCounterTMP;
 
@@ -89,6 +90,7 @@ public class PlayerUI : MonoBehaviour
 
         ControlFPSCounter((int)PlayerPrefs.GetFloat("FPSCounter", 0)); //off
         ControlMinimap((int)PlayerPrefs.GetFloat("Minimap", 1)); //on
+        ControlTimer((int)PlayerPrefs.GetFloat("Minimap", 0)); //off
     }
 
     private IEnumerator OnEnableCoroutine()
@@ -444,6 +446,22 @@ public class PlayerUI : MonoBehaviour
         else
         {
             minimap.SetActive(false);
+        }
+    }
+
+    /// <summary>
+    /// Sets timer to on or off.
+    /// </summary>
+    /// <param name="value"></param>
+    public void ControlTimer(int value)
+    {
+        if (value == 1)
+        {
+            timer.SetActive(true);
+        }
+        else
+        {
+            timer.SetActive(false);
         }
     }
 

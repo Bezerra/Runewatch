@@ -20,4 +20,5 @@ public enum PPrefsNames
     AmbientOcclusion,
     DamageDealt,
     DamageIndicator,
+    Timer,
 }
