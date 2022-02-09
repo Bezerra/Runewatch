@@ -17,4 +17,5 @@ public enum PPrefsNames
     SFXVolume,
     MusicVolume,
     EnemyHealthBar,
+    AmbientOcclusion,
 }
