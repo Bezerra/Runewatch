@@ -18,4 +18,5 @@ public enum PPrefsNames
     MusicVolume,
     EnemyHealthBar,
     AmbientOcclusion,
+    ShowDamage,
 }

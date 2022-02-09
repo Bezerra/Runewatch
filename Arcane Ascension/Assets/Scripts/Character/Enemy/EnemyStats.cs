@@ -64,12 +64,17 @@ public class EnemyStats : Stats
         OnEventTakeDamage(damageToReceive);
 
         // Spawn damage text
-        GameObject damageHitText =
-                    DamageHitPoolCreator.Pool.InstantiateFromPool("DamageHit", transform.position, Quaternion.identity);
-        if (damageHitText.TryGetComponent<DamageHitText>(out DamageHitText outDamageHitText))
+        if (PlayerPrefs.GetFloat(PPrefsNames.ShowDamage.ToString(), 1) == 1)
         {
-            outDamageHitText.UpdateShownDamage(damageToReceive, false);
-        }
+            GameObject damageHitText =
+                    DamageHitPoolCreator.Pool.InstantiateFromPool(
+                        "DamageHit", transform.position, Quaternion.identity);
+
+            if (damageHitText.TryGetComponent(out DamageHitText outDamageHitText))
+            {
+                outDamageHitText.UpdateShownDamage(damageToReceive, false);
+            }
+        }   
 
         if (Health - damageToReceive > 0)
         {
@@ -142,11 +147,16 @@ public class EnemyStats : Stats
         OnEventTakeDamage(damageToReceive);
 
         // Spawn damage text
-        GameObject damageHitText =
-                DamageHitPoolCreator.Pool.InstantiateFromPool("DamageHit", transform.position, Quaternion.identity);
-        if (damageHitText.TryGetComponent<DamageHitText>(out DamageHitText outDamageHitText))
+        if (PlayerPrefs.GetFloat(PPrefsNames.ShowDamage.ToString(), 1) == 1)
         {
-            outDamageHitText.UpdateShownDamage(damageToReceive, criticalHit);
+            GameObject damageHitText =
+                DamageHitPoolCreator.Pool.InstantiateFromPool(
+                    "DamageHit", transform.position, Quaternion.identity);
+
+            if (damageHitText.TryGetComponent(out DamageHitText outDamageHitText))
+            {
+                outDamageHitText.UpdateShownDamage(damageToReceive, criticalHit);
+            }
         }
 
         if (Health - damageToReceive > 0)
