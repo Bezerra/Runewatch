@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 2500982254546754091}
   - component: {fileID: 729317396117829504}
   - component: {fileID: 5517064271319684802}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Status Effect Player UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -333,7 +333,7 @@ GameObject:
   - component: {fileID: 3689658043504170291}
   - component: {fileID: 7153841279766245531}
   - component: {fileID: 5924691269189021480}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Element
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -408,7 +408,7 @@ GameObject:
   - component: {fileID: 7446259127137882550}
   - component: {fileID: 2132497427957850429}
   - component: {fileID: 7581576990194064747}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Health Bar Green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -483,7 +483,8 @@ GameObject:
   - component: {fileID: 2275489982428880890}
   - component: {fileID: 672670231217069094}
   - component: {fileID: 6365282153997504347}
-  m_Layer: 5
+  - component: {fileID: 349474075527554989}
+  m_Layer: 9
   m_Name: Health Bar Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -550,6 +551,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!223 &349474075527554989
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2298336611554741531}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &4062178127085215348
 GameObject:
   m_ObjectHideFlags: 0
@@ -592,7 +614,7 @@ GameObject:
   - component: {fileID: 2792100098131916545}
   - component: {fileID: 4469344314151130778}
   - component: {fileID: 416401686104305894}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Status Effect Player UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -667,7 +689,7 @@ GameObject:
   - component: {fileID: 436833398893617035}
   - component: {fileID: 253333227753866095}
   - component: {fileID: 245929128502134812}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Status Effect Player UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -830,7 +852,7 @@ GameObject:
   - component: {fileID: 2281509443638287448}
   - component: {fileID: 1815552759612111076}
   - component: {fileID: 5202969139232443679}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Status Effect Player UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1037,7 +1059,7 @@ GameObject:
   - component: {fileID: 5106712542703842297}
   - component: {fileID: 3550628009330890606}
   - component: {fileID: 8851157567817973617}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Status Effect Player UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1186,7 +1208,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3720256810665064333}
   - component: {fileID: 2388327572751228936}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Status Effects Layout Group
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1250,7 +1272,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3279478657813874995}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Status Effects Parent Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
