@@ -137,7 +137,13 @@ public class PlayerUI : MonoBehaviour
     {
         OnTakeDamage();
         armor.fillAmount = 0;
+
         GameplayTime.PlayTimer();
+        RunSaveDataController runSaveData = FindObjectOfType<RunSaveDataController>();
+        if (runSaveData != null)
+        {
+            runSaveData.SaveData.CurrentSessionTime = GameplayTime.CurrentTime;
+        }
     }
 
     public void SubscribeToEnemiesDamage()
@@ -481,12 +487,16 @@ public class PlayerUI : MonoBehaviour
         {
             statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Value.Type].Image.fillAmount = 1 -
                 (Time.time -
-                playerStats.StatusEffectList.Items[statusEffectsSlotsInUse.ElementAt(i).Value.Type].TimeApplied) /
-                statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Key].Duration;
+                playerStats.StatusEffectList.Items[statusEffectsSlotsInUse.
+                ElementAt(i).Value.Type].TimeApplied) /
+                statusEffectsSlotsInUse[statusEffectsSlotsInUse.
+                ElementAt(i).Key].Duration;
 
-            if (statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Value.Type].Image.fillAmount <= 0)
+            if (statusEffectsSlotsInUse[statusEffectsSlotsInUse.
+                ElementAt(i).Value.Type].Image.fillAmount <= 0)
             {
-                statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Value.Type].Image.gameObject.SetActive(false);
+                statusEffectsSlotsInUse[statusEffectsSlotsInUse.
+                    ElementAt(i).Value.Type].Image.gameObject.SetActive(false);
                 statusEffectsSlotsInUse.Remove(statusEffectsSlotsInUse.ElementAt(i).Value.Type);
             }
         }
@@ -525,7 +535,10 @@ public class PlayerUI : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        PlayerPrefs.SetFloat(PPrefsGeneral.CurrentSessionGameTime.ToString(),
-            GameplayTime.CurrentTime);
+        RunSaveDataController runSaveData = FindObjectOfType<RunSaveDataController>();
+        if (runSaveData != null)
+        {
+            runSaveData.SaveData.CurrentSessionTime = GameplayTime.CurrentTime;
+        }
     }
 }
