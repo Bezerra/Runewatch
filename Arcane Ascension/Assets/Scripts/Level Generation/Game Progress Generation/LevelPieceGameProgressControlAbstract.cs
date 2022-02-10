@@ -277,18 +277,20 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
     {
         yield return new WaitForSeconds(timeToSpawnSecondWave);
 
-        foreach (GameObject spawnedEnemy in spawnedSecondWaveEnemies)
+        if (hasSpawnedSecondWave == false)
         {
- 
-            spawnedEnemy.SetActive(true);
-            quantityOfEnemiesSpawned++;
-            if (spawnedEnemy.TryGetComponentInChildrenFirstGen(out Stats enemyStats))
+            foreach (GameObject spawnedEnemy in spawnedSecondWaveEnemies)
             {
-                enemyStats.EventDeath += EnemyDeath;
-
-                if (enemyStats.CommonAttributes.Type == CharacterType.Boss)
+                spawnedEnemy.SetActive(true);
+                quantityOfEnemiesSpawned++;
+                if (spawnedEnemy.TryGetComponentInChildrenFirstGen(out Stats enemyStats))
                 {
-                    enemyStats.EventDeath += BossDeath;
+                    enemyStats.EventDeath += EnemyDeath;
+
+                    if (enemyStats.CommonAttributes.Type == CharacterType.Boss)
+                    {
+                        enemyStats.EventDeath += BossDeath;
+                    }
                 }
             }
         }
@@ -395,14 +397,41 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
         enemyStats.EventDeath -= EnemyDeath;
         quantityOfEnemiesSpawned--;
 
-        // If second wave has not spawned yet
+        // Has second wave
         if (spawnsSecondWave)
         {
+            // If second wave hasn't spawned yet
             if (hasSpawnedSecondWave == false)
+            {
+                // If there is a second wave and all enemies are dead
+                if (quantityOfEnemiesSpawned == 0)
+                {
+                    // Spawns second wave
+                    foreach (GameObject spawnedEnemy in spawnedSecondWaveEnemies)
+                    {
+                        spawnedEnemy.SetActive(true);
+                        quantityOfEnemiesSpawned++;
+                        if (spawnedEnemy.TryGetComponentInChildrenFirstGen(
+                            out Stats spawnedenemyStats))
+                        {
+                            spawnedenemyStats.EventDeath += EnemyDeath;
+
+                            if (spawnedenemyStats.CommonAttributes.Type == 
+                                CharacterType.Boss)
+                            {
+                                spawnedenemyStats.EventDeath += BossDeath;
+                            }
+                        }
+                    }
+                    hasSpawnedSecondWave = true;
+                }
+                
+                // Ignores the rest of the code
                 return;
+            }
         }
 
-        // If all enemies area dead
+        // If all enemies are dead and second wave has already spawned
         if (quantityOfEnemiesSpawned == 0)
         {
             BlockUnblockExits(false);
