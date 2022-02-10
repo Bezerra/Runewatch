@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 840532125, guid: 9d1610138c45a904ea9c1066db9ab74a, type: 3}
+      propertyPath: destroyMeOnAwake
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5979165604696722573, guid: 9d1610138c45a904ea9c1066db9ab74a, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -301,6 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a07e206d2675bd498a005a75f3479b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyMeOnAwake: 0
   allSpells: {fileID: 11400000, guid: e3d02410d36a85d4a98e99e835dcd157, type: 2}
 --- !u!1001 &1176674820
 PrefabInstance:

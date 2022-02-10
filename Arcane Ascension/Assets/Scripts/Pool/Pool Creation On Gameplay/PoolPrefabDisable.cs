@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -9,15 +10,20 @@ public class PoolPrefabDisable : MonoBehaviour
     {
         foreach(Transform directChild in transform)
         {
-            foreach (MonoBehaviour child in 
-                    directChild.GetComponentsInChildren<MonoBehaviour>())
+            foreach (IReset reset in GetComponentsInChildren<IReset>(true))
+                reset.Reset();
+
+            Transform[] objects = 
+                directChild.GetComponentsInChildren<Transform>().Where(
+                    i => i.gameObject != directChild.gameObject).ToArray();
+
+            for (int i = 0; i < objects.Length; i++)
             {
-                if (child.gameObject.activeSelf)
+                if (objects[i].gameObject.activeSelf)
                 {
-                    if (child.TryGetComponent(
-                        out AbstractPoolCreator poolCreator) == false)
+                    if (objects[i].parent == directChild)
                     {
-                        child.gameObject.SetActive(false);
+                        objects[i].gameObject.SetActive(false);
                     }
                 }
             }

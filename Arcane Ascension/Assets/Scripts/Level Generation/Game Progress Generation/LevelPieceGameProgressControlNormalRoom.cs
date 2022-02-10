@@ -109,7 +109,7 @@ public class LevelPieceGameProgressControlNormalRoom : LevelPieceGameProgressCon
                     }
                 }
 
-                // If this piece is supposed to spawn a chest, spawns it
+                // If this jas a chest, allows the player to open it
                 // Type of chest randomly set on the end of level generator
                 if (RoomSpawnsChest && chestScript != null)
                 {

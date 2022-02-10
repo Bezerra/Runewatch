@@ -4,7 +4,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Class responsible for updating minimap icon images, sizes and canvas order.
 /// </summary>
-public class MinimapIcon : MonoBehaviour
+public class MinimapIcon : MonoBehaviour, IReset
 {
     [SerializeField] private MinimapIconsSO allIcons;
     [SerializeField] private MinimapIconType iconType;
@@ -39,6 +39,15 @@ public class MinimapIcon : MonoBehaviour
             SetIconActive(false);
     }
 
-    public void SetIconActive(bool condition) => 
-        gameObject.transform.parent.gameObject.SetActive(condition);
+    public void SetIconActive(bool condition) =>
+        transform.parent.gameObject.SetActive(condition);
+
+    /// <summary>
+    /// Called when pool prefab disabler disables all gameobjects.
+    /// </summary>
+    public void Reset()
+    {
+        if (disableOnStart)
+            SetIconActive(false);
+    }
 }
