@@ -37,6 +37,4 @@ public class ShopkeeperInventorySlot : MonoBehaviour, IInteractableWithCanvas
 
     public void UpdateInformation(string text) =>
         textMeshPro.text = text;
-
-
 }

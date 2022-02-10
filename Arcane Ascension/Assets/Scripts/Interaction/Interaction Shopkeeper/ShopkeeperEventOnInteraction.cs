@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -19,9 +20,19 @@ public class ShopkeeperEventOnInteraction : AbstractEventOnInteraction, IInterec
     [Range(1, 100000)] [SerializeField] private int price;
 
     /// <summary>
-    /// Property with this item's price.
+    /// Price of the item.
     /// </summary>
     public int Price => price;
+
+    /// <summary>
+    /// Shopkeeper that spawn this item.
+    /// </summary>
+    public Shopkeeper ShopkeeperOfItem { get; set; }
+
+    /// <summary>
+    /// Which slot was it spawned in.
+    /// </summary>
+    public int NumberOfSlot { get; set; }
 
     protected override void Awake()
     {
@@ -54,7 +65,7 @@ public class ShopkeeperEventOnInteraction : AbstractEventOnInteraction, IInterec
                     }
                 }
 
-                // Disables object on pool
+                OnItemBought(this);
                 gameObject.SetActive(false);
                 PlayerCurrency.SpendCurrency(CurrencyType.Gold, price);
             }
@@ -70,4 +81,8 @@ public class ShopkeeperEventOnInteraction : AbstractEventOnInteraction, IInterec
         base.FindPlayer();
         PlayerCurrency = FindObjectOfType<PlayerCurrency>();
     }
+
+    protected virtual void OnItemBought(ShopkeeperEventOnInteraction itemBought) => 
+        ItemBought?.Invoke(itemBought);
+    public event Action<ShopkeeperEventOnInteraction> ItemBought;
 }

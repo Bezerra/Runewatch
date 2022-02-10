@@ -3,5 +3,5 @@
 /// </summary>
 public interface IReset
 {
-    void Reset();
+    void ResetAfterPoolDisable();
 }

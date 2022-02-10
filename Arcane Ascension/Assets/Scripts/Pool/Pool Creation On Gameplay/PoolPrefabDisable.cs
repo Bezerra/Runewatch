@@ -11,7 +11,7 @@ public class PoolPrefabDisable : MonoBehaviour
         foreach(Transform directChild in transform)
         {
             foreach (IReset reset in GetComponentsInChildren<IReset>(true))
-                reset.Reset();
+                reset.ResetAfterPoolDisable();
 
             Transform[] objects = 
                 directChild.GetComponentsInChildren<Transform>().Where(

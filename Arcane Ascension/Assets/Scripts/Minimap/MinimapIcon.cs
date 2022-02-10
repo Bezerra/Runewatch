@@ -45,9 +45,8 @@ public class MinimapIcon : MonoBehaviour, IReset
     /// <summary>
     /// Called when pool prefab disabler disables all gameobjects.
     /// </summary>
-    public void Reset()
+    public void ResetAfterPoolDisable()
     {
-        if (disableOnStart)
-            SetIconActive(false);
+        Start();
     }
 }

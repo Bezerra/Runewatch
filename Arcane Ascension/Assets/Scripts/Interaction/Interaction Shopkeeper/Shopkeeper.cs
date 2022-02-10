@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for spawning shopkeeper items.
 /// </summary>
-public class Shopkeeper : MonoBehaviour, IFindPlayer
+public class Shopkeeper : MonoBehaviour
 {
     private readonly int numberOfVarietyOfItemsToSell = 3;
 
@@ -16,32 +16,32 @@ public class Shopkeeper : MonoBehaviour, IFindPlayer
     private IList<GameObject> itemsSpawned;
 
     private int numberOfItemsSold;
-    private bool shopkeeperSpawned;
     private byte numberOfInventorySlots;
 
-    // Components
-    private Player player;
 
     private void Awake()
     {
-        player = FindObjectOfType<Player>();
-        allInventorySlots = GetComponentsInChildren<ShopkeeperInventorySlot>();
-        itemsSpawned = new List<GameObject>();
-        numberOfInventorySlots = 4; // Initial slots
+        allInventorySlots = GetComponentsInChildren<ShopkeeperInventorySlot>(true);
+    }
 
+    private void OnEnable()
+    {
+        numberOfItemsSold = 0;
+
+        itemsSpawned = new List<GameObject>();
+
+        numberOfInventorySlots = 4; // Initial slots
         numberOfInventorySlots += FindObjectOfType<CharacterSaveDataController>().SaveData.Dealer;
 
-        if (numberOfInventorySlots > allInventorySlots.Count) numberOfInventorySlots = (byte)allInventorySlots.Count;
+        if (numberOfInventorySlots > allInventorySlots.Count)
+            numberOfInventorySlots = (byte)allInventorySlots.Count;
 
         // Disables all
         foreach (ShopkeeperInventorySlot slot in allInventorySlots)
         {
             slot.gameObject.SetActive(false);
-        } 
-    }
+        }
 
-    private void OnEnable()
-    {
         StartCoroutine(SpawnShopKeeperCoroutine());
     }
 
@@ -62,9 +62,20 @@ public class Shopkeeper : MonoBehaviour, IFindPlayer
             int randomItemIndex = Random.Range(0, numberOfVarietyOfItemsToSell);
 
             // Spawn item from pool
-            itemsSpawned.Add(ShopkeeperLootPoolCreator.Pool.InstantiateFromPool(
-                randomItemIndex,
-                transform.position, Quaternion.identity));
+            GameObject itemToSpawn =
+                ShopkeeperLootPoolCreator.Pool.InstantiateFromPool(
+                randomItemIndex, transform.position, Quaternion.identity);
+
+            // Adds to spawn items list
+            itemsSpawned.Add(itemToSpawn);
+
+            // Sets item's shopkeeper
+            if (itemToSpawn.TryGetComponent(out ShopkeeperEventOnInteraction item))
+                item.ShopkeeperOfItem = this;
+
+            // Subscribes to buy event
+            item.ItemBought += ItemBought;
+            item.NumberOfSlot = i;
 
             // Rotates the item towards shopkeeper forward
             itemsSpawned[i].transform.SetPositionAndRotation(
@@ -73,46 +84,31 @@ public class Shopkeeper : MonoBehaviour, IFindPlayer
 
             // Updates canvas with item price
             allInventorySlots[i].UpdateInformation(
-                itemsSpawned[i].GetComponent<ShopkeeperEventOnInteraction>().Price.ToString());
+                itemsSpawned[i].GetComponent<ShopkeeperEventOnInteraction>().
+                Price.ToString());
         }
-        shopkeeperSpawned = true;
-    }
 
-    private void FixedUpdate()
-    {
-        if (shopkeeperSpawned && player != null)
+        for (int i = 0; i < numberOfInventorySlots; i++)
         {
-            // If player is close
-            if (Vector3.Distance(transform.position, player.transform.position) < 25)
+            // Updates item position to match inventory slots position
+            if (itemsSpawned[i].activeSelf)
             {
-                for (int i = 0; i < numberOfInventorySlots; i++)
-                {
-                    // If item wasn't bought yet, updates item position to match inventory slots position
-                    if (itemsSpawned[i].activeSelf)
-                        itemsSpawned[i].transform.position = allInventorySlots[i].ItemModelParent.position;
-                    else
-                    {
-                        if (allInventorySlots[i] != null)
-                        {
-                            numberOfItemsSold++;
-                            Destroy(allInventorySlots[i].gameObject);
-                        }
-                    }
-                }
-
-                if (numberOfInventorySlots == numberOfItemsSold)
-                    gameObject.SetActive(false);
+                itemsSpawned[i].transform.position =
+                    allInventorySlots[i].ItemModelParent.position;
             }
         }
     }
 
-    public void FindPlayer()
+    private void ItemBought(ShopkeeperEventOnInteraction itemBought)
     {
-        player = FindObjectOfType<Player>();
-    }
+        numberOfItemsSold++;
+        allInventorySlots[itemBought.NumberOfSlot].gameObject.SetActive(false);
 
-    public void PlayerLost()
-    {
-        // Left blank on purpose
+        if (numberOfInventorySlots == numberOfItemsSold)
+        {
+            gameObject.SetActive(false);
+        }
+
+        itemBought.ItemBought -= ItemBought;
     }
 }
