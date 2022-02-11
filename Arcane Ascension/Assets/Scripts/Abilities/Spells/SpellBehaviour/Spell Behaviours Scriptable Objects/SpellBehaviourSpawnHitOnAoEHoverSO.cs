@@ -22,7 +22,8 @@ public class SpellBehaviourSpawnHitOnAoEHoverSO : SpellBehaviourAbstractSO
             parent.Spell.Name, parent.AreaHoverAreaHit.point,
             Quaternion.identity);
 
-        if (onHitBehaviourGameObject.TryGetComponent<SpellOnHitBehaviourOneShot>(out SpellOnHitBehaviourOneShot onHitBehaviour))
+        if (onHitBehaviourGameObject.TryGetComponent<SpellOnHitBehaviourOneShot>(
+            out SpellOnHitBehaviourOneShot onHitBehaviour))
         {
             // Sets hit Spell to this spell
             if (onHitBehaviour.Spell != parent.Spell)
