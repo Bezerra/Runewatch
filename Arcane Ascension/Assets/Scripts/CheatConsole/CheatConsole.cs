@@ -209,11 +209,20 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
 
                     // Player Stuff
                     playerRoot.GetComponentInChildren<CharacterController>(true).enabled = false;
-                    FindObjectOfType<PlayerFly>().CheatApplied = true;
-                    ChangeLayersAllChilds(playerRoot.transform, Layers.PlayerLayerNum, Layers.InvisiblePlayerLayerNum, true);
-                    foreach (Enemy en in FindObjectsOfType<Enemy>())
-                        en.CurrentTarget = null;
 
+                    FindObjectOfType<PlayerFly>().CheatApplied = true;
+
+                    ChangeLayersAllChilds(
+                        playerRoot.transform, Layers.PlayerLayerNum, 
+                        Layers.InvisiblePlayerLayerNum, true);
+
+                    Enemy[] enemies = FindObjectsOfType<Enemy>();
+                    if (enemies.Length > 0)
+                    {
+                        foreach (Enemy en in enemies)
+                            en.CurrentTarget = null;
+                    }
+                    
                     // Level Stuff
                     // Creates a new list with all level pieces
                     LevelGenerator levelGenerator = 
@@ -233,17 +242,23 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
                             }
                         }
                     }
-                    PlayerPrefs.SetInt(PPrefsCheats.Mana.ToString(), 1);
+                    PlayerPrefs.SetInt(PPrefsCheats.Fly.ToString(), 1);
 
                     DisableConsole();
                     break;
 
                 case "fly 0":
                     Debug.Log("Player invisible false");
+
                     FindObjectOfType<PlayerFly>().CheatApplied = false;
+
                     playerRoot.GetComponentInChildren<CharacterController>(true).enabled = true;
-                    ChangeLayersAllChilds(playerRoot.transform, Layers.PlayerLayerNum, Layers.InvisiblePlayerLayerNum, false);
-                    PlayerPrefs.SetInt(PPrefsCheats.Mana.ToString(), 0);
+
+                    ChangeLayersAllChilds(playerRoot.transform, Layers.PlayerLayerNum,
+                        Layers.InvisiblePlayerLayerNum, false);
+
+                    PlayerPrefs.SetInt(PPrefsCheats.Fly.ToString(), 0);
+
                     DisableConsole();
                     break;
 
