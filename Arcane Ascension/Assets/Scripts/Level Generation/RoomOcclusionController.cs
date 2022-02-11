@@ -62,5 +62,11 @@ public class RoomOcclusionController : MonoBehaviour
 
         playerController.Instantiate(playerSpawnLevelPiece.PlayerSpawnTransform.position,
             playerSpawnLevelPiece.PlayerSpawnTransform.rotation);
+
+        yield return new WaitForFixedUpdate();
+
+        // If player had activated cheats, it will activate those cheats again
+        CheatConsole cheatConsole = FindObjectOfType<CheatConsole>();
+        if (cheatConsole != null) cheatConsole.ActivateCurrentCheats();
     }
 }

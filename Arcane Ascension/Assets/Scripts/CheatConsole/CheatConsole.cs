@@ -150,24 +150,28 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
                 case "god 1":
                     Debug.Log("God mode activated");
                     infiniteHealth = true;
+                    PlayerPrefs.SetInt(PPrefsCheats.God.ToString(), 1);
                     DisableConsole();
                     break;
 
                 case "god 0":
                     Debug.Log("God mode deactivated");
                     infiniteHealth = false;
+                    PlayerPrefs.SetInt(PPrefsCheats.God.ToString(), 0);
                     DisableConsole();
                     break;
 
                 case "mana 1":
                     Debug.Log("Infinite mana activated");
                     infiniteMana = true;
+                    PlayerPrefs.SetInt(PPrefsCheats.Mana.ToString(), 1);
                     DisableConsole();
                     break;
 
                 case "mana 0":
                     Debug.Log("Infinite mana deactivated");
                     infiniteMana = false;
+                    PlayerPrefs.SetInt(PPrefsCheats.Mana.ToString(), 0);
                     DisableConsole();
                     break;
 
@@ -229,6 +233,7 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
                             }
                         }
                     }
+                    PlayerPrefs.SetInt(PPrefsCheats.Mana.ToString(), 1);
 
                     DisableConsole();
                     break;
@@ -238,6 +243,7 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
                     FindObjectOfType<PlayerFly>().CheatApplied = false;
                     playerRoot.GetComponentInChildren<CharacterController>(true).enabled = true;
                     ChangeLayersAllChilds(playerRoot.transform, Layers.PlayerLayerNum, Layers.InvisiblePlayerLayerNum, false);
+                    PlayerPrefs.SetInt(PPrefsCheats.Mana.ToString(), 0);
                     DisableConsole();
                     break;
 
@@ -332,7 +338,29 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
             }
         }
     }
+    #endregion
+    /////////////////////////////////// Cheats code /////////////////////////////////////
 
+    /// <summary>
+    /// Activates current cheats. Called after the player spawns.
+    /// </summary>
+    public void ActivateCurrentCheats()
+    {
+        if (PlayerPrefs.GetInt(PPrefsCheats.God.ToString()) == 1)
+            OnInputFieldSubmit("god 1");
+        if (PlayerPrefs.GetInt(PPrefsCheats.Mana.ToString()) == 1)
+            OnInputFieldSubmit("mana 1");
+        if (PlayerPrefs.GetInt(PPrefsCheats.Fly.ToString()) == 1)
+            OnInputFieldSubmit("fly 1");
+    }
+
+    /// <summary>
+    /// Change gameobject childs layers.
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="playerLayer"></param>
+    /// <param name="ignoreLayer"></param>
+    /// <param name="turnInvisible"></param>
     private void ChangeLayersAllChilds(Transform obj, int playerLayer, int ignoreLayer, bool turnInvisible)
     {
         Transform[] childs = obj.GetComponentsInChildren<Transform>();
@@ -355,15 +383,17 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
         }
     }
 
+    /// <summary>
+    /// Adds a spell to player spells.
+    /// </summary>
+    /// <param name="spell"></param>
+    /// <param name="number2"></param>
     private void AddSpell(SpellSO spell, int number2)
     {
         playerSpells.RemoveSpell(number2 - 1);
         playerSpells.AddSpell(spell, number2 - 1);
         playerSpells.SelectSpell(playerSpells.CurrentSpellIndex, true);
     }
-
-    #endregion
-    /////////////////////////////////// Cheats code /////////////////////////////////////
 
     /// <summary>
     /// Controls console.
