@@ -20,7 +20,8 @@ public class PlayerMovement : MonoBehaviour, IFindInput
     private float   movementZ;
     private Vector3 directionPressed;
     private float   speed;
-    public float    Speed { get => speed; private set { speed = value; OnEventSpeedChange(Speed); } }
+    public float    Speed { get => speed; 
+        private set { speed = value; OnEventSpeedChange(Speed); } }
     public bool     Running { get; private set; }
     private Vector3 positionOnLastCalculation;
     public float   InCombatSpeed { get; private set; }
