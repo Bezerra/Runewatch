@@ -80,6 +80,11 @@ public class MainMenuButtonsControl : MonoBehaviour
         }
         characterSaveDataController.Save();
 
+        // Cleats activated cheats
+        PlayerPrefs.SetInt(PPrefsCheats.God.ToString(), 0);
+        PlayerPrefs.SetInt(PPrefsCheats.Mana.ToString(), 0);
+        PlayerPrefs.SetInt(PPrefsCheats.Fly.ToString(), 0);
+
         // Sets floor to initial floor
         RunSaveDataController runSaveDataController =
             FindObjectOfType<RunSaveDataController>();

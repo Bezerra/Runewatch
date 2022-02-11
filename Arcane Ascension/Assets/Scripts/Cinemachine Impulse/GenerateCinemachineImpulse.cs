@@ -6,7 +6,7 @@ using Cinemachine;
 /// Used by every gameobject that generates impulses.
 /// </summary>
 [RequireComponent(typeof(CinemachineImpulseSource))]
-public class GenerateCinemachineImpulse : MonoBehaviour
+public class GenerateCinemachineImpulse : MonoBehaviour, IReset
 {
     protected Camera mainCam;
     protected CinemachineImpulseSource cinemachineSource;
@@ -19,4 +19,12 @@ public class GenerateCinemachineImpulse : MonoBehaviour
 
     public virtual void GenerateImpulse() =>
         cinemachineSource.GenerateImpulse(mainCam.transform.forward);
+
+    /// <summary>
+    /// Called after pool disables all childs on level generation.
+    /// </summary>
+    public void ResetAfterPoolDisable()
+    {
+        mainCam = Camera.main;
+    }
 }
