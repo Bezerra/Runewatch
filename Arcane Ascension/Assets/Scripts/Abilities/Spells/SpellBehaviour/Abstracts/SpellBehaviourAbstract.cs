@@ -5,7 +5,7 @@ using UnityEngine.VFX;
 /// <summary>
 /// Abstract class responsible for executing a spell behaviour.
 /// </summary>
-public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
+public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect, IReset
 {
     private Vector3 DISTANTVECTOR = new Vector3(10000, 10000, 10000);
 
@@ -94,6 +94,9 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
         get => whoCast; 
         set 
         {
+            if (value == null)
+                return;
+
             // Updates variables if who cast is different from the last time this spell was cast
             if (whoCast != value)
             {
@@ -153,7 +156,21 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
 
         if (PlayerCastSpell != null)
             PlayerCastSpell.ReleasedAttackButton -= ReleasedAttackButtonControl;
+    }
 
+    public void ResetAfterPoolDisable()
+    {
+        CharacterHit = null;
+        WhoCast = null;
+        ThisIDamageable = null;
+        AICharacter = null;
+        PlayerCastSpell = null;
+        AttackButtonReleased = false;
+        Eyes = null;
+        Hand = null;
+
+        if (PlayerCastSpell != null)
+            PlayerCastSpell.ReleasedAttackButton -= ReleasedAttackButtonControl;
     }
 
     /// <summary>
