@@ -1,8 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+/// <summary>
+/// Class responsible for executing logic when the player presses and releases
+/// attack key.
+/// </summary>
 public class PlayerCastSpell : MonoBehaviour, IFindInput
 {
     // Components
@@ -18,6 +21,10 @@ public class PlayerCastSpell : MonoBehaviour, IFindInput
     public bool CurrentlyCasting => currentlyCastSpell == null ? false : true;
 
     private float lastTimeSpellWasCast;
+
+    /// <summary>
+    /// Property to know if the animation is over or still running.
+    /// </summary>
     public bool AnimationOver { get; private set; }
 
     private void Awake()
@@ -218,6 +225,8 @@ public class PlayerCastSpell : MonoBehaviour, IFindInput
     /// </summary>
     public void AttackKeyRelease()
     {
+        OnReleasedAttackButton();
+
         // If it's NOT a one shot with release it will ignore the rest
         if (anim.GetBool("Channeling") == false)
         {
@@ -254,7 +263,7 @@ public class PlayerCastSpell : MonoBehaviour, IFindInput
     /// </summary>
     public void AttackKeyReleaseAnimationEvent()
     {
-        // Mana and cooldown logic for one shot with release happens here.
+        // Mana and cooldown logic for one shot with release happens here
         if (playerSpells.ActiveSpell.CastType == SpellCastType.OneShotCastWithRelease)
         {
             OnEventStartCooldown(playerSpells.ActiveSpell);
@@ -262,7 +271,7 @@ public class PlayerCastSpell : MonoBehaviour, IFindInput
             OnEventAttack(playerSpells.ActiveSpell.CastType);
         }
 
-        // Spell release logic.
+        // Spell release logic
         playerSpells.ActiveSpell.AttackBehaviour.AttackKeyRelease(
              ref currentlyCastSpell, playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
 
@@ -301,7 +310,13 @@ public class PlayerCastSpell : MonoBehaviour, IFindInput
     public event Action AttackAnimationEnd;
 
     // Registered on PlayerGenerateCinemachineImpulse
-    protected virtual void OnEventStartScreenShake(SpellCastType castType) => EventStartScreenShake?.Invoke(castType);
+    protected virtual void OnEventStartScreenShake(SpellCastType castType) => 
+        EventStartScreenShake?.Invoke(castType);
+    public event Action<SpellCastType> EventStartScreenShake;
+
+    protected virtual void OnReleasedAttackButton() =>
+        ReleasedAttackButton?.Invoke();
+    public event Action ReleasedAttackButton;
 
     public void FindInput()
     {
@@ -325,6 +340,4 @@ public class PlayerCastSpell : MonoBehaviour, IFindInput
             input = null;
         }
     }
-
-    public event Action<SpellCastType> EventStartScreenShake;
 }

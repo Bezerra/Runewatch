@@ -90,29 +90,44 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
                 targetSize.UpdateAreaTargetSize(parent.Spell.AreaOfEffect);
         }
 
-        Ray eyesForward = new Ray(parent.Eyes.position, parent.Eyes.forward);
-        if (Physics.Raycast(eyesForward, out RaycastHit objectHit, parent.Spell.MaximumDistance, layersToCheck))
+        if (parent.AttackButtonReleased == false)
         {
-            // Now, it creates a ray from HAND to eyes previous target
-            Ray handForward = new Ray(parent.Hand.position, parent.Hand.position.Direction(objectHit.point));
-            if (Physics.Raycast(handForward, out RaycastHit handObjectHit, parent.Spell.MaximumDistance, layersToCheck))
+            Ray eyesForward = new Ray(parent.Eyes.position, parent.Eyes.forward);
+            if (Physics.Raycast(eyesForward, out RaycastHit objectHit, 
+                parent.Spell.MaximumDistance, layersToCheck))
             {
-                // Now, it creates a ray from that last hit point to the floor
-                Ray handHitToFloor = new Ray(
-                    handObjectHit.point + handObjectHit.normal * 0.01f, -Vector3.up);
+                // Now, it creates a ray from HAND to eyes previous target
+                Ray handForward =
+                    new Ray(parent.Hand.position, parent.Hand.position.Direction(objectHit.point));
 
-                if (Physics.Raycast(handHitToFloor, out RaycastHit floorHit, 50, Layers.WallsFloorWithoutWallsSpells))
+                if (Physics.Raycast(handForward, out RaycastHit handObjectHit, 
+                    parent.Spell.MaximumDistance, layersToCheck))
                 {
-                    // Sets area hover hit
-                    parent.AreaHoverAreaHit = floorHit;
+                    // Now, it creates a ray from that last hit point to the floor
+                    Ray handHitToFloor = new Ray(
+                        handObjectHit.point + handObjectHit.normal * 0.01f, -Vector3.up);
 
-                    // Sets position to the raycast hit and rotation to that hit normal
-                    parent.AreaHoverVFX.transform.SetPositionAndRotation(
-                        floorHit.point + floorHit.normal * distanceFromWall,
-                        Quaternion.LookRotation(floorHit.normal, floorHit.collider.transform.up) *
-                        Quaternion.Euler(90, 0, 0));
+                    if (Physics.Raycast(handHitToFloor, out RaycastHit floorHit, 50, Layers.WallsFloorWithoutWallsSpells))
+                    {
+                        // Sets area hover hit
+                        parent.AreaHoverAreaHit = floorHit;
 
-                    return;
+                        // Sets position to the raycast hit and rotation to that hit normal
+                        parent.AreaHoverVFX.transform.SetPositionAndRotation(
+                            floorHit.point + floorHit.normal * distanceFromWall,
+                            Quaternion.LookRotation(floorHit.normal, floorHit.collider.transform.up) *
+                            Quaternion.Euler(90, 0, 0));
+
+                        return;
+                    }
+                    else
+                    {
+                        // Sets position far from the scene
+                        parent.AreaHoverVFX.transform.SetPositionAndRotation(
+                            DISTANTVECTOR,
+                            Quaternion.identity);
+                        return;
+                    }
                 }
                 else
                 {
@@ -125,37 +140,32 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
             }
             else
             {
-                // Sets position far from the scene
-                parent.AreaHoverVFX.transform.SetPositionAndRotation(
-                    DISTANTVECTOR,
-                    Quaternion.identity);
-                return;
-            }
-        }
-        else
-        {
-            // If there is no wall, tries to cast a ray to bottom from maximum distance
+                // If there is no wall, tries to cast a ray to bottom from maximum distance
 
-            Ray noWallRayToFloor = 
-                new Ray(parent.Eyes.position + parent.Eyes.forward * parent.Spell.MaximumDistance, -Vector3.up);
+                Ray noWallRayToFloor =
+                    new Ray(parent.Eyes.position + parent.Eyes.forward * 
+                            parent.Spell.MaximumDistance, -Vector3.up);
 
-            if (Physics.Raycast(noWallRayToFloor, out RaycastHit airToFloorHit, 50, Layers.WallsFloorWithoutWallsSpells))
-            {
-                // Sets area hover hit
-                parent.AreaHoverAreaHit = airToFloorHit;
+                if (Physics.Raycast(noWallRayToFloor, out RaycastHit airToFloorHit, 50,
+                    Layers.WallsFloorWithoutWallsSpells))
+                {
+                    // Sets area hover hit
+                    parent.AreaHoverAreaHit = airToFloorHit;
 
-                // Sets position to the raycast hit and rotation to that hit normal
-                parent.AreaHoverVFX.transform.SetPositionAndRotation(
-                    airToFloorHit.point + airToFloorHit.normal * distanceFromWall,
-                    Quaternion.LookRotation(airToFloorHit.normal, airToFloorHit.collider.transform.up) *
-                        Quaternion.Euler(90, 0, 0));
-            }
-            else
-            {
-                // Sets position far from the scene
-                parent.AreaHoverVFX.transform.SetPositionAndRotation(
-                    DISTANTVECTOR,
-                    Quaternion.identity);
+                    // Sets position to the raycast hit and rotation to that hit normal
+                    parent.AreaHoverVFX.transform.SetPositionAndRotation(
+                        airToFloorHit.point + airToFloorHit.normal * distanceFromWall,
+                        Quaternion.LookRotation(airToFloorHit.normal, 
+                            airToFloorHit.collider.transform.up) *
+                            Quaternion.Euler(90, 0, 0));
+                }
+                else
+                {
+                    // Sets position far from the scene
+                    parent.AreaHoverVFX.transform.SetPositionAndRotation(
+                        DISTANTVECTOR,
+                        Quaternion.identity);
+                }
             }
         }
     }

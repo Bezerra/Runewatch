@@ -126,6 +126,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         ColliderTrigger = GetComponent<CapsuleCollider>();
         ParticlesDisable = GetComponentsInChildren<ParticleDisable>();
         spell.Initialize();
+
     }
 
     protected override void OnEnable()

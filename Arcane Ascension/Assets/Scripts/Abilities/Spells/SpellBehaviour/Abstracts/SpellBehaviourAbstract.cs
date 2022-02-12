@@ -73,6 +73,17 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
     /// </summary>
     public IMana ThisIMana { get; private set; }
 
+    /// <summary>
+    /// Property set if who cast type was the player.
+    /// </summary>
+    public PlayerCastSpell PlayerCastSpell { get; set; }
+
+    /// <summary>
+    /// Property only used for player spells logic. Is set to true
+    /// in the exact moment the player releases the attack key.
+    /// </summary>
+    public bool AttackButtonReleased { get; private set; }
+
     // Sound fade variables
     private YieldInstruction wffu;
     private IEnumerator soundFadeCoroutine;
@@ -95,7 +106,16 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
                     Eyes = character.Eyes;
                 }
 
-                if (whoCast.TryGetComponent<Enemy>(out Enemy enemy))
+                if (whoCast.CommonAttributes.Type == CharacterType.Player)
+                {
+                    PlayerCastSpell = 
+                        whoCast.GetComponentInChildren<PlayerCastSpell>();
+                    PlayerCastSpell.ReleasedAttackButton += ReleasedAttackButtonControl;
+
+                    ThisIMana = WhoCast.GetComponent<IMana>();
+                }
+
+                if (whoCast.TryGetComponent(out Enemy enemy))
                 {
                     AICharacter = enemy;
                 }
@@ -104,8 +124,7 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
                     AICharacter = null;
                 }
 
-                ThisIDamageable = WhoCast.GetComponent<IDamageable>();
-                ThisIMana = WhoCast.GetComponent<IMana>();
+                ThisIDamageable = WhoCast.GetComponent<IDamageable>(); 
             }
         }
     }
@@ -130,7 +149,18 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect
     {
         PositionOnHit = default;
         LayerOfCharacterHit = LayerOfWhoCast;
+        AttackButtonReleased = false;
+
+        if (PlayerCastSpell != null)
+            PlayerCastSpell.ReleasedAttackButton -= ReleasedAttackButtonControl;
+
     }
+
+    /// <summary>
+    /// Sets AttackButtonReleased to true every time the player releases attack button.
+    /// </summary>
+    private void ReleasedAttackButtonControl() =>
+        AttackButtonReleased = true;
 
     /// <summary>
     /// Method called after instantiating the spell.
