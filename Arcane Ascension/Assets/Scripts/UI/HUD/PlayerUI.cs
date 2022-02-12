@@ -91,7 +91,7 @@ public class PlayerUI : MonoBehaviour
 
         ControlFPSCounter((int)PlayerPrefs.GetFloat(PPrefsOptions.FPSCounter.ToString(), 0)); //off
         ControlMinimap((int)PlayerPrefs.GetFloat(PPrefsOptions.Minimap.ToString(), 1)); //on
-        ControlTimer((int)PlayerPrefs.GetFloat(PPrefsOptions.Minimap.ToString(), 1)); //on
+        ControlTimer((int)PlayerPrefs.GetFloat(PPrefsOptions.Timer.ToString(), 1)); //on
     }
 
     private IEnumerator OnEnableCoroutine()

@@ -433,7 +433,7 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
     /// <summary>
     /// Disables console entirely.
     /// </summary>
-    private void DisableConsole()
+    public void DisableConsole()
     {
         inputField.text = "";
         consoleGameObject.SetActive(false);

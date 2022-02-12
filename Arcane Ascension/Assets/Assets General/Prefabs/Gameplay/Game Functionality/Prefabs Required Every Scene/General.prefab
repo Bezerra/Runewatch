@@ -375,6 +375,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45d012daa8ab9c7409c6a131e6fc34ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvasFalseToPauseTheGame:
+  - {fileID: 379020482}
+  - {fileID: 3023193905005207749}
+  - {fileID: 5611434237067180207}
+  - {fileID: 7134524590358971182}
+  - {fileID: 8741238712013085698}
+  - {fileID: 6245474807955651873}
+  cheatConsoleGO: {fileID: 1493650952}
+  cheatConsole: {fileID: 1358409318}
 --- !u!1 &564558180
 GameObject:
   m_ObjectHideFlags: 0
@@ -943,7 +952,7 @@ GameObject:
   - component: {fileID: 1493650955}
   - component: {fileID: 1493650954}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Cheat Console Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12044,6 +12053,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a07e206d2675bd498a005a75f3479b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyMeOnAwake: 0
   allSpells: {fileID: 11400000, guid: e3d02410d36a85d4a98e99e835dcd157, type: 2}
 --- !u!1 &6105136639788798972
 GameObject:
@@ -16455,7 +16465,7 @@ GameObject:
   - component: {fileID: 2035042640275418422}
   - component: {fileID: 3697787632842120174}
   m_Layer: 5
-  m_Name: Background
+  m_Name: Death Canvas Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

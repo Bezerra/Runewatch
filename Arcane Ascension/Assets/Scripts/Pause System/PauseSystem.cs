@@ -6,6 +6,12 @@ using UnityEngine;
 /// </summary>
 public class PauseSystem : MonoBehaviour, IFindInput, IFindPlayer
 {
+    [SerializeField] private GameObject[] canvasFalseToPauseTheGame;
+
+    [Header("Cheat Console")]
+    [SerializeField] private GameObject cheatConsoleGO;
+    [SerializeField] private CheatConsole cheatConsole;
+
     // Components
     private IInput playerInputCustom;
 
@@ -42,12 +48,31 @@ public class PauseSystem : MonoBehaviour, IFindInput, IFindPlayer
 #if UNITY_EDITOR == false
     private void OnApplicationFocus(bool focus)
     {
-        if (CanPauseTheGame)
+        if (CanPauseTheGame &&
+            IsAnyCanvasActive() == false)
         {
+            if (cheatConsoleGO.activeSelf)
+            {
+                cheatConsole.DisableConsole();
+            }
+
             if (focus == false) PauseGame();
         }
     }
 #endif
+
+    /// <summary>
+    /// Checks if any other canvas different than pause is active
+    /// </summary>
+    /// <returns>Returns true if any canvas is active</returns>
+    public bool IsAnyCanvasActive()
+    {
+        for (int i = 0; i < canvasFalseToPauseTheGame.Length; i++)
+        {
+            if (canvasFalseToPauseTheGame[i].activeSelf) return true;
+        }
+        return false;
+    }
 
     /// <summary>
     /// Pauses/Unpauses game and switches action map.
