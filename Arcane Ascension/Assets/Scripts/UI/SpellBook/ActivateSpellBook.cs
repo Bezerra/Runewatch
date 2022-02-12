@@ -18,6 +18,8 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
     private SpellBookSpells spellBookSpells;
     private SpellBookPassives spellBookPassives;
     private SpellBookAttributes spellBookAttributes;
+    private PlayerSpells playerSpells;
+    public ISpell SelectedSpellOnBookOpen { get; private set; }
 
     private void Awake()
     {
@@ -25,6 +27,7 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
         spellBookSpells = GetComponent<SpellBookSpells>();
         spellBookPassives = GetComponent<SpellBookPassives>();
         spellBookAttributes = GetComponent<SpellBookAttributes>();
+        playerSpells = FindObjectOfType<PlayerSpells>();
     }
 
     private void OnEnable()
@@ -59,6 +62,8 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
             spellBookPassives.UpdatePassiveSlots();
             spellBookAttributes.UpdateText();
             Input.SwitchActionMapToSpellBook();
+            SelectedSpellOnBookOpen = 
+                playerSpells.CurrentSpells[playerSpells.CurrentSpellIndex];
         }
         else
         {
@@ -90,6 +95,7 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
     public void FindPlayer()
     {
         StartCoroutine(SetSpellbookVariablesCoroutine());
+        playerSpells = FindObjectOfType<PlayerSpells>();
     }
 
     private IEnumerator SetSpellbookVariablesCoroutine()

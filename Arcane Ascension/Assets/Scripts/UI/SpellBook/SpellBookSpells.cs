@@ -7,10 +7,12 @@ public class SpellBookSpells : MonoBehaviour, IFindPlayer
 {
     private SpellBookSpell[] spellBookSpells;
     private PlayerSpells playerSpells;
+    private ActivateSpellBook activateSpellBook;
 
     private void Awake()
     {
         spellBookSpells = GetComponentsInChildren<SpellBookSpell>(true);
+        activateSpellBook = GetComponentInParent<ActivateSpellBook>();
         FindPlayer();
     }
 
@@ -43,6 +45,20 @@ public class SpellBookSpells : MonoBehaviour, IFindPlayer
                 playerSpells.CurrentSpells.Length > 0)
             {
                 playerSpells.CurrentSpells[i] = spellBookSpells[i].Spell;
+            }
+        }
+
+        for (int i = 0; i < playerSpells.CurrentSpells.Length; i++)
+        {
+            if (playerSpells != null &&
+                playerSpells.CurrentSpells != null &&
+                playerSpells.CurrentSpells.Length > 0)
+            {
+                if (playerSpells.CurrentSpells[i] == 
+                    activateSpellBook.SelectedSpellOnBookOpen)
+                {
+                    playerSpells.CurrentSpellIndex = (byte)i;
+                }
             }
         }
     }

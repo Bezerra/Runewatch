@@ -23,7 +23,7 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
     public ISpell[] CurrentSpells { get; private set; }
 
     // Currently selected spell index
-    public byte CurrentSpellIndex { get; private set; }
+    public byte CurrentSpellIndex { get; set; }
 
     // Currently active spell from available spells
     public ISpell ActiveSpell => CurrentSpells[CurrentSpellIndex];
@@ -57,22 +57,22 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
         yield return null;
         yield return null;
 
+        // This code is only for testing scenes. Adds first spells on all spells asset
         if (ADDINITIALSPELLSFORTESTS > 0)
         {
-            //// TEMPORARY TESTS // Adds 4 spells to current spells
             for (int i = 0; i < ADDINITIALSPELLSFORTESTS; i++)
             {
-                // THIS IS TEMP, WHILE IN GAME PLAYER WILL ONLY CAST THE SPELLS ON HIS AVAILABLE SPELLS, NOT THIS ONE
                 RemoveSpell(i);
                 AddSpell(allSpells[i]);
             }
-
+            
             if (CurrentSpells[0] != null)
             {
                 SelectSpell(0, true);
                 StartSpellCooldown();
             }
         }
+        ////////////////////////////////////////////////////////////////////////
 
         StartSpellCooldown(SecondarySpell);
     }
@@ -229,6 +229,7 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
 
     /// <summary>
     /// Sets a spell as active spell.
+    /// Forces the change.
     /// </summary>
     /// <param name="index">Index of the spell on array.</param>
     public void SelectSpell(byte index, bool overrideSelection)
@@ -245,6 +246,7 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
             StartSpellCooldown();
         }     
     }
+
 
     /// <summary>
     /// Checks if spell cooldown is over.
