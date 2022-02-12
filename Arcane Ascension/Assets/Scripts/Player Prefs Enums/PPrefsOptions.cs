@@ -21,4 +21,5 @@ public enum PPrefsOptions
     DamageDealt,
     DamageIndicator,
     Timer,
+    UIVolume,
 }
