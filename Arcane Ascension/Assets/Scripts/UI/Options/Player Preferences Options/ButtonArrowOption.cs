@@ -31,6 +31,7 @@ public abstract class ButtonArrowOption : PlayerPreferencesOption
     {
         float value = PlayerPrefs.GetFloat(optionToUpdate.ToString(), defaultValue);
         UpdateOption(value);
+        this.value = value;
     }
 
     public override void UpdateValue(float value)
