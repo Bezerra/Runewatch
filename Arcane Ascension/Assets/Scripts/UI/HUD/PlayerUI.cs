@@ -89,9 +89,9 @@ public class PlayerUI : MonoBehaviour
         // Needs to be a coroutine because onEnable is running before player awake < wtf
         StartCoroutine(OnEnableCoroutine());
 
-        ControlFPSCounter((int)PlayerPrefs.GetFloat("FPSCounter", 0)); //off
-        ControlMinimap((int)PlayerPrefs.GetFloat("Minimap", 1)); //on
-        ControlTimer((int)PlayerPrefs.GetFloat("Minimap", 0)); //off
+        ControlFPSCounter((int)PlayerPrefs.GetFloat(PPrefsOptions.FPSCounter.ToString(), 0)); //off
+        ControlMinimap((int)PlayerPrefs.GetFloat(PPrefsOptions.Minimap.ToString(), 1)); //on
+        ControlTimer((int)PlayerPrefs.GetFloat(PPrefsOptions.Minimap.ToString(), 1)); //on
     }
 
     private IEnumerator OnEnableCoroutine()
