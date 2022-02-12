@@ -29,6 +29,9 @@ public class VolumeSliderOption : PlayerPreferencesOption
             case PPrefsOptions.MusicVolume:
                 audioMixer.audioMixer.SetFloat("MusicVolume", slider.value);
                 break;
+            case PPrefsOptions.UIVolume:
+                audioMixer.audioMixer.SetFloat("UIVolume", slider.value);
+                break;
         }
     }
 
@@ -45,6 +48,7 @@ public class VolumeSliderOption : PlayerPreferencesOption
                     audioMixer.audioMixer.SetFloat("MasterVolume", -70f);
 
                 break;
+
             case PPrefsOptions.AmbienceVolume:
                 audioMixer.audioMixer.SetFloat("AmbienceVolume", value);
 
@@ -52,6 +56,7 @@ public class VolumeSliderOption : PlayerPreferencesOption
                     audioMixer.audioMixer.SetFloat("AmbienceVolume", -70f);
 
                 break;
+
             case PPrefsOptions.SFXVolume:
                 audioMixer.audioMixer.SetFloat("SFXVolume", value);
 
@@ -59,11 +64,20 @@ public class VolumeSliderOption : PlayerPreferencesOption
                     audioMixer.audioMixer.SetFloat("SFXVolume", -70f);
 
                 break;
+
             case PPrefsOptions.MusicVolume:
                 audioMixer.audioMixer.SetFloat("MusicVolume", value);
 
                 if (value <= -29.7f)
                     audioMixer.audioMixer.SetFloat("MusicVolume", -70f);
+
+                break;
+
+            case PPrefsOptions.UIVolume:
+                audioMixer.audioMixer.SetFloat("UIVolume", value);
+
+                if (value <= -29.7f)
+                    audioMixer.audioMixer.SetFloat("UIVolume", -70f);
 
                 break;
         }
