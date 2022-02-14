@@ -35,6 +35,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _EmissiveNoiseTex:
+        m_Texture: {fileID: 2800000, guid: 51b544e95e94b1e44b43d5d37bd77b75, type: 3}
+        m_Scale: {x: 5, y: 5}
+        m_Offset: {x: 0, y: 0}
     - _EmissiveTex:
         m_Texture: {fileID: 2800000, guid: a9c36a2835c753547b8d4c1b86d71ba5, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -152,6 +156,7 @@ Material:
     - _MaxTesselationAmount: 32
     - _Metallic: 0
     - _NoiseScale: 1
+    - _NoiseStrength: 0.755
     - _NormalScale: 1
     - _TessMax: 20
     - _TessMin: 5
@@ -161,6 +166,7 @@ Material:
     - _ToggleSwitch0: 0
     m_Colors:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissiveNoiseSpeed: {r: -0.19, g: 0.33, b: 0, a: 0}
     - _L1Tiling: {r: 1, g: 1, b: 0, a: 0}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
