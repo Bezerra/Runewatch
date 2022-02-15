@@ -17,6 +17,9 @@ public class Chest : MonoBehaviour
     [SerializeField] private GameObject canvasText;
     [SerializeField] private InteractionCanvasText interectableCanvas;
     [SerializeField] private AbstractEventOnInteraction eventOnInteraction;
+    [SerializeField] private Animator anim;
+    [SerializeField] private GameObject chestBoxCollider;
+    [SerializeField] private int interectableLayerNumer;
 
     private bool canOpen;
     public bool CanOpen
@@ -27,11 +30,9 @@ public class Chest : MonoBehaviour
             canOpen = value;
             if (canOpen)
             {
-                BoxCollider childBoxCol = GetComponentInChildren<BoxCollider>();
-                if (childBoxCol != null)
-                {
-                    childBoxCol.gameObject.layer = Layers.InterectableLayerNum;
-                }
+                // Can't use Layers static properties because it can be null at a point
+                // of proc gen
+                chestBoxCollider.layer = interectableLayerNumer;
 
                 eventOnInteraction.enabled = true;
                 interectableCanvas.enabled = true;
@@ -39,19 +40,7 @@ public class Chest : MonoBehaviour
             }
             else
             {
-                BoxCollider childBoxCol = GetComponentInChildren<BoxCollider>();
-                if (childBoxCol != null)
-                {
-                    try
-                    {
-                        childBoxCol.gameObject.layer = Layers.DefaultNum;
-                    }
-                    // In case it's null (Happens on proc.gen.demo scene)
-                    catch
-                    {
-                        childBoxCol.gameObject.layer = 0;
-                    }
-                }
+                chestBoxCollider.layer = 0;
 
                 eventOnInteraction.enabled = false;
                 interectableCanvas.enabled = false;
@@ -76,7 +65,6 @@ public class Chest : MonoBehaviour
 
     private IEnumerator ResetChest()
     {
-        Animator anim = GetComponent<Animator>();
         yield return new WaitForSeconds(1);
         anim.SetTrigger("Reset");
         yield return new WaitForSeconds(1);

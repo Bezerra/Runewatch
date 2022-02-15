@@ -336,6 +336,9 @@ MonoBehaviour:
   canvasText: {fileID: 4368204533392485722}
   interectableCanvas: {fileID: 6134418267198431388}
   eventOnInteraction: {fileID: 726106135511347117}
+  anim: {fileID: 5182356524442552653}
+  chestBoxCollider: {fileID: 8127237655482885540}
+  interectableLayerNumer: 15
 --- !u!1 &4368204534995680235
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,8 +654,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e7d2d8a7a970624f8889a1a3551087e, type: 3}
+--- !u!1 &8127237655482885540 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4093268948379687196, guid: 0e7d2d8a7a970624f8889a1a3551087e, type: 3}
+  m_PrefabInstance: {fileID: 5190268817744510136}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8899798112538476318 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3712627212306776998, guid: 0e7d2d8a7a970624f8889a1a3551087e, type: 3}
+  m_PrefabInstance: {fileID: 5190268817744510136}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5182356524442552653 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1147542902711334389, guid: 0e7d2d8a7a970624f8889a1a3551087e, type: 3}
   m_PrefabInstance: {fileID: 5190268817744510136}
   m_PrefabAsset: {fileID: 0}
