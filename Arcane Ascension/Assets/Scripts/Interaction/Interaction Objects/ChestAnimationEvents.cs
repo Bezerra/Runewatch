@@ -5,6 +5,7 @@ using UnityEngine;
 /// </summary>
 public class ChestAnimationEvents : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem shake;
     private Chest parentChest;
 
     private void Awake()
@@ -20,5 +21,10 @@ public class ChestAnimationEvents : MonoBehaviour
     public void ChestOpenedEndAnimationEvent()
     {
         parentChest.ChestOpenedEndAnimationEvent();
+    }
+
+    public void PlayShake()
+    {
+        shake.Play();
     }
 }
