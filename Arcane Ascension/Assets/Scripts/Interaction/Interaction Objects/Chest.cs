@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Class responsible for handling chest behaviours.
@@ -9,7 +10,6 @@ public class Chest : MonoBehaviour
 {
     [SerializeField] private List<EventAbstractSO> eventsToRunOnChestOpen;
     
-
     [Header("Is this chest unlocked by default")]
     [SerializeField] private bool chestUnlocked;
 
@@ -20,6 +20,7 @@ public class Chest : MonoBehaviour
     [SerializeField] private Animator anim;
     [SerializeField] private GameObject chestBoxCollider;
     [SerializeField] private int interectableLayerNumer;
+    private ChestAnimationEvents chestAnimations;
 
     private bool canOpen;
     public bool CanOpen
@@ -37,6 +38,7 @@ public class Chest : MonoBehaviour
                 eventOnInteraction.enabled = true;
                 interectableCanvas.enabled = true;
                 canvasText.SetActive(true);
+                chestAnimations.PlayBreakLockVFX();
             }
             else
             {
@@ -45,9 +47,13 @@ public class Chest : MonoBehaviour
                 eventOnInteraction.enabled = false;
                 interectableCanvas.enabled = false;
                 canvasText.SetActive(false);
+                chestAnimations.PlayLockedVFX();
             }
         }
     }
+
+    private void Awake() =>
+        chestAnimations = GetComponentInChildren<ChestAnimationEvents>(true);
 
     private void OnEnable()
     {
@@ -60,7 +66,8 @@ public class Chest : MonoBehaviour
             CanOpen = false;
         }
 
-        StartCoroutine(ResetChest());
+        if (SceneManager.GetActiveScene().name == SceneEnum.ProceduralGeneration.ToString())
+            StartCoroutine(ResetChest());
     }
 
     private IEnumerator ResetChest()
@@ -80,6 +87,9 @@ public class Chest : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// On opening animation event.
+    /// </summary>
     public void ChestOpeningStartAnimationEvent()
     {
         LootSoundPoolCreator.Pool.InstantiateFromPool(
@@ -91,6 +101,9 @@ public class Chest : MonoBehaviour
         canvasText.SetActive(false);
     }
 
+    /// <summary>
+    /// After the opening animation is over.
+    /// </summary>
     public void ChestOpenedEndAnimationEvent()
     {
         foreach(EventAbstractSO eve in eventsToRunOnChestOpen)

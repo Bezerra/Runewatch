@@ -14605,7 +14605,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8344546032315486363
 Transform:
   m_ObjectHideFlags: 0
@@ -29342,7 +29342,7 @@ GameObject:
   - component: {fileID: 7122596550878661128}
   - component: {fileID: 1147542902711334389}
   - component: {fileID: 3052317401986183227}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: Chest Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29379,8 +29379,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.78, y: 1.39, z: 1.14}
-  m_Center: {x: 0, y: 0.72, z: 0}
+  m_Size: {x: 3.3, y: 2, z: 1.14}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!95 &1147542902711334389
 Animator:
   serializedVersion: 3
@@ -29412,7 +29412,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ee1c951dee2ccd469f2a3cd048ea807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shake: {fileID: 8215939588075965058}
+  locked: {fileID: 1030826025197123445}
+  lockBreak: {fileID: 3704138859211766702}
+  shake: {fileID: 6243867218930636354}
+  opening: {fileID: 8836674367716944648}
+  persistent: {fileID: 5820056796309199061}
 --- !u!1 &4137827398026931515
 GameObject:
   m_ObjectHideFlags: 0
@@ -53859,7 +53863,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3540164194598957057
 Transform:
   m_ObjectHideFlags: 0
@@ -68627,7 +68631,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3154148775080735309
 Transform:
   m_ObjectHideFlags: 0
@@ -73545,6 +73549,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 232bc1aeb045994478d3d4af53d28ac1, type: 3}
+--- !u!1 &3704138859211766702 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4455786470482155704, guid: 232bc1aeb045994478d3d4af53d28ac1, type: 3}
+  m_PrefabInstance: {fileID: 1058799483227022102}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1594395104636862156 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1770461537607966170, guid: 232bc1aeb045994478d3d4af53d28ac1, type: 3}
