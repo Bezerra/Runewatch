@@ -101,11 +101,12 @@ public class EnemyStats : Stats
                 IEnumerator<(LootType, Vector3)> itemEnumerator = droppedLoot.GetEnumerator();
                 while (itemEnumerator.MoveNext())
                 {
-                    GameObject spawnedLoot = ItemLootPoolCreator.Pool.InstantiateFromPool(
+                    GameObject spawnedLoot = 
+                        ItemLootPoolCreator.Pool.InstantiateFromPool(
                         itemEnumerator.Current.Item1.ToString(),
                         itemEnumerator.Current.Item2, Quaternion.identity);
 
-                    if (spawnedLoot.TryGetComponent(out ICurrency currency))
+                    if (spawnedLoot.TryGetComponentInChildrenFirstGen(out ICurrency currency))
                     {
                         if (currency.CurrencyType == CurrencyType.ArcanePower)
                             currency.Amount = EnemyAttributes.ArcanePowerQuantity;
@@ -184,9 +185,16 @@ public class EnemyStats : Stats
                 IEnumerator<(LootType, Vector3)> itemEnumerator = droppedLoot.GetEnumerator();
                 while (itemEnumerator.MoveNext())
                 {
-                    ItemLootPoolCreator.Pool.InstantiateFromPool(
+                    GameObject spawnedLoot = 
+                        ItemLootPoolCreator.Pool.InstantiateFromPool(
                         itemEnumerator.Current.Item1.ToString(),
                         itemEnumerator.Current.Item2, Quaternion.identity);
+
+                    if (spawnedLoot.TryGetComponentInChildrenFirstGen(out ICurrency currency))
+                    {
+                        if (currency.CurrencyType == CurrencyType.ArcanePower)
+                            currency.Amount = EnemyAttributes.ArcanePowerQuantity;
+                    }
                 }
 
                 this.enabled = false;
