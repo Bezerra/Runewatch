@@ -143,6 +143,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b4bf1a18a4253d47900d9b1fdb3d714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colliderCollisionSize: 0.5
+  isAttractable: 1
+  colliderAttractionSize: 3
 --- !u!54 &8143697820621142919
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -170,8 +173,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 3
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &7439370783200043300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -440,7 +443,7 @@ GameObject:
   m_Component:
   - component: {fileID: 746014395103129586}
   - component: {fileID: 746014395103129589}
-  - component: {fileID: 2777438033347406482}
+  - component: {fileID: 3690072878710565581}
   m_Layer: 16
   m_Name: Logic
   m_TagString: Untagged
@@ -477,8 +480,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currencySO: {fileID: 11400000, guid: 28a05ea536c871645b96f1953f286483, type: 2}
   lootType: 0
---- !u!136 &2777438033347406482
-CapsuleCollider:
+--- !u!135 &3690072878710565581
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -487,10 +490,9 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.42
-  m_Height: 1.3
-  m_Direction: 1
-  m_Center: {x: 0, y: -0.24, z: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &746014395176958279
 GameObject:
   m_ObjectHideFlags: 0

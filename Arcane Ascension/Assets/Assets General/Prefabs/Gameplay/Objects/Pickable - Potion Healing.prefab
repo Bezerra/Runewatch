@@ -62,6 +62,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b4bf1a18a4253d47900d9b1fdb3d714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colliderCollisionSize: 0.5
+  isAttractable: 1
+  colliderAttractionSize: 3
 --- !u!54 &2105821703059965280
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -89,8 +92,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 3
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &2421629469806983281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,7 +118,7 @@ GameObject:
   - component: {fileID: 7332995262232353644}
   - component: {fileID: 7332995262232353647}
   - component: {fileID: 7332995262232353646}
-  - component: {fileID: 3554333527840266379}
+  - component: {fileID: 4717109129210965123}
   m_Layer: 16
   m_Name: Cube
   m_TagString: Untagged
@@ -131,7 +134,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7332995262232353635}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6, z: 0}
+  m_LocalPosition: {x: 0, y: 0.847, z: 0}
   m_LocalScale: {x: 0.2, y: 0.3, z: 0.2}
   m_Children: []
   m_Father: {fileID: 7332995261754598548}
@@ -201,8 +204,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   potion: {fileID: 11400000, guid: d5c8436f1a5cfab41909afc57b4d48fa, type: 2}
   lootType: 5
---- !u!136 &3554333527840266379
-CapsuleCollider:
+--- !u!135 &4717109129210965123
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -211,10 +214,9 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 1.03
-  m_Height: 2.64
-  m_Direction: 1
-  m_Center: {x: 0, y: -0.77, z: 0}
+  serializedVersion: 2
+  m_Radius: 1.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1428032584847411459
 PrefabInstance:
   m_ObjectHideFlags: 0

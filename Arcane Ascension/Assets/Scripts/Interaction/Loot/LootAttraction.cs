@@ -5,10 +5,10 @@ using ExtensionMethods;
 /// Class responsible for moving a pickable item towards the player.
 /// </summary>
 [RequireComponent(typeof(SphereCollider))]
+[RequireComponent(typeof(Rigidbody))]
 public class LootAttraction : MonoBehaviour
 {
     private Rigidbody rb;
-    private LootAddForceOnSpawn addForceOnSpawn;
     private Player player;
 
     private bool canMoveToPlayer;
@@ -16,7 +16,6 @@ public class LootAttraction : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        addForceOnSpawn = GetComponent<LootAddForceOnSpawn>();
         player = FindObjectOfType<Player>();
     }
 
@@ -28,16 +27,10 @@ public class LootAttraction : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (addForceOnSpawn.FreezePosition)
+        if (other.gameObject.layer == Layers.PlayerLayerNum ||
+            other.gameObject.layer == Layers.InvisiblePlayerLayerNum)
         {
-            if (other.gameObject.layer == Layers.PlayerLayerNum ||
-                        other.gameObject.layer == Layers.InvisiblePlayerLayerNum)
-            {
-                rb.isKinematic = true;
-                addForceOnSpawn.FreezePosition = false;
-                addForceOnSpawn.MovingTowardsPlayer = true;
-                canMoveToPlayer = true;
-            }
+            canMoveToPlayer = true;
         }
     }
 

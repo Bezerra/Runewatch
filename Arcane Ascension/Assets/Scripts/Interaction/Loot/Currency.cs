@@ -48,8 +48,6 @@ public class Currency : MonoBehaviour, ICurrency
                 lootType.ToString(), transform.position, Quaternion.identity);
 
             transform.parent.gameObject.SetActive(false);
-
-            Debug.Log(amountToGain + (AmountMultiplier * amountToGain * 0.01f));
         }
     }
 }

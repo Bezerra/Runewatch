@@ -36,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1.069}
+  m_AnchoredPosition: {x: 0, y: 1.25}
   m_SizeDelta: {x: 0.4, y: 0.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &460959768200289855
@@ -315,7 +315,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 460959768785444057}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.65, z: 0}
+  m_LocalPosition: {x: 0, y: 0.85, z: 0}
   m_LocalScale: {x: 0.3, y: 0.5, z: 0.1}
   m_Children: []
   m_Father: {fileID: 460959769742836821}
@@ -384,8 +384,8 @@ GameObject:
   - component: {fileID: 3897027391516905084}
   - component: {fileID: 460959769650890269}
   - component: {fileID: 2654394067484573810}
-  - component: {fileID: 5785565117393067361}
   - component: {fileID: 6624748839328285593}
+  - component: {fileID: 333795885432018864}
   m_Layer: 16
   m_Name: Pickable - Scroll Unknown Spells
   m_TagString: Untagged
@@ -471,20 +471,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b4bf1a18a4253d47900d9b1fdb3d714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!136 &5785565117393067361
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 460959769742836823}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.32
-  m_Height: 0.99
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.49, z: 0}
+  colliderCollisionSize: 0.5
+  isAttractable: 0
+  colliderAttractionSize: 2
 --- !u!54 &6624748839328285593
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -501,6 +490,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!135 &333795885432018864
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460959769742836823}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1001 &5194169113717622605
 PrefabInstance:
   m_ObjectHideFlags: 0
