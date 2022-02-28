@@ -8,4 +8,14 @@ public interface IEnemyAnimator
     /// </summary>
     /// <param name="enemyAttackType">Type of the attack.</param>
     void TriggerAttack(EnemyAttackTypeAnimations enemyAttackType);
+
+    /// <summary>
+    /// Triggers enraged animation.
+    /// </summary>
+    void TriggerEnragedAnimation();
+
+    /// <summary>
+    /// Resets class.
+    /// </summary>
+    void ResetAll();
 }

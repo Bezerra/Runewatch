@@ -211,8 +211,8 @@ public class Enemy : Character
     private IEnumerator takeDamageCoroutine;
     private readonly float TIMEAFTERBEINGHIT = 0.25f;
 
-    public System.Random Random;
-    private void Awake()
+    public System.Random Random { get; private set; }
+    protected virtual void Awake()
     {
         Animation = GetComponentInChildren<IEnemyAnimator>();
         Agent = GetComponent<NavMeshAgent>();
@@ -227,7 +227,7 @@ public class Enemy : Character
         CurrentlySelectedSpell = EnemyStats.EnemyAttributes.AllEnemySpells[0];
         Agent.speed = Values.Speed * EnemyStats.CommonAttributes.MovementSpeedMultiplier *
             EnemyStats.CommonAttributes.MovementStatusEffectMultiplier;
-        StateMachine.Start(StateMachine);
+        StateMachine.Start();
     }
 
     /// <summary>
@@ -268,7 +268,7 @@ public class Enemy : Character
     /// <summary>
     /// Sets TookDamage to true.
     /// </summary>
-    private void EventTakeDamage()
+    protected virtual void EventTakeDamage()
     {
         this.StartCoroutineWithReset(ref takeDamageCoroutine, TakeDamageCoroutine());
         TookDamage = true;
@@ -292,5 +292,17 @@ public class Enemy : Character
 
         UpdateSpeed(Values.Speed * EnemyStats.CommonAttributes.MovementSpeedMultiplier *
             EnemyStats.CommonAttributes.MovementStatusEffectMultiplier);
+    }
+
+    /// <summary>
+    /// Resets the class.
+    /// </summary>
+    public void ResetAll()
+    {
+        StateMachine.Stop();
+        OnDisable();
+        Awake();
+        OnEnable();
+        Start();
     }
 }

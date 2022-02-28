@@ -12,7 +12,7 @@ public abstract class Character : MonoBehaviour
     /// <summary>
     /// Gets common CharacterSO Values to all type of character classes.
     /// </summary>
-    public CharacterSO CommonValues => allValues;
+    public CharacterSO CommonValues { get => allValues; set => allValues = value; }
 
     // Transform variables
     [SerializeField] private Transform hand;

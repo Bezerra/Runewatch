@@ -252,4 +252,14 @@ public class EnemyStats : Stats
         }
         dead = true;
     }   
+
+    /// <summary>
+    /// Resets the class.
+    /// </summary>
+    public void ResetAll()
+    {
+        Awake();
+        OnEnable();
+        Start();
+    }
 }

@@ -186,4 +186,19 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
         }
         enemyModel.transform.localPosition = defaultPosition;
     }
+
+    /// <summary>
+    /// Resets the class.
+    /// </summary>
+    public void ResetAll()
+    {
+        OnDisable();
+        Awake();
+        OnEnable();
+    }
+
+    public void TriggerEnragedAnimation()
+    {
+        anim.SetBool("Enraged", true);
+    }
 }

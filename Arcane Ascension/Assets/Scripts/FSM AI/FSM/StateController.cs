@@ -44,12 +44,28 @@ public class StateController<T> where T : Enemy
     }
 
     /// <summary>
-    /// Starts current state.
+    /// Starts state machine.
     /// </summary>
-    /// <param name="ai">StateController of this state machine.</param>
-    public void Start(StateController<Enemy> ai)
+    public void Start()
     {
         StateRunning = true;
+    }
+
+    /// <summary>
+    /// Starts state machine.
+    /// </summary>
+    public void StartNoDelay()
+    {
+        StateRunning = true;
+        StateTimeElapsed += MINIMUMTIMETOSTAYINSTATE * 5f;
+    }
+
+    /// <summary>
+    /// Stops state machine.
+    /// </summary>
+    public void Stop()
+    {
+        StateRunning = false;
     }
 
     /// <summary>
