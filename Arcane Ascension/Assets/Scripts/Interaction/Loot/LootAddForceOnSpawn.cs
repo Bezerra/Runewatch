@@ -36,7 +36,7 @@ public class LootAddForceOnSpawn : MonoBehaviour
         // Force should never be less than this number (so it won't cause bugs
         // on trigger enter)
         forceValue = Random.Range(1050f, 1150f);
-        directionOfSpawn = Random.Range(-400f, 400f);
+        directionOfSpawn = Random.Range(-250, 250f);
         sphereCollider.radius = 0;
 
         rb.AddForce(new Vector3(directionOfSpawn, forceValue, directionOfSpawn));
