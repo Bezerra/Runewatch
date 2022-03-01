@@ -30,7 +30,19 @@ public class SpellPoolCreator : AbstractPoolCreator
                 AbstractPoolCreator.AllPrefabsToInstantiate += poolSize;
 
                 SpellPool spawnedSpellPool =
-                new SpellPool(allSpells.SpellList[i].Prefab.Item1, poolSize);
+                    new SpellPool(allSpells.SpellList[i].Prefab.Item1, poolSize);
+                listSpellPools.Add(spawnedSpellPool);
+            }
+        }
+
+        for (int i = 0; i < allSpells.MonsterExclusiveSpellList.Count; i++)
+        {
+            if (allSpells.MonsterExclusiveSpellList[i].Prefab.Item1 != null)
+            {
+                AbstractPoolCreator.AllPrefabsToInstantiate += poolSize;
+
+                SpellPool spawnedSpellPool =
+                    new SpellPool(allSpells.MonsterExclusiveSpellList[i].Prefab.Item1, poolSize);
                 listSpellPools.Add(spawnedSpellPool);
             }
         }

@@ -59,6 +59,13 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     public GameObject AreaHoverVFX { get; set; }
 
     /// <summary>
+    /// Set when multiple area hovers are spawned.
+    /// </summary>
+    public GameObject[] AreaHoverVFXMultiple { get; set; }
+
+    public Transform[] SpellsInPatternsTransforms { get; set; }
+
+    /// <summary>
     /// Area Hit for hover vfx.
     /// </summary>
     public RaycastHit AreaHoverAreaHit { get; set; }
@@ -126,7 +133,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         ColliderTrigger = GetComponent<CapsuleCollider>();
         ParticlesDisable = GetComponentsInChildren<ParticleDisable>();
         spell.Initialize();
-
+        AreaHoverVFXMultiple = new GameObject[3];
     }
 
     protected override void OnEnable()
@@ -168,6 +175,8 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         PlayingSound = false;
         IsSoundPaused = false;
         FadingOutSound = false;
+        SpellsInPatternsTransforms = null;
+        AreaHoverVFXMultiple = null;
 
         if (Rb != null)
         {

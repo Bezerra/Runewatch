@@ -12,23 +12,30 @@ public class DamageAoESO : DamageBehaviourAbstractSO
     /// Applies AoE damage. Works with a collider.
     /// </summary>
     /// <param name="parent">Parent spell behaviour.</param>
+    /// <param name="overridePosition">Transform to override position.</param>
     /// <param name="other">Collider to get IDamageables to damage.</param>
     /// <param name="damageMultiplier">Damage multiplier. It's 1 by default.</param>
-    public override void Damage(SpellBehaviourAbstract parent, Collider other = null, float damageMultiplier = 1)
+    public override void Damage(SpellBehaviourAbstract parent, Transform overridePosition = null, 
+        Collider other = null, float damageMultiplier = 1)
     {
-        DamageLogic(parent, other, damageMultiplier);
+        DamageLogic(parent, overridePosition, other, damageMultiplier);
     }
 
     /// <summary>
     /// Damage logic.
     /// </summary>
     /// <param name="parent">Parent spell behaviour.</param>
+    /// <param name="overridePosition">Transform to override position.</param>
     /// <param name="other">Collider to get IDamageables to damage.</param>
     /// <param name="damageMultiplier">Damage multiplier. It's 1 by default.</param>
-    protected override void DamageLogic(SpellBehaviourAbstract parent, Collider other = null, float damageMultiplier = 1)
+    protected override void DamageLogic(SpellBehaviourAbstract parent, 
+        Transform overridePosition = null, Collider other = null, float damageMultiplier = 1)
     {
+        Vector3 hitPosition = 
+            overridePosition == null ? parent.PositionOnHit : overridePosition.position;
+
         Collider[] collisions = Physics.OverlapSphere(
-                    parent.PositionOnHit, parent.Spell.AreaOfEffect, Layers.PlayerEnemy);
+                hitPosition, parent.Spell.AreaOfEffect, Layers.PlayerEnemy);
 
         // Creates a new list with IDamageable characters
         // Must be Stats instead of IDamageable to apply status behaviour
@@ -51,8 +58,8 @@ public class DamageAoESO : DamageBehaviourAbstractSO
         {
             // Creates a ray from spell to hit
             Ray dir = new Ray(
-                parent.PositionOnHit,
-                parent.PositionOnHit.Direction(collisions[i].ClosestPoint(parent.PositionOnHit)));
+                hitPosition,
+                hitPosition.Direction(collisions[i].ClosestPoint(hitPosition)));
 
             // Checks if colliders are hit
             if (Physics.Raycast(dir, out RaycastHit characterHit, parent.Spell.AreaOfEffect,

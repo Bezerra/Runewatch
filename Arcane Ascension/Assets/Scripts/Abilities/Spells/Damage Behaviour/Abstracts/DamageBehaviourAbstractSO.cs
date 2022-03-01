@@ -11,17 +11,21 @@ public abstract class DamageBehaviourAbstractSO : ScriptableObject, IDamageBehav
     /// Executes damage behaviour for colliders.
     /// </summary>
     /// <param name="parent">Parent spell.</param>
+    /// <param name="overridePosition">Transform to override position.</param>
     /// <param name="other">Collider to damage.</param>
     /// <param name="damageMultiplier">Damage multiplier. It's 1 by default.</param>
-    public abstract void Damage(SpellBehaviourAbstract parent, Collider other = null, float damageMultiplier = 1);
+    public abstract void Damage(SpellBehaviourAbstract parent, Transform overridePosition = null,
+        Collider other = null, float damageMultiplier = 1);
 
     /// <summary>
     /// Damage logic.
     /// </summary>
     /// <param name="parent">Parent spell behaviour.</param>
+    /// <param name="overridePosition">Transform to override position.</param>
     /// <param name="other">Collider to get IDamageables to damage.</param>
     /// <param name="damageMultiplier">Damage multiplier. It's 1 by default.</param>
-    protected abstract void DamageLogic(SpellBehaviourAbstract parent, Collider other = null, float damageMultiplier = 1);
+    protected abstract void DamageLogic(SpellBehaviourAbstract parent, 
+        Transform overridePosition = null, Collider other = null, float damageMultiplier = 1);
 
     /// <summary>
     /// If this spell is a single target spell and contains a status effect, it applies that status effect.

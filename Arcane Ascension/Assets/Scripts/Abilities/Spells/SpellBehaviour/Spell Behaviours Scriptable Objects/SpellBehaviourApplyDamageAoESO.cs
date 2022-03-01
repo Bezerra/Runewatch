@@ -29,6 +29,6 @@ public class SpellBehaviourApplyDamageAoESO : SpellBehaviourAbstractSO
 
     public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
-        parent.Spell.DamageBehaviour.Damage(parent, other);
+        parent.Spell.DamageBehaviour.Damage(parent, other: other);
     }
 }

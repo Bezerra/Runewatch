@@ -36,6 +36,20 @@ public class SpellAreaHoverPoolCreator : AbstractPoolCreator
             }
         }
 
+        // Foreach existent spell, creates a spellPool with its prefab and the size of the pool
+        for (int i = 0; i < allSpells.MonsterExclusiveSpellList.Count; i++)
+        {
+            if (allSpells.MonsterExclusiveSpellList[i].Prefab.Item5 != null)
+            {
+                AbstractPoolCreator.AllPrefabsToInstantiate += poolSize;
+
+                SpellPool spawnedSpellAreaOverPool =
+                    new SpellPool(allSpells.MonsterExclusiveSpellList[i].Prefab.Item5,
+                    allSpells.MonsterExclusiveSpellList[i].Prefab.Item1, poolSize);
+                listSpellAreaOverPools.Add(spawnedSpellAreaOverPool);
+            }
+        }
+
         // Adds default spell
         if (allSpells.DefaultSpell.Prefab.Item5 != null)
         {

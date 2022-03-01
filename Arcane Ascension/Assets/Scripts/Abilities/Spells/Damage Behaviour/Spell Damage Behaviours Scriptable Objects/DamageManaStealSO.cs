@@ -11,20 +11,24 @@ public class DamageManaStealSO : DamageBehaviourAbstractSO
     /// Damage for single target spells. Works with a collider.
     /// </summary>
     /// <param name="parent">Parent spell behaviour.</param>
+    /// <param name="overridePosition">Transform to override position.</param>
     /// <param name="other">Collider to damage.</param>
     /// <param name="damageMultiplier">Damage multiplier. It's 1 by default.</param>
-    public override void Damage(SpellBehaviourAbstract parent, Collider other = null, float damageMultiplier = 1)
+    public override void Damage(SpellBehaviourAbstract parent, Transform overridePosition = null,
+        Collider other = null, float damageMultiplier = 1)
     {
-        DamageLogic(parent, other, damageMultiplier);
+        DamageLogic(parent, overridePosition, other, damageMultiplier);
     }
 
     /// <summary>
     /// Damage logic.
     /// </summary>
     /// <param name="parent">Parent spell behaviour.</param>
+    /// <param name="overridePosition">Transform to override position.</param>
     /// <param name="other">Collider to get IDamageables to damage.</param>
     /// <param name="damageMultiplier">Damage multiplier. It's 1 by default.</param>
-    protected override void DamageLogic(SpellBehaviourAbstract parent, Collider other = null, float damageMultiplier = 1)
+    protected override void DamageLogic(SpellBehaviourAbstract parent, 
+        Transform overridePosition = null, Collider other = null, float damageMultiplier = 1)
     {
         if (other.gameObject.TryGetComponentInParent<IDamageable>(out IDamageable character))
         {

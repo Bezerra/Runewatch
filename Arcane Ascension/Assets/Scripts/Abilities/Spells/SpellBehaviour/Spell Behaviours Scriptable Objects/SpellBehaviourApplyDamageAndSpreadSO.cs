@@ -88,7 +88,7 @@ sealed public class SpellBehaviourApplyDamageAndSpreadSO : SpellBehaviourAbstrac
     public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
         // Applies damage with a modifier
-        parent.Spell.DamageBehaviour.Damage(parent, other);
+        parent.Spell.DamageBehaviour.Damage(parent, other: other);
 
         parent.Rb.velocity = Vector3.zero;
         parent.HomingTarget = null;

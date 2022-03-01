@@ -36,6 +36,20 @@ public class SpellMuzzlePoolCreator : AbstractPoolCreator
             }
         }
 
+        // Foreach existent spell, creates a spellPool with its prefab and the size of the pool
+        for (int i = 0; i < allSpells.MonsterExclusiveSpellList.Count; i++)
+        {
+            if (allSpells.MonsterExclusiveSpellList[i].Prefab.Item3 != null)
+            {
+                AbstractPoolCreator.AllPrefabsToInstantiate += poolSize;
+
+                SpellPool spawnedSpellMuzzlePool =
+                    new SpellPool(allSpells.MonsterExclusiveSpellList[i].Prefab.Item3,
+                    allSpells.MonsterExclusiveSpellList[i].Prefab.Item1, poolSize);
+                listSpellMuzzlePools.Add(spawnedSpellMuzzlePool);
+            }
+        }
+
         // Adds default spell
         if (allSpells.DefaultSpell.Prefab.Item3 != null)
         {

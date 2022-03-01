@@ -33,7 +33,8 @@ public class SpellHandEffectPoolCreator : AbstractPoolCreator
             {
                 AbstractPoolCreator.AllPrefabsToInstantiate += poolSize;
 
-                SpellPool spawnedHandEffectPool = new SpellPool(allSpells[i].Prefab.Item4, allSpells[i].Prefab.Item1, poolSize);
+                SpellPool spawnedHandEffectPool = 
+                    new SpellPool(allSpells[i].Prefab.Item4, allSpells[i].Prefab.Item1, poolSize);
                 listHandEffectPools.Add(spawnedHandEffectPool);
             }
         }

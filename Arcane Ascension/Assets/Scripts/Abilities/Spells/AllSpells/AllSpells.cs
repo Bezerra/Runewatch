@@ -21,6 +21,9 @@ public class AllSpells : MonoBehaviour
     public List<SpellSO> SpellList =>
         allSpells.SpellList;
 
+    public List<SpellSO> MonsterExclusiveSpellList =>
+        allSpells.MonsterExclusiveSpells;
+
     public SpellSO DefaultSpell => allSpells.DefaultSpell;
 
     public SpellSO MeleeAttack => allSpells.MeleeAttack;

@@ -18,6 +18,9 @@ public class AllSpellsSO : ScriptableObject
     [SerializeField] private List<SpellSO> spells;
     public List<SpellSO> SpellList => spells;
 
+    [SerializeField] private List<SpellSO> monsterExclusiveSpells;
+    public List<SpellSO> MonsterExclusiveSpells => monsterExclusiveSpells;
+
     [SerializeField] private SpellSO defaultSpell;
     public SpellSO DefaultSpell => defaultSpell;
 

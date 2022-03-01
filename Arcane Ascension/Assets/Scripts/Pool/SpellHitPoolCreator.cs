@@ -36,6 +36,20 @@ public class SpellHitPoolCreator : AbstractPoolCreator
             }
         }
 
+        // Foreach existent spell, creates a spellPool with its prefab and the size of the pool
+        for (int i = 0; i < allSpells.MonsterExclusiveSpellList.Count; i++)
+        {
+            if (allSpells.MonsterExclusiveSpellList[i].Prefab.Item2 != null)
+            {
+                AbstractPoolCreator.AllPrefabsToInstantiate += poolSize;
+
+                SpellPool spawnedSpellHitPool =
+                    new SpellPool(allSpells.MonsterExclusiveSpellList[i].Prefab.Item2,
+                    allSpells.MonsterExclusiveSpellList[i].Prefab.Item1, poolSize);
+                listSpellHitPools.Add(spawnedSpellHitPool);
+            }
+        }
+
         // Adds default spell
         if (allSpells.DefaultSpell.Prefab.Item2 != null)
         {

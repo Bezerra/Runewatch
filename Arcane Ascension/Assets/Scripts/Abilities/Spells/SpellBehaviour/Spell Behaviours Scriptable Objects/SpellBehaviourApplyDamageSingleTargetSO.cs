@@ -41,11 +41,11 @@ public class SpellBehaviourApplyDamageSingleTargetSO : SpellBehaviourAbstractSO
 
         if (layersToDamage.Contains(layerNumber))
         {
-            parent.Spell.DamageBehaviour.Damage(parent, other);
+            parent.Spell.DamageBehaviour.Damage(parent, other: other);
         }
         else if (layerNumber == Layers.EnemyImmuneLayerNum)
         {
-            parent.Spell.DamageBehaviour.Damage(parent, other, 0);
+            parent.Spell.DamageBehaviour.Damage(parent, other: other, damageMultiplier: 0);
         }
     }
 }

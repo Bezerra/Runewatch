@@ -50,7 +50,8 @@ sealed public class SpellBehaviourApplyDamagePierceSO : SpellBehaviourAbstractSO
         if (layersToDamage.Contains(layerNumber))
         {
             // Applies damage with a modifier
-            parent.Spell.DamageBehaviour.Damage(parent, other, CalculateModifier(parent.CurrentPierceHitQuantity));
+            parent.Spell.DamageBehaviour.Damage(parent, other: other, 
+                damageMultiplier: CalculateModifier(parent.CurrentPierceHitQuantity));
 
             // Adds a hit counter
             if (++parent.CurrentPierceHitQuantity >= hitQuantity)
@@ -61,7 +62,7 @@ sealed public class SpellBehaviourApplyDamagePierceSO : SpellBehaviourAbstractSO
         }
         else if (layerNumber == Layers.EnemyImmuneLayerNum)
         {
-            parent.Spell.DamageBehaviour.Damage(parent, other, 0);
+            parent.Spell.DamageBehaviour.Damage(parent, other: other, damageMultiplier: 0);
         }
     }
 

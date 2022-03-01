@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using ExtensionMethods;
 
 /// <summary>
 /// Scriptable object responsible for applying normal damage and regenerate leaf shield.
@@ -44,7 +43,7 @@ public class SpellBehaviourApplyDamageSingleTargetLeafShieldSO : SpellBehaviourA
 
         if (layersToDamage.Contains(layerNumber))
         {
-            parent.Spell.DamageBehaviour.Damage(parent, other);
+            parent.Spell.DamageBehaviour.Damage(parent, other: other);
 
             if (parent.WhoCast.CommonAttributes.Type == CharacterType.Player)
             {
@@ -63,7 +62,7 @@ public class SpellBehaviourApplyDamageSingleTargetLeafShieldSO : SpellBehaviourA
         }
         else if (layerNumber == Layers.EnemyImmuneLayerNum)
         {
-            parent.Spell.DamageBehaviour.Damage(parent, other, 0);
+            parent.Spell.DamageBehaviour.Damage(parent, other: other, damageMultiplier: 0);
         }
     }
 }
