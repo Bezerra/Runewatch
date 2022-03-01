@@ -326,6 +326,17 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         }
     }
 
+    public override void DisableSpell(Stats emptyVar)
+    {
+        if (AreaHoverVFX != null) AreaHoverVFX.gameObject.SetActive(false);
+        if (AreaHoverVFXMultiple != null && AreaHoverVFXMultiple.Length > 0)
+        {
+            foreach (GameObject multipleAreaHover in AreaHoverVFXMultiple)
+                multipleAreaHover.SetActive(false);
+        }
+
+        base.DisableSpell(emptyVar);
+    }
 
 
     public Vector3 TEMP { get; set; }

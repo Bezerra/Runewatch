@@ -127,11 +127,12 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect, IRe
                     AICharacter = null;
                 }
 
-                ThisIDamageable = WhoCast.GetComponent<IDamageable>(); 
+                ThisIDamageable = WhoCast.GetComponent<IDamageable>();
+                whoCast.EventDeath += DisableSpell;
             }
         }
     }
-    
+
     protected virtual void Awake()
     {
         hitEffectVFX = GetComponentsInChildren<VisualEffect>();
@@ -156,6 +157,9 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect, IRe
 
         if (PlayerCastSpell != null)
             PlayerCastSpell.ReleasedAttackButton -= ReleasedAttackButtonControl;
+
+        if (whoCast != null)
+            whoCast.EventDeath -= DisableSpell;
     }
 
     public void ResetAfterPoolDisable()
@@ -184,6 +188,11 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect, IRe
     /// Must be called manually through this method instead of OnEnable or Start in order to prevent bugs.
     /// </summary>
     public abstract void TriggerStartBehaviour();
+
+    /// <summary>
+    /// Immediatly disables spell through death eventgameobject.
+    /// </summary>
+    public virtual void DisableSpell(Stats emptyVar) => DisableSpell();
 
     /// <summary>
     /// Immediatly disables spell gameobject.
