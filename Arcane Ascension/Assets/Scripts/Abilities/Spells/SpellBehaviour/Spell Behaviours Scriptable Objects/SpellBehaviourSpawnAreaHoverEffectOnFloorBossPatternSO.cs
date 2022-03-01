@@ -9,6 +9,8 @@ using UnityEngine;
 sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorBossPatternSO : SpellBehaviourAbstractSO
 {
     [Range(0f, 0.3f)] [SerializeField] private float distanceFromWall = 0.05f;
+    [Range(0.5f, 4f)] [SerializeField] private float ROTATIONFREQUENCY = 2f;
+    [Range(0.5f, 4f)] [SerializeField] private float DISTANCEGROWTH = 2.5f;
 
     private Vector3 DISTANTVECTOR = new Vector3(10000, 10000, 10000);
 
@@ -78,16 +80,35 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorBossPatternSO : Spe
                         } 
                     }
 
-                    parent.AreaHoverAreaHit = floorHit;
-
-                    for (int i = 0; i < parent.AreaHoverVFXMultiple.Length; i++)
-                    {
-                        parent.AreaHoverVFXMultiple[i].transform.SetPositionAndRotation(
-                            floorHit.point + floorHit.normal * distanceFromWall + new Vector3(i*7, 0, 0),
-                            Quaternion.LookRotation(floorHit.normal, floorHit.collider.transform.up) *
-                            Quaternion.Euler(90, 0, 0));
-                    }
+                    parent.AreaHoverVFXMultiple[0].transform.SetPositionAndRotation(
+                        floorHit.point + floorHit.normal * distanceFromWall,
+                        Quaternion.LookRotation(floorHit.normal, floorHit.collider.transform.up) *
+                        Quaternion.Euler(90, 0, 0));
                 }
+
+                parent.TimeInsideSpellChanneling = 5;
+            }
+
+            if (timeEnemyIsStopped > parent.AICharacter.CurrentlySelectedSpell.StoppingTime *
+                parent.AICharacter.CurrentlySelectedSpell.PercentageStoppingTimeTriggerAoESpell)
+            {
+                parent.TimeInsideSpellChanneling += Time.deltaTime * DISTANCEGROWTH;
+
+                // X + Z positions
+                float xPos = Mathf.Cos(Time.time * ROTATIONFREQUENCY) * 
+                    parent.TimeInsideSpellChanneling;
+                float zPos = Mathf.Sin(Time.time * ROTATIONFREQUENCY) *
+                    parent.TimeInsideSpellChanneling;
+
+                // Circle 1 position update
+                parent.AreaHoverVFXMultiple[1].transform.SetPositionAndRotation(
+                    parent.AreaHoverVFXMultiple[0].transform.position + new Vector3(xPos, 0, zPos),
+                    parent.AreaHoverVFXMultiple[0].transform.rotation);
+
+                // Circle 2 position update
+                parent.AreaHoverVFXMultiple[2].transform.SetPositionAndRotation(
+                    parent.AreaHoverVFXMultiple[0].transform.position + new Vector3(-xPos, 0, -zPos),
+                    parent.AreaHoverVFXMultiple[0].transform.rotation);
             }
         }
     }

@@ -24,7 +24,7 @@ public class SpellBehaviourSpawnHitOnAoEHoverBossPatternSO : SpellBehaviourAbstr
         {
             // Spawns hit in direction of collider hit normal
             GameObject onHitBehaviourGameObject = SpellHitPoolCreator.Pool.InstantiateFromPool(
-                parent.Spell.Name, parent.AreaHoverAreaHit.point + new Vector3(i * 7, 0, 0),
+                parent.Spell.Name, parent.AreaHoverVFXMultiple[i].transform.position,
                 Quaternion.identity);
 
             if (onHitBehaviourGameObject.TryGetComponent<SpellOnHitBehaviourOneShot>(

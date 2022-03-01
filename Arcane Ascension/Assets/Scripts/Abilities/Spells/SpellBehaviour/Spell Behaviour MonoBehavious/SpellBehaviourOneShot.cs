@@ -63,7 +63,15 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
     /// </summary>
     public GameObject[] AreaHoverVFXMultiple { get; set; }
 
+    /// <summary>
+    /// Transforms of spells when spawned in patterns.
+    /// </summary>
     public Transform[] SpellsInPatternsTransforms { get; set; }
+
+    /// <summary>
+    /// Time while channeling a spell.
+    /// </summary>
+    public float TimeInsideSpellChanneling { get; set; }
 
     /// <summary>
     /// Area Hit for hover vfx.
@@ -177,6 +185,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         FadingOutSound = false;
         SpellsInPatternsTransforms = null;
         AreaHoverVFXMultiple = null;
+        TimeInsideSpellChanneling = 0;
 
         if (Rb != null)
         {
