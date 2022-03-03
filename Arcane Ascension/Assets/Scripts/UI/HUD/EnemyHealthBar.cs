@@ -22,7 +22,7 @@ public class EnemyHealthBar : MonoBehaviour
 
     [Header("Status Effects Slots")]
     [SerializeField] private Image[] statusEffectsSlots;
-    private Dictionary<StatusEffectType, StatusEffectImage> statusEffectsSlotsInUse;
+    protected Dictionary<StatusEffectType, StatusEffectImage> statusEffectsSlotsInUse;
 
     // Components
     private Camera cam;
@@ -30,9 +30,9 @@ public class EnemyHealthBar : MonoBehaviour
 
     // Coroutines
     private IEnumerator updateHealthCoroutine;
-    private YieldInstruction wffu;
+    protected YieldInstruction wffu;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         cam = Camera.main;
         enemyStats = GetComponentInParent<EnemyStats>();
@@ -44,6 +44,8 @@ public class EnemyHealthBar : MonoBehaviour
     {
         if (enemyStats?.EnemyAttributes.Icon != null)
             elementIcon.sprite = enemyStats.EnemyAttributes.Icon;
+
+        if (enemyStats.CommonAttributes.Type == CharacterType.Boss) return;
 
         healthBarGameObject.SetActive(false);
     }
@@ -58,13 +60,17 @@ public class EnemyHealthBar : MonoBehaviour
     {
         yield return wffu;
         enemyStats.EventHealthUpdate += OnTakeDamage;
-        enemyStats.StatusEffectList.ValueChanged += UpdateStatusEffectsEvent;
+
+        if (statusEffectsSlotsInUse.Count > 0)
+            enemyStats.StatusEffectList.ValueChanged += UpdateStatusEffectsEvent;
     }
 
     private void OnDisable()
     {
         enemyStats.EventHealthUpdate -= OnTakeDamage;
-        enemyStats.StatusEffectList.ValueChanged -= UpdateStatusEffectsEvent;
+
+        if (statusEffectsSlotsInUse.Count > 0)
+            enemyStats.StatusEffectList.ValueChanged -= UpdateStatusEffectsEvent;
     }
 
     /// <summary>
@@ -117,13 +123,19 @@ public class EnemyHealthBar : MonoBehaviour
         }
     }
 
-    private void Update()
+    protected virtual void Update()
     {
+        if (enemyStats.CommonAttributes.Type == CharacterType.Boss) return;
+
         UpdateStatusEffects();
     }
 
-    private void FixedUpdate() =>
+    protected virtual void FixedUpdate()
+    {
+        if (enemyStats.CommonAttributes.Type == CharacterType.Boss) return;
+
         UpdateRotation();
+    }
 
     /// <summary>
     /// Updates rotation of the bar.
@@ -138,20 +150,18 @@ public class EnemyHealthBar : MonoBehaviour
 
     private void UpdateStatusEffects()
     {
-        if (statusEffectsSlotsInUse.Count > 0)
+        for (int i = 0; i < statusEffectsSlotsInUse.Count; i++)
         {
-            for (int i = 0; i < statusEffectsSlotsInUse.Count; i++)
-            {
-                statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Value.Type].Image.fillAmount = 1 -
-                    (Time.time -
-                    enemyStats.StatusEffectList.Items[statusEffectsSlotsInUse.ElementAt(i).Value.Type].TimeApplied) /
-                    statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Key].Duration;
+            statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Value.Type].Image.fillAmount = 1 -
+                (Time.time -
+                enemyStats.StatusEffectList.Items[statusEffectsSlotsInUse.ElementAt(i).Value.Type].TimeApplied) /
+                statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Key].Duration;
 
-                if (statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Value.Type].Image.fillAmount <= 0)
-                {
-                    statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Value.Type].Image.gameObject.SetActive(false);
-                    statusEffectsSlotsInUse.Remove(statusEffectsSlotsInUse.ElementAt(i).Value.Type);
-                }
+            if (statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Value.Type].Image.fillAmount <= 0)
+            {
+                statusEffectsSlotsInUse[statusEffectsSlotsInUse.ElementAt(i).Value.Type].Image.gameObject.
+                    SetActive(false);
+                statusEffectsSlotsInUse.Remove(statusEffectsSlotsInUse.ElementAt(i).Value.Type);
             }
         }
     }
@@ -163,20 +173,23 @@ public class EnemyHealthBar : MonoBehaviour
     /// <param name=""></param>
     private void UpdateStatusEffectsEvent(StatusEffectType type, IStatusEffectInformation information)
     {
-        for (int i = 0; i < statusEffectsSlots.Length; i++)
+        if (statusEffectsSlots.Length > 0)
         {
-            if (statusEffectsSlots[i].gameObject.activeSelf == false)
+            for (int i = 0; i < statusEffectsSlots.Length; i++)
             {
-                statusEffectsSlots[i].gameObject.SetActive(true);
+                if (statusEffectsSlots[i].gameObject.activeSelf == false)
+                {
+                    statusEffectsSlots[i].gameObject.SetActive(true);
 
-                statusEffectsSlots[i].sprite = enemyStats.
-                    StatusEffectList.Items[type].Icon;
+                    statusEffectsSlots[i].sprite = enemyStats.
+                        StatusEffectList.Items[type].Icon;
 
-                statusEffectsSlotsInUse.Add(type,
-                    new StatusEffectImage(statusEffectsSlots[i], type, information.Duration));
+                    statusEffectsSlotsInUse.Add(type,
+                        new StatusEffectImage(statusEffectsSlots[i], type, information.Duration));
 
-                break;
+                    break;
+                }
             }
-        }
+        }        
     }
 }
