@@ -1390,7 +1390,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6834499750442086855, guid: a85d8dcb4809a604298b216ec2b5a372, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a85d8dcb4809a604298b216ec2b5a372, type: 3}
@@ -8805,6 +8805,42 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 139002431582410579, guid: c12e4661e7410404f83d1a04e8152b16, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870371988008694102, guid: c12e4661e7410404f83d1a04e8152b16, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870371988008694102, guid: c12e4661e7410404f83d1a04e8152b16, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870371988008694102, guid: c12e4661e7410404f83d1a04e8152b16, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870371988008694102, guid: c12e4661e7410404f83d1a04e8152b16, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870371988008694102, guid: c12e4661e7410404f83d1a04e8152b16, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870371988008694102, guid: c12e4661e7410404f83d1a04e8152b16, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870371988008694102, guid: c12e4661e7410404f83d1a04e8152b16, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870371988008694102, guid: c12e4661e7410404f83d1a04e8152b16, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2868298685125012464, guid: c12e4661e7410404f83d1a04e8152b16, type: 3}
       propertyPath: m_Name
       value: Fire Demon (1)
@@ -8857,9 +8893,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4017489765590244533, guid: c12e4661e7410404f83d1a04e8152b16, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5380409107657006203, guid: c12e4661e7410404f83d1a04e8152b16, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8823375378335991336, guid: c12e4661e7410404f83d1a04e8152b16, type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c12e4661e7410404f83d1a04e8152b16, type: 3}
@@ -11577,6 +11621,30 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4368204534753961743, guid: 9ba66d6ebf0ca484f9a7060c9f6b918c, type: 3}
   m_PrefabInstance: {fileID: 2097475991}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2100555399 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9186061226384269920, guid: c12e4661e7410404f83d1a04e8152b16, type: 3}
+  m_PrefabInstance: {fileID: 1492560106}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2100555400
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100555399}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0c782d7407c96a54bb39c87e77a17624, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2104651145
 GameObject:
   m_ObjectHideFlags: 0
