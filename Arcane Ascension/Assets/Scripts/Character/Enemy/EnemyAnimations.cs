@@ -7,6 +7,8 @@ using ExtensionMethods;
 /// </summary>
 public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
 {
+    [SerializeField] private AudioSource voiceAudioSource;
+
     // Components
     private Animator anim;
     private Enemy enemy;
@@ -186,6 +188,9 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
         }
         enemyModel.transform.localPosition = defaultPosition;
     }
+
+    public void PlayVoice() =>
+        voiceAudioSource.Play();
 
     /// <summary>
     /// Resets the class.
