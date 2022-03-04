@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Ignis Vases
-  m_Shader: {fileID: 4800000, guid: 781d9ee303bcac842b9780e5790b6be5, type: 3}
+  m_Shader: {fileID: 4800000, guid: 8aac3d70df55c4b4193192b9a9115ea2, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
@@ -31,8 +31,12 @@ Material:
         m_Texture: {fileID: 2800000, guid: 07fa0ec7d8241154b98fa02fa7c91565, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _BaseColor:
+        m_Texture: {fileID: 2800000, guid: 29d201b1bce539241913416f56a2e851, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Emissive:
-        m_Texture: {fileID: 2800000, guid: f77e959a05066f24cb00df7b76dc1a5a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1328d5e0f29bc7b4496eabf56068f28a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissiveTex:
@@ -103,6 +107,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: b45f7451bdd13e64581c2e0d01546d6b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Packed:
+        m_Texture: {fileID: 2800000, guid: 8dfef0962bfc3104281854901f625b21, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _PackedTex:
         m_Texture: {fileID: 2800000, guid: 8dfef0962bfc3104281854901f625b21, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -122,6 +130,10 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaCutoff: 0.5
+    - _DissolveAmount: 0.201
+    - _DissolveScale: 30
+    - _DissolveWidth: 0.05
+    - _EmissionStrength: 1
     - _EmissiveStrength: 9.54
     - _Float0: 0
     - _Float1: 0
@@ -160,6 +172,7 @@ Material:
     - _Tiling: 1
     - _ToggleSwitch0: 0
     m_Colors:
+    - _DissolveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _L1Tiling: {r: 1, g: 1, b: 0, a: 0}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
