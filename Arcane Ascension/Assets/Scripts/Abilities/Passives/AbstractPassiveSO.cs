@@ -23,12 +23,17 @@ public abstract class AbstractPassiveSO<T> : ScriptableObject, IPassive<T>
     [Tooltip("Passive tier")]
     [Range(1, 7)] [SerializeField] protected int passiveTier;
 
+    [VerticalGroup("General/Split/Middle", 1), LabelWidth(60)]
+    [Tooltip("Does this ability affects or is affected by some stats")]
+    [SerializeField] protected AffectsType relation;
+
     [VerticalGroup("General/Split/Right", 2)]
     [HideLabel, TextArea(4, 6), SerializeField] protected string description;
 
     public abstract T PassiveType { get; }
     public string Name => name;
     public string Description => description;
+    public AffectsType Relation => relation;
     public int Tier => passiveTier;
     public byte ID { get; set; }
     public Sprite Icon => icon;

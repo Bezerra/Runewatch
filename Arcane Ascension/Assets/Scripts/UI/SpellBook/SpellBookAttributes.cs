@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -26,6 +27,22 @@ public class SpellBookAttributes : MonoBehaviour
     [SerializeField] private TextMeshProUGUI fulgurBonusDamage;
     [SerializeField] private TextMeshProUGUI luxBonusDamage;
     [SerializeField] private TextMeshProUGUI umbraBonusDamage;
+
+    private IDictionary<ElementType, TextMeshProUGUI> elementsText;
+
+    private void Awake()
+    {
+        elementsText = new Dictionary<ElementType, TextMeshProUGUI>
+        {
+            {ElementType.Ignis, ignisBonusDamage },
+            {ElementType.Aqua, aquaBonusDamage },
+            {ElementType.Terra, terraBonusDamage },
+            {ElementType.Natura, naturaBonusDamage },
+            {ElementType.Fulgur, fulgurBonusDamage },
+            {ElementType.Lux, luxBonusDamage },
+            {ElementType.Umbra, umbraBonusDamage },
+        };
+    }
 
 
     public void UpdateText()

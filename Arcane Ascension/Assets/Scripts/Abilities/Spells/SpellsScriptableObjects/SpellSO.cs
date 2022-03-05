@@ -24,6 +24,10 @@ public class SpellSO : ScriptableObject, ISpell
     [Tooltip("Spell tier")]
     [Range(1, 3)] [SerializeField] private int spellTier;
 
+    [VerticalGroup("General/Split/Middle", 1), LabelWidth(60)]
+    [Tooltip("Does this ability affects or is affected by some stats")]
+    [SerializeField] protected AffectsType relation;
+
     [VerticalGroup("General/Split/Right", 2)]
     [HideLabel, TextArea(4, 6), SerializeField] protected string description;
 
@@ -147,6 +151,7 @@ public class SpellSO : ScriptableObject, ISpell
     public Sprite Icon => icon;
     public Sprite ElementIcon => elementIcon;
     public Sprite TargetTypeIcon => targetTypeIcon;
+    public AffectsType Relation => relation;
     public string Name => name;
     public byte ID { get; set; }
     public int Tier => spellTier;
