@@ -27,7 +27,6 @@ public class SkillTreePassiveController : MonoBehaviour
     public CurrencySO CurrencySO => currencySO;
     public GameObject ConnectionLinePrefab => connectionLinePrefab;
 
-
     // List with passives
     public List<byte> CurrentPassives { get; private set; }
 
@@ -89,6 +88,35 @@ public class SkillTreePassiveController : MonoBehaviour
         {
             currencySO.GainCurrency(CurrencyType.ArcanePower, saveData.ArcanePower);
         }
+
+        UpdateArcanePowerText();
+    }
+
+    /// <summary>
+    /// Deletes save file (deletes all adquired passives) and returns all spent ap
+    /// back to player.
+    /// </summary>
+    public void ResetButton()
+    {
+        SkillTreePassiveNode[] allNodes = GetComponentsInChildren<SkillTreePassiveNode>();
+
+        int currentArcanePower = characterSaveDataController.SaveData.ArcanePower;
+        int spentAP = 0;
+        for (int i = 0; i < allNodes.Length; i++)
+        {
+            if (allNodes[i].NodePassive == null) continue;
+
+            for (int j = 0; j < allNodes[i].NodePassive.Tier; j++)
+            {
+                spentAP += allNodes[i].NodePassives[j].Cost;
+            }
+        }
+
+        EndCurrentRunOnSkillTree();
+        currencySO.GainCurrency(CurrencyType.ArcanePower, currentArcanePower + spentAP);
+        
+        CurrentPassives.Add(0); // Adds default spell
+        characterSaveDataController.Save(new byte[] { 0 }, characterSaveDataController.SaveData.ArcanePower);
 
         UpdateArcanePowerText();
     }
