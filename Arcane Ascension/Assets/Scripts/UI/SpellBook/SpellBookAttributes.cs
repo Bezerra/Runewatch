@@ -28,22 +28,47 @@ public class SpellBookAttributes : MonoBehaviour
     [SerializeField] private TextMeshProUGUI luxBonusDamage;
     [SerializeField] private TextMeshProUGUI umbraBonusDamage;
 
-    private IDictionary<ElementType, TextMeshProUGUI> elementsText;
+    private IDictionary<AffectsType, TextMeshProUGUI> affectedText;
+
+    [SerializeField] private Color normalTextColor;
+    [SerializeField] private Color affectedTextColor;
+    [SerializeField] private Color unnafectedTextColor;
 
     private void Awake()
     {
-        elementsText = new Dictionary<ElementType, TextMeshProUGUI>
+        affectedText = new Dictionary<AffectsType, TextMeshProUGUI>
         {
-            {ElementType.Ignis, ignisBonusDamage },
-            {ElementType.Aqua, aquaBonusDamage },
-            {ElementType.Terra, terraBonusDamage },
-            {ElementType.Natura, naturaBonusDamage },
-            {ElementType.Fulgur, fulgurBonusDamage },
-            {ElementType.Lux, luxBonusDamage },
-            {ElementType.Umbra, umbraBonusDamage },
+            {AffectsType.MaxHealth, maxHealth },
+            {AffectsType.DamageResistance, damageResistance },
+            {AffectsType.MaxMana, maxMana },
+            {AffectsType.ManaRegeneration, manaRegeneration},
+            {AffectsType.MovementSpeed, movementSpeed },
+            {AffectsType.BaseDamage, baseDamage },
+            {AffectsType.LifeSteal, lifeSteal },
+            {AffectsType.CriticalBonusDamage, criticalBonusDamage },
+            {AffectsType.CriticalChance, criticalChance },
+            {AffectsType.IgnisDamage, ignisBonusDamage },
+            {AffectsType.AquaDamage, aquaBonusDamage },
+            {AffectsType.TerraDamage, terraBonusDamage },
+            {AffectsType.NaturaDamage, naturaBonusDamage },
+            {AffectsType.FulgurDamage, fulgurBonusDamage },
+            {AffectsType.LuxDamage, luxBonusDamage },
+            {AffectsType.UmbraDamage, umbraBonusDamage },
         };
     }
 
+    /// <summary>
+    /// Highlights text that has a relation with the selected ability. 
+    /// </summary>
+    /// <param name="abilityAffectsType">Stats that affects or is affected by this ability,</param>
+    public void UpdateSelectedCardStatsColors(AffectsType abilityAffectsType)
+    {
+        foreach(KeyValuePair<AffectsType,TextMeshProUGUI> dicElement in affectedText)
+        {
+            if (dicElement.Key == abilityAffectsType) dicElement.Value.color = affectedTextColor;
+            else dicElement.Value.color = unnafectedTextColor;
+        }
+    }
 
     public void UpdateText()
     {
@@ -75,31 +100,31 @@ public class SpellBookAttributes : MonoBehaviour
             (playerStats.CriticalChance * 100f).ToString("F1") + " %";
 
         ignisBonusDamage.text =
-            (playerStats.DamageElementMultiplier[ElementType.Ignis] * 100f).
+            (playerStats.DamageElementMultiplier[ElementType.Ignis] * 100f - 100).
             ToString("F1") + " %";
 
         aquaBonusDamage.text =
-            (playerStats.DamageElementMultiplier[ElementType.Aqua] * 100f).
+            (playerStats.DamageElementMultiplier[ElementType.Aqua] * 100f - 100).
             ToString("F1") + " %";
 
         terraBonusDamage.text =
-            (playerStats.DamageElementMultiplier[ElementType.Terra] * 100f).
+            (playerStats.DamageElementMultiplier[ElementType.Terra] * 100f - 100).
             ToString("F1") + " %";
 
         naturaBonusDamage.text =
-            (playerStats.DamageElementMultiplier[ElementType.Natura] * 100f).
+            (playerStats.DamageElementMultiplier[ElementType.Natura] * 100f - 100).
             ToString("F1") + " %";
 
         fulgurBonusDamage.text =
-            (playerStats.DamageElementMultiplier[ElementType.Fulgur] * 100f).
+            (playerStats.DamageElementMultiplier[ElementType.Fulgur] * 100f - 100).
             ToString("F1") + " %";
 
         luxBonusDamage.text =
-            (playerStats.DamageElementMultiplier[ElementType.Lux] * 100f).
+            (playerStats.DamageElementMultiplier[ElementType.Lux] * 100f - 100).
             ToString("F1") + " %";
 
         umbraBonusDamage.text =
-            (playerStats.DamageElementMultiplier[ElementType.Umbra] * 100f).
+            (playerStats.DamageElementMultiplier[ElementType.Umbra] * 100f - 100).
             ToString("F1") + " %";
     }
 }

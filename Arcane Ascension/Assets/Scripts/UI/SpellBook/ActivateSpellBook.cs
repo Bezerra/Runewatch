@@ -75,6 +75,15 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
         }
     }
 
+    /// <summary>
+    /// Highlights text that has a relation with the selected ability. 
+    /// </summary>
+    /// <param name="abilityAffectsType">Stats that affects or is affected by this ability,</param>
+    public void UpdateAttributesColor(AffectsType abilityAffectsType)
+    {
+        spellBookAttributes.UpdateSelectedCardStatsColors(abilityAffectsType);
+    }
+
     public void FindInput()
     {
         if (Input != null)

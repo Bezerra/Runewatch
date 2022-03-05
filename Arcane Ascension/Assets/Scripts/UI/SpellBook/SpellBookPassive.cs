@@ -11,6 +11,8 @@ public class SpellBookPassive : MonoBehaviour, IComparable<SpellBookPassive>
     [SerializeField] private GameObject middleColumnSpellCard;
     [SerializeField] private AbilityPassiveCardText middleColumnPassiveCard;
 
+    private ActivateSpellBook parentActivateSpellBook;
+
     private IAbility passive;
     /// <summary>
     /// Updates this icon spell and image.
@@ -32,6 +34,7 @@ public class SpellBookPassive : MonoBehaviour, IComparable<SpellBookPassive>
     private void Awake()
     {
         image.enabled = false;
+        parentActivateSpellBook = GetComponentInParent<ActivateSpellBook>();
     }
 
     /// <summary>
@@ -42,6 +45,7 @@ public class SpellBookPassive : MonoBehaviour, IComparable<SpellBookPassive>
         middleColumnSpellCard.SetActive(false);
         middleColumnPassiveCard.transform.parent.gameObject.SetActive(true);
         middleColumnPassiveCard.UpdateInfo(Passive as IRunPassive);
+        parentActivateSpellBook.UpdateAttributesColor(Passive.Relation);
     }
 
     /// <summary>

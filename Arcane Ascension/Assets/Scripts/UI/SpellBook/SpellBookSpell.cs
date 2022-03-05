@@ -114,6 +114,8 @@ public class SpellBookSpell : MonoBehaviour, IPointerDownHandler,
         middleColumnPassiveCard.SetActive(false);
         middleColumnSpellCard.transform.parent.gameObject.SetActive(true);
         middleColumnSpellCard.UpdateInfo(Spell);
+        parentActivateSpellBook.UpdateAttributesColor(Spell.Relation);
+
     }
 
     /// <summary>
