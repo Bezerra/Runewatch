@@ -84,7 +84,6 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
         {
             if (EventSystem.current.currentSelectedGameObject == null)
             {
-                Debug.Log("AHHH");
                 spellBookAttributes.ResetTextColor();
             }
         }
