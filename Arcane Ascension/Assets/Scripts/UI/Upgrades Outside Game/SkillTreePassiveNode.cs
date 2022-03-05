@@ -72,19 +72,28 @@ public class SkillTreePassiveNode : MonoBehaviour
     public List<SkillTreePassiveNode> NextConnectionNodes => nextConnectionNodes;
     public bool IsUnlocked { get; private set; }
 
-    // Components
-    [SerializeField] private SkillTreePassiveController skillTreePassiveController;
+    private SkillTreePassiveController skillTreePassiveController;
+
     [SerializeField] private UpdateHoverWindowInformation detailsWindowInformation;
+
+    private void Awake() =>
+        skillTreePassiveController = GetComponentInParent<SkillTreePassiveController>();
 
     private void Start() =>
         UpdateTiersOnStart();
+
+    private void ResetAll()
+    {
+        CurrentTier = 0;
+        IsUnlocked = false;
+    }
 
     /// <summary>
     /// Updates all nodes and UI on start.
     /// </summary>
     public void UpdateTiersOnStart()
     {
-        CurrentTier = 0;
+        ResetAll();
 
         if (CurrentTier < nodePassives.Length)
             nodeImage.color = skillTreePassiveController.UnlockedColor;

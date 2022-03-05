@@ -21,6 +21,12 @@ public class SkillTreePassiveController : MonoBehaviour
     [SerializeField] private Color unlockedColor;
     [SerializeField] private Color lockedColor;
 
+    [Header("Nodes Reset")]
+    [SerializeField] private GameObject nodesSpawnParent;
+    [SerializeField] private GameObject nodesParentPrefab;
+    private GameObject spawnedNodesParentPrefab;
+    [SerializeField] private GameObject initialNodesParent;
+
     // Properties for node logic
     public Color UnlockedColor => unlockedColor;
     public Color LockedColor => lockedColor;
@@ -98,6 +104,8 @@ public class SkillTreePassiveController : MonoBehaviour
     /// </summary>
     public void ResetButton()
     {
+        if (CurrentPassives.Count == 1) return;
+
         SkillTreePassiveNode[] allNodes = GetComponentsInChildren<SkillTreePassiveNode>();
 
         int currentArcanePower = characterSaveDataController.SaveData.ArcanePower;
@@ -112,13 +120,24 @@ public class SkillTreePassiveController : MonoBehaviour
             }
         }
 
-        EndCurrentRunOnSkillTree();
-        currencySO.GainCurrency(CurrencyType.ArcanePower, currentArcanePower + spentAP);
-        
-        CurrentPassives.Add(0); // Adds default spell
-        characterSaveDataController.Save(new byte[] { 0 }, characterSaveDataController.SaveData.ArcanePower);
+        // Deletes character save file
+        EndCurrentCharacterOnSkillTree();
 
+        // Resets currency and returns spent currency
+        currencySO.ResetCurrency();
+        currencySO.GainCurrency(CurrencyType.ArcanePower, currentArcanePower + spentAP);
+
+        // Creates a new save file with default spell + arcane currency
+        CurrentPassives = new List<byte>();
+        CurrentPassives.Add(0); // Adds default spell
+        characterSaveDataController.Save(new byte[] { 0 }, currentArcanePower + spentAP);
+
+        // Updates text
         UpdateArcanePowerText();
+
+        if (initialNodesParent != null) Destroy(initialNodesParent.gameObject);
+        else Destroy(spawnedNodesParentPrefab.gameObject);
+        spawnedNodesParentPrefab = Instantiate(nodesParentPrefab, nodesSpawnParent.transform);
     }
 
     /// <summary>
@@ -163,4 +182,10 @@ public class SkillTreePassiveController : MonoBehaviour
         FindObjectOfType<RunSaveDataController>().DeleteFile();
         existingRunButton.SetActive(false);
     }
+
+    /// <summary>
+    /// Deletes run save file.
+    /// </summary>
+    public void EndCurrentCharacterOnSkillTree() =>
+        FindObjectOfType<CharacterSaveDataController>().DeleteFile();
 }
