@@ -134,37 +134,37 @@ public class SpellBookAttributes : MonoBehaviour
         lifeSteal[0].text = playerStats.LifeSteal.
             ToString("F1") + " %";
 
-        criticalBonusDamage[0].text = 
-            (playerStats.CriticalDamageModifier * 100f).ToString("F1") + " %";
+        criticalBonusDamage[0].text = "+ " +
+            (playerStats.CriticalDamageModifier * 100f - 100).ToString("F1") + " %";
 
-        criticalChance[0].text = 
+        criticalChance[0].text = "+ " +
             (playerStats.CriticalChance * 100f).ToString("F1") + " %";
 
-        ignisBonusDamage[0].text =
+        ignisBonusDamage[0].text = "+ " +
             (playerStats.DamageElementMultiplier[ElementType.Ignis] * 100f - 100).
             ToString("F1") + " %";
 
-        aquaBonusDamage[0].text =
+        aquaBonusDamage[0].text = "+ " +
             (playerStats.DamageElementMultiplier[ElementType.Aqua] * 100f - 100).
             ToString("F1") + " %";
 
-        terraBonusDamage[0].text =
+        terraBonusDamage[0].text = "+ " +
             (playerStats.DamageElementMultiplier[ElementType.Terra] * 100f - 100).
             ToString("F1") + " %";
 
-        naturaBonusDamage[0].text =
+        naturaBonusDamage[0].text = "+ " +
             (playerStats.DamageElementMultiplier[ElementType.Natura] * 100f - 100).
             ToString("F1") + " %";
 
-        fulgurBonusDamage[0].text =
+        fulgurBonusDamage[0].text = "+ " +
             (playerStats.DamageElementMultiplier[ElementType.Fulgur] * 100f - 100).
             ToString("F1") + " %";
 
-        luxBonusDamage[0].text =
+        luxBonusDamage[0].text = "+ " +
             (playerStats.DamageElementMultiplier[ElementType.Lux] * 100f - 100).
             ToString("F1") + " %";
 
-        umbraBonusDamage[0].text =
+        umbraBonusDamage[0].text = "+ " +
             (playerStats.DamageElementMultiplier[ElementType.Umbra] * 100f - 100).
             ToString("F1") + " %";
     }

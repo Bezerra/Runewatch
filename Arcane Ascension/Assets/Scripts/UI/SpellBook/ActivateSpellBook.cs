@@ -85,6 +85,8 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
             if (EventSystem.current.currentSelectedGameObject == null)
             {
                 spellBookAttributes.ResetTextColor();
+                middleColumnSpellCard.SetActive(false);
+                middleColumnPassiveCard.SetActive(false);
             }
         }
     }
