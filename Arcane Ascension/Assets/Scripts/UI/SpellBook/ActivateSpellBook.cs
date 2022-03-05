@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// Class responsible for activating and deactivating spellbook.
@@ -60,6 +61,7 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
             spellbook.SetActive(true);
             spellBookSpells.UpdateSpellSlots();
             spellBookPassives.UpdatePassiveSlots();
+            spellBookAttributes.ResetTextColor();
             spellBookAttributes.UpdateText();
             Input.SwitchActionMapToSpellBook();
             SelectedSpellOnBookOpen = 
@@ -68,10 +70,23 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
         else
         {
             Time.timeScale = 1;
+            spellBookAttributes.ResetTextColor();
             middleColumnSpellCard.SetActive(false);
             middleColumnPassiveCard.SetActive(false);
             spellbook.SetActive(false);
             Input.SwitchActionMapToGameplay();
+        }
+    }
+
+    private void Update()
+    {
+        if (isSpellBookOpened)
+        {
+            if (EventSystem.current.currentSelectedGameObject == null)
+            {
+                Debug.Log("AHHH");
+                spellBookAttributes.ResetTextColor();
+            }
         }
     }
 

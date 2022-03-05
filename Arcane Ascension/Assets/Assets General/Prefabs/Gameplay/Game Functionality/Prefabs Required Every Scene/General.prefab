@@ -1459,25 +1459,57 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerStats: {fileID: 11400000, guid: 5eaed218e13b6a046b4c4105577f47ae, type: 2}
   playerValues: {fileID: 11400000, guid: 5cc4be23452aa834ab4212e9143b3092, type: 2}
-  maxHealth: {fileID: 6717520185694377790}
-  damageResistance: {fileID: 2125460319318856921}
-  maxMana: {fileID: 7828701590027612658}
-  manaRegeneration: {fileID: 4302007466730271515}
-  movementSpeed: {fileID: 3675241626732164037}
-  baseDamage: {fileID: 5827571013000657103}
-  lifeSteal: {fileID: 5560999895020423412}
-  criticalBonusDamage: {fileID: 8680331519784572264}
-  criticalChance: {fileID: 6040623269382266097}
-  ignisBonusDamage: {fileID: 457400370981071262}
-  aquaBonusDamage: {fileID: 3889592787725819972}
-  terraBonusDamage: {fileID: 1069119783170140141}
-  naturaBonusDamage: {fileID: 489743076748996068}
-  fulgurBonusDamage: {fileID: 3120176983315160793}
-  luxBonusDamage: {fileID: 7676383838602007603}
-  umbraBonusDamage: {fileID: 2405323696359760820}
+  maxHealth:
+  - {fileID: 6717520185694377790}
+  - {fileID: 680458794389197737}
+  damageResistance:
+  - {fileID: 2125460319318856921}
+  - {fileID: 5145103542537658330}
+  maxMana:
+  - {fileID: 7828701590027612658}
+  - {fileID: 7551069610997869689}
+  manaRegeneration:
+  - {fileID: 4302007466730271515}
+  - {fileID: 5210485579426295157}
+  movementSpeed:
+  - {fileID: 3675241626732164037}
+  - {fileID: 4819361430756818496}
+  baseDamage:
+  - {fileID: 5827571013000657103}
+  - {fileID: 4904463826764680748}
+  lifeSteal:
+  - {fileID: 5560999895020423412}
+  - {fileID: 4068708855001883358}
+  criticalBonusDamage:
+  - {fileID: 8680331519784572264}
+  - {fileID: 1652711758683313481}
+  criticalChance:
+  - {fileID: 6040623269382266097}
+  - {fileID: 6369200889827386586}
+  ignisBonusDamage:
+  - {fileID: 457400370981071262}
+  - {fileID: 3643792726492518358}
+  aquaBonusDamage:
+  - {fileID: 3889592787725819972}
+  - {fileID: 1036088585443535007}
+  terraBonusDamage:
+  - {fileID: 1069119783170140141}
+  - {fileID: 6438352473765308736}
+  naturaBonusDamage:
+  - {fileID: 489743076748996068}
+  - {fileID: 3386720499159730769}
+  fulgurBonusDamage:
+  - {fileID: 3120176983315160793}
+  - {fileID: 2379598797841474926}
+  luxBonusDamage:
+  - {fileID: 7676383838602007603}
+  - {fileID: 7998858486823866377}
+  umbraBonusDamage:
+  - {fileID: 2405323696359760820}
+  - {fileID: 7238779945918793088}
   normalTextColor: {r: 1, g: 1, b: 1, a: 1}
-  affectedTextColor: {r: 0.33566773, g: 0.754717, b: 0.32395872, a: 1}
-  unnafectedTextColor: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 1}
+  affectedTextColor: {r: 0.44127578, g: 0.9716981, b: 0.42626378, a: 1}
+  unnafectedTextColor: {r: 0.745283, g: 0.745283, b: 0.745283, a: 1}
 --- !u!1 &43951677048013422
 GameObject:
   m_ObjectHideFlags: 0
@@ -15454,7 +15486,7 @@ GameObject:
   - component: {fileID: 4770105369045593870}
   - component: {fileID: 5560999895020423412}
   m_Layer: 5
-  m_Name: Life Steal
+  m_Name: Life Steal Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
