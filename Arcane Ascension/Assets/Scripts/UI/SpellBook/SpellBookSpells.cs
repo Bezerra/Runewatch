@@ -13,7 +13,7 @@ public class SpellBookSpells : MonoBehaviour, IFindPlayer
     {
         spellBookSpells = GetComponentsInChildren<SpellBookSpell>(true);
         activateSpellBook = GetComponentInParent<ActivateSpellBook>();
-        FindPlayer();
+        FindPlayer(FindObjectOfType<Player>());
     }
 
     /// <summary>
@@ -63,12 +63,13 @@ public class SpellBookSpells : MonoBehaviour, IFindPlayer
         }
     }
 
-    public void FindPlayer()
+    public void FindPlayer(Player player)
     {
-        playerSpells = FindObjectOfType<PlayerSpells>();
+        if (player == null) return;
+        playerSpells = player.GetComponent<PlayerSpells>();
     }
 
-    public void PlayerLost()
+    public void PlayerLost(Player player)
     {
         // left blank on purpose
     }

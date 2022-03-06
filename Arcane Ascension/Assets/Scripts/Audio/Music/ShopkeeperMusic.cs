@@ -12,6 +12,8 @@ public class ShopkeeperMusic : MonoBehaviour
     private WaitForSecondsRealtime wfs;
     private IEnumerator fadeVolume;
 
+    public float CurrentVolume { get; private set; }
+
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -33,6 +35,7 @@ public class ShopkeeperMusic : MonoBehaviour
             audioSource.volume += 0.05f;
             yield return wfs;
         }
+        CurrentVolume = audioSource.volume;
     }
 
     private IEnumerator FadeOutVolumeCoroutine()
@@ -43,5 +46,6 @@ public class ShopkeeperMusic : MonoBehaviour
             yield return wfs;
         }
         audioSource.Stop();
+        CurrentVolume = audioSource.volume;
     }
 }

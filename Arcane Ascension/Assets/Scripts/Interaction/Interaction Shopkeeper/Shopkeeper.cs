@@ -57,16 +57,6 @@ public class Shopkeeper : MonoBehaviour
         }
     }
 
-    private void OnDisable()
-    {
-        // This logic applies only if the player has spawned
-        if (gameplayMusic.HasPlayerSpawned)
-        {
-            gameplayMusic.FadeInVolume();
-            shopkeeperMusic.FadeOutVolume();
-        }
-    }
-
     private IEnumerator SpawnShopKeeperCoroutine()
     {
         yield return new WaitForSeconds(1);
@@ -129,6 +119,13 @@ public class Shopkeeper : MonoBehaviour
         if (numberOfInventorySlots == numberOfItemsSold)
         {
             gameObject.SetActive(false);
+
+            // This logic applies only if the player has spawned
+            if (gameplayMusic.HasPlayerSpawned)
+            {
+                gameplayMusic.FadeInVolume();
+                shopkeeperMusic.FadeOutVolume();
+            }
         }
 
         itemBought.ItemBought -= ItemBought;

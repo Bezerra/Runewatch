@@ -15,9 +15,12 @@ public class Player : Character
     /// </summary>
     public PlayerCharacterSO AllValues => allValues as PlayerCharacterSO;
 
+    public RoomOcclusion InCurrentRoom { get; set; }
+
     private void OnDisable()
     {
         IInput player = FindObjectOfType<PlayerInputCustom>();
         if (player != null) player.SwitchActionMapToUI();
+        InCurrentRoom = null;
     }
 }

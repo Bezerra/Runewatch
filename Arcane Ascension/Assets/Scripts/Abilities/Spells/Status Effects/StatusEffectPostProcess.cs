@@ -83,7 +83,7 @@ public class StatusEffectPostProcess : MonoBehaviour, IFindPlayer
     private IEnumerator OnEnableCoroutine()
     {
         yield return new WaitForFixedUpdate();
-        FindPlayer();
+        FindPlayer(FindObjectOfType<Player>());
     }
 
     private void OnDisable() =>
@@ -167,11 +167,12 @@ public class StatusEffectPostProcess : MonoBehaviour, IFindPlayer
         }
     }
 
-    public void FindPlayer()
+    public void FindPlayer(Player player)
     {
-        PlayerLost();
+        PlayerLost(player);
 
-        playerStats = FindObjectOfType<PlayerStats>();
+        if (player == null) return;
+        playerStats = player.GetComponent<PlayerStats>();
         if (playerStats != null)
         {
             if (playerStats.StatusEffectList != null)
@@ -182,7 +183,7 @@ public class StatusEffectPostProcess : MonoBehaviour, IFindPlayer
         }
     }
 
-    public void PlayerLost()
+    public void PlayerLost(Player player = null)
     {
         if (playerStats != null)
         {

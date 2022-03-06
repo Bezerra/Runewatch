@@ -17,7 +17,7 @@ public class SpellBookPassives : MonoBehaviour, IFindPlayer
         {
             spellBookPassives.Add(spellbookPassive);
         }
-        FindPlayer();
+        FindPlayer(FindObjectOfType<Player>());
     }
 
     /// <summary>
@@ -47,12 +47,13 @@ public class SpellBookPassives : MonoBehaviour, IFindPlayer
         }
     }
 
-    public void FindPlayer()
+    public void FindPlayer(Player player)
     {
-        playerStats = FindObjectOfType<PlayerStats>();
+        if (player == null) return;
+        playerStats = player.GetComponent<PlayerStats>();
     }
 
-    public void PlayerLost()
+    public void PlayerLost(Player player)
     {
         // left blank on purpose
     }

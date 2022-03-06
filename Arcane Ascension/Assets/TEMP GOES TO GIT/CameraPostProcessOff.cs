@@ -33,7 +33,7 @@ public class CameraPostProcessOff : MonoBehaviour, IFindPlayer
         cameraData.renderPostProcessing = true;
     }
 
-    public void FindPlayer()
+    public void FindPlayer(Player player)
     {
         // Left blank on purpose
     }
@@ -41,7 +41,7 @@ public class CameraPostProcessOff : MonoBehaviour, IFindPlayer
     /// <summary>
     /// When the player dies, turns post process back on.
     /// </summary>
-    public void PlayerLost()
+    public void PlayerLost(Player player)
     {
         PostProcessOn();
     }

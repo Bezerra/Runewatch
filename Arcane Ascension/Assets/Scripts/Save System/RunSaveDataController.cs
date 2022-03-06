@@ -97,7 +97,7 @@ public class RunSaveDataController : MonoBehaviour, IFindPlayer
         return false;
     }
 
-    public void FindPlayer()
+    public void FindPlayer(Player player)
     {
         StartCoroutine(LoadPlayerDataCoroutine());
     }
@@ -113,7 +113,7 @@ public class RunSaveDataController : MonoBehaviour, IFindPlayer
         Save();
     }
 
-    public void PlayerLost()
+    public void PlayerLost(Player player)
     {
         // Left blank on purpose
     }

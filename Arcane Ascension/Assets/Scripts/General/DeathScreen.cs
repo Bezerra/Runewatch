@@ -15,12 +15,12 @@ public class DeathScreen : MonoBehaviour, IFindPlayer, IFindInput
         input = FindObjectOfType<PlayerInputCustom>();
     }
 
-    public void FindPlayer()
+    public void FindPlayer(Player player)
     {
         // Left blank on purpose
     }
 
-    public void PlayerLost()
+    public void PlayerLost(Player player)
     {
         canvasToActivate.SetActive(true);
         input.SwitchActionMapToUI();

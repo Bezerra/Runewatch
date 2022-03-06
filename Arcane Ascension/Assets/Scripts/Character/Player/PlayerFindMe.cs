@@ -6,6 +6,13 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class PlayerFindMe : MonoBehaviour
 {
+    private Player player;
+
+    private void Awake()
+    {
+        player = GetComponent<Player>();
+    }
+
     /// <summary>
     /// What happens when the player is spawned.
     /// </summary>
@@ -19,7 +26,7 @@ public class PlayerFindMe : MonoBehaviour
 
             foreach (IFindPlayer childInterface in childrenInterfaces)
             {
-                childInterface.FindPlayer();
+                childInterface.FindPlayer(player);
             }
         }
     }
@@ -37,7 +44,7 @@ public class PlayerFindMe : MonoBehaviour
 
             foreach (IFindPlayer childInterface in childrenInterfaces)
             {
-                childInterface.PlayerLost();
+                childInterface.PlayerLost(player);
             }
         }
     }

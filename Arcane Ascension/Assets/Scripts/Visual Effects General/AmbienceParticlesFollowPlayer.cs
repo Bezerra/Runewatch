@@ -8,7 +8,7 @@ public class AmbienceParticlesFollowPlayer : MonoBehaviour, IFindPlayer
     private Player playerTransform;
 
     private void Awake() =>
-        FindPlayer();
+        FindPlayer(FindObjectOfType<Player>());
 
     private void FixedUpdate()
     {
@@ -16,10 +16,13 @@ public class AmbienceParticlesFollowPlayer : MonoBehaviour, IFindPlayer
             transform.position = playerTransform.transform.position;
     }
 
-    public void FindPlayer() =>
-        playerTransform = FindObjectOfType<Player>();
+    public void FindPlayer(Player player)
+    {
+        if (player == null) return;
+        playerTransform = player;
+    }
 
-    public void PlayerLost()
+    public void PlayerLost(Player player)
     {
         // Left blank on purpose
     }

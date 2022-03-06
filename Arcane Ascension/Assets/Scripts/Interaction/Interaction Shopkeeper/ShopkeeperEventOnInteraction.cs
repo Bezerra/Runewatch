@@ -76,10 +76,10 @@ public class ShopkeeperEventOnInteraction : AbstractEventOnInteraction, IInterec
         }
     }
 
-    public override void FindPlayer()
+    public override void FindPlayer(Player player)
     {
-        base.FindPlayer();
-        PlayerCurrency = FindObjectOfType<PlayerCurrency>();
+        base.FindPlayer(player);
+        PlayerCurrency = player.GetComponent<PlayerCurrency>();
     }
 
     protected virtual void OnItemBought(ShopkeeperEventOnInteraction itemBought) => 

@@ -28,7 +28,7 @@ public class AbilityPassiveCard : MonoBehaviour, IFindPlayer
     {
         abilitiesCanvas = GetComponentInParent<AbilitiesCanvas>();
         thisCardInformation = GetComponentInChildren<AbilityPassiveCardText>();
-        FindPlayer();
+        FindPlayer(FindObjectOfType<Player>());
     }
 
     private void OnDisable()
@@ -78,13 +78,14 @@ public class AbilityPassiveCard : MonoBehaviour, IFindPlayer
         }
     }
 
-    public void FindPlayer()
+    public void FindPlayer(Player player)
     {
-        playerInteraction = FindObjectOfType<PlayerInteraction>();
-        playerStats = FindObjectOfType<PlayerStats>();
+        if (player == null) return;
+        playerInteraction = player.GetComponent<PlayerInteraction>();
+        playerStats = player.GetComponent<PlayerStats>();
     }
 
-    public void PlayerLost()
+    public void PlayerLost(Player player)
     {
         // Left blank on purpose
     }

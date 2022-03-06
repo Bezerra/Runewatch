@@ -27,7 +27,7 @@ public class AbilitySpellCard : MonoBehaviour, IFindPlayer
     private void Awake()
     {
         abilitiesCanvas = GetComponentInParent<AbilitiesCanvas>();
-        FindPlayer();
+        FindPlayer(FindObjectOfType<Player>());
     }
 
     /// <summary>
@@ -128,13 +128,14 @@ public class AbilitySpellCard : MonoBehaviour, IFindPlayer
         return false;
     }
 
-    public void FindPlayer()
+    public void FindPlayer(Player player)
     {
-        playerInteraction = FindObjectOfType<PlayerInteraction>();
-        playerSpells = FindObjectOfType<PlayerSpells>();
+        if (player == null) return;
+        playerInteraction = player.GetComponent<PlayerInteraction>();
+        playerSpells = player.GetComponent<PlayerSpells>();
     }
 
-    public void PlayerLost()
+    public void PlayerLost(Player player)
     {
         // Left blank on purpose
     }

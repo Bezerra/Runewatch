@@ -118,12 +118,12 @@ public class PauseSystem : MonoBehaviour, IFindInput, IFindPlayer
             playerInputCustom.PauseGame -= PauseGame;
     }
 
-    public void FindPlayer()
+    public void FindPlayer(Player player)
     {
         // Left blank on purpose
     }
 
-    public void PlayerLost()
+    public void PlayerLost(Player player)
     {
         if (playerInputCustom != null)
             playerInputCustom.PauseGame -= PauseGame;

@@ -61,7 +61,7 @@ public class LoopGameplayMusic : MonoBehaviour, IFindPlayer
         pickNextAudioClipCoroutine = null;
     }
 
-    public void FindPlayer()
+    public void FindPlayer(Player player)
     {
         if (audioSource == null) audioSource = GetComponent<AudioSource>();
 
@@ -71,7 +71,7 @@ public class LoopGameplayMusic : MonoBehaviour, IFindPlayer
         HasPlayerSpawned = true;
     }
 
-    public void PlayerLost()
+    public void PlayerLost(Player player)
     {
         // Left blank on purpose
     }

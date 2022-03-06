@@ -24,12 +24,12 @@ public abstract class AbstractEventOnInteraction : MonoBehaviour, IInterectable,
 
     public abstract void Execute();
 
-    public virtual void FindPlayer()
+    public virtual void FindPlayer(Player player)
     {
-        playerInteraction = FindObjectOfType<PlayerInteraction>();
+        playerInteraction = player.GetComponent<PlayerInteraction>();
     }
 
-    public void PlayerLost()
+    public void PlayerLost(Player player)
     {
         // Left blank on purpose
     }

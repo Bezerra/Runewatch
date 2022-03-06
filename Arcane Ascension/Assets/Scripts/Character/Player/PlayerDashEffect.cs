@@ -28,22 +28,22 @@ public class PlayerDashEffect : MonoBehaviour, IFindPlayer
         particles.Stop();
     }
 
-    public void FindPlayer()
+    public void FindPlayer(Player player)
     {
         if (playerMovement != null)
         {
-            PlayerLost();
+            PlayerLost(player);
             playerMovement = null;
         }
 
         if (playerMovement == null)
         {
-            playerMovement = FindObjectOfType<PlayerMovement>();
+            playerMovement = player.GetComponent<PlayerMovement>();
             playerMovement.EventDash += DashEffect;
         }
     }
 
-    public void PlayerLost()
+    public void PlayerLost(Player player = null)
     {
         if (playerMovement != null)
             playerMovement.EventDash -= DashEffect;

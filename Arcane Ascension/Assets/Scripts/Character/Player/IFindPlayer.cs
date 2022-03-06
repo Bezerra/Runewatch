@@ -8,10 +8,10 @@ public interface IFindPlayer
     /// <summary>
     /// Finds player and updates important variables.
     /// </summary>
-    void FindPlayer();
+    void FindPlayer(Player player);
 
     /// <summary>
     /// Unregisters everything from player.
     /// </summary>
-    void PlayerLost();
+    void PlayerLost(Player player);
 }

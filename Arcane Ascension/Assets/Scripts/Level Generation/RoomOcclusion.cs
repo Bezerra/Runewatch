@@ -8,12 +8,18 @@ using ExtensionMethods;
 /// Class responsible for enabling and disabling gameobjects depending on which
 /// room the player triggered with.
 /// </summary>
-public class RoomOcclusion : MonoBehaviour
+public class RoomOcclusion : MonoBehaviour, IFindPlayer
 {
     // Components
     private LevelGenerator levelGenerator;
     private RoomOcclusionController roomOcclusionController;
     private LevelPiece thisLevelPiece;
+
+    // Music control
+    private LoopGameplayMusic gameplayMusic;
+    private ShopkeeperMusic shopkeeperMusic;
+
+    private Player player;
 
     // Coroutines
     private IEnumerator controlChildOccludeesCoroutine;
@@ -21,6 +27,8 @@ public class RoomOcclusion : MonoBehaviour
     private void Awake()
     {
         thisLevelPiece = GetComponentInParent<LevelPiece>();
+        gameplayMusic = FindObjectOfType<LoopGameplayMusic>();
+        shopkeeperMusic = FindObjectOfType<ShopkeeperMusic>();
         StartCoroutine(FindLevelGenerator());
     }
 
@@ -56,6 +64,15 @@ public class RoomOcclusion : MonoBehaviour
 
                 roomOcclusionController.CurrentLevelPieceCollision = thisLevelPiece;
                 roomOcclusionController.CurrentRoomOcclusion = this;
+            }
+
+            // If the player entered a room without a shopkeeper, the audio
+            // will fade back to normal music (this happens if the player WAS in a room
+            // with a shopkeeper and shopkeeper music was still playing)
+            if (shopkeeperMusic.CurrentVolume > 0.05f)
+            {
+                gameplayMusic.FadeInVolume();
+                shopkeeperMusic.FadeOutVolume();
             }
         }
     }
@@ -107,4 +124,14 @@ public class RoomOcclusion : MonoBehaviour
     protected virtual void OnOcclusionCompleted(LevelPiece currentPiece) => 
         OcclusionCompleted?.Invoke(currentPiece);
     public event Action<LevelPiece> OcclusionCompleted;
+
+    public void FindPlayer(Player player)
+    {
+        this.player = player;
+    }
+
+    public void PlayerLost(Player player)
+    {
+        // Left blank on purpose
+    }
 }

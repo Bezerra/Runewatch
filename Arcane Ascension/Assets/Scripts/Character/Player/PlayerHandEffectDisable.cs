@@ -49,7 +49,7 @@ public class PlayerHandEffectDisable : MonoBehaviour, IFindPlayer
             particle.Play();
     }
 
-    public void FindPlayer()
+    public void FindPlayer(Player player)
     {
         if (castSpell == null)
         {
@@ -57,7 +57,7 @@ public class PlayerHandEffectDisable : MonoBehaviour, IFindPlayer
         }
     }
 
-    public void PlayerLost()
+    public void PlayerLost(Player player)
     {
         // Left blank on purpose
     }

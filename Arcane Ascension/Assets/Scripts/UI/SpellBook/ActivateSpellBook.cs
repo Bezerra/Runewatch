@@ -117,10 +117,10 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
             Input.SpellBook -= ControlSpellBook;
     }
 
-    public void FindPlayer()
+    public void FindPlayer(Player player)
     {
         StartCoroutine(SetSpellbookVariablesCoroutine());
-        playerSpells = FindObjectOfType<PlayerSpells>();
+        playerSpells = player.GetComponent<PlayerSpells>();
     }
 
     private IEnumerator SetSpellbookVariablesCoroutine()
@@ -133,7 +133,7 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
         spellbook.SetActive(false);
     }
 
-    public void PlayerLost()
+    public void PlayerLost(Player player)
     {
         if (Input != null)
             Input.SpellBook -= ControlSpellBook;

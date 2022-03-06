@@ -461,12 +461,12 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
         return true;
     }
 
-    public void FindPlayer()
+    public void FindPlayer(Player player)
     {
         FindRequiredComponents();
     }
 
-    public void PlayerLost()
+    public void PlayerLost(Player player)
     {
         inputField.text = "";
         consoleGameObject.SetActive(false);
