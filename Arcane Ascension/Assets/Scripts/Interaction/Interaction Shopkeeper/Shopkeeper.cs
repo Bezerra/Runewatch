@@ -18,10 +18,15 @@ public class Shopkeeper : MonoBehaviour
     private int numberOfItemsSold;
     private byte numberOfInventorySlots;
 
+    private LoopGameplayMusic gameplayMusic;
+    private ShopkeeperMusic shopkeeperMusic;
+
 
     private void Awake()
     {
         allInventorySlots = GetComponentsInChildren<ShopkeeperInventorySlot>(true);
+        gameplayMusic = FindObjectOfType<LoopGameplayMusic>();
+        shopkeeperMusic = FindObjectOfType<ShopkeeperMusic>();
     }
 
     private void OnEnable()
@@ -43,6 +48,23 @@ public class Shopkeeper : MonoBehaviour
         }
 
         StartCoroutine(SpawnShopKeeperCoroutine());
+        
+        // This logic applies only if the player has spawned
+        if (gameplayMusic.HasPlayerSpawned)
+        {
+            gameplayMusic.FadeOutVolume();
+            shopkeeperMusic.FadeInVolume();
+        }
+    }
+
+    private void OnDisable()
+    {
+        // This logic applies only if the player has spawned
+        if (gameplayMusic.HasPlayerSpawned)
+        {
+            gameplayMusic.FadeInVolume();
+            shopkeeperMusic.FadeOutVolume();
+        }
     }
 
     private IEnumerator SpawnShopKeeperCoroutine()

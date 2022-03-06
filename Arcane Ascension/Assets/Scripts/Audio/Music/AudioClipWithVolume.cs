@@ -10,6 +10,8 @@ public struct AudioClipWithVolume
     [SerializeField] private AudioClip audioClip;
     [Range(0f, 1f)] [SerializeField] private float volume;
 
+    public float Volume => volume;
+
     public void PlayOnAudioSource(AudioSource audioSource)
     {
         audioSource.PlayOneShot(audioClip);
