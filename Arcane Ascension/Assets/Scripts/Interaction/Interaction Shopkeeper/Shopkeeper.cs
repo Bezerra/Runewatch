@@ -25,12 +25,14 @@ public class Shopkeeper : MonoBehaviour
     private void Awake()
     {
         allInventorySlots = GetComponentsInChildren<ShopkeeperInventorySlot>(true);
-        gameplayMusic = FindObjectOfType<LoopGameplayMusic>();
-        shopkeeperMusic = FindObjectOfType<ShopkeeperMusic>();
     }
 
     private void OnEnable()
     {
+        // On enable because it's being pooled
+        gameplayMusic = FindObjectOfType<LoopGameplayMusic>();
+        shopkeeperMusic = FindObjectOfType<ShopkeeperMusic>();
+
         numberOfItemsSold = 0;
 
         itemsSpawned = new List<GameObject>();

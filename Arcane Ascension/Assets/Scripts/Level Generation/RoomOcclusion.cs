@@ -8,7 +8,7 @@ using ExtensionMethods;
 /// Class responsible for enabling and disabling gameobjects depending on which
 /// room the player triggered with.
 /// </summary>
-public class RoomOcclusion : MonoBehaviour, IFindPlayer
+public class RoomOcclusion : MonoBehaviour
 {
     // Components
     private LevelGenerator levelGenerator;
@@ -18,8 +18,7 @@ public class RoomOcclusion : MonoBehaviour, IFindPlayer
     // Music control
     private LoopGameplayMusic gameplayMusic;
     private ShopkeeperMusic shopkeeperMusic;
-
-    private Player player;
+    private LevelPieceGameProgressControlNormalRoom gameProgressRoom;
 
     // Coroutines
     private IEnumerator controlChildOccludeesCoroutine;
@@ -27,6 +26,7 @@ public class RoomOcclusion : MonoBehaviour, IFindPlayer
     private void Awake()
     {
         thisLevelPiece = GetComponentInParent<LevelPiece>();
+        gameProgressRoom = GetComponentInParent<LevelPieceGameProgressControlNormalRoom>();
         gameplayMusic = FindObjectOfType<LoopGameplayMusic>();
         shopkeeperMusic = FindObjectOfType<ShopkeeperMusic>();
         StartCoroutine(FindLevelGenerator());
@@ -51,6 +51,8 @@ public class RoomOcclusion : MonoBehaviour, IFindPlayer
     {
         if (other.TryGetComponent(out Player player))
         {
+            // This logic only happens when the player enters a new room, it will
+            // not repeat on the same room
             if (roomOcclusionController.CurrentLevelPieceCollision != thisLevelPiece)
             {
                 if (roomOcclusionController.CurrentRoomOcclusion != null)
@@ -64,16 +66,26 @@ public class RoomOcclusion : MonoBehaviour, IFindPlayer
 
                 roomOcclusionController.CurrentLevelPieceCollision = thisLevelPiece;
                 roomOcclusionController.CurrentRoomOcclusion = this;
-            }
 
-            // If the player entered a room without a shopkeeper, the audio
-            // will fade back to normal music (this happens if the player WAS in a room
-            // with a shopkeeper and shopkeeper music was still playing)
-            if (shopkeeperMusic.CurrentVolume > 0.05f)
-            {
-                gameplayMusic.FadeInVolume();
-                shopkeeperMusic.FadeOutVolume();
-            }
+                // If the player entered a room without a shopkeeper, the audio
+                // will fade back to normal music (this happens if the player WAS in a room
+                // with a shopkeeper and shopkeeper music was still playing)
+                if (shopkeeperMusic.CurrentVolume > 0.05f)
+                {
+                    gameplayMusic.FadeInVolume();
+                    shopkeeperMusic.FadeOutVolume();
+                }
+
+                // If the player entered in a room and that room has the shopkeeper
+                // currently spawned, plays shopkeeper music
+                if (gameProgressRoom != null &&
+                    gameProgressRoom.CurrentSpawnedShopkeeper != null &&
+                    gameProgressRoom.CurrentSpawnedShopkeeper.activeSelf)
+                {
+                    gameplayMusic.FadeOutVolume();
+                    shopkeeperMusic.FadeInVolume();
+                }
+            }   
         }
     }
 
@@ -124,14 +136,4 @@ public class RoomOcclusion : MonoBehaviour, IFindPlayer
     protected virtual void OnOcclusionCompleted(LevelPiece currentPiece) => 
         OcclusionCompleted?.Invoke(currentPiece);
     public event Action<LevelPiece> OcclusionCompleted;
-
-    public void FindPlayer(Player player)
-    {
-        this.player = player;
-    }
-
-    public void PlayerLost(Player player)
-    {
-        // Left blank on purpose
-    }
 }

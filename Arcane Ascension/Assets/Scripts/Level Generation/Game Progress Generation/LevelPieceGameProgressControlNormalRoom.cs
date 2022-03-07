@@ -10,6 +10,7 @@ public class LevelPieceGameProgressControlNormalRoom : LevelPieceGameProgressCon
     // Shopkeeper
     private ShopkeeperGizmosMesh[] shopkeeper;
     public bool RoomSpawnsShopkeeper { get; set; }
+    public GameObject CurrentSpawnedShopkeeper { get; private set; }
 
     // Chests
     private ChestGizmosMesh chest;
@@ -100,7 +101,8 @@ public class LevelPieceGameProgressControlNormalRoom : LevelPieceGameProgressCon
 
                         if (collisions.Length == 0)
                         {
-                            RunProgressPoolCreator.Pool.InstantiateFromPool(
+                            CurrentSpawnedShopkeeper = 
+                                RunProgressPoolCreator.Pool.InstantiateFromPool(
                                 "Shopkeeper", shopkeeper[i].transform.position,
                                 shopkeeper[i].transform.rotation);
 
@@ -109,7 +111,7 @@ public class LevelPieceGameProgressControlNormalRoom : LevelPieceGameProgressCon
                     }
                 }
 
-                // If this jas a chest, allows the player to open it
+                // If this has a chest, allows the player to open it
                 // Type of chest randomly set on the end of level generator
                 if (RoomSpawnsChest && chestScript != null)
                 {
@@ -162,7 +164,8 @@ public class LevelPieceGameProgressControlNormalRoom : LevelPieceGameProgressCon
 
                     if (collisions.Length == 0)
                     {
-                        RunProgressPoolCreator.Pool.InstantiateFromPool(
+                        CurrentSpawnedShopkeeper = 
+                            RunProgressPoolCreator.Pool.InstantiateFromPool(
                             "Shopkeeper", shopkeeper[i].transform.position,
                             shopkeeper[i].transform.rotation);
 
