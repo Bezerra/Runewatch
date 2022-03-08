@@ -31,6 +31,8 @@ public class DamageSingleTargetSO : DamageBehaviourAbstractSO
     protected override void DamageLogic(SpellBehaviourAbstract parent, Transform overridePosition,
         Collider other = null, float damageMultiplier = 1)
     {
+        SpellInteractionWithObjectsLogic(parent, other);
+
         if (other.gameObject.TryGetComponentInParent<IDamageable>(out IDamageable character))
         {
             // If IDamageable hit is different than who casts the spell
@@ -78,6 +80,22 @@ public class DamageSingleTargetSO : DamageBehaviourAbstractSO
                         StatsType.Health, true);
                 }
             }
+        }
+    }
+
+    /// <summary>
+    /// Spell ambience interaction.
+    /// </summary>
+    /// <param name="parent"></param>
+    /// <param name="other"></param>
+    private void SpellInteractionWithObjectsLogic(SpellBehaviourAbstract parent,
+        Collider other = null)
+    {
+        // Triggers an interaction if the elements match
+        if (other.TryGetComponent(out IInteractionWithSpell singleTargetInteraction))
+        {
+            singleTargetInteraction.ExecuteInteraction(parent.Spell.Element);
+            // Ignores the rest
         }
     }
 }

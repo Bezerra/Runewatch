@@ -34,6 +34,8 @@ public class DamageAoESO : DamageBehaviourAbstractSO
         Vector3 hitPosition = 
             overridePosition == null ? parent.PositionOnHit : overridePosition.position;
 
+        SpellInteractionWithObjectsLogic(hitPosition, parent);
+
         Collider[] collisions = Physics.OverlapSphere(
                 hitPosition, parent.Spell.AreaOfEffect, Layers.PlayerEnemy);
 
@@ -98,6 +100,27 @@ public class DamageAoESO : DamageBehaviourAbstractSO
                     parent.Spell.Damage(parent.WhoCast.CommonAttributes.Type),
                     parent.Spell.Element,
                     parent.WhoCast.transform.position);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Spell ambience interaction.
+    /// </summary>
+    /// <param name="parent"></param>
+    /// <param name="other"></param>
+    private void SpellInteractionWithObjectsLogic(Vector3 hitPosition, 
+        SpellBehaviourAbstract parent)
+    {
+        Collider[] cols = Physics.OverlapSphere(hitPosition, parent.Spell.AreaOfEffect);
+        if (cols.Length > 0)
+        {
+            foreach (Collider col in cols)
+            {
+                if (col.TryGetComponent(out IInteractionWithSpell areaInteraction))
+                {
+                    areaInteraction.ExecuteInteraction(parent.Spell.Element);
+                }
             }
         }
     }

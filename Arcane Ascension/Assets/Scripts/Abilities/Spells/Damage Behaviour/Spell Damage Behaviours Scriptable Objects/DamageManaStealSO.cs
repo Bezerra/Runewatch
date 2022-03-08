@@ -30,6 +30,8 @@ public class DamageManaStealSO : DamageBehaviourAbstractSO
     protected override void DamageLogic(SpellBehaviourAbstract parent, 
         Transform overridePosition = null, Collider other = null, float damageMultiplier = 1)
     {
+        SpellInteractionWithObjectsLogic(other);
+
         if (other.gameObject.TryGetComponentInParent<IDamageable>(out IDamageable character))
         {
             // If IDamageable hit is different than who casts the spell
@@ -85,6 +87,19 @@ public class DamageManaStealSO : DamageBehaviourAbstractSO
                         StatsType.Health, true);
                 }
             }
+        }
+    }
+
+    /// <summary>
+    /// Spell ambience interaction.
+    /// </summary>
+    /// <param name="other"></param>
+    private void SpellInteractionWithObjectsLogic(Collider other = null)
+    {
+        // Triggers an interaction if the elements match
+        if (other.TryGetComponent(out IInteractionWithSpell singleTargetInteraction))
+        {
+            singleTargetInteraction.ExecuteInteraction(ElementType.Neutral);
         }
     }
 }
