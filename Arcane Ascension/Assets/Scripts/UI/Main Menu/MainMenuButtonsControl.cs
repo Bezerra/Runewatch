@@ -50,8 +50,10 @@ public class MainMenuButtonsControl : MonoBehaviour
     /// Called with start game button.
     /// All passives bought will only be applied once this method is called.
     /// </summary>
-    public void SaveNewGameInformation()
+    public void SaveNewGameInformation(int difficulty)
     {
+
+
         // Creates list with empty passives
         IList<byte> currentPassives = new List<byte>();
 
@@ -90,6 +92,21 @@ public class MainMenuButtonsControl : MonoBehaviour
             FindObjectOfType<RunSaveDataController>();
         runSaveDataController.DeleteFile();
         runSaveDataController.SaveData.DungeonSavedData.Floor = 1;
+        switch (difficulty)
+        {
+            case 0:
+                runSaveDataController.SaveData.Difficulty = DifficultyType.Normal.ToString();
+                break;
+            case 1:
+                runSaveDataController.SaveData.Difficulty = DifficultyType.Medium.ToString();
+                break;
+            case 2:
+                runSaveDataController.SaveData.Difficulty = DifficultyType.Hard.ToString();
+                break;
+            case 3:
+                runSaveDataController.SaveData.Difficulty = DifficultyType.Extreme.ToString();
+                break;
+        }
         runSaveDataController.Save();
     }
 }

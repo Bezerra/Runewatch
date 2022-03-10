@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Controls AI states. Class used by enemy game object.
+/// Controls AI states.
 /// </summary>
 public class StateController<T> where T : Enemy
 {
@@ -10,24 +10,24 @@ public class StateController<T> where T : Enemy
     private FSMState currentState;
 
     /// <summary>
-    /// Character controlling this state machine.
+    /// Getter/Setter with this state machine's controller.
     /// </summary>
     public T Controller { get; private set; }
+
+    /// <summary>
+    /// Getter/Setter for elapsed time while in current state.
+    /// </summary>
+    public float StateTimeElapsed { get; private set; }
+
+    /// <summary>
+    /// Getter/Setter with state running boolean.
+    /// </summary>
+    public bool StateRunning { get; set; }
 
     /// <summary>
     /// Property to know if the enemy is currently allowed to change state.
     /// </summary>
     public bool AllowedToChangeState { get; set; }
-
-    /// <summary>
-    /// Time elapsed while in current state.
-    /// </summary>
-    public float StateTimeElapsed { get; private set; }
-
-    /// <summary>
-    /// Getter to know if state is running.
-    /// </summary>
-    public bool StateRunning { get; set; }
 
     /// <summary>
     /// Constructor for StateController.
