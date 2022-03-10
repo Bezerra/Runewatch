@@ -14,10 +14,10 @@ public class EnemyStatsSO : StatsSO
         new float[] { 1f, 1.5f, 2f, 3f };
 
     private readonly float[] DAMAGEDIFFICULTYMULTIPLIERS =
-        new float[] { 55, 1.2f, 1.5f, 2f };
+        new float[] { 1f, 1.2f, 1.5f, 2f };
 
     private readonly float[] APDIFFICULTYMULTIPLIERS =
-        new float[] { 1, 1.5f, 2f, 2.5f };
+        new float[] { 1f, 1.5f, 2f, 2.5f };
 
     private readonly float[] HPFLOORMULTIPLIERS =
         new float[] { 0.8f, 1f, 1f, 1.25f, 1.25f, 1.25f, 1.5f, 1.5f, 1.5f };
@@ -38,6 +38,7 @@ public class EnemyStatsSO : StatsSO
 
     [BoxGroup("General Stats")]
     [RangeMinMax(0, 1000)] [SerializeField] private Vector2 arcanePowerQuantity;
+    private float arcanePowerMultiplierWithDifficulty;
     
     // List with all possible loots in enemy
     [BoxGroup("General Stats")]
@@ -62,7 +63,7 @@ public class EnemyStatsSO : StatsSO
         attackingDelay * AttackingSpeedReductionMultiplier;
 
     public Vector2 ArcanePowerQuantity =>
-        arcanePowerQuantity;
+        arcanePowerQuantity * arcanePowerMultiplierWithDifficulty;
 
     public LootRates Rates => 
         lootRates;
@@ -80,24 +81,29 @@ public class EnemyStatsSO : StatsSO
 
         // Game difficulty logic
         RunSaveDataController runData = FindObjectOfType<RunSaveDataController>();
+        arcanePowerMultiplierWithDifficulty = 1;
 
-        switch(runData.SaveData.Difficulty)
+        switch (runData.SaveData.Difficulty)
         {
             case "Normal":
                 MaxHealth *= HPDIFFICULTYMULTIPLIERS[0];
                 BaseDamageMultiplier *= DAMAGEDIFFICULTYMULTIPLIERS[0];
+                arcanePowerMultiplierWithDifficulty = APDIFFICULTYMULTIPLIERS[0];
                 break;
             case "Medium":
                 MaxHealth *= HPDIFFICULTYMULTIPLIERS[1];
                 BaseDamageMultiplier *= DAMAGEDIFFICULTYMULTIPLIERS[1];
+                arcanePowerMultiplierWithDifficulty = APDIFFICULTYMULTIPLIERS[1];
                 break;
             case "Hard":
                 MaxHealth *= HPDIFFICULTYMULTIPLIERS[2];
                 BaseDamageMultiplier *= DAMAGEDIFFICULTYMULTIPLIERS[2];
+                arcanePowerMultiplierWithDifficulty = APDIFFICULTYMULTIPLIERS[2];
                 break;
             case "Extreme":
                 MaxHealth *= HPDIFFICULTYMULTIPLIERS[3];
                 BaseDamageMultiplier *= DAMAGEDIFFICULTYMULTIPLIERS[3];
+                arcanePowerMultiplierWithDifficulty = APDIFFICULTYMULTIPLIERS[3];
                 break;
         }
 
