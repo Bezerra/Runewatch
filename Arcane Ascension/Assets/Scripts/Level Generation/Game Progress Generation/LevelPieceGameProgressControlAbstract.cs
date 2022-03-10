@@ -199,10 +199,14 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
         GameObject levelParent = 
             GameObject.FindGameObjectWithTag("LevelParent");
 
+        RunSaveDataController runData = FindObjectOfType<RunSaveDataController>();
+        Enum.TryParse(runData.SaveData.Difficulty, out DifficultyType dificulty);
+
         foreach (EnemySpawnPoint enemySpawnPoint in enemySpawnPoints)
         {
             GameObject spawnedEnemy = Instantiate(
-                listOfEnemies.SpawnEnemy(enemySpawnPoint.PointInformation[DifficultyType.Normal]),
+                listOfEnemies.SpawnEnemy(
+                    enemySpawnPoint.PointInformation[dificulty]),
                 enemySpawnPoint.transform.position,
                 enemySpawnPoint.transform.rotation);
 

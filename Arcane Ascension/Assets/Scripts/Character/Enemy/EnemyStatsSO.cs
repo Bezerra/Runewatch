@@ -10,6 +10,24 @@ using Sirenix.OdinInspector;
 [CreateAssetMenu(menuName = "Character/Stats/Enemy Stats", fileName = "Enemy Stats")]
 public class EnemyStatsSO : StatsSO
 {
+    private readonly float[] HPDIFFICULTYMULTIPLIERS =
+        new float[] { 1f, 1.5f, 2f, 3f };
+
+    private readonly float[] DAMAGEDIFFICULTYMULTIPLIERS =
+        new float[] { 55, 1.2f, 1.5f, 2f };
+
+    private readonly float[] APDIFFICULTYMULTIPLIERS =
+        new float[] { 1, 1.5f, 2f, 2.5f };
+
+    private readonly float[] HPFLOORMULTIPLIERS =
+        new float[] { 0.8f, 1f, 1f, 1.25f, 1.25f, 1.25f, 1.5f, 1.5f, 1.5f };
+
+    private readonly float[] DAMAGEFLOORMULTIPLIERS =
+        new float[] { 0.8f, 1f, 1f, 1.25f, 1.25f, 1.25f, 1.5f, 1.5f, 1.5f };
+
+    private readonly float[] APFLOORMULTIPLIERS =
+        new float[] { 1f, 1f, 1f, 1.25f, 1.25f, 1.25f, 1.5f, 1.5f, 1.5f };
+
     [BoxGroup("General Stats")]
     [Tooltip("Minimum and maximum random delay of attack")]
     [RangeMinMax(0, 20f)] [SerializeField] private Vector2 attackingDelay;
@@ -59,5 +77,31 @@ public class EnemyStatsSO : StatsSO
     {
         base.Initialize();
         AttackingSpeedReductionMultiplier = 1f;
+
+        // Game difficulty logic
+        RunSaveDataController runData = FindObjectOfType<RunSaveDataController>();
+
+        switch(runData.SaveData.Difficulty)
+        {
+            case "Normal":
+                MaxHealth *= HPDIFFICULTYMULTIPLIERS[0];
+                BaseDamageMultiplier *= DAMAGEDIFFICULTYMULTIPLIERS[0];
+                break;
+            case "Medium":
+                MaxHealth *= HPDIFFICULTYMULTIPLIERS[1];
+                BaseDamageMultiplier *= DAMAGEDIFFICULTYMULTIPLIERS[1];
+                break;
+            case "Hard":
+                MaxHealth *= HPDIFFICULTYMULTIPLIERS[2];
+                BaseDamageMultiplier *= DAMAGEDIFFICULTYMULTIPLIERS[2];
+                break;
+            case "Extreme":
+                MaxHealth *= HPDIFFICULTYMULTIPLIERS[3];
+                BaseDamageMultiplier *= DAMAGEDIFFICULTYMULTIPLIERS[3];
+                break;
+        }
+
+        // If it's a boss, ignores all this
+        if (Type == CharacterType.Boss) return;
     }
 }
