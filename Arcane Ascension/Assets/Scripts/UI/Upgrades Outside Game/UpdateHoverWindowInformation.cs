@@ -39,12 +39,15 @@ public class UpdateHoverWindowInformation : MonoBehaviour
 
     private readonly float TIMERTOHIDEWINDOW = 0.05f;
 
+    private AudioSource audioSource;
+
     private void Awake()
     {
         input = FindObjectOfType<PlayerInputCustom>();
         runSaveDataController = FindObjectOfType<RunSaveDataController>();
         skillTreePassiveController = GetComponentInParent<SkillTreePassiveController>();
         anim = GetComponentInParent<Animator>();
+        audioSource = GetComponentInParent<AudioSource>();
     }
 
     private void OnEnable()
@@ -204,6 +207,7 @@ public class UpdateHoverWindowInformation : MonoBehaviour
 
                 // Updates details window info
                 UpdateWindowDetails(passiveNode);
+                audioSource.Play();
             }
         }
         // Else it will turn on a window
