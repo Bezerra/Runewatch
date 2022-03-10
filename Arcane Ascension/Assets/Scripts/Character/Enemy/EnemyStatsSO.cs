@@ -79,7 +79,7 @@ public class EnemyStatsSO : StatsSO
         base.Initialize();
         AttackingSpeedReductionMultiplier = 1f;
 
-        // Game difficulty logic
+        // GAME DIFFICULTY LOGIC
         RunSaveDataController runData = FindObjectOfType<RunSaveDataController>();
         arcanePowerMultiplierWithDifficulty = 1;
 
@@ -109,5 +109,12 @@ public class EnemyStatsSO : StatsSO
 
         // If it's a boss, ignores all this
         if (Type == CharacterType.Boss) return;
+
+        // FLOOR DIFFICULTY LOGIC
+        int currentFloor = runData.SaveData.DungeonSavedData.Floor - 1;
+
+        MaxHealth *= HPFLOORMULTIPLIERS[currentFloor];
+        BaseDamageMultiplier *= DAMAGEFLOORMULTIPLIERS[currentFloor];
+        arcanePowerMultiplierWithDifficulty = APFLOORMULTIPLIERS[currentFloor];
     }
 }
