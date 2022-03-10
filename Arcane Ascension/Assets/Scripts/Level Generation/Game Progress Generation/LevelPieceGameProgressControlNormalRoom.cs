@@ -136,7 +136,8 @@ public class LevelPieceGameProgressControlNormalRoom : LevelPieceGameProgressCon
                         if (lootCurrency.CurrencyType == CurrencyType.Gold)
                         {
                             lootCurrency.AmountMultiplier = stpData.SaveData.Pickpocket;
-                            lootCurrency.Amount = goldQuantity;
+                            lootCurrency.Amount = goldQuantity * GOLDFLOORMULTIPLIERS[
+                                        runSaveData.SaveData.DungeonSavedData.Floor - 1];
                         }
 
                         // ARCANE POWER DROPS ON ENEMIES FOR NOW, UNCOMMENT THIS LATER IF NEEDED

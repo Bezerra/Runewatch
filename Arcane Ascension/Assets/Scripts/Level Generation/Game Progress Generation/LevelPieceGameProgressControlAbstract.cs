@@ -9,6 +9,9 @@ using ExtensionMethods;
 /// </summary>
 public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
 {
+    protected readonly float[] GOLDFLOORMULTIPLIERS =
+        new float[] { 1f, 1f, 1f, 1.25f, 1.25f, 1.25f, 1.5f, 1.5f, 1.5f };
+
     [SerializeField] private bool testRoomIsolatedScene;
     [Range(1, 9)] [SerializeField] private int floorToTestOnIsolatedScenes;
 
@@ -352,7 +355,9 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
                     if (spawnedLoot.TryGetComponent(out ICurrency currency))
                     {
                         if (currency.CurrencyType == CurrencyType.Gold)
-                            currency.Amount = goldQuantity;
+                            currency.Amount = goldQuantity * 
+                                GOLDFLOORMULTIPLIERS[
+                                    runSaveData.SaveData.DungeonSavedData.Floor - 1];
 
                         // ARCANE POWER DROPS ON ENEMIES FOR NOW, UNCOMMENT THIS LATER IF NEEDED
                         //else

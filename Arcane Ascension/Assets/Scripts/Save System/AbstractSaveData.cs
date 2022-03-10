@@ -32,7 +32,7 @@ public abstract class AbstractSaveData
     {
         // REMOVE COMMENT AND COMMENT ABOVE THIS TO NOT ENCRYPT CODE
         // BUT THE FILE CANNOT BE ENCRYPTED ALREADY
-        return data;
+        //return data;
 
         // Encrypts / Decrypts code
         StringBuilder input = new StringBuilder(data);
