@@ -109,4 +109,6 @@ public class MainMenuButtonsControl : MonoBehaviour
         }
         runSaveDataController.Save();
     }
+
+    public void QuitGame() => Application.Quit();
 }
