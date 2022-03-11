@@ -19,6 +19,8 @@ public class SpellBehaviourApplyDamageSingleTargetLeafShieldSO : SpellBehaviourA
             Layers.EnemyLayerNum,
             Layers.EnemySensiblePointNum,
             Layers.PlayerLayerNum,
+            Layers.WallsNum, // Don't delete (for spell interaction with objects on this layer)
+            Layers.InteractionForSpellsNum, // Don't delete (for spell interaction with objects in this layer)
         };
     }
 

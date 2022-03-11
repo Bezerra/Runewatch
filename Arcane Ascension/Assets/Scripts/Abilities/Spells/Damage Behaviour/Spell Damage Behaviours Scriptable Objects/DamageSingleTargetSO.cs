@@ -95,7 +95,6 @@ public class DamageSingleTargetSO : DamageBehaviourAbstractSO
         if (other.TryGetComponent(out IInteractionWithSpell singleTargetInteraction))
         {
             singleTargetInteraction.ExecuteInteraction(parent.Spell.Element);
-            // Ignores the rest
         }
     }
 }

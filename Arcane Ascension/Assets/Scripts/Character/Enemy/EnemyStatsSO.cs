@@ -82,6 +82,9 @@ public class EnemyStatsSO : StatsSO
         RunSaveDataController runData = FindObjectOfType<RunSaveDataController>();
         arcanePowerMultiplierWithDifficulty = 1;
 
+        // If no run data is found, ignores the rest of the method
+        if (runData == null) return;
+
         switch (runData.SaveData.Difficulty)
         {
             case "Normal":
@@ -110,7 +113,9 @@ public class EnemyStatsSO : StatsSO
         if (Type == CharacterType.Boss) return;
 
         // FLOOR DIFFICULTY LOGIC
-        int currentFloor = runData.SaveData.DungeonSavedData.Floor - 1;
+        int currentFloor = runData.SaveData.DungeonSavedData.Floor > 0 ?
+            runData.SaveData.DungeonSavedData.Floor - 1 : 0;
+        Debug.Log("CURRENTFLOOR " + runData.SaveData.DungeonSavedData.Floor + " APAGAR EM CASA");
 
         MaxHealth *= HPFLOORMULTIPLIERS[currentFloor];
         BaseDamageMultiplier *= DAMAGEFLOORMULTIPLIERS[currentFloor];
