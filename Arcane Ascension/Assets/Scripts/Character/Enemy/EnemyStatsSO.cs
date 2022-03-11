@@ -83,7 +83,7 @@ public class EnemyStatsSO : StatsSO
         arcanePowerMultiplierWithDifficulty = 1;
 
         // If no run data is found, ignores the rest of the method
-        if (runData == null) return;
+        if (runData == null || runData.SaveData == null) return;
 
         switch (runData.SaveData.Difficulty)
         {
