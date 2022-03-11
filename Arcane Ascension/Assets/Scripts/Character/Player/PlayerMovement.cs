@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using ExtensionMethods;
 using UnityEngine.AI;
 
 /// <summary>
@@ -470,7 +469,7 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         return false;
     }
 
-    // Subscribed on PlayerSounds, PlayerDashEffect, PlayerFinalCameraDashEvent, PlayerCamera
+    // Subscribed on PlayerSounds, PlayerDashEffect, PlayerCamera
     protected virtual void OnEventDash() => EventDash?.Invoke();
     public event Action EventDash;
 
