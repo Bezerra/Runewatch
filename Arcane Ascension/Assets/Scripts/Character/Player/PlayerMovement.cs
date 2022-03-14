@@ -121,7 +121,6 @@ public class PlayerMovement : MonoBehaviour, IFindInput
         directionPressed = sideMovement + forwardMovement;
         directionPressed *= InCombatSpeed;
 
-        /*
         // Controls character radius to prevent getting stuck on edges after jumping
         if (IsInAirAfterTime())
         {
@@ -134,7 +133,6 @@ public class PlayerMovement : MonoBehaviour, IFindInput
                 characterController.radius =
                     Mathf.Lerp(characterController.radius, CONTROLLERRADIUSDEFAULT, Time.deltaTime * 50f);
         }
-        */
 
         // Dash counter. Updates dash timer and charges
         if (playerStats.DashCharge < playerStats.PlayerAttributes.MaxDashCharge)
