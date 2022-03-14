@@ -115,7 +115,6 @@ public class EnemyStatsSO : StatsSO
         // FLOOR DIFFICULTY LOGIC
         int currentFloor = runData.SaveData.DungeonSavedData.Floor > 0 ?
             runData.SaveData.DungeonSavedData.Floor - 1 : 0;
-        Debug.Log("CURRENTFLOOR " + runData.SaveData.DungeonSavedData.Floor + " APAGAR EM CASA");
 
         MaxHealth *= HPFLOORMULTIPLIERS[currentFloor];
         BaseDamageMultiplier *= DAMAGEFLOORMULTIPLIERS[currentFloor];
