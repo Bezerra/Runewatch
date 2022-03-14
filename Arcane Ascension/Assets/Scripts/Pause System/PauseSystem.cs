@@ -8,6 +8,7 @@ public class PauseSystem : MonoBehaviour, IFindInput, IFindPlayer
 {
     [SerializeField] private GameObject[] canvasFalseToPauseTheGame;
 
+    // It's gray but it's being used on editor
     [Header("Cheat Console")]
     [SerializeField] private GameObject cheatConsoleGO;
     [SerializeField] private CheatConsole cheatConsole;
