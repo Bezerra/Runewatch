@@ -20,7 +20,6 @@ public class GrimoireUnspentPoints : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("EN");
         if (characterSaveData.SaveData.ArcanePower != 
             PlayerPrefs.GetInt("ArcanePowerOnLastEnable", 0))
         {
