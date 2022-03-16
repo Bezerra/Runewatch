@@ -7,7 +7,7 @@ using UnityEngine;
     fileName = "Event Open One Spell Menu")]
 public class EventOpenOneSpellMenuSO : EventAbstractSO
 {
-    public override void Execute(AbstractEventOnInteraction invoker)
+    public override void Execute(AbstractEventOnInteraction invoker, PlayerInteraction interactor = null)
     {
         FindObjectOfType<AbilitiesCanvas>().EnableOneSpellCanvas();
     }

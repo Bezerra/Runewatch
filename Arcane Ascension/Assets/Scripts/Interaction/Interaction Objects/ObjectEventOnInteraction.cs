@@ -23,7 +23,7 @@ public class ObjectEventOnInteraction : AbstractEventOnInteraction, IInterectabl
                 {
                     if (eve != null)
                     {
-                        eve.Execute(this);
+                        eve.Execute(this, playerInteraction);
                     }
                 }
             }

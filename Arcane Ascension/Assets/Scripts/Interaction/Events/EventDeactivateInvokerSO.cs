@@ -7,7 +7,7 @@ using UnityEngine;
     fileName = "Event Deactivate Invoker")]
 public class EventDeactivateInvokerSO : EventAbstractSO
 {
-    public override void Execute(AbstractEventOnInteraction invoker)
+    public override void Execute(AbstractEventOnInteraction invoker, PlayerInteraction interactor = null)
     {
         invoker.gameObject.SetActive(false);
     }

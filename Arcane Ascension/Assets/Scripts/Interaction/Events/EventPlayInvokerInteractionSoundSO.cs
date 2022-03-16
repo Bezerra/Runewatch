@@ -7,7 +7,7 @@ using UnityEngine;
     fileName = "Event Play Invoker Interaction Sound")]
 public class EventPlayInvokerInteractionSoundSO : EventAbstractSO
 {
-    public override void Execute(AbstractEventOnInteraction invoker)
+    public override void Execute(AbstractEventOnInteraction invoker, PlayerInteraction interactor = null)
     {
         if (invoker.TryGetComponent<IInteractableWithSound>(out IInteractableWithSound abilityInterectable))
         {

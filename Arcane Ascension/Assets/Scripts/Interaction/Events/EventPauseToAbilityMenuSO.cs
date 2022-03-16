@@ -7,7 +7,7 @@ using UnityEngine;
     fileName = "Event Pauses To Ability Menu")]
 public class EventPauseToAbilityMenuSO : EventAbstractSO
 {
-    public override void Execute(AbstractEventOnInteraction invoker)
+    public override void Execute(AbstractEventOnInteraction invoker, PlayerInteraction interactor = null)
     {
         Time.timeScale = 0;
         IInput input = FindObjectOfType<PlayerInputCustom>();
