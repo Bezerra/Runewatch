@@ -107,7 +107,15 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
             Input.SpellBook -= ControlSpellBook;
         }
 
-        Input = input;
+        if (input != null)
+        {
+            Input = input;
+        }
+        else
+        {
+            Input = FindObjectOfType<PlayerInputCustom>();
+        }
+
         Input.SpellBook += ControlSpellBook;
     }
 

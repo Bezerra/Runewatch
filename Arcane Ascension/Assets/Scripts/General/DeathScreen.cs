@@ -28,7 +28,14 @@ public class DeathScreen : MonoBehaviour, IFindPlayer, IFindInput
 
     public void FindInput(PlayerInputCustom input = null)
     {
-        this.input = input;
+        if (input != null)
+        {
+            this.input = input;
+        }
+        else
+        {
+            this.input = FindObjectOfType<PlayerInputCustom>();
+        }
     }
 
     public void LostInput(PlayerInputCustom input = null)

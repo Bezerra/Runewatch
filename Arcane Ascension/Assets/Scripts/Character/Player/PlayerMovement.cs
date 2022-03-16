@@ -485,7 +485,15 @@ public class PlayerMovement : MonoBehaviour, IFindInput
             this.input.Run -= Run;
         }
 
-        this.input = input;
+        if (input != null)
+        {
+            this.input = input;
+        }
+        else
+        {
+            this.input = FindObjectOfType<PlayerInputCustom>();
+        }
+
         this.input.Jump += JumpPress;
         this.input.Dash += Dash;
         this.input.Run += Run;

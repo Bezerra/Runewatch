@@ -482,7 +482,15 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
             this.input.CheatConsole -= ShowConsole;
         }
 
-        this.input = input;
+        if (input != null)
+        {
+            this.input = input;
+        }
+        else
+        {
+            this.input = FindObjectOfType<PlayerInputCustom>();
+        }
+
         this.input.CheatConsole += ShowConsole;
     }
         
