@@ -7,13 +7,12 @@ using ExtensionMethods;
 /// </summary>
 public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
 {
-    [SerializeField] private AudioSource voiceAudioSource;
-
     // Components
     private Animator anim;
     private Enemy enemy;
     private EnemyStats enemyStats;
     private Transform enemyModel;
+    private EnemySounds enemySounds;
 
     // Coroutines
     private IEnumerator shakeCoroutine;
@@ -27,6 +26,7 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
         enemyModel = GetComponent<Transform>();
         enemy = GetComponentInParent<Enemy>();
         enemyStats = GetComponentInParent<EnemyStats>();
+        enemySounds = GetComponentInParent<EnemySounds>();
         wffu = new WaitForFixedUpdate();
     }
 
@@ -190,7 +190,19 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
     }
 
     public void PlayVoice() =>
-        voiceAudioSource.Play();
+        enemySounds.PlayVoice();
+
+    /// <summary>
+    /// Used to play steps from an audio scriptab le object.
+    /// </summary>
+    public void PlayMovementSoundStep() =>
+        enemySounds.PlayMovementSoundStep();
+
+    /// <summary>
+    /// Used to play loop sounds directly from audiosource.
+    /// </summary>
+    public void PlayMovementSoundConstant() =>
+        enemySounds.PlayMovementSoundConstant();
 
     /// <summary>
     /// Resets the class.
@@ -202,8 +214,6 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
         OnEnable();
     }
 
-    public void TriggerEnragedAnimation()
-    {
+    public void TriggerEnragedAnimation() =>
         anim.SetBool("Enraged", true);
-    }
 }
