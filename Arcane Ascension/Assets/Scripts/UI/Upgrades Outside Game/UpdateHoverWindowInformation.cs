@@ -152,6 +152,8 @@ public class UpdateHoverWindowInformation : MonoBehaviour
 
     /// <summary>
     /// Tries to buy selected passive.
+    /// If it's possible to buy it, it will unlock that new passive, spend money
+    /// and play a sound.
     /// </summary>
     private void BuyPassive()
     {
@@ -207,6 +209,8 @@ public class UpdateHoverWindowInformation : MonoBehaviour
 
                 // Updates details window info
                 UpdateWindowDetails(passiveNode);
+
+                // Plays sound
                 audioSource.Play();
             }
         }
