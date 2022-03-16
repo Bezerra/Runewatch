@@ -318,26 +318,26 @@ public class PlayerCastSpell : MonoBehaviour, IFindInput
         ReleasedAttackButton?.Invoke();
     public event Action ReleasedAttackButton;
 
-    public void FindInput()
+    public void FindInput(PlayerInputCustom input = null)
     {
         LostInput();
-        if (input == null)
+        if (this.input == null)
         {
-            input = FindObjectOfType<PlayerInputCustom>();
-            input.CastSpell += AttackKeyPress;
-            input.StopCastSpell += AttackKeyRelease;
-            input.CastBasicSpell += SecondaryAttackKeyPress;
+            this.input = FindObjectOfType<PlayerInputCustom>();
+            this.input.CastSpell += AttackKeyPress;
+            this.input.StopCastSpell += AttackKeyRelease;
+            this.input.CastBasicSpell += SecondaryAttackKeyPress;
         }
     }
 
-    public void LostInput()
+    public void LostInput(PlayerInputCustom input = null)
     {
-        if (input != null)
+        if (this.input != null)
         {
-            input.CastSpell += AttackKeyPress;
-            input.StopCastSpell += AttackKeyRelease;
-            input.CastBasicSpell += SecondaryAttackKeyPress;
-            input = null;
+            this.input.CastSpell -= AttackKeyPress;
+            this.input.StopCastSpell -= AttackKeyRelease;
+            this.input.CastBasicSpell -= SecondaryAttackKeyPress;
+            this.input = null;
         }
     }
 }

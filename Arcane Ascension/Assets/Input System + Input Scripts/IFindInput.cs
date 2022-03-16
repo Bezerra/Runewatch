@@ -8,10 +8,12 @@ public interface IFindInput
     /// <summary>
     /// Finds input and updates important variables.
     /// </summary>
-    void FindInput();
+    /// <param name="input">Input reference.</param>
+    void FindInput(PlayerInputCustom input = null);
 
     /// <summary>
     /// Used to unsubscribe stuff from input.
     /// </summary>
-    void LostInput();
+    /// <param name="input">Input reference.</param> 
+    void LostInput(PlayerInputCustom input = null);
 }

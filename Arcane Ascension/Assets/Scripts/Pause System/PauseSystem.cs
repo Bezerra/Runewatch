@@ -102,18 +102,18 @@ public class PauseSystem : MonoBehaviour, IFindInput, IFindPlayer
         playerInputCustom.SwitchActionMapToGameplay();
     }
 
-    public void FindInput()
+    public void FindInput(PlayerInputCustom input = null)
     {
         if (playerInputCustom != null)
         {
             playerInputCustom.PauseGame -= PauseGame;
         }
 
-        playerInputCustom = FindObjectOfType<PlayerInputCustom>();
+        playerInputCustom = input;
         playerInputCustom.PauseGame += PauseGame;
     }
 
-    public void LostInput()
+    public void LostInput(PlayerInputCustom input = null)
     {
         if (playerInputCustom != null)
             playerInputCustom.PauseGame -= PauseGame;

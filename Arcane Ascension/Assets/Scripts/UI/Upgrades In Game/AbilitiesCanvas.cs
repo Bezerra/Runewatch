@@ -56,12 +56,12 @@ public class AbilitiesCanvas : MonoBehaviour, IFindInput
         spellsFullCanvas.SetActive(false);
     }
 
-    public void FindInput()
+    public void FindInput(PlayerInputCustom input)
     {
-        input = FindObjectOfType<PlayerInputCustom>();
+        this.input = input;
     }
 
-    public void LostInput()
+    public void LostInput(PlayerInputCustom input)
     {
         // Left blank on purpose
     }
