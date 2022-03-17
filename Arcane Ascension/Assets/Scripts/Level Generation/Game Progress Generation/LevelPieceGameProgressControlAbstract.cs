@@ -354,7 +354,9 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
 
                     if (spawnedLoot.TryGetComponent(out ICurrency currency))
                     {
-                        if (currency.CurrencyType == CurrencyType.Gold)
+                        // Procedural gen rooms drop gold; Boss raid rooms drop arcane power
+                        if (currency.CurrencyType == CurrencyType.Gold ||
+                            currency.CurrencyType == CurrencyType.ArcanePower)
                             currency.Amount = goldQuantity * 
                                 GOLDFLOORMULTIPLIERS[
                                     runSaveData.SaveData.DungeonSavedData.Floor - 1];

@@ -324,7 +324,7 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
                     {
                         foreach (LoadingScreenWithTrigger load in loadingScreen)
                         {
-                            if (load.IsFinalFloor == false)
+                            if (load.FloorControl == FloorSceneControl.NextFloor)
                             {
                                 load.LoadSceneOnSerializeField();
                                 break;
@@ -335,7 +335,7 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
                     {
                         foreach (LoadingScreenWithTrigger load in loadingScreen)
                         {
-                            if (load.IsFinalFloor)
+                            if (load.FloorControl == FloorSceneControl.FinalFloor)
                             {
                                 load.LoadSceneOnSerializeField();
                                 break;

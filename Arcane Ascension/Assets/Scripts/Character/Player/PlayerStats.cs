@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for player stats.
 /// </summary>
-public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
+public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable, IBossRaidSaveable
 {
     // Components
     private CharacterSaveDataController stpData;
@@ -529,6 +529,45 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable
             // Loads stats
             SetStats(saveData.PlayerSavedData.Health, 0, PlayerAttributes.MaxMana);
         }
+    }
+
+    public void SaveCurrentData(BossRaidRunSaveData saveData)
+    {
+        saveData.PlayerSavedData.Health = Health;
+
+        // Passives
+        saveData.PlayerSavedData.CurrentPassives = new byte[CurrentPassives.Count];
+        for (int i = 0; i < CurrentPassives.Count; i++)
+        {
+            saveData.PlayerSavedData.CurrentPassives[i] = CurrentPassives[i].ID;
+        }
+    }
+
+    public IEnumerator LoadData(BossRaidRunSaveData saveData)
+    {
+        yield return new WaitForFixedUpdate();
+
+        // Passives
+        AllRunPassives allPassives = FindObjectOfType<AllRunPassives>();
+        CurrentPassives = new List<IRunPassive>();
+        for (int i = 0; i < saveData.PlayerSavedData.CurrentPassives.Length; i++)
+        {
+            for (int j = 0; j < allPassives.PassiveList.Count; j++)
+            {
+                if (saveData.PlayerSavedData.CurrentPassives[i] == allPassives.PassiveList[j].ID)
+                {
+                    CurrentPassives.Add(allPassives.PassiveList[j]);
+                }
+            }
+        }
+        foreach (IRunPassive passive in CurrentPassives)
+        {
+            // Updates stats for each passive the player has
+            passive.Execute(this);
+        }
+
+        // Loads stats
+        SetStats(saveData.PlayerSavedData.Health, 0, PlayerAttributes.MaxMana);
     }
 
     // Subscribed on player UI and CheatsConsole

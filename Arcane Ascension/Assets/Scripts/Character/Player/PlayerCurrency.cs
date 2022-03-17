@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for player's currency behaviour.
 /// </summary>
-public class PlayerCurrency : MonoBehaviour, IUseCurrency, IPlayerSaveable
+public class PlayerCurrency : MonoBehaviour, IUseCurrency, IPlayerSaveable, IBossRaidSaveable
 {
     private Player player;
     private PlayerStats playerStats;
@@ -150,5 +150,30 @@ public class PlayerCurrency : MonoBehaviour, IUseCurrency, IPlayerSaveable
     // Registered on PlayerUI
     protected virtual void OnEventCurrencyUpdate(float gold, float ap) => 
         EventCurrencyUpdate?.Invoke(gold, ap);
+
+    public void SaveCurrentData(BossRaidRunSaveData saveData)
+    {
+        CharacterSaveDataController characterSaveDataController =
+            FindObjectOfType<CharacterSaveDataController>();
+
+        characterSaveDataController.SaveData.ArcanePower =
+            player.AllValues.Currency.ArcanePower;
+
+        characterSaveDataController.Save();
+    }
+
+    public IEnumerator LoadData(BossRaidRunSaveData saveData)
+    {
+        yield return new WaitForFixedUpdate();
+
+        CharacterSaveDataController characterSaveDataController =
+            FindObjectOfType<CharacterSaveDataController>();
+
+        player.AllValues.Currency.ResetCurrency();
+        player.AllValues.Currency.GainCurrency(
+            CurrencyType.ArcanePower,
+            characterSaveDataController.SaveData.ArcanePower);
+    }
+
     public event Action<float, float> EventCurrencyUpdate;
 }

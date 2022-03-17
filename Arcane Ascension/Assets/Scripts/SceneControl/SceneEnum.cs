@@ -11,4 +11,7 @@ public enum SceneEnum
     RunStats,
     RunEndingStats,
     Intro,
+    LoadingScreenToBossRaid,
+    BossRaid,
+    BossRaidStats,
 }

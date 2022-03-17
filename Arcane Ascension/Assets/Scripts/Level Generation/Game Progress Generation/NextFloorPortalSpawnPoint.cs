@@ -6,6 +6,7 @@ using UnityEngine;
 public class NextFloorPortalSpawnPoint : MonoBehaviour
 {
     [SerializeField] private Mesh meshForGizmos;
+    [SerializeField] private bool isBossRaid;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -14,13 +15,26 @@ public class NextFloorPortalSpawnPoint : MonoBehaviour
             RunSaveData saveData = FindObjectOfType<RunSaveDataController>().SaveData;
             LoadingScreenWithTrigger[] loadingScreen = FindObjectsOfType<LoadingScreenWithTrigger>();
 
+            if (isBossRaid)
+            {
+                foreach (LoadingScreenWithTrigger load in loadingScreen)
+                {
+                    if (load.FloorControl == FloorSceneControl.BossRaid)
+                    {
+                        load.LoadSceneOnSerializeField();
+                        break;
+                    }
+                }
+                return;
+            }
+
             // If not last floor
             // loads next floor
             if (saveData.DungeonSavedData.Floor < 9)
             {
                 foreach (LoadingScreenWithTrigger load in loadingScreen)
                 {
-                    if (load.IsFinalFloor == false)
+                    if (load.FloorControl == FloorSceneControl.NextFloor)
                     {
                         load.LoadSceneOnSerializeField();
                         break;
@@ -31,7 +45,7 @@ public class NextFloorPortalSpawnPoint : MonoBehaviour
             {
                 foreach (LoadingScreenWithTrigger load in loadingScreen)
                 {
-                    if (load.IsFinalFloor)
+                    if (load.FloorControl == FloorSceneControl.FinalFloor)
                     {
                         load.LoadSceneOnSerializeField();
                         break;

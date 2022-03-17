@@ -7,7 +7,7 @@ using ExtensionMethods;
 /// <summary>
 /// Class responsible for controlling player spells and shot action.
 /// </summary>
-public class PlayerSpells : MonoBehaviour, IPlayerSaveable
+public class PlayerSpells : MonoBehaviour, IPlayerSaveable, IBossRaidSaveable
 {
     [Range(0, 4)][SerializeField] private int ADDINITIALSPELLSFORTESTS;
 
@@ -377,6 +377,60 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable
     }
 
     public IEnumerator LoadData(RunSaveData saveData)
+    {
+        // Loads current spell list
+        byte[] savedSpells = saveData.PlayerSavedData.CurrentSpells;
+        for (int i = 0; i < savedSpells.Length; i++)
+        {
+            if (savedSpells[i] != 255)
+            {
+                for (int j = 0; j < allSpells.Count; j++)
+                {
+                    if (savedSpells[i] == allSpells[j].ID)
+                    {
+                        CurrentSpells[i] = allSpells[j];
+                        CurrentSpells[i].CooldownCounter = CurrentSpells[i].Cooldown;
+                        break;
+                    }
+                    else
+                    {
+                        CurrentSpells[i] = null;
+                        continue;
+                    }
+                }
+            }
+            else
+            {
+                CurrentSpells[i] = null;
+            }
+        }
+
+        // Loads current spell selected
+        CurrentSpellIndex = saveData.PlayerSavedData.CurrentSpellIndex;
+
+        SelectSpell(CurrentSpellIndex, true);
+
+        yield return null;
+    }
+
+    public void SaveCurrentData(BossRaidRunSaveData saveData)
+    {
+        // Checks which spells the player current has
+        byte[] currentSpells = new byte[4];
+        for (int i = 0; i < CurrentSpells.Length; i++)
+        {
+            if (CurrentSpells[i] == null)
+                currentSpells[i] = 255;
+            else
+                currentSpells[i] = CurrentSpells[i].ID;
+        }
+
+        // Saves spells and current selected spell
+        saveData.PlayerSavedData.CurrentSpells = currentSpells;
+        saveData.PlayerSavedData.CurrentSpellIndex = CurrentSpellIndex;
+    }
+
+    public IEnumerator LoadData(BossRaidRunSaveData saveData)
     {
         // Loads current spell list
         byte[] savedSpells = saveData.PlayerSavedData.CurrentSpells;

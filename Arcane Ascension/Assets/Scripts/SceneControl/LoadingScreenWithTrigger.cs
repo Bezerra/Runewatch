@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class LoadingScreenWithTrigger : SceneControl
 {
-    [SerializeField] private bool isFinalFloor;
-    public bool IsFinalFloor => isFinalFloor;
+    [SerializeField] private FloorSceneControl floorControl;
+    public FloorSceneControl FloorControl => floorControl;
 
     /// <summary>
     /// Coroutine that loads a new scene.
@@ -44,3 +44,5 @@ public class LoadingScreenWithTrigger : SceneControl
         SetActiveScene(sceneToLoad);
     }
 }
+
+public enum FloorSceneControl { NextFloor, FinalFloor, BossRaid, }

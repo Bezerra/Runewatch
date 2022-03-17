@@ -7,6 +7,7 @@ using UnityEngine;
 public class LevelPieceGameProgressControlFinalRoom : LevelPieceGameProgressControlAbstract
 {
     private NextFloorPortalSpawnPoint nextFloorPortalSpawnPoint;
+    [SerializeField] private bool isBossRaid;
 
     protected override void Awake()
     {
@@ -17,6 +18,12 @@ public class LevelPieceGameProgressControlFinalRoom : LevelPieceGameProgressCont
 
     private void Start()
     {
+        if (isBossRaid)
+        {
+            BossRoom();
+            return;
+        }
+
         if (runSaveData.SaveData.DungeonSavedData.Floor % 3 == 0)
         {
             BossRoom();
