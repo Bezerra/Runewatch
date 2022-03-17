@@ -13,6 +13,7 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
     private EnemyStats enemyStats;
     private Transform enemyModel;
     private EnemySounds enemySounds;
+    private EnemyHealthBar enemyHealthBar;
 
     // Coroutines
     private IEnumerator shakeCoroutine;
@@ -27,6 +28,7 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
         enemy = GetComponentInParent<Enemy>();
         enemyStats = GetComponentInParent<EnemyStats>();
         enemySounds = GetComponentInParent<EnemySounds>();
+        enemyHealthBar = transform.parent.GetComponentInChildren<EnemyHealthBar>();
         wffu = new WaitForFixedUpdate();
     }
 
@@ -189,20 +191,29 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
         enemyModel.transform.localPosition = defaultPosition;
     }
 
+    /// <summary>
+    /// Animation event used to play enemy voice.
+    /// </summary>
     public void PlayVoice() =>
         enemySounds.PlayVoice();
 
     /// <summary>
-    /// Used to play steps from an audio scriptab le object.
+    /// Animation event used to play steps from an audio scriptab le object.
     /// </summary>
     public void PlayMovementSoundStep() =>
         enemySounds.PlayMovementSoundStep();
 
     /// <summary>
-    /// Used to play loop sounds directly from audiosource.
+    /// Animation event used to play loop sounds directly from audiosource.
     /// </summary>
     public void PlayMovementSoundConstant() =>
         enemySounds.PlayMovementSoundConstant();
+
+    /// <summary>
+    /// Animation event used to deactivate health bar.
+    /// </summary>
+    public void DeactivateHealthBar() =>
+        enemyHealthBar.gameObject.SetActive(false);
 
     /// <summary>
     /// Resets the class.
