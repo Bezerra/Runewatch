@@ -52,8 +52,6 @@ public class MainMenuButtonsControl : MonoBehaviour
     /// </summary>
     public void SaveNewGameInformation(int difficulty)
     {
-
-
         // Creates list with empty passives
         IList<byte> currentPassives = new List<byte>();
 
@@ -108,6 +106,52 @@ public class MainMenuButtonsControl : MonoBehaviour
                 break;
         }
         runSaveDataController.Save();
+    }
+
+    /// <summary>
+    /// Runs when the game starts. Will only run once per game session start.
+    /// Called with raid boss button.
+    /// All passives bought will only be applied once this method is called.
+    /// </summary>
+    public void NewBossRaid()
+    {
+        // Creates list with empty passives
+        IList<byte> currentPassives = new List<byte>();
+
+        // Adds saved passives to current passives
+        CharacterSaveData saveData = characterSaveDataController.SaveData;
+
+        // First it adds all skills to a list (to use Contains later)
+        if (saveData != null)
+        {
+            for (int i = 0; i < saveData.CurrentSkillTreePassives.Length; i++)
+            {
+                currentPassives.Add(saveData.CurrentSkillTreePassives[i]);
+            }
+        }
+
+        // Foreach current passive the player has, it will write its information to a file and save it.
+        // This will update all skill tree passives on that file.
+        for (int i = 0; i < skillTreePassives.PassivesList.Count; i++)
+        {
+            if (currentPassives.Contains(skillTreePassives.PassivesList[i].ID))
+            {
+                characterSaveDataController.WriteInformation
+                    (skillTreePassives.PassivesList[i].PassiveType,
+                    skillTreePassives.PassivesList[i].Amount);
+            }
+        }
+        characterSaveDataController.Save();
+
+        // Cleats activated cheats
+        PlayerPrefs.SetInt(PPrefsCheats.God.ToString(), 0);
+        PlayerPrefs.SetInt(PPrefsCheats.Mana.ToString(), 0);
+        PlayerPrefs.SetInt(PPrefsCheats.Fly.ToString(), 0);
+
+        // Sets floor to initial floor
+        BossRaidRunSaveDataController runSaveDataController =
+            FindObjectOfType<BossRaidRunSaveDataController>();
+        runSaveDataController.DeleteFile();
     }
 
     public void QuitGame() => Application.Quit();

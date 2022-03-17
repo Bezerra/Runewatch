@@ -203,7 +203,10 @@ public abstract class LevelPieceGameProgressControlAbstract : MonoBehaviour
             GameObject.FindGameObjectWithTag("LevelParent");
 
         RunSaveDataController runData = FindObjectOfType<RunSaveDataController>();
-        Enum.TryParse(runData.SaveData.Difficulty, out DifficultyType dificulty);
+
+        DifficultyType dificulty = DifficultyType.Normal;
+        if (runData != null)
+            Enum.TryParse(runData.SaveData.Difficulty, out dificulty);
 
         foreach (EnemySpawnPoint enemySpawnPoint in enemySpawnPoints)
         {

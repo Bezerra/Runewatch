@@ -12,7 +12,6 @@ public class NextFloorPortalSpawnPoint : MonoBehaviour
     {
         if (other.TryGetComponent(out Player player))
         {
-            RunSaveData saveData = FindObjectOfType<RunSaveDataController>().SaveData;
             LoadingScreenWithTrigger[] loadingScreen = FindObjectsOfType<LoadingScreenWithTrigger>();
 
             if (isBossRaid)
@@ -27,6 +26,8 @@ public class NextFloorPortalSpawnPoint : MonoBehaviour
                 }
                 return;
             }
+
+            RunSaveData saveData = FindObjectOfType<RunSaveDataController>().SaveData;
 
             // If not last floor
             // loads next floor

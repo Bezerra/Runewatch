@@ -30,7 +30,7 @@ public class BossRaidRunSaveDataController : MonoBehaviour, IFindPlayer
 
         // Writes file with saved JSON
         if (fileManager.WriteToFile("BOSSRAIDRUNPROGRESSFILE.d4s", SaveData.ToJson()))
-            Debug.Log("Run Progress Saved");
+            Debug.Log("Raid Boss Run Progress Saved");
     }
 
     /// <summary>
@@ -49,7 +49,7 @@ public class BossRaidRunSaveDataController : MonoBehaviour, IFindPlayer
             foreach (IBossRaidSaveable iSaveable in iSaveables)
                 yield return iSaveable.LoadData(SaveData);
 
-            Debug.Log("Player Progress Loaded");
+            Debug.Log("Raid Boss Run Progress Loaded");
         }
 
         yield return null;
@@ -61,7 +61,7 @@ public class BossRaidRunSaveDataController : MonoBehaviour, IFindPlayer
     /// </summary>
     public BossRaidRunSaveData LoadGame()
     {
-        if (fileManager.ReadFile("RUNPROGRESSFILE.d4s", out string json))
+        if (fileManager.ReadFile("BOSSRAIDRUNPROGRESSFILE.d4s", out string json))
         {
             SaveData.LoadFromJson(json);
 
@@ -93,7 +93,8 @@ public class BossRaidRunSaveDataController : MonoBehaviour, IFindPlayer
 
     public void FindPlayer(Player player)
     {
-        StartCoroutine(LoadPlayerDataCoroutine());
+        if (gameObject.activeSelf)
+            StartCoroutine(LoadPlayerDataCoroutine());
     }
 
     private IEnumerator LoadPlayerDataCoroutine()

@@ -99,7 +99,8 @@ public class RunSaveDataController : MonoBehaviour, IFindPlayer
 
     public void FindPlayer(Player player)
     {
-        StartCoroutine(LoadPlayerDataCoroutine());
+        if (gameObject.activeSelf)
+            StartCoroutine(LoadPlayerDataCoroutine());
     }
 
     private IEnumerator LoadPlayerDataCoroutine()

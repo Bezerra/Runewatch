@@ -12,6 +12,8 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
     // Components
     private IInput input;
 
+    [SerializeField] private bool isBossRaid;
+
     // Variables
     [SerializeField] private GameObject consoleGameObject;
     [SerializeField] private TMP_InputField inputField;
@@ -316,8 +318,17 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
                 case "next floor":
                     Debug.Log("next floor");
                     DisableConsole();
+
+                    if (isBossRaid)
+                    {
+                        DisableConsole();
+                        Debug.Log("Can't change floor on this mode");
+                        break;
+                    }
+
                     RunSaveData saveData = FindObjectOfType<RunSaveDataController>().SaveData;
                     LoadingScreenWithTrigger[] loadingScreen = FindObjectsOfType<LoadingScreenWithTrigger>();
+
                     // If not last floor
                     // loads next floor
                     if (saveData.DungeonSavedData.Floor < 9)
@@ -343,7 +354,6 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
                         }
                     }
                     
-
                     break;
 
                 default:
