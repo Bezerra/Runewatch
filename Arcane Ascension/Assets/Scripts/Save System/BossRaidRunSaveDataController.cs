@@ -30,7 +30,7 @@ public class BossRaidRunSaveDataController : MonoBehaviour, IFindPlayer
 
         // Writes file with saved JSON
         if (fileManager.WriteToFile("BOSSRAIDRUNPROGRESSFILE.d4s", SaveData.ToJson()))
-            Debug.Log("Raid Boss Run Progress Saved");
+            Debug.Log("Boss Raid Run Progress Saved");
     }
 
     /// <summary>
@@ -65,7 +65,7 @@ public class BossRaidRunSaveDataController : MonoBehaviour, IFindPlayer
         {
             SaveData.LoadFromJson(json);
 
-            Debug.Log("Raid Boss Run Progress Loaded");
+            Debug.Log("Boss Raid Run Progress Loaded");
             return SaveData;
         }
         return SaveData;
