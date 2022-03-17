@@ -6,6 +6,13 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class InputFindMe : MonoBehaviour
 {
+    private PlayerInputCustom input;
+
+    private void Awake()
+    {
+        input = GetComponent<PlayerInputCustom>();
+    }
+
     /// <summary>
     /// What happens when the input is spawned.
     /// </summary>
@@ -19,7 +26,7 @@ public class InputFindMe : MonoBehaviour
 
             foreach (IFindInput childInterface in childrenInterfaces)
             {
-                childInterface.FindInput();
+                childInterface.FindInput(input);
             }
         }
     }
@@ -37,7 +44,7 @@ public class InputFindMe : MonoBehaviour
 
             foreach (IFindInput childInterface in childrenInterfaces)
             {
-                childInterface.LostInput();
+                childInterface.LostInput(input);
             }
         }
     }

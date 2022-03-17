@@ -14,7 +14,7 @@ public class PauseSystem : MonoBehaviour, IFindInput, IFindPlayer
     [SerializeField] private CheatConsole cheatConsole;
 
     // Components
-    private IInput playerInputCustom;
+    private IInput input;
 
     public bool GameIsPaused { get; private set; }
 
@@ -26,7 +26,7 @@ public class PauseSystem : MonoBehaviour, IFindInput, IFindPlayer
 
     private void Awake()
     {
-        playerInputCustom = FindObjectOfType<PlayerInputCustom>();
+        this.input = FindObjectOfType<PlayerInputCustom>();
     }
 
     private void Start()
@@ -41,7 +41,7 @@ public class PauseSystem : MonoBehaviour, IFindInput, IFindPlayer
     }
 
     private void OnEnable() =>
-        playerInputCustom.PauseGame += PauseGame;
+        this.input.PauseGame += PauseGame;
 
     private void OnDisable() =>
         LostInput();
@@ -86,7 +86,7 @@ public class PauseSystem : MonoBehaviour, IFindInput, IFindPlayer
             {
                 GameIsPaused = true;
                 Time.timeScale = 0;
-                playerInputCustom.SwitchActionMapToUI();
+                this.input.SwitchActionMapToUI();
                 OnGamePausedEvent();
             }
         }
@@ -99,24 +99,32 @@ public class PauseSystem : MonoBehaviour, IFindInput, IFindPlayer
     {
         GameIsPaused = false;
         Time.timeScale = 1;
-        playerInputCustom.SwitchActionMapToGameplay();
+        this.input.SwitchActionMapToGameplay();
     }
 
-    public void FindInput()
+    public void FindInput(PlayerInputCustom input = null)
     {
-        if (playerInputCustom != null)
+        if (this.input != null)
         {
-            playerInputCustom.PauseGame -= PauseGame;
+            this.input.PauseGame -= PauseGame;
         }
 
-        playerInputCustom = FindObjectOfType<PlayerInputCustom>();
-        playerInputCustom.PauseGame += PauseGame;
+        if (input != null)
+        {
+            this.input = input;
+        }
+        else
+        {
+            this.input = FindObjectOfType<PlayerInputCustom>();
+        }
+
+        this.input.PauseGame += PauseGame;
     }
 
-    public void LostInput()
+    public void LostInput(PlayerInputCustom input = null)
     {
-        if (playerInputCustom != null)
-            playerInputCustom.PauseGame -= PauseGame;
+        if (this.input != null)
+            this.input.PauseGame -= PauseGame;
     }
 
     public void FindPlayer(Player player)
@@ -126,8 +134,8 @@ public class PauseSystem : MonoBehaviour, IFindInput, IFindPlayer
 
     public void PlayerLost(Player player)
     {
-        if (playerInputCustom != null)
-            playerInputCustom.PauseGame -= PauseGame;
+        if (this.input != null)
+            this.input.PauseGame -= PauseGame;
     }
 
     protected virtual void OnGamePausedEvent() => GamePausedEvent?.Invoke();

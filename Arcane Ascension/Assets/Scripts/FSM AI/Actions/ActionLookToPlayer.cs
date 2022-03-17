@@ -7,6 +7,8 @@ using ExtensionMethods;
 [CreateAssetMenu(menuName = "FSM/Actions/Action Look To Player", fileName = "Action Look To Player")]
 sealed public class ActionLookToPlayer : FSMAction
 {
+    [SerializeField] private bool rotateWhileCasting;
+
     public override void Execute(StateController<Enemy> ai)
     {
         RotateToPlayer(ai);
@@ -33,10 +35,17 @@ sealed public class ActionLookToPlayer : FSMAction
                             return;
                         }
                     }
-                }
 
-                // Rotates to player
-                ai.Controller.transform.LookAtYLerp(ai.Controller.CurrentTarget, ai.Controller.Values.RotationSpeed);
+                    // Rotates to player
+                    if (rotateWhileCasting)
+                    {
+                        ai.Controller.transform.LookAtYLerp(ai.Controller.CurrentTarget, ai.Controller.Values.RotationSpeed);
+                    }
+                }
+                else
+                {
+                    ai.Controller.transform.LookAtYLerp(ai.Controller.CurrentTarget, ai.Controller.Values.RotationSpeed);
+                }
             }
         }
     }

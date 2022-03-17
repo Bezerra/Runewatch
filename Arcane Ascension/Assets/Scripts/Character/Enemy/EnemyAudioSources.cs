@@ -5,7 +5,15 @@ using UnityEngine;
 /// </summary>
 public class EnemyAudioSources : CharacterAudioSources
 {
+    [SerializeField] private AudioSource voiceAudioSource;
+
+    public AudioSource VoiceAudioSource => voiceAudioSource;
+
     [SerializeField] private AudioSource enemyHitAudioSource;
 
     public AudioSource EnemyHitAudioSource => enemyHitAudioSource;
+
+    [SerializeField] private AudioSource movementAudioSource;
+    
+    public AudioSource MovementAudioSource => movementAudioSource;
 }

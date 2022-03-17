@@ -476,28 +476,36 @@ public class PlayerMovement : MonoBehaviour, IFindInput
     protected virtual void OnEventSpeedChange(float speed) => EventSpeedChange?.Invoke(speed);
     public event Action<float> EventSpeedChange;
 
-    public void FindInput()
+    public void FindInput(PlayerInputCustom input = null)
     {
-        if (input != null)
+        if (this.input != null)
         {
-            input.Jump -= JumpPress;
-            input.Dash -= Dash;
-            input.Run -= Run;
+            this.input.Jump -= JumpPress;
+            this.input.Dash -= Dash;
+            this.input.Run -= Run;
         }
 
-        input = FindObjectOfType<PlayerInputCustom>();
-        input.Jump += JumpPress;
-        input.Dash += Dash;
-        input.Run += Run;
-    }
-
-    public void LostInput()
-    {
         if (input != null)
         {
-            input.Jump -= JumpPress;
-            input.Dash -= Dash;
-            input.Run -= Run;
+            this.input = input;
+        }
+        else
+        {
+            this.input = FindObjectOfType<PlayerInputCustom>();
+        }
+
+        this.input.Jump += JumpPress;
+        this.input.Dash += Dash;
+        this.input.Run += Run;
+    }
+
+    public void LostInput(PlayerInputCustom input = null)
+    {
+        if (this.input != null)
+        {
+            this.input.Jump -= JumpPress;
+            this.input.Dash -= Dash;
+            this.input.Run -= Run;
         }
     }    
 }

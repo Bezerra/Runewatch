@@ -7,7 +7,8 @@ public class EnemySounds : MonoBehaviour
 {
     // Sounds
     [SerializeField] private AbstractSoundSO takeDamage;
-
+    [SerializeField] private AbstractSoundSO movementAudioAsset;
+    
     private EnemyAudioSources audioSources;
     private EnemyStats enemyStats;
 
@@ -30,4 +31,12 @@ public class EnemySounds : MonoBehaviour
     private void PlayTakeDamage() =>
         takeDamage.PlaySound(audioSources.EnemyHitAudioSource);
 
+    public void PlayMovementSoundConstant() =>
+        audioSources.MovementAudioSource.Play();
+
+    public void PlayMovementSoundStep() =>
+        movementAudioAsset.PlaySound(audioSources.MovementAudioSource);
+
+    public void PlayVoice() =>
+        audioSources.VoiceAudioSource.Play();
 }

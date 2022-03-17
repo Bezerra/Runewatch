@@ -79,12 +79,19 @@ public class PlayerDeath : MonoBehaviour, IFindInput
         playerStats.enabled = false;
     }
 
-    public void FindInput()
+    public void FindInput(PlayerInputCustom input = null)
     {
-        input = FindObjectOfType<PlayerInputCustom>();
+        if (input != null)
+        {
+            this.input = input;
+        }
+        else
+        {
+            this.input = FindObjectOfType<PlayerInputCustom>();
+        }
     }
 
-    public void LostInput()
+    public void LostInput(PlayerInputCustom input = null)
     {
         // Left blank on purpose
     }

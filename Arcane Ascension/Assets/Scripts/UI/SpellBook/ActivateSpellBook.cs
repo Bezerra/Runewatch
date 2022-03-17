@@ -100,18 +100,26 @@ public class ActivateSpellBook : MonoBehaviour, IFindInput, IFindPlayer
         spellBookAttributes.UpdateSelectedCardStatsColors(abilityAffectsType);
     }
 
-    public void FindInput()
+    public void FindInput(PlayerInputCustom input = null)
     {
         if (Input != null)
         {
             Input.SpellBook -= ControlSpellBook;
         }
 
-        Input = FindObjectOfType<PlayerInputCustom>();
+        if (input != null)
+        {
+            Input = input;
+        }
+        else
+        {
+            Input = FindObjectOfType<PlayerInputCustom>();
+        }
+
         Input.SpellBook += ControlSpellBook;
     }
 
-    public void LostInput()
+    public void LostInput(PlayerInputCustom input = null)
     {
         if (Input != null)
             Input.SpellBook -= ControlSpellBook;

@@ -17,7 +17,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 0bfd4d829ff5ddd49a1cc3db69719a7c, type: 3}
   element: 1
   characterType: 1
-  defaultHealth: 450
+  defaultHealth: 150
   damageResistance: 0.1
   statusResistance: 0.5
   defaultMovementSpeedMultiplier: 0.8
@@ -45,15 +45,15 @@ MonoBehaviour:
   availableSpells:
   - spell: {fileID: 11400000, guid: ece89201399664e43a5c2cc72bd908d8, type: 2}
     isMeleeAttack: 0
-    spellWeight: 60
+    spellWeight: 65
     range: {x: 10, y: 15}
     enemyStopsOnAttack: 1
     stoppingTime: 0.25
     percentageStoppingTimeTriggerAoESpell: 0
   - spell: {fileID: 11400000, guid: a681e4b6433d3fc48a5515abdbcaa569, type: 2}
     isMeleeAttack: 0
-    spellWeight: 100
+    spellWeight: 35
     range: {x: 9.2, y: 13.75}
     enemyStopsOnAttack: 1
     stoppingTime: 1
-    percentageStoppingTimeTriggerAoESpell: 0.8
+    percentageStoppingTimeTriggerAoESpell: 0.5
