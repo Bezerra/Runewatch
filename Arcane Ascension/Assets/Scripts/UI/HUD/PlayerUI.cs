@@ -403,7 +403,7 @@ public class PlayerUI : MonoBehaviour
         {
             dash.fillAmount = 1;
         }
-        dashCharge.text = "x" + playerStats.DashCharge.ToString();
+        dashCharge.text = playerStats.DashCharge.ToString();
     }
 
     /// <summary>
