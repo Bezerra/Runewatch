@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,7 +20,6 @@ public class PlayerUI : MonoBehaviour
     private IInput input;
     private PlayerMovement playerMovement;
     private FPSCounter fpsCounter;
-    private IList<EnemyStats> enemyStats;
 
     [Header("Spell slots")]
     [SerializeField] private Color noManaSpellColor;
@@ -28,7 +28,6 @@ public class PlayerUI : MonoBehaviour
 
     [Header("Status Effects Slots")]
     [SerializeField] private Image[] statusEffectsSlots;
-    private Dictionary<StatusEffectType, StatusEffectImage> statusEffectsSlotsInUse;
 
     [Header("Health bar")]
     [SerializeField] private Color lowHealth;
@@ -59,6 +58,14 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timerTMP;
     [SerializeField] private GameObject fpsCounterBackground;
     [SerializeField] private TextMeshProUGUI fpsCounterTMP;
+    [Header("Gem Colors")]
+    [SerializeField] private ElementalGem[] gems;
+    private GameObject activeGem;
+
+    // Collections
+    private IList<EnemyStats> enemyStats;
+    private Dictionary<StatusEffectType, StatusEffectImage> statusEffectsSlotsInUse;
+    private Dictionary<ElementType, GameObject> gemsImages;
 
     // Coroutines
     private IEnumerator hitCrosshairCoroutine;
@@ -82,6 +89,12 @@ public class PlayerUI : MonoBehaviour
         crosshairWaitForSeconds = new WaitForSeconds(0.3f);
         wffu = new WaitForFixedUpdate();
         statusEffectsSlotsInUse = new Dictionary<StatusEffectType, StatusEffectImage>();
+        gemsImages = new Dictionary<ElementType, GameObject>();
+
+        for (int i = 0; i < gems.Length; i++)
+        {
+            gemsImages.Add(gems[i].Element, gems[i].GO);
+        }
     }
 
     private void OnEnable()
@@ -369,9 +382,19 @@ public class PlayerUI : MonoBehaviour
                     spellsUI[i].color = spellColor;
                 }
 
+                // Selected spell
                 if (i == playerSpells.CurrentSpellIndex)
                 {
                     spellsBorderUI[i].enabled = true;
+
+                    // If there's an active gem
+                    if (activeGem != null)
+                    {
+                        activeGem.SetActive(false);
+                    }
+
+                    activeGem = gemsImages[playerSpells.CurrentSpells[i].Element];
+                    activeGem.SetActive(true);
                 }
                 else
                 {
@@ -531,5 +554,14 @@ public class PlayerUI : MonoBehaviour
     {
         GameplayTime.UpdateTimer();
         timerTMP.text = GameplayTime.GameTimer.ToString(@"hh\:mm\:ss");
+    }
+
+    [Serializable]
+    private class ElementalGem
+    {
+        [SerializeField] private ElementType element;
+        [SerializeField] private GameObject gO;
+        public ElementType Element => element;
+        public GameObject GO => gO;
     }
 }

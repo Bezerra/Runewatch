@@ -36,8 +36,12 @@ public class SpellBookPassive : MonoBehaviour, IComparable<SpellBookPassive>
     private void Awake()
     {
         frameImage.enabled = false;
-        image.enabled = false;
         parentActivateSpellBook = GetComponentInParent<ActivateSpellBook>();
+    }
+
+    private void OnEnable()
+    {
+        image.enabled = false;
     }
 
     /// <summary>
