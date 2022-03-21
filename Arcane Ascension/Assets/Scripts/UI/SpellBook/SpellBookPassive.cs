@@ -13,6 +13,7 @@ public class SpellBookPassive : MonoBehaviour, IComparable<SpellBookPassive>
     [SerializeField] private AbilityPassiveCardText middleColumnPassiveCard;
 
     private ActivateSpellBook parentActivateSpellBook;
+    private Button button;
 
     private IAbility passive;
     /// <summary>
@@ -35,13 +36,19 @@ public class SpellBookPassive : MonoBehaviour, IComparable<SpellBookPassive>
 
     private void Awake()
     {
+        image.enabled = false;
         frameImage.enabled = false;
         parentActivateSpellBook = GetComponentInParent<ActivateSpellBook>();
+        button = GetComponent<Button>();
     }
 
-    private void OnEnable()
+    /// <summary>
+    /// Resets button frames.
+    /// </summary>
+    private void OnDisable()
     {
-        image.enabled = false;
+        button.interactable = false;
+        button.interactable = true;
     }
 
     /// <summary>

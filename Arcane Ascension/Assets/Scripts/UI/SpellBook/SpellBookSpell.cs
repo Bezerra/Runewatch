@@ -20,6 +20,7 @@ public class SpellBookSpell : MonoBehaviour, IPointerDownHandler,
     private ActivateSpellBook parentActivateSpellBook;
     private SpellBookSpells parentSpellBookSpells;
     private Canvas canvas;
+    private Button button;
 
     private Vector2 clampXPositions;
 
@@ -49,6 +50,16 @@ public class SpellBookSpell : MonoBehaviour, IPointerDownHandler,
         parentSpellBookSpells = GetComponentInParent<SpellBookSpells>();
         parentActivateSpellBook = GetComponentInParent<ActivateSpellBook>();
         canvas = GetComponent<Canvas>();
+        button = GetComponent<Button>();
+    }
+
+    /// <summary>
+    /// Resets button frames.
+    /// </summary>
+    private void OnDisable()
+    {
+        button.interactable = false;
+        button.interactable = true;
     }
 
     /// <summary>
