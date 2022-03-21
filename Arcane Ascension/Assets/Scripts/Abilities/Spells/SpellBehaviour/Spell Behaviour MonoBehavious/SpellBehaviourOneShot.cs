@@ -8,6 +8,19 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
 {
     [SerializeField] protected SpellSO spell;
 
+    [Tooltip("Name of the object to spawn on pool.")]
+    [SerializeField] private string extraGameObjectPoolObjName;
+
+    /// <summary>
+    /// Name of the object to spawn on pool.
+    /// </summary>
+    public string ExtraGameObjectName => extraGameObjectPoolObjName;
+
+    /// <summary>
+    /// Additional game object used for various purposes.
+    /// </summary>
+    public GameObject[] ExtraGameObjects { get; set; }
+
     public override ISpell Spell => spell;
 
     /// <summary>
@@ -186,6 +199,7 @@ public class SpellBehaviourOneShot : SpellBehaviourAbstract
         SpellsInPatternsTransforms = null;
         AreaHoverVFXMultiple = null;
         TimeInsideSpellChanneling = 0;
+        ExtraGameObjects = null;
 
         if (Rb != null)
         {

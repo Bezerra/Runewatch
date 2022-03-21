@@ -22,7 +22,7 @@ public class SpellBehaviourSpawnHitOnAoEHoverBossPatternSO : SpellBehaviourAbstr
 
         for (int i = 0; i < parent.AreaHoverVFXMultiple.Length; i++)
         {
-            // Spawns hit in direction of collider hit normal
+            // Spawns hit
             GameObject onHitBehaviourGameObject = SpellHitPoolCreator.Pool.InstantiateFromPool(
                 parent.Spell.Name, parent.AreaHoverVFXMultiple[i].transform.position,
                 Quaternion.identity);
@@ -35,6 +35,11 @@ public class SpellBehaviourSpawnHitOnAoEHoverBossPatternSO : SpellBehaviourAbstr
                     onHitBehaviour.Spell = parent.Spell;
 
                 parent.SpellsInPatternsTransforms[i] = onHitBehaviour.transform;
+            }
+
+            if (parent.ExtraGameObjects != null)
+            {
+                parent.ExtraGameObjects[i].SetActive(false);
             }
         }
     }

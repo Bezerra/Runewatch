@@ -1,4 +1,5 @@
 using UnityEngine;
+using ExtensionMethods;
 
 /// <summary>
 /// Scriptable object responsible for spawning an hover vfx on ground.
@@ -54,6 +55,7 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorBossPatternSO : Spe
                 parent.AreaHoverVFXMultiple == null)
             {
                 parent.AreaHoverVFXMultiple = new GameObject[3];
+                parent.ExtraGameObjects = new GameObject[3];
 
                 if (parent.AICharacter.CurrentTarget == null)
                     return;
@@ -77,7 +79,17 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorBossPatternSO : Spe
                             {
                                 targetSize.UpdateAreaTargetSize(parent.Spell.AreaOfEffect);
                             }
-                        } 
+
+                            // Spawns extra game objects
+                            if (parent.ExtraGameObjectName != string.Empty)
+                            {
+                                parent.ExtraGameObjects[i] = 
+                                    SpellExtraGameObjectsPool.Pool.InstantiateFromPool(
+                                        parent.ExtraGameObjectName, 
+                                        parent.Eyes.transform.position,
+                                        Quaternion.identity);
+                            }
+                        }
                     }
 
                     parent.AreaHoverVFXMultiple[0].transform.SetPositionAndRotation(
@@ -86,6 +98,7 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorBossPatternSO : Spe
                         Quaternion.Euler(90, 0, 0));
                 }
 
+                // Default value so it doesn't spawn in the center of the initial spell
                 parent.TimeInsideSpellChanneling = 5;
             }
 
@@ -109,6 +122,19 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorBossPatternSO : Spe
                 parent.AreaHoverVFXMultiple[2].transform.SetPositionAndRotation(
                     parent.AreaHoverVFXMultiple[0].transform.position + new Vector3(-xPos, 0, -zPos),
                     parent.AreaHoverVFXMultiple[0].transform.rotation);
+
+                // If this spell has extra game objects, it will move them towards
+                // the created patterns
+                if (parent.ExtraGameObjects != null)
+                {
+                    for (int i = 0; i < parent.ExtraGameObjects.Length; i++)
+                    {
+                        parent.ExtraGameObjects[i].transform.Translate(
+                            parent.ExtraGameObjects[i].transform.Direction(
+                                parent.AreaHoverVFXMultiple[i].transform) *
+                                Time.deltaTime * 25f);
+                    }
+                }
             }
         }
     }
