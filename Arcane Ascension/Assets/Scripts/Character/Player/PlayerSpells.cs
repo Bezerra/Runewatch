@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -222,6 +223,7 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable, IBossRaidSaveable
                         CurrentSpellIndex = index;
 
                     playerHandEffect.UpdatePlayerHandEffect(ActiveSpell);
+                    OnSelectedNewSpell(index);
                 }
             }
         }
@@ -244,6 +246,8 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable, IBossRaidSaveable
             playerHandEffect.UpdatePlayerHandEffect(ActiveSpell);
 
             StartSpellCooldown();
+
+            OnSelectedNewSpell(index);
         }     
     }
 
@@ -466,4 +470,7 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable, IBossRaidSaveable
 
         yield return null;
     }
+
+    protected virtual void OnSelectedNewSpell(byte num) => SelectedNewSpell?.Invoke(num);
+    public event Action<byte> SelectedNewSpell;
 }

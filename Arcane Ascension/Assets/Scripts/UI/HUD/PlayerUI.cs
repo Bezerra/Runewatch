@@ -118,6 +118,7 @@ public class PlayerUI : MonoBehaviour
         playerStats.EventArmorUpdate += OnArmorUpdate;
         playerCurrency.EventCurrencyUpdate += OnCurrencyUpdate;
         playerStats.StatusEffectList.ValueChanged += UpdateStatusEffectsEvent;
+        playerSpells.SelectedNewSpell += SelectNewSpell;
 
         foreach (EnemyStats enemy in enemyStats)
         {
@@ -135,6 +136,7 @@ public class PlayerUI : MonoBehaviour
         playerStats.EventArmorUpdate -= OnArmorUpdate;
         playerCurrency.EventCurrencyUpdate -= OnCurrencyUpdate;
         playerStats.StatusEffectList.ValueChanged -= UpdateStatusEffectsEvent;
+        playerSpells.SelectedNewSpell -= SelectNewSpell;
 
         foreach (EnemyStats enemy in enemyStats)
         {
@@ -150,7 +152,8 @@ public class PlayerUI : MonoBehaviour
     {
         OnTakeDamage();
         armor.fillAmount = 0;
-        
+        spellsUI[4].sprite = playerSpells.SecondarySpell.Icon;
+
         // Timer will be saved everytime ending run scene is loaded
 
         GameplayTime.LoadTimer();
@@ -381,25 +384,6 @@ public class PlayerUI : MonoBehaviour
                 {
                     spellsUI[i].color = spellColor;
                 }
-
-                // Selected spell
-                if (i == playerSpells.CurrentSpellIndex)
-                {
-                    spellsBorderUI[i].enabled = true;
-
-                    // If there's an active gem
-                    if (activeGem != null)
-                    {
-                        activeGem.SetActive(false);
-                    }
-
-                    activeGem = gemsImages[playerSpells.CurrentSpells[i].Element];
-                    activeGem.SetActive(true);
-                }
-                else
-                {
-                    spellsBorderUI[i].enabled = false;
-                }
             }
             else
             {
@@ -408,9 +392,38 @@ public class PlayerUI : MonoBehaviour
                 spellsBorderUI[i].enabled = false;
             }
         }
-        spellsUI[4].sprite = playerSpells.SecondarySpell.Icon;
+        
         spellsUI[4].fillAmount =
                     playerSpells.SecondarySpell.CooldownCounter / playerSpells.SecondarySpell.Cooldown;
+    }
+
+    /// <summary>
+    /// Executed when the player selects a new spell.
+    /// </summary>
+    /// <param name="index"></param>
+    private void SelectNewSpell(byte index)
+    {
+        for (int i = 0; i < playerSpells.CurrentSpells.Length; i++)
+        {
+            // Selected spell
+            if (i == playerSpells.CurrentSpellIndex)
+            {
+                spellsBorderUI[i].enabled = true;
+
+                // If there's an active gem
+                if (activeGem != null)
+                {
+                    activeGem.SetActive(false);
+                }
+
+                activeGem = gemsImages[playerSpells.CurrentSpells[i].Element];
+                activeGem.SetActive(true);
+            }
+            else
+            {
+                spellsBorderUI[i].enabled = false;
+            }
+        }
     }
 
     /// <summary>
