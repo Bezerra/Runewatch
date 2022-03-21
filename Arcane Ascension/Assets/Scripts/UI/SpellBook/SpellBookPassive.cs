@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class SpellBookPassive : MonoBehaviour, IComparable<SpellBookPassive>
 {
     [SerializeField] private Image image;
+    [SerializeField] private Image frameImage;
     [SerializeField] private GameObject middleColumnSpellCard;
     [SerializeField] private AbilityPassiveCardText middleColumnPassiveCard;
 
@@ -25,6 +26,7 @@ public class SpellBookPassive : MonoBehaviour, IComparable<SpellBookPassive>
             passive = value;
             if (passive != null)
             {
+                frameImage.enabled = true;
                 image.enabled = true;
                 image.sprite = passive.Icon;
             }
@@ -33,6 +35,7 @@ public class SpellBookPassive : MonoBehaviour, IComparable<SpellBookPassive>
 
     private void Awake()
     {
+        frameImage.enabled = false;
         image.enabled = false;
         parentActivateSpellBook = GetComponentInParent<ActivateSpellBook>();
     }

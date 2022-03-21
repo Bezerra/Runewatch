@@ -11,6 +11,7 @@ public class SpellBookSpell : MonoBehaviour, IPointerDownHandler,
     IDragHandler, IPointerUpHandler, IComparable<SpellBookSpell>
 {
     [SerializeField] private Image image;
+    [SerializeField] private Image frameImage;
     [SerializeField] private List<SpellBookSpell> spellIcons;
     [SerializeField] private GameObject middleColumnPassiveCard;
     [SerializeField] private AbilitySpellCardText middleColumnSpellCard;
@@ -34,6 +35,7 @@ public class SpellBookSpell : MonoBehaviour, IPointerDownHandler,
             spell = value;
             if (spell != null)
             {
+                frameImage.enabled = true;
                 image.enabled = true;
                 image.sprite = Spell.Icon;
             }
@@ -43,6 +45,7 @@ public class SpellBookSpell : MonoBehaviour, IPointerDownHandler,
     private void Awake()
     {
         image.enabled = false;
+        frameImage.enabled = false;
         parentSpellBookSpells = GetComponentInParent<SpellBookSpells>();
         parentActivateSpellBook = GetComponentInParent<ActivateSpellBook>();
         canvas = GetComponent<Canvas>();
