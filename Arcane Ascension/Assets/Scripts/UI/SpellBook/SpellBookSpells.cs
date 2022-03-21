@@ -58,6 +58,7 @@ public class SpellBookSpells : MonoBehaviour, IFindPlayer
                     activateSpellBook.SelectedSpellOnBookOpen)
                 {
                     playerSpells.CurrentSpellIndex = (byte)i;
+                    playerSpells.OnSelectedNewSpell((byte)i);
                 }
             }
         }

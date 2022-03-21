@@ -125,6 +125,16 @@ public class PlayerUI : MonoBehaviour
             enemy.EventTakeDamage += TriggerCrosshairHit;
             enemy.EventDeath += UnsubscribeEnemy;
         }
+
+        // Updates UI for empty spell slots
+        for (int i = 0; i < playerSpells.CurrentSpells.Length; i++)
+        {
+            if (playerSpells.CurrentSpells[i] == null)
+            {
+                spellsBorderUI[i].enabled = false;
+                spellsUI[i].enabled = false;
+            }
+        }
     }
 
     private void OnDisable()
@@ -369,7 +379,6 @@ public class PlayerUI : MonoBehaviour
         {
             if (playerSpells.CurrentSpells[i] != null)
             {
-                spellsUI[i].sprite = playerSpells.CurrentSpells[i].Icon;
                 spellsUI[i].fillAmount =
                     playerSpells.CurrentSpells[i].CooldownCounter / playerSpells.CurrentSpells[i].Cooldown;
                 spellsBackgroundUI[i].fillAmount =
@@ -385,12 +394,6 @@ public class PlayerUI : MonoBehaviour
                     spellsUI[i].color = spellColor;
                 }
             }
-            else
-            {
-                spellsUI[i].fillAmount = 0;
-                spellsUI[i].color = noSpellColor;
-                spellsBorderUI[i].enabled = false;
-            }
         }
         
         spellsUI[4].fillAmount =
@@ -405,23 +408,37 @@ public class PlayerUI : MonoBehaviour
     {
         for (int i = 0; i < playerSpells.CurrentSpells.Length; i++)
         {
-            // Selected spell
-            if (i == playerSpells.CurrentSpellIndex)
+            if (playerSpells.CurrentSpells[i] != null)
             {
-                spellsBorderUI[i].enabled = true;
-
-                // If there's an active gem
-                if (activeGem != null)
+                // Selected spell
+                if (i == playerSpells.CurrentSpellIndex)
                 {
-                    activeGem.SetActive(false);
-                }
+                    spellsUI[i].enabled = true;
+                    spellsUI[i].sprite = playerSpells.CurrentSpells[i].Icon;
+                    spellsBorderUI[i].enabled = true;
 
-                activeGem = gemsImages[playerSpells.CurrentSpells[i].Element];
-                activeGem.SetActive(true);
+                    // If there's an active gem
+                    if (activeGem != null)
+                    {
+                        activeGem.SetActive(false);
+                    }
+
+                    activeGem = gemsImages[playerSpells.CurrentSpells[i].Element];
+                    activeGem.SetActive(true);
+                }
+                else
+                {
+                    spellsUI[i].enabled = true;
+                    spellsUI[i].sprite = playerSpells.CurrentSpells[i].Icon;
+                    spellsBorderUI[i].enabled = false;
+                }
             }
             else
             {
+                spellsUI[i].fillAmount = 0;
+                spellsUI[i].color = noSpellColor;
                 spellsBorderUI[i].enabled = false;
+                spellsUI[i].enabled = false;
             }
         }
     }

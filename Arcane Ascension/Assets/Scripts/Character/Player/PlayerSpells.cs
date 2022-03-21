@@ -471,6 +471,6 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable, IBossRaidSaveable
         yield return null;
     }
 
-    protected virtual void OnSelectedNewSpell(byte num) => SelectedNewSpell?.Invoke(num);
+    public virtual void OnSelectedNewSpell(byte num) => SelectedNewSpell?.Invoke(num);
     public event Action<byte> SelectedNewSpell;
 }
