@@ -86,7 +86,6 @@ GameObject:
   - component: {fileID: 56542504}
   - component: {fileID: 56542507}
   - component: {fileID: 56542506}
-  - component: {fileID: 56542505}
   m_Layer: 5
   m_Name: Spell 2 Background
   m_TagString: Untagged
@@ -102,15 +101,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 56542503}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.000013323686}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 5599154770890223755}
-  m_RootOrder: 2
+  m_Children:
+  - {fileID: 5599154770890223755}
+  m_Father: {fileID: 2032499835111804669}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 50, y: 50.000008}
+  m_AnchoredPosition: {x: 235.29996, y: 117.131485}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &56542507
@@ -151,27 +151,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 3.43
---- !u!223 &56542505
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 56542503}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: -11
-  m_TargetDisplay: 0
 --- !u!1 &205118294
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +162,6 @@ GameObject:
   - component: {fileID: 205118295}
   - component: {fileID: 205118298}
   - component: {fileID: 205118297}
-  - component: {fileID: 205118296}
   m_Layer: 5
   m_Name: Spell 1 Background
   m_TagString: Untagged
@@ -199,15 +177,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 205118294}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 7571447327501467680}
+  m_Children:
+  - {fileID: 7571447327501467680}
+  m_Father: {fileID: 2032499835111804669}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 50, y: 50.000008}
+  m_AnchoredPosition: {x: 125.30007, y: 117.131485}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &205118298
@@ -248,27 +227,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 3.43
---- !u!223 &205118296
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 205118294}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: -11
-  m_TargetDisplay: 0
 --- !u!1 &230141033
 GameObject:
   m_ObjectHideFlags: 0
@@ -1591,7 +1549,6 @@ GameObject:
   - component: {fileID: 1316443097}
   - component: {fileID: 1316443099}
   - component: {fileID: 1316443098}
-  - component: {fileID: 8872017645125721491}
   m_Layer: 5
   m_Name: Secondary Spell
   m_TagString: Untagged
@@ -1657,27 +1614,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!223 &8872017645125721491
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1316443096}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: -1
-  m_TargetDisplay: 0
 --- !u!1 &1387164875
 GameObject:
   m_ObjectHideFlags: 0
@@ -1869,7 +1805,6 @@ GameObject:
   - component: {fileID: 1507110767}
   - component: {fileID: 1507110770}
   - component: {fileID: 1507110769}
-  - component: {fileID: 1507110768}
   m_Layer: 5
   m_Name: Spell 4 Background
   m_TagString: Untagged
@@ -1885,15 +1820,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1507110766}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.0000152270695}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 7102206465198346925}
-  m_RootOrder: 2
+  m_Children:
+  - {fileID: 7102206465198346925}
+  m_Father: {fileID: 2032499835111804669}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 50, y: 50.000008}
+  m_AnchoredPosition: {x: 455.30023, y: 117.131485}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1507110770
@@ -1934,27 +1870,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 3.43
---- !u!223 &1507110768
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1507110766}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: -11
-  m_TargetDisplay: 0
 --- !u!1 &1610023361
 GameObject:
   m_ObjectHideFlags: 0
@@ -2293,7 +2208,6 @@ GameObject:
   - component: {fileID: 2082659451}
   - component: {fileID: 2082659454}
   - component: {fileID: 2082659453}
-  - component: {fileID: 2082659452}
   m_Layer: 5
   m_Name: Spell 3 Background
   m_TagString: Untagged
@@ -2309,15 +2223,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2082659450}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.000033309214}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1896323416671883300}
-  m_RootOrder: 2
+  m_Children:
+  - {fileID: 1896323416671883300}
+  m_Father: {fileID: 2032499835111804669}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 50, y: 50.000008}
+  m_AnchoredPosition: {x: 345.30008, y: 117.131485}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2082659454
@@ -2358,27 +2273,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 3.43
---- !u!223 &2082659452
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2082659450}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: -11
-  m_TargetDisplay: 0
 --- !u!1 &21361372405986590
 GameObject:
   m_ObjectHideFlags: 0
@@ -2454,7 +2348,6 @@ GameObject:
   - component: {fileID: 1413561286607983446}
   - component: {fileID: 8632489352955262614}
   - component: {fileID: 2164201358037561567}
-  - component: {fileID: 2411822663656331408}
   m_Layer: 5
   m_Name: ElementGemFrame
   m_TagString: Untagged
@@ -2520,27 +2413,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!223 &2411822663656331408
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 96926933460938740}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
 --- !u!1 &173936835484514412
 GameObject:
   m_ObjectHideFlags: 0
@@ -2583,7 +2455,6 @@ GameObject:
   - component: {fileID: 1896323416671883300}
   - component: {fileID: 2610585467011254277}
   - component: {fileID: 4605850178411069874}
-  - component: {fileID: 8571072686874917585}
   m_Layer: 5
   m_Name: Spell 3
   m_TagString: Untagged
@@ -2604,13 +2475,12 @@ RectTransform:
   m_Children:
   - {fileID: 8534223030992688318}
   - {fileID: 940592555740277104}
-  - {fileID: 2082659451}
-  m_Father: {fileID: 2032499835111804669}
-  m_RootOrder: 4
+  m_Father: {fileID: 2082659451}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 345.3, y: 117.13146}
+  m_AnchoredPosition: {x: 49.99991, y: 50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2610585467011254277
@@ -2651,27 +2521,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!223 &8571072686874917585
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 191392412852577342}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: -10
-  m_TargetDisplay: 0
 --- !u!1 &287433353396715558
 GameObject:
   m_ObjectHideFlags: 0
@@ -2713,7 +2562,6 @@ GameObject:
   - component: {fileID: 2032499835111804669}
   - component: {fileID: 4424832790610026315}
   - component: {fileID: 4410781315465564431}
-  - component: {fileID: 6872571581058267815}
   m_Layer: 5
   m_Name: Spells
   m_TagString: Untagged
@@ -2734,10 +2582,10 @@ RectTransform:
   m_Children:
   - {fileID: 1413561286607983446}
   - {fileID: 1316443097}
-  - {fileID: 7571447327501467680}
-  - {fileID: 5599154770890223755}
-  - {fileID: 1896323416671883300}
-  - {fileID: 7102206465198346925}
+  - {fileID: 205118295}
+  - {fileID: 56542504}
+  - {fileID: 2082659451}
+  - {fileID: 1507110767}
   - {fileID: 5396728317420384691}
   m_Father: {fileID: 8624258032679941265}
   m_RootOrder: 3
@@ -2785,27 +2633,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!223 &6872571581058267815
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 417496505973016445}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
-  m_SortingOrder: -12
-  m_TargetDisplay: 0
 --- !u!1 &440579248140824387
 GameObject:
   m_ObjectHideFlags: 0
@@ -2921,7 +2748,6 @@ GameObject:
   - component: {fileID: 5396728317420384691}
   - component: {fileID: 8654523670714610897}
   - component: {fileID: 2854939964178029100}
-  - component: {fileID: 6376419940859969510}
   m_Layer: 5
   m_Name: Dash
   m_TagString: Untagged
@@ -2988,27 +2814,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!223 &6376419940859969510
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 826074481600469471}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
-  m_SortingOrder: -1
-  m_TargetDisplay: 0
 --- !u!1 &978551032308602333
 GameObject:
   m_ObjectHideFlags: 0
@@ -3704,7 +3509,6 @@ GameObject:
   - component: {fileID: 6775445146367936318}
   - component: {fileID: 3058092112277817899}
   - component: {fileID: 4424059367003591720}
-  - component: {fileID: 6167496910863117896}
   m_Layer: 5
   m_Name: Spell 4 UnSelected Border
   m_TagString: Untagged
@@ -3769,27 +3573,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!223 &6167496910863117896
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1213812096828372736}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: -9
-  m_TargetDisplay: 0
 --- !u!1 &1348687608040350895
 GameObject:
   m_ObjectHideFlags: 0
@@ -3833,7 +3616,6 @@ GameObject:
   - component: {fileID: 5692391885609610114}
   - component: {fileID: 4532915229382412344}
   - component: {fileID: 5261359485426788234}
-  - component: {fileID: 241511378140778698}
   m_Layer: 5
   m_Name: 'Spell 2 UnSelected Border '
   m_TagString: Untagged
@@ -3898,27 +3680,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!223 &241511378140778698
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1765918577440366552}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: -9
-  m_TargetDisplay: 0
 --- !u!1 &1931465050127896211
 GameObject:
   m_ObjectHideFlags: 0
@@ -4347,7 +4108,6 @@ GameObject:
   - component: {fileID: 940592555740277104}
   - component: {fileID: 4751624619388959919}
   - component: {fileID: 7529992736132088105}
-  - component: {fileID: 4512058135312189199}
   m_Layer: 5
   m_Name: Spell 3 UnSelected Border
   m_TagString: Untagged
@@ -4412,27 +4172,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!223 &4512058135312189199
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3321554992922673187}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: -9
-  m_TargetDisplay: 0
 --- !u!1 &3742614474955079395
 GameObject:
   m_ObjectHideFlags: 0
@@ -4549,7 +4288,6 @@ GameObject:
   - component: {fileID: 8534223030992688318}
   - component: {fileID: 2329567670218472648}
   - component: {fileID: 2038664109498244647}
-  - component: {fileID: 5541381807659149645}
   m_Layer: 5
   m_Name: Spell 3 Selected Border
   m_TagString: Untagged
@@ -4614,27 +4352,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!223 &5541381807659149645
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4012266385776665007}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: -8
-  m_TargetDisplay: 0
 --- !u!1 &4472937534129867293
 GameObject:
   m_ObjectHideFlags: 0
@@ -4706,7 +4423,6 @@ GameObject:
   - component: {fileID: 7222768938226995824}
   - component: {fileID: 4116864994417146327}
   - component: {fileID: 8877426656096060614}
-  - component: {fileID: 9037811431380924455}
   m_Layer: 5
   m_Name: Spell 2 Selected Border
   m_TagString: Untagged
@@ -4771,27 +4487,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!223 &9037811431380924455
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4757014097374843519}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: -8
-  m_TargetDisplay: 0
 --- !u!1 &4810603327761418649
 GameObject:
   m_ObjectHideFlags: 0
@@ -4803,7 +4498,6 @@ GameObject:
   - component: {fileID: 4194688810164484199}
   - component: {fileID: 5669154680098451112}
   - component: {fileID: 3063461944967472287}
-  - component: {fileID: 6711170376499859268}
   m_Layer: 5
   m_Name: Spell 4 Selected Border
   m_TagString: Untagged
@@ -4868,27 +4562,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!223 &6711170376499859268
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4810603327761418649}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: -8
-  m_TargetDisplay: 0
 --- !u!1 &5025966929663021024
 GameObject:
   m_ObjectHideFlags: 0
@@ -4997,7 +4670,6 @@ GameObject:
   - component: {fileID: 825554688035183931}
   - component: {fileID: 4224200141248955760}
   - component: {fileID: 7149562376515962688}
-  - component: {fileID: 8289807932070587215}
   m_Layer: 5
   m_Name: Spell 1 Selected Border
   m_TagString: Untagged
@@ -5062,27 +4734,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!223 &8289807932070587215
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5188717924570698621}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: -8
-  m_TargetDisplay: 0
 --- !u!1 &5311817625693875962
 GameObject:
   m_ObjectHideFlags: 0
@@ -5094,7 +4745,6 @@ GameObject:
   - component: {fileID: 7571447327501467680}
   - component: {fileID: 6921310459966686970}
   - component: {fileID: 1617011988462224118}
-  - component: {fileID: 2176145475808146689}
   m_Layer: 5
   m_Name: Spell 1
   m_TagString: Untagged
@@ -5115,13 +4765,12 @@ RectTransform:
   m_Children:
   - {fileID: 825554688035183931}
   - {fileID: 2583899746062914662}
-  - {fileID: 205118295}
-  m_Father: {fileID: 2032499835111804669}
-  m_RootOrder: 2
+  m_Father: {fileID: 205118295}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 125.29999, y: 117.13146}
+  m_AnchoredPosition: {x: 49.999916, y: 50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6921310459966686970
@@ -5162,27 +4811,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!223 &2176145475808146689
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5311817625693875962}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: -10
-  m_TargetDisplay: 0
 --- !u!1 &5369777860187085762
 GameObject:
   m_ObjectHideFlags: 0
@@ -5506,7 +5134,6 @@ GameObject:
   - component: {fileID: 7102206465198346925}
   - component: {fileID: 7328994197725560405}
   - component: {fileID: 3609369482536033840}
-  - component: {fileID: 5664103666402923829}
   m_Layer: 5
   m_Name: Spell 4
   m_TagString: Untagged
@@ -5527,13 +5154,12 @@ RectTransform:
   m_Children:
   - {fileID: 4194688810164484199}
   - {fileID: 6775445146367936318}
-  - {fileID: 1507110767}
-  m_Father: {fileID: 2032499835111804669}
-  m_RootOrder: 5
+  m_Father: {fileID: 1507110767}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 455.3, y: 117.13146}
+  m_AnchoredPosition: {x: 49.99951, y: 50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7328994197725560405
@@ -5574,27 +5200,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!223 &5664103666402923829
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6184704287128749420}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: -10
-  m_TargetDisplay: 0
 --- !u!1 &6273604769846254271
 GameObject:
   m_ObjectHideFlags: 0
@@ -6560,7 +6165,6 @@ GameObject:
   - component: {fileID: 2583899746062914662}
   - component: {fileID: 8861886239342393755}
   - component: {fileID: 7643499809928953300}
-  - component: {fileID: 2611159956391244056}
   m_Layer: 5
   m_Name: Spell 1 UnSelected Border
   m_TagString: Untagged
@@ -6625,27 +6229,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!223 &2611159956391244056
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8008206900433332835}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: -9
-  m_TargetDisplay: 0
 --- !u!1 &8098890112275150526
 GameObject:
   m_ObjectHideFlags: 0
@@ -7284,7 +6867,6 @@ GameObject:
   - component: {fileID: 5599154770890223755}
   - component: {fileID: 4192103220157929781}
   - component: {fileID: 6590110433366909382}
-  - component: {fileID: 3526045868556349527}
   m_Layer: 5
   m_Name: Spell 2
   m_TagString: Untagged
@@ -7305,13 +6887,12 @@ RectTransform:
   m_Children:
   - {fileID: 7222768938226995824}
   - {fileID: 5692391885609610114}
-  - {fileID: 56542504}
-  m_Father: {fileID: 2032499835111804669}
-  m_RootOrder: 3
+  m_Father: {fileID: 56542504}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 235.29999, y: 117.13146}
+  m_AnchoredPosition: {x: 49.999786, y: 50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4192103220157929781
@@ -7352,27 +6933,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!223 &3526045868556349527
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8649695686141219830}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: -10
-  m_TargetDisplay: 0
 --- !u!1 &8843326863369377402
 GameObject:
   m_ObjectHideFlags: 0
@@ -7525,14 +7085,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 778583307dc16ce4cad91eba702ac69f, type: 3}
---- !u!1 &139114966 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6579053173289723810, guid: 778583307dc16ce4cad91eba702ac69f, type: 3}
-  m_PrefabInstance: {fileID: 6579053173151735412}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &139114967 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6579053173289723811, guid: 778583307dc16ce4cad91eba702ac69f, type: 3}
+  m_PrefabInstance: {fileID: 6579053173151735412}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &139114966 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6579053173289723810, guid: 778583307dc16ce4cad91eba702ac69f, type: 3}
   m_PrefabInstance: {fileID: 6579053173151735412}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7556735725980779758
