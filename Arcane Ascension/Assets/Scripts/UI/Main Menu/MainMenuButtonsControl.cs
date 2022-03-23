@@ -34,12 +34,14 @@ public class MainMenuButtonsControl : MonoBehaviour
         if (runSaveDataController.FileExists())
         {
             continueButtonImage.enabled = true;
+            continueButton.interactable = true;
             continueButton.enabled = true;
             continueButton.gameObject.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
         }
         else
         {
             continueButtonImage.enabled = false;
+            continueButton.interactable = false;
             continueButton.enabled = false;
             continueButton.gameObject.GetComponentInChildren<TextMeshProUGUI>().color = Color.gray;
         }
