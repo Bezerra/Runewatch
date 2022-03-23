@@ -37,7 +37,7 @@ public class PlayerInputCustom : MonoBehaviour, IInput
     public Vector2 MousePosition { get; private set; }
     public Vector2 Movement { get; private set; }
     public Vector2 Camera { get; private set; }
-    public bool HoldingCastSpell { get; private set; }
+    public bool HoldingCastSpell { get; set; }
 
     public void SwitchActionMapToGameplay()
     {

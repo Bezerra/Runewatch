@@ -223,6 +223,7 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable, IBossRaidSaveable
                         CurrentSpellIndex = index;
 
                     playerHandEffect.UpdatePlayerHandEffect(ActiveSpell);
+                    input.HoldingCastSpell = false;
                     OnSelectedNewSpell(index);
                 }
             }
@@ -246,6 +247,8 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable, IBossRaidSaveable
             playerHandEffect.UpdatePlayerHandEffect(ActiveSpell);
 
             StartSpellCooldown();
+
+            input.HoldingCastSpell = false;
 
             OnSelectedNewSpell(index);
         }     

@@ -28,7 +28,7 @@ public interface IInput
 
     Vector2 Camera { get; }
 
-    bool HoldingCastSpell { get; }
+    bool HoldingCastSpell { get; set; }
 
     void ReenableInput();
 
