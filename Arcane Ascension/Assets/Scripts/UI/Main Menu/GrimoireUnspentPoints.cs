@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -20,7 +18,7 @@ public class GrimoireUnspentPoints : MonoBehaviour
 
     private void OnEnable()
     {
-        if (characterSaveData.SaveData.ArcanePower != 
+        if (characterSaveData.SaveData.ArcanePower > 
             PlayerPrefs.GetInt("ArcanePowerOnLastEnable", 0))
         {
             icon.SetActive(true);
