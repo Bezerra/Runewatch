@@ -18,4 +18,8 @@ public enum EnemySpawnType
     TerraBoss,
     LuxBoss,
     UmbraBoss,
+    SmallGolemAgile,
+    SmallGolemTank,
+    Sentry,
+    CatapultGolem,
 }
