@@ -14,6 +14,7 @@ public class MainMenuButtonsControl : MonoBehaviour
     [Header("Buttons")]
     [SerializeField] private Image continueButtonImage;
     [SerializeField] private Button continueButton;
+    [SerializeField] private GameObject continueButtonBlocker;
 
     // Components
     private CharacterSaveDataController characterSaveDataController;
@@ -37,6 +38,7 @@ public class MainMenuButtonsControl : MonoBehaviour
             continueButton.interactable = true;
             continueButton.enabled = true;
             continueButton.gameObject.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
+            continueButtonBlocker.SetActive(false);
         }
         else
         {
@@ -44,6 +46,7 @@ public class MainMenuButtonsControl : MonoBehaviour
             continueButton.interactable = false;
             continueButton.enabled = false;
             continueButton.gameObject.GetComponentInChildren<TextMeshProUGUI>().color = Color.gray;
+            continueButtonBlocker.SetActive(true);
         }
     }
 
