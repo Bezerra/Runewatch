@@ -24,7 +24,7 @@ sealed public class SpellBehaviourApplyDamageMeleeAttackSO : SpellBehaviourAbstr
             // This corrects a bug where the collision wasn't detecting if this point was exactly in the same
             // position as the player.
             parent.PositionOnHit = parent.Hand.position +
-                parent.transform.position.Direction(parent.WhoCast.transform.position) * 0.75f;
+                parent.transform.position.Direction(parent.WhoCast.transform.position) * 0.9f;
         }
         else
         // If it's the player
@@ -33,48 +33,6 @@ sealed public class SpellBehaviourApplyDamageMeleeAttackSO : SpellBehaviourAbstr
             parent.PositionOnHit = parent.Eyes.position +
                 parent.Eyes.transform.position.Direction(
                     parent.Eyes.position + parent.Eyes.transform.forward) * 1.5f;
-
-            if (parent.Spell.OnHitBehaviourOneShot != null)
-            {
-                Collider[] allEnemyCollidersHit =
-                Physics.OverlapSphere(
-                    parent.PositionOnHit, parent.Spell.AreaOfEffect, Layers.EnemyLayer);
-
-                List<Enemy> enemies = new List<Enemy>();
-                for (int i = 0; i < allEnemyCollidersHit.Length; i++)
-                {
-                    if (allEnemyCollidersHit[i].TryGetComponentInParent(out Enemy enemy))
-                    {
-                        if (enemies.Contains(enemy) == false)
-                        {
-                            enemies.Add(enemy);
-                        }
-                    }
-                        
-                }
-
-                /*
-                // Spawns hit, CAN DELETE, not using
-                if (enemies.Count > 0)
-                {
-                    for (int i = 0; i < enemies.Count; i++)
-                    {
-                        Vector3 positionToSpawnHit = new Vector3(
-                            enemies[i].gameObject.transform.position.x,
-                            parent.Hand.position.y, 
-                            enemies[i].gameObject.transform.position.z);
-
-                        Vector3 positionMargin = positionToSpawnHit +
-                            positionToSpawnHit.Direction(parent.Eyes.transform.position);
-
-                        // Spawns hit in direction of collider hit normal
-                        SpellHitPoolCreator.Pool.InstantiateFromPool(
-                            parent.Spell.Name, positionMargin,
-                            Quaternion.LookRotation(positionMargin.Direction(parent.Eyes.transform.position)));
-                    }
-                }
-                */
-            }
         }
 
         parent.SpellStartedMoving = true;

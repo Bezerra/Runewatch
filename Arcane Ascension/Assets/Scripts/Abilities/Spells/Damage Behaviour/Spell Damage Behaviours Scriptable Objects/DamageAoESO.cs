@@ -48,9 +48,14 @@ public class DamageAoESO : DamageBehaviourAbstractSO
         {
             if (other.gameObject.TryGetComponentInParent<IDamageable>(out IDamageable enemyDirectHit))
             {
-                if (!enemyDirectHit.Equals(parent.ThisIDamageable))
+                // If the layer is different (enemies can't hit enemies)
+                if (other.gameObject.layer != parent.LayerOfWhoCast)
                 {
-                    charactersToDoDamage.Add(enemyDirectHit as Stats);
+                    // AoEs don't hit sensible points
+                    if (other.gameObject.layer != Layers.EnemySensiblePointNum)
+                    {
+                        charactersToDoDamage.Add(enemyDirectHit as Stats);
+                    }
                 }
             }
         }
@@ -76,9 +81,23 @@ public class DamageAoESO : DamageBehaviourAbstractSO
                         // If the layer is different (enemies can't hit enemies)
                         if (characterHit.collider.gameObject.layer != parent.LayerOfWhoCast)
                         {
-                            if (charactersToDoDamage.Contains(character as Stats) == false)
+                            if (parent.WhoCast.CommonAttributes.Type == CharacterType.Player)
                             {
-                                charactersToDoDamage.Add(character as Stats);
+                                if (charactersToDoDamage.Contains(character as Stats) == false)
+                                {
+                                    charactersToDoDamage.Add(character as Stats);
+                                }
+                            }
+                            else
+                            {
+                                // This happens so enemies don't hit other enemies sensible points
+                                if (characterHit.collider.gameObject.layer != Layers.EnemySensiblePointNum)
+                                {
+                                    if (charactersToDoDamage.Contains(character as Stats) == false)
+                                    {
+                                        charactersToDoDamage.Add(character as Stats);
+                                    }
+                                }
                             }
                         }
                     }
