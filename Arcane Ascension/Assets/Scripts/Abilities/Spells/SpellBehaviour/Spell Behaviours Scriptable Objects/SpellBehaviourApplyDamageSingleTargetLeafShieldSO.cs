@@ -47,20 +47,25 @@ public class SpellBehaviourApplyDamageSingleTargetLeafShieldSO : SpellBehaviourA
         {
             parent.Spell.DamageBehaviour.Damage(parent, other: other);
 
-            if (parent.WhoCast.CommonAttributes.Type == CharacterType.Player)
+            if (layerNumber == Layers.EnemyLayerNum ||
+                layerNumber == Layers.EnemySensiblePoint)
             {
-                if (parent.WhoCast.TryGetComponent(out IHealable leafShield))
+                if (parent.WhoCast.CommonAttributes.Type == CharacterType.Player)
                 {
-                    leafShield.Heal(shieldAmount, StatsType.Armor);
+                    if (parent.WhoCast.TryGetComponent(out IHealable leafShield))
+                    {
+                        leafShield.Heal(shieldAmount, StatsType.Armor);
 
-                    // In case we cant it to heal the same as the damage done
-                    /* 
-                    leafShield.Heal(
-                        parent.Spell.Damage(parent.WhoCast.CommonAttributes.Type), 
-                        StatsType.Armor);
-                    */
+                        // In case we want it to heal the same as the damage done
+                        /* 
+                        leafShield.Heal(
+                            parent.Spell.Damage(parent.WhoCast.CommonAttributes.Type), 
+                            StatsType.Armor);
+                        */
+                    }
                 }
             }
+            
         }
         else if (layerNumber == Layers.EnemyImmuneLayerNum)
         {
