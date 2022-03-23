@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using System.Linq;
 
 #pragma warning disable 0414 // variable assigned but not used.
 
@@ -37,6 +38,9 @@ public class AllSpellsSO : ScriptableObject
 
     private void OnValidate()
     {
+        // Uncomment to order by name, and comment again to disable it
+        //spells = spells.OrderBy(i => i.Name).ToList();
+
         for (int i = 0; i < spells.Count; i++)
         {
             spells[i].ID = (byte)i;
