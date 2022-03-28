@@ -20,6 +20,8 @@ public class LootAddForceOnSpawn : MonoBehaviour
     [EnableIf("isAttractable", true)]
     [Range(2f, 4f)] [SerializeField] private float colliderAttractionSize = 3f;
 
+    [SerializeField] private bool dontRotateObjectOnIdle;
+
     // Gravity
     private float forceValue;
 
@@ -65,6 +67,8 @@ public class LootAddForceOnSpawn : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (dontRotateObjectOnIdle) return;
+
         transform.Rotate(0, 10 * Time.fixedDeltaTime, 0, Space.Self);
     }
 }

@@ -9,7 +9,8 @@ public class EventExecuteAnimationTriggerSO : EventAbstractSO
 {
     [SerializeField] private string triggerName = "Execute";
 
-    public override void Execute(AbstractEventOnInteraction invoker, PlayerInteraction interactor = null)
+    public override void Execute(AbstractEventOnInteraction invoker, 
+        PlayerInteraction interactor = null)
     {
         invoker.GetComponentInChildren<Animator>().SetTrigger(triggerName);
     }

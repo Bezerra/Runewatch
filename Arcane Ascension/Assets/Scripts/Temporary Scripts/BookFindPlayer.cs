@@ -1,27 +1,59 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
 
-public class BookFindPlayer : MonoBehaviour
+/// <summary>
+/// Class responsible for applying book constraint to look at the player.
+/// </summary>
+public class BookFindPlayer : MonoBehaviour, IFindPlayer
 {
-
-    private GameObject player;
+    private GameObject mainCam;
     private LookAtConstraint lac;
     private ConstraintSource cs;
 
-    // Start is called before the first frame update
-    void OnEnable()
+    private void Awake()
     {
-        player = GameObject.Find("Main Camera");
+        mainCam = Camera.main.gameObject;
         lac = GetComponent<LookAtConstraint>();
+    }
 
-        if (player != null)
+    private void OnEnable() =>
+        FindPlayer();
+
+    public void FindPlayer(Player player = null)
+    {
+        if (lac == null) return;
+
+        if (lac.sourceCount > 0)
         {
-            cs.sourceTransform = player.transform;
+            for (int i = 0; i < lac.sourceCount; i++)
+            {
+                lac.RemoveSource(i);
+            }
+        }
+
+        if (mainCam == null)
+            mainCam = Camera.main.gameObject;
+
+        if (mainCam != null)
+        {
+            cs.sourceTransform = mainCam.transform;
             cs.weight = 1;
             lac.AddSource(cs);
             lac.constraintActive = true;
-        } 
+        }
+
+    }
+
+    public void PlayerLost(Player mainCam)
+    {
+        if (lac == null) return;
+
+        if (lac.sourceCount > 0)
+        {
+            for (int i = 0; i < lac.sourceCount; i++)
+            {
+                lac.RemoveSource(i);
+            }
+        }
     }
 }

@@ -45,7 +45,7 @@ public class SpellScroll : MonoBehaviour, IDroppedSpell, IInteractableWithSound,
     /// <summary>
     /// On opening animation event.
     /// </summary>
-    public void ChestOpeningStartAnimationEvent()
+    public void BookOpeningStartAnimationEvent()
     {
         interectableCanvas.enabled = false;
         canvasText.SetActive(false);
@@ -54,7 +54,7 @@ public class SpellScroll : MonoBehaviour, IDroppedSpell, IInteractableWithSound,
     /// <summary>
     /// After the opening animation is over.
     /// </summary>
-    public void ChestOpenedEndAnimationEvent()
+    public void BookOpenedEndAnimationEvent()
     {
         foreach (EventAbstractSO eve in eventsToRunOnChestOpen)
         {

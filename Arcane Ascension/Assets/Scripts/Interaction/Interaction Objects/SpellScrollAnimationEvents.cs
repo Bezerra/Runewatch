@@ -10,9 +10,9 @@ public class SpellScrollAnimationEvents : MonoBehaviour
     private void Awake() =>
         spellScroll = GetComponentInParent<SpellScroll>();
 
-    public void ChestOpeningStartAnimationEvent() =>
-        spellScroll.ChestOpeningStartAnimationEvent();
+    public void BookOpeningStartAnimationEvent() =>
+        spellScroll.BookOpeningStartAnimationEvent();
 
-    public void ChestOpenedEndAnimationEvent() =>
-        spellScroll.ChestOpenedEndAnimationEvent();
+    public void BookOpenedEndAnimationEvent() =>
+        spellScroll.BookOpenedEndAnimationEvent();
 }
