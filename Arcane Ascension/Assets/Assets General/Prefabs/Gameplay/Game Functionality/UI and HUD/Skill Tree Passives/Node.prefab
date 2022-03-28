@@ -165,6 +165,7 @@ GameObject:
   - component: {fileID: 7729871730161370198}
   - component: {fileID: 1265812891175113610}
   - component: {fileID: 4474841583771980045}
+  - component: {fileID: 8774291441200995466}
   m_Layer: 5
   m_Name: Node
   m_TagString: Untagged
@@ -290,8 +291,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.36320752, g: 1, b: 0.615041, a: 1}
-    m_PressedColor: {r: 0, g: 1, b: 0.049896717, a: 1}
+    m_HighlightedColor: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
+    m_PressedColor: {r: 0.8773585, g: 0.8773585, b: 0.8773585, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -453,6 +454,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &8774291441200995466
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2716421965941183131}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a0b6ff9e2d49e1a488cd7977768f7a6b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3915145388014842404
 GameObject:
   m_ObjectHideFlags: 0
@@ -880,6 +900,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3666285729427731006, guid: 72fb675bcc14cb44ea929ba811136474, type: 3}
+      propertyPath: parentAnim
+      value: 
+      objectReference: {fileID: 8774291441200995466}
     - target: {fileID: 6195294882558272035, guid: 72fb675bcc14cb44ea929ba811136474, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1

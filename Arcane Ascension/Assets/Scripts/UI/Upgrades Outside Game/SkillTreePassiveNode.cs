@@ -76,8 +76,13 @@ public class SkillTreePassiveNode : MonoBehaviour
 
     [SerializeField] private UpdateHoverWindowInformation detailsWindowInformation;
 
-    private void Awake() =>
+    private Animator anim;
+
+    private void Awake()
+    {
         skillTreePassiveController = GetComponentInParent<SkillTreePassiveController>();
+        anim = GetComponent<Animator>();
+    }
 
     private void Start() =>
         UpdateTiersOnStart();
@@ -97,8 +102,6 @@ public class SkillTreePassiveNode : MonoBehaviour
 
         if (CurrentTier < nodePassives.Length)
             nodeImage.color = skillTreePassiveController.UnlockedColor;
-        else
-            nodeImage.color = skillTreePassiveController.LockedColor;
 
         // Creates connections to all nodes
         if (nextConnectionNodes.Count > 0)
@@ -203,7 +206,7 @@ public class SkillTreePassiveNode : MonoBehaviour
 
         if (CurrentTier == nodePassives.Length)
         {
-            nodeImage.color = skillTreePassiveController.LockedColor;
+            anim.SetTrigger("PassiveMaxed");
         }
     }
 

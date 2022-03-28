@@ -11,6 +11,9 @@ using UnityEngine.UI;
 /// </summary>
 public class UpdateHoverWindowInformation : MonoBehaviour
 {
+    [Header("Parent animator")]
+    [SerializeField] private Animator parentAnim;
+
     [Header("Position")]
     [SerializeField] private RectTransform rectTrans;
     [SerializeField] private Side whichSideToSpawn;
@@ -212,6 +215,11 @@ public class UpdateHoverWindowInformation : MonoBehaviour
 
                 // Plays sound
                 audioSource.Play();
+
+                if (passiveNode.CurrentTier < passiveNode.NodePassives.Length)
+                    parentAnim.SetTrigger("PassiveUnlocked");
+                else
+                    parentAnim.SetTrigger("PassiveMaxed");
             }
         }
         // Else it will turn on a window
