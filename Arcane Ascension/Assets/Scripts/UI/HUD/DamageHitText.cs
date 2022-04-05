@@ -16,6 +16,7 @@ sealed public class DamageHitText : MonoBehaviour
     [SerializeField] private Color normalDamageColor;
     [SerializeField] private Color criticalDamageColor;
     [Range(0, 2)][SerializeField] private float offset;
+    [Range(0, 2)] [SerializeField] private float verticalOffset;
     [Range(50, 500)][SerializeField] private float speed;
 
     private void Awake()
@@ -52,7 +53,7 @@ sealed public class DamageHitText : MonoBehaviour
 
         // Spawn random position
         float additionalOffset = Random.Range(-offset, offset);
-        transform.position += new Vector3(additionalOffset, offset, additionalOffset);
+        transform.position += new Vector3(additionalOffset, verticalOffset, additionalOffset);
 
         // Update text and color
         damageText.text = damage.ToString();

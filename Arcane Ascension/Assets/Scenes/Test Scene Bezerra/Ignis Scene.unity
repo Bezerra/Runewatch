@@ -168,8 +168,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1090331632516666571, guid: d2075db750418ff4ba595da60d813a9f, type: 3}
       propertyPath: m_Lens.m_SensorSize.x
-      value: 1.7768595
+      value: 0.47624075
       objectReference: {fileID: 0}
+    - target: {fileID: 6276254834190564782, guid: d2075db750418ff4ba595da60d813a9f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d2da46f0e2066cf4f856cbec91a97ead, type: 3}
     - target: {fileID: 8624258032535686394, guid: d2075db750418ff4ba595da60d813a9f, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -218,6 +222,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8624258032566716054, guid: d2075db750418ff4ba595da60d813a9f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7b046770569e6a44fa8fc1f6b9a10e41, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2075db750418ff4ba595da60d813a9f, type: 3}
 --- !u!1001 &24712620
@@ -3260,7 +3268,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5934720716028718201, guid: 0513e7871c3f7df44bf6465bde531b18, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5934720716028718201, guid: 0513e7871c3f7df44bf6465bde531b18, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3268,7 +3276,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5934720716028718201, guid: 0513e7871c3f7df44bf6465bde531b18, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.67
+      value: 7.82
       objectReference: {fileID: 0}
     - target: {fileID: 5934720716028718201, guid: 0513e7871c3f7df44bf6465bde531b18, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3301,10 +3309,6 @@ PrefabInstance:
     - target: {fileID: 5934720716028718205, guid: 0513e7871c3f7df44bf6465bde531b18, type: 3}
       propertyPath: m_Name
       value: Enemy Dummy
-      objectReference: {fileID: 0}
-    - target: {fileID: 5934720716028718205, guid: 0513e7871c3f7df44bf6465bde531b18, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0513e7871c3f7df44bf6465bde531b18, type: 3}
@@ -3495,7 +3499,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7332995261754598551, guid: 68cc4246d904e1f41b6caf4ba2a624fa, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68cc4246d904e1f41b6caf4ba2a624fa, type: 3}
