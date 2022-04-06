@@ -18,7 +18,7 @@ public class LootAddForceOnSpawn : MonoBehaviour
 
     [SerializeField] private bool isAttractable;
     [EnableIf("isAttractable", true)]
-    [Range(2f, 4f)] [SerializeField] private float colliderAttractionSize = 3f;
+    [Range(2f, 30f)] [SerializeField] private float colliderAttractionSize = 3f;
 
     [SerializeField] private bool dontRotateObjectOnIdle;
 
