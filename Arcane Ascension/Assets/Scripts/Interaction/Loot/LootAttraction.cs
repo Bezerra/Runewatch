@@ -11,6 +11,8 @@ public class LootAttraction : MonoBehaviour
     private Rigidbody rb;
     private Player player;
 
+    [SerializeField] private float speed = 15f;
+
     private bool canMoveToPlayer;
 
     private void Awake()
@@ -39,7 +41,7 @@ public class LootAttraction : MonoBehaviour
         if (player != null && canMoveToPlayer)
         {
             transform.position += transform.position.Direction(player.transform.position) * 
-                Time.fixedDeltaTime * 15f;
+                Time.fixedDeltaTime * speed;
         }
     }
 }

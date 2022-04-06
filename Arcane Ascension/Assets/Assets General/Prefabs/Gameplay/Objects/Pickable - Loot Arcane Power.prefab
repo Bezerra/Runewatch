@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b4bf1a18a4253d47900d9b1fdb3d714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderCollisionSize: 0.5
+  colliderCollisionSize: 0.1
   isAttractable: 1
   colliderAttractionSize: 2
   dontRotateObjectOnIdle: 0
@@ -188,6 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd55560fc00fb34d81b33764fc47348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 10
 --- !u!1 &746014394188644326
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,7 +461,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 746014395103129587}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.85, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 746014395263296702}
@@ -961,7 +962,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4690562481143099673, guid: 10b608add51acd2439f8bfe33cded529, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.508
+      value: 0.81
       objectReference: {fileID: 0}
     - target: {fileID: 4690562481143099673, guid: 10b608add51acd2439f8bfe33cded529, type: 3}
       propertyPath: m_LocalPosition.z
