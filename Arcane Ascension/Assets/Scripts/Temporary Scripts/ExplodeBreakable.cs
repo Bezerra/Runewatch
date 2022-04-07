@@ -16,7 +16,9 @@ public class ExplodeBreakable : MonoBehaviour
             var rb = t.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                rb.AddExplosionForce(Random.Range(minForce, maxForce), transform.position, radius);
+                float force = Random.Range(minForce, maxForce);
+                print(force);
+                rb.AddExplosionForce(force, transform.position, radius);
             }
         }
     }
