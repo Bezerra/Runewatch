@@ -19,7 +19,9 @@ public class Enemy : Character
     /// </summary>
     public EnemyCharacterSO AllValues => allValues as EnemyCharacterSO;
 
-    // Movement properties
+    [Header("Achievements")]
+    [SerializeField] private AchievementLogicSO achievementLogic;
+
     /// <summary>
     /// Getter used to know if the enemy is picking a patrol position.
     /// </summary>
@@ -212,6 +214,7 @@ public class Enemy : Character
     private readonly float TIMEAFTERBEINGHIT = 0.25f;
 
     public System.Random Random { get; private set; }
+
     protected virtual void Awake()
     {
         Animation = GetComponentInChildren<IEnemyAnimator>();
@@ -263,6 +266,8 @@ public class Enemy : Character
     {
         if (CurrentlySelectedSpell.Spell.CastType == SpellCastType.OneShotCastWithRelease)
             CurrentCastSpell.SetActive(false);
+
+        achievementLogic.TriggerAchievement(AchievementType.EnemiesKilled);
     }
 
     /// <summary>

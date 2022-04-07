@@ -7,6 +7,8 @@ using ExtensionMethods;
 /// </summary>
 public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
 {
+    [SerializeField] private GameObject brokenEnemy;
+
     // Components
     private Animator anim;
     private Enemy enemy;
@@ -14,6 +16,7 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
     private Transform enemyModel;
     private EnemySounds enemySounds;
     private EnemyHealthBar enemyHealthBar;
+    private SkinnedMeshRenderer meshRender;
 
     // Coroutines
     private IEnumerator shakeCoroutine;
@@ -29,6 +32,7 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
         enemyStats = GetComponentInParent<EnemyStats>();
         enemySounds = GetComponentInParent<EnemySounds>();
         enemyHealthBar = transform.parent.GetComponentInChildren<EnemyHealthBar>();
+        meshRender = GetComponentInChildren<SkinnedMeshRenderer>();
         wffu = new WaitForFixedUpdate();
     }
 
@@ -189,6 +193,16 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
             yield return wffu;
         }
         enemyModel.transform.localPosition = defaultPosition;
+    }
+
+    /// <summary>
+    /// Spawns broken enemy.
+    /// </summary>
+    public void Break()
+    {
+        meshRender.enabled = false;
+        brokenEnemy.SetActive(true);
+        brokenEnemy.transform.parent = null;
     }
 
     /// <summary>

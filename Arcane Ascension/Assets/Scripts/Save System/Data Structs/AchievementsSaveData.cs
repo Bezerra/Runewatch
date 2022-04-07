@@ -1,9 +1,7 @@
-using UnityEngine;
-
 /// <summary>
 /// Struct responsible for keeping achievments save data.
 /// </summary>
-public struct AchievmentsSaveData 
+public struct AchievementsSaveData 
 {
     // Public fields for JSON
     public int EnemiesKilled;

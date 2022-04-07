@@ -645,6 +645,7 @@ MonoBehaviour:
   minForce: 500
   maxForce: 2500
   radius: 0
+  timeToDestroy: 5
 --- !u!1 &2378270691646127594
 GameObject:
   m_ObjectHideFlags: 0
@@ -2598,7 +2599,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9103130543148829169}
   - component: {fileID: 2933246519561212811}
-  - component: {fileID: 8294016481502278229}
+  - component: {fileID: -4511904518800040805}
   m_Layer: 0
   m_Name: Model Small Golem
   m_TagString: Untagged
@@ -2643,7 +2644,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8294016481502278229
+--- !u!114 &-4511904518800040805
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2652,11 +2653,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8439464584184943435}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34e350dcfa5f2df4dbc6d085ac4680db, type: 3}
+  m_Script: {fileID: 11500000, guid: 0efe7309a67437248af613f65cfeb751, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   brokenEnemy: {fileID: 2077695924966521739}
-  timeToDestroy: 5
 --- !u!1001 &3309001395318787
 PrefabInstance:
   m_ObjectHideFlags: 0

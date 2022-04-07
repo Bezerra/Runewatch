@@ -11,11 +11,14 @@ public class RunSaveDataController : MonoBehaviour, IFindPlayer
     public RunSaveData SaveData { get; private set; }
     private FileManager fileManager;
 
+    [SerializeField] private AchievementLogicSO achievementsLogic;
+
     private void Awake()
     {
         SaveData = new RunSaveData();
         fileManager = new FileManager();
         SaveData = LoadGame();
+        achievementsLogic.LoadAchievements(this);
     }
 
     /// <summary>
@@ -31,6 +34,18 @@ public class RunSaveDataController : MonoBehaviour, IFindPlayer
         // Writes file with saved JSON
         if (fileManager.WriteToFile("RUNPROGRESSFILE.d4s", SaveData.ToJson()))
             Debug.Log("Run Progress Saved");
+    }
+
+    /// <summary>
+    /// Saves achievements.
+    /// </summary>
+    public void SaveAchievements()
+    {
+        achievementsLogic.SaveAchievements();
+
+        // Writes file with saved JSON
+        if (fileManager.WriteToFile("RUNPROGRESSFILE.d4s", SaveData.ToJson()))
+            Debug.Log("Achievements Saved");
     }
 
     /// <summary>

@@ -18,7 +18,13 @@ public class EnemyStats : Stats
     // Save data
     private CharacterSaveDataController stpData;
 
+    // Death variables
     private bool dead;
+    private SelectionBase enemyRoot;
+    private Collider[] rootColliders;
+    private NavMeshAgent agent;
+    private Enemy enemy;
+    private MinimapIcon minimapIcon;
 
     protected override void Awake()
     {
@@ -28,6 +34,9 @@ public class EnemyStats : Stats
         AvailableSpellsWeight = new List<int>();
         stpData = FindObjectOfType<CharacterSaveDataController>();
         droppedLoot = new List<(LootType, Vector3)>();
+        rootColliders = enemyRoot.GetComponentsInChildren<Collider>();
+        enemy = GetComponent<Enemy>();
+        minimapIcon = GetComponentInChildren<MinimapIcon>();
     }
 
     protected override void Start()
@@ -172,13 +181,13 @@ public class EnemyStats : Stats
             // This if only happens once, for sure
             if (dead == false)
             {
-                EnemyDeath(ref dead);
-
                 if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
                 Health = 0;
                 OnEventTakeDamage();
                 OnEventHealthUpdate();
                 OnEventDeath(this);
+
+                EnemyDeath(ref dead);
 
                 // Gets random drops and spawns them
                 GetDrop(transform.position + new Vector3(0, -transform.localPosition.y * 0.5f, 0));
@@ -234,14 +243,13 @@ public class EnemyStats : Stats
     /// </summary>
     private void EnemyDeath(ref bool dead)
     {
-        SelectionBase enemyRoot = GetComponentInParent<SelectionBase>();
-        foreach (Collider colliders in enemyRoot.GetComponentsInChildren<Collider>())
+        enemyRoot = GetComponentInParent<SelectionBase>();
+        foreach (Collider colliders in rootColliders)
             colliders.enabled = false;
 
-        NavMeshAgent agent = GetComponent<NavMeshAgent>();
-        GetComponent<Enemy>().enabled = false;
+        agent = GetComponent<NavMeshAgent>();
+        enemy.enabled = false;
 
-        MinimapIcon minimapIcon = GetComponentInChildren<MinimapIcon>();
         if (minimapIcon != null)
             Destroy(minimapIcon.transform.parent.gameObject);
 
