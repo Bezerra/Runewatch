@@ -15,7 +15,7 @@ public class AchievementLogicSO : ScriptableObject, IAchievementLogic
     private int arcanePowerObtained;
     private float damageDone;
     private float damageTaken;
-    private float[] runTime;
+    private int[] runTime;
 
     private RunSaveDataController runSaveData;
 
@@ -29,13 +29,22 @@ public class AchievementLogicSO : ScriptableObject, IAchievementLogic
         }
     }
 
+    /// <summary>
+    /// Saves all achievements on run save data.
+    /// </summary>
     public void SaveAchievements()
     {
-        runSaveData.SaveData.AchievmentsSaveData.EnemiesKilled = enemiesKilled;
-
-        Debug.Log("SAVE GAME " + enemiesKilled);
+        runSaveData.SaveData.AchievementsSaveData.EnemiesKilled = enemiesKilled;
+        runSaveData.SaveData.AchievementsSaveData.ArcanePowerObtained = arcanePowerObtained;
+        runSaveData.SaveData.AchievementsSaveData.DamageDone = damageDone;
+        runSaveData.SaveData.AchievementsSaveData.DamageTaken = damageTaken;
+        runSaveData.SaveData.AchievementsSaveData.RunTime= runTime;
     }
 
+    /// <summary>
+    /// Loads current achievements from a save file to this scriptable object.
+    /// </summary>
+    /// <param name="runSaveData"></param>
     public void LoadAchievements(RunSaveDataController runSaveData)
     {
         // Resets variables
@@ -43,12 +52,15 @@ public class AchievementLogicSO : ScriptableObject, IAchievementLogic
         arcanePowerObtained = 0;
         damageDone = 0;
         damageTaken = 0;
+        runTime = new int[3];
 
         // Gets run save data
         this.runSaveData = runSaveData;
 
-        enemiesKilled = runSaveData.SaveData.AchievmentsSaveData.EnemiesKilled;
-
-        Debug.Log("LOAD GAME " + enemiesKilled);
+        enemiesKilled = runSaveData.SaveData.AchievementsSaveData.EnemiesKilled;
+        arcanePowerObtained = runSaveData.SaveData.AchievementsSaveData.ArcanePowerObtained;
+        damageDone = runSaveData.SaveData.AchievementsSaveData.DamageDone;
+        damageTaken = runSaveData.SaveData.AchievementsSaveData.DamageTaken;
+        runTime = runSaveData.SaveData.AchievementsSaveData.RunTime;
     }
 }

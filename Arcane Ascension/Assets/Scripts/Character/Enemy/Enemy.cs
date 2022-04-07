@@ -264,8 +264,11 @@ public class Enemy : Character
     /// <param name="stats"></param>
     private void EventDeath(Stats stats)
     {
-        if (CurrentlySelectedSpell.Spell.CastType == SpellCastType.OneShotCastWithRelease)
-            CurrentCastSpell.SetActive(false);
+        if (CurrentCastSpell != null)
+        {
+            if (CurrentlySelectedSpell.Spell.CastType == SpellCastType.OneShotCastWithRelease)
+                CurrentCastSpell.SetActive(false);
+        }
 
         achievementLogic.TriggerAchievement(AchievementType.EnemiesKilled);
     }

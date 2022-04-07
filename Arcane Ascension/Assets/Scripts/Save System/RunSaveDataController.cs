@@ -18,7 +18,6 @@ public class RunSaveDataController : MonoBehaviour, IFindPlayer
         SaveData = new RunSaveData();
         fileManager = new FileManager();
         SaveData = LoadGame();
-        achievementsLogic.LoadAchievements(this);
     }
 
     /// <summary>
@@ -86,7 +85,10 @@ public class RunSaveDataController : MonoBehaviour, IFindPlayer
             foreach (IPlayerSaveable iSaveable in iSaveables)
                 yield return iSaveable.LoadData(SaveData);
 
-            Debug.Log("Player Progress Loaded");
+            // Loads current achievements
+            achievementsLogic.LoadAchievements(this);
+
+            Debug.Log("Player Progress + Achievements Loaded");
         }
 
         yield return null;

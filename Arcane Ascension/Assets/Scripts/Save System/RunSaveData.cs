@@ -6,13 +6,13 @@ public class RunSaveData: AbstractSaveData
     // Public fields for JSON
     public PlayerSaveData PlayerSavedData;
     public DungeonSaveData DungeonSavedData;
-    public AchievementsSaveData AchievmentsSaveData;
+    public AchievementsSaveData AchievementsSaveData;
     public string Difficulty;
 
     public RunSaveData()
     {
         PlayerSavedData = new PlayerSaveData();
         DungeonSavedData = new DungeonSaveData();
-        AchievmentsSaveData = new AchievementsSaveData();
+        AchievementsSaveData = new AchievementsSaveData();
     }
 }

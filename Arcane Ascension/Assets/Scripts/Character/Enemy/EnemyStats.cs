@@ -34,8 +34,10 @@ public class EnemyStats : Stats
         AvailableSpellsWeight = new List<int>();
         stpData = FindObjectOfType<CharacterSaveDataController>();
         droppedLoot = new List<(LootType, Vector3)>();
-        rootColliders = enemyRoot.GetComponentsInChildren<Collider>();
         enemy = GetComponent<Enemy>();
+        enemyRoot = GetComponentInParent<SelectionBase>();
+        rootColliders = enemyRoot.GetComponentsInChildren<Collider>();
+        agent = GetComponent<NavMeshAgent>();
         minimapIcon = GetComponentInChildren<MinimapIcon>();
     }
 
@@ -97,13 +99,13 @@ public class EnemyStats : Stats
             // This if only happens once, for sure
             if (dead == false)
             {
-                EnemyDeath(ref dead);
-
                 if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
                 Health = 0;
                 OnEventTakeDamage();
                 OnEventHealthUpdate();
                 OnEventDeath(this);
+
+                EnemyDeath(ref dead);
 
                 // Gets random drops and spawns them
                 GetDrop(transform.position + new Vector3(0, -transform.localPosition.y * 0.5f, 0));
@@ -243,11 +245,9 @@ public class EnemyStats : Stats
     /// </summary>
     private void EnemyDeath(ref bool dead)
     {
-        enemyRoot = GetComponentInParent<SelectionBase>();
         foreach (Collider colliders in rootColliders)
             colliders.enabled = false;
 
-        agent = GetComponent<NavMeshAgent>();
         enemy.enabled = false;
 
         if (minimapIcon != null)

@@ -1,6 +1,9 @@
+using System;
+
 /// <summary>
 /// Struct responsible for keeping achievments save data.
 /// </summary>
+[Serializable]
 public struct AchievementsSaveData 
 {
     // Public fields for JSON
@@ -8,5 +11,5 @@ public struct AchievementsSaveData
     public int ArcanePowerObtained;
     public float DamageDone;
     public float DamageTaken;
-    public float[] RunTime;
+    public int[] RunTime;
 }
