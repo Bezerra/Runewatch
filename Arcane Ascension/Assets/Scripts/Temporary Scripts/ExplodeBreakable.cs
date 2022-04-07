@@ -1,18 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Sirenix.OdinInspector;
 
 public class ExplodeBreakable : MonoBehaviour
 {
-    [SerializeField] float minForce;
-    [SerializeField] float maxForce;
-    [SerializeField] float radius;
-
+    [SerializeField] private float minForce;
+    [SerializeField] private float maxForce;
+    [SerializeField] private float radius;
+    [SerializeField] private float timeToDestroy = 5;
 
     private void OnEnable()
     {
         ExplodePieces();
+        Destroy(gameObject, timeToDestroy);
     }
 
     private void ExplodePieces()
@@ -23,7 +21,6 @@ public class ExplodeBreakable : MonoBehaviour
             if (rb != null)
             {
                 float force = Random.Range(minForce, maxForce);
-
                 rb.AddExplosionForce(force, transform.position, radius);
             }
         }

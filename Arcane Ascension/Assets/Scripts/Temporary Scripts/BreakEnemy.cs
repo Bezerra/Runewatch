@@ -1,18 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BreakEnemy : MonoBehaviour
 {
-    [SerializeField] GameObject brokenEnemy;
-    [SerializeField] float timeToDestroy = 5;
+    [SerializeField] private GameObject brokenEnemy;
+
+    private SkinnedMeshRenderer meshRender;
+
+    private void Awake()
+    {
+        meshRender = GetComponentInChildren<SkinnedMeshRenderer>();
+    }
 
     public void Break()
     {
-        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
+        meshRender.enabled = false;
         brokenEnemy.SetActive(true);
         brokenEnemy.transform.parent = null;
-
-        Destroy(brokenEnemy, timeToDestroy);
     }
 }
