@@ -61,7 +61,7 @@ public class PlayerInputCustom : MonoBehaviour, IInput
 
     public void SwitchActionMapToUI()
     {
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
         controls.uiInputModule.enabled = true;
