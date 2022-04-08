@@ -49,7 +49,7 @@ public class AchievementLogicSO : ScriptableObject, IAchievementLogic
                 break;
             case AchievementType.RunTime:
                 runTime = valueArray;
-                if (value > bestRunTimeInSeconds)
+                if (runSaveData.SaveData.DungeonSavedData.Floor == 9 && value < bestRunTimeInSeconds)
                 {
                     bestRunTime = valueArray;
                     bestRunTimeInSeconds = value;
