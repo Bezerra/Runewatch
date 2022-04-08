@@ -120,7 +120,5 @@ public class AchievementLogicSO : ScriptableObject, IAchievementLogic
 
         bestRunTimeInSeconds = characterSaveData.SaveData.BestRunTimeInSeconds;
         bestRunTime = characterSaveData.SaveData.BestRunTime;
-
-        Debug.Log(bestRunTimeInSeconds);
     }
 }
