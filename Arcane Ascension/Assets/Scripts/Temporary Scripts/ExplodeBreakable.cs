@@ -10,7 +10,7 @@ public class ExplodeBreakable : MonoBehaviour
     private void OnEnable()
     {
         ExplodePieces();
-        Destroy(gameObject, timeToDestroy);
+        //Destroy(gameObject, timeToDestroy);
     }
 
     private void ExplodePieces()
