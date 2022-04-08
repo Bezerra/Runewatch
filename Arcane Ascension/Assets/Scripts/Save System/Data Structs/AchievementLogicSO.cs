@@ -18,8 +18,11 @@ public class AchievementLogicSO : ScriptableObject, IAchievementLogic
     private int damageTaken;
     private int mostDamageDone;
     private int[] runTime;
+    private int[] bestRunTime;
+    private int bestRunTimeInSeconds;
 
     private RunSaveDataController runSaveData;
+    private CharacterSaveDataController characterSaveData;
 
     public void TriggerAchievement(AchievementType achievementType, int value = 0, int[] valueArray = null)
     {
@@ -46,15 +49,17 @@ public class AchievementLogicSO : ScriptableObject, IAchievementLogic
                 break;
             case AchievementType.RunTime:
                 runTime = valueArray;
+                if (value > bestRunTimeInSeconds) bestRunTimeInSeconds = value;
                 break;
         }
     }
 
     /// <summary>
-    /// Saves all achievements on run save data.
+    /// Saves all achievements on run save data. This method is called after a run is over.
     /// </summary>
     public void SaveAchievements()
     {
+        // Run save data is saved on its class
         runSaveData.SaveData.AchievementsSaveData.EnemiesKilled = enemiesKilled;
         runSaveData.SaveData.AchievementsSaveData.ArcanePowerObtained = arcanePowerObtained;
         runSaveData.SaveData.AchievementsSaveData.GoldObtained = goldObtained;
@@ -62,13 +67,17 @@ public class AchievementLogicSO : ScriptableObject, IAchievementLogic
         runSaveData.SaveData.AchievementsSaveData.MostDamageDone = mostDamageDone;
         runSaveData.SaveData.AchievementsSaveData.DamageTaken = damageTaken;
         runSaveData.SaveData.AchievementsSaveData.RunTime = runTime;
+
+        // Character save data is saved in here
+        characterSaveData.SaveData.BestRunTime = bestRunTime;
+        characterSaveData.SaveAchievements();
     }
 
     /// <summary>
     /// Loads current achievements from a save file to this scriptable object.
     /// </summary>
-    /// <param name="runSaveData"></param>
-    public void LoadAchievements(RunSaveDataController runSaveData)
+    /// <param name="runSaveData">Run save data.</param>
+    public void LoadRunAchievements(RunSaveDataController runSaveData)
     {
         // Resets variables
         enemiesKilled = 0;
@@ -77,7 +86,7 @@ public class AchievementLogicSO : ScriptableObject, IAchievementLogic
         damageDone = 0;
         mostDamageDone = 0;
         damageTaken = 0;
-        runTime = new int[3];
+        runTime = null;
 
         // Gets run save data every time the game loads
         this.runSaveData = runSaveData;
@@ -89,5 +98,20 @@ public class AchievementLogicSO : ScriptableObject, IAchievementLogic
         mostDamageDone = runSaveData.SaveData.AchievementsSaveData.MostDamageDone;
         damageTaken = runSaveData.SaveData.AchievementsSaveData.DamageTaken;
         runTime = runSaveData.SaveData.AchievementsSaveData.RunTime;
+    }
+
+    /// <summary>
+    /// Loads current achievements from a save file to this scriptable object.
+    /// </summary>
+    /// <param name="runSaveData">Character save data.</param>
+    public void LoadCharacterAchievements(CharacterSaveDataController characterSaveData)
+    {
+        // Resets variables
+        bestRunTime = null;
+
+        // Gets character save data every time the game loads
+        this.characterSaveData = characterSaveData;
+
+        bestRunTime = characterSaveData.SaveData.BestRunTime;
     }
 }

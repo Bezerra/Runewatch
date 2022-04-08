@@ -86,7 +86,7 @@ public class RunSaveDataController : MonoBehaviour, IFindPlayer
                 yield return iSaveable.LoadData(SaveData);
 
             // Loads current achievements
-            achievementsLogic.LoadAchievements(this);
+            achievementsLogic.LoadRunAchievements(this);
 
             Debug.Log("Player Progress + Achievements Loaded");
         }
@@ -134,5 +134,13 @@ public class RunSaveDataController : MonoBehaviour, IFindPlayer
     public void PlayerLost(Player player)
     {
         // Left blank on purpose
+    }
+
+    private void OnValidate()
+    {
+        if (achievementsLogic == null)
+        {
+            Debug.LogError($"Achievement logic on {name} not set.");
+        }
     }
 }

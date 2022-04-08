@@ -8,6 +8,8 @@ public class CharacterSaveDataController : MonoBehaviour
     public CharacterSaveData SaveData { get; private set; }
     private FileManager fileManager;
 
+    [SerializeField] private AchievementLogicSO achievementsLogic;
+
     /// <summary>
     /// THIS SCRIPT EXECUTION ORDER RUNS BEFORE EVERY OTHER SCRIPT,
     /// in order to avoid nulls if file don't exist.
@@ -17,6 +19,9 @@ public class CharacterSaveDataController : MonoBehaviour
         SaveData = new CharacterSaveData();
         SaveData = LoadGame();
         fileManager = new FileManager();
+
+        // Loads current achievements
+        achievementsLogic.LoadCharacterAchievements(this);
     }
 
     /// <summary>
@@ -27,6 +32,18 @@ public class CharacterSaveDataController : MonoBehaviour
         // Writes file with saved JSON
         if (fileManager.WriteToFile("CHARACTERFILE.d4s", SaveData.ToJson()))
             Debug.Log("Character Data Saved");
+    }
+
+    /// <summary>
+    /// Saves achievements.
+    /// </summary>
+    public void SaveAchievements()
+    {
+        achievementsLogic.SaveAchievements();
+
+        // Writes file with saved JSON
+        if (fileManager.WriteToFile("CHARACTERFILE.d4s", SaveData.ToJson()))
+            Debug.Log("Achievements Saved");
     }
 
     /// <summary>
@@ -172,5 +189,13 @@ public class CharacterSaveDataController : MonoBehaviour
         if (fileManager.FileExists("CHARACTERFILE.d4s"))
             return true;
         return false;
+    }
+
+    private void OnValidate()
+    {
+        if (achievementsLogic == null)
+        {
+            Debug.LogError($"Achievement logic on {name} not set.");
+        }
     }
 }

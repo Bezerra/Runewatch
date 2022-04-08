@@ -1,10 +1,14 @@
+/// <summary>
+/// Enum with achievements types.
+/// </summary>
 public enum AchievementType
 {
-    EnemiesKilled,
-    ArcanePowerObtained,
-    DamageDone,
-    DamageTaken,
     RunTime,
-    GoldObtained,
+    BestRunTime,
+    EnemiesKilled,
+    DamageTaken,
+    DamageDone,
     MostDamageDone,
+    ArcanePowerObtained,
+    GoldObtained,
 }
