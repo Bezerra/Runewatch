@@ -44,6 +44,9 @@ public class AchievementLogicSO : ScriptableObject, IAchievementLogic
             case AchievementType.DamageTaken:
                 damageTaken += value;
                 break;
+            case AchievementType.RunTime:
+                runTime = valueArray;
+                break;
         }
     }
 
