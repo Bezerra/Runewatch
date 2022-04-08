@@ -1,5 +1,4 @@
 using UnityEngine;
-using Sirenix.OdinInspector;
 
 /// <summary>
 /// Class responsible for triggering currency behaviour.
@@ -71,7 +70,7 @@ public class Currency : MonoBehaviour, ICurrency
     {
         if (achievementLogic == null)
         {
-            Debug.LogError($"Achievement logic on {transform.parent.gameObject.name} not set.");
+            Debug.LogError($"Achievement logic on {name} not set.");
         }
     }
 }

@@ -254,6 +254,9 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable, IBossRaidSavea
                 damage * (ElementsDamage.CalculateDamage(element, PlayerAttributes.Element)) *
                 (CommonAttributes.DamageResistance + CommonAttributes.DamageResistanceStatusEffectMultiplier));
 
+        // Achievement
+        achievementLogic.TriggerAchievement(AchievementType.DamageTaken, (int)damageToReceive);
+
         // Prevents healing from negative damage
         if (damageToReceive < 0) damageToReceive = 0;
 

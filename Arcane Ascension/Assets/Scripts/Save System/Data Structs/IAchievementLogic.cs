@@ -7,5 +7,5 @@ public interface IAchievementLogic
     /// Triggers an achievement.
     /// </summary>
     /// <param name="achievementType">Type of achievement.</param>
-    void TriggerAchievement(AchievementType achievementType, float value = 0, int[] valueArray = null);
+    void TriggerAchievement(AchievementType achievementType, int value = 0, int[] valueArray = null);
 }

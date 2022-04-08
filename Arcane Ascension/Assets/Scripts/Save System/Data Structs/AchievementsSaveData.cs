@@ -10,7 +10,8 @@ public struct AchievementsSaveData
     public int EnemiesKilled;
     public int ArcanePowerObtained;
     public int GoldObtained;
-    public float DamageDone;
-    public float DamageTaken;
+    public int DamageDone;
+    public int MostDamageDone;
+    public int DamageTaken;
     public int[] RunTime;
 }

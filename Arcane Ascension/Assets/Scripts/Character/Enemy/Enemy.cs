@@ -313,4 +313,12 @@ public class Enemy : Character
         OnEnable();
         Start();
     }
+
+    private void OnValidate()
+    {
+        if (achievementLogic == null)
+        {
+            Debug.LogError($"Achievement logic on {name} not set.");
+        }
+    }
 }

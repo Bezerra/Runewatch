@@ -29,6 +29,9 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
 
     protected IEnumerator damageOvertimeCoroutine;
 
+    [Header("Achievements")]
+    [SerializeField] protected AchievementLogicSO achievementLogic;
+
     protected virtual void Awake()
     {
         random = new System.Random();
@@ -168,4 +171,12 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     // Subscribed on classes that use Speed
     protected virtual void OnSpeedUpdate(float speed) => EventSpeedUpdate?.Invoke(speed);
     public Action<float> EventSpeedUpdate;
+
+    private void OnValidate()
+    {
+        if (achievementLogic == null)
+        {
+            Debug.LogError($"Achievement logic on {name} not set.");
+        }
+    }
 }

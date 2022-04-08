@@ -14,14 +14,14 @@ public class AchievementLogicSO : ScriptableObject, IAchievementLogic
     private int enemiesKilled;
     private int arcanePowerObtained;
     private int goldObtained;
-    private float damageDone;
-    private float damageTaken;
-    private float mostDamageDone;
+    private int damageDone;
+    private int damageTaken;
+    private int mostDamageDone;
     private int[] runTime;
 
     private RunSaveDataController runSaveData;
 
-    public void TriggerAchievement(AchievementType achievementType, float value = 0, int[] valueArray = null)
+    public void TriggerAchievement(AchievementType achievementType, int value = 0, int[] valueArray = null)
     {
         switch(achievementType)
         {
@@ -36,6 +36,10 @@ public class AchievementLogicSO : ScriptableObject, IAchievementLogic
                 break;
             case AchievementType.DamageDone:
                 damageDone += value;
+                break;
+            case AchievementType.MostDamageDone:
+                if (value > mostDamageDone) 
+                    mostDamageDone = value;
                 break;
             case AchievementType.DamageTaken:
                 damageTaken += value;
@@ -52,6 +56,7 @@ public class AchievementLogicSO : ScriptableObject, IAchievementLogic
         runSaveData.SaveData.AchievementsSaveData.ArcanePowerObtained = arcanePowerObtained;
         runSaveData.SaveData.AchievementsSaveData.GoldObtained = goldObtained;
         runSaveData.SaveData.AchievementsSaveData.DamageDone = damageDone;
+        runSaveData.SaveData.AchievementsSaveData.MostDamageDone = mostDamageDone;
         runSaveData.SaveData.AchievementsSaveData.DamageTaken = damageTaken;
         runSaveData.SaveData.AchievementsSaveData.RunTime = runTime;
     }
@@ -67,6 +72,7 @@ public class AchievementLogicSO : ScriptableObject, IAchievementLogic
         arcanePowerObtained = 0;
         goldObtained = 0;
         damageDone = 0;
+        mostDamageDone = 0;
         damageTaken = 0;
         runTime = new int[3];
 
@@ -77,6 +83,7 @@ public class AchievementLogicSO : ScriptableObject, IAchievementLogic
         arcanePowerObtained = runSaveData.SaveData.AchievementsSaveData.ArcanePowerObtained;
         goldObtained = runSaveData.SaveData.AchievementsSaveData.GoldObtained;
         damageDone = runSaveData.SaveData.AchievementsSaveData.DamageDone;
+        mostDamageDone = runSaveData.SaveData.AchievementsSaveData.MostDamageDone;
         damageTaken = runSaveData.SaveData.AchievementsSaveData.DamageTaken;
         runTime = runSaveData.SaveData.AchievementsSaveData.RunTime;
     }

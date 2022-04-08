@@ -6,4 +6,5 @@ public enum AchievementType
     DamageTaken,
     RunTime,
     GoldObtained,
+    MostDamageDone,
 }
