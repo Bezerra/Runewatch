@@ -23,9 +23,10 @@ public class ControlGameplayTimer : MonoBehaviour
             timer.Hours, timer.Minutes, timer.Seconds
         };
 
-        achievementLogic.TriggerAchievement(AchievementType.RunTime, valueArray: sessionTime);
+        achievementLogic.TriggerAchievement(AchievementType.RunTime, value: 
+            (int)timer.TotalSeconds, valueArray: sessionTime);
     }
-        
+
     public void LoadTimer() => GameplayTime.LoadTimer();
 
     private void OnValidate()

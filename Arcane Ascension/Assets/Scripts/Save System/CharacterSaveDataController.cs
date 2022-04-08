@@ -39,11 +39,9 @@ public class CharacterSaveDataController : MonoBehaviour
     /// </summary>
     public void SaveAchievements()
     {
-        achievementsLogic.SaveAchievements();
-
         // Writes file with saved JSON
         if (fileManager.WriteToFile("CHARACTERFILE.d4s", SaveData.ToJson()))
-            Debug.Log("Achievements Saved");
+            Debug.Log("Character Achievements Saved");
     }
 
     /// <summary>

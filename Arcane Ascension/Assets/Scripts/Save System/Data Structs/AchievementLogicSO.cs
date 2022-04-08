@@ -49,7 +49,11 @@ public class AchievementLogicSO : ScriptableObject, IAchievementLogic
                 break;
             case AchievementType.RunTime:
                 runTime = valueArray;
-                if (value > bestRunTimeInSeconds) bestRunTimeInSeconds = value;
+                if (value > bestRunTimeInSeconds)
+                {
+                    bestRunTime = valueArray;
+                    bestRunTimeInSeconds = value;
+                }
                 break;
         }
     }
@@ -69,6 +73,7 @@ public class AchievementLogicSO : ScriptableObject, IAchievementLogic
         runSaveData.SaveData.AchievementsSaveData.RunTime = runTime;
 
         // Character save data is saved in here
+        characterSaveData.SaveData.BestRunTimeInSeconds = bestRunTimeInSeconds;
         characterSaveData.SaveData.BestRunTime = bestRunTime;
         characterSaveData.SaveAchievements();
     }
@@ -107,11 +112,15 @@ public class AchievementLogicSO : ScriptableObject, IAchievementLogic
     public void LoadCharacterAchievements(CharacterSaveDataController characterSaveData)
     {
         // Resets variables
+        bestRunTimeInSeconds = 0;
         bestRunTime = null;
 
         // Gets character save data every time the game loads
         this.characterSaveData = characterSaveData;
 
+        bestRunTimeInSeconds = characterSaveData.SaveData.BestRunTimeInSeconds;
         bestRunTime = characterSaveData.SaveData.BestRunTime;
+
+        Debug.Log(bestRunTimeInSeconds);
     }
 }

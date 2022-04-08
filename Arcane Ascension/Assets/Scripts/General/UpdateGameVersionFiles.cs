@@ -17,7 +17,7 @@ public class UpdateGameVersionFiles : MonoBehaviour
         characterSaveData = FindObjectOfType<CharacterSaveDataController>();
         runSaveData = FindObjectOfType<RunSaveDataController>();
         bossRaidRunSaveData = FindObjectOfType<BossRaidRunSaveDataController>();
-        if (PlayerPrefs.GetFloat("VersionControl", 0) <= VERSION)
+        if (PlayerPrefs.GetFloat("VersionControl", 0) < VERSION)
         {
             if (characterSaveData.FileExists()) characterSaveData.DeleteFile();
             if (runSaveData.FileExists()) runSaveData.DeleteFile();

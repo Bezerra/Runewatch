@@ -7,6 +7,7 @@ public class CharacterSaveData : AbstractSaveData
     public byte[] CurrentSkillTreePassives;
     public int ArcanePower;
     public int[] BestRunTime;
+    public int BestRunTimeInSeconds;
 
     // Passives
     public byte IgnisExpertise;
