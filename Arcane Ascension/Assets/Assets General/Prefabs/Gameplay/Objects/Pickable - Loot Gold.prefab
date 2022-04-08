@@ -742,6 +742,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currencySO: {fileID: 11400000, guid: 24762a9acdcf1c64a903b61b194772d4, type: 2}
   lootType: 1
+  achievementLogic: {fileID: 11400000, guid: 621fc6359f302ef4cac212505775cbe8, type: 2}
 --- !u!135 &8096803630549492878
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -901,6 +902,7 @@ MonoBehaviour:
   colliderCollisionSize: 0.5
   isAttractable: 1
   colliderAttractionSize: 3
+  dontRotateObjectOnIdle: 0
 --- !u!54 &452348920101884905
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -942,3 +944,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd55560fc00fb34d81b33764fc47348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 15

@@ -1,5 +1,3 @@
-using System;
-
 /// <summary>
 /// Interface implemented by classes that contain achievment information.
 /// </summary>
@@ -9,5 +7,5 @@ public interface IAchievementLogic
     /// Triggers an achievement.
     /// </summary>
     /// <param name="achievementType">Type of achievement.</param>
-    void TriggerAchievement(AchievementType achievementType);
+    void TriggerAchievement(AchievementType achievementType, float value = 0, int[] valueArray = null);
 }

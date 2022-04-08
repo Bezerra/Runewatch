@@ -13,18 +13,32 @@ public class AchievementLogicSO : ScriptableObject, IAchievementLogic
 {
     private int enemiesKilled;
     private int arcanePowerObtained;
+    private int goldObtained;
     private float damageDone;
     private float damageTaken;
+    private float mostDamageDone;
     private int[] runTime;
 
     private RunSaveDataController runSaveData;
 
-    public void TriggerAchievement(AchievementType achievementType)
+    public void TriggerAchievement(AchievementType achievementType, float value = 0, int[] valueArray = null)
     {
         switch(achievementType)
         {
             case AchievementType.EnemiesKilled:
                 enemiesKilled++;
+                break;
+            case AchievementType.ArcanePowerObtained:
+                arcanePowerObtained += (int)value;
+                break;
+            case AchievementType.GoldObtained:
+                goldObtained += (int)value;
+                break;
+            case AchievementType.DamageDone:
+                damageDone += value;
+                break;
+            case AchievementType.DamageTaken:
+                damageTaken += value;
                 break;
         }
     }
@@ -36,9 +50,10 @@ public class AchievementLogicSO : ScriptableObject, IAchievementLogic
     {
         runSaveData.SaveData.AchievementsSaveData.EnemiesKilled = enemiesKilled;
         runSaveData.SaveData.AchievementsSaveData.ArcanePowerObtained = arcanePowerObtained;
+        runSaveData.SaveData.AchievementsSaveData.GoldObtained = goldObtained;
         runSaveData.SaveData.AchievementsSaveData.DamageDone = damageDone;
         runSaveData.SaveData.AchievementsSaveData.DamageTaken = damageTaken;
-        runSaveData.SaveData.AchievementsSaveData.RunTime= runTime;
+        runSaveData.SaveData.AchievementsSaveData.RunTime = runTime;
     }
 
     /// <summary>
@@ -50,15 +65,17 @@ public class AchievementLogicSO : ScriptableObject, IAchievementLogic
         // Resets variables
         enemiesKilled = 0;
         arcanePowerObtained = 0;
+        goldObtained = 0;
         damageDone = 0;
         damageTaken = 0;
         runTime = new int[3];
 
-        // Gets run save data
+        // Gets run save data every time the game loads
         this.runSaveData = runSaveData;
 
         enemiesKilled = runSaveData.SaveData.AchievementsSaveData.EnemiesKilled;
         arcanePowerObtained = runSaveData.SaveData.AchievementsSaveData.ArcanePowerObtained;
+        goldObtained = runSaveData.SaveData.AchievementsSaveData.GoldObtained;
         damageDone = runSaveData.SaveData.AchievementsSaveData.DamageDone;
         damageTaken = runSaveData.SaveData.AchievementsSaveData.DamageTaken;
         runTime = runSaveData.SaveData.AchievementsSaveData.RunTime;

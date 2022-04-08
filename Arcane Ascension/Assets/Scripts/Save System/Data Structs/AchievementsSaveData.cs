@@ -9,6 +9,7 @@ public struct AchievementsSaveData
     // Public fields for JSON
     public int EnemiesKilled;
     public int ArcanePowerObtained;
+    public int GoldObtained;
     public float DamageDone;
     public float DamageTaken;
     public int[] RunTime;
