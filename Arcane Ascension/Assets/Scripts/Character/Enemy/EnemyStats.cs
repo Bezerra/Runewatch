@@ -71,6 +71,7 @@ public class EnemyStats : Stats
 
         // Achievement
         achievementLogic.TriggerAchievement(AchievementType.MostDamageDone, (int)damageToReceive);
+        achievementLogic.TriggerAchievement(AchievementType.DamageDone, (int)damageToReceive);
 
         // Prevents healing from negative damage
         if (damageToReceive < 0) damageToReceive = 0;
@@ -156,13 +157,14 @@ public class EnemyStats : Stats
                 damage * (ElementsDamage.CalculateDamage(element, CommonAttributes.Element)) *
                 (CommonAttributes.DamageResistance + CommonAttributes.DamageResistanceStatusEffectMultiplier));
 
+        // Achievement
+        achievementLogic.TriggerAchievement(AchievementType.MostDamageDone, (int)damageToReceive);
+        achievementLogic.TriggerAchievement(AchievementType.DamageDone, (int)damageToReceive);
+
         // Prevents healing from negative damage
         if (damageToReceive < 0) damageToReceive = 0;
 
         OnEventTakeDamage(damageToReceive);
-
-        // Achievement
-        achievementLogic.TriggerAchievement(AchievementType.MostDamageDone, (int)damageToReceive);
 
         // Spawn damage text
         if (PlayerPrefs.GetFloat(PPrefsOptions.DamageDealt.ToString(), 1) == 1)
