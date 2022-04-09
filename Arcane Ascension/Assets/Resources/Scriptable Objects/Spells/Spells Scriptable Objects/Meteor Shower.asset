@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 645b99556f78c9a4d826b70d6a3a9a11, type: 3}
+  m_Name: Meteor Shower
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 2cd68b51963e0d3449f2410c09e0da19, type: 3}
+  name: Meteor Shower
+  spellTier: 3
+  relation: 12
+  description: Casts a meteor shower that continuously deals damage around the player
+    for a small duration.
+  elementIcon: {fileID: 21300000, guid: fe1d6252540f13b4e8a011565396d7f3, type: 3}
+  element: 3
+  manaCost: 50
+  targetTypeIcon: {fileID: 21300000, guid: 646785eca119e9749825928c12b058e1, type: 3}
+  timeInterval: 0.5
+  maxTime: 5
+  areaOfEffect: 6
+  playerDamage: {x: 20, y: 30}
+  enemyDamage: {x: 0, y: 0}
+  delayToDoDamage: 0
+  spellCastType: 0
+  speed: 0.01
+  cooldown: 10
+  maximumDistance: 2
+  spellPrefab: {fileID: 4544114618391733411, guid: 8191019692e9b744088e31996dba1189, type: 3}
+  spellHitPrefab: {fileID: 1692217177674820475, guid: 20e9f303f5e4f1f4eba4c83d5c2d8c8e, type: 3}
+  spellMuzzlePrefab: {fileID: 7228047335470632946, guid: 94d984d4f3495084491ef4806174bf16, type: 3}
+  spellHandEffectPrefab: {fileID: 5965007050869265157, guid: 57b2440cbac794e40b1f76e2f99c023f, type: 3}
+  areaHoverPrefab: {fileID: 0}
+  damageBehaviour: {fileID: 11400000, guid: 416113b2a45cb57448020076a9603528, type: 2}
+  statusBehaviour: {fileID: 0}
+  spellBehaviourOneShot:
+  - {fileID: 11400000, guid: 295c7b5ef39c408488e744a106ce7dba, type: 2}
+  - {fileID: 11400000, guid: 391e6fdc62eda2c4ba7dae6900236270, type: 2}
+  - {fileID: 11400000, guid: 551155c3044876149a4d8ec909880225, type: 2}
+  - {fileID: 11400000, guid: 34d376b4b83874642a41fea912635062, type: 2}
+  - {fileID: 11400000, guid: 3cceff732c8b18f4d820a7a51600bc36, type: 2}
+  attackBehaviourOneShot: {fileID: 11400000, guid: 951b735271f52a24b8c27da0e99a077c, type: 2}
+  onHitBehaviourOneShot:
+  - {fileID: 11400000, guid: b67a21e782d7c3141894566198d37048, type: 2}
+  muzzleBehaviourOneShot:
+  - {fileID: 11400000, guid: da438eaf63e47e74a8e7e0d60862b84e, type: 2}
+  - {fileID: 11400000, guid: e54eb235ea9381946a4a076f5351e0f3, type: 2}
+  sounds:
+    projectile: {fileID: 0}
+    muzzle: {fileID: 11400000, guid: 076b1eacc8036d041a5da645a494c09b, type: 2}
+    hit: {fileID: 0}
+  surfaceSounds: []
