@@ -83,7 +83,12 @@ sealed public class DamageHitText : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        transform.rotation = Quaternion.LookRotation(mainCamera.transform.Direction(transform.position), Vector3.up);
+        if (mainCamera != null)
+        {
+            transform.rotation = Quaternion.LookRotation(
+                mainCamera.transform.Direction(transform.position), Vector3.up);
+        }
+        
     }
 
     public void DisableAnimationEvent() =>

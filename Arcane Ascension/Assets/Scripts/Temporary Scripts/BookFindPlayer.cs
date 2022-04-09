@@ -12,7 +12,8 @@ public class BookFindPlayer : MonoBehaviour, IFindPlayer
 
     private void Awake()
     {
-        mainCam = Camera.main.gameObject;
+        Camera cam = Camera.main;
+        if (cam != null) mainCam = cam.gameObject;
         lac = GetComponent<LookAtConstraint>();
     }
 
@@ -31,8 +32,12 @@ public class BookFindPlayer : MonoBehaviour, IFindPlayer
             }
         }
 
+        Camera cam = Camera.main;
+
         if (mainCam == null)
-            mainCam = Camera.main.gameObject;
+        {
+            if (cam != null) mainCam = cam.gameObject;
+        }
 
         if (mainCam != null)
         {

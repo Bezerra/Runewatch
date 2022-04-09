@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1627063431}
     m_Modifications:
+    - target: {fileID: 802512783916625086, guid: 9d1610138c45a904ea9c1066db9ab74a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6105136639975504242, guid: 9d1610138c45a904ea9c1066db9ab74a, type: 3}
       propertyPath: m_Name
       value: General
@@ -1176,7 +1180,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7741935, y: 1}
+    m_SensorSize: {x: 1.778626, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1509,7 +1513,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed620342ceb31d540a3f6f1eb96d8667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yieldType: 0
+  isBossRaid: 0
+  yieldType: 1
   occludeAndSpawnPlayer: 0
   randomSeed: 0
   seed: 0

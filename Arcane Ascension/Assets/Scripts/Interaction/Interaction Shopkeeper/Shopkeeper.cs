@@ -50,12 +50,15 @@ public class Shopkeeper : MonoBehaviour
         }
 
         StartCoroutine(SpawnShopKeeperCoroutine());
-        
+
         // This logic applies only if the player has spawned
-        if (gameplayMusic.HasPlayerSpawned)
+        if (gameplayMusic != null)
         {
-            gameplayMusic.FadeOutVolume();
-            shopkeeperMusic.FadeInVolume();
+            if (gameplayMusic.HasPlayerSpawned)
+            {
+                gameplayMusic.FadeOutVolume();
+                shopkeeperMusic.FadeInVolume();
+            }
         }
     }
 
