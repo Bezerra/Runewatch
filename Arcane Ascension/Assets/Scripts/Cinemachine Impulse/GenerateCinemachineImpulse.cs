@@ -17,8 +17,11 @@ public class GenerateCinemachineImpulse : MonoBehaviour, IReset
         cinemachineSource = GetComponent<CinemachineImpulseSource>();
     }
 
-    public virtual void GenerateImpulse() =>
+    public virtual void GenerateImpulse()
+    {
+        if (mainCam == null) mainCam = Camera.main;
         cinemachineSource.GenerateImpulse(mainCam.transform.forward);
+    }
 
     /// <summary>
     /// Called after pool disables all childs on level generation.
