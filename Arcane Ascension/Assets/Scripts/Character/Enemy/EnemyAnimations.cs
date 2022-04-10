@@ -8,6 +8,7 @@ using ExtensionMethods;
 public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
 {
     [SerializeField] private GameObject brokenEnemy;
+    [SerializeField] private ParticleSystem CastVFX;
 
     // Components
     private Animator anim;
@@ -241,4 +242,9 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
 
     public void TriggerEnragedAnimation() =>
         anim.SetBool("Enraged", true);
+
+    public void PlayCastVFX()
+    {
+        CastVFX.Play();
+    }
 }
