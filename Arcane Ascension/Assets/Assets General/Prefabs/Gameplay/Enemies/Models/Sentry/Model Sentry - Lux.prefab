@@ -77,11 +77,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4943167007784149252, guid: f4200f1845e08f14e9f408dc2af5d915, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 2.4577592e-34
       objectReference: {fileID: 0}
     - target: {fileID: 4943167007784149252, guid: f4200f1845e08f14e9f408dc2af5d915, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.000000016978333
       objectReference: {fileID: 0}
     - target: {fileID: 4943167007784149252, guid: f4200f1845e08f14e9f408dc2af5d915, type: 3}
       propertyPath: m_LocalPosition.z
@@ -99,13 +99,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -3.856536
       objectReference: {fileID: 0}
+    - target: {fileID: 5643815288536774023, guid: f4200f1845e08f14e9f408dc2af5d915, type: 3}
+      propertyPath: CastVFX
+      value: 
+      objectReference: {fileID: 1298087683530424982}
     - target: {fileID: 5646297532977508211, guid: f4200f1845e08f14e9f408dc2af5d915, type: 3}
       propertyPath: InitialModule.startColor.maxColor.a
-      value: 0.67058825
+      value: 0.6745098
+      objectReference: {fileID: 0}
+    - target: {fileID: 5646297532977508211, guid: f4200f1845e08f14e9f408dc2af5d915, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5646297532977508211, guid: f4200f1845e08f14e9f408dc2af5d915, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.85490197
+      value: 0.58431375
+      objectReference: {fileID: 0}
+    - target: {fileID: 5646297532977508211, guid: f4200f1845e08f14e9f408dc2af5d915, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.6862745
       objectReference: {fileID: 0}
     - target: {fileID: 5713428800979632997, guid: f4200f1845e08f14e9f408dc2af5d915, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -189,3 +201,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4200f1845e08f14e9f408dc2af5d915, type: 3}
+--- !u!198 &1298087683530424982 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5195937698739159237, guid: f4200f1845e08f14e9f408dc2af5d915, type: 3}
+  m_PrefabInstance: {fileID: 6491963121505960531}
+  m_PrefabAsset: {fileID: 0}
