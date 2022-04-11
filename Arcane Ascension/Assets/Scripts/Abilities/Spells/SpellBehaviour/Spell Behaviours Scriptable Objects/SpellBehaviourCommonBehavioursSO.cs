@@ -30,13 +30,13 @@ public class SpellBehaviourCommonBehavioursSO : SpellBehaviourAbstractSO
 
     public override void ContinuousFixedUpdateBehaviour(SpellBehaviourOneShot parent)
     {
-    foreach (SpellBehaviourAbstractSO behaviour in commonBehaviours)
-        behaviour.ContinuousFixedUpdateBehaviour(parent);
+        foreach (SpellBehaviourAbstractSO behaviour in commonBehaviours)
+            behaviour.ContinuousFixedUpdateBehaviour(parent);
     }
 
     public override void HitTriggerBehaviour(Collider other, SpellBehaviourOneShot parent)
     {
-    foreach (SpellBehaviourAbstractSO behaviour in commonBehaviours)
-        behaviour.HitTriggerBehaviour(other, parent);
+        foreach (SpellBehaviourAbstractSO behaviour in commonBehaviours)
+            behaviour.HitTriggerBehaviour(other, parent);
     }
 }

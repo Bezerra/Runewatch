@@ -8,7 +8,7 @@ public interface ISpellDamage
     ElementType Element { get; }
     float TimeInterval { get; }
     float MaxTime { get; }
-    float AreaOfEffect { get; }
+    float AreaOfEffect { get; set; }
     float DelayToDoDamage { get; }
     Vector2 MinMaxDamage { get; }
     Sprite ElementIcon { get; }

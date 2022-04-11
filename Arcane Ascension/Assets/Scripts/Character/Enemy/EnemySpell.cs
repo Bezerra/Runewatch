@@ -30,7 +30,7 @@ public struct EnemySpell
 
     [EnableIf("enemyStopsOnAttack")]
     [Tooltip("As soon as the enemy starts casting any spell, it will stop for this time")]
-    [Range(0.1f, 4f)] [SerializeField] private float stoppingTime;
+    [Range(0.1f, 10f)] [SerializeField] private float stoppingTime;
 
     [EnableIf("@this.spell != null && this.spell.CastType == SpellCastType.OneShotCastWithRelease && enemyStopsOnAttack")]
     [Tooltip("Percentage of stopping time to start showing AoE spell area. For example, if stopping time" +
