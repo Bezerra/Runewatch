@@ -185,6 +185,8 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable, IBossRaidSavea
     /// <param name="damagePosition">Position of the damage.</param> 
     public override float TakeDamage(float damage, ElementType element, Vector3 damagePosition)
     {
+        if (Immune) return 0;
+
         float damageToReceive = 
             Mathf.Floor(
                 damage * (ElementsDamage.CalculateDamage(element, PlayerAttributes.Element)) *
@@ -246,6 +248,8 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable, IBossRaidSavea
     public override float TakeDamage(float damage, float criticalChance, float criticalDamageModifier, 
         ElementType element, Vector3 damagePosition)
     {
+        if (Immune) return 0;
+
         // Critical check
         // If random.NextDouble is less than critical chance, it will do double damage
         bool criticalHit = random.NextDouble() < criticalChance;

@@ -23,6 +23,11 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     /// </summary>
     public float MaxHealth => CommonAttributes.MaxHealth;
 
+    /// <summary>
+    /// Sets this character immune state.
+    /// </summary>
+    public bool Immune { get; set; }
+
     public ExtendedDictionary<StatusEffectType, IStatusEffectInformation> StatusEffectList 
         { get; private set; }
     public int StatusEffectStack { get; set; }
@@ -43,6 +48,7 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     {
         Heal(CommonAttributes.MaxHealth, StatsType.Health);
         StatusEffectStack = 0;
+        Immune = false;
     }
 
     /// <summary>
