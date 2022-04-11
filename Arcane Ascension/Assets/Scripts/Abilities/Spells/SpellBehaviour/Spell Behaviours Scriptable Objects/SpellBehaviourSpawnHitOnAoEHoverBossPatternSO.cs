@@ -10,12 +10,16 @@ public class SpellBehaviourSpawnHitOnAoEHoverBossPatternSO : SpellBehaviourAbstr
 {
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
+        if (parent == null) return;
+        if (parent.AreaHoverVFXMultiple == null) return;
+
         // Needed to run other behaviours
         parent.SpellStartedMoving = true;
         parent.TimeOfImpact = Time.time;
         parent.TimeSpawned = Time.time;
 
-        parent.transform.position = parent.AreaHoverAreaHit.point + parent.AreaHoverAreaHit.normal;
+        parent.transform.position = parent.AreaHoverAreaHit.point + 
+            parent.AreaHoverAreaHit.normal;
         parent.PositionOnHit = parent.AreaHoverAreaHit.point + parent.AreaHoverAreaHit.normal;
 
         parent.SpellsInPatternsTransforms = new Transform[parent.AreaHoverVFXMultiple.Length];

@@ -267,7 +267,9 @@ public class Enemy : Character
         if (CurrentCastSpell != null)
         {
             if (CurrentlySelectedSpell.Spell.CastType == SpellCastType.OneShotCastWithRelease)
+            {
                 CurrentCastSpell.SetActive(false);
+            }
         }
 
         achievementLogic.TriggerAchievement(AchievementType.EnemiesKilled);

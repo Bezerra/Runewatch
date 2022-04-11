@@ -29,14 +29,7 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorBossPatternSO : Spe
         // If who cast does not exist anymore, cancels effects
         if (parent.WhoCast == null)
         {
-            if (parent.AreaHoverVFXMultiple != null && parent.AreaHoverVFXMultiple[0] != null)
-            {
-                for (int i = 0; i < parent.AreaHoverVFXMultiple.Length; i++)
-                {
-                    parent.AreaHoverVFXMultiple[i].SetActive(false);
-                }
-                return;
-            }
+            return;
         }
 
         // Will be set to true in another movement behaviour start behaviour
@@ -77,7 +70,8 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorBossPatternSO : Spe
                             if (parent.AreaHoverVFXMultiple[i].TryGetComponent(
                                 out AreaTargetSizeUpdate targetSize))
                             {
-                                targetSize.UpdateAreaTargetSize(parent.Spell.AreaOfEffect);
+                                targetSize.UpdateAreaTargetSize(
+                                    parent.Spell.AreaOfEffect, parent.WhoCast);
                             }
 
                             // Spawns extra game objects
@@ -144,13 +138,9 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorBossPatternSO : Spe
         // If the spell is already in motion, it will disable this game object
         if (parent.SpellStartedMoving == true)
         {
-            if (parent.AreaHoverVFXMultiple != null && parent.AreaHoverVFXMultiple.Length > 0)
+            for (int i = 0; i < parent.AreaHoverVFXMultiple.Length; i++)
             {
-                for (int i = 0; i < parent.AreaHoverVFXMultiple.Length; i++)
-                {
-                    parent.AreaHoverVFXMultiple[i].SetActive(false);
-                }
-                return;
+                parent.AreaHoverVFXMultiple[i].SetActive(false);
             }
         }
     }

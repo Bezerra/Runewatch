@@ -57,7 +57,8 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectWallsAndFloorSO : SpellBeh
                             Quaternion.identity);
 
                         if (parent.AreaHoverVFX.TryGetComponent(out AreaTargetSizeUpdate targetSize))
-                            targetSize.UpdateAreaTargetSize(parent.Spell.AreaOfEffect);
+                            targetSize.UpdateAreaTargetSize(
+                                parent.Spell.AreaOfEffect, parent.WhoCast);
                     }
 
                     parent.AreaHoverAreaHit = floorHit;
@@ -81,7 +82,8 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectWallsAndFloorSO : SpellBeh
                 Quaternion.identity);
 
             if (parent.AreaHoverVFX.TryGetComponent(out AreaTargetSizeUpdate targetSize))
-                targetSize.UpdateAreaTargetSize(parent.Spell.AreaOfEffect);
+                targetSize.UpdateAreaTargetSize(parent.Spell.AreaOfEffect,
+                    parent.WhoCast);
         }
 
         Ray eyesForward = new Ray(parent.Eyes.position, parent.Eyes.forward);

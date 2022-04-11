@@ -5,6 +5,8 @@ using UnityEngine;
 /// </summary>
 public class AreaTargetSizeUpdate : MonoBehaviour
 {
+    private Stats whoCast;
+
     [SerializeField] private ParticleSystem[] circles;
     [SerializeField] private ParticleSystem[] cylinders;
 
@@ -40,8 +42,10 @@ public class AreaTargetSizeUpdate : MonoBehaviour
     /// Updates current particle sizes.
     /// </summary>
     /// <param name="radius">Radius to update size.</param>
-    public void UpdateAreaTargetSize(float radius)
+    public void UpdateAreaTargetSize(float radius, Stats whoCast)
     {
+        this.whoCast = whoCast;
+
         for (int i = 0; i < circleMain.Length; i++)
         {
             circleMain[i].startSize = radius * initialCirclesSizes[i];
@@ -52,5 +56,10 @@ public class AreaTargetSizeUpdate : MonoBehaviour
             cylinderMain[i].startSizeX = radius * initialCylindersSizesX[i];
             cylinderMain[i].startSizeZ = radius * initialCylindersSizesZ[i];
         }  
+    }
+
+    private void Update()
+    {
+        if (whoCast == null) gameObject.SetActive(false);
     }
 }

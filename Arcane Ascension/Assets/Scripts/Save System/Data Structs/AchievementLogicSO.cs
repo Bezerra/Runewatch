@@ -24,8 +24,11 @@ public class AchievementLogicSO : ScriptableObject, IAchievementLogic
     private RunSaveDataController runSaveData;
     private CharacterSaveDataController characterSaveData;
 
-    public void TriggerAchievement(AchievementType achievementType, int value = 0, int[] valueArray = null)
+    public void TriggerAchievement(AchievementType achievementType, int value = 0,
+        int[] valueArray = null)
     {
+        if (runSaveData == null) return;
+
         switch(achievementType)
         {
             case AchievementType.EnemiesKilled:
@@ -49,7 +52,8 @@ public class AchievementLogicSO : ScriptableObject, IAchievementLogic
                 break;
             case AchievementType.RunTime:
                 runTime = valueArray;
-                if (runSaveData.SaveData.DungeonSavedData.Floor == 9 && value < bestRunTimeInSeconds)
+                if (runSaveData.SaveData.DungeonSavedData.Floor == 9 && 
+                    value < bestRunTimeInSeconds)
                 {
                     bestRunTime = valueArray;
                     bestRunTimeInSeconds = value;

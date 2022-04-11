@@ -64,7 +64,8 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
                             Quaternion.identity);
 
                         if (parent.AreaHoverVFX.TryGetComponent(out AreaTargetSizeUpdate targetSize))
-                            targetSize.UpdateAreaTargetSize(parent.Spell.AreaOfEffect);
+                            targetSize.UpdateAreaTargetSize(parent.Spell.AreaOfEffect,
+                                parent.WhoCast);
                     }
 
                     parent.AreaHoverAreaHit = floorHit;
@@ -87,7 +88,8 @@ sealed public class SpellBehaviourSpawnAreaHoverEffectOnFloorSO : SpellBehaviour
                 Quaternion.identity);
 
             if (parent.AreaHoverVFX.TryGetComponent(out AreaTargetSizeUpdate targetSize))
-                targetSize.UpdateAreaTargetSize(parent.Spell.AreaOfEffect);
+                targetSize.UpdateAreaTargetSize(parent.Spell.AreaOfEffect,
+                    parent.WhoCast);
         }
 
         if (parent.AttackButtonReleased == false)
