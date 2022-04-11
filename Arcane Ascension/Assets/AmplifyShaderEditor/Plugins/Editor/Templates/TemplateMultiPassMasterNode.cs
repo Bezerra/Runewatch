@@ -1056,6 +1056,11 @@ namespace AmplifyShaderEditor
 					module.TagsHelper.AddSpecialTag( TemplateSpecialTags.DisableBatching , item );
 				}
 				break;
+				case PropertyActionsEnum.ChangeTagValue:
+				{
+					module.TagsHelper.ChangeTagValue( item.ActionData , item.ActionBuffer );
+				}
+				break;
 			}
 		}
 
@@ -2138,7 +2143,7 @@ namespace AmplifyShaderEditor
 
 			//BUILD LOD
 			string allLodSubShaders = string.Empty;
-			if( ContainerGraph.HasLODs )
+			if( m_templateMultiPass.CanAddLODs && ContainerGraph.HasLODs )
 			{
 				for( int lod = 0 ; lod < ContainerGraph.LodMultiPassMasternodes.Count ; lod++ )
 				{
@@ -2158,9 +2163,13 @@ namespace AmplifyShaderEditor
 			MasterNodeDataCollector dummy = new MasterNodeDataCollector();
 			string shaderBody = BuildShaderBody( overallDataCollector , ref dummy );
 
-			//COMBINE LOD WITH MAIN
-			if( !string.IsNullOrEmpty( allLodSubShaders ) )
+			if( m_templateMultiPass.CanAddLODs )
+			{
+				//COMBINE LOD WITH MAIN
+				// Commented the if out since we always want to replace the tag with something, even string.empty to clean the tag out of the final shader
+				//if( !string.IsNullOrEmpty( allLodSubShaders ) )
 				shaderBody = shaderBody.Replace( TemplatesManager.TemplateLODsTag , allLodSubShaders );
+			}
 
 			UpdateShaderAsset( ref pathname , ref shaderBody , isFullPath );
 			return m_currentShader;
@@ -3151,8 +3160,9 @@ namespace AmplifyShaderEditor
 				// only in here, after SetTemplate, we know if shader name is to be used as title or not
 				ShaderName = currShaderName;
 				m_visiblePorts = Convert.ToInt32( GetCurrentParam( ref nodeParams ) );
-				m_subShaderModule.ReadFromString( ref m_currentReadParamIdx , ref nodeParams );
-				m_passModule.ReadFromString( ref m_currentReadParamIdx , ref nodeParams );
+				
+				m_subShaderModule.ReadFromString( m_templateMultiPass.SubShaders[ m_subShaderIdx ].Modules, ref m_currentReadParamIdx , ref nodeParams );
+				m_passModule.ReadFromString( m_templateMultiPass.SubShaders[ m_subShaderIdx ].Passes[m_passIdx].Modules, ref m_currentReadParamIdx , ref nodeParams );
 				if( UIUtils.CurrentShaderVersion() > 15308 )
 				{
 					m_fallbackHelper.ReadFromString( ref m_currentReadParamIdx , ref nodeParams );
@@ -3219,7 +3229,40 @@ namespace AmplifyShaderEditor
 
 		void CheckLegacyCustomInspectors()
 		{
-#if UNITY_2021_1_OR_NEWER
+#if UNITY_2021_2_OR_NEWER
+			if( m_templateMultiPass.SubShaders[ 0 ].Modules.SRPType == TemplateSRPType.HD && ASEPackageManagerHelper.CurrentHDVersion >= ASESRPVersions.ASE_SRP_11_0_0 )
+			{
+				if( Constants.CustomInspectorHDLegacyTo11.ContainsKey( m_customInspectorName ) )
+				{
+					UIUtils.ShowMessage( string.Format( "Detected obsolete custom inspector \"{0}\" in shader meta. Converting to new one \"{1}\"" , m_customInspectorName , Constants.CustomInspectorHDLegacyTo11[ m_customInspectorName ] ) , MessageSeverity.Warning );
+					m_customInspectorName = Constants.CustomInspectorHDLegacyTo11[ m_customInspectorName ];
+				}
+			}
+
+			if( m_templateMultiPass.SubShaders[ 0 ].Modules.SRPType == TemplateSRPType.Lightweight && ASEPackageManagerHelper.CurrentLWVersion>= ASESRPVersions.ASE_SRP_12_0_0 )
+			{
+				if( Constants.CustomInspectorURP10To12.ContainsKey( m_customInspectorName ) )
+				{
+					string newCustomInspector = string.Empty;
+					if( TemplatesManager.UniversalPBRGUID.Equals( m_templateMultiPass.GUID ))
+					{
+						newCustomInspector = "UnityEditor.ShaderGraphLitGUI";
+					}
+					else if( TemplatesManager.UniversalUnlitGUID.Equals( m_templateMultiPass.GUID ) )
+					{
+						newCustomInspector = "UnityEditor.ShaderGraphUnlitGUI";
+					}
+
+					if( !string.IsNullOrEmpty( newCustomInspector ) )
+					{
+						UIUtils.ShowMessage( string.Format( "Detected obsolete custom inspector \"{0}\" in shader meta. Converting to new one \"{1}\"" , m_customInspectorName , newCustomInspector ) , MessageSeverity.Warning );
+						m_customInspectorName = newCustomInspector;
+					}
+				}
+
+			}
+
+#elif UNITY_2021_1_OR_NEWER
 			if( m_templateMultiPass.SubShaders[ 0 ].Modules.SRPType == TemplateSRPType.HD && ASEPackageManagerHelper.CurrentHDVersion >= ASESRPVersions.ASE_SRP_11_0_0 )
 			{
 				if( Constants.CustomInspectorHDLegacyTo11.ContainsKey( m_customInspectorName ) )
@@ -3238,7 +3281,7 @@ namespace AmplifyShaderEditor
 				}
 			}
 #endif
-		}
+			}
 		public override void WriteToString( ref string nodeInfo , ref string connectionsInfo )
 		{
 			base.WriteToString( ref nodeInfo , ref connectionsInfo );

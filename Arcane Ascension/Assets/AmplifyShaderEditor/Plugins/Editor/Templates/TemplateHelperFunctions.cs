@@ -584,6 +584,7 @@ namespace AmplifyShaderEditor
 			{TemplateSemantics.TANGENT			,"ase_tangent"},
 			{TemplateSemantics.VFACE			,"ase_vface"},
 			{TemplateSemantics.SV_VertexID		,"ase_vertexId"},
+			{TemplateSemantics.SV_InstanceID    ,"ase_instanceId"},
 			{TemplateSemantics.SV_PrimitiveID   ,"ase_primitiveId"},
 			{TemplateSemantics.INTERNALTESSPOS  ,"ase_internalTessPos"},
 			{TemplateSemantics.TEXCOORD0		,"ase_tex_coord0"},
@@ -1930,6 +1931,11 @@ namespace AmplifyShaderEditor
 
 			if( vertexData.Contains( Constants.InstanceIdMacro ) )
 			{
+				if( vertexDataList == null )
+				{
+					vertexDataList = new List<TemplateVertexData>();
+					vertexDataDict = new Dictionary<TemplateSemantics , TemplateVertexData>();
+				}
 				TemplateVertexData templateVertexData = new TemplateVertexData( TemplateSemantics.SV_InstanceID, WirePortDataType.UINT, Constants.InstanceIdVariable );
 				templateVertexData.DataInfo = TemplateInfoOnSematics.INSTANCE_ID;
 				templateVertexData.Available = true;

@@ -99,7 +99,10 @@ namespace AmplifyShaderEditor
 			"UnityEditor.Experimental.Rendering.HDPipeline.HDLitGUI",
 			"Rendering.HighDefinition.DecalGUI",
 			"Rendering.HighDefinition.LitShaderGraphGUI",
-			"Rendering.HighDefinition.DecalShaderGraphGUI"
+			"Rendering.HighDefinition.DecalShaderGraphGUI",
+			"UnityEditor.ShaderGraphUnlitGUI",
+			"UnityEditor.ShaderGraphLitGUI",
+			"UnityEditor.Rendering.Universal.DecalShaderGraphGUI"
 		};
 
 		public readonly static Dictionary<string, string> CustomInspectorHD7To10 = new Dictionary<string, string>
@@ -110,6 +113,11 @@ namespace AmplifyShaderEditor
 			{ "UnityEditor.Experimental.Rendering.HDPipeline.HDLitGUI","Rendering.HighDefinition.LitShaderGraphGUI"},
 		};
 
+
+		public readonly static Dictionary<string , string> CustomInspectorURP10To12 = new Dictionary<string , string>
+		{
+			{ "UnityEditor.ShaderGraph.PBRMasterGUI","UnityEditor.ShaderGraphLitGUI"},
+		};
 
 		public readonly static Dictionary<string , string> CustomInspectorHDLegacyTo11 = new Dictionary<string , string>
 		{
@@ -579,7 +587,7 @@ namespace AmplifyShaderEditor
 		public readonly static string NoStringValue = "None";
 		public readonly static string EmptyPortValue = "  ";
 
-		public readonly static string[] OverallInvalidChars = { "\r", "\n", "\\", " ", ".", ">", ",", "<", "\'", "\"", ";", ":", "[", "{", "]", "}", "=", "+", "`", "~", "/", "?", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-" };
+		public readonly static string[] OverallInvalidChars = { "\r", "\n", "\\", " ", ".", ">", ",", "<", "\'", "\"", ";", ":", "[", "{", "]", "}","|", "=", "+", "`", "~", "/", "?", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-" };
 		public readonly static string[] ShaderInvalidChars = { "\r", "\n", "\\", "\'", "\"", };
 		public readonly static string[] EnumInvalidChars = { "\r", "\n", "\\", ".", ">", ",", "<", "\'", "\"", ";", ":", "[", "{", "]", "}", "=", "+", "`", "~", "/", "?", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-" };
 		public readonly static string[] AttrInvalidChars = { "\r", "\n", "\\", ">", "<", "\'", "\"", ";", ":", "[", "{", "]", "}", "=", "+", "`", "~", "/", "?", "!", "@", "#", "$", "%", "^", "&", "*" };
