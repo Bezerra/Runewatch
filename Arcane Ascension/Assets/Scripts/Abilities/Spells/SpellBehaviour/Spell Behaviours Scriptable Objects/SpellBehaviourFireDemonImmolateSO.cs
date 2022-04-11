@@ -23,10 +23,10 @@ sealed public class SpellBehaviourFireDemonImmolateSO : SpellBehaviourAbstractSO
     public override void ContinuousUpdateBehaviour(SpellBehaviourOneShot parent)
     {
         parent.Spell.AreaOfEffect += parent.Spell.Speed * Time.deltaTime;
-        parent.Spell.DamageBehaviour.Damage(parent);
-        if (Time.time + parent.Spell.DelayToDoDamage > parent.LastTimeDamaged)
+
+        if (Time.time > parent.LastTimeDamaged + parent.Spell.DelayToDoDamage)
         {
-            parent.Spell.DamageBehaviour.Damage(parent);
+            parent.Spell.DamageBehaviour.Damage(parent, parent.transform);
             parent.LastTimeDamaged = Time.time;
         }
     }
