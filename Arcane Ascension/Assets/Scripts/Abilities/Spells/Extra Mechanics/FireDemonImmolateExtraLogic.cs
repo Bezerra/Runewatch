@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using ExtensionMethods;
 
 /// <summary>
 /// Class responsible for growing particles radius depending on a spell AoE.
@@ -50,7 +48,6 @@ public class FireDemonImmolateExtraLogic : MonoBehaviour, IReset
         {
             safeZones[i].SetActive(false);
         }
-        Debug.Log("DISABLED SAFE ZONES");
     }
 
     private void Update()

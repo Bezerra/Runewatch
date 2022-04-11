@@ -27,7 +27,6 @@ sealed public class SpellBehaviourFireDemonImmolateSO : SpellBehaviourAbstractSO
         if (Time.time > parent.LastTimeDamaged + parent.Spell.DelayToDoDamage)
         {
             parent.Spell.DamageBehaviour.Damage(parent, parent.transform);
-
             parent.LastTimeDamaged = Time.time;
         }
     }
