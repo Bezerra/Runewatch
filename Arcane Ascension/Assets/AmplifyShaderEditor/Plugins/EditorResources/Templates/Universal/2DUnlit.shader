@@ -113,6 +113,7 @@ Shader /*ase_name*/ "Hidden/Universal/Experimental/2D Unlit" /*end*/
 					v.vertex.xyz += vertexValue;
 				#endif
 				v.normal = /*ase_vert_out:Vertex Normal;Float3;4;-1;_VNormal*/v.normal/*end*/;
+				v.tangent.xyz = /*ase_vert_out:Vertex Tangent;Float3;5;-1;_VTangent*/v.tangent.xyz/*end*/;
 
 				VertexPositionInputs vertexInput = GetVertexPositionInputs( v.vertex.xyz );
 
@@ -144,6 +145,6 @@ Shader /*ase_name*/ "Hidden/Universal/Experimental/2D Unlit" /*end*/
 			ENDHLSL
 		}
 	}
-	CustomEditor "UnityEditor.ShaderGraph.PBRMasterGUI"
+	CustomEditor "ASEMaterialInspector"
 	FallBack "Hidden/InternalErrorShader"
 }

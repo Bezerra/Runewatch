@@ -154,6 +154,7 @@ Shader /*ase_name*/ "Hidden/Universal/Unlit" /*end*/
 		
 		Cull Back
 		AlphaToMask Off
+		/*ase_stencil*/
 		HLSLINCLUDE
 		#pragma target 2.0
 
@@ -735,11 +736,16 @@ Shader /*ase_name*/ "Hidden/Universal/Unlit" /*end*/
 			ZWrite On
 			ZTest LEqual
 			AlphaToMask Off
+			ColorMask 0
 
 			HLSLPROGRAM
 			
 			#pragma vertex vert
 			#pragma fragment frag
+#if ASE_SRP_VERSION >= 110000
+			#pragma multi_compile _ _CASTING_PUNCTUAL_LIGHT_SHADOW
+#endif
+			#define SHADERPASS SHADERPASS_SHADOWCASTER
 
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
@@ -785,7 +791,9 @@ Shader /*ase_name*/ "Hidden/Universal/Unlit" /*end*/
 			/*ase_funcs*/
 
 			float3 _LightDirection;
-
+#if ASE_SRP_VERSION >= 110000 
+			float3 _LightPosition;
+#endif
 			VertexOutput VertexFunction( VertexInput v/*ase_vert_input*/ )
 			{
 				VertexOutput o;
@@ -815,15 +823,26 @@ Shader /*ase_name*/ "Hidden/Universal/Unlit" /*end*/
 				#endif
 
 				float3 normalWS = TransformObjectToWorldDir( v.ase_normal );
-
+#if ASE_SRP_VERSION >= 110000 
+			#if _CASTING_PUNCTUAL_LIGHT_SHADOW
+				float3 lightDirectionWS = normalize(_LightPosition - positionWS);
+			#else
+				float3 lightDirectionWS = _LightDirection;
+			#endif
+				float4 clipPos = TransformWorldToHClip(ApplyShadowBias(positionWS, normalWS, lightDirectionWS));
+			#if UNITY_REVERSED_Z
+				clipPos.z = min(clipPos.z, UNITY_NEAR_CLIP_VALUE);
+			#else
+				clipPos.z = max(clipPos.z, UNITY_NEAR_CLIP_VALUE);
+			#endif
+#else
 				float4 clipPos = TransformWorldToHClip( ApplyShadowBias( positionWS, normalWS, _LightDirection ) );
-
 				#if UNITY_REVERSED_Z
 					clipPos.z = min(clipPos.z, clipPos.w * UNITY_NEAR_CLIP_VALUE);
 				#else
 					clipPos.z = max(clipPos.z, clipPos.w * UNITY_NEAR_CLIP_VALUE);
 				#endif
-
+#endif
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
 					VertexPositionInputs vertexInput = (VertexPositionInputs)0;
 					vertexInput.positionWS = positionWS;
@@ -1378,6 +1397,7 @@ Shader /*ase_name*/ "Hidden/Universal/Unlit" /*end*/
 		}
 		/*ase_pass_end*/
 	}
+	/*ase_lod*/
 	CustomEditor "UnityEditor.ShaderGraph.PBRMasterGUI"
 	FallBack "Hidden/InternalErrorShader"
 }

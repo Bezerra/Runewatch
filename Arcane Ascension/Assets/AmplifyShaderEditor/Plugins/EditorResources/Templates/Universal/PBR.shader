@@ -246,6 +246,8 @@ Shader /*ase_name*/ "Hidden/Universal/PBR" /*end*/
 				On:SetDefine:_ASE_BAKEDGI 1
 			Port:Forward:Alpha Clip Threshold
 				On:SetDefine:_ALPHATEST_ON 1
+			Port:Forward:Alpha Clip Threshold Shadow
+				On:SetDefine:_ALPHATEST_ON 1
 			Port:Forward:Normal
 				On:SetDefine:_NORMALMAP 1
 		*/
@@ -258,6 +260,7 @@ Shader /*ase_name*/ "Hidden/Universal/PBR" /*end*/
 		}
 		Cull Back
 		AlphaToMask Off
+		/*ase_stencil*/
 		HLSLINCLUDE
 		#pragma target 2.0
 
@@ -1079,12 +1082,15 @@ Shader /*ase_name*/ "Hidden/Universal/PBR" /*end*/
 			ZWrite On
 			ZTest LEqual
 			AlphaToMask Off
+			ColorMask 0
 
 			HLSLPROGRAM
 			
 			#pragma vertex vert
 			#pragma fragment frag
-
+#if ASE_SRP_VERSION >= 110000
+			#pragma multi_compile _ _CASTING_PUNCTUAL_LIGHT_SHADOW
+#endif
 			#define SHADERPASS_SHADOWCASTER
 
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
@@ -1142,7 +1148,9 @@ Shader /*ase_name*/ "Hidden/Universal/PBR" /*end*/
 			/*ase_funcs*/
 
 			float3 _LightDirection;
-
+#if ASE_SRP_VERSION >= 110000 
+			float3 _LightPosition;
+#endif
 			VertexOutput VertexFunction( VertexInput v/*ase_vert_input*/ )
 			{
 				VertexOutput o;
@@ -1171,13 +1179,27 @@ Shader /*ase_name*/ "Hidden/Universal/PBR" /*end*/
 				#endif
 				float3 normalWS = TransformObjectToWorldDir(v.ase_normal);
 
-				float4 clipPos = TransformWorldToHClip( ApplyShadowBias( positionWS, normalWS, _LightDirection ) );
+		#if ASE_SRP_VERSION >= 110000 
+			#if _CASTING_PUNCTUAL_LIGHT_SHADOW
+				float3 lightDirectionWS = normalize(_LightPosition - positionWS);
+			#else
+				float3 lightDirectionWS = _LightDirection;
+			#endif
+				float4 clipPos = TransformWorldToHClip(ApplyShadowBias(positionWS, normalWS, lightDirectionWS));
+			#if UNITY_REVERSED_Z
+				clipPos.z = min(clipPos.z, UNITY_NEAR_CLIP_VALUE);
+			#else
+				clipPos.z = max(clipPos.z, UNITY_NEAR_CLIP_VALUE);
+			#endif
+		#else
+				float4 clipPos = TransformWorldToHClip(ApplyShadowBias(positionWS, normalWS, _LightDirection));
+			#if UNITY_REVERSED_Z
+				clipPos.z = min(clipPos.z, clipPos.w * UNITY_NEAR_CLIP_VALUE);
+			#else
+				clipPos.z = max(clipPos.z, clipPos.w * UNITY_NEAR_CLIP_VALUE);
+			#endif
+		#endif
 
-				#if UNITY_REVERSED_Z
-					clipPos.z = min(clipPos.z, clipPos.w * UNITY_NEAR_CLIP_VALUE);
-				#else
-					clipPos.z = max(clipPos.z, clipPos.w * UNITY_NEAR_CLIP_VALUE);
-				#endif
 				#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR) && defined(ASE_NEEDS_FRAG_SHADOWCOORDS)
 					VertexPositionInputs vertexInput = (VertexPositionInputs)0;
 					vertexInput.positionWS = positionWS;
