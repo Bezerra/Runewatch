@@ -115,7 +115,8 @@ public class SpellBookAttributes : MonoBehaviour
     {
         maxHealth[0].text = playerStats.MaxHealth.ToString("F0");
 
-        damageResistance[0].text = 
+        // DAMAGE RESISTANCE 1 IS THE DEFAULT VALUE (THE LOWER THE MORE RESISTANCE)
+        damageResistance[0].text = playerStats.DamageResistance == 1 ? " - " :
             ((1 - playerStats.DamageResistance) * 100f).ToString("F1") + " %";
 
         maxMana[0].text = playerStats.MaxMana.ToString("F0");
@@ -131,8 +132,8 @@ public class SpellBookAttributes : MonoBehaviour
         baseDamage[0].text = (playerStats.BaseDamageMultiplier * 100f).
             ToString("F1");
 
-        lifeSteal[0].text = playerStats.LifeSteal.
-            ToString("F1") + " %";
+        lifeSteal[0].text = playerStats.LifeSteal == 0 ? " - " :
+            playerStats.LifeSteal.ToString("F1") + " %";
 
         criticalBonusDamage[0].text =
             (200f + (playerStats.CriticalDamageModifier * 100f - 100)).ToString("F1") + " %";
