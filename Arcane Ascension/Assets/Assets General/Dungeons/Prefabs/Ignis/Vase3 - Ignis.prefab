@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 288035758165569620}
   - component: {fileID: 2601877405668820126}
   - component: {fileID: 1960066087}
+  - component: {fileID: 7370243711042251739}
   - component: {fileID: 783511503}
   m_Layer: 13
   m_Name: Vase3 - Ignis
@@ -99,6 +100,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   surfaceType: 0
+--- !u!114 &7370243711042251739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4547304970376897867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 804ec09be9b7ecb4e879ec3b3fd5bd16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ignoreElement: 1
+  elementToInteractWith: 0
+  brokenVase: {fileID: 2105394155967993583, guid: 4f598759b0b629b4683beb706b820e1e, type: 3}
 --- !u!65 &783511503
 BoxCollider:
   m_ObjectHideFlags: 0
