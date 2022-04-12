@@ -104,7 +104,8 @@ public class SkillTreePassiveController : MonoBehaviour
     /// </summary>
     public void ResetButton()
     {
-        if (CurrentPassives.Count == 1) return;
+        Debug.Log(CurrentPassives.Count);
+        //if (CurrentPassives.Count == 1) return;
 
         SkillTreePassiveNode[] allNodes = GetComponentsInChildren<SkillTreePassiveNode>();
 

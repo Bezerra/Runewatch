@@ -11,6 +11,9 @@ public class GrimoireUnspentPoints : MonoBehaviour
 
     private CharacterSaveDataController characterSaveData;
 
+    [SerializeField] private GameObject nodesParent;
+    [SerializeField] private CurrencySO currency;
+
     private void Awake()
     {
         characterSaveData = FindObjectOfType<CharacterSaveDataController>();
@@ -18,6 +21,29 @@ public class GrimoireUnspentPoints : MonoBehaviour
 
     private void OnEnable()
     {
+        return;
+
+        icon.SetActive(false);
+
+        SkillTreePassiveNode[] allNodes = 
+            nodesParent.GetComponentsInChildren<SkillTreePassiveNode>(true);
+
+        foreach(SkillTreePassiveNode node in allNodes)
+        {
+            if (node.NodePassive == null) continue;
+
+            if (node.NodePassive.Tier == node.NodePassives.Length) continue;
+
+            // Checks if the player has enough arcane power
+            if (currency.
+                CanSpend(CurrencyType.ArcanePower, node.NodePassiveNext.Cost))
+            {
+                icon.SetActive(true);
+                Debug.Log(node.NodePassive.Name);
+            }
+        }
+
+        /*
         if (characterSaveData.SaveData.ArcanePower > 
             PlayerPrefs.GetInt("ArcanePowerOnLastEnable", 0))
         {
@@ -30,6 +56,7 @@ public class GrimoireUnspentPoints : MonoBehaviour
 
         PlayerPrefs.SetInt("ArcanePowerOnLastEnable", 
             characterSaveData.SaveData.ArcanePower);
+        */
     }
 
     private void Update()
