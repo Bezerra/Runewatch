@@ -1,5 +1,4 @@
 using UnityEngine;
-using System;
 
 /// <summary>
 /// Deletes old files on a new version.
@@ -17,12 +16,12 @@ public class UpdateGameVersionFiles : MonoBehaviour
         characterSaveData = FindObjectOfType<CharacterSaveDataController>();
         runSaveData = FindObjectOfType<RunSaveDataController>();
         bossRaidRunSaveData = FindObjectOfType<BossRaidRunSaveDataController>();
-        if (PlayerPrefs.GetFloat("VersionControl", 0) < VERSION)
+        if (PlayerPrefs.GetFloat(PPrefsGeneral.VersionControl.ToString(), 0) < VERSION)
         {
             if (characterSaveData.FileExists()) characterSaveData.DeleteFile();
             if (runSaveData.FileExists()) runSaveData.DeleteFile();
             if (bossRaidRunSaveData.FileExists()) bossRaidRunSaveData.DeleteFile();
-            PlayerPrefs.SetFloat("VersionControl", VERSION);
+            PlayerPrefs.SetFloat(PPrefsGeneral.VersionControl.ToString(), VERSION);
             Debug.Log("Detected old version. Deleted files.");
         }
     }

@@ -5,4 +5,7 @@
 public enum PPrefsGeneral
 {
     CurrentSessionGameTime,
+    VersionControl,
+    MenuLoadFirstTime,
+    UnspentAPIcon,
 }

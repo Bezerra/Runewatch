@@ -15,27 +15,34 @@ public class GrimoireUnspentPoints : MonoBehaviour
     public GameObject NodesParent { get; set; }
 
     private bool enableIcon;
-
+    
     private void Awake()
     {
         NodesParent = nodesParent;
 
-        PlayerPrefs.SetInt("SceneLoadedTimes", +1);
-        Debug.Log(PlayerPrefs.GetInt("SceneLoadedTimes"));
+        // If the scene was loaded for the first time
+        if (PlayerPrefs.GetInt(PPrefsGeneral.MenuLoadFirstTime.ToString()) == 0)
+        {
+            // Loads the last icon state from when the game was closed
+            if (PlayerPrefs.GetInt(PPrefsGeneral.UnspentAPIcon.ToString()) == 1)
+            {
+                enableIcon = true;
+            }
+            else
+            {
+                enableIcon = false;
+            }
+        }
     }
 
     public void OnEnable()
     {
-        // Loads the last icon state from when the game was closed
-        if (PlayerPrefs.GetInt("UnspentPoints") == 1)
+        // If the scene was loaded for the first time, ignores rest of the code
+        if (PlayerPrefs.GetInt(PPrefsGeneral.MenuLoadFirstTime.ToString()) == 0)
         {
-            enableIcon = true;
+            PlayerPrefs.SetInt(PPrefsGeneral.MenuLoadFirstTime.ToString(), 1);
+            return;
         }
-        else
-        {
-            enableIcon = false;
-        }
-        if (PlayerPrefs.GetInt("SceneLoadedTimes") > 1) return;
 
         icon.SetActive(false);
 
@@ -127,12 +134,16 @@ public class GrimoireUnspentPoints : MonoBehaviour
             }
         }
 
-        PlayerPrefs.SetInt("UnspentPoints", enableIcon == true ? 1 : 0);
+        PlayerPrefs.SetInt(PPrefsGeneral.UnspentAPIcon.ToString(), 
+            enableIcon == true ? 1 : 0);
+
+        PlayerPrefs.SetInt(PPrefsGeneral.MenuLoadFirstTime.ToString(), 1);
     }
 
     private void OnApplicationQuit()
     {
-        PlayerPrefs.SetInt("UnspentPoints", enableIcon == true ? 1 : 0);
+        PlayerPrefs.SetInt(PPrefsGeneral.UnspentAPIcon.ToString(), 
+            enableIcon == true ? 1 : 0);
     }
 
     private void Update()
