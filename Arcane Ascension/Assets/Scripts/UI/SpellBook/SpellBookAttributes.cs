@@ -115,7 +115,8 @@ public class SpellBookAttributes : MonoBehaviour
     {
         maxHealth[0].text = playerStats.MaxHealth.ToString("F0");
 
-        damageResistance[0].text = 
+        // DAMAGE RESISTANCE 1 IS THE DEFAULT VALUE (THE LOWER THE MORE RESISTANCE)
+        damageResistance[0].text = playerStats.DamageResistance == 1 ? " - " :
             ((1 - playerStats.DamageResistance) * 100f).ToString("F1") + " %";
 
         maxMana[0].text = playerStats.MaxMana.ToString("F0");
@@ -129,43 +130,43 @@ public class SpellBookAttributes : MonoBehaviour
             ToString("F1");
 
         baseDamage[0].text = (playerStats.BaseDamageMultiplier * 100f).
-            ToString("F1") + " %";
+            ToString("F1");
 
-        lifeSteal[0].text = playerStats.LifeSteal.
-            ToString("F1") + " %";
+        lifeSteal[0].text = playerStats.LifeSteal == 0 ? " - " :
+            playerStats.LifeSteal.ToString("F1") + " %";
 
-        criticalBonusDamage[0].text = "+ " +
-            (playerStats.CriticalDamageModifier * 100f - 100).ToString("F1") + " %";
+        criticalBonusDamage[0].text =
+            (200f + (playerStats.CriticalDamageModifier * 100f - 100)).ToString("F1") + " %";
 
-        criticalChance[0].text = "+ " +
+        criticalChance[0].text =
             (playerStats.CriticalChance * 100f).ToString("F1") + " %";
 
-        ignisBonusDamage[0].text = "+ " +
-            (playerStats.DamageElementMultiplier[ElementType.Ignis] * 100f - 100).
+        ignisBonusDamage[0].text =
+            (100f + playerStats.DamageElementMultiplier[ElementType.Ignis] * 100f - 100).
             ToString("F1") + " %";
 
-        aquaBonusDamage[0].text = "+ " +
-            (playerStats.DamageElementMultiplier[ElementType.Aqua] * 100f - 100).
+        aquaBonusDamage[0].text =
+            (100f + playerStats.DamageElementMultiplier[ElementType.Aqua] * 100f - 100).
             ToString("F1") + " %";
 
-        terraBonusDamage[0].text = "+ " +
-            (playerStats.DamageElementMultiplier[ElementType.Terra] * 100f - 100).
+        terraBonusDamage[0].text =
+            (100f + playerStats.DamageElementMultiplier[ElementType.Terra] * 100f - 100).
             ToString("F1") + " %";
 
-        naturaBonusDamage[0].text = "+ " +
-            (playerStats.DamageElementMultiplier[ElementType.Natura] * 100f - 100).
+        naturaBonusDamage[0].text =
+            (100f + playerStats.DamageElementMultiplier[ElementType.Natura] * 100f - 100).
             ToString("F1") + " %";
 
-        fulgurBonusDamage[0].text = "+ " +
-            (playerStats.DamageElementMultiplier[ElementType.Fulgur] * 100f - 100).
+        fulgurBonusDamage[0].text =
+            (100f + playerStats.DamageElementMultiplier[ElementType.Fulgur] * 100f - 100).
             ToString("F1") + " %";
 
-        luxBonusDamage[0].text = "+ " +
-            (playerStats.DamageElementMultiplier[ElementType.Lux] * 100f - 100).
+        luxBonusDamage[0].text =
+            (100f + playerStats.DamageElementMultiplier[ElementType.Lux] * 100f - 100).
             ToString("F1") + " %";
 
-        umbraBonusDamage[0].text = "+ " +
-            (playerStats.DamageElementMultiplier[ElementType.Umbra] * 100f - 100).
+        umbraBonusDamage[0].text =
+            (100f + playerStats.DamageElementMultiplier[ElementType.Umbra] * 100f - 100).
             ToString("F1") + " %";
     }
 }
