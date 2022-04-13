@@ -18,16 +18,30 @@ public class EnvironmentLightControlSO : ScriptableObject
     /// </summary>
     public void UpdateColor(ElementType elementType)
     {
-        RenderSettings.ambientMode = AmbientMode.Flat;
+        RenderSettings.ambientMode = AmbientMode.Trilight;
 
         if (elementLightColors.Count > 0)
         {
-            IDictionary<ElementType, Color> elementColors = new Dictionary<ElementType, Color>();
+            IDictionary<ElementType, Color[]> elementColors = new Dictionary<ElementType, Color[]>();
             foreach (ElementsLightColor elementLightColor in elementLightColors)
-                elementColors.Add(elementLightColor.Element, elementLightColor.Color);
+            {
+                elementColors.Add(
+                    elementLightColor.Element, 
+                    new Color[3]
+                        {
+                            elementLightColor.SkyColor,
+                            elementLightColor.EquatorColor,
+                            elementLightColor.GroundColor
+                        });
+
+            }
 
             if (elementColors.ContainsKey(elementType))
-                RenderSettings.ambientLight = elementColors[elementType];
+            {
+                RenderSettings.ambientSkyColor = elementColors[elementType][0];
+                RenderSettings.ambientEquatorColor = elementColors[elementType][1];
+                RenderSettings.ambientGroundColor = elementColors[elementType][2];
+            }
         }
     }
 
@@ -35,10 +49,14 @@ public class EnvironmentLightControlSO : ScriptableObject
     private struct ElementsLightColor
     {
         [ColorUsage(true, true)]
-        [SerializeField] private Color color;
+        [SerializeField] private Color skyColor;
+        [SerializeField] private Color equatorColor;
+        [SerializeField] private Color groundColor;
         [SerializeField] private ElementType element;
 
-        public Color Color => color;
+        public Color SkyColor => skyColor;
+        public Color EquatorColor => equatorColor;
+        public Color GroundColor => groundColor;
         public ElementType Element => element;
     }
 }
