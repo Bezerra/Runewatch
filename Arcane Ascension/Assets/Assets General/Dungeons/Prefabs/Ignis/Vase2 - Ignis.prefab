@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 40860314454241210}
   - component: {fileID: 696397836}
   - component: {fileID: 922948831}
+  - component: {fileID: 7042868831483970524}
   m_Layer: 13
   m_Name: Vase2 - Ignis
   m_TagString: Untagged
@@ -112,6 +113,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.60313916, y: 1.2972815, z: 0.60313916}
   m_Center: {x: 0, y: 0.64864075, z: 0}
+--- !u!114 &7042868831483970524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986604538573557359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 804ec09be9b7ecb4e879ec3b3fd5bd16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ignoreElement: 1
+  elementToInteractWith: 0
+  brokenVase: {fileID: 5383605599799191955, guid: 30bff118b1c26494080ff918d47b8d7f, type: 3}
 --- !u!1 &7454894648509306014
 GameObject:
   m_ObjectHideFlags: 0
