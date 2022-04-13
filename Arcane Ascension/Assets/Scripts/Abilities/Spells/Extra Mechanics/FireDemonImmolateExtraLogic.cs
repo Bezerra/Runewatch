@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 /// <summary>
 /// Class responsible for growing particles radius depending on a spell AoE.
@@ -27,9 +26,10 @@ public class FireDemonImmolateExtraLogic : MonoBehaviour, IReset
     private SpellBehaviourOneShot spell;
     private float enemyDefaultDamageResistance;
     private StatsSO enemyStats;
-    private GameObject[] otherSpells;
 
     [Range(-1, 0f)] [SerializeField] private float extraResistanceWhileCasting = -0.6f;
+
+    private YieldInstruction wffu;
 
     private void Awake()
     {
@@ -38,7 +38,7 @@ public class FireDemonImmolateExtraLogic : MonoBehaviour, IReset
         spell = GetComponent<SpellBehaviourOneShot>();
         enemyDefaultDamageResistance = 
             fireDemonSecondStateStats.DamageResistanceStatusEffectMultiplier;
-        
+        wffu = new WaitForFixedUpdate();
     }
 
     private void OnEnable()
@@ -62,7 +62,7 @@ public class FireDemonImmolateExtraLogic : MonoBehaviour, IReset
 
     private IEnumerator SetExtraResistanceCoroutine()
     {
-        yield return new WaitForFixedUpdate();
+        yield return wffu;
 
         if (spell.WhoCast != null)
         {

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 
 /// <summary>
 /// Class responsible for controling nodes information and buying nodes.
@@ -138,6 +137,8 @@ public class SkillTreePassiveController : MonoBehaviour
         if (initialNodesParent != null) Destroy(initialNodesParent.gameObject);
         else Destroy(spawnedNodesParentPrefab.gameObject);
         spawnedNodesParentPrefab = Instantiate(nodesParentPrefab, nodesSpawnParent.transform);
+
+        FindObjectOfType<GrimoireUnspentPoints>(true).NodesParent = spawnedNodesParentPrefab;
     }
 
     /// <summary>

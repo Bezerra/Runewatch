@@ -161,7 +161,7 @@ public class UpdateHoverWindowInformation : MonoBehaviour
     private void BuyPassive()
     {
         bool canBuyPassive = false;
-        Debug.Log(runSaveDataController.FileExists());
+
         // If there's not a run going on, tries to buy the skill
         if (runSaveDataController.FileExists() == false)
         {
