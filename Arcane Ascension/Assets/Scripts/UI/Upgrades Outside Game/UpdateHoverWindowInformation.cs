@@ -28,6 +28,9 @@ public class UpdateHoverWindowInformation : MonoBehaviour
     [SerializeField] private TextMeshProUGUI holdToBuyText;
     [SerializeField] private TextMeshProUGUI descriptionNodeCost;
 
+    [Header("Time to buy")]
+    [SerializeField] private float maxTimeToBuy = 1f;
+
     // Components
     private IInput input;
     private RunSaveDataController runSaveDataController;
@@ -100,7 +103,7 @@ public class UpdateHoverWindowInformation : MonoBehaviour
     /// <returns></returns>
     private IEnumerator HoldingToBuySkillCoroutine()
     {
-        float maxTimer = 1f;
+        float maxTimer = maxTimeToBuy;
         while(timerToBuySkill < maxTimer)
         {
             timerToBuySkill += Time.deltaTime;
@@ -149,7 +152,7 @@ public class UpdateHoverWindowInformation : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        holdToBuyFillBackground.fillAmount = timerToBuySkill;
+        holdToBuyFillBackground.fillAmount = timerToBuySkill / maxTimeToBuy;
         anim.SetBool("pressingH", timerToHideWindow >= TIMERTOHIDEWINDOW);
     }
 
