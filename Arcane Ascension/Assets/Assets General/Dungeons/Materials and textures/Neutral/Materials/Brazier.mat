@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ignis Brazier
+  m_Name: Brazier
   m_Shader: {fileID: 4800000, guid: 781d9ee303bcac842b9780e5790b6be5, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 2
@@ -24,7 +24,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AlbedoTex:
-        m_Texture: {fileID: 2800000, guid: ac706ae2bf914624ba32cff35e0fb6e8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 498e8fc7d903e5942bb11f4c485d9514, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AmbientOcclusion:
@@ -33,6 +33,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _Emissive:
         m_Texture: {fileID: 2800000, guid: 1c467c12a858d1d499f93c972f3935d1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissiveNoiseTex:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissiveTex:
@@ -100,11 +104,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTex:
-        m_Texture: {fileID: 2800000, guid: 28f85e2088020b24ba70be08b1b05a80, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7a1565fa738ad7f4f9f4ee7f3e32f596, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _PackedTex:
-        m_Texture: {fileID: 2800000, guid: ce8b8d1aef1105b4e8adf2ae89580a5f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2e3374b774401da4cb4bdb042f089553, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _PackedTexture:
@@ -125,6 +129,7 @@ Material:
     - _EmissiveStrength: 0
     - _Float0: 0
     - _Float1: 0
+    - _FresnelPower: 1
     - _HeightStrength: 1
     - _L1EmissiveStrength: 0
     - _L1L2Amount: 0
@@ -152,6 +157,7 @@ Material:
     - _MaxTesselationAmount: 32
     - _Metallic: 0
     - _NoiseScale: 0
+    - _NoiseStrength: 0
     - _NormalScale: 1
     - _TessMax: 20
     - _TessMin: 5
@@ -161,6 +167,9 @@ Material:
     - _ToggleSwitch0: 0
     m_Colors:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissiveNoiseSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _FresnelColor: {r: 0, g: 0, b: 0, a: 0}
     - _L1Tiling: {r: 1, g: 1, b: 0, a: 0}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
+    - _TintCollor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
