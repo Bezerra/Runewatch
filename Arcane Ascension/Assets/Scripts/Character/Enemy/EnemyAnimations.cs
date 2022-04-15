@@ -8,6 +8,7 @@ using ExtensionMethods;
 public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
 {
     [SerializeField] private GameObject brokenEnemy;
+    [SerializeField] private ParticleSystem VFXToDeactivate;
     [SerializeField] private ParticleSystem CastVFX;
 
     // Components
@@ -202,6 +203,8 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
     public void Break()
     {
         meshRender.enabled = false;
+        if (VFXToDeactivate != null)
+            VFXToDeactivate.gameObject.SetActive(false);
         brokenEnemy.SetActive(true);
         brokenEnemy.transform.parent = null;
     }
