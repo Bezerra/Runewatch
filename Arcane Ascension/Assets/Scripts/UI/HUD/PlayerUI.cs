@@ -308,8 +308,8 @@ public class PlayerUI : MonoBehaviour
 
     private void OnCurrencyUpdate(float currencyGold, float currencyAP)
     {
-        gold.text = "Gold : " + currencyGold;
-        arcanePower.text = "Arcane P : " + currencyAP;
+        gold.text = "" + currencyGold;
+        arcanePower.text = "" + currencyAP;
     }
 
     /// <summary>
