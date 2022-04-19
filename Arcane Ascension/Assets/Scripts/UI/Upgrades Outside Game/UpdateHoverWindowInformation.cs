@@ -63,7 +63,8 @@ public class UpdateHoverWindowInformation : MonoBehaviour
         input.HoldingToHideEvent += HoldingToHideWindow;
 
         if (whichSideToSpawn == Side.Right) rectTrans.localPosition = new Vector3(0, 0, 0);
-        else rectTrans.localPosition = new Vector3(-1082.4f, 0, 0);
+        if (whichSideToSpawn == Side.Left) rectTrans.localPosition = new Vector3(-1082.4f, 0, 0);
+        if (whichSideToSpawn == Side.UpRight) rectTrans.localPosition = new Vector3(0, 330, 0);
     }
 
     private void OnDisable()
@@ -367,5 +368,5 @@ public class UpdateHoverWindowInformation : MonoBehaviour
         }
     }
 
-    private enum Side { Right, Left, }
+    private enum Side { Right, Left, UpRight}
 }
