@@ -17,16 +17,21 @@ public class RunStatsLogicSO : ScriptableObject, IRunStatsLogic
     private int damageDone;
     private int damageTaken;
     private int mostDamageDone;
-    private int[] runTime;
-    private int[] bestRunTime;
-    private int bestRunTimeInSeconds;
+    private int runTime;
+    private int bestRunTime;
+    public int BestRunTime => bestRunTime;
 
     private RunSaveDataController runSaveData;
     private CharacterSaveDataController characterSaveData;
 
-    public void TriggerRunStats(RunStatsType achievementType, int value = 0,
-        int[] valueArray = null)
+    public void TriggerRunStats(RunStatsType achievementType, int value = 0)
     {
+        if (characterSaveData == null)
+            characterSaveData = FindObjectOfType<CharacterSaveDataController>(); 
+
+        if (runSaveData == null)
+            runSaveData = FindObjectOfType<RunSaveDataController>();
+
         if (runSaveData == null) return;
 
         switch(achievementType)
@@ -51,15 +56,22 @@ public class RunStatsLogicSO : ScriptableObject, IRunStatsLogic
                 damageTaken += value;
                 break;
             case RunStatsType.RunTime:
-                runTime = valueArray;
-                if (runSaveData.SaveData.DungeonSavedData.Floor == 9 && 
-                    value < bestRunTimeInSeconds)
+                runTime = value;
+
+                if (runSaveData.SaveData.DungeonSavedData.Floor == 9 &&
+                    runTime < bestRunTime)
                 {
-                    bestRunTime = valueArray;
-                    bestRunTimeInSeconds = value;
+                    bestRunTime = value;
+                    SaveTimerAchievement();
                 }
                 break;
         }
+    }
+
+    public void SaveTimerAchievement()
+    {
+        characterSaveData.SaveData.BestRunTime = bestRunTime;
+        characterSaveData.SaveAchievements();
     }
 
     /// <summary>
@@ -75,11 +87,6 @@ public class RunStatsLogicSO : ScriptableObject, IRunStatsLogic
         runSaveData.SaveData.AchievementsSaveData.MostDamageDone = mostDamageDone;
         runSaveData.SaveData.AchievementsSaveData.DamageTaken = damageTaken;
         runSaveData.SaveData.AchievementsSaveData.RunTime = runTime;
-
-        // Character save data is saved in here
-        characterSaveData.SaveData.BestRunTimeInSeconds = bestRunTimeInSeconds;
-        characterSaveData.SaveData.BestRunTime = bestRunTime;
-        characterSaveData.SaveAchievements();
     }
 
     /// <summary>
@@ -95,7 +102,7 @@ public class RunStatsLogicSO : ScriptableObject, IRunStatsLogic
         damageDone = 0;
         mostDamageDone = 0;
         damageTaken = 0;
-        runTime = null;
+        runTime = 0;
 
         // Gets run save data every time the game loads
         this.runSaveData = runSaveData;
@@ -115,14 +122,9 @@ public class RunStatsLogicSO : ScriptableObject, IRunStatsLogic
     /// <param name="runSaveData">Character save data.</param>
     public void LoadCharacterAchievements(CharacterSaveDataController characterSaveData)
     {
-        // Resets variables
-        bestRunTimeInSeconds = 0;
-        bestRunTime = null;
-
         // Gets character save data every time the game loads
         this.characterSaveData = characterSaveData;
 
-        bestRunTimeInSeconds = characterSaveData.SaveData.BestRunTimeInSeconds;
         bestRunTime = characterSaveData.SaveData.BestRunTime;
     }
 }

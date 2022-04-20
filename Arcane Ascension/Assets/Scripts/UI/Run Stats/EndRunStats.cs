@@ -1,12 +1,14 @@
 using UnityEngine;
 using TMPro;
-using System.Text;
+using System;
 
 /// <summary>
 /// Class responsible for updating end run stats screen text.
 /// </summary>
 public class EndRunStats : MonoBehaviour
 {
+    [SerializeField] private RunStatsLogicSO runStatsLogic;
+
     [SerializeField] private TextMeshProUGUI enemiesKilled;
     [SerializeField] private TextMeshProUGUI arcanePowerObtained;
     [SerializeField] private TextMeshProUGUI goldObtained;
@@ -19,14 +21,22 @@ public class EndRunStats : MonoBehaviour
     private RunSaveDataController runSaveData;
     private CharacterSaveDataController characterSaveData;
 
+    /// <summary>
+    /// Used by each end run scene animation.
+    /// </summary>
     private void Awake()
     {
         runSaveData = FindObjectOfType<RunSaveDataController>();
         characterSaveData = FindObjectOfType<CharacterSaveDataController>();
     }
 
-    private void Start()
+    /// <summary>
+    /// Used by each end run scene animation.
+    /// </summary>
+    public void UpdateText()
     {
+        if (enemiesKilled == null) return;
+
         // Update stats text
         enemiesKilled.text = 
             runSaveData.SaveData.AchievementsSaveData.EnemiesKilled.ToString();
@@ -46,35 +56,27 @@ public class EndRunStats : MonoBehaviour
         damageTaken.text = 
             runSaveData.SaveData.AchievementsSaveData.DamageTaken.ToString();
 
-        int[] val = runSaveData.SaveData.AchievementsSaveData.RunTime;
-        StringBuilder runVal = new StringBuilder();
-        runVal.Append(val[0]);
-        runVal.Append(":");
-        runVal.Append(val[1]);
-        runVal.Append(":");
-        runVal.Append(val[2]);
-        runTime.text = runVal.ToString();
+        TimeSpan timeSpan = 
+            TimeSpan.FromSeconds(runSaveData.SaveData.AchievementsSaveData.RunTime);
+        runTime.text = timeSpan.ToString(@"hh\:mm\:ss");
 
-        int[] val2 = characterSaveData.SaveData.BestRunTime;
-        if (val2 != null && val2.Length > 0)
-        {
-            StringBuilder bestRunVal = new StringBuilder();
-            bestRunVal.Append(val2[0]);
-            bestRunVal.Append(":");
-            bestRunVal.Append(val2[1]);
-            bestRunVal.Append(":");
-            bestRunVal.Append(val2[2]);
-            bestRunTime.text = bestRunVal.ToString();
-        }
-        else
-        {
-            bestRunTime.text = runTime.text;
-        }
-
+        // Must use property instead of save file, save file is not updating the correct way
+        timeSpan =
+            TimeSpan.FromSeconds(runStatsLogic.BestRunTime);
+        bestRunTime.text = timeSpan.ToString(@"hh\:mm\:ss");
 
         // Deletes run progress file
         RunSaveDataController runSaveDataController =
             FindObjectOfType<RunSaveDataController>();
         //runSaveDataController.DeleteFile();
+    }
+
+    public void SaveAchievementsLastFloor()
+    {
+        if (runSaveData.SaveData.DungeonSavedData.Floor == 9)
+        {
+            runSaveData.SaveAchievements();
+            runStatsLogic.SaveTimerAchievement();
+        }
     }
 }

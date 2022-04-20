@@ -6,8 +6,7 @@ public class CharacterSaveData : AbstractSaveData
     // General public fields for JSON
     public byte[] CurrentSkillTreePassives;
     public int ArcanePower;
-    public int[] BestRunTime;
-    public int BestRunTimeInSeconds;
+    public int BestRunTime;
 
     // Passives
     public byte IgnisExpertise;

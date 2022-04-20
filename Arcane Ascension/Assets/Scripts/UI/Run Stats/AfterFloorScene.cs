@@ -2,14 +2,20 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Class responsible for controlling run stats scene button methods.
+/// Class responsible for saving file after floor is finished.
 /// </summary>
-public class RunStatsScene : MonoBehaviour
+public class AfterFloorScene : MonoBehaviour
 {
+    [Header("Button for scenes after floor only")]
     [SerializeField] private Button button;
 
-    public void ExecuteButtonClick() =>
-        button?.onClick.Invoke();
+    public void ExecuteButtonClick()
+    {
+        if (button != null)
+        {
+            button.onClick.Invoke();
+        }
+    }   
 
     /// <summary>
     /// Executes on continue button in run stats screen. Saves progress variables.
@@ -18,9 +24,16 @@ public class RunStatsScene : MonoBehaviour
     {
         RunSaveDataController runSaveDataController = FindObjectOfType<RunSaveDataController>();
 
+        if (runSaveDataController.SaveData.DungeonSavedData.Floor < 9)
+            runSaveDataController.SaveData.DungeonSavedData.Floor = 9;
+        else
+            runSaveDataController.SaveData.DungeonSavedData.Floor += 1;
+
+        /*
         // If the player reaches run stats screen and presses continue
         // to load the next floor, it will increment the floor level
         runSaveDataController.SaveData.DungeonSavedData.Floor += 1;
+        */
 
         // And only after incrementing floor, then it will call ISaveables
 
