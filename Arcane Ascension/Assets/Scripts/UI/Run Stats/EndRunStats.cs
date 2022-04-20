@@ -10,6 +10,7 @@ public class EndRunStats : MonoBehaviour
     [SerializeField] private RunStatsLogicSO runStatsLogic;
 
     [SerializeField] private TextMeshProUGUI enemiesKilled;
+    [SerializeField] private TextMeshProUGUI difficulty;
     [SerializeField] private TextMeshProUGUI arcanePowerObtained;
     [SerializeField] private TextMeshProUGUI goldObtained;
     [SerializeField] private TextMeshProUGUI damageDone;
@@ -19,7 +20,6 @@ public class EndRunStats : MonoBehaviour
     [SerializeField] private TextMeshProUGUI bestRunTime;
 
     private RunSaveDataController runSaveData;
-    private CharacterSaveDataController characterSaveData;
 
     /// <summary>
     /// Used by each end run scene animation.
@@ -27,7 +27,6 @@ public class EndRunStats : MonoBehaviour
     private void Awake()
     {
         runSaveData = FindObjectOfType<RunSaveDataController>();
-        characterSaveData = FindObjectOfType<CharacterSaveDataController>();
     }
 
     /// <summary>
@@ -40,6 +39,9 @@ public class EndRunStats : MonoBehaviour
         // Update stats text
         enemiesKilled.text = 
             runSaveData.SaveData.AchievementsSaveData.EnemiesKilled.ToString();
+
+        difficulty.text =
+            runSaveData.SaveData.Difficulty.ToString();
 
         arcanePowerObtained.text = 
             runSaveData.SaveData.AchievementsSaveData.ArcanePowerObtained.ToString();

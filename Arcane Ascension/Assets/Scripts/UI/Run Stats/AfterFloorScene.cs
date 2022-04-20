@@ -24,16 +24,17 @@ public class AfterFloorScene : MonoBehaviour
     {
         RunSaveDataController runSaveDataController = FindObjectOfType<RunSaveDataController>();
 
+        /*  TO TEST STUFF, GOES FROM FLOOR 1 TO 9 //////////////////
         if (runSaveDataController.SaveData.DungeonSavedData.Floor < 9)
             runSaveDataController.SaveData.DungeonSavedData.Floor = 9;
         else
             runSaveDataController.SaveData.DungeonSavedData.Floor += 1;
+        */ ////////////////////////////////////////////////////////
 
-        /*
         // If the player reaches run stats screen and presses continue
         // to load the next floor, it will increment the floor level
         runSaveDataController.SaveData.DungeonSavedData.Floor += 1;
-        */
+
 
         // And only after incrementing floor, then it will call ISaveables
 
