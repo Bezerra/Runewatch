@@ -35,7 +35,7 @@ public abstract class Stats : MonoBehaviour, IDamageable, IHealable, IHealth
     protected IEnumerator damageOvertimeCoroutine;
 
     [Header("Achievements")]
-    [SerializeField] protected AchievementLogicSO achievementLogic;
+    [SerializeField] protected RunStatsLogicSO achievementLogic;
 
     protected virtual void Awake()
     {

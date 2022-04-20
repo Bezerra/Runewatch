@@ -70,8 +70,8 @@ public class EnemyStats : Stats
                 (CommonAttributes.DamageResistance + CommonAttributes.DamageResistanceStatusEffectMultiplier));
 
         // Achievement
-        achievementLogic.TriggerAchievement(AchievementType.MostDamageDone, (int)damageToReceive);
-        achievementLogic.TriggerAchievement(AchievementType.DamageDone, (int)damageToReceive);
+        achievementLogic.TriggerRunStats(RunStatsType.MostDamageDone, (int)damageToReceive);
+        achievementLogic.TriggerRunStats(RunStatsType.DamageDone, (int)damageToReceive);
 
         // Prevents healing from negative damage
         if (damageToReceive < 0) damageToReceive = 0;
@@ -158,8 +158,8 @@ public class EnemyStats : Stats
                 (CommonAttributes.DamageResistance + CommonAttributes.DamageResistanceStatusEffectMultiplier));
 
         // Achievement
-        achievementLogic.TriggerAchievement(AchievementType.MostDamageDone, (int)damageToReceive);
-        achievementLogic.TriggerAchievement(AchievementType.DamageDone, (int)damageToReceive);
+        achievementLogic.TriggerRunStats(RunStatsType.MostDamageDone, (int)damageToReceive);
+        achievementLogic.TriggerRunStats(RunStatsType.DamageDone, (int)damageToReceive);
 
         // Prevents healing from negative damage
         if (damageToReceive < 0) damageToReceive = 0;

@@ -7,7 +7,7 @@ using UnityEngine;
 public class ControlGameplayTimer : MonoBehaviour
 {
     [Header("Achievements")]
-    [SerializeField] protected AchievementLogicSO achievementLogic;
+    [SerializeField] protected RunStatsLogicSO achievementLogic;
 
     public void ResetTimer() => GameplayTime.ResetTimer();
     public void PlayTimer() => GameplayTime.PlayTimer();
@@ -23,7 +23,7 @@ public class ControlGameplayTimer : MonoBehaviour
             timer.Hours, timer.Minutes, timer.Seconds
         };
 
-        achievementLogic.TriggerAchievement(AchievementType.RunTime, value: 
+        achievementLogic.TriggerRunStats(RunStatsType.RunTime, value: 
             (int)timer.TotalSeconds, valueArray: sessionTime);
     }
 

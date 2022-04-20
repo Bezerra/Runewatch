@@ -8,7 +8,7 @@ public enum SceneEnum
     LoadingScreenToNewGame,
     LoadingScreenToContinue,
     LoadingScreenToMainMenu,
-    RunStats,
+    AfterEachFloor,
     RunEndingStats,
     Intro,
     LoadingScreenToBossRaid,

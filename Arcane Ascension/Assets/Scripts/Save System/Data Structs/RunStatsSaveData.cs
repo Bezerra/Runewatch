@@ -1,10 +1,10 @@
 using System;
 
 /// <summary>
-/// Struct responsible for keeping achievments save data.
+/// Struct responsible for keeping run stats save data.
 /// </summary>
 [Serializable]
-public struct AchievementsSaveData 
+public struct RunStatsSaveData 
 {
     // Public fields for JSON
     public int EnemiesKilled;

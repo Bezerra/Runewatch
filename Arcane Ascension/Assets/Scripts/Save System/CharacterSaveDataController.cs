@@ -8,7 +8,7 @@ public class CharacterSaveDataController : MonoBehaviour
     public CharacterSaveData SaveData { get; private set; }
     private FileManager fileManager;
 
-    [SerializeField] private AchievementLogicSO achievementsLogic;
+    [SerializeField] private RunStatsLogicSO achievementsLogic;
 
     /// <summary>
     /// THIS SCRIPT EXECUTION ORDER RUNS BEFORE EVERY OTHER SCRIPT,

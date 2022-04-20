@@ -193,7 +193,7 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable, IBossRaidSavea
                 (CommonAttributes.DamageResistance + CommonAttributes.DamageResistanceStatusEffectMultiplier));
 
         // Achievement
-        achievementLogic.TriggerAchievement(AchievementType.DamageTaken, (int)damageToReceive);
+        achievementLogic.TriggerRunStats(RunStatsType.DamageTaken, (int)damageToReceive);
 
         // Prevents healing from negative damage
         if (damageToReceive < 0) damageToReceive = 0;
@@ -262,7 +262,7 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable, IBossRaidSavea
                 (CommonAttributes.DamageResistance + CommonAttributes.DamageResistanceStatusEffectMultiplier));
 
         // Achievement
-        achievementLogic.TriggerAchievement(AchievementType.DamageTaken, (int)damageToReceive);
+        achievementLogic.TriggerRunStats(RunStatsType.DamageTaken, (int)damageToReceive);
 
         // Prevents healing from negative damage
         if (damageToReceive < 0) damageToReceive = 0;

@@ -12,7 +12,7 @@ public class Currency : MonoBehaviour, ICurrency
     [SerializeField] private LootAndInteractionSoundType lootType;
 
     [Header("Achievements")]
-    [SerializeField] private AchievementLogicSO achievementLogic;
+    [SerializeField] private RunStatsLogicSO achievementLogic;
 
     /// <summary>
     /// Amount contained on this currency.
@@ -50,13 +50,13 @@ public class Currency : MonoBehaviour, ICurrency
             // Achievements
             if (CurrencyType == CurrencyType.ArcanePower)
             {
-                achievementLogic.TriggerAchievement(
-                    AchievementType.ArcanePowerObtained, finalAmountToGain);
+                achievementLogic.TriggerRunStats(
+                    RunStatsType.ArcanePowerObtained, finalAmountToGain);
             }
             else if (CurrencyType == CurrencyType.Gold)
             {
-                achievementLogic.TriggerAchievement(
-                    AchievementType.GoldObtained, finalAmountToGain);
+                achievementLogic.TriggerRunStats(
+                    RunStatsType.GoldObtained, finalAmountToGain);
             }
 
             LootSoundPoolCreator.Pool.InstantiateFromPool(
