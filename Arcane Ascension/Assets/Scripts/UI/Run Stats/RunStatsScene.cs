@@ -9,7 +9,7 @@ public class RunStatsScene : MonoBehaviour
     [SerializeField] private Button button;
 
     public void ExecuteButtonClick() =>
-        button.onClick.Invoke();
+        button?.onClick.Invoke();
 
     /// <summary>
     /// Executes on continue button in run stats screen. Saves progress variables.
