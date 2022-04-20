@@ -20,7 +20,7 @@ public class Enemy : Character
     public EnemyCharacterSO AllValues => allValues as EnemyCharacterSO;
 
     [Header("Achievements")]
-    [SerializeField] private AchievementLogicSO achievementLogic;
+    [SerializeField] private RunStatsLogicSO achievementLogic;
 
     /// <summary>
     /// Getter used to know if the enemy is picking a patrol position.
@@ -272,7 +272,7 @@ public class Enemy : Character
             }
         }
 
-        achievementLogic.TriggerAchievement(AchievementType.EnemiesKilled);
+        achievementLogic.TriggerRunStats(RunStatsType.EnemiesKilled);
     }
 
     /// <summary>

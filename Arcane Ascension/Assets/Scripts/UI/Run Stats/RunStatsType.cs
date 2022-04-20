@@ -1,7 +1,7 @@
 /// <summary>
-/// Enum with achievements types.
+/// Enum with run stats types.
 /// </summary>
-public enum AchievementType
+public enum RunStatsType
 {
     RunTime,
     BestRunTime,

@@ -4,12 +4,12 @@ using Sirenix.OdinInspector;
 #pragma warning disable 0414 // variable assigned but not used.
 
 /// <summary>
-/// Scriptable object with achievements logic.
+/// Scriptable object with run stats logic.
 /// </summary>
 [InlineEditor]
-[CreateAssetMenu(menuName = "Create Once/Achievements",
-    fileName = "Achievements Logic")]
-public class AchievementLogicSO : ScriptableObject, IAchievementLogic
+[CreateAssetMenu(menuName = "Create Once/Run Stats",
+    fileName = "Run Stats Logic")]
+public class RunStatsLogicSO : ScriptableObject, IRunStatsLogic
 {
     private int enemiesKilled;
     private int arcanePowerObtained;
@@ -24,33 +24,33 @@ public class AchievementLogicSO : ScriptableObject, IAchievementLogic
     private RunSaveDataController runSaveData;
     private CharacterSaveDataController characterSaveData;
 
-    public void TriggerAchievement(AchievementType achievementType, int value = 0,
+    public void TriggerRunStats(RunStatsType achievementType, int value = 0,
         int[] valueArray = null)
     {
         if (runSaveData == null) return;
 
         switch(achievementType)
         {
-            case AchievementType.EnemiesKilled:
+            case RunStatsType.EnemiesKilled:
                 enemiesKilled++;
                 break;
-            case AchievementType.ArcanePowerObtained:
+            case RunStatsType.ArcanePowerObtained:
                 arcanePowerObtained += (int)value;
                 break;
-            case AchievementType.GoldObtained:
+            case RunStatsType.GoldObtained:
                 goldObtained += (int)value;
                 break;
-            case AchievementType.DamageDone:
+            case RunStatsType.DamageDone:
                 damageDone += value;
                 break;
-            case AchievementType.MostDamageDone:
+            case RunStatsType.MostDamageDone:
                 if (value > mostDamageDone) 
                     mostDamageDone = value;
                 break;
-            case AchievementType.DamageTaken:
+            case RunStatsType.DamageTaken:
                 damageTaken += value;
                 break;
-            case AchievementType.RunTime:
+            case RunStatsType.RunTime:
                 runTime = valueArray;
                 if (runSaveData.SaveData.DungeonSavedData.Floor == 9 && 
                     value < bestRunTimeInSeconds)

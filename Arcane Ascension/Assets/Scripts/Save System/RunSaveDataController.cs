@@ -11,7 +11,7 @@ public class RunSaveDataController : MonoBehaviour, IFindPlayer
     public RunSaveData SaveData { get; private set; }
     private FileManager fileManager;
 
-    [SerializeField] private AchievementLogicSO achievementsLogic;
+    [SerializeField] private RunStatsLogicSO achievementsLogic;
 
     private void Awake()
     {
