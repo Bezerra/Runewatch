@@ -51,7 +51,7 @@ public class PlayerInputCustom : MonoBehaviour, IInput
 
     public void SwitchActionMapToNone()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.None;
         Cursor.visible = false;
 
         controls.uiInputModule.enabled = false;
@@ -74,7 +74,7 @@ public class PlayerInputCustom : MonoBehaviour, IInput
 
     public void SwitchActionMapToSpellBook()
     {
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
         controls.uiInputModule.enabled = true;
@@ -87,7 +87,7 @@ public class PlayerInputCustom : MonoBehaviour, IInput
 
     public void SwitchActionMapToAbilitiesUI()
     {
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
         controls.uiInputModule.enabled = true;
@@ -100,7 +100,8 @@ public class PlayerInputCustom : MonoBehaviour, IInput
 
     public void SwitchActionMapToCheatConsole()
     {
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = false;
         Movement = Vector3.zero;
         Camera = Vector3.zero;
 
@@ -111,7 +112,7 @@ public class PlayerInputCustom : MonoBehaviour, IInput
 
     public void DisableAll()
     {
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.None;
         Cursor.visible = false;
 
         controls.uiInputModule.enabled = false;

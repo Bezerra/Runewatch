@@ -13,5 +13,5 @@ public struct RunStatsSaveData
     public int DamageDone;
     public int MostDamageDone;
     public int DamageTaken;
-    public int[] RunTime;
+    public int RunTime;
 }

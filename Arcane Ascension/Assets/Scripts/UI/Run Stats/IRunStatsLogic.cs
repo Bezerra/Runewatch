@@ -7,5 +7,5 @@ public interface IRunStatsLogic
     /// Triggers a run stats.
     /// </summary>
     /// <param name="achievementType">Type of run stats.</param>
-    void TriggerRunStats(RunStatsType achievementType, int value = 0, int[] valueArray = null);
+    void TriggerRunStats(RunStatsType achievementType, int value = 0);
 }

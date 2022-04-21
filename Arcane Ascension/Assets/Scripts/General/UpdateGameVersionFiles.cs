@@ -9,7 +9,7 @@ public class UpdateGameVersionFiles : MonoBehaviour
     private RunSaveDataController runSaveData;
     private BossRaidRunSaveDataController bossRaidRunSaveData;
 
-    private readonly float VERSION = 2.5f;
+    private readonly float VERSION = 4f;
 
     private void Awake()
     {

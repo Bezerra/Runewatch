@@ -29,6 +29,8 @@ public class CharacterSaveDataController : MonoBehaviour
     /// </summary>
     public void Save()
     {
+        if (FileExists() == false) SaveData.BestRunTime = 9999999;
+
         // Writes file with saved JSON
         if (fileManager.WriteToFile("CHARACTERFILE.d4s", SaveData.ToJson()))
             Debug.Log("Character Data Saved");
@@ -162,6 +164,7 @@ public class CharacterSaveDataController : MonoBehaviour
         }
         else
         {
+            SaveData.BestRunTime = 9999999;
             if (fileManager.WriteToFile("CHARACTERFILE.d4s", SaveData.ToJson()))
                 Debug.Log("No character save found. Created new file.");
             SaveData.LoadFromJson(json);

@@ -18,13 +18,9 @@ public class ControlGameplayTimer : MonoBehaviour
 
         // Run timer achievement
         TimeSpan timer = GameplayTime.GameTimer;
-        int[] sessionTime = new int[]
-        {
-            timer.Hours, timer.Minutes, timer.Seconds
-        };
 
-        achievementLogic.TriggerRunStats(RunStatsType.RunTime, value: 
-            (int)timer.TotalSeconds, valueArray: sessionTime);
+        achievementLogic.TriggerRunStats(RunStatsType.RunTime, value:
+            (int)timer.TotalSeconds);
     }
 
     public void LoadTimer() => GameplayTime.LoadTimer();
