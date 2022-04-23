@@ -9,6 +9,6 @@ public class EventOpenThreeSpellsMenuSO : EventAbstractSO
 {
     public override void Execute(AbstractEventOnInteraction invoker, PlayerInteraction interactor = null)
     {
-        FindObjectOfType<AbilitiesCanvas>().EnableThreeSpellCanvas();
+        FindObjectOfType<AbilitiesCanvas>().EnableThreeSpellCanvas(invoker.gameObject);
     }
 }

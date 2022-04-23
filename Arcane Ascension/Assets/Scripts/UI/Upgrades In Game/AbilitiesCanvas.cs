@@ -13,11 +13,16 @@ public class AbilitiesCanvas : MonoBehaviour, IFindInput
     [SerializeField] private GameObject threePassiveCanvas;
     [SerializeField] private GameObject spellsFullCanvas;
 
+    private GameObject bookThatActivatedThisCanvas;
+
     private void Awake() =>
         input = FindObjectOfType<PlayerInputCustom>();
 
-    public void EnableThreeSpellCanvas() =>
+    public void EnableThreeSpellCanvas(GameObject bookThatActivatedThisCanvas)
+    {
+        this.bookThatActivatedThisCanvas = bookThatActivatedThisCanvas;
         threeSpellCanvas.SetActive(true);
+    }
 
     public void EnableOneSpellCanvas() =>
         oneSpellCanvas.SetActive(true);
@@ -27,6 +32,9 @@ public class AbilitiesCanvas : MonoBehaviour, IFindInput
 
     public void DisableAll()
     {
+        if (bookThatActivatedThisCanvas.activeSelf) 
+            bookThatActivatedThisCanvas.SetActive(false);
+
         threeSpellCanvas.SetActive(false);
         oneSpellCanvas.SetActive(false);
         threePassiveCanvas.SetActive(false);
