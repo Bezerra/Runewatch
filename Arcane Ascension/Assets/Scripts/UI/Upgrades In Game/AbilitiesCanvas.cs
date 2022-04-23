@@ -36,11 +36,17 @@ public class AbilitiesCanvas : MonoBehaviour, IFindInput
 
     public void DisableAll()
     {
-        if (bookThatActivatedThisCanvas.activeSelf) 
-            bookThatActivatedThisCanvas.SetActive(false);
-
-        if (orbThatActivatedThisCanvas.activeSelf)
-            orbThatActivatedThisCanvas.SetActive(false);
+        if (bookThatActivatedThisCanvas != null)
+        {
+            if (bookThatActivatedThisCanvas.activeSelf)
+                bookThatActivatedThisCanvas.SetActive(false);
+        }
+        
+        if (orbThatActivatedThisCanvas != null)
+        {
+            if (orbThatActivatedThisCanvas.activeSelf)
+                orbThatActivatedThisCanvas.SetActive(false);
+        }
 
         threeSpellCanvas.SetActive(false);
         oneSpellCanvas.SetActive(false);
