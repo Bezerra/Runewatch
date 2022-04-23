@@ -13,15 +13,15 @@ public class AbilitiesCanvas : MonoBehaviour, IFindInput
     [SerializeField] private GameObject threePassiveCanvas;
     [SerializeField] private GameObject spellsFullCanvas;
 
-    private GameObject bookThatActivatedThisCanvas;
+    private GameObject objectThatActivatedThisCanvas;
     private GameObject orbThatActivatedThisCanvas;
 
     private void Awake() =>
         input = FindObjectOfType<PlayerInputCustom>();
 
-    public void EnableThreeSpellCanvas(GameObject bookThatActivatedThisCanvas)
+    public void EnableThreeSpellCanvas(GameObject objectThatActivatedThisCanvas)
     {
-        this.bookThatActivatedThisCanvas = bookThatActivatedThisCanvas;
+        this.objectThatActivatedThisCanvas = objectThatActivatedThisCanvas;
         threeSpellCanvas.SetActive(true);
     }
 
@@ -36,12 +36,19 @@ public class AbilitiesCanvas : MonoBehaviour, IFindInput
 
     public void DisableAll()
     {
-        if (bookThatActivatedThisCanvas != null)
+        // Deactivates spell scrolls only, not chests
+        if (objectThatActivatedThisCanvas != null)
         {
-            if (bookThatActivatedThisCanvas.activeSelf)
-                bookThatActivatedThisCanvas.SetActive(false);
+            if (objectThatActivatedThisCanvas.TryGetComponent(out SpellScroll spellScroll))
+            {
+                if (objectThatActivatedThisCanvas.activeSelf)
+                {
+                    objectThatActivatedThisCanvas.SetActive(false);
+                }   
+            }
         }
         
+        // Deactivates orbs
         if (orbThatActivatedThisCanvas != null)
         {
             if (orbThatActivatedThisCanvas.activeSelf)
