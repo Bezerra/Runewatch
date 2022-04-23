@@ -7,7 +7,8 @@ using TMPro;
 /// </summary>
 public class AbilityPassiveCardText : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI passiveTierText;
+    [SerializeField] private Image passiveTierGem;
+    [SerializeField] private Sprite[] TierGems;
     [SerializeField] private Image passiveImage;
     [SerializeField] private TextMeshProUGUI passiveNameText;
     [SerializeField] private TextMeshProUGUI passiveDescriptionText;
@@ -21,7 +22,21 @@ public class AbilityPassiveCardText : MonoBehaviour
     /// <param name="passive"></param>
     public void UpdateInfo(IRunPassive passive)
     {
-        passiveTierText.text = passive.Tier.ToString();
+        switch (passive.Tier)
+        {
+            case 1:
+                passiveTierGem.sprite = TierGems[1];
+                break;
+            case 2:
+                passiveTierGem.sprite = TierGems[2];
+                break;
+            case 3:
+                passiveTierGem.sprite = TierGems[3];
+                break;
+            default:
+                passiveTierGem.sprite = TierGems[0];
+                break;
+        }
         passiveImage.sprite = passive.Icon;
         passiveNameText.text = passive.Name;
         passiveDescriptionText.text = passive.Description;
