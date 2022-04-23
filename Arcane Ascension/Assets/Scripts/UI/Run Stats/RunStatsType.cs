@@ -11,4 +11,5 @@ public enum RunStatsType
     MostDamageDone,
     ArcanePowerObtained,
     GoldObtained,
+    Accuracy,
 }
