@@ -1,20 +1,49 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class responsible for handling scrollbar wheel movement on interface.
+/// </summary>
 public class ScrollbarWheelMovement : MonoBehaviour
 {
+    [Range(0.05f, 0.2f)] [SerializeField] private float barSpeed = 0.15f;
     [SerializeField] private Scrollbar scrollbar;
 
     private PlayerInputCustom input;
 
     private void OnEnable()
     {
-        if (input == null)
+        input = FindObjectOfType<PlayerInputCustom>();
+        if (input != null)
         {
-            input = FindObjectOfType<PlayerInputCustom>();
-            input.
+            input.PreviousNextSpell += Scroll;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (input != null)
+        {
+            input.PreviousNextSpell -= Scroll;
+        }
+    }
+
+    private void Scroll(float val, bool emptyVar = false)
+    {
+        if (scrollbar.value < 1)
+        {
+            if (val > 0)
+            {
+                scrollbar.value += barSpeed;
+            }
+        }
+
+        if (scrollbar.value > 0)
+        {
+            if (val < 0)
+            {
+                scrollbar.value -= barSpeed;
+            }
         }
     }
 }
