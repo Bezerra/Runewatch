@@ -30,7 +30,7 @@ public class ScrollbarWheelMovement : MonoBehaviour
 
     private void Scroll(float val, bool emptyVar = false)
     {
-        if (scrollbar.value < 1)
+        if (scrollbar.value < 0.98f)
         {
             if (val > 0)
             {
@@ -38,7 +38,7 @@ public class ScrollbarWheelMovement : MonoBehaviour
             }
         }
 
-        if (scrollbar.value > 0)
+        if (scrollbar.value > 0.01)
         {
             if (val < 0)
             {
