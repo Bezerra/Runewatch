@@ -59,6 +59,8 @@ public class DamageManaStealSO : DamageBehaviourAbstractSO
                     criticalChance = 0;
                 }
 
+                runStatsLogic.ShotsHit++;
+
                 // Damages character
                 float totalDamageDone = character.TakeDamage(
                     parent.WhoCast.CommonAttributes.BaseDamageMultiplier *

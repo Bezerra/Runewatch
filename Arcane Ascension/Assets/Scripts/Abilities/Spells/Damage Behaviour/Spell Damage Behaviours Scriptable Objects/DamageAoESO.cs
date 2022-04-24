@@ -109,6 +109,8 @@ public class DamageAoESO : DamageBehaviourAbstractSO
         // Damaging each enemy on this list will prevent the same enemy from receiving damage more than once
         if (charactersToDoDamage.Count > 0)
         {
+            runStatsLogic.ShotsHit++;
+
             for (int i = 0; i < charactersToDoDamage.Count; i++)
             {
                 ApplyStatusEffect(parent, charactersToDoDamage[i]);

@@ -524,6 +524,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "PreviousAndNextSpellMouseScroll",
+                    "type": "PassThrough",
+                    "id": "177b7012-6c70-4d62-b389-d509312a6d93",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -986,6 +994,17 @@
                     "processors": "",
                     "groups": "Computer",
                     "action": "H",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "67eb1398-6931-411d-a845-98ada62590cd",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Computer",
+                    "action": "PreviousAndNextSpellMouseScroll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

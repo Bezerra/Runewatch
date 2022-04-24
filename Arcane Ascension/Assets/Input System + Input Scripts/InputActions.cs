@@ -537,6 +537,14 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""PreviousAndNextSpellMouseScroll"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""177b7012-6c70-4d62-b389-d509312a6d93"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -999,6 +1007,17 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Computer"",
                     ""action"": ""H"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""67eb1398-6931-411d-a845-98ada62590cd"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Computer"",
+                    ""action"": ""PreviousAndNextSpellMouseScroll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -2177,6 +2196,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Interface_Pause = m_Interface.FindAction("Pause", throwIfNotFound: true);
         m_Interface_Space = m_Interface.FindAction("Space", throwIfNotFound: true);
         m_Interface_H = m_Interface.FindAction("H", throwIfNotFound: true);
+        m_Interface_PreviousAndNextSpellMouseScroll = m_Interface.FindAction("PreviousAndNextSpellMouseScroll", throwIfNotFound: true);
         // SpellBook
         m_SpellBook = asset.FindActionMap("SpellBook", throwIfNotFound: true);
         m_SpellBook_TrackedDeviceOrientation = m_SpellBook.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
@@ -2439,6 +2459,7 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Interface_Pause;
     private readonly InputAction m_Interface_Space;
     private readonly InputAction m_Interface_H;
+    private readonly InputAction m_Interface_PreviousAndNextSpellMouseScroll;
     public struct InterfaceActions
     {
         private @InputActions m_Wrapper;
@@ -2456,6 +2477,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @Pause => m_Wrapper.m_Interface_Pause;
         public InputAction @Space => m_Wrapper.m_Interface_Space;
         public InputAction @H => m_Wrapper.m_Interface_H;
+        public InputAction @PreviousAndNextSpellMouseScroll => m_Wrapper.m_Interface_PreviousAndNextSpellMouseScroll;
         public InputActionMap Get() { return m_Wrapper.m_Interface; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -2504,6 +2526,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @H.started -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnH;
                 @H.performed -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnH;
                 @H.canceled -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnH;
+                @PreviousAndNextSpellMouseScroll.started -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnPreviousAndNextSpellMouseScroll;
+                @PreviousAndNextSpellMouseScroll.performed -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnPreviousAndNextSpellMouseScroll;
+                @PreviousAndNextSpellMouseScroll.canceled -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnPreviousAndNextSpellMouseScroll;
             }
             m_Wrapper.m_InterfaceActionsCallbackInterface = instance;
             if (instance != null)
@@ -2547,6 +2572,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @H.started += instance.OnH;
                 @H.performed += instance.OnH;
                 @H.canceled += instance.OnH;
+                @PreviousAndNextSpellMouseScroll.started += instance.OnPreviousAndNextSpellMouseScroll;
+                @PreviousAndNextSpellMouseScroll.performed += instance.OnPreviousAndNextSpellMouseScroll;
+                @PreviousAndNextSpellMouseScroll.canceled += instance.OnPreviousAndNextSpellMouseScroll;
             }
         }
     }
@@ -2880,6 +2908,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnPause(InputAction.CallbackContext context);
         void OnSpace(InputAction.CallbackContext context);
         void OnH(InputAction.CallbackContext context);
+        void OnPreviousAndNextSpellMouseScroll(InputAction.CallbackContext context);
     }
     public interface ISpellBookActions
     {

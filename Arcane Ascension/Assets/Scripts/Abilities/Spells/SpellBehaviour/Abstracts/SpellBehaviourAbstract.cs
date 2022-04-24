@@ -84,6 +84,11 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect, IRe
     /// </summary>
     public bool AttackButtonReleased { get; private set; }
 
+    /// <summary>
+    /// Property to know if this shot hit was already counted.
+    /// </summary>
+    public bool ShotHitTriggered { get; set; }
+
     // Sound fade variables
     private YieldInstruction wffu;
     private IEnumerator soundFadeCoroutine;
@@ -154,6 +159,7 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect, IRe
         PositionOnHit = default;
         LayerOfCharacterHit = LayerOfWhoCast;
         AttackButtonReleased = false;
+        ShotHitTriggered = false;
 
         if (PlayerCastSpell != null)
             PlayerCastSpell.ReleasedAttackButton -= ReleasedAttackButtonControl;
@@ -164,6 +170,7 @@ public abstract class SpellBehaviourAbstract : MonoBehaviour, IVisualEffect, IRe
 
     public void ResetAfterPoolDisable()
     {
+        ShotHitTriggered = false;
         CharacterHit = null;
         WhoCast = null;
         ThisIDamageable = null;

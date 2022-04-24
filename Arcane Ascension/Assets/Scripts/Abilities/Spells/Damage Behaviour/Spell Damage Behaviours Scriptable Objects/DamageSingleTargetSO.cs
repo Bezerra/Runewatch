@@ -62,6 +62,12 @@ public class DamageSingleTargetSO : DamageBehaviourAbstractSO
 
                 ApplyStatusEffect(parent);
 
+                if (parent.ShotHitTriggered == false)
+                {
+                    runStatsLogic.ShotsHit++;
+                    parent.ShotHitTriggered = true;
+                }
+
                 float totalDamageDone = character.TakeDamage(
                     parent.WhoCast.CommonAttributes.BaseDamageMultiplier *
                     parent.WhoCast.CommonAttributes.DamageElementMultiplier[parent.Spell.Element] *

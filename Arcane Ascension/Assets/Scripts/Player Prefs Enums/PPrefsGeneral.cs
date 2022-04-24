@@ -8,4 +8,6 @@ public enum PPrefsGeneral
     VersionControl,
     MenuLoadFirstTime,
     UnspentAPIcon,
+    ShotsFired,
+    ShotsHit,
 }

@@ -22,6 +22,8 @@ public class PlayerCastSpell : MonoBehaviour, IFindInput
 
     private float lastTimeSpellWasCast;
 
+    [SerializeField] private RunStatsLogicSO runStatsLogic;
+
     /// <summary>
     /// Property to know if the animation is over or still running.
     /// </summary>
@@ -136,9 +138,10 @@ public class PlayerCastSpell : MonoBehaviour, IFindInput
             ref currentlyCastSpell, playerSpells.SecondarySpell, player, playerStats, 
             ref spellBehaviour);
 
+        runStatsLogic.ShotsFired++;
+
         OnEventAttack(playerSpells.SecondarySpell.CastType);
         OnEventStartCooldown(playerSpells.SecondarySpell);
-
     }
 
     /// <summary>
@@ -274,6 +277,8 @@ public class PlayerCastSpell : MonoBehaviour, IFindInput
         // Spell release logic
         playerSpells.ActiveSpell.AttackBehaviour.AttackKeyRelease(
              ref currentlyCastSpell, playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
+
+        runStatsLogic.ShotsFired++;
 
         spellBehaviour = null;
         currentlyCastSpell = null;

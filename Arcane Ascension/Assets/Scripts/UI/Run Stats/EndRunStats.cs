@@ -16,6 +16,7 @@ public class EndRunStats : MonoBehaviour
     [SerializeField] private TextMeshProUGUI damageDone;
     [SerializeField] private TextMeshProUGUI damageTaken;
     [SerializeField] private TextMeshProUGUI mostDamageDone;
+    [SerializeField] private TextMeshProUGUI accuracy;
     [SerializeField] private TextMeshProUGUI runTime;
     [SerializeField] private TextMeshProUGUI bestRunTime;
 
@@ -52,11 +53,14 @@ public class EndRunStats : MonoBehaviour
         damageDone.text = 
             runSaveData.SaveData.AchievementsSaveData.DamageDone.ToString();
 
+        damageTaken.text =
+            runSaveData.SaveData.AchievementsSaveData.DamageTaken.ToString();
+
         mostDamageDone.text = 
             runSaveData.SaveData.AchievementsSaveData.MostDamageDone.ToString();
 
-        damageTaken.text = 
-            runSaveData.SaveData.AchievementsSaveData.DamageTaken.ToString();
+        accuracy.text =
+            runSaveData.SaveData.AchievementsSaveData.Accuracy.ToString() + " %";
 
         TimeSpan timeSpan = 
             TimeSpan.FromSeconds(runSaveData.SaveData.AchievementsSaveData.RunTime);
@@ -70,7 +74,7 @@ public class EndRunStats : MonoBehaviour
         // Deletes run progress file
         RunSaveDataController runSaveDataController =
             FindObjectOfType<RunSaveDataController>();
-        //runSaveDataController.DeleteFile();
+        runSaveDataController.DeleteFile();
     }
 
     public void SaveAchievementsLastFloor()

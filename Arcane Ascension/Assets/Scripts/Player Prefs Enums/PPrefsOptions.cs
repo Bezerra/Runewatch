@@ -22,4 +22,8 @@ public enum PPrefsOptions
     DamageIndicator,
     Timer,
     UIVolume,
+    Bloom,
+    Brightness,
+    Contrast,
+    Saturation,
 }

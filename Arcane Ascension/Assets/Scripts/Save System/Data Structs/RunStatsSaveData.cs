@@ -14,4 +14,7 @@ public struct RunStatsSaveData
     public int MostDamageDone;
     public int DamageTaken;
     public int RunTime;
+    public int ShotsHit;
+    public int ShotsFired;
+    public int Accuracy;
 }

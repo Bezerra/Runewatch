@@ -9,6 +9,6 @@ public class EventOpenThreePassivesMenuSO : EventAbstractSO
 {
     public override void Execute(AbstractEventOnInteraction invoker, PlayerInteraction interactor = null)
     {
-        FindObjectOfType<AbilitiesCanvas>().EnableThreePassiveCanvas();
+        FindObjectOfType<AbilitiesCanvas>().EnableThreePassiveCanvas(invoker.gameObject);
     }
 }

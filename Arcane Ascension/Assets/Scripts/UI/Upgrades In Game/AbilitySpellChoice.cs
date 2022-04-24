@@ -7,6 +7,12 @@ using TMPro;
 /// </summary>
 public class AbilitySpellChoice : MonoBehaviour
 {
+    // Gold related
+    [Range(1, 30)] [SerializeField] private int tierOneValue = 5;
+    [Range(1, 30)] [SerializeField] private int tierTwoValue = 10;
+    [Range(1, 30)] [SerializeField] private int tierThreeValue = 15;
+    private PlayerCurrency currency;
+
     // Scriptable object with random abilities
     [SerializeField] private RandomAbilitiesToChooseSO randomAbilities;
 
@@ -74,6 +80,33 @@ public class AbilitySpellChoice : MonoBehaviour
                 backButton.SetActive(true);
             }
         }
+    }
+
+    public void SellForGold()
+    {
+        int goldToGain = 0;
+
+        for (int i = 0; i < spellCards.Length; i++)
+        {
+            if (spellCards[i].SpellOnCard != null)
+            {
+                switch(spellCards[i].SpellOnCard.Tier)
+                {
+                    case 1:
+                        goldToGain += tierOneValue;
+                        break;
+                    case 2:
+                        goldToGain += tierTwoValue;
+                        break;
+                    case 3:
+                        goldToGain += tierThreeValue;
+                        break;
+                }
+            }
+        }
+
+        if (currency == null) currency = FindObjectOfType<PlayerCurrency>();
+        currency.GainCurrency(CurrencyType.Gold, goldToGain);
     }
 
     /// <summary>

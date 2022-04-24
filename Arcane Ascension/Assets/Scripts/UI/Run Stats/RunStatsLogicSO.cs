@@ -20,6 +20,9 @@ public class RunStatsLogicSO : ScriptableObject, IRunStatsLogic
     private int runTime;
     private int bestRunTime;
     public int BestRunTime => bestRunTime;
+    private int accuracy;
+    public int ShotsFired { get; set; }
+    public int ShotsHit { get; set; }
 
     private RunSaveDataController runSaveData;
     private CharacterSaveDataController characterSaveData;
@@ -65,6 +68,10 @@ public class RunStatsLogicSO : ScriptableObject, IRunStatsLogic
                     SaveTimerAchievement();
                 }
                 break;
+            case RunStatsType.Accuracy:
+                accuracy = (ShotsHit * 100) / ShotsFired;
+                if (accuracy > 100) accuracy = 100; // Prevents weird bugs (won't happen)
+                break;
         }
     }
 
@@ -87,6 +94,9 @@ public class RunStatsLogicSO : ScriptableObject, IRunStatsLogic
         runSaveData.SaveData.AchievementsSaveData.MostDamageDone = mostDamageDone;
         runSaveData.SaveData.AchievementsSaveData.DamageTaken = damageTaken;
         runSaveData.SaveData.AchievementsSaveData.RunTime = runTime;
+        runSaveData.SaveData.AchievementsSaveData.ShotsHit = ShotsHit;
+        runSaveData.SaveData.AchievementsSaveData.ShotsFired = ShotsFired;
+        runSaveData.SaveData.AchievementsSaveData.Accuracy = accuracy;
     }
 
     /// <summary>
@@ -103,6 +113,10 @@ public class RunStatsLogicSO : ScriptableObject, IRunStatsLogic
         mostDamageDone = 0;
         damageTaken = 0;
         runTime = 0;
+        accuracy = 0;
+        ShotsHit = 0;
+        ShotsFired = 0;
+        accuracy = 0;
 
         // Gets run save data every time the game loads
         this.runSaveData = runSaveData;
@@ -114,6 +128,9 @@ public class RunStatsLogicSO : ScriptableObject, IRunStatsLogic
         mostDamageDone = runSaveData.SaveData.AchievementsSaveData.MostDamageDone;
         damageTaken = runSaveData.SaveData.AchievementsSaveData.DamageTaken;
         runTime = runSaveData.SaveData.AchievementsSaveData.RunTime;
+        ShotsHit = runSaveData.SaveData.AchievementsSaveData.ShotsHit;
+        ShotsFired = runSaveData.SaveData.AchievementsSaveData.ShotsFired;
+        accuracy = runSaveData.SaveData.AchievementsSaveData.Accuracy;
     }
 
     /// <summary>

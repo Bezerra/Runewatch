@@ -7,6 +7,8 @@ using Sirenix.OdinInspector;
 [InlineEditor]
 public abstract class DamageBehaviourAbstractSO : ScriptableObject, IDamageBehaviour
 {
+    [SerializeField] protected RunStatsLogicSO runStatsLogic;
+
     /// <summary>
     /// Executes damage behaviour for colliders.
     /// </summary>

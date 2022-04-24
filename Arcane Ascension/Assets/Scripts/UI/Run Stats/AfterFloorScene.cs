@@ -8,6 +8,7 @@ public class AfterFloorScene : MonoBehaviour
 {
     [Header("Button for scenes after floor only")]
     [SerializeField] private Button button;
+    [SerializeField] private RunStatsLogicSO runStatsLogic;
 
     public void ExecuteButtonClick()
     {
@@ -24,7 +25,7 @@ public class AfterFloorScene : MonoBehaviour
     {
         RunSaveDataController runSaveDataController = FindObjectOfType<RunSaveDataController>();
 
-        /*  TO TEST STUFF, GOES FROM FLOOR 1 TO 9 //////////////////
+        /* ///*  TO TEST STUFF, GOES FROM FLOOR 1 TO 9 //////////////////
         if (runSaveDataController.SaveData.DungeonSavedData.Floor < 9)
             runSaveDataController.SaveData.DungeonSavedData.Floor = 9;
         else
@@ -35,6 +36,7 @@ public class AfterFloorScene : MonoBehaviour
         // to load the next floor, it will increment the floor level
         runSaveDataController.SaveData.DungeonSavedData.Floor += 1;
 
+        runStatsLogic.TriggerRunStats(RunStatsType.Accuracy);
 
         // And only after incrementing floor, then it will call ISaveables
 
