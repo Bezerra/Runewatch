@@ -1270,56 +1270,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae29f42a284d6604899a8350e523942a, type: 3}
---- !u!1 &183332954
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 183332956}
-  - component: {fileID: 183332955}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!95 &183332955
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 183332954}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!4 &183332956
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 183332954}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.089074, y: 7.0017934, z: -33.546875}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 16
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &223974232 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3092681746740860098, guid: 64fd24d60411e2d4da23e063f75d566f, type: 3}
@@ -2222,9 +2172,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fire Demon
       objectReference: {fileID: 0}
+    - target: {fileID: 2868298685125012464, guid: c12e4661e7410404f83d1a04e8152b16, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2868298685125012465, guid: c12e4661e7410404f83d1a04e8152b16, type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 2868298685125012465, guid: c12e4661e7410404f83d1a04e8152b16, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12283,31 +12237,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3722155925146324496, guid: 77340c0e06dd9a14a9f1aef8489784e8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.1977646
+      value: -1.7402992
       objectReference: {fileID: 0}
     - target: {fileID: 3722155925146324496, guid: 77340c0e06dd9a14a9f1aef8489784e8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.40059948
+      value: 1.499999
       objectReference: {fileID: 0}
     - target: {fileID: 3722155925146324496, guid: 77340c0e06dd9a14a9f1aef8489784e8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.9293327
+      value: -0.9858017
       objectReference: {fileID: 0}
     - target: {fileID: 3722155925146324496, guid: 77340c0e06dd9a14a9f1aef8489784e8, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.19733682
+      value: -0.9960508
       objectReference: {fileID: 0}
     - target: {fileID: 3722155925146324496, guid: 77340c0e06dd9a14a9f1aef8489784e8, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.032189213
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3722155925146324496, guid: 77340c0e06dd9a14a9f1aef8489784e8, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.96702695
+      value: 0.08878557
       objectReference: {fileID: 0}
     - target: {fileID: 3722155925146324496, guid: 77340c0e06dd9a14a9f1aef8489784e8, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.15773709
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5293588720916298048, guid: 77340c0e06dd9a14a9f1aef8489784e8, type: 3}
       propertyPath: m_Name

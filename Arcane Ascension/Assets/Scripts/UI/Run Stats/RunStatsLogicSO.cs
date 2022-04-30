@@ -69,7 +69,11 @@ public class RunStatsLogicSO : ScriptableObject, IRunStatsLogic
                 }
                 break;
             case RunStatsType.Accuracy:
-                accuracy = (ShotsHit * 100) / ShotsFired;
+                if (ShotsFired > 0)
+                    accuracy = (ShotsHit * 100) / ShotsFired;
+                else
+                    accuracy = 0;
+
                 if (accuracy > 100) accuracy = 100; // Prevents weird bugs (won't happen)
                 break;
         }

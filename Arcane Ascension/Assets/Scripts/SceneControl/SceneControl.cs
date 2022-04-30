@@ -164,4 +164,13 @@ public class SceneControl : MonoBehaviour
         if (pauseSystem != null)
             pauseSystem.CanPauseTheGame = true;
     }
+
+    /// <summary>
+    /// Plays text intro animation.
+    /// </summary>
+    protected void PlayLevelIntroAnimation()
+    {
+        LevelIntroInformation levelIntroInfo = FindObjectOfType<LevelIntroInformation>();
+        if (levelIntroInfo != null) levelIntroInfo.PlayAnimation();
+    }
 }

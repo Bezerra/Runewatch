@@ -1,8 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
+/// <summary>
+/// Class responsible for controling boss cutscene.
+/// </summary>
 public class BossCutscene : MonoBehaviour, IFindPlayer, IFindInput
 {
     private Canvas playerUICanvas;
