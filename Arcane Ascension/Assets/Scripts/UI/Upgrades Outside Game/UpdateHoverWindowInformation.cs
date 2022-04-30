@@ -169,6 +169,8 @@ public class UpdateHoverWindowInformation : MonoBehaviour
         // If there's not a run going on, tries to buy the skill
         if (runSaveDataController.FileExists() == false)
         {
+            if (passiveNode.CurrentTier == passiveNode.NodePassives.Length) return;
+
             // Checks if the player has enough arcane power
             if (skillTreePassiveController.CurrencySO.CanSpend(
                 CurrencyType.ArcanePower, passiveNode.NodePassiveNext.Cost))
@@ -220,10 +222,7 @@ public class UpdateHoverWindowInformation : MonoBehaviour
                 // Plays sound
                 audioSource.Play();
 
-                if (passiveNode.CurrentTier < passiveNode.NodePassives.Length)
-                    parentAnim.SetTrigger("PassiveUnlocked");
-                else
-                    parentAnim.SetTrigger("PassiveMaxed");
+                parentAnim.SetTrigger("PassiveUnlocked");
             }
         }
         // Else it will turn on a window

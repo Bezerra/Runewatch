@@ -100,9 +100,6 @@ public class SkillTreePassiveNode : MonoBehaviour
     {
         ResetAll();
 
-        if (CurrentTier < nodePassives.Length)
-            nodeImage.color = skillTreePassiveController.UnlockedColor;
-
         // Creates connections to all nodes
         if (nextConnectionNodes.Count > 0)
         {
@@ -120,6 +117,8 @@ public class SkillTreePassiveNode : MonoBehaviour
             {
                 CurrentTier++;
                 UpdateUI();
+
+                anim.SetTrigger("PassiveUnlocked");
             }
         }
 
@@ -173,8 +172,6 @@ public class SkillTreePassiveNode : MonoBehaviour
 
         UpdateUI();
 
-        OnNodeUnlocked();
-
         // Updates details window info
         detailsWindowInformation.UpdateWindowDetails(this);
     }
@@ -203,11 +200,6 @@ public class SkillTreePassiveNode : MonoBehaviour
         nodeName.text = nodePassives[CurrentTier - 1].Name;
         nodeTier.text = nodePassives[CurrentTier - 1].Tier.ToString() + " / " + nodePassives.Length;
         nodeImage.sprite = nodePassives[CurrentTier - 1].Icon;
-
-        if (CurrentTier == nodePassives.Length)
-        {
-            anim.SetTrigger("PassiveMaxed");
-        }
     }
 
     /// <summary>
@@ -319,7 +311,4 @@ public class SkillTreePassiveNode : MonoBehaviour
         // Connects this node to the next node
         connectionLine.sizeDelta = new Vector2(distance, LINEHEIGHT);
     }
-
-    protected virtual void OnNodeUnlocked() => NodeUnlocked?.Invoke();
-    public event Action NodeUnlocked; 
 }
