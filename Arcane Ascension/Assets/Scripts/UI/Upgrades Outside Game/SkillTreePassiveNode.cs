@@ -76,6 +76,8 @@ public class SkillTreePassiveNode : MonoBehaviour
 
     [SerializeField] private UpdateHoverWindowInformation detailsWindowInformation;
 
+    [SerializeField] private GameObject canUnlockBorder;
+
     private Animator anim;
 
     private void Awake()
@@ -124,6 +126,8 @@ public class SkillTreePassiveNode : MonoBehaviour
 
         // Updates details window info
         detailsWindowInformation.UpdateWindowDetails(this, true);
+
+        CanUnlockBorder();
     }
 
     /// <summary>
@@ -174,6 +178,35 @@ public class SkillTreePassiveNode : MonoBehaviour
 
         // Updates details window info
         detailsWindowInformation.UpdateWindowDetails(this);
+
+        CanUnlockBorder();
+
+        if (NextConnectionNodes != null && NextConnectionNodes.Count > 0)
+        {
+            foreach(SkillTreePassiveNode node in NextConnectionNodes)
+            {
+                node.CanUnlockBorder();
+            }
+        }
+    }
+
+    public void CanUnlockBorder()
+    {
+        // CanUnlock border logic
+        if (IsUnlocked)
+        {
+            canUnlockBorder.SetActive(false);
+            return;
+        }
+        bool canUnlock = true;
+        if (PreviousConnectionNodes != null && PreviousConnectionNodes.Count > 0)
+        {
+            foreach (SkillTreePassiveNode node in PreviousConnectionNodes)
+            {
+                if (node.IsUnlocked == false) canUnlock = false;
+            }
+        }
+        if (canUnlock) canUnlockBorder.SetActive(true);
     }
 
     /// <summary>
@@ -185,6 +218,7 @@ public class SkillTreePassiveNode : MonoBehaviour
         {
             IsUnlocked = true;
             nodeImage.color = skillTreePassiveController.UnlockedColor;
+            canUnlockBorder.SetActive(false);
 
             // If this node was unlocked, it will grow a line from the previosu node to this one
             if (previousConnectionNodes.Count > 0)
