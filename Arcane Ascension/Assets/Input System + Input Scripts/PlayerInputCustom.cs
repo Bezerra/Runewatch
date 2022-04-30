@@ -56,6 +56,9 @@ public class PlayerInputCustom : MonoBehaviour, IInput
 
         controls.uiInputModule.enabled = false;
 
+        Movement = Vector3.zero;
+        Camera = Vector3.zero;
+
         controls.SwitchCurrentActionMap("None");
     }
 

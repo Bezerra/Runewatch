@@ -4972,7 +4972,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 16777215
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -5410,6 +5410,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 3e6991bb855390f4aa16d45350c66282, type: 2}
     - {fileID: 11400000, guid: 06e8ac5759bdf0240bfb7db9eb817c9e, type: 2}
     - {fileID: 11400000, guid: ff91391b947e09c4e84ed5bc0ab26a6b, type: 2}
+    - {fileID: 11400000, guid: f1a9a2005003d0d418e48705afef1c12, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -5444,6 +5445,20 @@ MonoBehaviour:
         - m_Target: {fileID: 1492560110}
           m_TargetAssemblyTypeName: EnemyBoss, Assembly-CSharp
           m_MethodName: StartStateMachine
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4614975424574161664}
+          m_TargetAssemblyTypeName: BossCutscene, Assembly-CSharp
+          m_MethodName: EnableInput
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

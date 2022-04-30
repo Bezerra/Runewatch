@@ -37,8 +37,10 @@ public class BossCutscene : MonoBehaviour, IFindPlayer, IFindInput
         bossHealthBar.SetActive(false);
         playerHandEffect.transform.localPosition = new Vector3(10000, 10000, 10000);
 
-        if (input == null) FindInput();
-            input.SwitchActionMapToNone();
+        if (input == null) 
+            FindInput();
+
+        input.SwitchActionMapToNone();
 
         cam.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.Cut;
     }
@@ -50,6 +52,10 @@ public class BossCutscene : MonoBehaviour, IFindPlayer, IFindInput
             smr.enabled = true;
         bossHealthBar.SetActive(true);
         playerHandEffect.transform.localPosition = defaultHandEffectPosition;
+    }
+
+    public void EnableInput()
+    {
         input.SwitchActionMapToGameplay();
     }
 
