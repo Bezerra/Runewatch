@@ -8,6 +8,8 @@ using UnityEngine.VFX;
 public class PlayerHandEffect : MonoBehaviour
 {
     [SerializeField] private Transform currentEffectPosition;
+    public Transform CurrentEffectPosition 
+    { get => currentEffectPosition; set => currentEffectPosition = value; }
 
     // Spawned spells
     private GameObject spawnedSpell;
