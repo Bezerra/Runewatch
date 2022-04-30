@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 479056392}
   - component: {fileID: 479056391}
   m_Layer: 5
-  m_Name: INFORMATION
+  m_Name: Information
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -759,6 +759,8 @@ GameObject:
   - component: {fileID: 801178802}
   - component: {fileID: 801178804}
   - component: {fileID: 801178803}
+  - component: {fileID: 801178805}
+  - component: {fileID: 801178806}
   m_Layer: 5
   m_Name: Run Stats Canvas
   m_TagString: Untagged
@@ -891,6 +893,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   achievementLogic: {fileID: 11400000, guid: 621fc6359f302ef4cac212505775cbe8, type: 2}
+--- !u!114 &801178805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 801178797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef3290d777292a648a679d2b5c48b696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runStatsLogic: {fileID: 0}
+  enemiesKilled: {fileID: 0}
+  difficulty: {fileID: 0}
+  arcanePowerObtained: {fileID: 0}
+  goldObtained: {fileID: 0}
+  damageDone: {fileID: 0}
+  damageTaken: {fileID: 0}
+  mostDamageDone: {fileID: 0}
+  accuracy: {fileID: 0}
+  runTime: {fileID: 0}
+  bestRunTime: {fileID: 0}
+--- !u!114 &801178806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 801178797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22fe140200110244e8c508a0cf80f5d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 0}
+  runStatsLogic: {fileID: 0}
 --- !u!1 &843584722
 GameObject:
   m_ObjectHideFlags: 0
@@ -901,7 +940,7 @@ GameObject:
   m_Component:
   - component: {fileID: 843584723}
   m_Layer: 5
-  m_Name: Initial Menu Buttons
+  m_Name: Button + Logic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Class responsible for updating end run stats screen text.
@@ -35,6 +36,7 @@ public class EndRunStats : MonoBehaviour
     /// </summary>
     public void UpdateText()
     {
+        if (runStatsLogic == null) return;
         if (enemiesKilled == null) return;
 
         // Update stats text
@@ -79,6 +81,11 @@ public class EndRunStats : MonoBehaviour
 
     public void SaveAchievementsLastFloor()
     {
+        // Ignores if it's boss raid stats
+        // (Should remake this part, boss raid shouldn't be using this script)
+        if (SceneManager.GetActiveScene().name == SceneEnum.BossRaidStats.ToString())
+            return;
+
         if (runSaveData.SaveData.DungeonSavedData.Floor == 9)
         {
             runSaveData.SaveAchievements();
