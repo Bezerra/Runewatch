@@ -225,7 +225,7 @@ public class Enemy : Character
         Random = new System.Random();
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         CurrentlySelectedSpell = EnemyStats.EnemyAttributes.AllEnemySpells[0];
         Agent.speed = Values.Speed * EnemyStats.CommonAttributes.MovementSpeedMultiplier *

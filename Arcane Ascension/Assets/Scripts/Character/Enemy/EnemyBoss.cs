@@ -10,6 +10,18 @@ public class EnemyBoss : Enemy
 
     private float healthOnEnrageTransition;
 
+    protected override void Start()
+    {
+        CurrentlySelectedSpell = EnemyStats.EnemyAttributes.AllEnemySpells[0];
+        Agent.speed = Values.Speed * EnemyStats.CommonAttributes.MovementSpeedMultiplier *
+            EnemyStats.CommonAttributes.MovementStatusEffectMultiplier;
+    }
+
+    public void StartStateMachine()
+    {
+        StateMachine.Start();
+    }
+
     /// <summary>
     /// If a value is met, triggers enraged animation + logic.
     /// </summary>

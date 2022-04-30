@@ -8,6 +8,7 @@ public class BossCutscene : MonoBehaviour
     private PlayerHandEffect playerHandEffect;
     private SkinnedMeshRenderer[] playerArm;
     [SerializeField] private GameObject bossHealthBar;
+    private IInput input;
 
     private Vector3 defaultHandEffectPosition;
 
@@ -16,6 +17,7 @@ public class BossCutscene : MonoBehaviour
         playerUICanvas = FindObjectOfType<PlayerUI>().GetComponent<Canvas>();
         playerHandEffect = FindObjectOfType<PlayerHandEffect>();
         playerArm = playerHandEffect.GetComponentsInChildren<SkinnedMeshRenderer>();
+        input = FindObjectOfType<PlayerInputCustom>();
 
         defaultHandEffectPosition = playerHandEffect.transform.localPosition;
     }
@@ -27,6 +29,7 @@ public class BossCutscene : MonoBehaviour
             smr.enabled = false;
         bossHealthBar.SetActive(false);
         playerHandEffect.transform.localPosition = new Vector3(10000, 10000, 10000);
+        input.SwitchActionMapToNone();
     }
 
     public void BossCutsceneEnded()
@@ -36,5 +39,6 @@ public class BossCutscene : MonoBehaviour
             smr.enabled = true;
         bossHealthBar.SetActive(true);
         playerHandEffect.transform.localPosition = defaultHandEffectPosition;
+        input.SwitchActionMapToGameplay();
     }
 }
