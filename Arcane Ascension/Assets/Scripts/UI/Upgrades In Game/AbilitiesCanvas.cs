@@ -51,7 +51,7 @@ public class AbilitiesCanvas : MonoBehaviour, IFindInput
         // Deactivates orbs
         if (orbThatActivatedThisCanvas != null)
         {
-            if (objectThatActivatedThisCanvas.TryGetComponent(out PassiveOrb passiveOrb))
+            if (orbThatActivatedThisCanvas.TryGetComponent(out PassiveOrb passiveOrb))
             {
                 if (orbThatActivatedThisCanvas.activeSelf)
                 {
