@@ -95,6 +95,11 @@ public class SkillTreePassiveNode : MonoBehaviour
         IsUnlocked = false;
     }
 
+    private void OnEnable()
+    {
+        if (IsUnlocked) anim.SetTrigger("PassiveUnlocked");
+    }
+
     /// <summary>
     /// Updates all nodes and UI on start.
     /// </summary>
@@ -179,14 +184,12 @@ public class SkillTreePassiveNode : MonoBehaviour
         // Updates details window info
         detailsWindowInformation.UpdateWindowDetails(this);
 
-        CanUnlockBorder();
-
-        if (NextConnectionNodes != null && NextConnectionNodes.Count > 0)
+        // For this node
+        SkillTreePassiveNode[] allNodes = 
+            transform.parent.GetComponentsInChildren<SkillTreePassiveNode>();
+        foreach(SkillTreePassiveNode node in allNodes)
         {
-            foreach(SkillTreePassiveNode node in NextConnectionNodes)
-            {
-                node.CanUnlockBorder();
-            }
+            node.CanUnlockBorder();
         }
     }
 
@@ -198,15 +201,38 @@ public class SkillTreePassiveNode : MonoBehaviour
             canUnlockBorder.SetActive(false);
             return;
         }
+
+        canUnlockBorder.SetActive(true);
+
         bool canUnlock = true;
+
+        if (CurrentTier == 0)
+        {
+            if (NodePassives[0].Cost > skillTreePassiveController.CurrencySO.ArcanePower)
+            {
+                canUnlock = false;
+            }
+        }
+        else
+        {
+            if (CurrentTier < NodePassives.Length &&
+                NodePassiveNext.Cost > skillTreePassiveController.CurrencySO.ArcanePower)
+            {
+                canUnlock = false;
+            }
+        }
+        
         if (PreviousConnectionNodes != null && PreviousConnectionNodes.Count > 0)
         {
             foreach (SkillTreePassiveNode node in PreviousConnectionNodes)
             {
-                if (node.IsUnlocked == false) canUnlock = false;
+                if (node.IsUnlocked == false)
+                {
+                    canUnlock = false;
+                }
             }
         }
-        if (canUnlock) canUnlockBorder.SetActive(true);
+        if (canUnlock == false) canUnlockBorder.SetActive(false);
     }
 
     /// <summary>
