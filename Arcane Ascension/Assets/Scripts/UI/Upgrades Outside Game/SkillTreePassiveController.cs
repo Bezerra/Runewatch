@@ -146,6 +146,11 @@ public class SkillTreePassiveController : MonoBehaviour
     /// </summary>
     public void LeaveButton()
     {
+        SavePassives();
+    }
+
+    public void SavePassives()
+    {
         byte[] passivesID = new byte[CurrentPassives.Count];
         for (int i = 0; i < CurrentPassives.Count; i++)
         {
@@ -153,7 +158,7 @@ public class SkillTreePassiveController : MonoBehaviour
         }
 
         characterSaveDataController.Save(
-            passivesID, characterSaveDataController.SaveData.ArcanePower);
+            passivesID, currencySO.ArcanePower);
     }
 
     /// <summary>
@@ -162,7 +167,7 @@ public class SkillTreePassiveController : MonoBehaviour
     public void UpdateArcanePowerText()
     {
         arcanePowerText.text =
-            "Arcane Power: " + characterSaveDataController.SaveData.ArcanePower.ToString();
+            "Arcane Power: " + currencySO.ArcanePower;
     }
 
     /// <summary>

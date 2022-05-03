@@ -98,6 +98,7 @@ public class SkillTreePassiveNode : MonoBehaviour
     private void OnEnable()
     {
         if (IsUnlocked) anim.SetTrigger("PassiveUnlocked");
+        UpdateTiersOnStart();
     }
 
     /// <summary>

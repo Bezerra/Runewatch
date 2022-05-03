@@ -52,7 +52,6 @@ public class CurrencySO : ScriptableObject
         {
             if (ArcanePower - amount > 0) ArcanePower -= amount;
             else ArcanePower = 0;
-
             if (characterSaveDataController == null)
             {
                 characterSaveDataController =
