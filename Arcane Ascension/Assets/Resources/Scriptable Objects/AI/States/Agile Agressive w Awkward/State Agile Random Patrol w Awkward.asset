@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 414867ae40476434b9e9db17afe857e9, type: 3}
+  m_Name: State Agile Random Patrol w Awkward
+  m_EditorClassIdentifier: 
+  fileName: 
+  notes: 'Enemy moves randomly to a new location with X distance every Y seconds. '
+  actions:
+  - {fileID: 11400000, guid: f33727dde101c704081e81e679ee97e6, type: 2}
+  transitions:
+  - notes: Checks if the enemy can see the player. If this is true, the enemy will
+      start chasing the player.
+    decision: {fileID: 11400000, guid: 9b53d9dde600d4b479ee679ff66a0fe2, type: 2}
+    ifTrue: {fileID: 11400000, guid: 70e8d369e86682043a3ce7013acb4d16, type: 2}
+    ifFalse: {fileID: 11400000, guid: c427f974821cca84e8dda092d20c3cff, type: 2}
+  - notes: If the enemy takes damage, it will switch to lost player  state.
+    decision: {fileID: 11400000, guid: bfd67f181f6eb3f4b860085eab56d4a2, type: 2}
+    ifTrue: {fileID: 11400000, guid: c0b29f35c63d14b42b8815013684f5b1, type: 2}
+    ifFalse: {fileID: 11400000, guid: c427f974821cca84e8dda092d20c3cff, type: 2}
+  - notes: 
+    decision: {fileID: 11400000, guid: 5c328925017a57842a11b64c3189220f, type: 2}
+    ifTrue: {fileID: 11400000, guid: 1ef3b30677b01da44a1f1295ecc33c76, type: 2}
+    ifFalse: {fileID: 11400000, guid: c427f974821cca84e8dda092d20c3cff, type: 2}
+  onEnterStateActions: []
+  onExitStateActions: []
