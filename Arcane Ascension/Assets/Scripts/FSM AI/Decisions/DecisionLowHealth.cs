@@ -7,7 +7,7 @@ using UnityEngine;
     fileName = "Decision Low Health")]
 public class DecisionLowHealth : FSMDecision
 {
-    private readonly float HEALTHPERCENTAGETORUN = 25f;
+    private readonly float HEALTHPERCENTAGETORUN = 30f;
 
     public override bool CheckDecision(StateController<Enemy> ai)
     {

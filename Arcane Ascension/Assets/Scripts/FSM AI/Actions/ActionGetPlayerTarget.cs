@@ -20,5 +20,8 @@ sealed public class ActionGetPlayerTarget : FSMAction
     public override void OnExit(StateController<Enemy> ai)
     {
         ai.Controller.CurrentTarget = ai.Controller.PlayerScript.Eyes.transform;
+
+        if (ai.Controller.CurrentTarget == null)
+            ai.Controller.CurrentTarget = FindObjectOfType<Player>().Eyes.transform;
     }
 }

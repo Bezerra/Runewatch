@@ -44,7 +44,12 @@ public class FireDemonImmolateExtraLogic : MonoBehaviour
 
     private void OnEnable()
     {
-        int safeZoneCount = fireDemon.ExecutedFirstMechanic ? 4 : 2;
+        if (fireDemon == null) fireDemon = FindObjectOfType<EnemyBoss>();
+
+        int safeZoneCount = 4;
+
+        if (fireDemon != null) 
+            safeZoneCount = fireDemon.ExecutedFirstMechanic ? 4 : 2;
 
         smokeShape.radius = 0;
         fireShape.radius = 0;

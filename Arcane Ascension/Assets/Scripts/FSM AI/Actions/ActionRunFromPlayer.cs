@@ -15,6 +15,8 @@ sealed public class ActionRunFromPlayer : FSMAction
 
     private void RunFromPlayer(StateController<Enemy> ai)
     {
+        if (ai.Controller.CurrentTarget == null)
+            ai.Controller.CurrentTarget = FindObjectOfType<Player>().Eyes.transform;
         if (ai.Controller.CurrentTarget != null)
         {
             Ray forwardRay =
@@ -34,13 +36,13 @@ sealed public class ActionRunFromPlayer : FSMAction
     }
 
     public override void OnEnter(StateController<Enemy> ai)
-    {
+    {;
         ai.Controller.Agent.angularSpeed = 400;
 
         ai.Controller.RunningBackwards = true;
 
         if (ai.Controller.CurrentTarget == null)
-            ai.Controller.CurrentTarget = ai.Controller.PlayerScript.Eyes.transform;
+            ai.Controller.CurrentTarget = FindObjectOfType<Player>().Eyes.transform;
     }
 
     public override void OnExit(StateController<Enemy> ai)

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 414867ae40476434b9e9db17afe857e9, type: 3}
-  m_Name: State Tank Aggressive
+  m_Name: State Tank Aggressive w Awkward
   m_EditorClassIdentifier: 
   fileName: State Aggressive
   notes: 'Enemy chases the player and keeps a certain distance.
@@ -33,5 +33,9 @@ MonoBehaviour:
     decision: {fileID: 11400000, guid: 9b53d9dde600d4b479ee679ff66a0fe2, type: 2}
     ifTrue: {fileID: 11400000, guid: c26a62c80ac57ac42bd75f831e08ac5b, type: 2}
     ifFalse: {fileID: 11400000, guid: ef495b99f392806488b58349accd0299, type: 2}
+  - notes: 
+    decision: {fileID: 11400000, guid: 5c328925017a57842a11b64c3189220f, type: 2}
+    ifTrue: {fileID: 11400000, guid: 1ef3b30677b01da44a1f1295ecc33c76, type: 2}
+    ifFalse: {fileID: 11400000, guid: c427f974821cca84e8dda092d20c3cff, type: 2}
   onEnterStateActions: []
   onExitStateActions: []

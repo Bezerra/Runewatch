@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 414867ae40476434b9e9db17afe857e9, type: 3}
-  m_Name: State Tank Random Patrol
+  m_Name: State Tank Random Patrol w Awkward
   m_EditorClassIdentifier: 
   fileName: 
   notes: 'Enemy moves randomly to a new location with X distance every Y seconds. '
@@ -25,6 +25,10 @@ MonoBehaviour:
   - notes: If the enemy takes damage, it will switch to lost player  state.
     decision: {fileID: 11400000, guid: bfd67f181f6eb3f4b860085eab56d4a2, type: 2}
     ifTrue: {fileID: 11400000, guid: ef495b99f392806488b58349accd0299, type: 2}
+    ifFalse: {fileID: 11400000, guid: c26a62c80ac57ac42bd75f831e08ac5b, type: 2}
+  - notes: 
+    decision: {fileID: 11400000, guid: 5c328925017a57842a11b64c3189220f, type: 2}
+    ifTrue: {fileID: 11400000, guid: 1ef3b30677b01da44a1f1295ecc33c76, type: 2}
     ifFalse: {fileID: 11400000, guid: c26a62c80ac57ac42bd75f831e08ac5b, type: 2}
   onEnterStateActions: []
   onExitStateActions: []
