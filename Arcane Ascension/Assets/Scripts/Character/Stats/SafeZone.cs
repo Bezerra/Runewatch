@@ -8,15 +8,13 @@ public class SafeZone : MonoBehaviour, IReset
     private Stats stats;
     public EnemyBoss Boss { get; set; }
 
-    private float enemyDefaultDamageResistance;
-    private readonly float EXTRARESISTANCEWHILECASTING = -0.6f;
+    private readonly float EXTRARESISTANCEWHILECASTING = -0.8f;
 
     private void OnEnable()
     {
         if (Boss != null)
         {
-            enemyDefaultDamageResistance =
-                Boss.EnemyStats.CommonAttributes.DamageResistanceStatusEffectMultiplier;
+            Boss.ExtraMechanics.Add(this.gameObject);
         }
     }
 
@@ -41,8 +39,7 @@ public class SafeZone : MonoBehaviour, IReset
 
     private void OnTriggerExit(Collider other)
     {
-        Boss.EnemyStats.CommonAttributes.DamageResistanceStatusEffectMultiplier =
-            enemyDefaultDamageResistance;
+        Boss.EnemyStats.CommonAttributes.DamageResistanceStatusEffectMultiplier = 0;
 
         if (stats == null)
         {
@@ -63,8 +60,7 @@ public class SafeZone : MonoBehaviour, IReset
     {
         if (Boss != null)
         {
-            Boss.EnemyStats.CommonAttributes.DamageResistanceStatusEffectMultiplier =
-            enemyDefaultDamageResistance;
+            Boss.EnemyStats.CommonAttributes.DamageResistanceStatusEffectMultiplier = 0;
         }
 
         if (stats != null)

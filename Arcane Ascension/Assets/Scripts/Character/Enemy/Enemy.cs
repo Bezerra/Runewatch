@@ -252,7 +252,7 @@ public class Enemy : Character
         EnemyStats.EventSpeedUpdate -= UpdateSpeed;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         StateMachine.Update(StateMachine);
     }

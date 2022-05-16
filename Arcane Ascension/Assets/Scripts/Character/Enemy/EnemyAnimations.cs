@@ -154,6 +154,14 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
                 enemy.CurrentlySelectedSpell =
                     enemy.EnemyStats.EnemyAttributes.SpecialMechanic;
             }
+
+            else
+            {
+                // Gets new random spell
+                int randomSpell = enemy.Random.RandomWeight(enemy.EnemyStats.AvailableSpellsWeight);
+                enemy.CurrentlySelectedSpell =
+                     enemy.EnemyStats.EnemyAttributes.AllEnemySpells[randomSpell];
+            }
         }
         else
         {

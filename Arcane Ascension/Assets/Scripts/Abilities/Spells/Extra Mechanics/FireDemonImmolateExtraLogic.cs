@@ -58,11 +58,20 @@ public class FireDemonImmolateExtraLogic : MonoBehaviour
                 sz.Boss = fireDemon;
         }
 
-        int safeZoneCount = 4;
+        int safeZoneCount = 3;
 
-        if (fireDemon != null) 
-            safeZoneCount = fireDemon.ExecutedFirstMechanic ? 3 : 2;
-
+        if (fireDemon != null)
+        {
+            if (fireDemon.ExecutedFirstMechanic && fireDemon.ExecutedSecondMechanic == false)
+            {
+                safeZoneCount = 3;
+            }
+            else if (fireDemon.ExecutedFirstMechanic && fireDemon.ExecutedSecondMechanic)
+            {
+                safeZoneCount = 2;
+            }
+        }
+ 
         smokeShape.radius = 0;
         fireShape.radius = 0;
         risingRings.transform.localScale = 
