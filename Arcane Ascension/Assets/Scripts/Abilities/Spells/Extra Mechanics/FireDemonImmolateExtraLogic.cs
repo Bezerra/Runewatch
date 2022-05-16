@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Class responsible for growing particles radius depending on a spell AoE.
 /// </summary>
-public class FireDemonImmolateExtraLogic : MonoBehaviour, IReset
+public class FireDemonImmolateExtraLogic : MonoBehaviour
 {
     // Immolate radius growth
     [SerializeField] private ParticleSystem risingRings;
@@ -14,7 +14,7 @@ public class FireDemonImmolateExtraLogic : MonoBehaviour, IReset
     private ParticleSystem.ShapeModule smokeShape;
     private ParticleSystem.ShapeModule fireShape;
 
-    private static int instances;
+    private EnemyBoss fireDemon;
 
     // Safe zones
     [SerializeField] private List<GameObject> safeZones;
@@ -39,11 +39,13 @@ public class FireDemonImmolateExtraLogic : MonoBehaviour, IReset
         enemyDefaultDamageResistance = 
             fireDemonSecondStateStats.DamageResistanceStatusEffectMultiplier;
         wffu = new WaitForFixedUpdate();
+        fireDemon = FindObjectOfType<EnemyBoss>();
     }
 
     private void OnEnable()
     {
-        instances++;
+        int safeZoneCount = fireDemon.ExecutedFirstMechanic ? 4 : 2;
+
         smokeShape.radius = 0;
         fireShape.radius = 0;
         risingRings.transform.localScale = 
@@ -52,11 +54,11 @@ public class FireDemonImmolateExtraLogic : MonoBehaviour, IReset
         System.Random random = new System.Random();
         safeZones.Shuffle(random);
 
-        for (int i = 0; i < safeZones.Count / 2; i++)
+        for (int i = 0; i < safeZoneCount; i++)
         {
             safeZones[i].SetActive(true);
         }
-
+        
         StartCoroutine(SetExtraResistanceCoroutine());
     }
 
@@ -73,20 +75,16 @@ public class FireDemonImmolateExtraLogic : MonoBehaviour, IReset
 
     private void OnDisable()
     {
-        instances--;
-        // Removes extra resistance
-        if (spell.WhoCast != null)
-        {
-            // If there is another immolate going on, it does not reset the resistance.
-            if (instances < 1)
-                enemyStats.DamageResistanceStatusEffectMultiplier = 
-                    enemyDefaultDamageResistance;
-        }
-
         // Disables all save zones
         for (int i = 0; i < safeZones.Count; i++)
         {
             safeZones[i].SetActive(false);
+        }
+
+        if (spell.WhoCast != null)
+        {
+            enemyStats.DamageResistanceStatusEffectMultiplier =
+                enemyDefaultDamageResistance;
         }
 
         // Resets variables
@@ -105,10 +103,5 @@ public class FireDemonImmolateExtraLogic : MonoBehaviour, IReset
             new Vector3(radius / risingRings.startSize, 
                 risingRings.transform.localScale.y,
                 radius / risingRings.startSize);
-    }
-
-    public void ResetAfterPoolDisable()
-    {
-        instances = 0;
     }
 }
