@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ExtensionMethods;
 
 /// <summary>
 /// Class responsible for growing particles radius depending on a spell AoE.
@@ -17,39 +18,50 @@ public class FireDemonImmolateExtraLogic : MonoBehaviour
     private EnemyBoss fireDemon;
 
     // Safe zones
-    [SerializeField] private List<GameObject> safeZones;
+    [SerializeField] private List<GameObject> safeZonesGO;
+    private List<SafeZone> safeZones;
 
     // Better to have this default scriptable object to know default resistance
     [SerializeField] private EnemyStatsSO fireDemonSecondStateStats;
 
     // Spell
     private SpellBehaviourOneShot spell;
-    private float enemyDefaultDamageResistance;
+    
     private StatsSO enemyStats;
-
-    [Range(-1, 0f)] [SerializeField] private float extraResistanceWhileCasting = -0.6f;
-
     private YieldInstruction wffu;
+
+    private bool rotatedTowardsPlayer;
 
     private void Awake()
     {
         smokeShape = smokeParticles.shape;
         fireShape = fireParticles.shape;
         spell = GetComponent<SpellBehaviourOneShot>();
-        enemyDefaultDamageResistance = 
-            fireDemonSecondStateStats.DamageResistanceStatusEffectMultiplier;
+        
         wffu = new WaitForFixedUpdate();
         fireDemon = FindObjectOfType<EnemyBoss>();
+
+        safeZones = new List<SafeZone>();
+        foreach (GameObject go in safeZonesGO)
+            safeZones.Add(go.GetComponent<SafeZone>());
     }
 
     private void OnEnable()
     {
+        rotatedTowardsPlayer = false;
+
         if (fireDemon == null) fireDemon = FindObjectOfType<EnemyBoss>();
+
+        if (fireDemon != null)
+        {
+            foreach (SafeZone sz in safeZones)
+                sz.Boss = fireDemon;
+        }
 
         int safeZoneCount = 4;
 
         if (fireDemon != null) 
-            safeZoneCount = fireDemon.ExecutedFirstMechanic ? 4 : 2;
+            safeZoneCount = fireDemon.ExecutedFirstMechanic ? 3 : 2;
 
         smokeShape.radius = 0;
         fireShape.radius = 0;
@@ -57,11 +69,11 @@ public class FireDemonImmolateExtraLogic : MonoBehaviour
             new Vector3(0, risingRings.transform.localScale.y, 0);
 
         System.Random random = new System.Random();
-        safeZones.Shuffle(random);
+        safeZonesGO.Shuffle(random);
 
         for (int i = 0; i < safeZoneCount; i++)
         {
-            safeZones[i].SetActive(true);
+            safeZonesGO[i].SetActive(true);
         }
         
         StartCoroutine(SetExtraResistanceCoroutine());
@@ -74,22 +86,15 @@ public class FireDemonImmolateExtraLogic : MonoBehaviour
         if (spell.WhoCast != null)
         {
             enemyStats = spell.WhoCast.CommonAttributes;
-            enemyStats.DamageResistanceStatusEffectMultiplier = extraResistanceWhileCasting;
         }
     }
 
     private void OnDisable()
     {
         // Disables all save zones
-        for (int i = 0; i < safeZones.Count; i++)
+        for (int i = 0; i < safeZonesGO.Count; i++)
         {
-            safeZones[i].SetActive(false);
-        }
-
-        if (spell.WhoCast != null)
-        {
-            enemyStats.DamageResistanceStatusEffectMultiplier =
-                enemyDefaultDamageResistance;
+            safeZonesGO[i].SetActive(false);
         }
 
         // Resets variables
@@ -97,6 +102,8 @@ public class FireDemonImmolateExtraLogic : MonoBehaviour
         fireShape.radius = 0;
         risingRings.transform.localScale =
             new Vector3(0, risingRings.transform.localScale.y, 0);
+
+        rotatedTowardsPlayer = false;
     }
 
     private void Update()
@@ -108,5 +115,12 @@ public class FireDemonImmolateExtraLogic : MonoBehaviour
             new Vector3(radius / risingRings.startSize, 
                 risingRings.transform.localScale.y,
                 radius / risingRings.startSize);
+
+        if (fireDemon != null && fireDemon.CurrentTarget != null &&
+            rotatedTowardsPlayer == false)
+        {
+            transform.LookAtY(fireDemon.CurrentTarget);
+            rotatedTowardsPlayer = true;
+        }
     }
 }
