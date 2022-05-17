@@ -254,7 +254,7 @@ public class Enemy : Character
             playerCastSpell = PlayerScript?.GetComponentInChildren<PlayerCastSpell>();
 
         if (playerCastSpell != null)
-            playerCastSpell.ReleasedAttackButton += ExecuteForceSideMovement;
+            playerCastSpell.SpellcastAny += ExecuteForceSideMovement;
         EnemyStats.EventDeath += EventDeath;
         EnemyStats.EventTakeDamage += EventTakeDamage;
         EnemyStats.EventSpeedUpdate += UpdateSpeed;
@@ -263,7 +263,7 @@ public class Enemy : Character
     private void OnDisable()
     {
         if (playerCastSpell != null)
-            playerCastSpell.ReleasedAttackButton -= ExecuteForceSideMovement;
+            playerCastSpell.SpellcastAny -= ExecuteForceSideMovement;
         EnemyStats.EventDeath -= EventDeath;
         EnemyStats.EventTakeDamage -= EventTakeDamage;
         EnemyStats.EventSpeedUpdate -= UpdateSpeed;

@@ -149,6 +149,8 @@ public class PlayerCastSpell : MonoBehaviour, IFindInput
     /// </summary>
     public void AttackKeyReleaseSecondarySpellAnimationEvent()
     {
+        OnSpellcastAny();
+
         playerSpells.SecondarySpell.AttackBehaviour.AttackKeyRelease(
              ref currentlyCastSpell, playerSpells.SecondarySpell, player, playerStats, 
              ref spellBehaviour);
@@ -274,6 +276,8 @@ public class PlayerCastSpell : MonoBehaviour, IFindInput
             OnEventAttack(playerSpells.ActiveSpell.CastType);
         }
 
+        OnSpellcastAny();
+
         // Spell release logic
         playerSpells.ActiveSpell.AttackBehaviour.AttackKeyRelease(
              ref currentlyCastSpell, playerSpells.ActiveSpell, player, playerStats, ref spellBehaviour);
@@ -319,9 +323,14 @@ public class PlayerCastSpell : MonoBehaviour, IFindInput
         EventStartScreenShake?.Invoke(castType);
     public event Action<SpellCastType> EventStartScreenShake;
 
+    protected virtual void OnSpellcastAny() =>
+        SpellcastAny?.Invoke();
+    public event Action SpellcastAny;
+
     protected virtual void OnReleasedAttackButton() =>
         ReleasedAttackButton?.Invoke();
     public event Action ReleasedAttackButton;
+
 
     public void FindInput(PlayerInputCustom input = null)
     {
