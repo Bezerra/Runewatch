@@ -19,6 +19,11 @@ public class EnemyValuesSO : CharacterValuesSO
     public float RotationSpeed => rotationSpeed;
 
     [BoxGroup("Movement and Rotation")]
+    [Header("Acceleration > ONLY USED < for enemies that dodge on attack")]
+    [Range(1, 50f)][SerializeField] private float acceleration;
+    public float Acceleration => acceleration;
+
+    [BoxGroup("Movement and Rotation")]
     [Tooltip("Speed of agent rotation")]
     [Range(1, 7f)] [SerializeField] private float agentAngularSpeed = 500f;
     public float AgentAngularSpeed => agentAngularSpeed;
@@ -42,6 +47,11 @@ public class EnemyValuesSO : CharacterValuesSO
     [Tooltip("Minimum angle to cast a spell")]
     [Range(5, 25f)] [SerializeField] private float fireAllowedAngle = 20f;
     public float FireAllowedAngle => fireAllowedAngle;
+
+    [BoxGroup("Side Movement")]
+    [Tooltip("Uses dodge when player attacks")]
+    [SerializeField] private bool usesDodge;
+    public bool UsesDodge => usesDodge;
 
     [BoxGroup("Side Movement")]
     [Tooltip("Waits X seconds until the enemy moves to the side again " +
