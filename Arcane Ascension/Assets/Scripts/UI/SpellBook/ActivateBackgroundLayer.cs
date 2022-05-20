@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class ActivateBackgroundLayer : MonoBehaviour
 {
@@ -9,6 +10,11 @@ public class ActivateBackgroundLayer : MonoBehaviour
     [SerializeField] SkillTreePassiveNode[] skillsNeeded;
 
     Image image;
+    bool active = false;
+
+    Color colorFull = Color.white;
+    Color colorFade = new Color(1f, 1f, 1f, 0.1f);
+    Color oldColor;
 
     private void Start()
     {
@@ -18,13 +24,32 @@ public class ActivateBackgroundLayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool isActive = true;
+        bool ShouldBeActive = true;
         foreach (SkillTreePassiveNode stpn in skillsNeeded)
         {
             if (!stpn.IsUnlocked)
-                isActive = false;
+                ShouldBeActive = false;
         }
 
-        image.enabled = isActive;
+        //image.enabled = isActive;
+
+        if (!active && ShouldBeActive)
+        {
+            active = true;
+            DoFadeIn();
+        }
+
+        else if(active && !ShouldBeActive)
+        {
+            active = false;
+            image.color = colorFade;
+        }
+
+    }
+
+    void DoFadeIn()
+    {
+        image.DOColor(colorFull, 1);
+        
     }
 }
