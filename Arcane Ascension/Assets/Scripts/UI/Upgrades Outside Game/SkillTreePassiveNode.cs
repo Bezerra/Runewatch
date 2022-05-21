@@ -64,7 +64,7 @@ public class SkillTreePassiveNode : MonoBehaviour
     [Header("Node Child Components")]
     [HideInInspector] [SerializeField] private TextMeshProUGUI nodeName;
     [HideInInspector] [SerializeField] private TextMeshProUGUI nodeTier;
-    [HideInInspector] [SerializeField] private Image nodeImage;
+    [SerializeField] private Image nodeImage;
     [HideInInspector] [SerializeField] private GameObject nodeRequired;
 
     // Properties
@@ -197,11 +197,11 @@ public class SkillTreePassiveNode : MonoBehaviour
     public void CanUnlockBorder()
     {
         // CanUnlock border logic
-        if (IsUnlocked)
+        /*if (IsUnlocked)
         {
             canUnlockBorder.SetActive(false);
             return;
-        }
+        }*/
 
         canUnlockBorder.SetActive(true);
 
@@ -222,7 +222,14 @@ public class SkillTreePassiveNode : MonoBehaviour
                 canUnlock = false;
             }
         }
+
+        if (CurrentTier == NodePassives.Length)
+        {
+            canUnlock = false;
+        }
+            
         
+        // check if previous are locked
         if (PreviousConnectionNodes != null && PreviousConnectionNodes.Count > 0)
         {
             foreach (SkillTreePassiveNode node in PreviousConnectionNodes)
@@ -234,6 +241,8 @@ public class SkillTreePassiveNode : MonoBehaviour
             }
         }
         if (canUnlock == false) canUnlockBorder.SetActive(false);
+
+        canUnlockBorder.SetActive(canUnlock);
     }
 
     /// <summary>
