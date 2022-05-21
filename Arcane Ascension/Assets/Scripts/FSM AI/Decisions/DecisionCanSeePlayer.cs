@@ -26,7 +26,7 @@ sealed public class DecisionCanSeePlayer : FSMDecision
     {
         Collider[] colliders = Physics.OverlapSphere(
             ai.Controller.transform.position, ai.Controller.Values.VisionRange, playerLayer);
-
+        
         if (colliders.Length > 0)
         {
             for (int i = 0; i < colliders.Length; i++)
@@ -36,7 +36,6 @@ sealed public class DecisionCanSeePlayer : FSMDecision
                     if (colliders[i].TryGetComponentInParent<Player>(out Player player))
                     {
                         ai.Controller.CurrentTarget = player.Eyes.transform;
-                        
 
                         CapsuleCollider bodyCollider = player.GetComponentInChildren<CapsuleCollider>();
                         if (bodyCollider != null)

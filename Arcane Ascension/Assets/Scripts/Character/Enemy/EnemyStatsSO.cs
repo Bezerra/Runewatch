@@ -48,6 +48,8 @@ public class EnemyStatsSO : StatsSO
     [BoxGroup("Damage Stats")]
     [Header("Character list of spells")]
     [SerializeField] private List<EnemySpell> availableSpells;
+    [BoxGroup("Damage Stats")]
+    [SerializeField] private EnemySpell specialMechanic;
 
     /// <summary>
     /// 1 is default value, the lesser this number, the fewer attacks
@@ -69,6 +71,9 @@ public class EnemyStatsSO : StatsSO
 
     public List<EnemySpell> AllEnemySpells => 
         availableSpells;
+
+    public EnemySpell SpecialMechanic =>
+        specialMechanic;
 
     /// <summary>
     /// Initiates lootrates struct.

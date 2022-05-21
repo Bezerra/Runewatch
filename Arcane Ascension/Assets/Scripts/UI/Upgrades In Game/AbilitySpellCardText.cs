@@ -29,10 +29,9 @@ public class AbilitySpellCardText : MonoBehaviour
     /// <param name="spell"></param>
     public void UpdateInfo(ISpell spell)
     {
+
         
-        
-        spellDamageText.text = 
-            Mathf.Floor(spell.MinMaxDamage.x).ToString() + " - " + Mathf.Floor(spell.MinMaxDamage.y).ToString();
+        spellDamageText.text = Mathf.RoundToInt((spell.MinMaxDamage.x + spell.MinMaxDamage.y) / 2 ).ToString();
         spellImage.sprite = spell.Icon;
         spellNameText.text = spell.Name;
         spellMana.text = spell.ManaCost.ToString();

@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ExtensionMethods;
 
 /// <summary>
 /// Class responsible for growing particles radius depending on a spell AoE.
 /// </summary>
-public class FireDemonImmolateExtraLogic : MonoBehaviour, IReset
+public class FireDemonImmolateExtraLogic : MonoBehaviour
 {
     // Immolate radius growth
     [SerializeField] private ParticleSystem risingRings;
@@ -14,49 +15,76 @@ public class FireDemonImmolateExtraLogic : MonoBehaviour, IReset
     private ParticleSystem.ShapeModule smokeShape;
     private ParticleSystem.ShapeModule fireShape;
 
-    private static int instances;
+    private EnemyBoss fireDemon;
 
     // Safe zones
-    [SerializeField] private List<GameObject> safeZones;
+    [SerializeField] private List<GameObject> safeZonesGO;
+    private List<SafeZone> safeZones;
 
     // Better to have this default scriptable object to know default resistance
     [SerializeField] private EnemyStatsSO fireDemonSecondStateStats;
 
     // Spell
     private SpellBehaviourOneShot spell;
-    private float enemyDefaultDamageResistance;
+    
     private StatsSO enemyStats;
-
-    [Range(-1, 0f)] [SerializeField] private float extraResistanceWhileCasting = -0.6f;
-
     private YieldInstruction wffu;
+
+    private bool rotatedTowardsPlayer;
 
     private void Awake()
     {
         smokeShape = smokeParticles.shape;
         fireShape = fireParticles.shape;
         spell = GetComponent<SpellBehaviourOneShot>();
-        enemyDefaultDamageResistance = 
-            fireDemonSecondStateStats.DamageResistanceStatusEffectMultiplier;
+        
         wffu = new WaitForFixedUpdate();
+        fireDemon = FindObjectOfType<EnemyBoss>();
+
+        safeZones = new List<SafeZone>();
+        foreach (GameObject go in safeZonesGO)
+            safeZones.Add(go.GetComponent<SafeZone>());
     }
 
     private void OnEnable()
     {
-        instances++;
+        rotatedTowardsPlayer = false;
+
+        if (fireDemon == null) fireDemon = FindObjectOfType<EnemyBoss>();
+
+        if (fireDemon != null)
+        {
+            foreach (SafeZone sz in safeZones)
+                sz.Boss = fireDemon;
+        }
+
+        int safeZoneCount = 3;
+
+        if (fireDemon != null)
+        {
+            if (fireDemon.ExecutedFirstMechanic && fireDemon.ExecutedSecondMechanic == false)
+            {
+                safeZoneCount = 3;
+            }
+            else if (fireDemon.ExecutedFirstMechanic && fireDemon.ExecutedSecondMechanic)
+            {
+                safeZoneCount = 2;
+            }
+        }
+ 
         smokeShape.radius = 0;
         fireShape.radius = 0;
         risingRings.transform.localScale = 
             new Vector3(0, risingRings.transform.localScale.y, 0);
 
         System.Random random = new System.Random();
-        safeZones.Shuffle(random);
+        safeZonesGO.Shuffle(random);
 
-        for (int i = 0; i < safeZones.Count / 2; i++)
+        for (int i = 0; i < safeZoneCount; i++)
         {
-            safeZones[i].SetActive(true);
+            safeZonesGO[i].SetActive(true);
         }
-
+        
         StartCoroutine(SetExtraResistanceCoroutine());
     }
 
@@ -67,26 +95,15 @@ public class FireDemonImmolateExtraLogic : MonoBehaviour, IReset
         if (spell.WhoCast != null)
         {
             enemyStats = spell.WhoCast.CommonAttributes;
-            enemyStats.DamageResistanceStatusEffectMultiplier = extraResistanceWhileCasting;
         }
     }
 
     private void OnDisable()
     {
-        instances--;
-        // Removes extra resistance
-        if (spell.WhoCast != null)
-        {
-            // If there is another immolate going on, it does not reset the resistance.
-            if (instances < 1)
-                enemyStats.DamageResistanceStatusEffectMultiplier = 
-                    enemyDefaultDamageResistance;
-        }
-
         // Disables all save zones
-        for (int i = 0; i < safeZones.Count; i++)
+        for (int i = 0; i < safeZonesGO.Count; i++)
         {
-            safeZones[i].SetActive(false);
+            safeZonesGO[i].SetActive(false);
         }
 
         // Resets variables
@@ -94,6 +111,8 @@ public class FireDemonImmolateExtraLogic : MonoBehaviour, IReset
         fireShape.radius = 0;
         risingRings.transform.localScale =
             new Vector3(0, risingRings.transform.localScale.y, 0);
+
+        rotatedTowardsPlayer = false;
     }
 
     private void Update()
@@ -105,10 +124,12 @@ public class FireDemonImmolateExtraLogic : MonoBehaviour, IReset
             new Vector3(radius / risingRings.startSize, 
                 risingRings.transform.localScale.y,
                 radius / risingRings.startSize);
-    }
 
-    public void ResetAfterPoolDisable()
-    {
-        instances = 0;
+        if (fireDemon != null && fireDemon.CurrentTarget != null &&
+            rotatedTowardsPlayer == false)
+        {
+            transform.LookAtY(fireDemon.CurrentTarget);
+            rotatedTowardsPlayer = true;
+        }
     }
 }

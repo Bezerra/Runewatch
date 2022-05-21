@@ -14,6 +14,7 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
     // Components
     private Animator anim;
     private Enemy enemy;
+    private EnemyBoss boss;
     private EnemyStats enemyStats;
     private Transform enemyModel;
     private EnemySounds enemySounds;
@@ -36,6 +37,7 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
         enemyHealthBar = transform.parent.GetComponentInChildren<EnemyHealthBar>();
         meshRender = GetComponentInChildren<SkinnedMeshRenderer>();
         wffu = new WaitForFixedUpdate();
+        enemy.TryGetComponent(out boss);
     }
 
     private void OnEnable()
@@ -138,10 +140,36 @@ public class EnemyAnimations : MonoBehaviour, IEnemyAnimator
     /// </summary>
     public void AfterKeyReleaseAnimationEvent()
     {
-        // Gets new random spell
-        int randomSpell = enemy.Random.RandomWeight(enemy.EnemyStats.AvailableSpellsWeight);
-        enemy.CurrentlySelectedSpell =
-             enemy.EnemyStats.EnemyAttributes.AllEnemySpells[randomSpell];
+        // If it's a boss, checks if the spell must be a special mechanic spell
+        if (boss != null)
+        {
+            if (boss.ExecuteFirstMechanic && boss.ExecutedFirstMechanic == false)
+            {
+                enemy.CurrentlySelectedSpell =
+                    enemy.EnemyStats.EnemyAttributes.SpecialMechanic;
+            }
+
+            else if (boss.ExecuteSecondMechanic && boss.ExecutedSecondMechanic == false)
+            {
+                enemy.CurrentlySelectedSpell =
+                    enemy.EnemyStats.EnemyAttributes.SpecialMechanic;
+            }
+
+            else
+            {
+                // Gets new random spell
+                int randomSpell = enemy.Random.RandomWeight(enemy.EnemyStats.AvailableSpellsWeight);
+                enemy.CurrentlySelectedSpell =
+                     enemy.EnemyStats.EnemyAttributes.AllEnemySpells[randomSpell];
+            }
+        }
+        else
+        {
+            // Gets new random spell
+            int randomSpell = enemy.Random.RandomWeight(enemy.EnemyStats.AvailableSpellsWeight);
+                enemy.CurrentlySelectedSpell =
+                     enemy.EnemyStats.EnemyAttributes.AllEnemySpells[randomSpell];
+        }
 
         // Updates time of last attack delay, so it starts a new delay for attack
         enemy.TimeOfLastAttack = Time.time;

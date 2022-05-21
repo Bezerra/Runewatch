@@ -18,8 +18,9 @@ sealed public class ActionSideMovement: FSMAction
     /// <param name="ai">AI Character.</param>
     private void SideMovement(StateController<Enemy> ai)
     {
-        if (ai.Controller.IsAttackingWithStoppingTime ||
-            ai.Controller.Agent.velocity.magnitude > 1f)
+        if ((ai.Controller.IsAttackingWithStoppingTime ||
+            ai.Controller.Agent.velocity.magnitude > 1f) &&
+            ai.Controller.ForceSideMovement == false)
         {
             return;
         }
@@ -59,6 +60,10 @@ sealed public class ActionSideMovement: FSMAction
                 ai.Controller.Agent.SetDestination(
                         ai.Controller.Agent.destination + movement);
             }
+
+            ai.Controller.Agent.speed = ai.Controller.Values.Speed;
+            ai.Controller.Agent.acceleration = ai.Controller.Values.Acceleration;
+            ai.Controller.ForceSideMovement = false;
         }
     }
 

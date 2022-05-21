@@ -48,14 +48,17 @@ sealed public class SpellBehaviourApplyDamageAndSpreadSO : SpellBehaviourAbstrac
             {
                 if (enemyColliders[i].TryGetComponentInParent(out SelectionBase colliderHit))
                 {
-                    if (parent.CharacterHit.gameObject.TryGetComponentInParent(out SelectionBase characterHit))
+                    if (parent.CharacterHit != null)
                     {
-                        // If collider selection base is different than the current character being damaged
-                        if (colliderHit != characterHit)
+                        if (parent.CharacterHit.gameObject.TryGetComponentInParent(out SelectionBase characterHit))
                         {
-                            collidersList.Add(enemyColliders[i]);
+                            // If collider selection base is different than the current character being damaged
+                            if (colliderHit != characterHit)
+                            {
+                                collidersList.Add(enemyColliders[i]);
+                            }
                         }
-                    }  
+                    }
                 }  
             }
 

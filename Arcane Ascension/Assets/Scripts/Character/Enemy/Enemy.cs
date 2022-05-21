@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using System;
 using ExtensionMethods;
 
 /// <summary>
@@ -136,6 +135,11 @@ public class Enemy : Character
     public float SideMovingTime { get; set; }
 
     /// <summary>
+    /// Forces to execute side movement.
+    /// </summary>
+    public bool ForceSideMovement { get; set; }
+
+    /// <summary>
     /// Property with side movement delay.
     /// </summary>
     public float SideMovementDelay { get; set; }
@@ -189,6 +193,8 @@ public class Enemy : Character
     /// </summary>
     public Player PlayerScript              { get; private set; }
 
+    private PlayerCastSpell playerCastSpell;
+
     /// <summary>
     /// State machine property.
     /// </summary>
@@ -221,6 +227,7 @@ public class Enemy : Character
         Agent = GetComponent<NavMeshAgent>();
         EnemyStats = GetComponent<EnemyStats>();
         PlayerScript = FindObjectOfType<Player>();
+        playerCastSpell = PlayerScript?.GetComponentInChildren<PlayerCastSpell>();
         StateMachine = new StateController<Enemy>(this, 2);
         Random = new System.Random();
     }
@@ -241,6 +248,13 @@ public class Enemy : Character
 
     private void OnEnable()
     {
+        if (PlayerScript != null) PlayerScript = FindObjectOfType<Player>();
+        
+        if (playerCastSpell == null)
+            playerCastSpell = PlayerScript?.GetComponentInChildren<PlayerCastSpell>();
+
+        if (playerCastSpell != null)
+            playerCastSpell.SpellcastAny += ExecuteForceSideMovement;
         EnemyStats.EventDeath += EventDeath;
         EnemyStats.EventTakeDamage += EventTakeDamage;
         EnemyStats.EventSpeedUpdate += UpdateSpeed;
@@ -248,14 +262,34 @@ public class Enemy : Character
 
     private void OnDisable()
     {
+        if (playerCastSpell != null)
+            playerCastSpell.SpellcastAny -= ExecuteForceSideMovement;
         EnemyStats.EventDeath -= EventDeath;
         EnemyStats.EventTakeDamage -= EventTakeDamage;
         EnemyStats.EventSpeedUpdate -= UpdateSpeed;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         StateMachine.Update(StateMachine);
+    }
+
+    private void ExecuteForceSideMovement()
+    {
+        if (Values.UsesDodge == false) return;
+
+        // Gives a num between 0 and 1 based on health
+        int percentageOfHealth = 
+            (int)((EnemyStats.Health * 100) / EnemyStats.MaxHealth);
+
+        float randomNumber = UnityEngine.Random.Range(0, 130);
+
+        if (randomNumber < percentageOfHealth) return;
+
+        Agent.speed = 85;
+        Agent.acceleration = 85;
+        SideMovingTime = 0;
+        ForceSideMovement = true;
     }
 
     /// <summary>

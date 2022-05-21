@@ -15,84 +15,34 @@ sealed public class ActionRunFromPlayer : FSMAction
 
     private void RunFromPlayer(StateController<Enemy> ai)
     {
-        // If the agent has reached its final destination
-        if (ai.StateTimeElapsed > 1)
+        if (ai.Controller.CurrentTarget == null)
+            ai.Controller.CurrentTarget = FindObjectOfType<Player>().Eyes.transform;
+        if (ai.Controller.CurrentTarget != null)
         {
-            if (ai.Controller.CurrentTarget != null)
+            Ray forwardRay =
+                new Ray(ai.Controller.transform.position,
+                    ai.Controller.CurrentTarget.Direction(ai.Controller.transform.position));
+
+            if (Physics.Raycast(forwardRay, 1.5f, Layers.WallsFloor))
             {
-                if (Vector3.Distance(
-                    ai.Controller.transform.position, ai.Controller.CurrentTarget.position) <
-                    ai.Controller.DistanceToKeepFromTarget * 2)
-                {
-                    if (Mathf.Floor(ai.StateTimeElapsed) % 10 == 0)
-                    {
-                        ai.Controller.DirectionIfBackBlocked = Random.Range(0, 2) == 0 ?
-                            Direction.Right : Direction.Left;
-                    }
-
-                    ai.Controller.RunningBackwards = true;
-                    ai.Controller.Agent.speed = ai.Controller.Values.Speed *
-                        ai.Controller.EnemyStats.CommonAttributes.MovementSpeedMultiplier *
-                        ai.Controller.EnemyStats.CommonAttributes.MovementStatusEffectMultiplier * 1.25f;
-                    float rotationSign = ai.Controller.DirectionIfBackBlocked == Direction.Right ?
-                        1 : -1;
-
-                    Ray rayToFront = new Ray(
-                        ai.Controller.transform.position - ai.Controller.transform.forward, 
-                        ai.Controller.transform.forward);
-
-                    if (Physics.Raycast(rayToFront, 6, Layers.WallsFloor))
-                    {
-                        ai.Controller.transform.Rotate(
-                            Vector3.up, Time.deltaTime * ai.Controller.Values.RotationSpeed * 50f * rotationSign);
-
-                        Ray rayToSide;
-                        if (ai.Controller.DirectionIfBackBlocked == Direction.Right)
-                            rayToSide = new Ray(ai.Controller.transform.position + ai.Controller.transform.right,
-                                -ai.Controller.transform.right);
-                        else
-                            rayToSide = new Ray(ai.Controller.transform.position - ai.Controller.transform.right,
-                                ai.Controller.transform.right);
-
-                        if (Physics.Raycast(rayToSide, 4, Layers.WallsFloor))
-                        {
-                            Debug.Log("hit");
-                            ai.Controller.transform.Rotate(
-                                Vector3.up, Time.deltaTime * ai.Controller.Values.RotationSpeed * 50f * rotationSign);
-                        }
-                    }
-
-                    ai.Controller.Agent.SetDestination(ai.Controller.transform.position +
-                            ai.Controller.transform.forward);
-                }
-                else
-                {
-                    ai.Controller.RunningBackwards = false;
-                    ai.Controller.Agent.speed = ai.Controller.Values.Speed *
-                        ai.Controller.EnemyStats.CommonAttributes.MovementSpeedMultiplier *
-                        ai.Controller.EnemyStats.CommonAttributes.MovementStatusEffectMultiplier;
-                }
+                // Left blank on purpose
+            }
+            else
+            {
+                ai.Controller.Agent.SetDestination(ai.Controller.transform.position +
+                    ai.Controller.CurrentTarget.Direction(ai.Controller.transform.position));
             }
         }
     }
 
     public override void OnEnter(StateController<Enemy> ai)
-    {
-        ai.Controller.RunningBackwards = false;
+    {;
+        ai.Controller.Agent.angularSpeed = 400;
 
-        ai.Controller.DistanceToKeepFromTarget = Random.Range(
-            ai.Controller.Values.DistanceWhileRunningBackwards.x, 
-            ai.Controller.Values.DistanceWhileRunningBackwards.y);
-
-        ai.Controller.DirectionIfBackBlocked = Random.Range(0, 2) == 0 ?
-            Direction.Right : Direction.Left;
+        ai.Controller.RunningBackwards = true;
 
         if (ai.Controller.CurrentTarget == null)
-            ai.Controller.CurrentTarget = ai.Controller.PlayerScript.Eyes.transform;
-
-        ai.Controller.Agent.SetDestination(ai.Controller.transform.position +
-            ai.Controller.CurrentTarget.Direction(ai.Controller.transform.position) *
-            ai.Controller.DistanceToKeepFromTarget);
+            ai.Controller.CurrentTarget = FindObjectOfType<Player>().Eyes.transform;
     }
 
     public override void OnExit(StateController<Enemy> ai)

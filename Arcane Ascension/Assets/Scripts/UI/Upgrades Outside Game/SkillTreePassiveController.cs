@@ -107,7 +107,7 @@ public class SkillTreePassiveController : MonoBehaviour
 
         SkillTreePassiveNode[] allNodes = GetComponentsInChildren<SkillTreePassiveNode>();
 
-        int currentArcanePower = characterSaveDataController.SaveData.ArcanePower;
+        int currentArcanePower = currencySO.ArcanePower;
         int spentAP = 0;
         for (int i = 0; i < allNodes.Length; i++)
         {
@@ -129,7 +129,7 @@ public class SkillTreePassiveController : MonoBehaviour
         // Creates a new save file with default spell + arcane currency
         CurrentPassives = new List<byte>();
         CurrentPassives.Add(0); // Adds default spell
-        characterSaveDataController.Save(new byte[] { 0 }, currentArcanePower + spentAP);
+        characterSaveDataController.Save(new byte[] { 0 }, currencySO.ArcanePower);
 
         // Updates text
         UpdateArcanePowerText();
