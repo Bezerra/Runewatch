@@ -26,7 +26,7 @@ public class ChangeMaterial : MonoBehaviour
 
     void Update()
     {
-        shaderMat.SetFloat("UnscaledTime", Time.unscaledTime);
+        shaderMat.SetFloat("Custom_Time", Time.unscaledTime);
     }
 
     public void ChangeMat()
