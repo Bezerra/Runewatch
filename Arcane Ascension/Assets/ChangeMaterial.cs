@@ -8,6 +8,8 @@ public class ChangeMaterial : MonoBehaviour
     
     [SerializeField] private Material shaderMat;
     [SerializeField] private Color hoverColor;
+    [SerializeField] private Image selectedButtonFrame;
+    [SerializeField] private Image selectedButtonBG;
 
     private Material currentMat;
     private Color currentColor;
@@ -29,14 +31,23 @@ public class ChangeMaterial : MonoBehaviour
 
     public void ChangeMat()
     {
-        image.material = shaderMat;
-        image.color = hoverColor;
+        image.enabled = false;
+        selectedButtonBG.enabled = true;
+        selectedButtonFrame.enabled = true;
+
+        selectedButtonBG.material = shaderMat;
+        selectedButtonBG.color = hoverColor;
        
     }
 
     public void ResetMat()
     {
-        image.material = currentMat;
-        image.color = currentColor;
+        image.enabled = true;
+        selectedButtonBG.enabled = false;
+        selectedButtonFrame.enabled = false;
+
+        //image.enabled = false;
+        //image.material = currentMat;
+        //image.color = currentColor;
     }
 }
