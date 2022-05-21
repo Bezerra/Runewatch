@@ -6,7 +6,6 @@ using DG.Tweening;
 
 public class ActivateBackgroundLayer : MonoBehaviour
 {
-
     [SerializeField] SkillTreePassiveNode[] skillsNeeded;
 
     Image image;
