@@ -19,12 +19,19 @@ public class ChangeMaterial : MonoBehaviour
         image = GetComponent<Image>();
         currentMat = image.material;
         currentColor = image.color;
+       
+    }
+
+    void Update()
+    {
+        shaderMat.SetFloat("UnscaledTime", Time.unscaledTime);
     }
 
     public void ChangeMat()
     {
         image.material = shaderMat;
         image.color = hoverColor;
+       
     }
 
     public void ResetMat()
