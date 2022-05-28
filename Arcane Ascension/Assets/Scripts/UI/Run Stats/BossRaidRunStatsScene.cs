@@ -16,6 +16,6 @@ public class BossRaidRunStatsScene : MonoBehaviour
         // Every class that implements ISaveable, will save its values
         // This will save everything, the current elements we want to save in here are
         // floor lever, and all player information during the run (stats, passives, spells)
-        runSaveDataController.Save();
+        runSaveDataController?.Save();
     }
 }

@@ -45,6 +45,14 @@ public class SceneControl : MonoBehaviour
         StartCoroutine(LoadNewScene(scene));
 
     /// <summary>
+    /// Loads a scene.
+    /// Can't overload because of animation events.
+    /// </summary>
+    /// <param name="scene">Scene to load.</param>
+    public virtual void LoadSceneNonAddictiveEvent() =>
+        StartCoroutine(LoadNewScene(sceneToLoad, false));
+
+    /// <summary>
     /// Loads a scene on a serialize field.
     /// Can't overload because of animation events.
     /// </summary>
