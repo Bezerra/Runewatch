@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 /// <summary>
-/// has methods to control gameplay timer.
+/// Class with methods to control gameplay timer.
 /// </summary>
 public class ControlGameplayTimer : MonoBehaviour
 {

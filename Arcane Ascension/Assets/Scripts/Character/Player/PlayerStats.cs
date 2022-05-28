@@ -225,6 +225,8 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable, IBossRaidSavea
 
                 FindObjectOfType<PlayerCastSpell>().AttackKeyRelease();
 
+                FindObjectOfType<DeathScreen>().UpdateDeathScreenVariables();
+
                 // Deletes run progress file
                 RunSaveDataController runSaveDataController =
                     FindObjectOfType<RunSaveDataController>();
@@ -293,6 +295,8 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable, IBossRaidSavea
                 if (damageOvertimeCoroutine != null) StopCoroutine(damageOvertimeCoroutine);
 
                 FindObjectOfType<PlayerCastSpell>().AttackKeyRelease();
+
+                FindObjectOfType<DeathScreen>().UpdateDeathScreenVariables();
 
                 // Deletes run progress file
                 RunSaveDataController runSaveDataController =

@@ -7,12 +7,15 @@ using UnityEngine;
 public class DeathScreen : MonoBehaviour, IFindPlayer, IFindInput
 {
     [SerializeField] private GameObject canvasToActivate;
+    [SerializeField] private RunStatsLogicSO runStatsLogic;
 
     private IInput input;
+    private EndRunStats endRunStats;
 
     private void Awake()
     {
         input = FindObjectOfType<PlayerInputCustom>();
+        endRunStats = GetComponentInChildren<EndRunStats>(true);
     }
 
     public void FindPlayer(Player player)
@@ -22,8 +25,24 @@ public class DeathScreen : MonoBehaviour, IFindPlayer, IFindInput
 
     public void PlayerLost(Player player)
     {
-        canvasToActivate.SetActive(true);
         input.SwitchActionMapToUI();
+    }
+
+    public void UpdateDeathScreenVariables()
+    {
+        // Updates all variables
+        runStatsLogic.TriggerRunStats(RunStatsType.Accuracy);
+        runStatsLogic.TriggerRunStats(RunStatsType.RunTime, value:
+            (int)GameplayTime.GameTimer.TotalSeconds);
+
+        // Saves
+        runStatsLogic.SaveAchievements();
+
+        // Enables canvas
+        canvasToActivate.SetActive(true);
+
+        // Updates text
+        endRunStats.UpdateText();   
     }
 
     public void FindInput(PlayerInputCustom input = null)
