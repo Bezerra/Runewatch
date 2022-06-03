@@ -167,7 +167,7 @@ public class SkillTreePassiveController : MonoBehaviour
     public void UpdateArcanePowerText()
     {
         arcanePowerText.text =
-            "Arcane Power: " + currencySO.ArcanePower;
+            /*"Arcane Power: " +*/ currencySO.ArcanePower.ToString();
     }
 
     /// <summary>
