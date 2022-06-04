@@ -37,7 +37,7 @@ MonoBehaviour:
   lootRates:
     lootPieces:
     - lootType: 5
-      lootRate: 0
+      lootRate: 1
     - lootType: 6
       lootRate: 20
     - lootType: 0
@@ -50,3 +50,11 @@ MonoBehaviour:
     enemyStopsOnAttack: 1
     stoppingTime: 1
     percentageStoppingTimeTriggerAoESpell: 0.4
+  specialMechanic:
+    spell: {fileID: 0}
+    isMeleeAttack: 0
+    spellWeight: 0
+    range: {x: 0, y: 0}
+    enemyStopsOnAttack: 0
+    stoppingTime: 0.1
+    percentageStoppingTimeTriggerAoESpell: 0

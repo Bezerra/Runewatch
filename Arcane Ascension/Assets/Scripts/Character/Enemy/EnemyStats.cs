@@ -231,13 +231,18 @@ public class EnemyStats : Stats
     {
         for (int i = 0; i < EnemyAttributes.Rates.LootPieces.Count; i++)
         {
+            float lootRate = EnemyAttributes.Rates.LootPieces[i].LootRate;
+
             // If it's a healing potion, its rate will be automatically set
             if (EnemyAttributes.Rates.LootPieces[i].LootType == LootType.PotionHealing)
             {
-                EnemyAttributes.Rates.LootPieces[i].LootRate = stpData.SaveData.Reaper;
+                lootRate =
+                    EnemyAttributes.Rates.LootPieces[i].LootRate +
+                    stpData.SaveData.Reaper;
+
             }
 
-            if (EnemyAttributes.Rates.LootPieces[i].LootRate.PercentageCheck(random))
+            if (lootRate.PercentageCheck(random))
             {
                 Vector3 newPosition = position + new Vector3(
                     UnityEngine.Random.Range(-1f, 1f), 0,
