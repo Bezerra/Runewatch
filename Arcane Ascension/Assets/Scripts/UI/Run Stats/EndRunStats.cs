@@ -11,6 +11,7 @@ public class EndRunStats : MonoBehaviour
     [SerializeField] private RunStatsLogicSO runStatsLogic;
 
     [SerializeField] private TextMeshProUGUI enemiesKilled;
+    [SerializeField] private TextMeshProUGUI floorReached;
     [SerializeField] private TextMeshProUGUI difficulty;
     [SerializeField] private TextMeshProUGUI arcanePowerObtained;
     [SerializeField] private TextMeshProUGUI goldObtained;
@@ -42,6 +43,12 @@ public class EndRunStats : MonoBehaviour
         // Update stats text
         enemiesKilled.text = 
             runSaveData.SaveData.AchievementsSaveData.EnemiesKilled.ToString();
+
+        if (floorReached != null)
+        {
+            floorReached.text =
+                runSaveData.SaveData.DungeonSavedData.Floor.ToString();
+        }
 
         difficulty.text =
             runSaveData.SaveData.Difficulty.ToString();
