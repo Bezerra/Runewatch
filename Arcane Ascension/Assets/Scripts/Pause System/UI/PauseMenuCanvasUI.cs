@@ -15,6 +15,7 @@ public class PauseMenuCanvasUI : MonoBehaviour
     [SerializeField] private GameObject menuControls;
     [SerializeField] private GameObject menuVideo;
     [SerializeField] private GameObject menuAudio;
+    [SerializeField] private GameObject menuCredits;
 
     private Canvas canvas;
     private GraphicRaycaster raycaster;
@@ -60,6 +61,7 @@ public class PauseMenuCanvasUI : MonoBehaviour
         MenuControlsEnable();
         MenuVideoEnable();
         MenuAudioEnable();
+        MenuCreditsEnable();
 
         yield return null;
 
@@ -69,6 +71,7 @@ public class PauseMenuCanvasUI : MonoBehaviour
         MenuControlsDisable();
         MenuVideoDisable();
         MenuAudioDisable();
+        MenuCreditsDisable();
         backgroundCanvas.SetActive(false);
     }
 
@@ -97,6 +100,7 @@ public class PauseMenuCanvasUI : MonoBehaviour
         MenuControlsDisable();
         MenuVideoDisable();
         MenuAudioDisable();
+        MenuCreditsDisable();
 
         if (pauseSystem != null)
             pauseSystem.ResumeGame();
@@ -114,6 +118,8 @@ public class PauseMenuCanvasUI : MonoBehaviour
     public void MenuVideoDisable() => menuVideo.SetActive(false);
     public void MenuAudioEnable() => menuAudio.SetActive(true);
     public void MenuAudioDisable() => menuAudio.SetActive(false);
-    
+    public void MenuCreditsEnable() => menuCredits.SetActive(true);
+    public void MenuCreditsDisable() => menuCredits.SetActive(false);
+
     public void ButtonLoadMainMenu() => SceneManager.LoadScene("MainMenu");
 }
