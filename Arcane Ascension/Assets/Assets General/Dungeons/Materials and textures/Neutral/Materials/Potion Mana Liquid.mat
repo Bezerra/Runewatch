@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Smoke-01-Alpha
-  m_Shader: {fileID: 4800000, guid: 667bc581efc758f43a7bd86c68dc5b40, type: 3}
-  m_ShaderKeywords: _DISSOLVESMOOTH_ON _USECUSTOMDISSOLVETEX0Z_ON
+  m_Name: Potion Mana Liquid
+  m_Shader: {fileID: 4800000, guid: 46be3540624afd543a92e36642e5f71f, type: 3}
+  m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -39,32 +39,12 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _DissolveMask:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DissolveTexture:
-        m_Texture: {fileID: 2800000, guid: 433e00f05af7bf64d97875ccca3b783c, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DistortTexture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTexture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MaskTexture:
-        m_Texture: {fileID: 2800000, guid: a24e1823fe8e87a4a9e350ff83621fb5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -75,23 +55,11 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _OffsetMaskTexture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _VertexOffsetTexture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _texcoord:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -109,6 +77,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - Level: -0.05
+    - _Alpha: 1
     - _AlphaClip: 0
     - _AlphaCutoff: 0.5
     - _Blend: 0
@@ -117,54 +87,42 @@ Material:
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
-    - _DepthDistance: 0.1
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DissolveAmount: 0
-    - _DissolveSmooth: 1
-    - _DistortStrength: 0
     - _DstBlend: 0
     - _EnvironmentReflections: 1
-    - _FresnelPower: 5
+    - _Fade: 1.34
+    - _Fade1: 0.44
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _InvertDissolveMask: 0
-    - _InvertMask: 0
-    - _InvertOffsetMask: 0
-    - _MaskCustomScrolltex1xy: 0
+    - _Level: -0.15
+    - _Level1: 0.04
+    - _LiquidLevel: 0.659
     - _Metallic: 0
     - _OcclusionStrength: 1
-    - _OffsetStrength: 0
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 0.5
+    - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _UseCustomDissolve: 0
-    - _UseCustomDissolveTex0z: 1
-    - _UseDepth: 1
-    - _UseMaskAlpha: 0
-    - _UseOffsetMaskAlpha: 0
+    - _WobbleX: 0
+    - _WobbleZ: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Color_2: {r: 4, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DissolveSpeed: {r: 0, g: 0, b: 0, a: 0}
-    - _DistortSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _Color1: {r: 0, g: 0.0543108, b: 1, a: 0}
+    - _Color2: {r: 0.061302215, g: 12.996038, b: 11.798021, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FresnelColor: {r: 0, g: 0, b: 0, a: 0}
-    - _MainTextureSpeed: {r: 0, g: 0, b: 0, a: 0}
-    - _MaskSpeed: {r: 0, g: 0, b: 0, a: 0}
-    - _OffsetMaskSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _VertexOffsetSpeed: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &680085025456806104
+--- !u!114 &1004594871215567759
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
