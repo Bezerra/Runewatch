@@ -516,12 +516,14 @@ public class PlayerUI : MonoBehaviour
     {
         if (value == 1)
         {
-            timerBackground.enabled = true;
+            if (timerBackground != null)
+                timerBackground.enabled = true;
             timerTMP.color = new Color(1, 1, 1, 1);
         }
         else
         {
-            timerBackground.enabled = false;
+            if (timerBackground != null)
+                timerBackground.enabled = false;
             timerTMP.color = new Color(1, 1, 1, 0);
         }
     }
