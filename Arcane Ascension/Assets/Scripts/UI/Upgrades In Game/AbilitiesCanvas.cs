@@ -25,8 +25,11 @@ public class AbilitiesCanvas : MonoBehaviour, IFindInput
         threeSpellCanvas.SetActive(true);
     }
 
-    public void EnableOneSpellCanvas() =>
+    public void EnableOneSpellCanvas(GameObject objectThatActivatedThisCanvas)
+    {
+        this.objectThatActivatedThisCanvas = objectThatActivatedThisCanvas;
         oneSpellCanvas.SetActive(true);
+    }
 
     public void EnableThreePassiveCanvas(GameObject orbThatActivatedThisCanvas)
     {

@@ -9,6 +9,6 @@ public class EventOpenOneSpellMenuSO : EventAbstractSO
 {
     public override void Execute(AbstractEventOnInteraction invoker, PlayerInteraction interactor = null)
     {
-        FindObjectOfType<AbilitiesCanvas>().EnableOneSpellCanvas();
+        FindObjectOfType<AbilitiesCanvas>().EnableOneSpellCanvas(invoker.gameObject);
     }
 }
