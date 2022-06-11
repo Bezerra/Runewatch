@@ -555,8 +555,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 151515
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4aec8f9910b75f14cb0bd14203d04729, type: 2}
+  m_sharedMaterial: {fileID: 4621386695984099789, guid: 4aec8f9910b75f14cb0bd14203d04729, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -762,8 +762,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 789723
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4aec8f9910b75f14cb0bd14203d04729, type: 2}
+  m_sharedMaterial: {fileID: 4621386695984099789, guid: 4aec8f9910b75f14cb0bd14203d04729, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2572,7 +2572,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4629785590081576237}
   - component: {fileID: 538873508525407362}
-  - component: {fileID: 1472590052333971148}
   m_Layer: 5
   m_Name: Gameplay Timer
   m_TagString: Untagged
@@ -2608,33 +2607,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 440579248140824387}
   m_CullTransparentMesh: 1
---- !u!114 &1472590052333971148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 440579248140824387}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 0.5372549}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Texture: {fileID: 0}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
 --- !u!1 &666716256105402259
 GameObject:
   m_ObjectHideFlags: 0
@@ -3325,7 +3297,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7775551, y: 1}
+    m_SensorSize: {x: 1.7765089, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -7832,7 +7804,7 @@ MonoBehaviour:
   gold: {fileID: 417335177}
   arcanePower: {fileID: 378258224}
   minimap: {fileID: 384695418}
-  timerBackground: {fileID: 1472590052333971148}
+  timerBackground: {fileID: 0}
   timerTMP: {fileID: 861156293610533584}
   fpsCounterBackground: {fileID: 2892279068722511642}
   fpsCounterTMP: {fileID: 3844267960309958711}
