@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,17 +9,12 @@ public class ChangeMaterial : MonoBehaviour
     [SerializeField] private Image selectedButtonFrame;
     [SerializeField] private Image selectedButtonBG;
 
-    private Material currentMat;
-    private Color currentColor;
     private Image image;
 
     // Start is called before the first frame update
     void Start()
     {
-        image = GetComponent<Image>();
-        currentMat = image.material;
-        currentColor = image.color;
-       
+        image = GetComponent<Image>();       
     }
 
     void Update()
@@ -32,23 +25,31 @@ public class ChangeMaterial : MonoBehaviour
 
     public void ChangeMat()
     {
-        image.enabled = false;
-        selectedButtonBG.enabled = true;
-        selectedButtonFrame.enabled = true;
+        if (image != null)
+            image.enabled = false;
 
-        selectedButtonBG.material = shaderMat;
-        selectedButtonBG.color = hoverColor;
-       
+        if (selectedButtonBG != null)
+            selectedButtonBG.enabled = true;
+
+        if (selectedButtonFrame != null)
+            selectedButtonFrame.enabled = true;
+
+        if (selectedButtonBG != null)
+        {
+            selectedButtonBG.material = shaderMat;
+            selectedButtonBG.color = hoverColor;
+        }       
     }
 
     public void ResetMat()
     {
-        image.enabled = true;
-        selectedButtonBG.enabled = false;
-        selectedButtonFrame.enabled = false;
+        if (image != null)
+            image.enabled = true;
 
-        //image.enabled = false;
-        //image.material = currentMat;
-        //image.color = currentColor;
+        if (selectedButtonBG != null)
+            selectedButtonBG.enabled = false;
+
+        if (selectedButtonFrame != null)
+            selectedButtonFrame.enabled = false;
     }
 }
