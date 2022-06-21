@@ -153,6 +153,8 @@ public class SpellSO : ScriptableObject, ISpell
     public Sprite TargetTypeIcon => targetTypeIcon;
     public AffectsType Relation => relation;
     public string Name => name;
+
+    public string NameID => name.Replace(' ', '_').ToLower();
     public byte ID { get; set; }
     public int Tier => spellTier;
     public string Description => description;

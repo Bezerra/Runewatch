@@ -81,6 +81,7 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
 
         string[] splitWords = input.ToLower().Trim().Split(' ');
         int number = 0;
+        //string arg = "";
         int number2 = 0;
 
         if (splitWords.Length == 3)
@@ -88,6 +89,7 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
             try
             {
                 number = Convert.ToInt32(splitWords[1]);
+                //arg = splitWords[1];
             }
             catch { }
             try
@@ -99,7 +101,7 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
 
         if (splitWords.Length == 3 &&
             splitWords[0] == "spell" && 
-            (number >= 0 && number <= Byte.MaxValue) &&
+            //(number >= 0 && number <= Byte.MaxValue) &&
             (number2 >= 1 && number2 <= 4))
         {
             bool playerAlreadyHasSpell = false;
@@ -108,6 +110,7 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
                 if (spell != null)
                 {
                     if (spell.ID == number)
+                        if (spell.NameID == splitWords[1])
                         playerAlreadyHasSpell = true;
                 }
             }
@@ -116,7 +119,8 @@ public class CheatConsole : MonoBehaviour, IFindPlayer, IFindInput
             {
                 foreach (SpellSO spell in allSpells.SpellList)
                 {
-                    if (spell.ID == Convert.ToByte(splitWords[1]))
+                    //if (spell.ID == Convert.ToByte(splitWords[1]))
+                    if (spell.NameID == splitWords[1])
                     {
                         AddSpell(spell, Convert.ToByte(splitWords[2]));
                         DisableConsole();

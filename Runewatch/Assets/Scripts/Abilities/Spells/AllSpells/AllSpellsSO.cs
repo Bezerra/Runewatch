@@ -36,6 +36,12 @@ public class AllSpellsSO : ScriptableObject
         }
     }
 
+    [ContextMenu("Order Alphabetically")]
+    public void OrderAlphabetically()
+    {
+        spells = spells.OrderBy(i => i.Name).ToList();
+    }
+
     private void OnValidate()
     {
         // Uncomment to order by name, and comment again to disable it
