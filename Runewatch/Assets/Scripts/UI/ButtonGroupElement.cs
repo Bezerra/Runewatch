@@ -7,25 +7,32 @@ using UnityEngine.EventSystems;
 
 public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler, ICancelHandler
 {
+    [Header("Visual Switch Components")]
     public ButtonGroup buttonGroup;
-
     public AudioSource audioSourceClick;
-
     public AudioSource audioSourceSelect;
-
     public AudioSource audioSourceBack;
-
     public TextMeshProUGUI textMesh;
 
-    public ChangeMaterial changeMaterial;
+    [Header("Material Switch on Hover")]
+    [SerializeField] private Material shaderMat;
+    [SerializeField] private Color hoverColor;
+    [SerializeField] private Image selectedButtonFrame;
+    [SerializeField] private Image selectedButtonBG;
+    private Image image;
 
-    
-
+    // Start is called before the first frame update
     private void Start()
     {
+        buttonGroup = GetComponentInParent<ButtonGroup>();
+        image = GetComponent<Image>();
         buttonGroup.Subscribe(this);
-        changeMaterial = GetComponent<ChangeMaterial>();
+    }
 
+    void Update()
+    {
+        if (shaderMat)
+            shaderMat.SetFloat("Custom_Time", Time.unscaledTime);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -46,5 +53,35 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerC
     public void OnCancel(BaseEventData eventData)
     {
         buttonGroup.OnButtonCancel(this);
+    }
+
+    public void ResetMat()
+    {
+        if (image != null)
+            image.enabled = true;
+
+        if (selectedButtonBG != null)
+            selectedButtonBG.enabled = false;
+
+        if (selectedButtonFrame != null)
+            selectedButtonFrame.enabled = false;
+    }
+
+    public void ChangeMat()
+    {
+        if (image != null)
+            image.enabled = false;
+
+        if (selectedButtonBG != null)
+            selectedButtonBG.enabled = true;
+
+        if (selectedButtonFrame != null)
+            selectedButtonFrame.enabled = true;
+
+        if (selectedButtonBG != null)
+        {
+            selectedButtonBG.material = shaderMat;
+            selectedButtonBG.color = hoverColor;
+        }
     }
 }
