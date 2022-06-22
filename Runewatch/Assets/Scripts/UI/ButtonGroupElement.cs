@@ -9,10 +9,11 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerC
 {
     public ButtonGroup buttonGroup;
 
+    public AudioSource audioSourceClick;
 
-    public AudioSource audioSource;
+    public AudioSource audioSourceSelect;
 
-    public PauseMenuCanvasUI pauseMenuCanvas;
+    public AudioSource audioSourceBack;
 
     public TextMeshProUGUI textMesh;
 
@@ -23,9 +24,6 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerC
     private void Start()
     {
         buttonGroup.Subscribe(this);
-        audioSource = GetComponent<AudioSource>();
-        pauseMenuCanvas = GetComponent<PauseMenuCanvasUI>();
-        textMesh = GetComponent<TextMeshProUGUI>();
         changeMaterial = GetComponent<ChangeMaterial>();
 
     }

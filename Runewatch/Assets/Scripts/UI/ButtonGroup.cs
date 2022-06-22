@@ -26,14 +26,9 @@ public class ButtonGroup : MonoBehaviour
     public void OnButtonEnter(ButtonGroupElement button)
     {
         ResetTabs();
-        
         button.changeMaterial.ChangeMat();
-
-        //Weird null dont know why
-        //button.textMesh.font = fontAssetSelected;
-        
-
-        
+        button.textMesh.font = fontAssetSelected;
+        button.audioSourceSelect.Play();
     }
 
 
@@ -46,8 +41,7 @@ public class ButtonGroup : MonoBehaviour
     {
         ResetTabs();
 
-        //Weird null dont know why
-        //button.textMesh.font = fontAssetSelected;
+        button.textMesh.font = fontAssetSelected;
     }
 
     public void OnButtonCancel(ButtonGroupElement button)
@@ -62,9 +56,7 @@ public class ButtonGroup : MonoBehaviour
         {
             
             button.changeMaterial.ResetMat();
-
-            //Weird null dont know why
-            //button.textMesh.font = fontAssetIdle;
+            button.textMesh.font = fontAssetIdle;
         }
     }
 }
