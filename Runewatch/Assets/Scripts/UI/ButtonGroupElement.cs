@@ -32,7 +32,7 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerC
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        buttonGroup.OnButtonSelected(this);
+        buttonGroup.OnButtonClick(this);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
