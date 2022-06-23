@@ -12,6 +12,7 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractSO
     [Header("Walls and floor layer numbers")]
     [SerializeField] private List<int> layersToStopTheSpell;
     [Range(2, 20)] [SerializeField] private byte hitQuantity;
+    [SerializeField] private Vector2 SpeedMultOnBounceGravity = Vector2.one;
 
     public override void StartBehaviour(SpellBehaviourOneShot parent)
     {
@@ -72,7 +73,7 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractSO
     {
         parent.ProjectileReflectedHit = spellHitPoint;
 
-        if (++parent.CurrentWallHitQuantity < hitQuantity)
+        if (++parent.CurrentWallHitQuantity < hitQuantity && parent.Rb.velocity.magnitude >= 0.5f)
         {
             RotateProjectile(parent, spellHitPoint);
         }
@@ -105,7 +106,23 @@ public class SpellBehaviourBounceOnHitSO : SpellBehaviourAbstractSO
         }
 
         // Sets new speed based on rotation
-        parent.Rb.velocity = reflection * parent.Spell.Speed;
+        Vector3 speedMult = Vector3.one;
+
+        foreach (SpellBehaviourAbstractSO behavior in parent.Spell.SpellBehaviourOneShot)
+        {
+            if (behavior is SpellBehaviourGravitySO)
+            {
+                speedMult = new Vector3(SpeedMultOnBounceGravity.x, SpeedMultOnBounceGravity.y, SpeedMultOnBounceGravity.x);
+                continue;
+            }
+        }
+
+        float currentSpeed = parent.Rb.velocity.magnitude;
+        Vector3 newVelocity = new Vector3(reflection.x * currentSpeed * speedMult.x,
+                                            reflection.y * currentSpeed * speedMult.y,
+                                            reflection.z * currentSpeed * speedMult.z);
+
+        parent.Rb.velocity = newVelocity;
             
         // Rotates the projectile towards that new speed vector
         parent.transform.rotation = 
