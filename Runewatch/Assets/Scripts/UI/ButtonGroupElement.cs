@@ -4,17 +4,26 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
-public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler, ICancelHandler
+public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler, ICancelHandler, ISelectHandler, ISubmitHandler
+
 {
+
     [Header("Visual Switch Components")]
+
     public ButtonGroup buttonGroup;
     public AudioSource audioSourceClick;
     public AudioSource audioSourceSelect;
     public AudioSource audioSourceBack;
     public TextMeshProUGUI textMesh;
 
+    [Header("OnClick Event")]
+
+    public UnityEvent onButtonClicked;
+
     [Header("Material Switch on Hover")]
+
     [SerializeField] private Material shaderMat;
     [SerializeField] private Color hoverColor;
     [SerializeField] private Image selectedButtonFrame;
@@ -27,21 +36,29 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerC
         buttonGroup = GetComponentInParent<ButtonGroup>();
         image = GetComponent<Image>();
         buttonGroup.Subscribe(this);
+        
     }
+
 
     void Update()
     {
         if (shaderMat)
             shaderMat.SetFloat("Custom_Time", Time.unscaledTime);
+        //if (EventSystem.current == null)
+        //{
+        //    EventSystem.current.SetSelectedGameObject(gameObject);
+        //}
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         buttonGroup.OnButtonClick(this);
+        Click();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        OnSelect(eventData);
         buttonGroup.OnButtonEnter(this);
     }
 
@@ -52,6 +69,7 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerC
 
     public void OnCancel(BaseEventData eventData)
     {
+
         buttonGroup.OnButtonCancel(this);
     }
 
@@ -84,4 +102,26 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerC
             selectedButtonBG.color = hoverColor;
         }
     }
+
+    public void Click()
+    {
+        if (onButtonClicked != null)
+        {
+            onButtonClicked.Invoke();
+        }
+    }
+
+
+    public void OnSelect(BaseEventData eventData)
+    {
+        buttonGroup.OnButtonSelect(this);
+    }
+
+    public void OnSubmit(BaseEventData eventData)
+    {
+        buttonGroup.OnButtonSubmit(this);
+        Click();
+    }
+
+    
 }

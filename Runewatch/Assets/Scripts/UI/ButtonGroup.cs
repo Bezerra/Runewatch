@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class ButtonGroup : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class ButtonGroup : MonoBehaviour
     public TMP_FontAsset fontAssetSelected;
 
     public TMP_FontAsset fontAssetIdle;
+
+    public GameObject backButton;
+
+    private GameObject lastSelectedGO;
 
 
     public void Subscribe(ButtonGroupElement button)
@@ -23,8 +28,22 @@ public class ButtonGroup : MonoBehaviour
         buttonGroup.Add(button);
     }
 
+    public void Update()
+    {
+        FindLastSelectedGO();
+    }
+
+    public void OnEnable()
+    {
+
+        EventSystem.current.SetSelectedGameObject(buttonGroup[0].gameObject);
+
+
+    }
+
     public void OnButtonEnter(ButtonGroupElement button)
     {
+        EventSystem.current.SetSelectedGameObject(button.gameObject);
         ResetTabs();
         button.ChangeMat();
         button.textMesh.font = fontAssetSelected;
@@ -40,6 +59,7 @@ public class ButtonGroup : MonoBehaviour
 
     public void OnButtonClick(ButtonGroupElement button)
     {
+        
         button.audioSourceClick.Play();
         ResetTabs();
         button.textMesh.font = fontAssetSelected;
@@ -49,8 +69,41 @@ public class ButtonGroup : MonoBehaviour
     {
         ResetTabs();
         button.audioSourceBack.Play();
+        EventSystem.current.SetSelectedGameObject(backButton);
     }
 
+    public void OnButtonSelect(ButtonGroupElement button)
+    {
+        ResetTabs();
+        button.ChangeMat();
+        button.textMesh.font = fontAssetSelected;
+        button.audioSourceSelect.Play();
+        
+        
+
+    }
+
+    public void OnButtonSubmit(ButtonGroupElement button)
+    {
+        ResetTabs();
+        OnButtonClick(button);
+    }
+
+
+    public void FindLastSelectedGO()
+    {
+        if (EventSystem.current.currentSelectedGameObject != null &&
+                EventSystem.current.currentSelectedGameObject != lastSelectedGO)
+        {
+            lastSelectedGO = EventSystem.current.currentSelectedGameObject;
+        }
+        // If the button is null, it selects the last selected button
+        if (EventSystem.current.currentSelectedGameObject == null)
+        {
+            EventSystem.current.SetSelectedGameObject(lastSelectedGO);
+        }
+        
+    }
     public void ResetTabs()
     {
 

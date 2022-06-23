@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class SelectBackButtonPermanent : MonoBehaviour
 {
-    private void Update()
+    private void Start()
     {
         if (EventSystem.current != null)
         {
