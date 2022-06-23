@@ -43,11 +43,7 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerC
     void Update()
     {
         if (shaderMat)
-            shaderMat.SetFloat("Custom_Time", Time.unscaledTime);
-        //if (EventSystem.current == null)
-        //{
-        //    EventSystem.current.SetSelectedGameObject(gameObject);
-        //}
+            shaderMat.SetFloat("Custom_Time", Time.unscaledTime);    
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -58,7 +54,7 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerC
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        OnSelect(eventData);
+        //OnSelect(eventData);
         buttonGroup.OnButtonEnter(this);
     }
 
@@ -114,6 +110,7 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerC
 
     public void OnSelect(BaseEventData eventData)
     {
+        Debug.Log(this);
         buttonGroup.OnButtonSelect(this);
     }
 

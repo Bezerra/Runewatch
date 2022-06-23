@@ -36,14 +36,14 @@ public class ButtonGroup : MonoBehaviour
     public void OnEnable()
     {
 
-        EventSystem.current.SetSelectedGameObject(buttonGroup[0].gameObject);
+        OnButtonSelect(buttonGroup[0]);
 
 
     }
 
     public void OnButtonEnter(ButtonGroupElement button)
     {
-        EventSystem.current.SetSelectedGameObject(button.gameObject);
+        //OnButtonSelect(button);
         ResetTabs();
         button.ChangeMat();
         button.textMesh.font = fontAssetSelected;
@@ -74,6 +74,8 @@ public class ButtonGroup : MonoBehaviour
 
     public void OnButtonSelect(ButtonGroupElement button)
     {
+        Debug.Log("Current:" + EventSystem.current);
+        Debug.Log("pudim");
         ResetTabs();
         button.ChangeMat();
         button.textMesh.font = fontAssetSelected;

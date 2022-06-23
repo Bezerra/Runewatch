@@ -144,7 +144,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4357776329671446540}
   - component: {fileID: 3714079950079328106}
-  - component: {fileID: 5386856727247745995}
   m_Layer: 5
   m_Name: Pause Menu Layout Group
   m_TagString: Untagged
@@ -201,26 +200,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
---- !u!114 &5386856727247745995
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 177926379642793799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3283ba14d26f9a48a00709bdb9c8bbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonGroup:
-  - {fileID: 448434390627503303}
-  - {fileID: 5668802640705767863}
-  - {fileID: 2406624661307275560}
-  - {fileID: 1946673448054480728}
-  fontAssetSelected: {fileID: 11400000, guid: 1fef8a971c6159c4c923da0a73bb591f, type: 2}
-  fontAssetIdle: {fileID: 11400000, guid: 4aec8f9910b75f14cb0bd14203d04729, type: 2}
-  backButton: {fileID: 3840178982999661318}
 --- !u!1 &455680199573940632
 GameObject:
   m_ObjectHideFlags: 0
@@ -1029,6 +1008,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5226506914293788307}
+  - component: {fileID: 9152083436519744851}
   m_Layer: 5
   m_Name: Main Pause Menu
   m_TagString: Untagged
@@ -1058,6 +1038,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &9152083436519744851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2204377982235102324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3283ba14d26f9a48a00709bdb9c8bbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonGroup:
+  - {fileID: 448434390627503303}
+  - {fileID: 5668802640705767863}
+  - {fileID: 2406624661307275560}
+  - {fileID: 1946673448054480728}
+  fontAssetSelected: {fileID: 11400000, guid: 1fef8a971c6159c4c923da0a73bb591f, type: 2}
+  fontAssetIdle: {fileID: 11400000, guid: 4aec8f9910b75f14cb0bd14203d04729, type: 2}
+  backButton: {fileID: 3840178982999661318}
 --- !u!114 &7309171125471647302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5429,7 +5429,7 @@ PrefabInstance:
     - target: {fileID: 2361769247788941551, guid: 2db7ca1059945bb45b49dc6435a8b361, type: 3}
       propertyPath: buttonGroup
       value: 
-      objectReference: {fileID: 5386856727247745995}
+      objectReference: {fileID: 9152083436519744851}
     - target: {fileID: 2361769247788941551, guid: 2db7ca1059945bb45b49dc6435a8b361, type: 3}
       propertyPath: audioSourceBack
       value: 
@@ -10666,7 +10666,7 @@ PrefabInstance:
     - target: {fileID: 2361769247788941551, guid: 2db7ca1059945bb45b49dc6435a8b361, type: 3}
       propertyPath: buttonGroup
       value: 
-      objectReference: {fileID: 5386856727247745995}
+      objectReference: {fileID: 9152083436519744851}
     - target: {fileID: 2361769247788941551, guid: 2db7ca1059945bb45b49dc6435a8b361, type: 3}
       propertyPath: audioSourceBack
       value: 
@@ -13875,7 +13875,7 @@ PrefabInstance:
     - target: {fileID: 2361769247788941551, guid: 2db7ca1059945bb45b49dc6435a8b361, type: 3}
       propertyPath: buttonGroup
       value: 
-      objectReference: {fileID: 5386856727247745995}
+      objectReference: {fileID: 9152083436519744851}
     - target: {fileID: 2361769247788941551, guid: 2db7ca1059945bb45b49dc6435a8b361, type: 3}
       propertyPath: audioSourceBack
       value: 
@@ -20318,7 +20318,7 @@ PrefabInstance:
     - target: {fileID: 2361769247788941551, guid: 2db7ca1059945bb45b49dc6435a8b361, type: 3}
       propertyPath: buttonGroup
       value: 
-      objectReference: {fileID: 5386856727247745995}
+      objectReference: {fileID: 9152083436519744851}
     - target: {fileID: 2361769247788941551, guid: 2db7ca1059945bb45b49dc6435a8b361, type: 3}
       propertyPath: audioSourceBack
       value: 
@@ -20656,10 +20656,6 @@ PrefabInstance:
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7823601000029926503, guid: 2db7ca1059945bb45b49dc6435a8b361, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 1fef8a971c6159c4c923da0a73bb591f, type: 2}
-    - target: {fileID: 7823601000029926503, guid: 2db7ca1059945bb45b49dc6435a8b361, type: 3}
       propertyPath: m_fontColor.a
       value: 0.9019608
       objectReference: {fileID: 0}
@@ -20679,10 +20675,6 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 30
       objectReference: {fileID: 0}
-    - target: {fileID: 7823601000029926503, guid: 2db7ca1059945bb45b49dc6435a8b361, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 665957512399589518, guid: 1fef8a971c6159c4c923da0a73bb591f, type: 2}
     - target: {fileID: 7823601000029926503, guid: 2db7ca1059945bb45b49dc6435a8b361, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 3875536895
