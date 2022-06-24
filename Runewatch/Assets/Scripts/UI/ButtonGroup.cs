@@ -13,8 +13,6 @@ public class ButtonGroup : MonoBehaviour
 
     public TMP_FontAsset fontAssetIdle;
 
-    public GameObject backButton;
-
     private GameObject lastSelectedGO;
 
 
@@ -28,22 +26,23 @@ public class ButtonGroup : MonoBehaviour
         buttonGroup.Add(button);
     }
 
-    public void Update()
+    public void OnEnable()
+    {
+
+        EventSystem.current.SetSelectedGameObject(buttonGroup[0].gameObject);
+        buttonGroup[0].ChangeMat();
+        buttonGroup[0].textMesh.font = fontAssetSelected;
+
+    }
+
+    private void Update()
     {
         FindLastSelectedGO();
     }
 
-    public void OnEnable()
-    {
-
-        OnButtonSelect(buttonGroup[0]);
-
-
-    }
-
     public void OnButtonEnter(ButtonGroupElement button)
     {
-        //OnButtonSelect(button);
+        
         ResetTabs();
         button.ChangeMat();
         button.textMesh.font = fontAssetSelected;
@@ -59,23 +58,20 @@ public class ButtonGroup : MonoBehaviour
 
     public void OnButtonClick(ButtonGroupElement button)
     {
-        
         button.audioSourceClick.Play();
         ResetTabs();
-        button.textMesh.font = fontAssetSelected;
     }
 
     public void OnButtonCancel(ButtonGroupElement button)
     {
+        
         ResetTabs();
         button.audioSourceBack.Play();
-        EventSystem.current.SetSelectedGameObject(backButton);
     }
 
     public void OnButtonSelect(ButtonGroupElement button)
     {
-        Debug.Log("Current:" + EventSystem.current);
-        Debug.Log("pudim");
+        
         ResetTabs();
         button.ChangeMat();
         button.textMesh.font = fontAssetSelected;
@@ -87,22 +83,25 @@ public class ButtonGroup : MonoBehaviour
 
     public void OnButtonSubmit(ButtonGroupElement button)
     {
+        button.audioSourceClick.Play();
         ResetTabs();
-        OnButtonClick(button);
+        button.Click();
     }
 
 
     public void FindLastSelectedGO()
     {
+
         if (EventSystem.current.currentSelectedGameObject != null &&
                 EventSystem.current.currentSelectedGameObject != lastSelectedGO)
         {
             lastSelectedGO = EventSystem.current.currentSelectedGameObject;
         }
+
         // If the button is null, it selects the last selected button
-        if (EventSystem.current.currentSelectedGameObject == null)
+        if (this.enabled == true && EventSystem.current.currentSelectedGameObject == null)
         {
-            EventSystem.current.SetSelectedGameObject(lastSelectedGO);
+            EventSystem.current.SetSelectedGameObject(buttonGroup[0].gameObject);
         }
         
     }

@@ -21,6 +21,7 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerC
     [Header("OnClick Event")]
 
     public UnityEvent onButtonClicked;
+    public UnityEvent onButtonCancel;
 
     [Header("Material Switch on Hover")]
 
@@ -48,13 +49,13 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerC
 
     public void OnPointerClick(PointerEventData eventData)
     {
+
         buttonGroup.OnButtonClick(this);
         Click();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        //OnSelect(eventData);
         buttonGroup.OnButtonEnter(this);
     }
 
@@ -67,6 +68,7 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerC
     {
 
         buttonGroup.OnButtonCancel(this);
+        Cancel();
     }
 
     public void ResetMat()
@@ -83,6 +85,7 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerC
 
     public void ChangeMat()
     {
+
         if (image != null)
             image.enabled = false;
 
@@ -107,17 +110,25 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerC
         }
     }
 
+    public void Cancel()
+    {
+        if (onButtonCancel != null)
+        {
+            onButtonCancel.Invoke();
+        }
+    }
+
 
     public void OnSelect(BaseEventData eventData)
     {
-        Debug.Log(this);
+
         buttonGroup.OnButtonSelect(this);
     }
 
     public void OnSubmit(BaseEventData eventData)
     {
         buttonGroup.OnButtonSubmit(this);
-        Click();
+
     }
 
     
