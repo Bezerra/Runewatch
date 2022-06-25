@@ -58,6 +58,9 @@ sealed public class DamageHitText : MonoBehaviour
         // Update text and color
         damageText.text = damage.ToString();
 
+        if (damage == 0)
+            damageText.text = "Immune";
+
         // Updates color and animation depending on critical hit
         if (criticalHit == false)
         {
