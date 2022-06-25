@@ -31,7 +31,11 @@ public class ButtonGroup : MonoBehaviour
 
         EventSystem.current.SetSelectedGameObject(buttonGroup[0].gameObject);
         buttonGroup[0].ChangeMat();
-        buttonGroup[0].textMesh.font = fontAssetSelected;
+        if (buttonGroup[0].textMesh != null)
+        {
+            buttonGroup[0].textMesh.font = fontAssetSelected;
+        }
+        
 
     }
 
@@ -44,8 +48,13 @@ public class ButtonGroup : MonoBehaviour
     {
         
         ResetTabs();
+        EventSystem.current.SetSelectedGameObject(button.gameObject);
         button.ChangeMat();
-        button.textMesh.font = fontAssetSelected;
+        if (button.textMesh != null)
+        {
+            button.textMesh.font = fontAssetSelected;
+        }
+        
         button.audioSourceSelect.Play();
     }
 
@@ -59,6 +68,7 @@ public class ButtonGroup : MonoBehaviour
     public void OnButtonClick(ButtonGroupElement button)
     {
         button.audioSourceClick.Play();
+        if(button.GetComponents<ButtonArrowOption>() == null)
         ResetTabs();
     }
 
@@ -74,7 +84,10 @@ public class ButtonGroup : MonoBehaviour
         
         ResetTabs();
         button.ChangeMat();
-        button.textMesh.font = fontAssetSelected;
+        if (button.textMesh != null)
+        {
+            button.textMesh.font = fontAssetSelected;
+        }
         button.audioSourceSelect.Play();
         
         
@@ -101,7 +114,7 @@ public class ButtonGroup : MonoBehaviour
         // If the button is null, it selects the last selected button
         if (this.enabled == true && EventSystem.current.currentSelectedGameObject == null)
         {
-            EventSystem.current.SetSelectedGameObject(buttonGroup[0].gameObject);
+            EventSystem.current.SetSelectedGameObject(lastSelectedGO);
         }
         
     }
@@ -112,7 +125,10 @@ public class ButtonGroup : MonoBehaviour
         {
             
             button.ResetMat();
-            button.textMesh.font = fontAssetIdle;
+            if (button.textMesh != null)
+            {
+                button.textMesh.font = fontAssetSelected;
+            }
         }
     }
 }

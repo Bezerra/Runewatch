@@ -5,26 +5,28 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
-public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler, ICancelHandler, ISelectHandler, ISubmitHandler
+public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler, ICancelHandler, ISelectHandler, ISubmitHandler, IMoveHandler
 
 {
+   
+    [Header("Arrow Buttons")]
+    public GameObject leftArrow;
+    public GameObject rightArrow;
 
     [Header("Visual Switch Components")]
-
     public ButtonGroup buttonGroup;
     public AudioSource audioSourceClick;
     public AudioSource audioSourceSelect;
     public AudioSource audioSourceBack;
     public TextMeshProUGUI textMesh;
 
-    [Header("OnClick Event")]
-
+    [Header("Button Events")]
     public UnityEvent onButtonClicked;
     public UnityEvent onButtonCancel;
 
     [Header("Material Switch on Hover")]
-
     [SerializeField] private Material shaderMat;
     [SerializeField] private Color hoverColor;
     [SerializeField] private Image selectedButtonFrame;
@@ -32,12 +34,11 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerC
     private Image image;
 
     // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
         buttonGroup = GetComponentInParent<ButtonGroup>();
         image = GetComponent<Image>();
         buttonGroup.Subscribe(this);
-        
     }
 
 
@@ -49,7 +50,7 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerC
 
     public void OnPointerClick(PointerEventData eventData)
     {
-
+        
         buttonGroup.OnButtonClick(this);
         Click();
     }
@@ -121,7 +122,6 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerC
 
     public void OnSelect(BaseEventData eventData)
     {
-
         buttonGroup.OnButtonSelect(this);
     }
 
@@ -131,5 +131,21 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerC
 
     }
 
-    
+
+    public void OnMove(AxisEventData eventData)
+    {
+        if (leftArrow != null && rightArrow != null)
+        {
+
+            if (eventData.moveDir == MoveDirection.Right)
+            {
+                EventSystem.current.SetSelectedGameObject(rightArrow);
+            }
+            if (eventData.moveDir == MoveDirection.Left)
+            {
+                EventSystem.current.SetSelectedGameObject(leftArrow);
+            }
+
+        }
+    }
 }
