@@ -7,7 +7,7 @@ using System.Collections.Generic;
 /// </summary>
 public class SpellScroll : MonoBehaviour, IDroppedSpell, IInteractableWithSound, IReset
 {
-    [Range(10, 60)][SerializeField] private float timeToDeactivate;
+    //[Range(10, 60)][SerializeField] private float timeToDeactivate;
 
     // Components
     [SerializeField] private GameObject canvasText;
@@ -21,15 +21,15 @@ public class SpellScroll : MonoBehaviour, IDroppedSpell, IInteractableWithSound,
     [SerializeField] private LootAndInteractionSoundType lootAndInteractionSoundType;
     public LootAndInteractionSoundType LootAndInteractionSoundType => lootAndInteractionSoundType;
 
-    private IEnumerator Disable()
+    /*private IEnumerator Disable()
     {
         yield return new WaitForSeconds(timeToDeactivate);
         gameObject.SetActive(false);
-    }
+    }*/
 
     private void OnEnable()
     {
-        StartCoroutine(Disable());
+        //StartCoroutine(Disable());
         interectableCanvas.enabled = true;
         canvasText.SetActive(true);
         anim.ResetTrigger("Reset");

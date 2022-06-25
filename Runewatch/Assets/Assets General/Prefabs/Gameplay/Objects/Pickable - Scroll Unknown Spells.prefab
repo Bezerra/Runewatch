@@ -307,6 +307,7 @@ GameObject:
   - component: {fileID: 2654394067484573810}
   - component: {fileID: 6624748839328285593}
   - component: {fileID: 333795885432018864}
+  - component: {fileID: -1390580554528405228}
   m_Layer: 16
   m_Name: Pickable - Scroll Unknown Spells
   m_TagString: Untagged
@@ -378,7 +379,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cb924610ff9a9c4f9a42fbd98e2b2a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToDeactivate: 30
   canvasText: {fileID: 460959768200289850}
   interectableCanvas: {fileID: 3897027391516905084}
   eventOnInteraction: {fileID: 6165166815148560629}
@@ -431,6 +431,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.85
   m_Center: {x: 0, y: 0.75, z: 0}
+--- !u!114 &-1390580554528405228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460959769742836823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4643d3a9ab9f64c8f8c7717d7b6a89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  secondsToWait: 600
 --- !u!1001 &3184627742275043046
 PrefabInstance:
   m_ObjectHideFlags: 0

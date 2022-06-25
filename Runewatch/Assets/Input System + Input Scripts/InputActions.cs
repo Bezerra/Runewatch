@@ -419,17 +419,6 @@ public class @InputActions : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""ad1e7525-c51e-40bf-ba9a-f1ca0f9c603e"",
-                    ""path"": ""<Keyboard>/leftAlt"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Computer"",
-                    ""action"": ""Run"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""90d7a79d-2e20-4a43-a38a-f5274f27159c"",
                     ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
