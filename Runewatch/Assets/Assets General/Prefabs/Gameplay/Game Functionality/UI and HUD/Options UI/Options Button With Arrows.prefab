@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3454186273028874997}
   - component: {fileID: 329809490094912169}
   - component: {fileID: 427057944697133175}
-  - component: {fileID: 2240361730261144395}
   m_Layer: 5
   m_Name: Options Button With Arrows
   m_TagString: Untagged
@@ -111,10 +110,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7025a0c16ff9f6a4ab34f202177cbb92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonGroup: {fileID: 0}
-  audioSourceClick: {fileID: 0}
-  audioSourceSelect: {fileID: 0}
-  audioSourceBack: {fileID: 0}
+  leftArrow: {fileID: 7319408934111461342}
+  rightArrow: {fileID: 6694414633292709007}
+  scrollBar: {fileID: 0}
   textMesh: {fileID: 0}
   onButtonClicked:
     m_PersistentCalls:
@@ -122,6 +120,36 @@ MonoBehaviour:
   onButtonCancel:
     m_PersistentCalls:
       m_Calls: []
+  onButtonSelect:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5891384090302609888}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  onButtonDeselect:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5891384090302609888}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   shaderMat: {fileID: 2100000, guid: 0b634b20f221cdc46b9dec3ac0c0da3d, type: 2}
   hoverColor: {r: 0.44313726, g: 0.98039216, b: 0.99215686, a: 1}
   selectedButtonFrame: {fileID: 2365220375160335747}
@@ -156,63 +184,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2240361730261144395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3459769179848440167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 5891384090302609888}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-          m_MethodName: Play
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 5891384090302609888}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &6694414633292709007
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,6 +196,7 @@ GameObject:
   - component: {fileID: 3692760584423620396}
   - component: {fileID: 2705992847935579703}
   - component: {fileID: 7047111526046702589}
+  - component: {fileID: 3809561901961943273}
   m_Layer: 5
   m_Name: Right Arrow
   m_TagString: Untagged
@@ -333,6 +305,45 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3809561901961943273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6694414633292709007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 841e471d3d2d2f44d81292fab8e5a009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowSelect:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ButtonArrowOption, Assembly-CSharp
+        m_MethodName: IncrementValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6728602885668804536
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,6 +490,7 @@ GameObject:
   - component: {fileID: 6382400653125494840}
   - component: {fileID: 5146245374515557946}
   - component: {fileID: 1568973487128948565}
+  - component: {fileID: 8099739437648908442}
   m_Layer: 5
   m_Name: Left Arrow
   m_TagString: Untagged
@@ -587,6 +599,45 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8099739437648908442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7319408934111461342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 841e471d3d2d2f44d81292fab8e5a009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowSelect:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ButtonArrowOption, Assembly-CSharp
+        m_MethodName: DecrementValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7630996435746959577
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,6 +932,10 @@ PrefabInstance:
     - target: {fileID: 4914266242070718735, guid: 1ac0765e55778cf4c894406873cd58c0, type: 3}
       propertyPath: m_Name
       value: Options Description Box
+      objectReference: {fileID: 0}
+    - target: {fileID: 4914266242070718735, guid: 1ac0765e55778cf4c894406873cd58c0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5154315767460324807, guid: 1ac0765e55778cf4c894406873cd58c0, type: 3}
       propertyPath: m_Pivot.x

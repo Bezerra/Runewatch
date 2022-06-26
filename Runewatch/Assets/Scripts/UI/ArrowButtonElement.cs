@@ -3,17 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
-public class ArrowButtonElement : MonoBehaviour, ISelectHandler
+public class ArrowButtonElement : MonoBehaviour
 {
     public UnityEvent arrowSelect;
-    public void OnSelect(BaseEventData eventData)
+
+    private ButtonGroup buttonGroup;
+
+    public void Awake()
     {
+        buttonGroup = GetComponentInParent<ButtonGroup>();
+    }
+    public void ScriptTrigger()
+    {
+        buttonGroup.audioSourceClick.Play();
         if (arrowSelect != null)
         {
             arrowSelect.Invoke();
         }
 
-        EventSystem.current.SetSelectedGameObject(this.transform.parent.gameObject);
+        
     }
 
 }

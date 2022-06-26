@@ -15,6 +15,12 @@ public class ButtonGroup : MonoBehaviour
 
     private GameObject lastSelectedGO;
 
+    public AudioSource audioSourceClick;
+
+    public AudioSource audioSourceSelect;
+
+    public AudioSource audioSourceBack;
+
 
     public void Subscribe(ButtonGroupElement button)
     {
@@ -55,7 +61,7 @@ public class ButtonGroup : MonoBehaviour
             button.textMesh.font = fontAssetSelected;
         }
         
-        button.audioSourceSelect.Play();
+        audioSourceSelect.Play();
     }
 
 
@@ -67,7 +73,7 @@ public class ButtonGroup : MonoBehaviour
 
     public void OnButtonClick(ButtonGroupElement button)
     {
-        button.audioSourceClick.Play();
+        audioSourceClick.Play();
         if(button.GetComponents<ButtonArrowOption>() == null)
         ResetTabs();
     }
@@ -76,7 +82,7 @@ public class ButtonGroup : MonoBehaviour
     {
         
         ResetTabs();
-        button.audioSourceBack.Play();
+        audioSourceBack.Play();
     }
 
     public void OnButtonSelect(ButtonGroupElement button)
@@ -88,7 +94,7 @@ public class ButtonGroup : MonoBehaviour
         {
             button.textMesh.font = fontAssetSelected;
         }
-        button.audioSourceSelect.Play();
+        audioSourceSelect.Play();
         
         
 
@@ -96,7 +102,7 @@ public class ButtonGroup : MonoBehaviour
 
     public void OnButtonSubmit(ButtonGroupElement button)
     {
-        button.audioSourceClick.Play();
+        audioSourceClick.Play();
         ResetTabs();
         button.Click();
     }
@@ -127,7 +133,7 @@ public class ButtonGroup : MonoBehaviour
             button.ResetMat();
             if (button.textMesh != null)
             {
-                button.textMesh.font = fontAssetSelected;
+                button.textMesh.font = fontAssetIdle;
             }
         }
     }

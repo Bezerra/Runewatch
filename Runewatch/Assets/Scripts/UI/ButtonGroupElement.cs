@@ -7,24 +7,26 @@ using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler, ICancelHandler, ISelectHandler, ISubmitHandler, IMoveHandler
+public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, 
+    IPointerClickHandler, IPointerExitHandler, ICancelHandler, 
+    ISelectHandler, ISubmitHandler, IMoveHandler, IDeselectHandler
 
 {
    
     [Header("Arrow Buttons")]
     public GameObject leftArrow;
     public GameObject rightArrow;
+    public Scrollbar scrollBar;
 
     [Header("Visual Switch Components")]
-    public ButtonGroup buttonGroup;
-    public AudioSource audioSourceClick;
-    public AudioSource audioSourceSelect;
-    public AudioSource audioSourceBack;
+    private ButtonGroup buttonGroup;
     public TextMeshProUGUI textMesh;
 
     [Header("Button Events")]
     public UnityEvent onButtonClicked;
     public UnityEvent onButtonCancel;
+    public UnityEvent onButtonSelect;
+    public UnityEvent onButtonDeselect;
 
     [Header("Material Switch on Hover")]
     [SerializeField] private Material shaderMat;
@@ -119,10 +121,33 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerC
         }
     }
 
+    public void Selected()
+    {
+
+        if (onButtonSelect != null)
+        {
+            onButtonSelect.Invoke();
+        }
+    }
+
+    public void Deselect()
+    {
+
+        if (onButtonDeselect != null)
+        {
+            onButtonDeselect.Invoke();
+        }
+    }
 
     public void OnSelect(BaseEventData eventData)
     {
         buttonGroup.OnButtonSelect(this);
+        Selected();
+    }
+
+    public void OnDeselect(BaseEventData eventData)
+    {
+        Deselect();
     }
 
     public void OnSubmit(BaseEventData eventData)
@@ -139,13 +164,38 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, IPointerC
 
             if (eventData.moveDir == MoveDirection.Right)
             {
-                EventSystem.current.SetSelectedGameObject(rightArrow);
+                rightArrow.GetComponent<ArrowButtonElement>().ScriptTrigger();
             }
             if (eventData.moveDir == MoveDirection.Left)
             {
-                EventSystem.current.SetSelectedGameObject(leftArrow);
+                leftArrow.GetComponent<ArrowButtonElement>().ScriptTrigger();
             }
 
+        }
+        if (scrollBar != null)
+        {
+            if (eventData.moveDir == MoveDirection.Up)
+            {
+                if (scrollBar.value + 0.25 > 1)
+                {
+                    scrollBar.value = 1;
+                }
+                else
+                {
+                    scrollBar.value += (float)0.25;
+                }
+            }
+            if (eventData.moveDir == MoveDirection.Down)
+            {
+                if (scrollBar.value - 0.25 < 0)
+                {
+                    scrollBar.value = 0;
+                }
+                else
+                {
+                    scrollBar.value -= (float)0.25;
+                }
+            }
         }
     }
 }
