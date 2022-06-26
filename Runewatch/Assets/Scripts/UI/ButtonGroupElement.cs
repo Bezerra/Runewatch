@@ -17,6 +17,7 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler,
     public GameObject leftArrow;
     public GameObject rightArrow;
     public Scrollbar scrollBar;
+    public Slider sliderBar;
 
     [Header("Visual Switch Components")]
     private ButtonGroup buttonGroup;
@@ -194,6 +195,32 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler,
                 else
                 {
                     scrollBar.value -= (float)0.25;
+                }
+            }
+        }
+
+        if (sliderBar != null)
+        {
+            if (eventData.moveDir == MoveDirection.Right)
+            {
+                if (sliderBar.value + 2 > 20)
+                {
+                    sliderBar.value = 20;
+                }
+                else
+                {
+                    sliderBar.value += 2;
+                }
+            }
+            if (eventData.moveDir == MoveDirection.Left)
+            {
+                if (sliderBar.value - 2 < -20)
+                {
+                    sliderBar.value = -20;
+                }
+                else
+                {
+                    sliderBar.value -= 2;
                 }
             }
         }
