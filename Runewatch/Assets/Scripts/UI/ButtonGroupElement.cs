@@ -34,7 +34,10 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler,
     [SerializeField] private Color hoverColor;
     [SerializeField] private Image selectedButtonFrame;
     [SerializeField] private Image selectedButtonBG;
+
     private Image image;
+    private float updateScrollBarValue;
+    private float updateSliderBarValue;
 
     // Start is called before the first frame update
     private void Awake()
@@ -42,6 +45,25 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler,
         buttonGroup = GetComponentInParent<ButtonGroup>();
         image = GetComponent<Image>();
         buttonGroup.Subscribe(this);
+
+        if (1 / buttonGroup.buttonGroup.Count < 0.1)
+        {
+            updateScrollBarValue = 0.1f;
+        }
+        else
+        {
+            updateScrollBarValue = 1 / buttonGroup.buttonGroup.Count;
+        }
+
+        if (sliderBar != null && sliderBar.maxValue / buttonGroup.buttonGroup.Count < 0.1)
+        {
+            updateSliderBarValue = 0.1f;
+        }
+        else if(sliderBar != null)
+        {
+            updateSliderBarValue = 1 / buttonGroup.buttonGroup.Count;
+        }
+
     }
 
 
@@ -175,26 +197,28 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler,
         }
         if (scrollBar != null)
         {
+
+
             if (eventData.moveDir == MoveDirection.Up)
             {
-                if (scrollBar.value + 0.25 > 1)
+                if (scrollBar.value + updateScrollBarValue > 1)
                 {
                     scrollBar.value = 1;
                 }
                 else
                 {
-                    scrollBar.value += (float)0.25;
+                    scrollBar.value += updateScrollBarValue;
                 }
             }
             if (eventData.moveDir == MoveDirection.Down)
             {
-                if (scrollBar.value - 0.25 < 0)
+                if (scrollBar.value - updateScrollBarValue < 0)
                 {
                     scrollBar.value = 0;
                 }
                 else
                 {
-                    scrollBar.value -= (float)0.25;
+                    scrollBar.value -= updateScrollBarValue;
                 }
             }
         }
@@ -203,24 +227,24 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler,
         {
             if (eventData.moveDir == MoveDirection.Right)
             {
-                if (sliderBar.value + 2 > 20)
+                if (sliderBar.value + updateSliderBarValue > sliderBar.maxValue)
                 {
-                    sliderBar.value = 20;
+                    sliderBar.value = sliderBar.maxValue;
                 }
                 else
                 {
-                    sliderBar.value += 2;
+                    sliderBar.value += updateSliderBarValue;
                 }
             }
             if (eventData.moveDir == MoveDirection.Left)
             {
-                if (sliderBar.value - 2 < -20)
+                if (sliderBar.value - updateSliderBarValue < sliderBar.minValue)
                 {
-                    sliderBar.value = -20;
+                    sliderBar.value = sliderBar.minValue;
                 }
                 else
                 {
-                    sliderBar.value -= 2;
+                    sliderBar.value -= updateSliderBarValue;
                 }
             }
         }
