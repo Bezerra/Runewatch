@@ -7,12 +7,13 @@ using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler, 
-    IPointerClickHandler, IPointerExitHandler, ICancelHandler, 
+public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler,
+    IPointerClickHandler, IPointerExitHandler, ICancelHandler,
     ISelectHandler, ISubmitHandler, IMoveHandler, IDeselectHandler
 
 {
-   
+    [SerializeField] private ButtonType buttonType;
+
     [Header("Arrow Buttons")]
     public GameObject leftArrow;
     public GameObject rightArrow;
@@ -38,6 +39,7 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler,
     private Image image;
     private float updateScrollBarValue;
     private float updateSliderBarValue;
+    
 
     // Start is called before the first frame update
     private void Awake()
@@ -64,6 +66,7 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler,
             updateSliderBarValue = 1 / buttonGroup.buttonGroup.Count;
         }
 
+
     }
 
 
@@ -75,9 +78,12 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler,
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (buttonType == ButtonType.NormalButton)
+        {
+            buttonGroup.OnButtonClick(this);
+            Click();
+        }
         
-        buttonGroup.OnButtonClick(this);
-        Click();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -175,7 +181,11 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler,
 
     public void OnSubmit(BaseEventData eventData)
     {
-        buttonGroup.OnButtonSubmit(this);
+        if (buttonType == ButtonType.NormalButton)
+        {
+            buttonGroup.OnButtonSubmit(this);
+        }
+        
 
     }
 

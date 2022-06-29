@@ -110,16 +110,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7025a0c16ff9f6a4ab34f202177cbb92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonType: 1
   leftArrow: {fileID: 7319408934111461342}
   rightArrow: {fileID: 6694414633292709007}
   scrollBar: {fileID: 0}
+  sliderBar: {fileID: 0}
   textMesh: {fileID: 0}
   onButtonClicked:
     m_PersistentCalls:
       m_Calls: []
   onButtonCancel:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PauseMenuCanvasUI, Assembly-CSharp
+        m_MethodName: MenuVideoDisable
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PauseMenuCanvasUI, Assembly-CSharp
+        m_MethodName: MenuSettingsEnable
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onButtonSelect:
     m_PersistentCalls:
       m_Calls:
