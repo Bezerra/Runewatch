@@ -69,8 +69,12 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler,
 
     }
 
+    public void OnEnable()
+    {
+        if (scrollBar != null) scrollBar.value = 1;
+    }
 
-    void Update()
+    public void Update()
     {
         if (shaderMat)
             shaderMat.SetFloat("Custom_Time", Time.unscaledTime);    

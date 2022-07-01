@@ -1015,7 +1015,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5226506914293788307
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2904,7 +2904,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5362832253027630928
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4044,7 +4044,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2579624109781704279
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7337,6 +7337,46 @@ PrefabInstance:
       propertyPath: scrollBar
       value: 
       objectReference: {fileID: 1491792050245431583}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5362832253498723624}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 5362832253498723624}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1491792050245431583}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: set_value
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: UnityEngine.UI.Scrollbar, UnityEngine.UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_FloatArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 427057944697133175, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
       propertyPath: m_Type
       value: 0
@@ -7984,11 +8024,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 418691582264404129, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.8333333
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 418691582264404129, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1924308862588899177, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.y
@@ -8028,7 +8068,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMin.x
@@ -8036,11 +8076,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1075.303
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_SizeDelta.y
@@ -8076,11 +8116,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 537.6515
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -426.71002
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -8140,15 +8180,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2979723138657013277, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.8333333
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2979723138657013277, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2979723138657013277, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.8333333
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2979723138657013277, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -8173,11 +8213,11 @@ PrefabInstance:
     - target: {fileID: 7592163248266754283, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 1fef8a971c6159c4c923da0a73bb591f, type: 2}
+      objectReference: {fileID: 11400000, guid: 4aec8f9910b75f14cb0bd14203d04729, type: 2}
     - target: {fileID: 7592163248266754283, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 665957512399589518, guid: 1fef8a971c6159c4c923da0a73bb591f, type: 2}
+      objectReference: {fileID: 4621386695984099789, guid: 4aec8f9910b75f14cb0bd14203d04729, type: 2}
     - target: {fileID: 7752145334448827078, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_text
       value: UI elements volume.
@@ -8222,11 +8262,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 418691582264404129, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.8333333
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 418691582264404129, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1924308862588899177, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.y
@@ -8266,7 +8306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMin.x
@@ -8274,11 +8314,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1075.303
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_SizeDelta.y
@@ -8314,11 +8354,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 537.6515
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -235.33
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -8378,15 +8418,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2979723138657013277, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.8333333
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2979723138657013277, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2979723138657013277, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.8333333
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2979723138657013277, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -8407,11 +8447,11 @@ PrefabInstance:
     - target: {fileID: 7592163248266754283, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 1fef8a971c6159c4c923da0a73bb591f, type: 2}
+      objectReference: {fileID: 11400000, guid: 4aec8f9910b75f14cb0bd14203d04729, type: 2}
     - target: {fileID: 7592163248266754283, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 665957512399589518, guid: 1fef8a971c6159c4c923da0a73bb591f, type: 2}
+      objectReference: {fileID: 4621386695984099789, guid: 4aec8f9910b75f14cb0bd14203d04729, type: 2}
     - target: {fileID: 7752145334448827078, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_text
       value: Sound effects volume.
@@ -8682,11 +8722,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 418691582264404129, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.8333333
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 418691582264404129, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1924308862588899177, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.y
@@ -8726,7 +8766,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMin.x
@@ -8734,11 +8774,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1075.303
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_SizeDelta.y
@@ -8774,11 +8814,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 537.6515
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -139.64
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -8838,15 +8878,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2979723138657013277, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.8333333
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2979723138657013277, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2979723138657013277, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.8333333
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2979723138657013277, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -8867,11 +8907,11 @@ PrefabInstance:
     - target: {fileID: 7592163248266754283, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 1fef8a971c6159c4c923da0a73bb591f, type: 2}
+      objectReference: {fileID: 11400000, guid: 4aec8f9910b75f14cb0bd14203d04729, type: 2}
     - target: {fileID: 7592163248266754283, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 665957512399589518, guid: 1fef8a971c6159c4c923da0a73bb591f, type: 2}
+      objectReference: {fileID: 4621386695984099789, guid: 4aec8f9910b75f14cb0bd14203d04729, type: 2}
     - target: {fileID: 7752145334448827078, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_text
       value: AMbient sounds volume.
@@ -10463,6 +10503,90 @@ PrefabInstance:
     - target: {fileID: 6417246585352019797, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -32.775
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: scrollBar
+      value: 
+      objectReference: {fileID: 1491792050245431583}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5362832253498723624}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 5362832253498723624}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1491792050245431583}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MenuVideoDisable
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: MenuSettingsEnable
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: set_value
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseMenuCanvasUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PauseMenuCanvasUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: UnityEngine.UI.Scrollbar, UnityEngine.UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_FloatArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7592163248266754283, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_text
@@ -13122,6 +13246,86 @@ PrefabInstance:
       propertyPath: scrollBar
       value: 
       objectReference: {fileID: 1491792050245431583}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5362832253498723624}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 5362832253498723624}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1491792050245431583}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MenuVideoDisable
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: MenuSettingsEnable
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: set_value
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseMenuCanvasUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PauseMenuCanvasUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: UnityEngine.UI.Scrollbar, UnityEngine.UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_FloatArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7592163248266754283, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_text
       value: '   Brightness'
@@ -13188,6 +13392,38 @@ PrefabInstance:
       propertyPath: scrollBar
       value: 
       objectReference: {fileID: 1491792050245431583}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1491792050245431583}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: set_value
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: UnityEngine.UI.Scrollbar, UnityEngine.UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_FloatArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 427057944697133175, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
       propertyPath: m_Type
       value: 0
@@ -14411,6 +14647,90 @@ PrefabInstance:
     - target: {fileID: 6417246585352019797, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -32.775
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: scrollBar
+      value: 
+      objectReference: {fileID: 1491792050245431583}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5362832253498723624}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 5362832253498723624}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1491792050245431583}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MenuVideoDisable
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: MenuSettingsEnable
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: set_value
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseMenuCanvasUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PauseMenuCanvasUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: UnityEngine.UI.Scrollbar, UnityEngine.UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_FloatArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7592163248266754283, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_text
@@ -17539,6 +17859,46 @@ PrefabInstance:
       propertyPath: scrollBar
       value: 
       objectReference: {fileID: 1491792050245431583}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5362832253498723624}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 5362832253498723624}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1491792050245431583}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: set_value
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: UnityEngine.UI.Scrollbar, UnityEngine.UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_FloatArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 427057944697133175, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
       propertyPath: m_Type
       value: 0
@@ -18934,6 +19294,90 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -32.775
       objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: scrollBar
+      value: 
+      objectReference: {fileID: 1491792050245431583}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5362832253498723624}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 5362832253498723624}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1491792050245431583}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MenuVideoDisable
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: MenuSettingsEnable
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: set_value
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseMenuCanvasUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PauseMenuCanvasUI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: UnityEngine.UI.Scrollbar, UnityEngine.UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_FloatArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689774302846927269, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7592163248266754283, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_text
       value: '   Contrast'
@@ -19364,11 +19808,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 418691582264404129, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.8333333
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 418691582264404129, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1924308862588899177, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.y
@@ -19408,7 +19852,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMin.x
@@ -19416,11 +19860,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1075.303
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_SizeDelta.y
@@ -19456,11 +19900,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 537.6515
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -331.02002
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -19520,15 +19964,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2979723138657013277, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.8333333
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2979723138657013277, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2979723138657013277, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.8333333
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2979723138657013277, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -19549,11 +19993,11 @@ PrefabInstance:
     - target: {fileID: 7592163248266754283, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 1fef8a971c6159c4c923da0a73bb591f, type: 2}
+      objectReference: {fileID: 11400000, guid: 4aec8f9910b75f14cb0bd14203d04729, type: 2}
     - target: {fileID: 7592163248266754283, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 665957512399589518, guid: 1fef8a971c6159c4c923da0a73bb591f, type: 2}
+      objectReference: {fileID: 4621386695984099789, guid: 4aec8f9910b75f14cb0bd14203d04729, type: 2}
     - target: {fileID: 7752145334448827078, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_text
       value: Background music volume.
@@ -20172,6 +20616,46 @@ PrefabInstance:
       propertyPath: scrollBar
       value: 
       objectReference: {fileID: 1491792050245431583}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5362832253498723624}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 5362832253498723624}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1491792050245431583}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: set_value
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: UnityEngine.UI.Scrollbar, UnityEngine.UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_FloatArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 427057944697133175, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
       propertyPath: m_Type
       value: 0
@@ -20594,6 +21078,46 @@ PrefabInstance:
       propertyPath: scrollBar
       value: 
       objectReference: {fileID: 1491792050245431583}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5362832253498723624}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 5362832253498723624}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1491792050245431583}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: set_value
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: UnityEngine.UI.Scrollbar, UnityEngine.UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_FloatArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 427057944697133175, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
       propertyPath: m_Type
       value: 0
@@ -22498,11 +23022,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 418691582264404129, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.8333333
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 418691582264404129, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1924308862588899177, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.y
@@ -22542,7 +23066,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMin.x
@@ -22550,11 +23074,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1075.303
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_SizeDelta.y
@@ -22590,11 +23114,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 537.6515
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -43.95
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350357553090958388, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -22654,15 +23178,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2979723138657013277, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.8333333
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2979723138657013277, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2979723138657013277, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.8333333
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2979723138657013277, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -22683,11 +23207,11 @@ PrefabInstance:
     - target: {fileID: 7592163248266754283, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 1fef8a971c6159c4c923da0a73bb591f, type: 2}
+      objectReference: {fileID: 11400000, guid: 4aec8f9910b75f14cb0bd14203d04729, type: 2}
     - target: {fileID: 7592163248266754283, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 665957512399589518, guid: 1fef8a971c6159c4c923da0a73bb591f, type: 2}
+      objectReference: {fileID: 4621386695984099789, guid: 4aec8f9910b75f14cb0bd14203d04729, type: 2}
     - target: {fileID: 7752145334448827078, guid: 957640fc91f99524ebc282e6d5a1acfb, type: 3}
       propertyPath: m_text
       value: Overall volume.
@@ -23190,6 +23714,46 @@ PrefabInstance:
       propertyPath: scrollBar
       value: 
       objectReference: {fileID: 1491792050245431583}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5362832253498723624}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 5362832253498723624}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1491792050245431583}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: set_value
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: UnityEngine.UI.Scrollbar, UnityEngine.UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_FloatArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 329809490094912169, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
+      propertyPath: onButtonCancel.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 427057944697133175, guid: 546dc5ec2f210404b8ea9014aeb8368b, type: 3}
       propertyPath: m_Type
       value: 0
