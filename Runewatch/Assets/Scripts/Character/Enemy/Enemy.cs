@@ -306,6 +306,8 @@ public class Enemy : Character
             }
         }
 
+        print(transform.position);
+
         achievementLogic.TriggerRunStats(RunStatsType.EnemiesKilled);
     }
 

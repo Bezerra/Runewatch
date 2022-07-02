@@ -82,7 +82,7 @@ public class SkillTreePassiveController : MonoBehaviour
             // THIS GAIN CURRENCY IS TEMPORARY, IT'S ONLY HERE SO THE FIRST TIME OPENING THE GAME
             // THE PLAYER WILL GET AP CURRENCY TO SPEND ON SKILL TREE, REMOVE ON FINAL BUILD
             // AND SET DEFAULT AP GAINED ON PLAYERCURRENCY SCRIPT.
-            currencySO.GainCurrency(CurrencyType.ArcanePower, currencySO.DefaultArcanePower);
+            //currencySO.GainCurrency(CurrencyType.ArcanePower, currencySO.DefaultArcanePower);
             //////////////////////////////////////////////////////////////////////////////////////
             // currencySO.DefaultArcanePower IN THIS NEXT LINE IS ALSO TEMP, IT'S SAVING DEFAULT AP.
             // IT SHOULD SAVE AS 0, SINCE IT'S THE FIRST NEW GAME, AP WILL ONLY SAVE IF THIS IF
