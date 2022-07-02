@@ -14,8 +14,10 @@ public class AttackBehaviourChargeSO : AttackBehaviourAbstractSO
 
     private Vector3 DISTANTVECTOR = new Vector3(10000, 10000, 10000);
 
-    float charge = 0;
+    float chargeMult = 0;
     float timeStart;
+
+    public float ChargeMult { get => chargeMult; }
 
     /// <summary>
     /// Attack behaviour for one shot spells. Instantiates the spell from a pool and triggers its start behaviour.
@@ -101,6 +103,9 @@ public class AttackBehaviourChargeSO : AttackBehaviourAbstractSO
     private float CalcCharge(float chargeTime)
     {
         chargeTime = Mathf.Min(chargeTime, fullChargeTime);
-        return (FloatExtensions.Remap(0, fullChargeTime, minChargeDamage, maxChargeDamage, chargeTime));
+
+        chargeMult = FloatExtensions.Remap(0, fullChargeTime, minChargeDamage, maxChargeDamage, chargeTime);
+
+        return chargeMult;
     }
 }
