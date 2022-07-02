@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using ExtensionMethods;
 
 public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler,
     IPointerClickHandler, IPointerExitHandler, ICancelHandler,
@@ -57,14 +58,17 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler,
             updateScrollBarValue = 1 / buttonGroup.buttonGroup.Count;
         }
 
-        if (sliderBar != null && sliderBar.maxValue / buttonGroup.buttonGroup.Count < 0.1)
+        if (sliderBar != null && sliderBar.minValue != -1 &&
+            sliderBar.maxValue != 1)
         {
-            updateSliderBarValue = 0.1f;
+            updateSliderBarValue = FloatExtensions.Remap(sliderBar.minValue,
+                sliderBar.maxValue, 0, 1,1);
         }
-        else if(sliderBar != null)
+        else
         {
-            updateSliderBarValue = 1 / buttonGroup.buttonGroup.Count;
+            updateSliderBarValue = (float)0.1;
         }
+        
 
 
     }
@@ -72,6 +76,13 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler,
     public void OnEnable()
     {
         if (scrollBar != null) scrollBar.value = 1;
+        
+    }
+
+    public void OnDisable()
+    {
+        if (scrollBar != null) scrollBar.value = 1;
+        
     }
 
     public void Update()

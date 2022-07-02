@@ -42,7 +42,7 @@ namespace ExtensionMethods
         /// <param name="outputMax">Maximum output value to maximum input value.</param>
         /// <param name="value">Value to measure.</param>
         /// <returns>Returns a float value between outputMin and outputMax</returns>
-        public static float Remap(this float thisFloat, float inputMin,
+        public static float Remap(float inputMin,
             float inputMax, float outputMin, float outputMax, float value)
         {
             float t = Mathf.InverseLerp(inputMin, inputMax, value);
