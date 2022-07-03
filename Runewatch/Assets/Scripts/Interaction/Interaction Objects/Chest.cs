@@ -19,8 +19,11 @@ public class Chest : MonoBehaviour
     [SerializeField] private AbstractEventOnInteraction eventOnInteraction;
     [SerializeField] private Animator anim;
     [SerializeField] private GameObject chestBoxCollider;
+    [SerializeField] private GameObject chestIcon;
     [SerializeField] private int interectableLayerNumer;
+
     private ChestAnimationEvents chestAnimations;
+
 
     private bool canOpen;
     public bool CanOpen
@@ -110,5 +113,6 @@ public class Chest : MonoBehaviour
         {
             eve.Execute(eventOnInteraction);
         }
+        chestIcon.SetActive(false);
     }
 }
