@@ -31,7 +31,7 @@ public class AbilitySpellCardText : MonoBehaviour
     {
 
         
-        spellDamageText.text = Mathf.RoundToInt((spell.MinMaxDamage.x + spell.MinMaxDamage.y) / 2 ).ToString();
+        spellDamageText.text = Mathf.RoundToInt((spell.MinMaxDamage.x + spell.MinMaxDamage.y) / 2 ).ToString() + "0";
         spellImage.sprite = spell.Icon;
         spellNameText.text = spell.Name;
         spellMana.text = spell.ManaCost.ToString();

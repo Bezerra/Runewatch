@@ -56,7 +56,7 @@ sealed public class DamageHitText : MonoBehaviour
         transform.position += new Vector3(additionalOffset, verticalOffset, additionalOffset);
 
         // Update text and color
-        damageText.text = damage.ToString();
+        damageText.text = damage.ToString() + "0";
 
         if (damage == 0)
             damageText.text = "Immune";
