@@ -33,14 +33,18 @@ public class PassiveAbilitiesManagerEditor : OdinMenuEditorWindow
 
         createNewPassiveStatAbility = new CreateRunPassiveStatAbility();
         createNewSkillTreePassiveAbility = new CreateSkillTreePassiveAbility();
+        createNewPassiveSpellatAbility = new CreateRunPassiveSpellAbility();
 
         tree.Add("Create New Passive Ability/New Run Stat Passive Ability", createNewPassiveStatAbility);
         tree.Add("Create New Passive Ability/New Skill Tree Passive Ability", createNewSkillTreePassiveAbility);
+        tree.Add("Create New Passive Ability/New Run Spell Passive Ability", createNewPassiveSpellatAbility);
 
         tree.AddAllAssetsAtPath("Run Stat Passive Abilities",
-            "Assets/Resources/Scriptable Objects/Passives/Run Passives", typeof(RunStatPassiveSO));
+            "Assets/Resources/Scriptable Objects/Passives/Run Stat Passives", typeof(RunStatPassiveSO));
         tree.AddAllAssetsAtPath("Skill Tree Passive Abilities",
             "Assets/Resources/Scriptable Objects/Passives/Skill Tree Passives", typeof(SkillTreePassiveSO));
+        tree.AddAllAssetsAtPath("Skill Tree Passive Abilities",
+            "Assets/Resources/Scriptable Objects/Passives/Run Spell Passives", typeof(RunSpellPassiveSO));
 
         tree.SortMenuItemsByName();
 
@@ -95,6 +99,7 @@ public class PassiveAbilitiesManagerEditor : OdinMenuEditorWindow
         }
     }
 
+ 
     public class CreateSkillTreePassiveAbility
     {
         [ShowInInspector]

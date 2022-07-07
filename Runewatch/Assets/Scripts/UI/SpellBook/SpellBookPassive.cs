@@ -58,7 +58,7 @@ public class SpellBookPassive : MonoBehaviour, IComparable<SpellBookPassive>
     {
         middleColumnSpellCard.SetActive(false);
         middleColumnPassiveCard.transform.parent.gameObject.SetActive(true);
-        middleColumnPassiveCard.UpdateInfo(Passive as IRunPassive);
+        middleColumnPassiveCard.UpdateInfo(Passive as IRunStatPassive);
         parentActivateSpellBook.UpdateAttributesColor(Passive.Relation);
     }
 

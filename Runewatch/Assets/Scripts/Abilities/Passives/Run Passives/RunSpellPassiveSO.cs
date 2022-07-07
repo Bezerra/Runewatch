@@ -7,26 +7,15 @@ using Sirenix.OdinInspector;
 /// Scriptable object responsible for creating run passive abilities.
 /// </summary>
 [CreateAssetMenu(menuName = "Passive/Run Passive", fileName = "Passive")]
-public class RunSpellPassiveSO : AbstractPassiveSO<RunStatPassiveType>,IRunSpellPassive
+public class RunSpellPassiveSO : AbstractPassiveSO<RunSpellPassiveType>,IRunSpellPassive
 {
     [BoxGroup("Passive General Attributes")]
-    [SerializeField] private RunStatPassiveType passiveType;
+    [SerializeField] private RunSpellPassiveType passiveType;
 
     [BoxGroup("Passive General Attributes")]
     [SerializeField] private List<UpgradeStats> upgrades;
 
-    public override RunStatPassiveType PassiveType => passiveType;
-
-    /// <summary>
-    /// Updates player's stats with all upgrades contained on this passive.
-    /// </summary>
-    public void Execute(PlayerStats playerStats)
-    {
-        foreach (UpgradeStats upgrade in upgrades)
-        {
-            upgrade.Upgrade(playerStats);
-        }
-    }
+    public override RunSpellPassiveType PassiveType => passiveType;
 
     public void Execute(PlayerSpells playerSpells)
     {
