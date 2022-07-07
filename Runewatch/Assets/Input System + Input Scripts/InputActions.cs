@@ -290,7 +290,7 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""id"": ""ae354000-1f02-4aa1-af1f-ec81830444da"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""ScaleVector2(x=3,y=3)"",
                     ""groups"": """",
                     ""action"": ""Camera"",
                     ""isComposite"": true,

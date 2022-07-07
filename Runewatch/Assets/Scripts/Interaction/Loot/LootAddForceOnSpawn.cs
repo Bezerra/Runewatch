@@ -20,7 +20,8 @@ public class LootAddForceOnSpawn : MonoBehaviour
     [EnableIf("isAttractable", true)]
     [Range(2f, 30f)] [SerializeField] private float colliderAttractionSize = 3f;
 
-    [SerializeField] private bool dontRotateObjectOnIdle;
+    [SerializeField] private float rotateSpeed = 1;
+    [SerializeField] private bool dontAddForce;
 
     // Gravity
     private float forceValue;
@@ -41,7 +42,9 @@ public class LootAddForceOnSpawn : MonoBehaviour
         directionOfSpawn = Random.Range(-250, 250f);
         sphereCollider.radius = 0;
 
-        rb.AddForce(new Vector3(directionOfSpawn, forceValue, directionOfSpawn));
+        if (!dontAddForce)
+            rb.AddForce(new Vector3(directionOfSpawn, forceValue, directionOfSpawn));
+
         StartCoroutine(GrowColliderAfterTime());
     }
 
@@ -67,8 +70,8 @@ public class LootAddForceOnSpawn : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (dontRotateObjectOnIdle) return;
+        //if (dontRotateObjectOnIdle) return;
 
-        transform.Rotate(0, 10 * Time.fixedDeltaTime, 0, Space.Self);
+        transform.Rotate(0, 10 * Time.fixedDeltaTime * rotateSpeed, 0, Space.Self);
     }
 }
