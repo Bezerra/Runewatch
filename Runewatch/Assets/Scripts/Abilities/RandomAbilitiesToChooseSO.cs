@@ -21,5 +21,5 @@ public class RandomAbilitiesToChooseSO : ScriptableObject
     /// <summary>
     /// Three passives from orbs and chests.
     /// </summary>
-    public IRunPassive[] PassiveResult { get; set; }
+    public IRunStatPassive[] PassiveResult { get; set; }
 }

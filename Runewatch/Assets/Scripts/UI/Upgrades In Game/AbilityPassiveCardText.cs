@@ -20,7 +20,7 @@ public class AbilityPassiveCardText : MonoBehaviour
     /// Updates passive card info.
     /// </summary>
     /// <param name="passive"></param>
-    public void UpdateInfo(IRunPassive passive)
+    public void UpdateInfo(IRunStatPassive passive)
     {
         switch (passive.Tier)
         {

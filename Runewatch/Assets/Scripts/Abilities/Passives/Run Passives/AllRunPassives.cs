@@ -8,6 +8,6 @@ public class AllRunPassives : MonoBehaviour
 {
     [SerializeField] private AllRunPassivesSO allPassives;
 
-    public List<RunPassiveSO> PassiveList =>
+    public List<RunStatPassiveSO> PassiveList =>
         allPassives.PassivesList;
 }

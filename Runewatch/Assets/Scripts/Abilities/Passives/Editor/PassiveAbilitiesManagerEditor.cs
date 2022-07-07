@@ -23,21 +23,22 @@ public class PassiveAbilitiesManagerEditor : OdinMenuEditorWindow
         base.OnGUI();
     }
 
-    private CreateRunPassiveAbility createNewPassiveAbility;
+    private CreateRunPassiveStatAbility createNewPassiveStatAbility;
     private CreateSkillTreePassiveAbility createNewSkillTreePassiveAbility;
+    private CreateRunPassiveSpellAbility createNewPassiveSpellatAbility;
 
     protected override OdinMenuTree BuildMenuTree()
     {
         OdinMenuTree tree = new OdinMenuTree();
 
-        createNewPassiveAbility = new CreateRunPassiveAbility();
+        createNewPassiveStatAbility = new CreateRunPassiveStatAbility();
         createNewSkillTreePassiveAbility = new CreateSkillTreePassiveAbility();
 
-        tree.Add("Create New Passive Ability/New Run Passive Ability", createNewPassiveAbility);
+        tree.Add("Create New Passive Ability/New Run Stat Passive Ability", createNewPassiveStatAbility);
         tree.Add("Create New Passive Ability/New Skill Tree Passive Ability", createNewSkillTreePassiveAbility);
 
-        tree.AddAllAssetsAtPath("Run Passive Abilities",
-            "Assets/Resources/Scriptable Objects/Passives/Run Passives", typeof(RunPassiveSO));
+        tree.AddAllAssetsAtPath("Run Stat Passive Abilities",
+            "Assets/Resources/Scriptable Objects/Passives/Run Passives", typeof(RunStatPassiveSO));
         tree.AddAllAssetsAtPath("Skill Tree Passive Abilities",
             "Assets/Resources/Scriptable Objects/Passives/Skill Tree Passives", typeof(SkillTreePassiveSO));
 
@@ -67,30 +68,30 @@ public class PassiveAbilitiesManagerEditor : OdinMenuEditorWindow
     protected override void OnDestroy()
     {
         base.OnDestroy();
-        if (createNewPassiveAbility != null)
-            DestroyImmediate(createNewPassiveAbility.Passive);
+        if (createNewPassiveStatAbility != null)
+            DestroyImmediate(createNewPassiveStatAbility.StatPassive);
     }
 
-    public class CreateRunPassiveAbility
+    public class CreateRunPassiveStatAbility
     {
         [ShowInInspector]
         [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
-        public RunPassiveSO Passive { get; private set; }
+        public RunStatPassiveSO StatPassive { get; private set; }
 
-        public CreateRunPassiveAbility()
+        public CreateRunPassiveStatAbility()
         {
-            Passive = ScriptableObject.CreateInstance<RunPassiveSO>();
+            StatPassive = ScriptableObject.CreateInstance<RunStatPassiveSO>();
         }
 
         [Button("Create", ButtonSizes.Large)]
         private void CreateNewData()
         {
-            AssetDatabase.CreateAsset(Passive,
+            AssetDatabase.CreateAsset(StatPassive,
                 "Assets/Resources/Scriptable Objects/Passives/Run Passives/New Passive Ability" +
                 DateTime.Now.Millisecond.ToString() + ".asset");
             AssetDatabase.SaveAssets();
 
-            Passive = ScriptableObject.CreateInstance<RunPassiveSO>();
+            StatPassive = ScriptableObject.CreateInstance<RunStatPassiveSO>();
         }
     }
 
@@ -114,6 +115,29 @@ public class PassiveAbilitiesManagerEditor : OdinMenuEditorWindow
             AssetDatabase.SaveAssets();
 
             Passive = ScriptableObject.CreateInstance<SkillTreePassiveSO>();
+        }
+    }
+
+    public class CreateRunPassiveSpellAbility
+    {
+        [ShowInInspector]
+        [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        public RunSpellPassiveSO SpellPassive { get; private set; }
+
+        public CreateRunPassiveSpellAbility()
+        {
+            SpellPassive = ScriptableObject.CreateInstance<RunSpellPassiveSO>();
+        }
+
+        [Button("Create", ButtonSizes.Large)]
+        private void CreateNewData()
+        {
+            AssetDatabase.CreateAsset(SpellPassive,
+                "Assets/Resources/Scriptable Objects/Passives/Run Passives/New Spell Passive Ability" +
+                DateTime.Now.Millisecond.ToString() + ".asset");
+            AssetDatabase.SaveAssets();
+
+            SpellPassive = ScriptableObject.CreateInstance<RunSpellPassiveSO>();
         }
     }
 }

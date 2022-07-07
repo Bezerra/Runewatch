@@ -5,3 +5,8 @@ Skill tree passive
 		stpData.SaveData.NomeDaPassiva pra usar o valor guardado la
 	adicioanr no all skill tree passives
 	acrescentar um node na skill tree com os niveis da skill
+
+----------------------------------------------------------------------------------
+Passives:
+	Passive GameObject - RunPassiveSO : AbstractPassive<RunPassiveType>, IRunPasssive -> Implementa o metodo Execute
+		Este Execute é chamado pelas passive cards para ao adicionar ao player (Ver AbilityPassiveCard)

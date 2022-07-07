@@ -63,7 +63,7 @@ public class SpellSO : ScriptableObject, ISpell
 
     [VerticalGroup("Damage/Split/Middle", 1), LabelWidth(120)]
     [Tooltip("Used for player damage. Random damage between these 2 values")]
-    [SerializeField] [RangeMinMax(0, 200f)] protected Vector2 playerDamage;
+    [SerializeField] [RangeMinMax(0, 200f)] public Vector2 playerDamage;
 
     [VerticalGroup("Damage/Split/Middle", 1), LabelWidth(120)]
     [Tooltip("Used for enemy damage. Random damage between these 2 values")]

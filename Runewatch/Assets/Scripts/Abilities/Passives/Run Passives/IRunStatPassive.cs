@@ -1,7 +1,7 @@
 /// <summary>
 /// Interface implemented by run passive abilities.
 /// </summary>
-public interface IRunPassive: IPassive<RunPassiveType>
+public interface IRunStatPassive: IPassive<RunStatPassiveType>
 {
     /// <summary>
     /// Executes a passive effect.

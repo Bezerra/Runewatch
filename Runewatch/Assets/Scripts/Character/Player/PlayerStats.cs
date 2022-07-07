@@ -27,7 +27,7 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable, IBossRaidSavea
     /// <summary>
     /// Property with currenty passives possessed by the player character.
     /// </summary>
-    public IList<IRunPassive> CurrentPassives;
+    public IList<IRunStatPassive> CurrentPassives;
 
     /// <summary>
     /// Current mana of the character.
@@ -52,7 +52,7 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable, IBossRaidSavea
     protected override void Awake()
     {
         base.Awake();
-        CurrentPassives = new List<IRunPassive>();
+        CurrentPassives = new List<IRunStatPassive>();
         playerCastSpell = GetComponentInChildren<PlayerCastSpell>();
         player = GetComponent<Player>();
         stpData = FindObjectOfType<CharacterSaveDataController>();
@@ -523,18 +523,18 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable, IBossRaidSavea
         {
             // Passives
             AllRunPassives allPassives = FindObjectOfType<AllRunPassives>();
-            CurrentPassives = new List<IRunPassive>();
+            CurrentPassives = new List<IRunStatPassive>();
             for (int i = 0; i < saveData.PlayerSavedData.CurrentPassives.Length; i++)
             {
                 for (int j = 0; j < allPassives.PassiveList.Count; j++)
                 {
                     if (saveData.PlayerSavedData.CurrentPassives[i] == allPassives.PassiveList[j].ID)
                     {
-                        CurrentPassives.Add(allPassives.PassiveList[j]);
+                        CurrentPassives.Add((IRunStatPassive)allPassives.PassiveList[j]);
                     }
                 }
             }
-            foreach (IRunPassive passive in CurrentPassives)
+            foreach (IRunStatPassive passive in CurrentPassives)
             {
                 // Updates stats for each passive the player has
                 passive.Execute(this);
@@ -563,18 +563,18 @@ public class PlayerStats : Stats, IMana, IArmor, IPlayerSaveable, IBossRaidSavea
 
         // Passives
         AllRunPassives allPassives = FindObjectOfType<AllRunPassives>();
-        CurrentPassives = new List<IRunPassive>();
+        CurrentPassives = new List<IRunStatPassive>();
         for (int i = 0; i < saveData.PlayerSavedData.CurrentPassives.Length; i++)
         {
             for (int j = 0; j < allPassives.PassiveList.Count; j++)
             {
                 if (saveData.PlayerSavedData.CurrentPassives[i] == allPassives.PassiveList[j].ID)
                 {
-                    CurrentPassives.Add(allPassives.PassiveList[j]);
+                    CurrentPassives.Add((IRunStatPassive)allPassives.PassiveList[j]);
                 }
             }
         }
-        foreach (IRunPassive passive in CurrentPassives)
+        foreach (IRunStatPassive passive in CurrentPassives)
         {
             // Updates stats for each passive the player has
             passive.Execute(this);

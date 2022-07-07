@@ -9,7 +9,7 @@ using UnityEngine;
 public class EventGetThreeRandomPassivesSO : EventAbstractSO
 {
     // Components to get possible passives
-    private IList<RunPassiveSO> allPassives;
+    private IList<RunStatPassiveSO> allPassives;
 
     // Scriptable object that saves passives result
     [SerializeField] private RandomAbilitiesToChooseSO abilitiesToChose;
@@ -21,14 +21,14 @@ public class EventGetThreeRandomPassivesSO : EventAbstractSO
     {
         PlayerStats playerStats = FindObjectOfType<PlayerStats>();
 
-        allPassives = new List<RunPassiveSO>();
-        List<RunPassiveSO> allPassivesDefault = FindObjectOfType<AllRunPassives>().PassiveList;
-        foreach (RunPassiveSO passive in allPassivesDefault)
+        allPassives = new List<RunStatPassiveSO>();
+        List<RunStatPassiveSO> allPassivesDefault = FindObjectOfType<AllRunPassives>().PassiveList;
+        foreach (RunStatPassiveSO passive in allPassivesDefault)
         {
             bool addSkill = false;
 
             // Ignores this loop if player already has this spell
-            if (playerStats.CurrentPassives.Contains(passive))
+            if (playerStats.CurrentPassives.Contains((IRunStatPassive)passive))
             {
                 continue;
             }
@@ -43,7 +43,7 @@ public class EventGetThreeRandomPassivesSO : EventAbstractSO
             }
 
             // All passives in player
-            foreach(IRunPassive passiveInPlayer in playerStats.CurrentPassives)
+            foreach(IRunStatPassive passiveInPlayer in playerStats.CurrentPassives)
             {
                 // If the types are the same
                 if (passive.PassiveType == passiveInPlayer.PassiveType)
@@ -77,9 +77,9 @@ public class EventGetThreeRandomPassivesSO : EventAbstractSO
     /// Gets three random passives without repetition from the list of all possible passives.
     /// </summary>
     /// <returns>Returns an array with random passives</returns>
-    private IRunPassive[] GetPassive()
+    private IRunStatPassive[] GetPassive()
     {
-        IRunPassive[] resultPassives = new IRunPassive[3];
+        IRunStatPassive[] resultPassives = new IRunStatPassive[3];
 
         for (int i = 0; i < 3; i++)
         {
@@ -92,7 +92,7 @@ public class EventGetThreeRandomPassivesSO : EventAbstractSO
             int passiveIndex = Random.Range(0, allPassives.Count);
 
             // Gets passive and removes it from all spells list
-            resultPassives[i] = allPassives[passiveIndex];
+            resultPassives[i] = (IRunStatPassive)allPassives[passiveIndex];
             allPassives.Remove(allPassives[passiveIndex]);
         }
 

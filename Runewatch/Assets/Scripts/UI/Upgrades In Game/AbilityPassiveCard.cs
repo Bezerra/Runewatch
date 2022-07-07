@@ -8,7 +8,7 @@ public class AbilityPassiveCard : MonoBehaviour, IFindPlayer
     /// <summary>
     /// Property to know which passive this card contains.
     /// </summary>
-    public IRunPassive PassiveOnCard { get; set; }
+    public IRunStatPassive PassiveOnCard { get; set; }
 
     // Components
     private AbilitiesCanvas abilitiesCanvas;

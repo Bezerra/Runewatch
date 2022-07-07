@@ -15,8 +15,8 @@ public class AllRunPassivesSO : ScriptableObject
 
     [DisableIf("inspectorReadOnlyList", true)]
     [OnValueChanged("UpdateID")]
-    [SerializeField] private List<RunPassiveSO> passives;
-    public List<RunPassiveSO> PassivesList => passives;
+    [SerializeField] private List<RunStatPassiveSO> passives;
+    public List<RunStatPassiveSO> PassivesList => passives;
 
     private void OnEnable()
     {
