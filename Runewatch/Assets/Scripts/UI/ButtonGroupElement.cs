@@ -42,13 +42,14 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler,
     private float updateSliderBarValue;
     
 
-    // Start is called before the first frame update
-    private void Awake()
+
+    public void OnEnable()
     {
         buttonGroup = GetComponentInParent<ButtonGroup>();
         image = GetComponent<Image>();
         buttonGroup.Subscribe(this);
 
+        //Debug.Log(EventSystem.current.currentSelectedGameObject);
         if (1 / buttonGroup.buttonGroup.Count < 0.1)
         {
             updateScrollBarValue = 0.1f;
@@ -62,19 +63,15 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler,
             sliderBar.maxValue != 1)
         {
             updateSliderBarValue = FloatExtensions.Remap(sliderBar.minValue,
-                sliderBar.maxValue, 0, 1,1);
+                sliderBar.maxValue, 0, 1, 1);
         }
         else
         {
             updateSliderBarValue = (float)0.1;
         }
-        
 
 
-    }
 
-    public void OnEnable()
-    {
         if (scrollBar != null) scrollBar.value = 1;
         
     }
@@ -207,6 +204,7 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler,
 
     public void OnMove(AxisEventData eventData)
     {
+        Debug.Log(eventData.selectedObject);
         if (leftArrow != null && rightArrow != null)
         {
 
