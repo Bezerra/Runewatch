@@ -34,15 +34,20 @@ public class ButtonGroup : MonoBehaviour
 
     public void OnEnable()
     {
-
-        EventSystem.current.SetSelectedGameObject(buttonGroup[0].gameObject);
-        buttonGroup[0].ChangeMat();
-        if (buttonGroup[0].textMesh != null)
+        if (buttonGroup != null)
         {
-            buttonGroup[0].textMesh.font = fontAssetSelected;
+            if (!buttonGroup.Contains(EventSystem.current.currentSelectedGameObject.GetComponent<ButtonGroupElement>()) && EventSystem.current.currentSelectedGameObject.GetComponent<ButtonGroupElement>() != null)
+            {
+                Debug.Log("Group:" + this.gameObject);
+                EventSystem.current.SetSelectedGameObject(buttonGroup[0].gameObject);
+                buttonGroup[0].ChangeMat();
+                if (buttonGroup[0].textMesh != null)
+                {
+                    buttonGroup[0].textMesh.font = fontAssetSelected;
+                }
+            }
         }
         
-
     }
 
     private void Update()
