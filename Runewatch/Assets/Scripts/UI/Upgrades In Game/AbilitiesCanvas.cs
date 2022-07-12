@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -85,12 +86,14 @@ public class AbilitiesCanvas : MonoBehaviour, IFindInput
     /// </summary>
     private void Start()
     {
-        EnableAll();
+        //EnableAll();
 
-        threeSpellCanvas.SetActive(false);
-        oneSpellCanvas.SetActive(false);
-        threePassiveCanvas.SetActive(false);
-        spellsFullCanvas.SetActive(false);
+        //threeSpellCanvas.SetActive(false);
+        //oneSpellCanvas.SetActive(false);
+        //threePassiveCanvas.SetActive(false);
+        //spellsFullCanvas.SetActive(false);
+
+        StartCoroutine(UpdateAllMenuVariables());
     }
 
     public void FindInput(PlayerInputCustom input)
@@ -104,6 +107,34 @@ public class AbilitiesCanvas : MonoBehaviour, IFindInput
             this.input = FindObjectOfType<PlayerInputCustom>();
         }
     }
+
+    public IEnumerator UpdateAllMenuVariables()
+    {
+
+        ThreeSpellEnable();
+        OneSpellCanvasEnable();
+        ThreePassiveCanvasEnable();
+        spellsFullCanvasEnable();
+
+
+        yield return null;
+
+        ThreeSpellDisable();
+        OneSpellCanvasDisable();
+        ThreePassiveCanvasDisable();
+        spellsFullCanvasDisable();
+
+    }
+    public void ThreeSpellEnable() => threeSpellCanvas.SetActive(true);
+    public void OneSpellCanvasEnable() => oneSpellCanvas.SetActive(true);
+    public void ThreePassiveCanvasEnable() => threePassiveCanvas.SetActive(true);
+    public void spellsFullCanvasEnable() => spellsFullCanvas.SetActive(true);
+
+    public void ThreeSpellDisable() => threeSpellCanvas.SetActive(false);
+    public void OneSpellCanvasDisable() => oneSpellCanvas.SetActive(false);
+    public void ThreePassiveCanvasDisable() => threePassiveCanvas.SetActive(false);
+    public void spellsFullCanvasDisable() => spellsFullCanvas.SetActive(false);
+
 
     public void LostInput(PlayerInputCustom input)
     {
