@@ -15,13 +15,18 @@ public class ButtonGroup : MonoBehaviour
 
     private GameObject lastSelectedGO;
 
+    private bool isStarted;
+
     public AudioSource audioSourceClick;
 
     public AudioSource audioSourceSelect;
 
     public AudioSource audioSourceBack;
 
-
+    public void Start()
+    {
+        isStarted = true;
+    }
     public void Subscribe(ButtonGroupElement button)
     {
         if (buttonGroup == null)
@@ -34,21 +39,22 @@ public class ButtonGroup : MonoBehaviour
 
     public void OnEnable()
     {
-        if (buttonGroup != null)
+        Debug.Log(gameObject);
+        Debug.Log(isStarted);
+        if (isStarted)
         {
-            if (!buttonGroup.Contains(EventSystem.current.currentSelectedGameObject.GetComponent<ButtonGroupElement>()) && EventSystem.current.currentSelectedGameObject.GetComponent<ButtonGroupElement>() != null)
+            
+            Debug.Log("Group:" + this.gameObject);
+            EventSystem.current.SetSelectedGameObject(buttonGroup[0].gameObject);
+            buttonGroup[0].ChangeMat();
+            if (buttonGroup[0].textMesh != null)
             {
-                Debug.Log("Group:" + this.gameObject);
-                EventSystem.current.SetSelectedGameObject(buttonGroup[0].gameObject);
-                buttonGroup[0].ChangeMat();
-                if (buttonGroup[0].textMesh != null)
-                {
-                    buttonGroup[0].textMesh.font = fontAssetSelected;
-                }
+                buttonGroup[0].textMesh.font = fontAssetSelected;
             }
+            
         }
-        
     }
+
 
     private void Update()
     {

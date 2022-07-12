@@ -40,40 +40,50 @@ public class ButtonGroupElement : MonoBehaviour, IPointerEnterHandler,
     private Image image;
     private float updateScrollBarValue;
     private float updateSliderBarValue;
-    
+    private bool isStarted;
 
-
-    public void OnEnable()
+    public void Start()
     {
+        isStarted = true;
         buttonGroup = GetComponentInParent<ButtonGroup>();
         image = GetComponent<Image>();
         buttonGroup.Subscribe(this);
+    }
 
-        //Debug.Log(EventSystem.current.currentSelectedGameObject);
-        if (1 / buttonGroup.buttonGroup.Count < 0.1)
-        {
-            updateScrollBarValue = 0.1f;
-        }
-        else
-        {
-            updateScrollBarValue = 1 / buttonGroup.buttonGroup.Count;
-        }
-
-        if (sliderBar != null && sliderBar.minValue != -1 &&
-            sliderBar.maxValue != 1)
-        {
-            updateSliderBarValue = FloatExtensions.Remap(sliderBar.minValue,
-                sliderBar.maxValue, 0, 1, 1);
-        }
-        else
-        {
-            updateSliderBarValue = (float)0.1;
-        }
-
-
-
-        if (scrollBar != null) scrollBar.value = 1;
+    public void OnEnable()
+    {
         
+            
+
+        if (isStarted)
+        {
+            
+
+            //Debug.Log(EventSystem.current.currentSelectedGameObject);
+            if (1 / buttonGroup.buttonGroup.Count < 0.1)
+            {
+                updateScrollBarValue = 0.1f;
+            }
+            else
+            {
+                updateScrollBarValue = 1 / buttonGroup.buttonGroup.Count;
+            }
+
+            if (sliderBar != null && sliderBar.minValue != -1 &&
+                sliderBar.maxValue != 1)
+            {
+                updateSliderBarValue = FloatExtensions.Remap(sliderBar.minValue,
+                    sliderBar.maxValue, 0, 1, 1);
+            }
+            else
+            {
+                updateSliderBarValue = (float)0.1;
+            }
+
+
+
+            if (scrollBar != null) scrollBar.value = 1;
+        } 
     }
 
     public void OnDisable()
