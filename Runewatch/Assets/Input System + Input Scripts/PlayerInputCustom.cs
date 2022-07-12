@@ -17,7 +17,13 @@ public class PlayerInputCustom : MonoBehaviour, IInput
         inputActionsAsset = new InputActions();
         controls = GetComponent<PlayerInput>();
     }
-
+    private void Update()
+    {
+        if (controls.currentControlScheme == inputActionsAsset.GamePadScheme.ToString())
+        {
+            Cursor.visible = false;
+        }
+    }
     private void OnEnable()
     {
         inputActionsAsset.Enable();

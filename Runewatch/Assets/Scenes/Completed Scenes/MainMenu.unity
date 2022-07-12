@@ -1373,7 +1373,7 @@ GameObject:
   - component: {fileID: 504531755}
   - component: {fileID: 504531754}
   m_Layer: 5
-  m_Name: Normal
+  m_Name: Easy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1446,13 +1446,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1135403456}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 711178572}
+        m_TargetAssemblyTypeName: SceneControl, Assembly-CSharp
+        m_MethodName: LoadSceneOnSerializeField
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3050,7 +3050,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 296674419959074698, guid: 6fa7be558f1897c4a9251f33d49861d9, type: 3}
   m_PrefabInstance: {fileID: 711178570}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1135403456}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: caa195f3803587f4ebf4afaa00e8b445, type: 3}
@@ -5856,11 +5856,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1130365386}
   m_CullTransparentMesh: 1
---- !u!1 &1135403456 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 110446759401093460, guid: 6fa7be558f1897c4a9251f33d49861d9, type: 3}
-  m_PrefabInstance: {fileID: 711178570}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1159413760
 GameObject:
   m_ObjectHideFlags: 0
@@ -9471,7 +9466,7 @@ GameObject:
   - component: {fileID: 1677925787}
   - component: {fileID: 1677925786}
   m_Layer: 5
-  m_Name: Normal Text
+  m_Name: EasyText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9516,7 +9511,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Normal
+  m_text: Easy
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4aec8f9910b75f14cb0bd14203d04729, type: 2}
   m_sharedMaterial: {fileID: 4621386695984099789, guid: 4aec8f9910b75f14cb0bd14203d04729, type: 2}
