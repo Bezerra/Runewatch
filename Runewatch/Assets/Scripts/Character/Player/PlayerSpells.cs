@@ -36,7 +36,7 @@ public class PlayerSpells : MonoBehaviour, IPlayerSaveable, IBossRaidSaveable
 
     // Spell select scroll
     private float currentTimeScrollChanged;
-    private readonly float DELAYTOSCROLLCHANGE = 0.5f;
+    private readonly float DELAYTOSCROLLCHANGE = 0.25f;
 
     private void Awake()
     {

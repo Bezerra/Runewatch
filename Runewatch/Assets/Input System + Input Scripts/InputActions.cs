@@ -161,6 +161,14 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Screenshot"",
+                    ""type"": ""Button"",
+                    ""id"": ""87c7743c-c0ca-4512-bc1b-67f5235305cd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -656,6 +664,17 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8d539f01-3712-432a-958c-43f9b8c7c375"",
+                    ""path"": ""<Keyboard>/f12"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Computer"",
+                    ""action"": ""Screenshot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -2467,6 +2486,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Gameplay_NextSpell = m_Gameplay.FindAction("Next Spell", throwIfNotFound: true);
         m_Gameplay_PreviousSpell = m_Gameplay.FindAction("Previous Spell", throwIfNotFound: true);
         m_Gameplay_SpellBook = m_Gameplay.FindAction("SpellBook", throwIfNotFound: true);
+        m_Gameplay_Screenshot = m_Gameplay.FindAction("Screenshot", throwIfNotFound: true);
         // Interface
         m_Interface = asset.FindActionMap("Interface", throwIfNotFound: true);
         m_Interface_TrackedDeviceOrientation = m_Interface.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
@@ -2581,6 +2601,7 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_NextSpell;
     private readonly InputAction m_Gameplay_PreviousSpell;
     private readonly InputAction m_Gameplay_SpellBook;
+    private readonly InputAction m_Gameplay_Screenshot;
     public struct GameplayActions
     {
         private @InputActions m_Wrapper;
@@ -2603,6 +2624,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @NextSpell => m_Wrapper.m_Gameplay_NextSpell;
         public InputAction @PreviousSpell => m_Wrapper.m_Gameplay_PreviousSpell;
         public InputAction @SpellBook => m_Wrapper.m_Gameplay_SpellBook;
+        public InputAction @Screenshot => m_Wrapper.m_Gameplay_Screenshot;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -2666,6 +2688,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @SpellBook.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpellBook;
                 @SpellBook.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpellBook;
                 @SpellBook.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpellBook;
+                @Screenshot.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnScreenshot;
+                @Screenshot.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnScreenshot;
+                @Screenshot.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnScreenshot;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -2724,6 +2749,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @SpellBook.started += instance.OnSpellBook;
                 @SpellBook.performed += instance.OnSpellBook;
                 @SpellBook.canceled += instance.OnSpellBook;
+                @Screenshot.started += instance.OnScreenshot;
+                @Screenshot.performed += instance.OnScreenshot;
+                @Screenshot.canceled += instance.OnScreenshot;
             }
         }
     }
@@ -3187,6 +3215,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnNextSpell(InputAction.CallbackContext context);
         void OnPreviousSpell(InputAction.CallbackContext context);
         void OnSpellBook(InputAction.CallbackContext context);
+        void OnScreenshot(InputAction.CallbackContext context);
     }
     public interface IInterfaceActions
     {
